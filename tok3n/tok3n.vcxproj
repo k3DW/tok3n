@@ -152,6 +152,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="parser.h" />
+    <ClInclude Include="parsers\Literal.h" />
     <ClInclude Include="parsers\NotChar.h" />
     <ClInclude Include="parsers\OneChar.h" />
     <ClInclude Include="parsers\Result.h" />
