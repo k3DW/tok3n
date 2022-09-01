@@ -148,6 +148,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="parser.h" />
+    <ClInclude Include="util\static_string.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

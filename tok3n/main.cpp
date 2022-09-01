@@ -1,7 +1,7 @@
 #include "parser.h"
 
-#if 1
 #include <iostream>
+#if 1
 
 void print_sv(k3::parser::Result result)
 {
@@ -153,6 +153,7 @@ namespace k3::parser
 
 int main()
 {
+	using namespace k3;
 	using namespace k3::parser;
 
 

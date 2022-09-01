@@ -1,5 +1,6 @@
 #include "parser.h"
 
+using namespace k3;
 using namespace k3::parser;
 
 template <class P>
