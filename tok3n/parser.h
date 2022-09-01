@@ -47,25 +47,6 @@ namespace k3::parser
 
 
 	// NotChar
-#if 1
-
-	template <static_string str>
-		requires (str.unique_and_sorted()) && (str.ascii())
-	struct NotChar
-	{
-		static constexpr Result parse(Input input)
-		{
-			if (input.empty() || str.contains(input.front()))
-				return Result::failure(input);
-			else
-			{
-				const auto begin = input.begin();
-				const auto end = input.end();
-				return Result::success({ begin, begin + 1 }, { begin + 1, end });
-			}
-		}
-	};
-
 	namespace detail::choice
 	{
 
@@ -107,8 +88,6 @@ namespace k3::parser
 		}
 
 	}
-
-#endif
 
 
 

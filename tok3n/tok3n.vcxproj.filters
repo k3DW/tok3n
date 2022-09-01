@@ -33,6 +33,9 @@
     <ClInclude Include="parsers\OneChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parsers\NotChar.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
