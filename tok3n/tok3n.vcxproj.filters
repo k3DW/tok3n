@@ -21,6 +21,12 @@
     <ClInclude Include="util\static_string.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parsers\parsers.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\_decl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
