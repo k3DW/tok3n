@@ -7,7 +7,7 @@ namespace k3::parser
 enum class ParserType
 {
 	None,
-	OneChar,
+	OneChar, NewOneChar,
 	NotChar,
 	Literal,
 	Choice,
@@ -21,6 +21,7 @@ template <class P>
 constexpr ParserType parser_type_v = ParserType::None;
 
 template <class P> concept IsOneChar    = parser_type_v<P> == ParserType::OneChar;
+	template <class P> concept IsNewOneChar    = parser_type_v<P> == ParserType::NewOneChar;
 template <class P> concept IsNotChar    = parser_type_v<P> == ParserType::NotChar;
 template <class P> concept IsLiteral    = parser_type_v<P> == ParserType::Literal;
 template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice;
@@ -32,13 +33,22 @@ template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOr
 using Input = std::string_view;
 class Result;
 
+template <class T>
+class NewResult;
+
+template <class R> constexpr bool is_result_v = false;
+template <class R> concept IsResult = is_result_v<R>;
+
+template <> constexpr bool is_result_v<Result> = true;
+template <class T> constexpr bool is_result_v<NewResult<T>> = true;
+
 template <class P>
 concept Parser =
 	(parser_type_v<P> != ParserType::None) &&
 	(sizeof(P) == 1) &&
 	requires (Input input)
 	{
-		{ P::parse(input) } -> std::same_as<Result>;
+		{ P::parse(input) } -> IsResult;
 	};
 
 
@@ -48,6 +58,14 @@ struct OneChar;
 
 template <static_string str>
 constexpr ParserType parser_type_v<OneChar<str>> = ParserType::OneChar;
+
+
+	template <static_string str>
+	requires (str.unique_and_sorted()) && (str.ascii())
+	struct NewOneChar;
+
+	template <static_string str>
+	constexpr ParserType parser_type_v<NewOneChar<str>> = ParserType::NewOneChar;
 
 
 template <static_string str>

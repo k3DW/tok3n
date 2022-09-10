@@ -352,5 +352,14 @@ int main()
 	else
 		std::cout << "Json parse error!!!\n";
 
+	NewOneChar<'ab'> noc;
+
+	auto asdfg = noc.parse("ba");
+
+	if (asdfg)
+		std::cout << asdfg.value() << "\n" << asdfg.remaining() << "\n";
+	else
+		std::cout << "Failure\n";
+
 }
 #endif
