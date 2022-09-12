@@ -16,94 +16,88 @@ consteval bool same_as(auto&& lhs, auto&& rhs)
 }
 
 template <char... c>
-concept OneChar_Constructible_From_All_Chars = (... && requires { typename OneChar<c>; });
+concept OneChar_Constructible_From_All_Chars = (... && requires { typename NewOneChar<c>; });
 
 template <char... c>
-concept OneChar_Constructible_From_Any_Chars = (... || requires { typename OneChar<c>; });
+concept OneChar_Constructible_From_Any_Chars = (... || requires { typename NewOneChar<c>; });
 
 template <static_string str>
-concept OneChar_Constructible_String = requires { typename OneChar<str>; };
+concept OneChar_Constructible_String = requires { typename NewOneChar<str>; };
 
 void test_OneChar()
 {
-	using P_a = OneChar<'a'>;
-	using P_b = OneChar<'b'>;
-	using P_c = OneChar<'c'>;
-	using P_abc = OneChar<"abc">;
+	using P_a = NewOneChar<'a'>;
+	using P_b = NewOneChar<'b'>;
+	using P_c = NewOneChar<'c'>;
+	using P_abc = NewOneChar<"abc">;
 
 	constexpr P_a p_a;
 	constexpr P_b p_b;
 	constexpr P_c p_c;
 	constexpr P_abc p_abc;
-	constexpr auto p_abc2 = p_a | p_b | p_c;
+	//constexpr auto p_abc2 = p_a | p_b | p_c;
 
 	static_assert(same_as<P_abc>(p_abc));
-	static_assert(same_as<P_abc>(p_abc2));
-	static_assert(same_as(p_abc, p_abc2));
+	//static_assert(same_as<P_abc>(p_abc2));
+	//static_assert(same_as(p_abc, p_abc2));
 
-	constexpr Result a1 = P_a::parse("a");
-	constexpr Result a2 = p_a.parse("a");
+	constexpr NewResult<std::string_view> a1 = P_a::parse("a");
+	constexpr NewResult<std::string_view> a2 = p_a.parse("a");
 
-	static_assert(a1.holds_string_view());
-	static_assert(a1.get_string_view() == "a");
-	static_assert(a1.flatten() == "a");
-	static_assert(a1.remainder() == "");
-	static_assert(a2.holds_string_view());
-	static_assert(a2.get_string_view() == "a");
-	static_assert(a2.flatten() == "a");
-	static_assert(a2.remainder() == "");
+	static_assert(a1.has_value());
+	static_assert(a1.value() == "a");
+	static_assert(a1.remaining() == "");
+	static_assert(a2.has_value());
+	static_assert(a2.value() == "a");
+	static_assert(a2.remaining() == "");
 
-	constexpr Result b1 = P_b::parse("ba");
-	constexpr Result b2 = p_b.parse("ba");
+	constexpr NewResult<std::string_view> b1 = P_b::parse("ba");
+	constexpr NewResult<std::string_view> b2 = p_b.parse("ba");
 
-	static_assert(b1.holds_string_view());
-	static_assert(b1.get_string_view() == "b");
-	static_assert(b1.flatten() == "b");
-	static_assert(b1.remainder() == "a");
-	static_assert(b2.holds_string_view());
-	static_assert(b2.get_string_view() == "b");
-	static_assert(b2.flatten() == "b");
-	static_assert(b2.remainder() == "a");
+	static_assert(b1.has_value());
+	static_assert(b1.value() == "b");
+	static_assert(b1.remaining() == "a");
+	static_assert(b2.has_value());
+	static_assert(b2.value() == "b");
+	static_assert(b2.remaining() == "a");
 
-	constexpr Result c1 = P_c::parse("cba");
-	constexpr Result c2 = p_c.parse("cba");
+	constexpr NewResult<std::string_view> c1 = P_c::parse("cba");
+	constexpr NewResult<std::string_view> c2 = p_c.parse("cba");
 
-	static_assert(c1.holds_string_view());
-	static_assert(c1.get_string_view() == "c");
-	static_assert(c1.flatten() == "c");
-	static_assert(c1.remainder() == "ba");
-	static_assert(c2.holds_string_view());
-	static_assert(c2.get_string_view() == "c");
-	static_assert(c2.flatten() == "c");
-	static_assert(c2.remainder() == "ba");
+	static_assert(c1.has_value());
+	static_assert(c1.value() == "c");
+	static_assert(c1.remaining() == "ba");
+	static_assert(c2.has_value());
+	static_assert(c2.value() == "c");
+	static_assert(c2.remaining() == "ba");
 
-	constexpr Result abc1 = P_abc::parse("abc");
-	constexpr Result abc2 = P_abc::parse("acb");
-	constexpr Result abc3 = P_abc::parse("bac");
-	constexpr Result abc4 = P_abc::parse("bca");
-	constexpr Result abc5 = P_abc::parse("cab");
-	constexpr Result abc6 = P_abc::parse("cba");
+	constexpr NewResult<std::string_view> abc1 = P_abc::parse("abc");
+	constexpr NewResult<std::string_view> abc2 = P_abc::parse("acb");
+	constexpr NewResult<std::string_view> abc3 = P_abc::parse("bac");
+	constexpr NewResult<std::string_view> abc4 = P_abc::parse("bca");
+	constexpr NewResult<std::string_view> abc5 = P_abc::parse("cab");
+	constexpr NewResult<std::string_view> abc6 = P_abc::parse("cba");
 
-	static_assert(abc1.holds_string_view());
-	static_assert(abc2.holds_string_view());
-	static_assert(abc3.holds_string_view());
-	static_assert(abc4.holds_string_view());
-	static_assert(abc5.holds_string_view());
-	static_assert(abc6.holds_string_view());
+	static_assert(abc1.has_value());
+	static_assert(abc2.has_value());
+	static_assert(abc3.has_value());
+	static_assert(abc4.has_value());
+	static_assert(abc5.has_value());
+	static_assert(abc6.has_value());
 
-	static_assert(abc1.get_string_view() == "a");
-	static_assert(abc2.get_string_view() == "a");
-	static_assert(abc3.get_string_view() == "b");
-	static_assert(abc4.get_string_view() == "b");
-	static_assert(abc5.get_string_view() == "c");
-	static_assert(abc6.get_string_view() == "c");
+	static_assert(abc1.value() == "a");
+	static_assert(abc2.value() == "a");
+	static_assert(abc3.value() == "b");
+	static_assert(abc4.value() == "b");
+	static_assert(abc5.value() == "c");
+	static_assert(abc6.value() == "c");
 
-	static_assert(abc1.remainder() == "bc");
-	static_assert(abc2.remainder() == "cb");
-	static_assert(abc3.remainder() == "ac");
-	static_assert(abc4.remainder() == "ca");
-	static_assert(abc5.remainder() == "ab");
-	static_assert(abc6.remainder() == "ba");
+	static_assert(abc1.remaining() == "bc");
+	static_assert(abc2.remaining() == "cb");
+	static_assert(abc3.remaining() == "ac");
+	static_assert(abc4.remaining() == "ca");
+	static_assert(abc5.remaining() == "ab");
+	static_assert(abc6.remaining() == "ba");
 
 	static_assert(OneChar_Constructible_From_All_Chars<
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9,
