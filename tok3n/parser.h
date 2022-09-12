@@ -158,36 +158,6 @@ namespace k3::parser
 
 
 	// OneOrMore
-#if 1
-
-	template <Parser P>
-	struct OneOrMore
-	{
-		static constexpr Result parse(Input input)
-		{
-			const Input original_input = input;
-
-			std::vector<Result> results;
-			while (true)
-			{
-				Result result = P::parse(input);
-				if (result.has_value())
-				{
-					input = result.remainder();
-					results.emplace_back(std::move(result));
-					continue;
-				}
-				else
-					break;
-			}
-
-			if (results.size() != 0)
-				return Result::success(results, input);
-			else
-				return Result::failure(original_input);
-		}
-	};
-
 	namespace detail::oneormore
 	{
 
@@ -198,8 +168,6 @@ namespace k3::parser
 		}
 
 	}
-
-#endif
 
 
 

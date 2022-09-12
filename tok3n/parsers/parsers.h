@@ -8,3 +8,5 @@
 
 #include "parsers/Choice.h"
 #include "parsers/Sequence.h"
+
+#include "parsers/OneOrMore.h"
