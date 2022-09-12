@@ -5,3 +5,5 @@
 #include "operators/OneOrMoreOp.h"
 #include "operators/ZeroOrMoreOp.h"
 #include "operators/ZeroOrOneOp.h"
+
+#include "operators/NotOp.h"
