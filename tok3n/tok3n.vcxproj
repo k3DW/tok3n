@@ -156,6 +156,7 @@
     <ClInclude Include="operators\operators.h" />
     <ClInclude Include="operators\SequenceOp.h" />
     <ClInclude Include="operators\ZeroOrMoreOp.h" />
+    <ClInclude Include="operators\ZeroOrOneOp.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="parsers\Choice.h" />
     <ClInclude Include="parsers\Literal.h" />
