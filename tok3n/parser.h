@@ -192,21 +192,6 @@ namespace k3::parser
 
 
 	// ZeroOrOne
-#if 1
-
-	template <Parser P>
-	struct ZeroOrOne
-	{
-		static constexpr Result parse(Input input)
-		{
-			Result result = P::parse(input);
-			if (result.has_value())
-				return result;
-			else
-				return Result::success("", input);
-		}
-	};
-
 	namespace detail::zeroorone
 	{
 
@@ -217,8 +202,6 @@ namespace k3::parser
 		}
 
 	}
-
-#endif
 
 
 
