@@ -152,6 +152,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="operators\ChoiceOp.h" />
+    <ClInclude Include="operators\operators.h" />
+    <ClInclude Include="operators\SequenceOp.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="parsers\Choice.h" />
     <ClInclude Include="parsers\Literal.h" />
