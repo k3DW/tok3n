@@ -1,5 +1,5 @@
 #pragma once
-#include "parsers/parsers.h"
+#include "parsers/_decl.h"
 
 namespace k3::parser
 {
