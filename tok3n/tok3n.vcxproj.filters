@@ -69,6 +69,9 @@
     <ClInclude Include="operators\OneOrMoreOp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operators\ZeroOrMoreOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

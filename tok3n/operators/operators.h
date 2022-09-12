@@ -3,3 +3,4 @@
 #include "operators/SequenceOp.h"
 
 #include "operators/OneOrMoreOp.h"
+#include "operators/ZeroOrMoreOp.h"
