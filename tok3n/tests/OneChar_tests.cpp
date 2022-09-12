@@ -1,3 +1,4 @@
+#include "parsers/OneChar.h"
 #include "parser.h"
 
 using namespace k3;
