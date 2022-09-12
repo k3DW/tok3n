@@ -160,6 +160,7 @@
     <ClInclude Include="parsers\OneOrMore.h" />
     <ClInclude Include="parsers\Result.h" />
     <ClInclude Include="parsers\Sequence.h" />
+    <ClInclude Include="parsers\ZeroOrMore.h" />
     <ClInclude Include="parsers\_decl.h" />
     <ClInclude Include="parsers\parsers.h" />
     <ClInclude Include="util\static_string.h" />
