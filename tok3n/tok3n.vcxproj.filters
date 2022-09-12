@@ -57,6 +57,9 @@
     <ClInclude Include="parsers\ZeroOrOne.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="operators\ChoiceOp.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
