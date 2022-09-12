@@ -9,7 +9,7 @@ enum class ParserType
 	None,
 	OneChar, NewOneChar,
 	NotChar,
-	Literal,
+	Literal, NewLiteral,
 	Choice,
 	Sequence,
 	OneOrMore,
@@ -24,6 +24,7 @@ template <class P> concept IsOneChar    = parser_type_v<P> == ParserType::OneCha
 	template <class P> concept IsNewOneChar    = parser_type_v<P> == ParserType::NewOneChar;
 template <class P> concept IsNotChar    = parser_type_v<P> == ParserType::NotChar;
 template <class P> concept IsLiteral    = parser_type_v<P> == ParserType::Literal;
+	template <class P> concept IsNewLiteral	   = parser_type_v<P> == ParserType::NewLiteral;
 template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice;
 template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequence;
 template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
@@ -82,6 +83,14 @@ struct Literal;
 
 template <static_string str>
 constexpr ParserType parser_type_v<Literal<str>> = ParserType::Literal;
+
+
+	template <static_string str>
+	requires (str.ascii()) && (str.size() > 0)
+	struct NewLiteral;
+
+	template <static_string str>
+	constexpr ParserType parser_type_v<NewLiteral<str>> = ParserType::NewLiteral;
 
 
 template <Parser... Ps>
