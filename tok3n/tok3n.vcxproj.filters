@@ -45,6 +45,9 @@
     <ClInclude Include="parsers\Choice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parsers\Sequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

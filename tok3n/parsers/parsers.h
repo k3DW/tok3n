@@ -7,3 +7,4 @@
 #include "parsers/Literal.h"
 
 #include "parsers/Choice.h"
+#include "parsers/Sequence.h"
