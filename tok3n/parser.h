@@ -106,46 +106,6 @@ namespace k3::parser
 
 
 	// Choice
-#if 1
-
-	namespace detail::choice
-	{
-
-		struct Defer
-		{
-			Input input;
-			Result& result_ref;
-
-			template <Parser P>
-			constexpr bool operator()(P) const
-			{
-				Result result = P::parse(input);
-				if (result.has_value())
-				{
-					result_ref = std::move(result);
-					return true;
-				}
-				else
-					return false;
-			}
-		};
-
-	}
-
-	template <Parser... Ps>
-		requires (sizeof...(Ps) >= 2)
-	struct Choice
-	{
-		static constexpr Result parse(Input input)
-		{
-			Result result = Result::failure(input);
-			const auto defer = detail::choice::Defer{ .input = input, .result_ref = result };
-			(... || defer(Ps{}));
-
-			return result;
-		}
-	};
-
 	namespace detail::choice
 	{
 
@@ -168,8 +128,6 @@ namespace k3::parser
 		}
 
 	}
-
-#endif
 
 
 

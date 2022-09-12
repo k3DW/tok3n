@@ -5,3 +5,5 @@
 #include "parsers/OneChar.h"
 #include "parsers/NotChar.h"
 #include "parsers/Literal.h"
+
+#include "parsers/Choice.h"
