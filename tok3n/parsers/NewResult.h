@@ -14,6 +14,8 @@ class NewResult
 public:
 	using type = T;
 
+	constexpr NewResult() = default;
+
 	constexpr NewResult(failure_t, std::string_view remaining)
 		: mResult(), mRemaining(remaining) {}
 
