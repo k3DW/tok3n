@@ -13,7 +13,7 @@ enum class ParserType
 	Literal, NewLiteral,
 	Choice, NewChoice,
 	Sequence, NewSequence,
-	OneOrMore,
+	OneOrMore, NewOneOrMore,
 	ZeroOrMore,
 	ZeroOrOne,
 };
@@ -32,6 +32,7 @@ template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice
 template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequence;
 	template <class P> concept IsNewSequence   = parser_type_v<P> == ParserType::NewSequence;
 template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
+	template <class P> concept IsNewOneOrMore  = parser_type_v<P> == ParserType::NewOneOrMore;
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
 template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOrOne;
 
@@ -142,6 +143,13 @@ struct OneOrMore;
 
 template <Parser P>
 constexpr ParserType parser_type_v<OneOrMore<P>> = ParserType::OneOrMore;
+
+
+	template <Parser P>
+	struct NewOneOrMore;
+
+	template <Parser P>
+	constexpr ParserType parser_type_v<NewOneOrMore<P>> = ParserType::NewOneOrMore;
 
 
 template <Parser P>

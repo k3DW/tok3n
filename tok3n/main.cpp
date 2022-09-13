@@ -384,5 +384,19 @@ int main()
 		std::cout << "Failure\n";
 
 
+	NewOneOrMore<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> noom;
+
+	std::cout << "\n";
+	auto noomresult = noom.parse("acdebjfsd");
+	if (noomresult)
+	{
+		for (auto& str : noomresult.value())
+			std::cout << str;
+		std::cout << "\n" << noomresult.remaining() << "\n";
+	}
+	else
+		std::cout << "Failure\n";
+
+
 }
 #endif
