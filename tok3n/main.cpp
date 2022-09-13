@@ -398,5 +398,19 @@ int main()
 		std::cout << "Failure\n";
 
 
+	NewZeroOrMore<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> nzom;
+
+	std::cout << "\n";
+	auto nzomresult = nzom.parse("eacdebjfsd");
+	if (nzomresult)
+	{
+		for (auto& str : nzomresult.value())
+			std::cout << str;
+		std::cout << "\n" << nzomresult.remaining() << "\n";
+	}
+	else
+		std::cout << "Failure\n";
+
+
 }
 #endif
