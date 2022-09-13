@@ -15,7 +15,7 @@ enum class ParserType
 	Sequence, NewSequence,
 	OneOrMore, NewOneOrMore,
 	ZeroOrMore, NewZeroOrMore,
-	ZeroOrOne,
+	ZeroOrOne, NewZeroOrOne,
 };
 
 template <class P>
@@ -36,6 +36,7 @@ template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrM
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
 	template <class P> concept IsNewZeroOrMore = parser_type_v<P> == ParserType::NewZeroOrMore;
 template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOrOne;
+	template <class P> concept IsNewZeroOrOne  = parser_type_v<P> == ParserType::NewZeroOrOne;
 
 using Input = std::string_view;
 class Result;
@@ -172,5 +173,12 @@ struct ZeroOrOne;
 
 template <Parser P>
 constexpr ParserType parser_type_v<ZeroOrOne<P>> = ParserType::ZeroOrOne;
+
+
+	template <Parser P>
+	struct NewZeroOrOne;
+
+	template <Parser P>
+	constexpr ParserType parser_type_v<NewZeroOrOne<P>> = ParserType::NewZeroOrOne;
 
 }

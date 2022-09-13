@@ -412,5 +412,19 @@ int main()
 		std::cout << "Failure\n";
 
 
+	NewZeroOrOne<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> nzoo;
+
+	std::cout << "\n";
+	auto nzooresult = nzoo.parse("eacdebjfsd");
+	if (nzooresult)
+	{
+		if (nzooresult.value())
+			std::cout << nzooresult.value().value();
+		std::cout << "\n" << nzooresult.remaining() << "\n";
+	}
+	else
+		std::cout << "Failure\n";
+
+
 }
 #endif

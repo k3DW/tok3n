@@ -18,4 +18,19 @@ struct ZeroOrOne
 	}
 };
 
+template <Parser P>
+struct NewZeroOrOne
+{
+	using result_type = std::optional<typename P::result_type>;
+
+	static constexpr NewResult<result_type> parse(Input input)
+	{
+		auto result = P::parse(input);
+		if (result.has_value())
+			return { success, result_type{ std::move(result.value()) }, result.remaining() };
+		else
+			return { success, std::nullopt, input };
+	}
+};
+
 }
