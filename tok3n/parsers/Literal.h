@@ -28,7 +28,9 @@ template <static_string str>
 requires (str.ascii()) && (str.size() > 0)
 struct NewLiteral
 {
-	static constexpr NewResult<std::string_view> parse(Input input)
+	using result_type = std::string_view;
+
+	static constexpr NewResult<result_type> parse(Input input)
 	{
 		if (input.empty() || not input.starts_with({ str.begin(), str.end() }))
 			return { failure, input };

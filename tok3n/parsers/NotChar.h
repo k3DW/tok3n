@@ -28,7 +28,9 @@ template <static_string str>
 requires (str.unique_and_sorted()) && (str.ascii())
 struct NewNotChar
 {
-	static constexpr NewResult<std::string_view> parse(Input input)
+	using result_type = std::string_view;
+
+	static constexpr NewResult<result_type> parse(Input input)
 	{
 		if (input.empty() || str.contains(input.front()))
 			return { failure, input };

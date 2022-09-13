@@ -1,4 +1,5 @@
 #pragma once
+#include "util/pack_manip.h"
 #include "util/static_string.h"
 
 namespace k3::parser
@@ -10,7 +11,7 @@ enum class ParserType
 	OneChar, NewOneChar,
 	NotChar, NewNotChar,
 	Literal, NewLiteral,
-	Choice,
+	Choice, NewChoice,
 	Sequence,
 	OneOrMore,
 	ZeroOrMore,
@@ -27,6 +28,7 @@ template <class P> concept IsNotChar    = parser_type_v<P> == ParserType::NotCha
 template <class P> concept IsLiteral    = parser_type_v<P> == ParserType::Literal;
 	template <class P> concept IsNewLiteral	   = parser_type_v<P> == ParserType::NewLiteral;
 template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice;
+	template <class P> concept IsNewChoice     = parser_type_v<P> == ParserType::NewChoice;
 template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequence;
 template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
@@ -108,6 +110,14 @@ struct Choice;
 
 template <Parser... Ps>
 constexpr ParserType parser_type_v<Choice<Ps...>> = ParserType::Choice;
+
+
+	template <Parser... Ps>
+	requires (sizeof...(Ps) >= 2)
+	struct NewChoice;
+
+	template <Parser... Ps>
+	constexpr ParserType parser_type_v<NewChoice<Ps...>> = ParserType::NewChoice;
 
 
 template <Parser... Ps>
