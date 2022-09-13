@@ -46,7 +46,7 @@ struct NewChoiceExec
 	NewResult<result_type>& result_ref;
 
 	template <Parser P>
-	constexpr bool operator()(P) const
+	constexpr bool execute() const
 	{
 		NewResult<result_type> result = P::parse(input);
 		if (result.has_value())
@@ -71,7 +71,7 @@ struct NewChoice
 		NewResult<result_type> result{};
 
 		const auto executor = NewChoiceExec<result_type>{ .input = input, .result_ref = result };
-		(... || executor(Ps{}));
+		(... || executor.execute<Ps>());
 
 		return result;
 	}

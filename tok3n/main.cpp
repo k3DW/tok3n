@@ -374,6 +374,15 @@ int main()
 	else
 		std::cout << "Failure\n";
 
+	NewChoice<NewSequence<NewOneChar<"ef">, NewOneChar<"gh">>, NewSequence<NewOneChar<"ab">, NewOneChar<"cd">>> newsequence;
+
+	std::cout << "\n";
+	auto nsresult = newsequence.parse("acbd");
+	if (nsresult)
+		std::cout << std::get<0>(nsresult.value()) << std::get<1>(nsresult.value()) << "\n" << nsresult.remaining() << "\n";
+	else
+		std::cout << "Failure\n";
+
 
 }
 #endif
