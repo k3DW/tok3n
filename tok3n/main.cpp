@@ -363,7 +363,16 @@ int main()
 		std::cout << "Failure\n";
 
 
+	std::cout << "\n";
 
+
+	NewChoice<NewOneChar<"ab">, NewOneChar<"cd">> newchoice;
+
+	auto dsfnkjsf = newchoice.parse("cab");
+	if (dsfnkjsf)
+		std::cout << dsfnkjsf.value() << "\n" << dsfnkjsf.remaining() << "\n";
+	else
+		std::cout << "Failure\n";
 
 
 }

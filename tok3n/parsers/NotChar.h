@@ -37,8 +37,7 @@ struct NewNotChar
 		else
 		{
 			const auto begin = input.begin();
-			const auto end = input.end();
-			return { success, { begin, begin + 1 }, { begin + 1, end } };
+			return { success, { begin, begin + 1 }, { begin + 1, input.end() } };
 		}
 	}
 };

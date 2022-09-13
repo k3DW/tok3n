@@ -37,8 +37,7 @@ struct NewLiteral
 		else
 		{
 			const auto begin = input.begin();
-			const auto end = input.end();
-			return { success, { begin, begin + str.size() }, { begin + str.size(), end } };
+			return { success, { begin, begin + str.size() }, { begin + str.size(), input.end() } };
 		}
 	}
 };
