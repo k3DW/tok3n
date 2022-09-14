@@ -12,3 +12,5 @@
 #include "parsers/OneOrMore.h"
 #include "parsers/ZeroOrMore.h"
 #include "parsers/ZeroOrOne.h"
+
+#include "parsers/Transform.h"

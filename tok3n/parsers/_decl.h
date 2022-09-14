@@ -16,6 +16,7 @@ enum class ParserType
 	OneOrMore,
 	ZeroOrMore,
 	ZeroOrOne,
+	Transform,
 };
 
 template <class P>
@@ -29,6 +30,7 @@ template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequen
 template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
 template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOrOne;
+template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transform;
 
 using Input = std::string_view;
 
@@ -110,5 +112,19 @@ struct ZeroOrOne;
 
 template <Parser P>
 constexpr ParserType parser_type_v<ZeroOrOne<P>> = ParserType::ZeroOrOne;
+
+
+template <auto function>
+struct fn_t {};
+
+template <auto function>
+constexpr auto fn = fn_t<function>{};
+
+template <Parser P, auto function>
+requires requires { std::invoke(function, std::declval<typename P::result_type>()); }
+struct Transform;
+
+template <Parser P, auto function>
+constexpr ParserType parser_type_v<Transform<P, function>> = ParserType::Transform;
 
 }

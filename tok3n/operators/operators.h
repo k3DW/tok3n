@@ -7,3 +7,5 @@
 #include "operators/ZeroOrOneOp.h"
 
 #include "operators/NotOp.h"
+
+#include "operators/TransformOp.h"
