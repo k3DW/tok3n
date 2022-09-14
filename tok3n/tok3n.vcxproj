@@ -160,11 +160,10 @@
     <ClInclude Include="operators\ZeroOrOneOp.h" />
     <ClInclude Include="parsers\Choice.h" />
     <ClInclude Include="parsers\Literal.h" />
-    <ClInclude Include="parsers\NewResult.h" />
+    <ClInclude Include="parsers\Result.h" />
     <ClInclude Include="parsers\NotChar.h" />
     <ClInclude Include="parsers\OneChar.h" />
     <ClInclude Include="parsers\OneOrMore.h" />
-    <ClInclude Include="parsers\Result.h" />
     <ClInclude Include="parsers\Sequence.h" />
     <ClInclude Include="parsers\ZeroOrMore.h" />
     <ClInclude Include="parsers\ZeroOrOne.h" />

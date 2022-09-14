@@ -5,47 +5,8 @@
 namespace k3::parser
 {
 
-struct SequenceExec
-{
-	Input& input;
-	std::vector<Result>& results;
-
-	template <Parser P>
-	constexpr bool operator()(P) const
-	{
-		Result result = P::parse(input);
-		if (result.has_value())
-		{
-			input = result.remainder();
-			results.emplace_back(std::move(result));
-			return true;
-		}
-		else
-			return false;
-	}
-};
-
-template <Parser... Ps>
-requires (sizeof...(Ps) >= 2)
-struct Sequence
-{
-	static constexpr Result parse(Input input)
-	{
-		const Input original_input = input;
-
-		std::vector<Result> results;
-		const auto executor = SequenceExec{ .input = input, .results = results };
-		(... && executor(Ps{}));
-
-		if (results.size() == sizeof...(Ps))
-			return Result::success(results, input);
-		else
-			return Result::failure(original_input);
-	}
-};
-
 template <class result_type>
-struct NewSequenceExec
+struct SequenceExec
 {
 	Input& input;
 	result_type& result_ref;
@@ -67,17 +28,17 @@ struct NewSequenceExec
 
 template <Parser... Ps>
 requires (sizeof...(Ps) >= 2)
-struct NewSequence
+struct Sequence
 {
 	using result_type = std::tuple<typename Ps::result_type...>;
 
-	static constexpr NewResult<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input input)
 	{
 		const Input original_input = input;
 
 		result_type result; // This might be a problem because it zero initializes all members
 
-		const auto executor = NewSequenceExec{ .input = input, .result_ref = result };
+		const auto executor = SequenceExec{ .input = input, .result_ref = result };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{

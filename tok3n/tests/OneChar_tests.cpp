@@ -15,20 +15,20 @@ consteval bool same_as(auto&& lhs, auto&& rhs)
 }
 
 template <char... c>
-concept OneChar_Constructible_From_All_Chars = (... && requires { typename NewOneChar<c>; });
+concept OneChar_Constructible_From_All_Chars = (... && requires { typename OneChar<c>; });
 
 template <char... c>
-concept OneChar_Constructible_From_Any_Chars = (... || requires { typename NewOneChar<c>; });
+concept OneChar_Constructible_From_Any_Chars = (... || requires { typename OneChar<c>; });
 
 template <static_string str>
-concept OneChar_Constructible_String = requires { typename NewOneChar<str>; };
+concept OneChar_Constructible_String = requires { typename OneChar<str>; };
 
 void test_OneChar()
 {
-	using P_a = NewOneChar<'a'>;
-	using P_b = NewOneChar<'b'>;
-	using P_c = NewOneChar<'c'>;
-	using P_abc = NewOneChar<"abc">;
+	using P_a = OneChar<'a'>;
+	using P_b = OneChar<'b'>;
+	using P_c = OneChar<'c'>;
+	using P_abc = OneChar<"abc">;
 
 	constexpr P_a p_a;
 	constexpr P_b p_b;
@@ -40,8 +40,8 @@ void test_OneChar()
 	//static_assert(same_as<P_abc>(p_abc2));
 	//static_assert(same_as(p_abc, p_abc2));
 
-	constexpr NewResult<std::string_view> a1 = P_a::parse("a");
-	constexpr NewResult<std::string_view> a2 = p_a.parse("a");
+	constexpr Result<std::string_view> a1 = P_a::parse("a");
+	constexpr Result<std::string_view> a2 = p_a.parse("a");
 
 	static_assert(a1.has_value());
 	static_assert(a1.value() == "a");
@@ -50,8 +50,8 @@ void test_OneChar()
 	static_assert(a2.value() == "a");
 	static_assert(a2.remaining() == "");
 
-	constexpr NewResult<std::string_view> b1 = P_b::parse("ba");
-	constexpr NewResult<std::string_view> b2 = p_b.parse("ba");
+	constexpr Result<std::string_view> b1 = P_b::parse("ba");
+	constexpr Result<std::string_view> b2 = p_b.parse("ba");
 
 	static_assert(b1.has_value());
 	static_assert(b1.value() == "b");
@@ -60,8 +60,8 @@ void test_OneChar()
 	static_assert(b2.value() == "b");
 	static_assert(b2.remaining() == "a");
 
-	constexpr NewResult<std::string_view> c1 = P_c::parse("cba");
-	constexpr NewResult<std::string_view> c2 = p_c.parse("cba");
+	constexpr Result<std::string_view> c1 = P_c::parse("cba");
+	constexpr Result<std::string_view> c2 = p_c.parse("cba");
 
 	static_assert(c1.has_value());
 	static_assert(c1.value() == "c");
@@ -70,12 +70,12 @@ void test_OneChar()
 	static_assert(c2.value() == "c");
 	static_assert(c2.remaining() == "ba");
 
-	constexpr NewResult<std::string_view> abc1 = P_abc::parse("abc");
-	constexpr NewResult<std::string_view> abc2 = P_abc::parse("acb");
-	constexpr NewResult<std::string_view> abc3 = P_abc::parse("bac");
-	constexpr NewResult<std::string_view> abc4 = P_abc::parse("bca");
-	constexpr NewResult<std::string_view> abc5 = P_abc::parse("cab");
-	constexpr NewResult<std::string_view> abc6 = P_abc::parse("cba");
+	constexpr Result<std::string_view> abc1 = P_abc::parse("abc");
+	constexpr Result<std::string_view> abc2 = P_abc::parse("acb");
+	constexpr Result<std::string_view> abc3 = P_abc::parse("bac");
+	constexpr Result<std::string_view> abc4 = P_abc::parse("bca");
+	constexpr Result<std::string_view> abc5 = P_abc::parse("cab");
+	constexpr Result<std::string_view> abc6 = P_abc::parse("cba");
 
 	static_assert(abc1.has_value());
 	static_assert(abc2.has_value());

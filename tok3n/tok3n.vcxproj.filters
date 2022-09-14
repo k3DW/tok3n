@@ -24,9 +24,6 @@
     <ClInclude Include="parsers\_decl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parsers\Result.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="parsers\OneChar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -36,7 +33,7 @@
     <ClInclude Include="parsers\Literal.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="parsers\NewResult.h">
+    <ClInclude Include="parsers\Result.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parsers\Choice.h">

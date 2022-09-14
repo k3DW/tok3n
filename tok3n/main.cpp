@@ -4,51 +4,60 @@
 #include <iostream>
 #if 1
 
-void print_sv(k3::parser::Result result)
+void print(std::string_view str);
+template <class... Ts>
+void print(const std::tuple<Ts...>& tuple);
+template <class T>
+void print(const std::vector<T>& vector);
+template <class T>
+void print(const std::optional<T>& opt);
+template <class T>
+void print(const k3::parser::Result<T>& result);
+
+void print(std::string_view str)
 {
-	if (result)
-	{
-		std::cout << "Parsed: " << result.get_string_view() << "\n";
-		std::cout << "Remain: " << result.remainder() << "\n";
-	}
-	else
-		std::cout << "Parse error\n";
+	std::cout << str;
 }
 
-void print_vector(k3::parser::Result result)
+template <class... Ts>
+void print(const std::tuple<Ts...>& tuple)
 {
-	if (result)
+	[&tuple]<std::size_t... Is>(std::index_sequence<Is...>)
 	{
-		std::cout << "Parsed:\n";
-		for (auto& res : result.get_vector())
-			std::cout << "    " << res.get_string_view() << "\n";
-
-		std::cout << "Remain: " << result.remainder() << "\n";
-	}
-	else
-		std::cout << "Parse error\n";
+		(..., print(std::get<Is>(tuple)));
+	}(std::index_sequence_for<Ts...>{});
 }
 
-void print_vector_vector(k3::parser::Result result)
+template <class T>
+void print(const std::vector<T>& vector)
+{
+	for (const auto& element : vector)
+		print(element);
+}
+
+template <class T>
+void print(const std::optional<T>& opt)
+{
+	if (opt.has_value())
+		print(*opt);
+}
+
+template <class T>
+void print(const k3::parser::Result<T>& result)
 {
 	if (result)
 	{
-		std::cout << "Parsed:\n";
-		for (auto& res : result.get_vector())
-		{
-			for (auto& res2 : res.get_vector())
-				std::cout << "    " << res2.get_string_view() << "\n";
-			std::cout << "\n";
-		}
-
-		std::cout << "Remain: " << result.remainder() << "\n";
+		std::cout << "Parsed: ";
+		print(result.value());
+		std::cout << "\nRemain: " << result.remaining() << "\n\n";
 	}
 	else
-		std::cout << "Parse error\n";
+		std::cout << "Parse error\n\n";
 }
 
 namespace k3::parser
 {
+	/*
 	namespace Json
 	{
 
@@ -110,7 +119,7 @@ namespace k3::parser
 
 	namespace Json
 	{
-
+		/*
 		struct JsonObjectParser
 		{
 			static constexpr Result parse(Input input);
@@ -148,6 +157,7 @@ namespace k3::parser
 		}
 
 	}
+	*/
 
 
 }
@@ -162,10 +172,10 @@ int main()
 	using OCB = OneChar<'b'>;
 	using OCC = OneChar<'c'>;
 
-	print_sv(OCA::parse("abc"));
-	print_sv(OCB::parse("abc"));
+	print(OCA::parse("abc"));
+	print(OCB::parse("abc"));
 
-	print_sv(Choice<OCA, OCB, OCC>::parse("bx"));
+	print(Choice<OCA, OCB, OCC>::parse("bx"));
 
 	std::cout << "\n\n";
 
@@ -205,7 +215,7 @@ int main()
 	Sequence<OneChar<"abc">, OneChar<"bcd">> seq;
 	auto seq2 = seq >> seq;
 
-	print_vector(seq2.parse("abcd"));
+	print(seq2.parse("abcd"));
 
 	using SEQ1 = Sequence<OneChar<"ab">, OneChar<"bc">>;
 	static_assert(std::same_as<decltype(std::declval<SEQ1>() >> std::declval<SEQ1>()), Sequence<OneChar<"ab">, OneChar<"bc">, OneChar<"ab">, OneChar<"bc">>>);
@@ -240,16 +250,16 @@ int main()
 	static_assert(std::same_as<ZOM01, decltype(*+zom01)>);
 
 	std::cout << "\n";
-	print_vector_vector(zom01.parse("aabbbcbbaba"));
+	print(zom01.parse("aabbbcbbaba"));
 	std::cout << "\n";
-	print_vector_vector(zom01.parse("abbbcbbaba"));
+	print(zom01.parse("abbbcbbaba"));
 
 	using ZOO01 = ZeroOrOne<SEQ02>;
 	auto zoo01 = ~seq02;
 	std::cout << "\n";
-	print_vector(zoo01.parse("abbb"));
+	print(zoo01.parse("abbb"));
 	std::cout << "\n";
-	print_sv(zoo01.parse("aabb"));
+	print(zoo01.parse("aabb"));
 
 	static_assert(std::same_as<ZOO01, decltype(zoo01)>);
 	static_assert(std::same_as<ZOO01, decltype(~zoo01)>);
@@ -264,18 +274,18 @@ int main()
 	std::cout << "\n\n";
 
 	{
+		/*
 		using namespace Json;
-
+		
 		Result res = number.parse("-14324.124e+42this is now the end");
-		std::cout << res.flatten() << "\n" << res.remainder() << "\n";
+		print(res);
 
-		res = string.parse(R"("this is a "test string)");
-		std::cout << res.flatten() << "\n" << res.remainder() << "\n";
-
-		res = string.parse(R"("this is another t"est" strin"g")");
-		std::cout << res.flatten() << "\n" << res.remainder() << "\n";
-
-
+		Result res2 = string.parse(R"("this is a "test string)");
+		print(res2);
+		
+		Result res3 = string.parse(R"("this is another t"est" strin"g")");
+		print(res3);
+		*/
 	}
 
 
@@ -310,9 +320,9 @@ int main()
 	static_assert(std::same_as<decltype(nc12 | oc10), NotChar<'d'>>);
 	static_assert(std::same_as<decltype(oc10 | nc12), NotChar<'d'>>);
 
-	print_sv(NC10::parse("d"));
-	print_sv(NC10::parse("a"));
-	print_sv(NC10::parse("+"));
+	print(NC10::parse("d"));
+	print(NC10::parse("a"));
+	print(NC10::parse("+"));
 
 
 
@@ -328,6 +338,7 @@ int main()
 	static_assert(std::same_as<decltype(l02 >> l02), Literal<"12341234">>);
 
 
+	/*
 	constexpr std::string_view json =
 		R"({
 	"id": "0001",
@@ -352,79 +363,7 @@ int main()
 		std::cout << json_result.flatten() << "\n";
 	else
 		std::cout << "Json parse error!!!\n";
-
-	NewOneChar<'ab'> noc;
-
-	auto asdfg = noc.parse("ba");
-
-	if (asdfg)
-		std::cout << asdfg.value() << "\n" << asdfg.remaining() << "\n";
-	else
-		std::cout << "Failure\n";
-
-
-	std::cout << "\n";
-
-
-	NewChoice<NewOneChar<"ab">, NewOneChar<"cd">> newchoice;
-
-	auto dsfnkjsf = newchoice.parse("cab");
-	if (dsfnkjsf)
-		std::cout << dsfnkjsf.value() << "\n" << dsfnkjsf.remaining() << "\n";
-	else
-		std::cout << "Failure\n";
-
-	NewChoice<NewSequence<NewOneChar<"ef">, NewOneChar<"gh">>, NewSequence<NewOneChar<"ab">, NewOneChar<"cd">>> newsequence;
-
-	std::cout << "\n";
-	auto nsresult = newsequence.parse("acbd");
-	if (nsresult)
-		std::cout << std::get<0>(nsresult.value()) << std::get<1>(nsresult.value()) << "\n" << nsresult.remaining() << "\n";
-	else
-		std::cout << "Failure\n";
-
-
-	NewOneOrMore<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> noom;
-
-	std::cout << "\n";
-	auto noomresult = noom.parse("acdebjfsd");
-	if (noomresult)
-	{
-		for (auto& str : noomresult.value())
-			std::cout << str;
-		std::cout << "\n" << noomresult.remaining() << "\n";
-	}
-	else
-		std::cout << "Failure\n";
-
-
-	NewZeroOrMore<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> nzom;
-
-	std::cout << "\n";
-	auto nzomresult = nzom.parse("eacdebjfsd");
-	if (nzomresult)
-	{
-		for (auto& str : nzomresult.value())
-			std::cout << str;
-		std::cout << "\n" << nzomresult.remaining() << "\n";
-	}
-	else
-		std::cout << "Failure\n";
-
-
-	NewZeroOrOne<NewChoice<NewOneChar<"ab">, NewOneChar<"cd">>> nzoo;
-
-	std::cout << "\n";
-	auto nzooresult = nzoo.parse("eacdebjfsd");
-	if (nzooresult)
-	{
-		if (nzooresult.value())
-			std::cout << nzooresult.value().value();
-		std::cout << "\n" << nzooresult.remaining() << "\n";
-	}
-	else
-		std::cout << "Failure\n";
-
+	*/
 
 }
 #endif
