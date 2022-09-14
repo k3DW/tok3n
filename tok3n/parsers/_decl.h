@@ -44,6 +44,7 @@ template <class P>
 concept Parser =
 	(parser_type_v<P> != ParserType::None) &&
 	(sizeof(P) == 1) &&
+	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
 		{ P::parse(input) } -> IsResult;
