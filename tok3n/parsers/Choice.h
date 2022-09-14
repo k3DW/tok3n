@@ -26,10 +26,9 @@ struct ChoiceExec
 };
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2)
+requires (sizeof...(Ps) >= 2) && all_same_type<typename Ps::result_type...>
 struct Choice
 {
-	static_assert(all_same_type<typename Ps::result_type...>, "All sub-parsers in a Choice parser must have the same result_type.");
 	using result_type = typename first_type<Ps...>::result_type;
 
 	static constexpr Result<result_type> parse(Input input)

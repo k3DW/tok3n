@@ -76,7 +76,7 @@ constexpr ParserType parser_type_v<Literal<str>> = ParserType::Literal;
 
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2)
+requires (sizeof...(Ps) >= 2) && all_same_type<typename Ps::result_type...>
 struct Choice;
 
 template <Parser... Ps>
