@@ -151,6 +151,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="examples\json.h" />
     <ClInclude Include="operators\ChoiceOp.h" />
     <ClInclude Include="operators\NotOp.h" />
     <ClInclude Include="operators\OneOrMoreOp.h" />

@@ -55,112 +55,7 @@ void print(const k3::parser::Result<T>& result)
 		std::cout << "Parse error\n\n";
 }
 
-namespace k3::parser
-{
-	/*
-	namespace Json
-	{
-
-		// JSON "number" parsing
-
-		constexpr IsOneChar auto minus = OneChar<'-'>{};
-		constexpr IsOneChar auto signs = OneChar<"+-">{};
-		constexpr IsOneChar auto zero = OneChar<'0'>{};
-		constexpr IsOneChar auto point = OneChar<'.'>{};
-		constexpr IsOneChar auto digit = OneChar<"0123456789">{};
-		constexpr IsOneChar auto nonzerodigit = OneChar<"123456789">{};
-		constexpr IsOneChar auto Ee = OneChar<"Ee">{};
-
-		constexpr IsSequence auto integer = (~minus) >> (zero | (nonzerodigit >> *digit));
-
-		constexpr IsSequence auto fraction = point >> +digit;
-
-		constexpr IsSequence auto exponent = Ee >> ~signs >> +digit;
-
-		constexpr IsSequence auto number = integer >> ~fraction >> ~exponent;
-
-		// JSON "whitespace" parsing
-
-		constexpr IsZeroOrMore auto whitespace = *OneChar<"\t\n\r ">{};
-
-		// JSON "string" parsing
-
-		constexpr IsOneChar auto quote = OneChar<'"'>{};
-		constexpr IsOneChar auto backslash = OneChar<'\\'>{};
-
-		constexpr auto hex = OneChar<'u'>{} >> digit >> digit >> digit >> digit;
-		constexpr auto control = OneChar<"\"/\\bfnrt">{} | hex;
-
-		constexpr auto valid_char = !(quote | backslash) | (backslash >> control);
-
-		constexpr auto string = quote >> *valid_char >> quote;
-
-
-
-		constexpr IsOneChar auto comma = OneChar<','>{};
-		constexpr IsOneChar auto colon = OneChar<':'>{};
-		constexpr IsOneChar auto left_brace = OneChar<'{'>{};
-		constexpr IsOneChar auto right_brace = OneChar<'}'>{};
-		constexpr IsOneChar auto left_bracket = OneChar<'['>{};
-		constexpr IsOneChar auto right_bracket = OneChar<']'>{};
-
-		struct JsonObjectParser;
-		struct JsonArrayParser;
-		struct JsonValueParser;
-
-	}
-
-	template <>
-	constexpr ParserType parser_type_v<Json::JsonObjectParser> = ParserType{ 100 };
-	template <>
-	constexpr ParserType parser_type_v<Json::JsonArrayParser> = ParserType{ 100 };
-	template <>
-	constexpr ParserType parser_type_v<Json::JsonValueParser> = ParserType{ 100 };
-
-	namespace Json
-	{
-		/*
-		struct JsonObjectParser
-		{
-			static constexpr Result parse(Input input);
-		};
-		struct JsonArrayParser
-		{
-			static constexpr Result parse(Input input);
-		};
-		struct JsonValueParser
-		{
-			static constexpr Result parse(Input input);
-		};
-
-		constexpr Result JsonObjectParser::parse(Input input)
-		{
-			constexpr auto pair = whitespace >> string >> whitespace >> colon >> JsonValueParser{};
-			constexpr auto pairs = pair >> *(comma >> pair);
-			constexpr auto the_parser = left_brace >> (pairs | whitespace) >> right_brace;
-
-			return the_parser.parse(input);
-		}
-		constexpr Result JsonArrayParser::parse(Input input)
-		{
-			constexpr auto values = JsonValueParser{} >> *(comma >> JsonValueParser{});
-			constexpr auto the_parser = left_bracket >> (values | whitespace) >> right_bracket;
-
-			return the_parser.parse(input);
-		}
-		constexpr Result JsonValueParser::parse(Input input)
-		{
-			constexpr auto value = string | number | JsonObjectParser{} | JsonArrayParser{} | Literal<"true">{} | Literal<"false">{} | Literal<"null">{};
-			constexpr auto the_parser = whitespace >> value >> whitespace;
-
-			return the_parser.parse(input);
-		}
-
-	}
-	*/
-
-
-}
+#include "examples/json.h"
 
 int main()
 {
@@ -338,7 +233,6 @@ int main()
 	static_assert(std::same_as<decltype(l02 >> l02), Literal<"12341234">>);
 
 
-	/*
 	constexpr std::string_view json =
 		R"({
 	"id": "0001",
@@ -358,12 +252,23 @@ int main()
 		}
 })";
 
-	Result json_result = Json::JsonObjectParser::parse(json);
+	using namespace k3::examples;
+
+	//auto result = json_parser::number.parse("-1234.5678e+9012");
+	auto result = json_parser::string.parse(R"("-1234.5678e+9012tdtrwehfg)");
+
+	//auto json_result = json_parser::JsonValueParser::parse(R"( [  "test"  , true, -1234.5678e+90123 , [  "test"  , true, -1234.5678e+90123 , "" ]   ]      )");
+	auto json_result = json_parser::JsonObjectParser::parse(json);
+
+	volatile int x = 0;
+
 	if (json_result)
-		std::cout << json_result.flatten() << "\n";
+	{
+		volatile auto& val = json_result.value();
+		x++;
+	}
 	else
 		std::cout << "Json parse error!!!\n";
-	*/
 
 }
 #endif
