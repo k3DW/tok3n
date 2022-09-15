@@ -16,7 +16,7 @@ struct ZeroOrOne
 		if (result.has_value())
 			return { success, result_type{ std::move(result.value()) }, result.remaining() };
 		else
-			return { success, std::nullopt, input };
+			return { success, result_type{ std::nullopt }, input };
 	}
 };
 
