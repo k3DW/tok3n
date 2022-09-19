@@ -292,6 +292,11 @@ int main()
 		print(NotChar<"a">::lookahead("basdf"));
 		print(Literal<"abc">::lookahead("abcdef"));
 
+
+		using CC = Choice<Literal<"abc">, OneChar<"def">>;
+		print(CC::lookahead("abcdef"));
+		print(CC::lookahead("fedcba"));
+
 		
 
 	}

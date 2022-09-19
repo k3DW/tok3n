@@ -9,19 +9,16 @@ template <class result_type>
 struct ChoiceExec
 {
 	Input input;
-	Result<result_type>& result_ref;
+	Result<result_type> result = {};
 
 	template <Parser P>
-	constexpr bool execute() const
+	constexpr bool execute()
 	{
-		Result<result_type> result = P::parse(input);
-		if (result.has_value())
-		{
-			result_ref = std::move(result);
-			return true;
-		}
+		if constexpr (std::same_as<result_type, void>)
+			result = P::lookahead(input);
 		else
-			return false;
+			result = P::parse(input);
+		return result.has_value();
 	}
 };
 
@@ -33,12 +30,18 @@ struct Choice
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		Result<result_type> result{};
-
-		const auto executor = ChoiceExec<result_type>{ .input = input, .result_ref = result };
+		auto executor = ChoiceExec<result_type>{ .input = input };
 		(... || executor.execute<Ps>());
 
-		return result;
+		return executor.result;
+	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		auto executor = ChoiceExec<void>{ .input = input };
+		(... || executor.execute<Ps>());
+
+		return executor.result;
 	}
 };
 
