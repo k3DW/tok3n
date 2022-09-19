@@ -165,7 +165,7 @@ struct value_t
 
 
 
-struct JsonObjectParser : Custom
+struct JsonObjectParser : CustomBase
 {
 	using result_type = object_t;
 
@@ -174,7 +174,7 @@ struct JsonObjectParser : Custom
 
 	static consteval auto get_parser();
 };
-struct JsonArrayParser : Custom
+struct JsonArrayParser : CustomBase
 {
 	using result_type = array_t;
 
@@ -183,7 +183,7 @@ struct JsonArrayParser : Custom
 
 	static consteval auto get_parser();
 };
-struct JsonValueParser : Custom
+struct JsonValueParser : CustomBase
 {
 	using result_type = value_t;
 
