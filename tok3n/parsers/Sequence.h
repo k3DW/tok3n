@@ -8,17 +8,17 @@ namespace k3::parser
 template <class result_type>
 struct SequenceExec
 {
-	Input& input;
-	result_type& result_ref;
+	Input input;
+	result_type tuple = {};
 
 	template <Parser P, std::size_t I>
-	constexpr bool execute() const
+	constexpr bool execute()
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
 			input = result.remaining();
-			std::get<I>(result_ref) = std::move(result.value());
+			std::get<I>(tuple) = std::move(result.value());
 			return true;
 		}
 		else
@@ -34,11 +34,8 @@ struct Sequence
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		const Input original_input = input;
-
-		result_type result; // This might be a problem because it zero initializes all members
-
-		const auto executor = SequenceExec{ .input = input, .result_ref = result };
+		// This might be a problem because it zero initializes all members
+		auto executor = SequenceExec<result_type>{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
@@ -46,9 +43,9 @@ struct Sequence
 		}(std::index_sequence_for<Ps...>{});
 
 		if (successful)
-			return { success, std::move(result), input };
+			return { success, std::move(executor.tuple), executor.input };
 		else
-			return { failure, original_input };
+			return { failure, input };
 	}
 };
 
