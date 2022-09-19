@@ -41,10 +41,10 @@ using Input = std::string_view;
 template <class T>
 class Result;
 
-template <class R> constexpr bool is_result_v = false;
-template <class R> concept IsResult = is_result_v<R>;
+template <class R, class T> constexpr bool is_result_v = false;
+template <class R, class T> concept IsResult = is_result_v<R, T>;
 
-template <class T> constexpr bool is_result_v<Result<T>> = true;
+template <class T> constexpr bool is_result_v<Result<T>, T> = true;
 
 template <class P>
 concept Parser =
@@ -53,7 +53,7 @@ concept Parser =
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
-		{ P::parse(input) } -> IsResult;
+		{ P::parse(input) } -> IsResult<typename P::result_type>;
 	};
 
 
