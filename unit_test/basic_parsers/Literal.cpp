@@ -37,4 +37,16 @@ namespace LiteralTests
 		static_assert(not Constructible_From<"">);
 	}
 
+	consteval void lookahead()
+	{
+		using P = Literal<"literal">;
+
+		constexpr auto r1 = P::lookahead("literally");
+		static_assert(validate(success, r1, "ly"));
+		constexpr auto r2 = P::lookahead("literal");
+		static_assert(validate(success, r2, ""));
+		constexpr auto r3 = P::lookahead("lliteral");
+		static_assert(validate(failure, r3, "lliteral"));
+	}
+
 }

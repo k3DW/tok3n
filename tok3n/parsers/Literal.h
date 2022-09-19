@@ -22,6 +22,17 @@ struct Literal
 			return { success, { begin, begin + str.size() }, { begin + str.size(), input.end() } };
 		}
 	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		if (input.empty() || not input.starts_with({ str.begin(), str.end() }))
+			return { failure, input };
+		else
+		{
+			input.remove_prefix(str.size());
+			return { success, input };
+		}
+	}
 };
 
 }

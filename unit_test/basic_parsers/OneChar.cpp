@@ -110,4 +110,26 @@ namespace OneCharTests
 		static_assert(not Constructible_From_String<"">);
 	}
 
+	consteval void lookahead_single_char()
+	{
+		using P = OneChar<'a'>;
+
+		constexpr auto r1 = P::lookahead("ab");
+		static_assert(validate(success, r1, "b"));
+		constexpr auto r2 = P::lookahead("ba");
+		static_assert(validate(failure, r2, "ba"));
+	}
+
+	consteval void lookahead_multiple_chars()
+	{
+		using P = OneChar<"abc">;
+
+		constexpr auto r1 = P::lookahead("abc");
+		static_assert(validate(success, r1, "bc"));
+		constexpr auto r2 = P::lookahead("bac");
+		static_assert(validate(success, r2, "ac"));
+		constexpr auto r3 = P::lookahead(" bac");
+		static_assert(validate(failure, r3, " bac"));
+	}
+
 }

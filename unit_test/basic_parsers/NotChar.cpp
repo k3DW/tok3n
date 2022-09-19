@@ -119,4 +119,28 @@ namespace NotCharTests
 		static_assert(not Constructible_From_String<"">);
 	}
 
+	consteval void lookahead_single_char()
+	{
+		using P = NotChar<'a'>;
+
+		constexpr auto r1 = P::lookahead("ba");
+		static_assert(validate(success, r1, "a"));
+		constexpr auto r2 = P::lookahead("ab");
+		static_assert(validate(failure, r2, "ab"));
+	}
+
+	consteval void lookahead_multiple_chars()
+	{
+		using P = NotChar<"abc">;
+
+		constexpr auto r1 = P::lookahead("a");
+		static_assert(validate(failure, r1, "a"));
+		constexpr auto r2 = P::lookahead("ba");
+		static_assert(validate(failure, r2, "ba"));
+		constexpr auto r3 = P::lookahead("dcba");
+		static_assert(validate(success, r3, "cba"));
+		constexpr auto r4 = P::lookahead(" dcba");
+		static_assert(validate(success, r4, "dcba"));
+	}
+
 }

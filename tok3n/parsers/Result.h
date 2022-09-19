@@ -12,8 +12,6 @@ template <class T>
 class Result
 {
 public:
-	using type = T;
-
 	constexpr Result() = default;
 
 	constexpr Result(failure_t, std::string_view remaining)
@@ -39,6 +37,28 @@ public:
 
 private:
 	std::optional<T> mResult;
+	std::string_view mRemaining;
+};
+
+template <>
+class Result<void>
+{
+public:
+	constexpr Result() = default;
+
+	constexpr Result(failure_t, std::string_view remaining)
+		: mSuccessful(false), mRemaining(remaining) {}
+
+	constexpr Result(success_t, std::string_view remaining)
+		: mSuccessful(true), mRemaining(remaining) {}
+
+	constexpr explicit operator bool() const noexcept { return mSuccessful; }
+	constexpr bool has_value() const noexcept         { return mSuccessful; }
+
+	constexpr std::string_view remaining() const noexcept { return mRemaining; }
+
+private:
+	bool mSuccessful;
 	std::string_view mRemaining;
 };
 

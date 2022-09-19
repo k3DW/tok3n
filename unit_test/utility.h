@@ -34,6 +34,11 @@ consteval bool validate(k3::parser::success_t, const Result<T>& result, const st
 	return (result) && (*result == t) && (result.remaining() == remaining);
 }
 
+consteval bool validate(k3::parser::success_t, const Result<void>& result, std::string_view remaining)
+{
+	return (result) && (result.remaining() == remaining);
+}
+
 template <class T>
 consteval bool validate(k3::parser::failure_t, const Result<T>& result, std::string_view remaining)
 {

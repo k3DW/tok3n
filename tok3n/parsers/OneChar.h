@@ -22,6 +22,17 @@ struct OneChar
 			return { success, { begin, begin + 1 }, { begin + 1, input.end() } };
 		}
 	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		if (input.empty() || not str.contains(input.front()))
+			return { failure, input };
+		else
+		{
+			input.remove_prefix(1);
+			return { success, input };
+		}
+	}
 };
 
 }

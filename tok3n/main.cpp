@@ -45,14 +45,27 @@ void print(const std::optional<T>& opt)
 template <class T>
 void print(const k3::parser::Result<T>& result)
 {
-	if (result)
+	if constexpr (std::same_as<T, void>)
 	{
-		std::cout << "Parsed: ";
-		print(result.value());
-		std::cout << "\nRemain: " << result.remaining() << "\n\n";
+		if (result)
+		{
+			std::cout << "Lookahead parsed successfully";
+			std::cout << "\nRemain: " << result.remaining() << "\n\n";
+		}
+		else
+			std::cout << "Parse error\n\n";
 	}
 	else
-		std::cout << "Parse error\n\n";
+	{
+		if (result)
+		{
+			std::cout << "Parsed: ";
+			print(result.value());
+			std::cout << "\nRemain: " << result.remaining() << "\n\n";
+		}
+		else
+			std::cout << "Parse error\n\n";
+	}
 }
 
 #include "examples/json.h"
@@ -269,6 +282,19 @@ int main()
 	}
 	else
 		std::cout << "Json parse error!!!\n";
+
+
+
+
+	{
+
+		print(OneChar<"a">::lookahead("ab"));
+		print(NotChar<"a">::lookahead("basdf"));
+		print(Literal<"abc">::lookahead("abcdef"));
+
+		
+
+	}
 
 }
 #endif
