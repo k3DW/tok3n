@@ -7,7 +7,7 @@ namespace k3::parser
 {
 
 template <static_string str>
-requires (str.unique_and_sorted()) && (str.ascii())
+requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() > 0)
 struct NotChar
 {
 	using result_type = std::string_view;

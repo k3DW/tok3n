@@ -105,4 +105,9 @@ namespace OneCharTests
 		static_assert(not Constructible_From_String<"cba">);
 	}
 
+	consteval void ensure_non_empty()
+	{
+		static_assert(not Constructible_From_String<"">);
+	}
+
 }
