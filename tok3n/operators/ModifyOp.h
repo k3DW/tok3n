@@ -30,4 +30,10 @@ constexpr auto ignore(P)
 		return Ignore<P>{};
 }
 
+template <Parser P, Parser Delimiter>
+constexpr auto delimit(P, Delimiter)
+{
+	return Delimit<P, Delimiter>{};
+}
+
 }

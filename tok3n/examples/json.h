@@ -243,31 +243,25 @@ consteval auto JsonObjectParser::get_parser()
 
 	constexpr auto pair = (whitespace >> string >> whitespace >> colon >> JsonValueParser{}) % fn<get_pair>;
 
-	constexpr auto get_object = [](const std::tuple<pair_t, std::vector<std::tuple<std::string_view, pair_t>>>& tuple) -> object_t
+	constexpr auto get_object = [](const std::vector<pair_t>& vec) -> object_t
 	{
 		object_t object{};
-		auto& map = object.data;
-
-		map.insert(std::get<0>(std::move(tuple)));
-		auto&& vec = std::get<1>(std::move(tuple));
-
-		if (not vec.empty())
-		{
-			for (auto&& inner_tuple : std::move(vec))
-				map.insert(std::get<1>(std::move(inner_tuple)));
-		}
-
+	
+		for (const pair_t& pair : vec)
+			object.data.insert(pair);
+	
 		return object;
 	};
 
-	constexpr auto get_whitespace = [](std::string_view str) -> object_t
+	constexpr auto object = delimit(pair, comma) % fn<get_object>;
+
+	constexpr auto get_object_whitespace = [](std::string_view str) -> object_t
 	{
 		return {};
 	};
+	constexpr auto object_whitespace = whitespace % fn<get_object_whitespace>;
 
-	constexpr auto object = (pair >> *(comma >> pair)) % fn<get_object>;
-
-	constexpr auto the_parser = ignore(left_brace) >> (object | (whitespace % fn<get_whitespace>)) >> ignore(right_brace);
+	constexpr auto the_parser = ignore(left_brace) >> (object | object_whitespace) >> ignore(right_brace);
 
 	return the_parser;
 }
@@ -277,31 +271,25 @@ constexpr Result<void> JsonObjectParser::lookahead(Input input) { return decltyp
 
 consteval auto JsonArrayParser::get_parser()
 {
-	constexpr auto get_array = [](const std::tuple<value_t, std::vector<std::tuple<std::string_view, value_t>>>& tuple) -> array_t
+	constexpr auto get_array = [](const std::vector<value_t>& vec) -> array_t
 	{
 		array_t arr;
-		auto& data = arr.data;
 
-		data.push_back(std::get<0>(std::move(tuple)));
-		auto&& vec = std::get<1>(std::move(tuple));
-
-		if (not vec.empty())
-		{
-			for (auto&& inner_tuple : std::move(vec))
-				data.push_back(std::get<1>(std::move(inner_tuple)));
-		}
+		for (const value_t& value : vec)
+			arr.data.push_back(value);
 
 		return arr;
 	};
 
-	constexpr auto get_whitespace = [](std::string_view str) -> array_t
+	constexpr auto values = delimit(JsonValueParser{}, comma) % fn<get_array>;
+
+	constexpr auto get_array_whitespace = [](std::string_view str) -> array_t
 	{
 		return {};
 	};
+	constexpr auto array_whitespace = whitespace % fn<get_array_whitespace>;
 
-	constexpr auto values = (JsonValueParser{} >> *(comma >> JsonValueParser{})) % fn<get_array>;
-
-	constexpr auto the_parser = ignore(left_bracket) >> (values | (whitespace % fn<get_whitespace>)) >> ignore(right_bracket);
+	constexpr auto the_parser = ignore(left_bracket) >> (values | array_whitespace) >> ignore(right_bracket);
 
 	return the_parser;
 }

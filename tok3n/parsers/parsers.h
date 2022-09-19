@@ -16,3 +16,4 @@
 #include "parsers/Transform.h"
 #include "parsers/Flatten.h"
 #include "parsers/Ignore.h"
+#include "parsers/Delimit.h"
