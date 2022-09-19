@@ -32,7 +32,8 @@ public:
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
 	constexpr bool has_value() const noexcept         { return mResult.has_value(); }
 
-	constexpr const T& value() const& { return mResult.value(); }
+	constexpr const T& value() const&     { return mResult.value(); }
+	constexpr const T& operator*() const& { return *mResult; }
 
 	constexpr std::string_view remaining() const noexcept { return mRemaining; }
 

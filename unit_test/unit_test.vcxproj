@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9cb93fce-939f-4476-ad03-6baf2faa196b}</ProjectGuid>
-    <RootNamespace>tok3n</RootNamespace>
+    <ProjectGuid>{fac6134d-1b8a-412b-9c56-5acee0d552ee}</ProjectGuid>
+    <RootNamespace>unittest</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -93,7 +93,8 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)tok3n;$(ProjectDir)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -109,7 +110,8 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)tok3n;$(ProjectDir)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -125,7 +127,8 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)tok3n;$(ProjectDir)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -141,7 +144,8 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)tok3n;$(ProjectDir)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,32 +155,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="examples\json.h" />
-    <ClInclude Include="operators\ChoiceOp.h" />
-    <ClInclude Include="operators\NotOp.h" />
-    <ClInclude Include="operators\OneOrMoreOp.h" />
-    <ClInclude Include="operators\operators.h" />
-    <ClInclude Include="operators\SequenceOp.h" />
-    <ClInclude Include="operators\ModifyOp.h" />
-    <ClInclude Include="operators\ZeroOrMoreOp.h" />
-    <ClInclude Include="operators\ZeroOrOneOp.h" />
-    <ClInclude Include="parsers\Choice.h" />
-    <ClInclude Include="parsers\Transform.h" />
-    <ClInclude Include="parsers\Literal.h" />
-    <ClInclude Include="parsers\Result.h" />
-    <ClInclude Include="parsers\NotChar.h" />
-    <ClInclude Include="parsers\OneChar.h" />
-    <ClInclude Include="parsers\OneOrMore.h" />
-    <ClInclude Include="parsers\Sequence.h" />
-    <ClInclude Include="parsers\ZeroOrMore.h" />
-    <ClInclude Include="parsers\ZeroOrOne.h" />
-    <ClInclude Include="parsers\_decl.h" />
-    <ClInclude Include="parsers\parsers.h" />
-    <ClInclude Include="util\pack_manip.h" />
-    <ClInclude Include="util\static_string.h" />
+    <ClCompile Include="basic_parsers\OneChar.cpp" />
+    <ClCompile Include="utility.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
