@@ -84,8 +84,8 @@ constexpr static_string<M + N> operator+(const static_string<M>& lhs, const stat
 constexpr static_string every_char = []() consteval -> static_string<128>
 {
 	static_string<128> str;
-	for (int c = 0; c < 128; c++)
-		str.data[c] = c;
+	for (std::size_t c = 0; c < 128; c++)
+		str.data[c] = static_cast<char>(c);
 	return str;
 }();
 
