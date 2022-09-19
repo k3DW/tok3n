@@ -4,6 +4,8 @@
 
 #include "parsers/Result.h"
 using k3::parser::Result;
+using k3::parser::failure;
+using k3::parser::success;
 
 
 
@@ -27,9 +29,15 @@ consteval bool same(auto&& lhs, auto&& rhs)
 
 
 template <class T>
-consteval bool check_result(const Result<T>& result, const std::type_identity_t<T>& t, std::string_view remaining)
+consteval bool validate(k3::parser::success_t, const Result<T>& result, const std::type_identity_t<T>& t, std::string_view remaining)
 {
 	return (result) && (*result == t) && (result.remaining() == remaining);
+}
+
+template <class T>
+consteval bool validate(k3::parser::failure_t, const Result<T>& result, std::string_view remaining)
+{
+	return (!result) && (result.remaining() == remaining);
 }
 
 template <class P, class R>

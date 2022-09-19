@@ -1,63 +1,72 @@
-#include "parsers/OneChar.h"
+#include "parsers/NotChar.h"
 #include "utility.h"
 
-namespace OneCharTests
+namespace NotCharTests
 {
 
-	using k3::parser::OneChar;
+	using k3::parser::NotChar;
 
 	template <char... c>
-	concept Constructible_From_All_Chars = (... && requires { typename OneChar<c>; });
+	concept Constructible_From_All_Chars = (... && requires { typename NotChar<c>; });
 
 	template <char... c>
-	concept Constructible_From_Any_Chars = (... || requires { typename OneChar<c>; });
+	concept Constructible_From_Any_Chars = (... || requires { typename NotChar<c>; });
 
 	template <k3::static_string str>
-	concept Constructible_From_String = requires { typename OneChar<str>; };
+	concept Constructible_From_String = requires { typename NotChar<str>; };
 
 	consteval void single_char()
 	{
-		using P = OneChar<'a'>;
+		using P = NotChar<'a'>;
 
 		static_assert(k3::parser::Parser<P>);
-		static_assert(k3::parser::IsOneChar<P>);
+		static_assert(k3::parser::IsNotChar<P>);
 		static_assert(is_result_of<P, std::string_view>);
 
 		constexpr P p;
 
 		constexpr auto r1 = P::parse("ab");
 		constexpr auto r2 = p.parse("ab");
-		static_assert(validate(success, r1, "a", "b"));
-		static_assert(validate(success, r2, "a", "b"));
+		static_assert(validate(failure, r1, "ab"));
+		static_assert(validate(failure, r2, "ab"));
 
 		constexpr auto r3 = P::parse("ba");
 		constexpr auto r4 = p.parse("ba");
-		static_assert(validate(failure, r3, "ba"));
-		static_assert(validate(failure, r4, "ba"));
+		static_assert(validate(success, r3, "b", "a"));
+		static_assert(validate(success, r4, "b", "a"));
 	}
 
 	consteval void multiple_chars()
 	{
-		using P = OneChar<"abc">;
+		using P = NotChar<"abc">;
 
 		static_assert(k3::parser::Parser<P>);
-		static_assert(k3::parser::IsOneChar<P>);
+		static_assert(k3::parser::IsNotChar<P>);
 		static_assert(is_result_of<P, std::string_view>);
 
 		constexpr P p;
 
-		constexpr auto r1 = P::parse("abc");
-		constexpr auto r2 = P::parse("acb");
-		constexpr auto r3 = P::parse("bac");
-		constexpr auto r4 = P::parse("bca");
-		constexpr auto r5 = P::parse("cab");
-		constexpr auto r6 = P::parse("cba");
-		static_assert(validate(success, r1, "a", "bc"));
-		static_assert(validate(success, r2, "a", "cb"));
-		static_assert(validate(success, r3, "b", "ac"));
-		static_assert(validate(success, r4, "b", "ca"));
-		static_assert(validate(success, r5, "c", "ab"));
-		static_assert(validate(success, r6, "c", "ba"));
+		constexpr auto r1 = P::parse("a");
+		constexpr auto r2 = p.parse("a");
+		constexpr auto r3 = P::parse("ba");
+		constexpr auto r4 = p.parse("ba");
+		constexpr auto r5 = P::parse("cba");
+		constexpr auto r6 = p.parse("cba");
+		static_assert(validate(failure, r1, "a"));
+		static_assert(validate(failure, r2, "a"));
+		static_assert(validate(failure, r3, "ba"));
+		static_assert(validate(failure, r4, "ba"));
+		static_assert(validate(failure, r5, "cba"));
+		static_assert(validate(failure, r6, "cba"));
+
+		constexpr auto r7 = P::parse("dcba");
+		constexpr auto r8 = p.parse("dcba");
+		constexpr auto r9 = P::parse("edcba");
+		constexpr auto r10 = p.parse("edcba");
+		static_assert(validate(success, r7, "d", "cba"));
+		static_assert(validate(success, r8, "d", "cba"));
+		static_assert(validate(success, r9, "e", "dcba"));
+		static_assert(validate(success, r10, "e", "dcba"));
 	}
 
 	consteval void constructible_from_ascii_only()
