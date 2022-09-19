@@ -58,14 +58,12 @@ inline namespace number_impl
 			ret = (ret * 10) + to_digit(sv);
 		return ret;
 	};
-	constexpr auto to_integer = [](const std::tuple<std::string_view, std::vector<std::string_view>>& tuple) -> int64_t
+	constexpr auto sv_to_int = [](std::string_view str) -> int64_t
 	{
-		int64_t ret = to_digit(std::get<0>(tuple));
-		auto& vec = std::get<1>(tuple);
-		if (not vec.empty())
-			return vector_to_integer(vec, ret);
-		else
-			return ret;
+		int64_t ret = 0;
+		for (char c : str)
+			ret = (ret * 10) + (c - '0');
+		return ret;
 	};
 	constexpr auto give_sign = [](const std::tuple<std::optional<std::string_view>, int64_t>& tuple) -> int64_t
 	{
@@ -76,7 +74,7 @@ inline namespace number_impl
 			return std::get<1>(tuple);
 	};
 
-	constexpr auto natural_number = (zero % fn<to_digit>) | ((nonzerodigit >> *digit) % fn<to_integer>);
+	constexpr auto natural_number = (zero % fn<to_digit>) | ((nonzerodigit >> *digit) % flatten % fn<sv_to_int>);
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
 	constexpr auto integer = (~minus >> natural_number) % fn<give_sign>;
@@ -122,14 +120,7 @@ static_assert(std::same_as<decltype(number)::result_type, number_t>);
 inline namespace string_impl
 {
 
-	constexpr auto hex_to_sv = [](const std::tuple<std::string_view, std::string_view, std::string_view, std::string_view, std::string_view>& tuple) -> std::string_view
-	{
-		const char* begin = &std::get<0>(tuple).front();
-		const char* last = &std::get<4>(tuple).back();
-		return { begin, last + 1 };
-	};
-
-	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % fn<hex_to_sv>;
+	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % flatten;
 	constexpr auto control = OneChar<"\"/\\bfnrt">{} | hex;
 
 	constexpr auto flatten_2_tuple_sv = [](const std::tuple<std::string_view, std::string_view>& tuple) -> std::string_view

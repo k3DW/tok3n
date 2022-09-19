@@ -1,6 +1,8 @@
 #pragma once
 #include "util/pack_manip.h"
 #include "util/static_string.h"
+#include <vector>
+#include <optional>
 
 namespace k3::parser
 {
@@ -116,17 +118,35 @@ template <Parser P>
 constexpr ParserType parser_type_v<ZeroOrOne<P>> = ParserType::ZeroOrOne;
 
 
-template <auto function>
-struct fn_t {};
-
-template <auto function>
-constexpr auto fn = fn_t<function>{};
-
 template <Parser P, auto function>
 requires requires { std::invoke(function, std::declval<typename P::result_type>()); }
 struct Transform;
 
 template <Parser P, auto function>
 constexpr ParserType parser_type_v<Transform<P, function>> = ParserType::Transform;
+
+
+template <auto function>
+struct fn_t {};
+
+template <auto function>
+constexpr auto fn = fn_t<function>{};
+
+
+template <class T> constexpr bool flattenable_v          = false;
+template <class T> constexpr bool flattenable_v<const T> = flattenable_v<T>;
+template <class T> constexpr bool flattenable_v<T&>      = flattenable_v<T>;
+template <class T> constexpr bool flattenable_v<T&&>     = flattenable_v<T>;
+
+template <> constexpr bool flattenable_v<std::string_view> = true;
+template <class T> constexpr bool flattenable_v<std::vector<T>> = flattenable_v<T>;
+template <class T> constexpr bool flattenable_v<std::optional<T>> = flattenable_v<T>;
+template <class... Ts> constexpr bool flattenable_v<std::tuple<Ts...>> = (... && flattenable_v<Ts>);
+
+template <class T> concept Flattenable = flattenable_v<T>;
+
+class Flatten;
+
+constexpr struct flatten_t {} flatten;
 
 }

@@ -78,7 +78,7 @@
     <ClInclude Include="parsers\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="operators\TransformOp.h">
+    <ClInclude Include="operators\ModifyOp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="examples\json.h">
