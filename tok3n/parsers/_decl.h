@@ -49,7 +49,7 @@ template <class T> constexpr bool is_result_v<Result<T>, T> = true;
 template <class P>
 concept Parser =
 	(parser_type_v<P> != ParserType::None) &&
-	(sizeof(P) == 1) &&
+	(std::is_empty_v<P>) &&
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
