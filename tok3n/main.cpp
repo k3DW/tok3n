@@ -301,5 +301,46 @@ int main()
 
 	}
 
+
+
+
+	//using TTT = filter_type<is_parser, OneChar<"a">, OneChar<"b">, int, const int, Literal<"a">>;
+	//using UUU = retarget_type<TTT, std::tuple>;
+	//
+	//static_assert(std::same_as<TTT, type_list<OneChar<"a">, OneChar<"b">, Literal<"a">>>);
+	//static_assert(std::same_as<UUU, std::tuple<OneChar<"a">, OneChar<"b">, Literal<"a">>>);
+	//
+	//
+	//using VVV = filtered_index_sequence_type<is_parser, OneChar<"a">, OneChar<"b">, int, const int, Literal<"a">>;
+	//
+	//static_assert(std::same_as<VVV, std::index_sequence<0, 1, -1, -1, 2>>);
+
+	constexpr auto lb = OneChar<"{">{};
+	constexpr auto rb = OneChar<"}">{};
+
+	constexpr auto a = OneChar<"a">{};
+	constexpr auto b = OneChar<"b">{};
+
+	constexpr auto ppppp = ignore(lb) >> a >> b >> ignore(rb);
+
+
+	using PPPPP = Sequence<Ignore<OneChar<"{">>, OneChar<"a">, OneChar<"b">, Ignore<OneChar<"}">>>;
+	static_assert(std::same_as<PPPPP, std::remove_cvref_t<decltype(ppppp)>>);
+
+	using QQQQQ = Sequence<Ignore<OneChar<"{">>, OneChar<"a">, Ignore<OneChar<"}">>>;
+
+	using RRRRR = PPPPP::result_type;
+
+
+	//using SDSADAS = RRRRR::fdsfsdfsd;
+
+	static_assert(std::same_as<PPPPP::result_type, std::tuple<std::string_view, std::string_view>>);
+	static_assert(std::same_as<QQQQQ::result_type, std::string_view>);
+
+	auto rrrr = PPPPP::parse("{ab}");
+	auto rrrs = QQQQQ::parse("{a}");
+
+
+
 }
 #endif

@@ -123,31 +123,11 @@ inline namespace string_impl
 	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % flatten;
 	constexpr auto control = OneChar<"\"/\\bfnrt">{} | hex;
 
-	constexpr auto flatten_2_tuple_sv = [](const std::tuple<std::string_view, std::string_view>& tuple) -> std::string_view
-	{
-		const char* begin = &std::get<0>(tuple).front();
-		const char* last = &std::get<1>(tuple).back();
-		return { begin, last + 1 };
-	};
-
-	constexpr auto valid_char = !(quote | backslash) | ((backslash >> control) % fn<flatten_2_tuple_sv>);
-
-	constexpr auto to_string = [](const std::tuple<std::string_view, std::vector<std::string_view>, std::string_view>& tuple) -> std::string_view
-	{
-		auto& vec = std::get<1>(tuple);
-		if (vec.empty())
-			return "";
-		else
-		{
-			const char* begin = &vec.front().front();
-			const char* last = &vec.back().back();
-			return { begin, last + 1 };
-		}
-	};
+	constexpr auto valid_char = !(quote | backslash) | ((backslash >> control) % flatten);
 
 }
 
-constexpr auto string = (quote >> *valid_char >> quote) % fn<to_string>;
+constexpr auto string = ignore(quote) >> (*valid_char % flatten) >> ignore(quote);
 static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 
 
@@ -229,21 +209,30 @@ struct JsonObjectParser
 	using result_type = object_t;
 
 	static constexpr Result<result_type> parse(Input input);
+	static constexpr Result<void> lookahead(Input input);
+
+	static consteval auto get_parser();
 };
 struct JsonArrayParser
 {
 	using result_type = array_t;
 
 	static constexpr Result<result_type> parse(Input input);
+	static constexpr Result<void> lookahead(Input input);
+
+	static consteval auto get_parser();
 };
 struct JsonValueParser
 {
 	using result_type = value_t;
 
 	static constexpr Result<result_type> parse(Input input);
+	static constexpr Result<void> lookahead(Input input);
+
+	static consteval auto get_parser();
 };
 
-constexpr Result<object_t> JsonObjectParser::parse(Input input)
+consteval auto JsonObjectParser::get_parser()
 {
 	using pair_t = std::pair<std::string_view, value_t>;
 
@@ -258,16 +247,16 @@ constexpr Result<object_t> JsonObjectParser::parse(Input input)
 	{
 		object_t object{};
 		auto& map = object.data;
-	
+
 		map.insert(std::get<0>(std::move(tuple)));
 		auto&& vec = std::get<1>(std::move(tuple));
-	
+
 		if (not vec.empty())
 		{
 			for (auto&& inner_tuple : std::move(vec))
 				map.insert(std::get<1>(std::move(inner_tuple)));
 		}
-		
+
 		return object;
 	};
 
@@ -275,20 +264,18 @@ constexpr Result<object_t> JsonObjectParser::parse(Input input)
 	{
 		return {};
 	};
-	
+
 	constexpr auto object = (pair >> *(comma >> pair)) % fn<get_object>;
 
-	constexpr auto the_parser = left_brace >> (object | (whitespace % fn<get_whitespace>)) >> right_brace;
+	constexpr auto the_parser = ignore(left_brace) >> (object | (whitespace % fn<get_whitespace>)) >> ignore(right_brace);
 
-	constexpr auto get_parser = [](const std::tuple<std::string_view, object_t, std::string_view>& tuple) -> object_t
-	{
-		return std::get<1>(std::move(tuple));
-	};
-
-	return (the_parser % fn<get_parser>).parse(input);
+	return the_parser;
 }
 
-constexpr Result<array_t> JsonArrayParser::parse(Input input)
+constexpr Result<object_t> JsonObjectParser::parse(Input input) { return decltype(get_parser())::parse(input); }
+constexpr Result<void> JsonObjectParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
+
+consteval auto JsonArrayParser::get_parser()
 {
 	constexpr auto get_array = [](const std::tuple<value_t, std::vector<std::tuple<std::string_view, value_t>>>& tuple) -> array_t
 	{
@@ -314,17 +301,15 @@ constexpr Result<array_t> JsonArrayParser::parse(Input input)
 
 	constexpr auto values = (JsonValueParser{} >> *(comma >> JsonValueParser{})) % fn<get_array>;
 
-	constexpr auto the_parser = left_bracket >> (values | (whitespace % fn<get_whitespace>)) >> right_bracket;
-	
-	constexpr auto get_parser = [](const std::tuple<std::string_view, array_t, std::string_view>& tuple) -> array_t
-	{
-		return std::get<1>(std::move(tuple));
-	};
+	constexpr auto the_parser = ignore(left_bracket) >> (values | (whitespace % fn<get_whitespace>)) >> ignore(right_bracket);
 
-	return (the_parser % fn<get_parser>).parse(input);
+	return the_parser;
 }
 
-constexpr Result<value_t> JsonValueParser::parse(Input input)
+constexpr Result<array_t> JsonArrayParser::parse(Input input)  { return decltype(get_parser())::parse(input); }
+constexpr Result<void> JsonArrayParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
+
+consteval auto JsonValueParser::get_parser()
 {
 	constexpr auto get_value_string = [](std::string_view str) -> value_t
 	{
@@ -364,15 +349,13 @@ constexpr Result<value_t> JsonValueParser::parse(Input input)
 		(Literal<"true">{}  % fn<get_value_true>)   |
 		(Literal<"false">{} % fn<get_value_false>)  |
 		(Literal<"null">{}  % fn<get_value_null>);
-	
-	constexpr auto get_parser = [](const std::tuple<std::string_view, value_t, std::string_view>& tuple) -> value_t
-	{
-		return std::get<1>(std::move(tuple));
-	};
 
-	constexpr auto the_parser = (whitespace >> value_parser >> whitespace) % fn<get_parser>;
+	constexpr auto the_parser = ignore(whitespace) >> value_parser >> ignore(whitespace);
 	
-	return the_parser.parse(input);
+	return the_parser;
 }
+
+constexpr Result<value_t> JsonValueParser::parse(Input input)  { return decltype(get_parser())::parse(input); }
+constexpr Result<void> JsonValueParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
 
 }
