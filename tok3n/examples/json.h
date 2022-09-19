@@ -47,16 +47,9 @@ struct number_t
 inline namespace number_impl
 {
 
-	constexpr auto to_digit = [](std::string_view sv) -> int64_t
+	constexpr auto get_zero = [](std::string_view) -> int64_t
 	{
-		return sv.front() - '0';
-	};
-	constexpr auto vector_to_integer = [](const std::vector<std::string_view>& vec, int64_t start = 0) -> int64_t
-	{
-		int64_t ret = start;
-		for (auto& sv : vec)
-			ret = (ret * 10) + to_digit(sv);
-		return ret;
+		return 0;
 	};
 	constexpr auto sv_to_int = [](std::string_view str) -> int64_t
 	{
@@ -68,42 +61,32 @@ inline namespace number_impl
 	constexpr auto give_sign = [](const std::tuple<std::optional<std::string_view>, int64_t>& tuple) -> int64_t
 	{
 		auto& opt = std::get<0>(tuple);
-		if (opt.has_value() && *opt == "-")
-			return -std::get<1>(tuple);
+		if (opt.has_value())
+		{
+			if (*opt == "+")
+				return std::get<1>(tuple);
+			else if (*opt == "-")
+				return -std::get<1>(tuple);
+			else throw;
+		}
 		else
 			return std::get<1>(tuple);
 	};
 
-	constexpr auto natural_number = (zero % fn<to_digit>) | ((nonzerodigit >> *digit) % flatten % fn<sv_to_int>);
+	constexpr auto any_digits = +digit % flatten % fn<sv_to_int>;
+	static_assert(std::same_as<decltype(any_digits)::result_type, int64_t>);
+
+	constexpr auto natural_number = (zero % fn<get_zero>) | ((nonzerodigit >> *digit) % flatten % fn<sv_to_int>);
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
 	constexpr auto integer = (~minus >> natural_number) % fn<give_sign>;
 	static_assert(std::same_as<decltype(integer)::result_type, int64_t>);
+		
+	constexpr auto fraction = ignore(point) >> any_digits;
+	static_assert(std::same_as<decltype(fraction)::result_type, int64_t>);
 
-	constexpr auto to_fraction = [](const std::tuple<std::string_view, std::vector<std::string_view>>& tuple) -> int64_t
-	{
-		return vector_to_integer(std::get<1>(tuple));
-	};
-	
-	constexpr auto fraction = (point >> +digit) % fn<to_fraction>;
-
-	constexpr auto to_exponent = [](const std::tuple<std::string_view, std::optional<std::string_view>, std::vector<std::string_view>>& tuple) -> int64_t
-	{
-		int64_t value = vector_to_integer(std::get<2>(tuple));
-
-		auto& opt = std::get<1>(tuple);
-		if (opt.has_value())
-		{
-			if (*opt == "+")
-				return value;
-			else // *opt == "-"
-				return -value;
-		}
-		else
-			return value;
-	};
-
-	constexpr auto exponent = (Ee >> ~signs >> +digit) % fn<to_exponent>;
+	constexpr auto exponent = (ignore(Ee) >> ~signs >> any_digits) % fn<give_sign>;
+	static_assert(std::same_as<decltype(exponent)::result_type, int64_t>);
 
 	constexpr auto to_number = [](const std::tuple<int64_t, std::optional<int64_t>, std::optional<int64_t>>& tuple) -> number_t
 	{
@@ -135,24 +118,16 @@ static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 inline namespace whitespace_impl
 {
 
-	constexpr IsOneChar auto whitespacechar = OneChar<"\t\n\r ">{};
-
-	constexpr auto flatten_whitespace = [](const std::vector<std::string_view>& vec) -> std::string_view
-	{
-		if (vec.empty())
-			return "";
-		else
-		{
-			const char* begin = &vec.front().front();
-			const char* last = &vec.back().back();
-			return { begin, last + 1 };
-		}
-	};
+	template <class T>
+	constexpr auto empty_value = [](auto&&) -> T { return {}; };
 
 }
 
-constexpr auto whitespace = *whitespacechar % fn<flatten_whitespace>;
+constexpr auto whitespace = *OneChar<"\t\n\r ">{} % flatten;
 static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
+
+template <class T>
+constexpr auto whitespace_as = *OneChar<"\t\n\r ">{} % fn<empty_value<T>>;
 
 
 
@@ -222,12 +197,12 @@ consteval auto JsonObjectParser::get_parser()
 {
 	using pair_t = std::pair<std::string_view, value_t>;
 
-	constexpr auto get_pair = [](const std::tuple<std::string_view, std::string_view, std::string_view, std::string_view, value_t>& tuple) -> pair_t
+	constexpr auto get_pair = [](const std::tuple<std::string_view, value_t>& tuple) -> pair_t
 	{
-		return { std::get<1>(std::move(tuple)), std::get<4>(std::move(tuple)) };
+		return { std::get<0>(std::move(tuple)), std::get<1>(std::move(tuple)) };
 	};
 
-	constexpr auto pair = (whitespace >> string >> whitespace >> colon >> JsonValueParser{}) % fn<get_pair>;
+	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ignore(colon) >> JsonValueParser{}) % fn<get_pair>;
 
 	constexpr auto get_object = [](const std::vector<pair_t>& vec) -> object_t
 	{
@@ -241,13 +216,7 @@ consteval auto JsonObjectParser::get_parser()
 
 	constexpr auto object = delimit(pair, comma) % fn<get_object>;
 
-	constexpr auto get_object_whitespace = [](std::string_view str) -> object_t
-	{
-		return {};
-	};
-	constexpr auto object_whitespace = whitespace % fn<get_object_whitespace>;
-
-	constexpr auto the_parser = ignore(left_brace) >> (object | object_whitespace) >> ignore(right_brace);
+	constexpr auto the_parser = ignore(left_brace) >> (object | whitespace_as<object_t>) >> ignore(right_brace);
 
 	return the_parser;
 }
@@ -269,13 +238,7 @@ consteval auto JsonArrayParser::get_parser()
 
 	constexpr auto values = delimit(JsonValueParser{}, comma) % fn<get_array>;
 
-	constexpr auto get_array_whitespace = [](std::string_view str) -> array_t
-	{
-		return {};
-	};
-	constexpr auto array_whitespace = whitespace % fn<get_array_whitespace>;
-
-	constexpr auto the_parser = ignore(left_bracket) >> (values | array_whitespace) >> ignore(right_bracket);
+	constexpr auto the_parser = ignore(left_bracket) >> (values | whitespace_as<array_t>) >> ignore(right_bracket);
 
 	return the_parser;
 }
