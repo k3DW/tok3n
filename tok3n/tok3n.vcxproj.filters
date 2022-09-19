@@ -84,6 +84,12 @@
     <ClInclude Include="examples\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="parsers\Ignore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="parsers\Flatten.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -161,6 +161,8 @@
     <ClInclude Include="operators\ZeroOrMoreOp.h" />
     <ClInclude Include="operators\ZeroOrOneOp.h" />
     <ClInclude Include="parsers\Choice.h" />
+    <ClInclude Include="parsers\Flatten.h" />
+    <ClInclude Include="parsers\Ignore.h" />
     <ClInclude Include="parsers\Transform.h" />
     <ClInclude Include="parsers\Literal.h" />
     <ClInclude Include="parsers\Result.h" />

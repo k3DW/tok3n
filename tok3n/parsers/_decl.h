@@ -19,6 +19,8 @@ enum class ParserType
 	ZeroOrMore,
 	ZeroOrOne,
 	Transform,
+	Flatten,
+	Ignore,
 };
 
 template <class P> constexpr ParserType parser_type_v          = ParserType::None;
@@ -35,6 +37,8 @@ template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrM
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
 template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOrOne;
 template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transform;
+template <class P> concept IsFlatten    = parser_type_v<P> == ParserType::Flatten;
+template <class P> concept IsIgnore     = parser_type_v<P> == ParserType::Ignore;
 
 using Input = std::string_view;
 
@@ -54,6 +58,7 @@ concept Parser =
 	requires (Input input)
 	{
 		{ P::parse(input) } -> IsResult<typename P::result_type>;
+		{ P::lookahead(input) } -> IsResult<void>;
 	};
 
 
@@ -145,8 +150,20 @@ template <class... Ts> constexpr bool flattenable_v<std::tuple<Ts...>> = (... &&
 
 template <class T> concept Flattenable = flattenable_v<T>;
 
-class Flatten;
+template <Parser P>
+requires Flattenable<typename P::result_type>
+struct Flatten;
+
+template <Parser P>
+constexpr ParserType parser_type_v<Flatten<P>> = ParserType::Flatten;
 
 constexpr struct flatten_t {} flatten;
+
+
+template <Parser P>
+struct Ignore;
+
+template <Parser P>
+constexpr ParserType parser_type_v<Ignore<P>> = ParserType::Ignore;
 
 }

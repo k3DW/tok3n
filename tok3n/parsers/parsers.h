@@ -14,3 +14,5 @@
 #include "parsers/ZeroOrOne.h"
 
 #include "parsers/Transform.h"
+#include "parsers/Flatten.h"
+#include "parsers/Ignore.h"

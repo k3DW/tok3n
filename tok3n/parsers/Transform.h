@@ -19,6 +19,11 @@ struct Transform
 		else
 			return { failure, input };
 	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		return P::lookahead(input);
+	}
 };
 
 }
