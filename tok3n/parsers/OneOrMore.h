@@ -34,6 +34,24 @@ struct OneOrMore
 		else
 			return { failure, original_input };
 	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		Result<void> result;
+		bool successful = false;
+		
+		do
+		{
+			result = P::lookahead(input);
+			successful = successful || result.has_value();
+			input = result.remaining();
+		} while (result);
+
+		if (successful)
+			return { success, input };
+		else
+			return { failure, input };
+	}
 };
 
 }

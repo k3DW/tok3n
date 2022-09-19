@@ -31,6 +31,19 @@ struct ZeroOrMore
 
 		return { success, std::move(results), input };
 	}
+	
+	static constexpr Result<void> lookahead(Input input)
+	{
+		Result<void> result;
+
+		do
+		{
+			result = P::lookahead(input);
+			input = result.remaining();
+		} while (result);
+
+		return { success, input };
+	}
 };
 
 }

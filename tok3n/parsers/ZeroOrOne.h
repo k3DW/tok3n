@@ -18,6 +18,15 @@ struct ZeroOrOne
 		else
 			return { success, result_type{ std::nullopt }, input };
 	}
+
+	static constexpr Result<void> lookahead(Input input)
+	{
+		auto result = P::lookahead(input);
+		if (result)
+			return { success, result.remaining() };
+		else
+			return { success, input };
+	}
 };
 
 }
