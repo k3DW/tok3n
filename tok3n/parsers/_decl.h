@@ -22,6 +22,7 @@ enum class ParserType
 	Flatten,
 	Ignore,
 	Delimit,
+	Custom,
 };
 
 template <class P> constexpr ParserType parser_type_v          = ParserType::None;
@@ -41,6 +42,13 @@ template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transf
 template <class P> concept IsFlatten    = parser_type_v<P> == ParserType::Flatten;
 template <class P> concept IsIgnore     = parser_type_v<P> == ParserType::Ignore;
 template <class P> concept IsDelimit    = parser_type_v<P> == ParserType::Delimit;
+
+struct Custom {};
+template <class P> concept IsCustom     = std::derived_from<P, Custom>;
+
+template <IsCustom P>
+constexpr ParserType parser_type_v<P> = ParserType::Custom;
+
 
 using Input = std::string_view;
 

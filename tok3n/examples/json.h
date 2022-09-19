@@ -164,20 +164,6 @@ struct JsonValueParser;
 
 
 
-namespace k3::parser
-{
-
-	template <>
-	constexpr ParserType parser_type_v<k3::examples::json_parser::JsonObjectParser> = ParserType{ 100 };
-	template <>
-	constexpr ParserType parser_type_v<k3::examples::json_parser::JsonArrayParser> = ParserType{ 100 };
-	template <>
-	constexpr ParserType parser_type_v<k3::examples::json_parser::JsonValueParser> = ParserType{ 100 };
-
-}
-
-
-
 namespace k3::examples::json_parser
 {
 
@@ -204,7 +190,7 @@ struct value_t
 
 
 
-struct JsonObjectParser
+struct JsonObjectParser : Custom
 {
 	using result_type = object_t;
 
@@ -213,7 +199,7 @@ struct JsonObjectParser
 
 	static consteval auto get_parser();
 };
-struct JsonArrayParser
+struct JsonArrayParser : Custom
 {
 	using result_type = array_t;
 
@@ -222,7 +208,7 @@ struct JsonArrayParser
 
 	static consteval auto get_parser();
 };
-struct JsonValueParser
+struct JsonValueParser : Custom
 {
 	using result_type = value_t;
 
