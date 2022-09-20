@@ -131,21 +131,6 @@ constexpr auto whitespace_as = *OneChar<"\t\n\r ">{} % fn<empty_value<T>>;
 
 
 
-struct JsonObjectParser;
-struct JsonArrayParser;
-struct JsonValueParser;
-
-}
-
-
-
-namespace k3::examples::json_parser
-{
-
-using namespace k3::parser;
-
-
-
 struct object_t;
 struct array_t;
 struct value_t;
@@ -165,31 +150,19 @@ struct value_t
 
 
 
-struct JsonObjectParser : CustomBase
+struct JsonObjectParser : Custom<JsonObjectParser>
 {
 	using result_type = object_t;
-
-	static constexpr Result<result_type> parse(Input input);
-	static constexpr Result<void> lookahead(Input input);
-
 	static consteval auto get_parser();
 };
-struct JsonArrayParser : CustomBase
+struct JsonArrayParser : Custom<JsonArrayParser>
 {
 	using result_type = array_t;
-
-	static constexpr Result<result_type> parse(Input input);
-	static constexpr Result<void> lookahead(Input input);
-
 	static consteval auto get_parser();
 };
-struct JsonValueParser : CustomBase
+struct JsonValueParser : Custom<JsonValueParser>
 {
 	using result_type = value_t;
-
-	static constexpr Result<result_type> parse(Input input);
-	static constexpr Result<void> lookahead(Input input);
-
 	static consteval auto get_parser();
 };
 
@@ -221,9 +194,6 @@ consteval auto JsonObjectParser::get_parser()
 	return the_parser;
 }
 
-constexpr Result<object_t> JsonObjectParser::parse(Input input) { return decltype(get_parser())::parse(input); }
-constexpr Result<void> JsonObjectParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
-
 consteval auto JsonArrayParser::get_parser()
 {
 	constexpr auto get_array = [](const std::vector<value_t>& vec) -> array_t
@@ -242,9 +212,6 @@ consteval auto JsonArrayParser::get_parser()
 
 	return the_parser;
 }
-
-constexpr Result<array_t> JsonArrayParser::parse(Input input)  { return decltype(get_parser())::parse(input); }
-constexpr Result<void> JsonArrayParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
 
 consteval auto JsonValueParser::get_parser()
 {
@@ -292,7 +259,5 @@ consteval auto JsonValueParser::get_parser()
 	return the_parser;
 }
 
-constexpr Result<value_t> JsonValueParser::parse(Input input)  { return decltype(get_parser())::parse(input); }
-constexpr Result<void> JsonValueParser::lookahead(Input input) { return decltype(get_parser())::lookahead(input); }
 
 }

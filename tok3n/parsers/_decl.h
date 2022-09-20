@@ -180,6 +180,22 @@ constexpr ParserType parser_type_v<Delimit<P, Delimiter>> = ParserType::Delimit;
 
 struct CustomBase {};
 
+template <class CRTP>
+struct Custom : CustomBase
+{
+	template <std::same_as<CRTP> P = CRTP>
+	static constexpr Result<typename P::result_type> parse(Input input)
+	{
+		return decltype(P::get_parser())::parse(input);
+	}
+
+	template <std::same_as<CRTP> P = CRTP>
+	static constexpr Result<void> lookahead(Input input)
+	{
+		return decltype(P::get_parser())::lookahead(input);
+	}
+};
+
 template <std::derived_from<CustomBase> P>
 constexpr ParserType parser_type_v<P> = ParserType::Custom;
 
