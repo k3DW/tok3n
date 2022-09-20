@@ -23,10 +23,10 @@ struct ChoiceExec
 };
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2) && all_same_type<typename Ps::result_type...>
+requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>
 struct Choice
 {
-	using result_type = typename first_type<Ps...>::result_type;
+	using result_type = typename mp::head<Ps...>::result_type;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

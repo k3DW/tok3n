@@ -1,5 +1,5 @@
 #pragma once
-#include "util/pack_manip.h"
+#include "util/meta.h"
 #include "util/static_string.h"
 #include <vector>
 #include <optional>
@@ -91,7 +91,7 @@ constexpr ParserType parser_type_v<Literal<str>> = ParserType::Literal;
 
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2) && all_same_type<typename Ps::result_type...>
+requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>
 struct Choice;
 
 template <Parser... Ps>

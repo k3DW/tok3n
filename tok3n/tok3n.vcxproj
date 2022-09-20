@@ -175,7 +175,7 @@
     <ClInclude Include="parsers\ZeroOrOne.h" />
     <ClInclude Include="parsers\_decl.h" />
     <ClInclude Include="parsers\parsers.h" />
-    <ClInclude Include="util\pack_manip.h" />
+    <ClInclude Include="util\meta.h" />
     <ClInclude Include="util\static_string.h" />
   </ItemGroup>
   <ItemGroup>

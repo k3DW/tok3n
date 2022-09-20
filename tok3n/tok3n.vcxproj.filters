@@ -72,7 +72,7 @@
     <ClInclude Include="operators\NotOp.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="util\pack_manip.h">
+    <ClInclude Include="util\meta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="parsers\Transform.h">

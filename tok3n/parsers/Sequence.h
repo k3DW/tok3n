@@ -38,14 +38,12 @@ struct SequenceExec
 	}
 };
 
-template <class T> struct is_not_void : std::bool_constant<true> {};
-template <> struct is_not_void<void>  : std::bool_constant<false> {};
-
 template <Parser... Ps>
 requires (sizeof...(Ps) >= 2)
 struct Sequence
 {
-	using result_trait = flatten_if_single<filter_type<std::tuple, is_not_void, typename Ps::result_type...>>;
+	using filtered = mp::filter<mp::is_not_type<void>, typename Ps::result_type...>;
+	using result_trait = mp::flatten_if_single<mp::retarget<filtered, std::tuple>>;
 
 	using result_type = result_trait::type;
 	static constexpr bool flattened = result_trait::value;
@@ -58,7 +56,7 @@ struct Sequence
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
 			return (... && executor.execute<Ps, Is>());
-		}(filtered_index_sequence_type<is_not_void, typename Ps::result_type...>{});
+		}(mp::filtered_sequence<mp::is_not_type<void>, typename Ps::result_type...>{});
 
 		if (successful)
 			return { success, std::move(executor.full_result), executor.input };
