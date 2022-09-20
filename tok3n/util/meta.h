@@ -19,9 +19,9 @@ namespace detail
 
 	template <class List>
 	struct head_impl {};
-
-	template <class T, class... Ts>
-	struct head_impl<type_list<T, Ts...>> { using type = T; };
+	
+	template <template <class...> class Template, class T, class... Ts>
+	struct head_impl<Template<T, Ts...>> { using type = T; };
 
 }
 
@@ -34,18 +34,15 @@ namespace detail
 {
 
 	template <class List>
-	struct all_same_impl {};
-	
-	template <class T, class... Ts>
-	struct all_same_impl<type_list<T, Ts...>>
-	{
-		static constexpr bool value = (... && std::same_as<T, Ts>);
-	};
+	constexpr bool all_same_impl = false;
+
+	template <template <class...> class Template, class T, class... Ts>
+	constexpr bool all_same_impl<Template<T, Ts...>> = (... && std::same_as<T, Ts>);
 
 }
 
 template <class... Ts>
-concept all_same = detail::all_same_impl<type_list<Ts...>>::value;
+concept all_same = detail::all_same_impl<type_list<Ts...>>;
 
 
 
