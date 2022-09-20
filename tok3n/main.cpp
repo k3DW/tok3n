@@ -97,8 +97,6 @@ int main()
 	auto dkfjsdkf = test | test2;
 	static_assert(std::same_as<OneChar<"abc">, decltype(dkfjsdkf)>);
 
-	OneChar<'d'> test3;
-
 	constexpr Choice<OneChar<'a'>, OneChar<'b'>> c1;
 	constexpr Choice<OneChar<'c'>, OneChar<'d'>> c2;
 
@@ -277,8 +275,8 @@ int main()
 
 	if (json_result)
 	{
-		volatile auto& val = json_result.value();
-		x++;
+		auto& val = json_result.value();
+		x += val.data.empty() ? 0 : 1;
 	}
 	else
 		std::cout << "Json parse error!!!\n";
