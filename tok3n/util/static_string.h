@@ -89,37 +89,4 @@ constexpr static_string every_char = []() consteval -> static_string<128>
 	return str;
 }();
 
-template <static_string str>
-constexpr auto every_char_except = []()
-{
-	static_string<128 - str.size()> output;
-	auto it = output.data.begin();
-
-	std::string_view sv = { str.begin(), str.end() };
-	for (int c = 0; c < 128; c++)
-	{
-		if (not sv.contains(c))
-			*it++ = c;
-	}
-
-	return output;
-}();
-
-template <std::size_t N>
-requires (N > 0 && N < 128)
-constexpr static_string<128 - N> inverse_string(const static_string<N>& str)
-{
-	static_string<128 - N> output;
-	auto it = output.data.begin();
-
-	std::string_view sv = { str.begin(), str.end() };
-	for (int c = 0; c < 128; c++)
-	{
-		if (not sv.contains(c))
-			*it++ = c;
-	}
-
-	return output;
-}
-
 }
