@@ -155,6 +155,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="basic_parsers\combine_basic_parsers.cpp" />
     <ClCompile Include="basic_parsers\Literal.cpp" />
     <ClCompile Include="basic_parsers\NotChar.cpp" />
     <ClCompile Include="basic_parsers\OneChar.cpp" />

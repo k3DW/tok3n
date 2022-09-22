@@ -1,7 +1,7 @@
 #include "parsers/NotChar.h"
 #include "utility.h"
 
-namespace NotCharTests
+namespace tests::basic::NotChar
 {
 
 	using k3::parser::NotChar;

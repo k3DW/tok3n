@@ -1,7 +1,7 @@
 #include "parsers/OneChar.h"
 #include "utility.h"
 
-namespace OneCharTests
+namespace tests::basic::OneChar
 {
 
 	using k3::parser::OneChar;

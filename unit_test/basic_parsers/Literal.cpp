@@ -1,7 +1,7 @@
 #include "parsers/Literal.h"
 #include "utility.h"
 
-namespace LiteralTests
+namespace tests::basic::Literal
 {
 
 	using k3::parser::Literal;
