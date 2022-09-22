@@ -40,7 +40,29 @@ namespace detail::choice
 		if constexpr (lhs == rhs)
 			return NotChar<lhs>{};
 		else
-			return OneChar<every_char>{};
+		{
+			constexpr std::size_t count = []() consteval -> std::size_t
+			{
+				std::string str;
+				std::ranges::set_intersection(rhs, lhs, std::back_inserter(str));
+				return str.size();
+			}();
+			
+			if constexpr (count == 0)
+				return OneChar<every_char>{};
+
+			else
+			{
+				constexpr static_string<count> get_merged = []() consteval -> static_string<count>
+				{
+					static_string<count> str;
+					std::ranges::set_intersection(rhs, lhs, str.begin());
+					return str;
+				}();
+
+				return NotChar<get_merged>{};
+			}
+		}
 	}
 
 	template <static_string lhs, static_string rhs>
@@ -105,10 +127,10 @@ constexpr auto operator|(P1, P2)
 	if constexpr (std::same_as<std::remove_cvref_t<P1>, std::remove_cvref_t<P2>>) // (P | P) == P
 		return P1{};
 
-	else if constexpr (IsOneChar<P1> && IsOneChar<P2>) // "ab" | "bc" == "abc"
+	else if constexpr (IsOneChar<P1> && IsOneChar<P2>) // "ab" | "bc" == "abc"    <- set_union
 		return onechar_onechar(P1{}, P2{});
 
-	else if constexpr (IsNotChar<P1> && IsNotChar<P2>) // !"a" | !"b" == any_char
+	else if constexpr (IsNotChar<P1> && IsNotChar<P2>) // !"ab" | !"bc" == "b"    <- set_intersection
 		return notchar_notchar(P1{}, P2{});
 	else if constexpr (IsOneChar<P1> && IsNotChar<P2>)
 		return onechar_notchar(P1{}, P2{});

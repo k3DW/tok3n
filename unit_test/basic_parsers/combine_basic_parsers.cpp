@@ -32,4 +32,20 @@ namespace tests::basic::combine
 		static_assert(same<OneChar<"abcxyz">>(oc1 | oc3));
 		static_assert(same<OneChar<"bcdxyz">>(oc2 | oc3));
 	}
+
+	consteval void choice_notchar()
+	{
+		constexpr NC1 nc1;
+		constexpr NC2 nc2;
+		constexpr NC3 nc3;
+
+		static_assert(same(nc1 | nc2, nc2 | nc1));
+		static_assert(same(nc1 | nc3, nc3 | nc1));
+		static_assert(same(nc2 | nc3, nc3 | nc2));
+
+		static_assert(same<NotChar<"bc">>(nc1 | nc2));
+		static_assert(same<OneChar<k3::every_char>>(nc1 | nc3));
+		static_assert(same<OneChar<k3::every_char>>(nc2 | nc3));
+	}
+
 }
