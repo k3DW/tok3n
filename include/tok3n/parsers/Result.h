@@ -13,17 +13,17 @@ class Result
 public:
 	constexpr Result() = default;
 
-	constexpr Result(failure_t, std::string_view remaining)
+	constexpr Result(failure_t, Input remaining)
 		: mResult(), mRemaining(remaining) {}
 
-	constexpr Result(success_t, const T& t, std::string_view remaining)
+	constexpr Result(success_t, const T& t, Input remaining)
 		: mResult(t), mRemaining(remaining) {}
 
-	constexpr Result(success_t, T&& t, std::string_view remaining)
+	constexpr Result(success_t, T&& t, Input remaining)
 		: mResult(std::move(t)), mRemaining(remaining) {}
 
 	template <std::convertible_to<T> U>
-	constexpr Result(success_t, U&& u, std::string_view remaining)
+	constexpr Result(success_t, U&& u, Input remaining)
 		: mResult(std::forward<U>(u)), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
@@ -32,11 +32,11 @@ public:
 	constexpr const T& value() const&     { return mResult.value(); }
 	constexpr const T& operator*() const& { return *mResult; }
 
-	constexpr std::string_view remaining() const noexcept { return mRemaining; }
+	constexpr Input remaining() const noexcept { return mRemaining; }
 
 private:
 	std::optional<T> mResult;
-	std::string_view mRemaining;
+	Input mRemaining;
 };
 
 template <>
@@ -45,20 +45,20 @@ class Result<void>
 public:
 	constexpr Result() = default;
 
-	constexpr Result(failure_t, std::string_view remaining)
+	constexpr Result(failure_t, Input remaining)
 		: mSuccessful(false), mRemaining(remaining) {}
 
-	constexpr Result(success_t, std::string_view remaining)
+	constexpr Result(success_t, Input remaining)
 		: mSuccessful(true), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mSuccessful; }
 	constexpr bool has_value() const noexcept         { return mSuccessful; }
 
-	constexpr std::string_view remaining() const noexcept { return mRemaining; }
+	constexpr Input remaining() const noexcept { return mRemaining; }
 
 private:
 	bool mSuccessful;
-	std::string_view mRemaining;
+	Input mRemaining;
 };
 
 END_NAMESPACE_TOK3N()

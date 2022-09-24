@@ -8,7 +8,7 @@ template <static_string str>
 requires (str.ascii()) && (str.size() != 0)
 struct Literal
 {
-	using result_type = std::string_view;
+	using result_type = Input;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

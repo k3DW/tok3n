@@ -147,7 +147,7 @@ template <class T> constexpr bool flattenable_v<const T> = flattenable_v<T>;
 template <class T> constexpr bool flattenable_v<T&>      = flattenable_v<T>;
 template <class T> constexpr bool flattenable_v<T&&>     = flattenable_v<T>;
 
-template <> constexpr bool flattenable_v<std::string_view> = true;
+template <> constexpr bool flattenable_v<Input> = true;
 template <class T> constexpr bool flattenable_v<std::vector<T>> = flattenable_v<T>;
 template <class T> constexpr bool flattenable_v<std::optional<T>> = flattenable_v<T>;
 template <class... Ts> constexpr bool flattenable_v<std::tuple<Ts...>> = (... && flattenable_v<Ts>);

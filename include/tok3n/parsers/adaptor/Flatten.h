@@ -8,7 +8,7 @@ template <Parser P>
 requires Flattenable<typename P::result_type>
 struct Flatten
 {
-	using result_type = std::string_view;
+	using result_type = Input;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
@@ -25,22 +25,21 @@ struct Flatten
 	}
 
 private:
-	using sv = std::string_view;
-	using opt_sv = std::optional<sv>;
+	using Opt = std::optional<Input>;
 
-	static constexpr opt_sv execute(sv str)
+	static constexpr Opt execute(Input input)
 	{
-		return str;
+		return input;
 	}
 
 	template <class T>
-	static constexpr opt_sv execute(const std::vector<T>& vec)
+	static constexpr Opt execute(const std::vector<T>& vec)
 	{
 		if (vec.empty())
 			return std::nullopt;
 		else
 		{
-			opt_sv begin, last;
+			Opt begin, last;
 
 			for (const T& t : vec)
 			{
@@ -59,12 +58,12 @@ private:
 					break;
 			}
 
-			return sv{ &begin->front(), &last->back() + 1 };
+			return Input{ &begin->front(), &last->back() + 1 };
 		}
 	}
 
 	template <class T>
-	static constexpr opt_sv execute(const std::optional<T>& opt)
+	static constexpr Opt execute(const std::optional<T>& opt)
 	{
 		if (not opt.has_value())
 			return std::nullopt;
@@ -73,40 +72,40 @@ private:
 	}
 
 	template <class T>
-	static constexpr bool execute_tuple_helper(const T& t, opt_sv& out_param)
+	static constexpr bool execute_tuple_helper(const T& t, Opt& out_param)
 	{
 		out_param = execute(t);
 		return out_param.has_value();
 	};
 
 	template <class... Ts, std::size_t... Is>
-	static constexpr opt_sv tuple_begin(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
+	static constexpr Opt tuple_begin(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
 	{
-		opt_sv out;
+		Opt out;
 		(... && execute_tuple_helper(std::get<Is>(tuple), out));
 		return out;
 	}
 
 	template <class... Ts, std::size_t... Is>
-	static constexpr opt_sv tuple_last(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
+	static constexpr Opt tuple_last(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
 	{
-		opt_sv out;
+		Opt out;
 		(... && execute_tuple_helper(std::get<sizeof...(Ts) - Is - 1>(tuple), out));
 		return out;
 	}
 
 	template <class... Ts>
 	requires (sizeof...(Ts) != 0)
-	static constexpr opt_sv execute(const std::tuple<Ts...>& tuple)
+	static constexpr Opt execute(const std::tuple<Ts...>& tuple)
 	{
-		opt_sv begin = tuple_begin(tuple, std::index_sequence_for<Ts...>{});
+		Opt begin = tuple_begin(tuple, std::index_sequence_for<Ts...>{});
 		if (!begin)
 			return std::nullopt;
 
 		// If begin has a value, then this last will be guaranteed to have a value
-		opt_sv last = tuple_last(tuple, std::index_sequence_for<Ts...>{});
+		Opt last = tuple_last(tuple, std::index_sequence_for<Ts...>{});
 
-		return sv{ &begin->front(), &last->back() + 1 };
+		return Input{ &begin->front(), &last->back() + 1 };
 	}
 };
 
