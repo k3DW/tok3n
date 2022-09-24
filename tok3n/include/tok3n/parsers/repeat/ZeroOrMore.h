@@ -1,7 +1,6 @@
 #pragma once
-#include "parsers/_decl.h"
-#include "parsers/Result.h"
-#include <vector>
+#include "tok3n/parsers/Declarations.h"
+#include "tok3n/parsers/Result.h"
 
 namespace k3::tok3n
 {

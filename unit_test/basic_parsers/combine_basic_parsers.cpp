@@ -3,13 +3,6 @@
 namespace k3::tok3n::tests::basic::combine
 {
 
-	using k3::tok3n::OneChar;
-	using k3::tok3n::NotChar;
-	using k3::tok3n::Literal;
-	using k3::every_char;
-
-
-
 	constexpr OneChar<"abc"> oc1;
 	constexpr OneChar<"bcd"> oc2;
 	constexpr OneChar<"xyz"> oc3;

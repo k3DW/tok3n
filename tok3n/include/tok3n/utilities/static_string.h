@@ -5,7 +5,9 @@
 #include <ranges>
 #include <string_view>
 
-namespace k3
+// Ideas mostly taken from CTRE
+
+namespace k3::tok3n
 {
 
 template <std::size_t N>

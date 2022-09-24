@@ -1,6 +1,5 @@
 #pragma once
-#include "parsers/parsers.h"
-#include "operators/operators.h"
+#include "tok3n/tok3n.h"
 #include <map>
 #include <variant>
 

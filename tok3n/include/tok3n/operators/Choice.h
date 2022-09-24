@@ -1,5 +1,5 @@
 #pragma once
-#include "parsers/_decl.h"
+#include "tok3n/parsers/Declarations.h"
 
 namespace k3::tok3n
 {

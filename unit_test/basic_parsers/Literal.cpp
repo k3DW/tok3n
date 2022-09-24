@@ -37,7 +37,7 @@ namespace k3::tok3n::tests::basic::Literal
 
 	struct constructible
 	{
-		template <k3::static_string str> static constexpr bool from = requires { typename Literal<str>; };
+		template <static_string str> static constexpr bool from = requires { typename Literal<str>; };
 	};
 
 	void constructible_from_ascii_only()

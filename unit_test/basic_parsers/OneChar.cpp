@@ -75,7 +75,7 @@ namespace k3::tok3n::tests::basic::OneChar
 		template <class T>           static constexpr bool from_any = false;
 		template <std::size_t... Is> static constexpr bool from_any<std::index_sequence<Is...>> = (... || requires { typename OneChar<(char)Is>; });
 
-		template <k3::static_string str> static constexpr bool from_string = requires { typename OneChar<str>; };
+		template <static_string str> static constexpr bool from_string = requires { typename OneChar<str>; };
 	};
 
 	void constructible_from_ascii_only()

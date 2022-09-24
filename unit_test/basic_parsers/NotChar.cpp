@@ -76,7 +76,7 @@ namespace k3::tok3n::tests::basic::NotChar
 		template <class T>           static constexpr bool from_any = false;
 		template <std::size_t... Is> static constexpr bool from_any<std::index_sequence<Is...>> = (... || requires { typename NotChar<(char)Is>; });
 
-		template <k3::static_string str> static constexpr bool from_string = requires { typename NotChar<str>; };
+		template <static_string str> static constexpr bool from_string = requires { typename NotChar<str>; };
 	};
 
 	void constructible_from_ascii_only()

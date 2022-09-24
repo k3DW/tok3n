@@ -1,20 +1,19 @@
 #pragma once
-#include "util/static_string.h"
-#include "parsers/_decl.h"
-#include "parsers/Result.h"
+#include "tok3n/parsers/Declarations.h"
+#include "tok3n/parsers/Result.h"
 
 namespace k3::tok3n
 {
 
 template <static_string str>
 requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)
-struct NotChar
+struct OneChar
 {
 	using result_type = std::string_view;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		if (input.empty() || str.contains(input.front()))
+		if (input.empty() || not str.contains(input.front()))
 			return { failure, input };
 		else
 		{
@@ -25,7 +24,7 @@ struct NotChar
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		if (input.empty() || str.contains(input.front()))
+		if (input.empty() || not str.contains(input.front()))
 			return { failure, input };
 		else
 		{

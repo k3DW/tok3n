@@ -93,7 +93,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -110,7 +110,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -127,7 +127,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -144,7 +144,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
     </ClCompile>
     <Link>
@@ -156,31 +156,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="examples\json.h" />
-    <ClInclude Include="operators\ChoiceOp.h" />
-    <ClInclude Include="operators\NotOp.h" />
-    <ClInclude Include="operators\OneOrMoreOp.h" />
-    <ClInclude Include="operators\operators.h" />
-    <ClInclude Include="operators\SequenceOp.h" />
-    <ClInclude Include="operators\ModifyOp.h" />
-    <ClInclude Include="operators\ZeroOrMoreOp.h" />
-    <ClInclude Include="operators\ZeroOrOneOp.h" />
-    <ClInclude Include="parsers\Choice.h" />
-    <ClInclude Include="parsers\Delimit.h" />
-    <ClInclude Include="parsers\Flatten.h" />
-    <ClInclude Include="parsers\Ignore.h" />
-    <ClInclude Include="parsers\Transform.h" />
-    <ClInclude Include="parsers\Literal.h" />
-    <ClInclude Include="parsers\Result.h" />
-    <ClInclude Include="parsers\NotChar.h" />
-    <ClInclude Include="parsers\OneChar.h" />
-    <ClInclude Include="parsers\OneOrMore.h" />
-    <ClInclude Include="parsers\Sequence.h" />
-    <ClInclude Include="parsers\ZeroOrMore.h" />
-    <ClInclude Include="parsers\ZeroOrOne.h" />
-    <ClInclude Include="parsers\_decl.h" />
-    <ClInclude Include="parsers\parsers.h" />
-    <ClInclude Include="util\meta.h" />
-    <ClInclude Include="util\static_string.h" />
+    <ClInclude Include="include\tok3n\operators\Choice.h" />
+    <ClInclude Include="include\tok3n\operators\Not.h" />
+    <ClInclude Include="include\tok3n\operators\OneOrMore.h" />
+    <ClInclude Include="include\tok3n\operators\Sequence.h" />
+    <ClInclude Include="include\tok3n\operators\Adaptor.h" />
+    <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
+    <ClInclude Include="include\tok3n\operators\ZeroOrOne.h" />
+    <ClInclude Include="include\tok3n\parsers\compound\Choice.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Flatten.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h" />
+    <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
+    <ClInclude Include="include\tok3n\parsers\Result.h" />
+    <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
+    <ClInclude Include="include\tok3n\parsers\basic\OneChar.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
+    <ClInclude Include="include\tok3n\parsers\compound\Sequence.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrOne.h" />
+    <ClInclude Include="include\tok3n\parsers\Declarations.h" />
+    <ClInclude Include="include\tok3n\tok3n.h" />
+    <ClInclude Include="include\tok3n\utilities\meta.h" />
+    <ClInclude Include="include\tok3n\utilities\static_string.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

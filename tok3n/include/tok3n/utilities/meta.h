@@ -4,10 +4,8 @@
 
 // Ideas mostly taken from Boost.Mp11
 
-namespace k3::mp
+namespace k3::tok3n::mp
 {
-
-
 
 template <class... Ts>
 struct type_list {};
@@ -166,7 +164,5 @@ namespace detail
 
 template <type_predicate Pred, class... Ts>
 using filtered_sequence = typename detail::filtered_sequence_impl<Pred, 0, std::index_sequence<>, Ts...>::type;
-
-
 
 }
