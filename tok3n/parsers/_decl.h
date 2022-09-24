@@ -4,7 +4,7 @@
 #include <vector>
 #include <optional>
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 enum class ParserType

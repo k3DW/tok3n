@@ -3,7 +3,7 @@
 namespace k3::tok3n::tests::basic::OneChar
 {
 
-	using k3::parser::OneChar;
+	using k3::tok3n::OneChar;
 
 
 

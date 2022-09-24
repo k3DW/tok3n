@@ -12,7 +12,7 @@ void print(const std::vector<T>& vector);
 template <class T>
 void print(const std::optional<T>& opt);
 template <class T>
-void print(const k3::parser::Result<T>& result);
+void print(const k3::tok3n::Result<T>& result);
 
 void print(std::string_view str)
 {
@@ -43,7 +43,7 @@ void print(const std::optional<T>& opt)
 }
 
 template <class T>
-void print(const k3::parser::Result<T>& result)
+void print(const k3::tok3n::Result<T>& result)
 {
 	if constexpr (std::same_as<T, void>)
 	{
@@ -73,7 +73,7 @@ void print(const k3::parser::Result<T>& result)
 int main()
 {
 	using namespace k3;
-	using namespace k3::parser;
+	using namespace k3::tok3n;
 
 
 	using OCA = OneChar<'a'>;
@@ -263,7 +263,7 @@ int main()
 		}
 })";
 
-	using namespace k3::examples;
+	using namespace k3::tok3n::examples;
 
 	//auto result = json_parser::number.parse("-1234.5678e+9012");
 	auto result = json_parser::string.parse(R"("-1234.5678e+9012tdtrwehfg)");

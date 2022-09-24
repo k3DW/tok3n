@@ -4,10 +4,8 @@
 #include <map>
 #include <variant>
 
-namespace k3::examples::json_parser
+namespace k3::tok3n::examples::json_parser
 {
-
-using namespace k3::parser;
 
 
 

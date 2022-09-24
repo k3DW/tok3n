@@ -18,24 +18,24 @@ namespace k3::tok3n::tests
 
 
 	template <class T>
-	static constexpr bool is_parser = k3::parser::Parser<T>;
+	static constexpr bool is_parser = Parser<T>;
 
 	template <class T>
 	struct parser_type_of_t
 	{
-		static constexpr bool is_OneChar    = k3::parser::IsOneChar<T>;
-		static constexpr bool is_NotChar    = k3::parser::IsNotChar<T>;
-		static constexpr bool is_Literal    = k3::parser::IsLiteral<T>;
-		static constexpr bool is_Choice     = k3::parser::IsChoice<T>;
-		static constexpr bool is_Sequence   = k3::parser::IsSequence<T>;
-		static constexpr bool is_OneOrMore  = k3::parser::IsOneOrMore<T>;
-		static constexpr bool is_ZeroOrMore = k3::parser::IsZeroOrMore<T>;
-		static constexpr bool is_ZeroOrOne  = k3::parser::IsZeroOrOne<T>;
-		static constexpr bool is_Transform  = k3::parser::IsTransform<T>;
-		static constexpr bool is_Flatten    = k3::parser::IsFlatten<T>;
-		static constexpr bool is_Ignore     = k3::parser::IsIgnore<T>;
-		static constexpr bool is_Delimit    = k3::parser::IsDelimit<T>;
-		static constexpr bool is_Custom     = k3::parser::IsCustom<T>;
+		static constexpr bool is_OneChar    = IsOneChar<T>;
+		static constexpr bool is_NotChar    = IsNotChar<T>;
+		static constexpr bool is_Literal    = IsLiteral<T>;
+		static constexpr bool is_Choice     = IsChoice<T>;
+		static constexpr bool is_Sequence   = IsSequence<T>;
+		static constexpr bool is_OneOrMore  = IsOneOrMore<T>;
+		static constexpr bool is_ZeroOrMore = IsZeroOrMore<T>;
+		static constexpr bool is_ZeroOrOne  = IsZeroOrOne<T>;
+		static constexpr bool is_Transform  = IsTransform<T>;
+		static constexpr bool is_Flatten    = IsFlatten<T>;
+		static constexpr bool is_Ignore     = IsIgnore<T>;
+		static constexpr bool is_Delimit    = IsDelimit<T>;
+		static constexpr bool is_Custom     = IsCustom<T>;
 	};
 
 	template <class T>
@@ -55,9 +55,7 @@ namespace k3::tok3n::tests
 
 
 
-	using k3::parser::Input;
-	
-	template <k3::parser::Parser P>
+	template <Parser P>
 	struct parse_t
 	{
 		consteval parse_t(Input input) : input(input) {}
@@ -86,7 +84,7 @@ namespace k3::tok3n::tests
 		}
 	};
 
-	template <k3::parser::Parser P>
+	template <Parser P>
 	consteval parse_t<P> parse(Input input)
 	{
 		return input;
@@ -94,7 +92,7 @@ namespace k3::tok3n::tests
 
 
 
-	template <k3::parser::Parser P, k3::parser::Parser Q>
+	template <Parser P, Parser Q>
 	consteval bool operator==(P, Q)
 	{
 		return std::is_same_v<P, Q>;

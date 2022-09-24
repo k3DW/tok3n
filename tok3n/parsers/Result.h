@@ -2,7 +2,7 @@
 #include <string_view>
 #include <optional>
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 static constexpr struct failure_t final {} failure;

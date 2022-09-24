@@ -3,7 +3,7 @@
 #include "parsers/_decl.h"
 #include "parsers/Result.h"
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 template <static_string str>

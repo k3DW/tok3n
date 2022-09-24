@@ -3,7 +3,7 @@
 namespace k3::tok3n::tests::basic::Literal
 {
 
-	using k3::parser::Literal;
+	using k3::tok3n::Literal;
 
 
 

@@ -3,7 +3,7 @@
 namespace k3::tok3n::tests::basic::NotChar
 {
 
-	using k3::parser::NotChar;
+	using k3::tok3n::NotChar;
 
 
 

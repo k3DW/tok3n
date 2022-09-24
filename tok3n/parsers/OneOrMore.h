@@ -3,7 +3,7 @@
 #include "parsers/Result.h"
 #include <vector>
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 template <Parser P>

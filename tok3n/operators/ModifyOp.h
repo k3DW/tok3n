@@ -3,7 +3,7 @@
 #include <vector>
 #include <optional>
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 template <Parser P, auto function>

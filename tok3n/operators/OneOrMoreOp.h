@@ -1,7 +1,7 @@
 #pragma once
 #include "parsers/_decl.h"
 
-namespace k3::parser
+namespace k3::tok3n
 {
 
 // OneOrMore
