@@ -1,51 +1,56 @@
 #include "utility.h"
 
-namespace tests::basic::Literal
+namespace k3::tok3n::tests::basic::Literal
 {
 
 	using k3::parser::Literal;
 
-	template <k3::static_string str>
-	concept Constructible_From = requires { typename Literal<str>; };
 
-	consteval void basic_parsing()
+
+	using L = Literal<"literal">;
+	constexpr L l;
+
+	void requirements()
 	{
-		using P = Literal<"literal">;
-
-		static_assert(k3::parser::Parser<P>);
-		static_assert(k3::parser::IsLiteral<P>);
-		static_assert(is_result_of<P, std::string_view>);
-
-		constexpr P p;
-
-		constexpr auto r1 = P::parse("literally");
-		constexpr auto r2 = p.parse("literally");
-		static_assert(validate(success, r1, "literal", "ly"));
-		static_assert(validate(success, r2, "literal", "ly"));
-
-		constexpr auto r3 = P::parse("litera");
-		constexpr auto r4 = P::parse(" literal");
-		static_assert(validate(failure, r3, "litera"));
-		static_assert(validate(failure, r4, " literal"));
+		assert
+			, is_parser<L>
+			, parser_type_of<L>.is_Literal
+			, result_of<L>.is<std::string_view>
+			, L::parse == l.parse
+			, L::lookahead == l.lookahead
+			;
 	}
 
-	consteval void constructibility()
+	void parse_single()
 	{
-		static_assert(Constructible_From<"literal">);
-		static_assert(not Constructible_From<"lïterål">);
-		static_assert(not Constructible_From<"">);
+		assert
+			, parse<L>("literal").success("literal", "")
+			, parse<L>("literally").success("literal", "ly")
+			, parse<L>("litera").failure("litera")
+			, parse<L>(" literal").failure(" literal")
+			, parse<L>("LITERAL").failure("LITERAL")
+			, parse<L>("LITERALLY").failure("LITERALLY")
+			;
 	}
 
-	consteval void lookahead()
-	{
-		using P = Literal<"literal">;
 
-		constexpr auto r1 = P::lookahead("literally");
-		static_assert(validate(success, r1, "ly"));
-		constexpr auto r2 = P::lookahead("literal");
-		static_assert(validate(success, r2, ""));
-		constexpr auto r3 = P::lookahead("lliteral");
-		static_assert(validate(failure, r3, "lliteral"));
+
+	struct constructible
+	{
+		template <k3::static_string str> static constexpr bool from = requires { typename Literal<str>; };
+	};
+
+	void constructible_from_ascii_only()
+	{
+		assert
+			, constructible::from<"literal">
+			, not constructible::from<"lïterål">
+			;
+	}
+
+	void not_constructible_empty()
+	{
+		assert, not constructible::from<"">;
 	}
 
 }
