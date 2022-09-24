@@ -22,7 +22,7 @@ namespace k3::tok3n::tests::basic::OneChar
 			, result_of<Single>.is<std::string_view>
 			, Single::parse == single.parse
 			, Single::lookahead == single.lookahead
-		;
+			;
 	}
 	void requirements_multi()
 	{
@@ -32,17 +32,19 @@ namespace k3::tok3n::tests::basic::OneChar
 			, result_of<Multi>.is<std::string_view>
 			, Multi::parse == multi.parse
 			, Multi::lookahead == multi.lookahead
-		;
+			;
 	}
 
 	void parse_single()
 	{
 		assert
 			, parse<Single>("ab").success("a", "b")
-			, parse<Single>("abc").success("a", "bc")
-			, parse<Single>(" abc").failure(" abc")
 			, parse<Single>("ba").failure("ba")
-		;
+			, parse<Single>("abc").success("a", "bc")
+			, parse<Single>("Ab").failure("Ab")
+			, parse<Single>("Abc").failure("Abc")
+			, parse<Single>(" abc").failure(" abc")
+			;
 	}
 	void parse_multi()
 	{
@@ -53,9 +55,15 @@ namespace k3::tok3n::tests::basic::OneChar
 			, parse<Multi>("bca").success("b", "ca")
 			, parse<Multi>("cab").success("c", "ab")
 			, parse<Multi>("cba").success("c", "ba")
+			, parse<Multi>("ABC").failure("ABC")
+			, parse<Multi>("ACB").failure("ACB")
+			, parse<Multi>("BAC").failure("BAC")
+			, parse<Multi>("BCA").failure("BCA")
+			, parse<Multi>("CAB").failure("CAB")
+			, parse<Multi>("CBA").failure("CBA")
 			, parse<Multi>("dcba").failure("dcba")
 			, parse<Multi>(" cba").failure(" cba")
-		;
+			;
 	}
 
 
@@ -79,7 +87,7 @@ namespace k3::tok3n::tests::basic::OneChar
 		assert
 			, constructible::from_all<all_ascii_chars>
 			, not constructible::from_any<all_non_ascii_chars>
-		;
+			;
 	}
 
 	void constructible_alphabetically_only()
@@ -91,7 +99,7 @@ namespace k3::tok3n::tests::basic::OneChar
 			, not constructible::from_string<"bca">
 			, not constructible::from_string<"cab">
 			, not constructible::from_string<"cba">
-		;
+			;
 	}
 
 	void not_constructible_empty()
