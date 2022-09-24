@@ -208,6 +208,7 @@
     <ClCompile Include="tests\parsers_basic\NotChar.cpp" />
     <ClCompile Include="tests\parsers_basic\Literal.cpp" />
     <ClCompile Include="tests\parsers_basic\combine_basic_parsers.cpp" />
+    <ClCompile Include="tests\parsers_compound\Choice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
