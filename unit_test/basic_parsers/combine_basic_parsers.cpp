@@ -1,47 +1,86 @@
 #include "utility.h"
 
-namespace tests::basic::combine
+namespace k3::tok3n::tests::basic::combine
 {
 
 	using k3::parser::OneChar;
 	using k3::parser::NotChar;
 	using k3::parser::Literal;
+	using k3::every_char;
 
-	using OC1 = OneChar<"abc">;
-	using OC2 = OneChar<"bcd">;
-	using OC3 = OneChar<"xyz">;
-	using NC1 = NotChar<"abc">;
-	using NC2 = NotChar<"bcd">;
-	using NC3 = NotChar<"xyz">;
 
-	consteval void choice_onechar()
+
+	constexpr OneChar<"abc"> oc1;
+	constexpr OneChar<"bcd"> oc2;
+	constexpr OneChar<"xyz"> oc3;
+	constexpr NotChar<"abc"> nc1;
+	constexpr NotChar<"bcd"> nc2;
+	constexpr NotChar<"xyz"> nc3;
+
+	void choice_OneChar()
 	{
-		constexpr OC1 oc1;
-		constexpr OC2 oc2;
-		constexpr OC3 oc3;
-
-		static_assert(same(oc1 | oc2, oc2 | oc1));
-		static_assert(same(oc1 | oc3, oc3 | oc1));
-		static_assert(same(oc2 | oc3, oc3 | oc2));
-
-		static_assert(same<OneChar<"abcd">>(oc1 | oc2));
-		static_assert(same<OneChar<"abcxyz">>(oc1 | oc3));
-		static_assert(same<OneChar<"bcdxyz">>(oc2 | oc3));
+		assert
+			, (oc1 | oc2) == (oc2 | oc1)
+			, (oc1 | oc3) == (oc3 | oc1)
+			, (oc2 | oc3) == (oc3 | oc2)
+			, (oc1 | oc2) == OneChar<"abcd">{}
+			, (oc1 | oc3) == OneChar<"abcxyz">{}
+			, (oc2 | oc3) == OneChar<"bcdxyz">{}
+			;
 	}
 
-	consteval void choice_notchar()
+	void choice_NotChar()
 	{
-		constexpr NC1 nc1;
-		constexpr NC2 nc2;
-		constexpr NC3 nc3;
+		assert
+			, (nc1 | nc2) == (nc2 | nc1)
+			, (nc1 | nc3) == (nc3 | nc1)
+			, (nc2 | nc3) == (nc3 | nc2)
+			, (nc1 | nc2) == NotChar<"bc">{}
+			, (nc1 | nc3) == OneChar<every_char>{}
+			, (nc2 | nc3) == OneChar<every_char>{}
+			;
+	}
 
-		static_assert(same(nc1 | nc2, nc2 | nc1));
-		static_assert(same(nc1 | nc3, nc3 | nc1));
-		static_assert(same(nc2 | nc3, nc3 | nc2));
+	void choice_OneChar_NotChar()
+	{
+		assert
+			, (oc1 | nc1) == (nc1 | oc1)
+			, (oc1 | nc2) == (nc2 | oc1)
+			, (oc1 | nc3) == (nc3 | oc1)
+			, (oc2 | nc1) == (nc1 | oc2)
+			, (oc2 | nc2) == (nc2 | oc2)
+			, (oc2 | nc3) == (nc3 | oc2)
+			, (oc3 | nc1) == (nc1 | oc3)
+			, (oc3 | nc2) == (nc2 | oc3)
+			, (oc3 | nc3) == (nc3 | oc3)
+			, (oc1 | nc1) == OneChar<every_char>{}
+			, (oc1 | nc2) == NotChar<"d">{}
+			, (oc1 | nc3) == NotChar<"xyz">{}
+			, (oc2 | nc1) == NotChar<"a">{}
+			, (oc2 | nc2) == OneChar<every_char>{}
+			, (oc2 | nc3) == NotChar<"xyz">{}
+			, (oc3 | nc1) == NotChar<"abc">{}
+			, (oc3 | nc2) == NotChar<"bcd">{}
+			, (oc3 | nc3) == OneChar<every_char>{}
+			;
+	}
 
-		static_assert(same<NotChar<"bc">>(nc1 | nc2));
-		static_assert(same<OneChar<k3::every_char>>(nc1 | nc3));
-		static_assert(same<OneChar<k3::every_char>>(nc2 | nc3));
+
+
+	constexpr Literal<"literal"> l1;
+	constexpr Literal<"ly"> l2;
+	constexpr Literal<"test"> l3;
+
+	void sequence_Literal()
+	{
+		assert
+			, (l1 >> l2) == Literal<"literally">{}
+			, (l1 >> l3) == Literal<"literaltest">{}
+			, (l2 >> l1) == Literal<"lyliteral">{}
+			, (l2 >> l3) == Literal<"lytest">{}
+			, (l3 >> l1) == Literal<"testliteral">{}
+			, (l3 >> l2) == Literal<"testly">{}
+			;
 	}
 
 }
