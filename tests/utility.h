@@ -28,7 +28,7 @@ struct parser_type_of_t
 	static constexpr bool is_Sequence   = IsSequence<T>;
 	static constexpr bool is_OneOrMore  = IsOneOrMore<T>;
 	static constexpr bool is_ZeroOrMore = IsZeroOrMore<T>;
-	static constexpr bool is_ZeroOrOne  = IsZeroOrOne<T>;
+	static constexpr bool is_Maybe      = IsMaybe<T>;
 	static constexpr bool is_Transform  = IsTransform<T>;
 	static constexpr bool is_Flatten    = IsFlatten<T>;
 	static constexpr bool is_Ignore     = IsIgnore<T>;

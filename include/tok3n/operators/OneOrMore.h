@@ -8,7 +8,7 @@ namespace detail::oneormore
 {
 
 	template <Parser P>
-	consteval auto oneormore_zeroorone(ZeroOrOne<P>)
+	consteval auto oneormore_zeroorone(Maybe<P>)
 	{
 		return ZeroOrMore<P>{};
 	}
@@ -24,7 +24,7 @@ constexpr auto operator+(P)
 		return P{};
 	else if constexpr (IsZeroOrMore<P>) // +(*P) == *P
 		return P{};
-	else if constexpr (IsZeroOrOne<P>)  // +(~P) == *P
+	else if constexpr (IsMaybe<P>)  // +(~P) == *P
 		return oneormore_zeroorone(P{});
 
 	else

@@ -159,7 +159,7 @@ int main()
 	std::cout << "\n";
 	print(zom01.parse("abbbcbbaba"));
 
-	using ZOO01 = ZeroOrOne<SEQ02>;
+	using ZOO01 = Maybe<SEQ02>;
 	auto zoo01 = ~seq02;
 	std::cout << "\n";
 	print(zoo01.parse("abbb"));

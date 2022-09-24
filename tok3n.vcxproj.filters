@@ -48,7 +48,7 @@
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrOne.h">
+    <ClInclude Include="include\tok3n\parsers\repeat\Maybe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\Choice.h">
@@ -63,7 +63,7 @@
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\operators\ZeroOrOne.h">
+    <ClInclude Include="include\tok3n\operators\Maybe.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\Not.h">

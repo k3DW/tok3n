@@ -3,7 +3,7 @@
 
 BEGIN_NAMESPACE_TOK3N()
 
-// ZeroOrOne
+// Maybe
 namespace detail::zeroorone
 {
 
@@ -20,7 +20,7 @@ constexpr auto operator~(P)
 {
 	using namespace detail::zeroorone;
 
-	if constexpr (IsZeroOrOne<P>)       // ~(~P) == ~P
+	if constexpr (IsMaybe<P>)       // ~(~P) == ~P
 		return P{};
 	else if constexpr (IsOneOrMore<P>)  // ~(+P) == *P
 		return zeroorone_oneormore(P{});
@@ -28,7 +28,7 @@ constexpr auto operator~(P)
 		return P{};
 
 	else
-		return ZeroOrOne<P>{};
+		return Maybe<P>{};
 }
 
 END_NAMESPACE_TOK3N()

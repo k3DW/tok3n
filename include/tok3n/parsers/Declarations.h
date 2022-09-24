@@ -17,7 +17,7 @@ enum class ParserType
 	Sequence,
 	OneOrMore,
 	ZeroOrMore,
-	ZeroOrOne,
+	Maybe,
 	Transform,
 	Flatten,
 	Ignore,
@@ -37,7 +37,7 @@ template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice
 template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequence;
 template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
-template <class P> concept IsZeroOrOne  = parser_type_v<P> == ParserType::ZeroOrOne;
+template <class P> concept IsMaybe      = parser_type_v<P> == ParserType::Maybe;
 template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transform;
 template <class P> concept IsFlatten    = parser_type_v<P> == ParserType::Flatten;
 template <class P> concept IsIgnore     = parser_type_v<P> == ParserType::Ignore;
@@ -121,10 +121,10 @@ constexpr ParserType parser_type_v<ZeroOrMore<P>> = ParserType::ZeroOrMore;
 
 
 template <Parser P>
-struct ZeroOrOne;
+struct Maybe;
 
 template <Parser P>
-constexpr ParserType parser_type_v<ZeroOrOne<P>> = ParserType::ZeroOrOne;
+constexpr ParserType parser_type_v<Maybe<P>> = ParserType::Maybe;
 
 
 template <Parser P, auto function>

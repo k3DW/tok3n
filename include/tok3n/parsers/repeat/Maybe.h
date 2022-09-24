@@ -5,7 +5,7 @@
 BEGIN_NAMESPACE_TOK3N()
 
 template <Parser P>
-struct ZeroOrOne
+struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;
 
