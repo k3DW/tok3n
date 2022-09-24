@@ -1,6 +1,3 @@
 #include "utility.h"
 
-int main()
-{
-
-}
+int main() {}

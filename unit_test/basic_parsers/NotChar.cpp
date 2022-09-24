@@ -1,4 +1,3 @@
-#include "parsers/NotChar.h"
 #include "utility.h"
 
 namespace k3::tok3n::tests::basic::NotChar

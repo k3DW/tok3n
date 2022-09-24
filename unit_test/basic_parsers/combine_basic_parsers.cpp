@@ -1,7 +1,3 @@
-#include "parsers/OneChar.h"
-#include "parsers/NotChar.h"
-#include "parsers/Literal.h"
-#include "operators/ChoiceOp.h"
 #include "utility.h"
 
 namespace tests::basic::combine

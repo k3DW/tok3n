@@ -2,7 +2,9 @@
 #include <concepts>
 #include <type_traits>
 
-#include "parsers/Result.h"
+#include "parsers/parsers.h"
+#include "operators/operators.h"
+
 using k3::parser::Input;
 using k3::parser::Result;
 using k3::parser::failure;
