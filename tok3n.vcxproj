@@ -209,6 +209,7 @@
     <ClCompile Include="tests\parsers_basic\Literal.cpp" />
     <ClCompile Include="tests\parsers_basic\combine_basic_parsers.cpp" />
     <ClCompile Include="tests\parsers_compound\Choice.cpp" />
+    <ClCompile Include="tests\parsers_compound\combine_compound_parsers.cpp" />
     <ClCompile Include="tests\parsers_compound\Sequence.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -64,4 +64,4 @@ void parse_threeway()
 		;
 }
 
-END_NAMESPACE_TOK3N(tests::basic::NotChar)
+END_NAMESPACE_TOK3N(tests::compound::Sequence)

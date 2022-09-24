@@ -18,6 +18,9 @@ void choice_OneChar()
 		, (oc1 | oc2) == OneChar<"abcd">{}
 		, (oc1 | oc3) == OneChar<"abcxyz">{}
 		, (oc2 | oc3) == OneChar<"bcdxyz">{}
+		, (oc1 | oc1) == oc1
+		, (oc2 | oc2) == oc2
+		, (oc3 | oc3) == oc3
 		;
 }
 
@@ -30,6 +33,9 @@ void choice_NotChar()
 		, (nc1 | nc2) == NotChar<"bc">{}
 		, (nc1 | nc3) == OneChar<every_char>{}
 		, (nc2 | nc3) == OneChar<every_char>{}
+		, (nc1 | nc1) == nc1
+		, (nc2 | nc2) == nc2
+		, (nc3 | nc3) == nc3
 		;
 }
 
