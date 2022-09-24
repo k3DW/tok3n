@@ -122,5 +122,8 @@
     <ClCompile Include="tests\parsers_compound\Choice.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\parsers_compound\Sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
