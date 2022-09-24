@@ -67,7 +67,7 @@ concept Parser =
 
 
 template <static_string str>
-requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() > 0)
+requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)
 struct OneChar;
 
 template <static_string str>
@@ -75,7 +75,7 @@ constexpr ParserType parser_type_v<OneChar<str>> = ParserType::OneChar;
 
 
 template <static_string str>
-requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() > 0)
+requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)
 struct NotChar;
 
 template <static_string str>
@@ -83,7 +83,7 @@ constexpr ParserType parser_type_v<NotChar<str>> = ParserType::NotChar;
 
 
 template <static_string str>
-requires (str.ascii()) && (str.size() > 0)
+requires (str.ascii()) && (str.size() != 0)
 struct Literal;
 
 template <static_string str>

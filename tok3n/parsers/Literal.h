@@ -7,7 +7,7 @@ namespace k3::tok3n
 {
 
 template <static_string str>
-requires (str.ascii()) && (str.size() > 0)
+requires (str.ascii()) && (str.size() != 0)
 struct Literal
 {
 	using result_type = std::string_view;
