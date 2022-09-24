@@ -2,8 +2,7 @@
 #include "tok3n/parsers/Declarations.h"
 #include "tok3n/parsers/Result.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 template <static_string str>
 requires (str.ascii()) && (str.size() != 0)
@@ -34,4 +33,4 @@ struct Literal
 	}
 };
 
-}
+END_NAMESPACE_TOK3N()

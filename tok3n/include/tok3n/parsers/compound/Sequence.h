@@ -2,8 +2,7 @@
 #include "tok3n/parsers/Declarations.h"
 #include "tok3n/parsers/Result.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 template <class result_type, bool flattened>
 struct SequenceExec
@@ -78,4 +77,4 @@ struct Sequence
 	}
 };
 
-}
+END_NAMESPACE_TOK3N()

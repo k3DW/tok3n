@@ -3,8 +3,7 @@
 #include <map>
 #include <variant>
 
-namespace k3::tok3n::examples::json_parser
-{
+BEGIN_NAMESPACE_TOK3N(examples::json_parser)
 
 
 
@@ -257,4 +256,5 @@ consteval auto JsonValueParser::get_parser()
 }
 
 
-}
+
+END_NAMESPACE_TOK3N(examples::json_parser)

@@ -4,11 +4,11 @@
 #include <cstddef>
 #include <ranges>
 #include <string_view>
+#include "tok3n/utilities/namespace.h"
 
 // Ideas mostly taken from CTRE
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 template <std::size_t N>
 struct static_string
@@ -91,4 +91,4 @@ constexpr static_string every_char = []() consteval -> static_string<128>
 	return str;
 }();
 
-}
+END_NAMESPACE_TOK3N()

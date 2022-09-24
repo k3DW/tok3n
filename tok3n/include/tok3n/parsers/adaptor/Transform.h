@@ -2,8 +2,7 @@
 #include "tok3n/parsers/Declarations.h"
 #include "tok3n/parsers/Result.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 template <Parser P, auto function>
 requires requires { std::invoke(function, std::declval<typename P::result_type>()); }
@@ -26,4 +25,4 @@ struct Transform
 	}
 };
 
-}
+END_NAMESPACE_TOK3N()

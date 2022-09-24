@@ -2,8 +2,7 @@
 #include <string_view>
 #include <optional>
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 static constexpr struct failure_t final {} failure;
 static constexpr struct success_t final {} success;
@@ -62,4 +61,4 @@ private:
 	std::string_view mRemaining;
 };
 
-}
+END_NAMESPACE_TOK3N()

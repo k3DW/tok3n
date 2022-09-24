@@ -90,6 +90,9 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\utilities\namespace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

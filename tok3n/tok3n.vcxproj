@@ -95,6 +95,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -112,6 +113,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -129,6 +131,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -146,6 +149,7 @@
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <AdditionalIncludeDirectories>$(ProjectDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <UseStandardPreprocessor>true</UseStandardPreprocessor>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -156,29 +160,30 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="examples\json.h" />
+    <ClInclude Include="include\tok3n\operators\Adaptor.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Not.h" />
     <ClInclude Include="include\tok3n\operators\OneOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Sequence.h" />
-    <ClInclude Include="include\tok3n\operators\Adaptor.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrOne.h" />
-    <ClInclude Include="include\tok3n\parsers\compound\Choice.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Flatten.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h" />
     <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
-    <ClInclude Include="include\tok3n\parsers\Result.h" />
     <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
     <ClInclude Include="include\tok3n\parsers\basic\OneChar.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
+    <ClInclude Include="include\tok3n\parsers\compound\Choice.h" />
     <ClInclude Include="include\tok3n\parsers\compound\Sequence.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrOne.h" />
     <ClInclude Include="include\tok3n\parsers\Declarations.h" />
+    <ClInclude Include="include\tok3n\parsers\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
     <ClInclude Include="include\tok3n\utilities\meta.h" />
+    <ClInclude Include="include\tok3n\utilities\namespace.h" />
     <ClInclude Include="include\tok3n\utilities\static_string.h" />
   </ItemGroup>
   <ItemGroup>

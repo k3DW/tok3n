@@ -1,8 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 template <Parser P, auto function>
 constexpr auto operator%(P, fn_t<function>)
@@ -34,4 +33,4 @@ constexpr auto delimit(P, Delimiter)
 	return Delimit<P, Delimiter>{};
 }
 
-}
+END_NAMESPACE_TOK3N()

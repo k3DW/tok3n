@@ -1,11 +1,11 @@
 #pragma once
 #include <type_traits>
 #include <concepts>
+#include "tok3n/utilities/namespace.h"
 
 // Ideas mostly taken from Boost.Mp11
 
-namespace k3::tok3n::mp
-{
+BEGIN_NAMESPACE_TOK3N(mp)
 
 template <class... Ts>
 struct type_list {};
@@ -165,4 +165,4 @@ namespace detail
 template <type_predicate Pred, class... Ts>
 using filtered_sequence = typename detail::filtered_sequence_impl<Pred, 0, std::index_sequence<>, Ts...>::type;
 
-}
+END_NAMESPACE_TOK3N(mp)

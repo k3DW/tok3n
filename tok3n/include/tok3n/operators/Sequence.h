@@ -1,8 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 // Literal
 namespace detail::sequence
@@ -59,4 +58,4 @@ constexpr auto operator>>(P1, P2)
 		return Sequence<P1, P2>{};
 }
 
-}
+END_NAMESPACE_TOK3N()

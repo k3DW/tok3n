@@ -1,8 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-namespace k3::tok3n
-{
+BEGIN_NAMESPACE_TOK3N()
 
 // ZeroOrOne
 namespace detail::zeroorone
@@ -32,4 +31,4 @@ constexpr auto operator~(P)
 		return ZeroOrOne<P>{};
 }
 
-}
+END_NAMESPACE_TOK3N()
