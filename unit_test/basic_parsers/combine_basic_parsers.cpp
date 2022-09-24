@@ -65,6 +65,24 @@ namespace k3::tok3n::tests::basic::combine
 			;
 	}
 
+	void not_OneChar_NotChar()
+	{
+		assert
+			, !oc1 == nc1
+			, !oc2 == nc2
+			, !oc3 == nc3
+			, !nc1 == oc1
+			, !nc2 == oc2
+			, !nc3 == oc3
+			, !!oc1 == oc1
+			, !!oc2 == oc2
+			, !!oc3 == oc3
+			, !!nc1 == nc1
+			, !!nc2 == nc2
+			, !!nc3 == nc3
+			;
+	}
+
 
 
 	constexpr Literal<"literal"> l1;
