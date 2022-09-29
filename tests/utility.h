@@ -15,12 +15,12 @@
 	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Transform
 
-#define BEGIN_NAMESPACE_TOK3N_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS;
-#define END_NAMESPACE_TOK3N_TESTS(...) }
+#define TOK3N_BEGIN_NAMESPACE_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS;
+#define TOK3N_END_NAMESPACE_TESTS(...) }
 
 
 
-BEGIN_NAMESPACE_TOK3N_TESTS()
+TOK3N_BEGIN_NAMESPACE_TESTS()
 
 constexpr struct assert_t
 {
@@ -115,4 +115,4 @@ consteval bool operator==(P, Q)
 	return std::is_same_v<P, Q>;
 }
 
-END_NAMESPACE_TOK3N_TESTS()
+TOK3N_END_NAMESPACE_TESTS()

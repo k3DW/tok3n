@@ -1,7 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 // Maybe
 namespace detail::zeroorone
@@ -31,4 +31,4 @@ constexpr auto operator~(P)
 		return Maybe<P>{};
 }
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

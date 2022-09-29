@@ -1,7 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 // OneOrMore
 namespace detail::oneormore
@@ -31,4 +31,4 @@ constexpr auto operator+(P)
 		return OneOrMore<P>{};
 }
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

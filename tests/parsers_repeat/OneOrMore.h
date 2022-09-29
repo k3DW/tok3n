@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N_TESTS(repeat::OneOrMore)
+TOK3N_BEGIN_NAMESPACE_TESTS(repeat::OneOrMore)
 
 using P1 = OneOrMore<Literal<"literal">>;
 constexpr P1 p1;
@@ -79,4 +79,4 @@ void parse_OneOrMore_Sequence()
 		;
 }
 
-END_NAMESPACE_TOK3N_TESTS(repeat::OneOrMore)
+TOK3N_END_NAMESPACE_TESTS(repeat::OneOrMore)

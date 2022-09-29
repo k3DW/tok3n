@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N_TESTS(compound::Sequence)
+TOK3N_BEGIN_NAMESPACE_TESTS(compound::Sequence)
 
 struct constructible
 {
@@ -60,4 +60,4 @@ void parse_threeway()
 		;
 }
 
-END_NAMESPACE_TOK3N_TESTS(compound::Sequence)
+TOK3N_END_NAMESPACE_TESTS(compound::Sequence)

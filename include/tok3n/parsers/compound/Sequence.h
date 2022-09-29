@@ -2,7 +2,7 @@
 #include "tok3n/parsers/Declarations.h"
 #include "tok3n/parsers/Result.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 template <class result_type, bool flattened>
 struct SequenceExec
@@ -77,4 +77,4 @@ struct Sequence
 	}
 };
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

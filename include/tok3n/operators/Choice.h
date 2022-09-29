@@ -1,7 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 // OneChar
 namespace detail::choice
@@ -148,4 +148,4 @@ constexpr auto operator|(P1, P2)
 		return Choice<P1, P2>{};
 }
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

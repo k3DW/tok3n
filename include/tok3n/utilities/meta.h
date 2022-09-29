@@ -5,7 +5,7 @@
 
 // Ideas mostly taken from Boost.Mp11
 
-BEGIN_NAMESPACE_TOK3N(mp)
+TOK3N_BEGIN_NAMESPACE(mp)
 
 template <class... Ts>
 struct type_list {};
@@ -165,4 +165,4 @@ namespace detail
 template <type_predicate Pred, class... Ts>
 using filtered_sequence = typename detail::filtered_sequence_impl<Pred, 0, std::index_sequence<>, Ts...>::type;
 
-END_NAMESPACE_TOK3N(mp)
+TOK3N_END_NAMESPACE(mp)

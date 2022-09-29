@@ -8,7 +8,7 @@
 
 // Ideas mostly taken from CTRE
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 template <std::size_t N>
 struct static_string
@@ -91,4 +91,4 @@ constexpr static_string every_char = []() consteval -> static_string<128>
 	return str;
 }();
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

@@ -5,7 +5,7 @@
 #include <optional>
 #include <utility>
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 enum class ParserType
 {
@@ -199,4 +199,4 @@ struct Custom : CustomBase
 template <std::derived_from<CustomBase> P>
 constexpr ParserType parser_type_v<P> = ParserType::Custom;
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N_TESTS(basic::NotChar)
+TOK3N_BEGIN_NAMESPACE_TESTS(basic::NotChar)
 
 using Single = NotChar<'a'>;
 constexpr Single single;
@@ -102,4 +102,4 @@ void not_constructible_empty()
 	assert, not constructible::from_string<"">;
 }
 
-END_NAMESPACE_TOK3N_TESTS(basic::NotChar)
+TOK3N_END_NAMESPACE_TESTS(basic::NotChar)

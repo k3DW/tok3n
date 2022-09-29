@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N_TESTS(basic::Literal)
+TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
 
 using L = Literal<"literal">;
 constexpr L l;
@@ -48,4 +48,4 @@ void not_constructible_empty()
 	assert, not constructible::from<"">;
 }
 
-END_NAMESPACE_TOK3N_TESTS(basic::Literal)
+TOK3N_END_NAMESPACE_TESTS(basic::Literal)

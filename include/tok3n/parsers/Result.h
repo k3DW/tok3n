@@ -2,7 +2,7 @@
 #include <string_view>
 #include <optional>
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 static constexpr struct failure_t final {} failure;
 static constexpr struct success_t final {} success;
@@ -61,4 +61,4 @@ private:
 	Input mRemaining;
 };
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

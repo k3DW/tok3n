@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N_TESTS(basic::combine)
+TOK3N_BEGIN_NAMESPACE_TESTS(basic::combine)
 
 constexpr OneChar<"abc"> oc1;
 constexpr OneChar<"bcd"> oc2;
@@ -99,4 +99,4 @@ void sequence_Literal()
 		;
 }
 
-END_NAMESPACE_TOK3N_TESTS(basic::combine)
+TOK3N_END_NAMESPACE_TESTS(basic::combine)

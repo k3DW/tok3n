@@ -2,7 +2,7 @@
 #include "tok3n/parsers/Declarations.h"
 #include "tok3n/parsers/Result.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 template <static_string str>
 requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)
@@ -33,4 +33,4 @@ struct NotChar
 	}
 };
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

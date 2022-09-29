@@ -1,7 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 template <static_string str>
 constexpr auto operator!(OneChar<str>)
@@ -14,4 +14,4 @@ constexpr auto operator!(NotChar<str>)
 	return OneChar<str>{};
 }
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()

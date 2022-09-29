@@ -1,7 +1,7 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
 
-BEGIN_NAMESPACE_TOK3N()
+TOK3N_BEGIN_NAMESPACE()
 
 // ZeroOrMore
 namespace detail::zeroormore
@@ -37,4 +37,4 @@ constexpr auto operator*(P)
 		return ZeroOrMore<P>{};
 }
 
-END_NAMESPACE_TOK3N()
+TOK3N_END_NAMESPACE()
