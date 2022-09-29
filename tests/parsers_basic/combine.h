@@ -2,12 +2,12 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::combine)
 
-constexpr OneChar<"abc"> oc1;
-constexpr OneChar<"bcd"> oc2;
-constexpr OneChar<"xyz"> oc3;
-constexpr NotChar<"abc"> nc1;
-constexpr NotChar<"bcd"> nc2;
-constexpr NotChar<"xyz"> nc3;
+constexpr auto oc1 = OneChar<"abc">{};
+constexpr auto oc2 = OneChar<"bcd">{};
+constexpr auto oc3 = OneChar<"xyz">{};
+constexpr auto nc1 = NotChar<"abc">{};
+constexpr auto nc2 = NotChar<"bcd">{};
+constexpr auto nc3 = NotChar<"xyz">{};
 
 void choice_OneChar()
 {
@@ -83,9 +83,9 @@ void not_OneChar_NotChar()
 
 
 
-constexpr Literal<"literal"> l1;
-constexpr Literal<"ly"> l2;
-constexpr Literal<"test"> l3;
+constexpr auto l1 = Literal<"literal">{};
+constexpr auto l2 = Literal<"ly">{};
+constexpr auto l3 = Literal<"test">{};
 
 void sequence_Literal()
 {

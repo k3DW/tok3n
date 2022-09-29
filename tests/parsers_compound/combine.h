@@ -2,8 +2,8 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::combine)
 
-constexpr Choice<Literal<"ab">, NotChar<"cd">> c1;
-constexpr Choice<NotChar<'z'>, Literal<"ab">, OneChar<"cd">> c2;
+constexpr auto c1 = Choice<Literal<"ab">, NotChar<"cd">>{};
+constexpr auto c2 = Choice<NotChar<'z'>, Literal<"ab">, OneChar<"cd">>{};
 
 void choice_of_two_Choice()
 {
@@ -17,8 +17,8 @@ void choice_of_two_Choice()
 
 
 
-constexpr Sequence<Literal<"ab">, NotChar<"cd">> s1;
-constexpr Sequence<Literal<"ab">, OneChar<"cd">, NotChar<'z'>> s2;
+constexpr auto s1 = Sequence<Literal<"ab">, NotChar<"cd">>{};
+constexpr auto s2 = Sequence<Literal<"ab">, OneChar<"cd">, NotChar<'z'>>{};
 
 void sequence_of_two_Sequence()
 {
