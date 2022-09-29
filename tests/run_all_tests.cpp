@@ -2,18 +2,18 @@
 
 #ifdef TOK3N_TESTING
 
-#include "parsers_basic/OneChar.h"
-#include "parsers_basic/NotChar.h"
-#include "parsers_basic/Literal.h"
-#include "parsers_basic/combine.h"
+#include "tests/parsers_basic/OneChar.h"
+#include "tests/parsers_basic/NotChar.h"
+#include "tests/parsers_basic/Literal.h"
+#include "tests/parsers_basic/combine.h"
 
-#include "parsers_compound/Choice.h"
-#include "parsers_compound/Sequence.h"
-#include "parsers_compound/combine.h"
+#include "tests/parsers_compound/Choice.h"
+#include "tests/parsers_compound/Sequence.h"
+#include "tests/parsers_compound/combine.h"
 
-#include "parsers_repeat/Maybe.h"
-#include "parsers_repeat/OneOrMore.h"
-#include "parsers_repeat/ZeroOrMore.h"
-#include "parsers_repeat/combine.h"
+#include "tests/parsers_repeat/Maybe.h"
+#include "tests/parsers_repeat/OneOrMore.h"
+#include "tests/parsers_repeat/ZeroOrMore.h"
+#include "tests/parsers_repeat/combine.h"
 
 #endif
