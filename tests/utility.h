@@ -15,7 +15,13 @@
 	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Transform
 
-#define TOK3N_BEGIN_NAMESPACE_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS;
+#ifdef TOK3N_TESTING
+#define TOK3N_ASSERT_IF_NOT_TESTING
+#else
+#define TOK3N_ASSERT_IF_NOT_TESTING static_assert(false, "You are including a test file when not building in a testing configuration.");
+#endif
+
+#define TOK3N_BEGIN_NAMESPACE_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS; TOK3N_ASSERT_IF_NOT_TESTING
 #define TOK3N_END_NAMESPACE_TESTS(...) }
 
 
