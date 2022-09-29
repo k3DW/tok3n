@@ -11,4 +11,8 @@
 #include "parsers_compound/Sequence.h"
 #include "parsers_compound/combine_compound_parsers.h"
 
+#include "parsers_repeat/Maybe.h"
+#include "parsers_repeat/OneOrMore.h"
+#include "parsers_repeat/ZeroOrMore.h"
+
 #endif
