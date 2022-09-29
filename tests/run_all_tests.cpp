@@ -5,11 +5,11 @@
 #include "parsers_basic/OneChar.h"
 #include "parsers_basic/NotChar.h"
 #include "parsers_basic/Literal.h"
-#include "parsers_basic/combine_basic_parsers.h"
+#include "parsers_basic/combine.h"
 
 #include "parsers_compound/Choice.h"
 #include "parsers_compound/Sequence.h"
-#include "parsers_compound/combine_compound_parsers.h"
+#include "parsers_compound/combine.h"
 
 #include "parsers_repeat/Maybe.h"
 #include "parsers_repeat/OneOrMore.h"

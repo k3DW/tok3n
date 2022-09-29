@@ -99,7 +99,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_basic\combine_basic_parsers.h">
+    <ClInclude Include="tests\parsers_basic\combine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_basic\Literal.h">
@@ -117,7 +117,7 @@
     <ClInclude Include="tests\parsers_compound\Sequence.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_compound\combine_compound_parsers.h">
+    <ClInclude Include="tests\parsers_compound\combine.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_repeat\OneOrMore.h">
