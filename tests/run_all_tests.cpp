@@ -14,5 +14,6 @@
 #include "parsers_repeat/Maybe.h"
 #include "parsers_repeat/OneOrMore.h"
 #include "parsers_repeat/ZeroOrMore.h"
+#include "parsers_repeat/combine.h"
 
 #endif

@@ -129,6 +129,9 @@
     <ClInclude Include="tests\parsers_repeat\Maybe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\parsers_repeat\combine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
