@@ -134,5 +134,8 @@
     <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\Maybe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
