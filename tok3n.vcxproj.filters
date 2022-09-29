@@ -128,5 +128,11 @@
     <ClCompile Include="tests\parsers_compound\combine_compound_parsers.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\OneOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

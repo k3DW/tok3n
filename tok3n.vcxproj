@@ -211,6 +211,8 @@
     <ClCompile Include="tests\parsers_compound\Choice.cpp" />
     <ClCompile Include="tests\parsers_compound\combine_compound_parsers.cpp" />
     <ClCompile Include="tests\parsers_compound\Sequence.cpp" />
+    <ClCompile Include="tests\parsers_repeat\OneOrMore.cpp" />
+    <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
