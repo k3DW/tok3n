@@ -1,10 +1,6 @@
-#include "pch.h"
+#include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N(tests::basic::OneChar)
-
-using k3::tok3n::OneChar;
-
-
+BEGIN_NAMESPACE_TOK3N_TESTS(basic::OneChar)
 
 using Single = OneChar<'a'>;
 constexpr Single single;
@@ -105,4 +101,4 @@ void not_constructible_empty()
 	assert, not constructible::from_string<"">;
 }
 
-END_NAMESPACE_TOK3N(tests::basic::OneChar)
+END_NAMESPACE_TOK3N_TESTS(basic::OneChar)

@@ -1,10 +1,6 @@
-#include "pch.h"
+#include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N(tests::compound::Sequence)
-
-using k3::tok3n::Sequence;
-
-
+BEGIN_NAMESPACE_TOK3N_TESTS(compound::Sequence)
 
 struct constructible
 {
@@ -64,4 +60,4 @@ void parse_threeway()
 		;
 }
 
-END_NAMESPACE_TOK3N(tests::compound::Sequence)
+END_NAMESPACE_TOK3N_TESTS(compound::Sequence)

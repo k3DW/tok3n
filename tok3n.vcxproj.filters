@@ -99,42 +99,45 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\parsers_basic\combine_basic_parsers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_basic\Literal.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_basic\NotChar.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_basic\OneChar.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_compound\Choice.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_compound\Sequence.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_compound\combine_compound_parsers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_repeat\OneOrMore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_repeat\ZeroOrMore.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_repeat\Maybe.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\parsers_basic\combine_basic_parsers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_basic\Literal.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_basic\NotChar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_basic\OneChar.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\parsers_compound\Choice.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_compound\Sequence.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_compound\combine_compound_parsers.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_repeat\OneOrMore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="tests\parsers_repeat\Maybe.cpp">
+    <ClCompile Include="tests\run_all_tests.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,6 +1,6 @@
-#include "pch.h"
+#include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N(tests::compound::combine)
+BEGIN_NAMESPACE_TOK3N_TESTS(compound::combine)
 
 constexpr Choice<Literal<"ab">, NotChar<"cd">> c1;
 constexpr Choice<NotChar<'z'>, Literal<"ab">, OneChar<"cd">> c2;
@@ -69,4 +69,4 @@ void Sequence_operator()
 		;
 }
 
-END_NAMESPACE_TOK3N(tests::compound::combine)
+END_NAMESPACE_TOK3N_TESTS(compound::combine)

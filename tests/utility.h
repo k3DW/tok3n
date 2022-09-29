@@ -1,7 +1,26 @@
 #pragma once
 #include "tok3n/tok3n.h"
 
-BEGIN_NAMESPACE_TOK3N(tests)
+#define TOK3N_USING_ALL_PARSERS  \
+	using k3::tok3n::OneChar;    \
+	using k3::tok3n::NotChar;    \
+	using k3::tok3n::Literal;    \
+	using k3::tok3n::Choice;     \
+	using k3::tok3n::Sequence;   \
+	using k3::tok3n::OneOrMore;  \
+	using k3::tok3n::ZeroOrMore; \
+	using k3::tok3n::Maybe;      \
+	using k3::tok3n::Delimit;    \
+	using k3::tok3n::Flatten;    \
+	using k3::tok3n::Ignore;     \
+	using k3::tok3n::Transform
+
+#define BEGIN_NAMESPACE_TOK3N_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS;
+#define END_NAMESPACE_TOK3N_TESTS(...) }
+
+
+
+BEGIN_NAMESPACE_TOK3N_TESTS()
 
 constexpr struct assert_t
 {
@@ -96,4 +115,4 @@ consteval bool operator==(P, Q)
 	return std::is_same_v<P, Q>;
 }
 
-END_NAMESPACE_TOK3N(tests)
+END_NAMESPACE_TOK3N_TESTS()

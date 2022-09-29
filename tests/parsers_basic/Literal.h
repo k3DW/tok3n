@@ -1,10 +1,6 @@
-#include "pch.h"
+#include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N(tests::basic::Literal)
-
-using k3::tok3n::Literal;
-
-
+BEGIN_NAMESPACE_TOK3N_TESTS(basic::Literal)
 
 using L = Literal<"literal">;
 constexpr L l;
@@ -52,4 +48,4 @@ void not_constructible_empty()
 	assert, not constructible::from<"">;
 }
 
-END_NAMESPACE_TOK3N(tests::basic::Literal)
+END_NAMESPACE_TOK3N_TESTS(basic::Literal)

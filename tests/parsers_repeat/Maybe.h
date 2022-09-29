@@ -1,10 +1,6 @@
-#include "pch.h"
+#include "tests/utility.h"
 
-BEGIN_NAMESPACE_TOK3N(tests::repeat::Maybe)
-
-using k3::tok3n::Maybe;
-
-
+BEGIN_NAMESPACE_TOK3N_TESTS(repeat::Maybe)
 
 using P1 = Maybe<Literal<"literal">>;
 constexpr P1 p1;
@@ -83,4 +79,4 @@ void parse_Maybe_Sequence()
 		;
 }
 
-END_NAMESPACE_TOK3N(tests::repeat::Maybe)
+END_NAMESPACE_TOK3N_TESTS(repeat::Maybe)
