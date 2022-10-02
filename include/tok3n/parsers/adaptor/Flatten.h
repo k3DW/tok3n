@@ -4,6 +4,68 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
+class FlattenExecutor
+{
+public:
+	template <class T>
+	constexpr FlattenExecutor(T&& t)
+	{
+		valid = try_push(std::forward<T>(t));
+	}
+
+	constexpr Input flattened() const
+	{
+		if (not valid)
+			throw;
+		
+		else if (vec.empty())
+			return "";
+		else
+			return { &vec.front().front(), &vec.back().back() + 1 };
+	}
+
+private:
+	constexpr bool try_push(Input input)
+	{
+		if (vec.empty() || (&vec.back().back() + 1 == &input.front()))
+		{
+			vec.push_back(input);
+			return true;
+		}
+		else
+			return false;
+	}
+	
+	template <class T>
+	constexpr bool try_push(const std::vector<T>& ts)
+	{
+		for (auto& t : ts)
+		{
+			if (not try_push(t))
+				return false;
+		}
+		return true;
+	}
+
+	template <class T>
+	constexpr bool try_push(const std::optional<T>& opt)
+	{
+		return (not opt.has_value()) || try_push(*opt);
+	}
+
+	template <class T, class... Ts>
+	constexpr bool try_push(const std::tuple<T, Ts...>& tup)
+	{
+		return [this, &tup]<std::size_t... Is>(std::index_sequence<Is...>) -> bool
+		{
+			return (... && try_push(std::get<Is>(tup)));
+		}(std::index_sequence_for<T, Ts...>{});
+	}
+
+	std::vector<Input> vec;
+	bool valid;
+};
+
 template <Parser P>
 requires Flattenable<typename P::result_type>
 struct Flatten
@@ -13,8 +75,8 @@ struct Flatten
 	static constexpr Result<result_type> parse(Input input)
 	{
 		auto result = P::parse(input);
-		if (result)
-			return { success, execute(*result).value_or(""), result.remaining() };
+		if (result.has_value())
+			return { success, FlattenExecutor(*result).flattened(), result.remaining() };
 		else
 			return { failure, input };
 	}
@@ -22,90 +84,6 @@ struct Flatten
 	static constexpr Result<void> lookahead(Input input)
 	{
 		return P::lookahead(input);
-	}
-
-private:
-	using Opt = std::optional<Input>;
-
-	static constexpr Opt execute(Input input)
-	{
-		return input;
-	}
-
-	template <class T>
-	static constexpr Opt execute(const std::vector<T>& vec)
-	{
-		if (vec.empty())
-			return std::nullopt;
-		else
-		{
-			Opt begin, last;
-
-			for (const T& t : vec)
-			{
-				begin = execute(t);
-				if (begin)
-					break;
-			}
-			if (!begin)
-				return std::nullopt;
-
-			// If begin has a value, then this last will be guaranteed to have a value
-			for (const T& t : vec | std::views::reverse)
-			{
-				last = execute(t);
-				if (last)
-					break;
-			}
-
-			return Input{ &begin->front(), &last->back() + 1 };
-		}
-	}
-
-	template <class T>
-	static constexpr Opt execute(const std::optional<T>& opt)
-	{
-		if (not opt.has_value())
-			return std::nullopt;
-		else
-			return execute(*opt);
-	}
-
-	template <class T>
-	static constexpr bool execute_tuple_helper(const T& t, Opt& out_param)
-	{
-		out_param = execute(t);
-		return out_param.has_value();
-	};
-
-	template <class... Ts, std::size_t... Is>
-	static constexpr Opt tuple_begin(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
-	{
-		Opt out;
-		(... && execute_tuple_helper(std::get<Is>(tuple), out));
-		return out;
-	}
-
-	template <class... Ts, std::size_t... Is>
-	static constexpr Opt tuple_last(const std::tuple<Ts...>& tuple, std::index_sequence<Is...>)
-	{
-		Opt out;
-		(... && execute_tuple_helper(std::get<sizeof...(Ts) - Is - 1>(tuple), out));
-		return out;
-	}
-
-	template <class... Ts>
-	requires (sizeof...(Ts) != 0)
-	static constexpr Opt execute(const std::tuple<Ts...>& tuple)
-	{
-		Opt begin = tuple_begin(tuple, std::index_sequence_for<Ts...>{});
-		if (!begin)
-			return std::nullopt;
-
-		// If begin has a value, then this last will be guaranteed to have a value
-		Opt last = tuple_last(tuple, std::index_sequence_for<Ts...>{});
-
-		return Input{ &begin->front(), &last->back() + 1 };
 	}
 };
 
