@@ -13,18 +13,19 @@ public:
 		valid = try_push(std::forward<T>(t));
 	}
 
-	constexpr Input flattened() const
+	constexpr std::optional<Input> flattened() const
 	{
 		if (not valid)
-			throw;
-		
+			return std::nullopt;
 		else if (vec.empty())
-			return "";
+			return Input();
 		else
-			return { &vec.front().front(), &vec.back().back() + 1 };
+			return Input(&vec.front().front(), &vec.back().back() + 1);
 	}
 
 private:
+	// This is the fundamental function of this class,
+	// where we check if the next string_view is adjacent in memory to the last one.
 	constexpr bool try_push(Input input)
 	{
 		if (vec.empty() || (&vec.back().back() + 1 == &input.front()))
@@ -76,9 +77,12 @@ struct Flatten
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, FlattenExecutor(*result).flattened(), result.remaining() };
-		else
-			return { failure, input };
+		{
+			std::optional<Input> flattened = FlattenExecutor(*result).flattened();
+			if (flattened)
+				return { success, *flattened, result.remaining() };
+		}
+		return { failure, input };
 	}
 
 	static constexpr Result<void> lookahead(Input input)
