@@ -1,0 +1,28 @@
+#pragma once
+#include <type_traits>
+#include <utility>
+
+// This is temporary until std::forward_like is in MSVC
+// Taken directly from cppreference
+
+template<class T, class U>
+[[nodiscard]] constexpr auto&& forward_like(U&& x) noexcept
+{
+    constexpr bool is_adding_const = std::is_const_v<std::remove_reference_t<T>>;
+    if constexpr (std::is_lvalue_reference_v<T&&>) {
+        if constexpr (is_adding_const) {
+            return std::as_const(x);
+        }
+        else {
+            return static_cast<U&>(x);
+        }
+    }
+    else {
+        if constexpr (is_adding_const) {
+            return std::move(std::as_const(x));
+        }
+        else {
+            return std::move(x);
+        }
+    }
+}

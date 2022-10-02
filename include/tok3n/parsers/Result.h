@@ -1,6 +1,7 @@
 #pragma once
 #include <string_view>
 #include <optional>
+#include "tok3n/utilities/forward_like.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -29,8 +30,16 @@ public:
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
 	constexpr bool has_value() const noexcept         { return mResult.has_value(); }
 
-	constexpr const T& value() const&     { return mResult.value(); }
-	constexpr const T& operator*() const& { return *mResult; }
+	template <class Self>
+	constexpr decltype(auto) value(this Self&& self)
+	{
+		return forward_like<Self>(self.mResult.value());
+	}
+	template <class Self>
+	constexpr decltype(auto) operator*(this Self&& self)
+	{
+		return forward_like<Self>(self.mResult.operator*());
+	}
 
 	constexpr Input remaining() const noexcept { return mRemaining; }
 
