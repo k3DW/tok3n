@@ -4,38 +4,43 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <class result_type, bool unwrapped>
-struct SequenceExecutor
+namespace detail::executors
 {
-	Input input;
-	result_type full_result = {};
 
-	template <Parser P, std::size_t I>
-	constexpr bool execute()
+	template <class result_type, bool unwrapped>
+	struct Sequence
 	{
-		if constexpr (I == -1)
+		Input input;
+		result_type full_result = {};
+
+		template <Parser P, std::size_t I>
+		constexpr bool execute()
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			return result.has_value();
-		}
-		else
-		{
-			auto result = P::parse(input);
-			if (result.has_value())
+			if constexpr (I == -1)
 			{
+				auto result = P::lookahead(input);
 				input = result.remaining();
-				if constexpr (unwrapped)
-					full_result = std::move(*result);
-				else
-					std::get<I>(full_result) = std::move(*result);
-				return true;
+				return result.has_value();
 			}
 			else
-				return false;
+			{
+				auto result = P::parse(input);
+				if (result.has_value())
+				{
+					input = result.remaining();
+					if constexpr (unwrapped)
+						full_result = std::move(*result);
+					else
+						std::get<I>(full_result) = std::move(*result);
+					return true;
+				}
+				else
+					return false;
+			}
 		}
-	}
-};
+	};
+
+}
 
 template <Parser... Ps>
 requires (sizeof...(Ps) >= 2)
@@ -49,8 +54,9 @@ struct Sequence
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		// This might be a problem because it zero initializes all members
-		auto executor = SequenceExecutor<result_type, unwrapped>{ .input = input };
+		// This might be a problem because it default initializes all members
+		using Executor = detail::executors::Sequence<result_type, unwrapped>;
+		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
@@ -66,7 +72,8 @@ struct Sequence
 	static constexpr Result<void> lookahead(Input input)
 	{
 		// Using std::monostate because we don't have regular void, but this could be anything since it isn't used
-		auto executor = SequenceExecutor<std::monostate, unwrapped>{ .input = input };
+		using Executor = detail::executors::Sequence<std::monostate, unwrapped>; // std::monostate is not significant, just needs to be empty (and not void)
+		Executor executor{ .input = input };
 
 		bool successful = (... && executor.execute<Ps, -1>());
 

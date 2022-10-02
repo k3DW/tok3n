@@ -4,68 +4,73 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-class FlattenExecutor
+namespace detail::executors
 {
-public:
-	template <class T>
-	constexpr FlattenExecutor(T&& t)
-	{
-		valid = try_push(std::forward<T>(t));
-	}
 
-	constexpr std::optional<Input> flattened() const
+	class Flatten
 	{
-		if (not valid)
-			return std::nullopt;
-		else if (vec.empty())
-			return Input();
-		else
-			return Input(&vec.front().front(), &vec.back().back() + 1);
-	}
-
-private:
-	// This is the fundamental function of this class,
-	// where we check if the next string_view is adjacent in memory to the last one.
-	constexpr bool try_push(Input input)
-	{
-		if (vec.empty() || (&vec.back().back() + 1 == &input.front()))
+	public:
+		template <class T>
+		constexpr Flatten(T&& t)
 		{
-			vec.push_back(input);
-			return true;
+			valid = try_push(std::forward<T>(t));
 		}
-		else
-			return false;
-	}
-	
-	template <class T>
-	constexpr bool try_push(const std::vector<T>& ts)
-	{
-		for (auto& t : ts)
+
+		constexpr std::optional<Input> flattened() const
 		{
-			if (not try_push(t))
+			if (not valid)
+				return std::nullopt;
+			else if (vec.empty())
+				return Input();
+			else
+				return Input(&vec.front().front(), &vec.back().back() + 1);
+		}
+
+	private:
+		// This is the fundamental function of this class,
+		// where we check if the next string_view is adjacent in memory to the last one.
+		constexpr bool try_push(Input input)
+		{
+			if (vec.empty() || (&vec.back().back() + 1 == &input.front()))
+			{
+				vec.push_back(input);
+				return true;
+			}
+			else
 				return false;
 		}
-		return true;
-	}
 
-	template <class T>
-	constexpr bool try_push(const std::optional<T>& opt)
-	{
-		return (not opt.has_value()) || try_push(*opt);
-	}
-
-	template <class T, class... Ts>
-	constexpr bool try_push(const std::tuple<T, Ts...>& tup)
-	{
-		return [this, &tup]<std::size_t... Is>(std::index_sequence<Is...>) -> bool
+		template <class T>
+		constexpr bool try_push(const std::vector<T>& ts)
 		{
-			return (... && try_push(std::get<Is>(tup)));
-		}(std::index_sequence_for<T, Ts...>{});
-	}
+			for (auto& t : ts)
+			{
+				if (not try_push(t))
+					return false;
+			}
+			return true;
+		}
 
-	std::vector<Input> vec;
-	bool valid;
-};
+		template <class T>
+		constexpr bool try_push(const std::optional<T>& opt)
+		{
+			return (not opt.has_value()) || try_push(*opt);
+		}
+
+		template <class T, class... Ts>
+		constexpr bool try_push(const std::tuple<T, Ts...>& tup)
+		{
+			return[this, &tup]<std::size_t... Is>(std::index_sequence<Is...>) -> bool
+			{
+				return (... && try_push(std::get<Is>(tup)));
+			}(std::index_sequence_for<T, Ts...>{});
+		}
+
+		std::vector<Input> vec;
+		bool valid;
+	};
+
+}
 
 template <Parser P>
 requires Flattenable<typename P::result_type>
@@ -78,7 +83,8 @@ struct Flatten
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			std::optional<Input> flattened = FlattenExecutor(*result).flattened();
+			using Executor = detail::executors::Flatten;
+			std::optional<Input> flattened = Executor(*result).flattened();
 			if (flattened)
 				return { success, *flattened, result.remaining() };
 		}

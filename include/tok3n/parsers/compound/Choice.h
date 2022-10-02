@@ -4,22 +4,27 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <class result_type>
-struct ChoiceExecutor
+namespace detail::executors
 {
-	Input input;
-	Result<result_type> result = {};
 
-	template <Parser P>
-	constexpr bool execute()
+	template <class result_type>
+	struct Choice
 	{
-		if constexpr (std::is_same_v<result_type, void>)
-			result = P::lookahead(input);
-		else
-			result = P::parse(input);
-		return result.has_value();
-	}
-};
+		Input input;
+		Result<result_type> result = {};
+
+		template <Parser P>
+		constexpr bool execute()
+		{
+			if constexpr (std::is_same_v<result_type, void>)
+				result = P::lookahead(input);
+			else
+				result = P::parse(input);
+			return result.has_value();
+		}
+	};
+
+}
 
 template <Parser... Ps>
 requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>
@@ -29,7 +34,8 @@ struct Choice
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		auto executor = ChoiceExecutor<result_type>{ .input = input };
+		using Executor = detail::executors::Choice<result_type>;
+		Executor executor{.input = input };
 		(... || executor.execute<Ps>());
 
 		return executor.result;
@@ -37,7 +43,8 @@ struct Choice
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		auto executor = ChoiceExecutor<void>{ .input = input };
+		using Executor = detail::executors::Choice<void>;
+		Executor executor{ .input = input };
 		(... || executor.execute<Ps>());
 
 		return executor.result;
