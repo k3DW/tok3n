@@ -345,6 +345,7 @@
     <ClInclude Include="include\tok3n\utilities\namespace.h" />
     <ClInclude Include="include\tok3n\utilities\static_string.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="tests\parsers_adaptor\Delimit.h" />
     <ClInclude Include="tests\parsers_repeat\combine.h" />
     <ClInclude Include="tests\utility.h" />
     <ClInclude Include="tests\parsers_basic\OneChar.h" />

@@ -16,4 +16,6 @@
 #include "tests/parsers_repeat/ZeroOrMore.h"
 #include "tests/parsers_repeat/combine.h"
 
+#include "tests/parsers_adaptor/Delimit.h"
+
 #endif
