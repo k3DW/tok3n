@@ -127,10 +127,10 @@ using retarget = typename detail::retarget_impl<List, NewTemplate>::type;
 
 
 template <class List>
-struct flatten_if_single {};
+struct unwrap_if_single {};
 
 template <template <class...> class Template, class T, class... Ts>
-struct flatten_if_single<Template<T, Ts...>>
+struct unwrap_if_single<Template<T, Ts...>>
 {
 	static constexpr bool value = sizeof...(Ts) == 0;
 	using type = std::conditional_t<value, T, Template<T, Ts...>>;

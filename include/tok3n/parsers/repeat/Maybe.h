@@ -13,7 +13,7 @@ struct Maybe
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, result_type{ std::move(result.value()) }, result.remaining() };
+			return { success, std::move(*result), result.remaining() };
 		else
 			return { success, result_type{ std::nullopt }, input };
 	}
@@ -21,7 +21,7 @@ struct Maybe
 	static constexpr Result<void> lookahead(Input input)
 	{
 		auto result = P::lookahead(input);
-		if (result)
+		if (result.has_value())
 			return { success, result.remaining() };
 		else
 			return { success, input };

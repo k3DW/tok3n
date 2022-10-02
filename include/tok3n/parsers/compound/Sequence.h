@@ -4,8 +4,8 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <class result_type, bool flattened>
-struct SequenceExec
+template <class result_type, bool unwrapped>
+struct SequenceExecutor
 {
 	Input input;
 	result_type full_result = {};
@@ -25,10 +25,10 @@ struct SequenceExec
 			if (result.has_value())
 			{
 				input = result.remaining();
-				if constexpr (flattened)
-					full_result = std::move(result.value());
+				if constexpr (unwrapped)
+					full_result = std::move(*result);
 				else
-					std::get<I>(full_result) = std::move(result.value());
+					std::get<I>(full_result) = std::move(*result);
 				return true;
 			}
 			else
@@ -42,15 +42,15 @@ requires (sizeof...(Ps) >= 2)
 struct Sequence
 {
 	using filtered = mp::filter<mp::is_not_type<void>, typename Ps::result_type...>;
-	using result_trait = mp::flatten_if_single<mp::retarget<filtered, std::tuple>>;
+	using unwrap_trait = mp::unwrap_if_single<mp::retarget<filtered, std::tuple>>;
 
-	using result_type = result_trait::type;
-	static constexpr bool flattened = result_trait::value;
+	using result_type = unwrap_trait::type;
+	static constexpr bool unwrapped = unwrap_trait::value;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
 		// This might be a problem because it zero initializes all members
-		auto executor = SequenceExec<result_type, flattened>{ .input = input };
+		auto executor = SequenceExecutor<result_type, unwrapped>{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
@@ -66,7 +66,7 @@ struct Sequence
 	static constexpr Result<void> lookahead(Input input)
 	{
 		// Using std::monostate because we don't have regular void, but this could be anything since it isn't used
-		auto executor = SequenceExec<std::monostate, flattened>{ .input = input };
+		auto executor = SequenceExecutor<std::monostate, unwrapped>{ .input = input };
 
 		bool successful = (... && executor.execute<Ps, -1>());
 

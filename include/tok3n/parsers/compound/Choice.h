@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <class result_type>
-struct ChoiceExec
+struct ChoiceExecutor
 {
 	Input input;
 	Result<result_type> result = {};
@@ -13,7 +13,7 @@ struct ChoiceExec
 	template <Parser P>
 	constexpr bool execute()
 	{
-		if constexpr (std::same_as<result_type, void>)
+		if constexpr (std::is_same_v<result_type, void>)
 			result = P::lookahead(input);
 		else
 			result = P::parse(input);
@@ -29,7 +29,7 @@ struct Choice
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		auto executor = ChoiceExec<result_type>{ .input = input };
+		auto executor = ChoiceExecutor<result_type>{ .input = input };
 		(... || executor.execute<Ps>());
 
 		return executor.result;
@@ -37,7 +37,7 @@ struct Choice
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		auto executor = ChoiceExec<void>{ .input = input };
+		auto executor = ChoiceExecutor<void>{ .input = input };
 		(... || executor.execute<Ps>());
 
 		return executor.result;

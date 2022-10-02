@@ -14,16 +14,16 @@ struct Delimit
 		result_type results;
 
 		auto result = P::parse(input);
-		if (not result)
+		if (not result.has_value())
 			return { failure, input };
 
 		while (result)
 		{
 			input = result.remaining();
-			results.emplace_back(std::move(result.value()));
+			results.emplace_back(std::move(*result));
 
-			Result<void> delimited = Delimiter::lookahead(input);
-			if (!delimited)
+			auto delimited = Delimiter::lookahead(input);
+			if (not delimited.has_value())
 				break;
 
 			result = P::parse(delimited.remaining());
@@ -34,16 +34,16 @@ struct Delimit
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		Result<void> result = P::lookahead(input);
-		if (not result)
+		auto result = P::lookahead(input);
+		if (not result.has_value())
 			return { failure, input };
 
 		while (result)
 		{
 			input = result.remaining();
 
-			Result<void> delimited = Delimiter::lookahead(input);
-			if (!delimited)
+			auto delimited = Delimiter::lookahead(input);
+			if (not delimited.has_value())
 				break;
 
 			result = P::lookahead(delimited.remaining());

@@ -12,16 +12,15 @@ struct OneOrMore
 	static constexpr Result<result_type> parse(Input input)
 	{
 		const Input original_input = input;
-
 		result_type results;
+
 		while (true)
 		{
 			auto result = P::parse(input);
 			if (result.has_value())
 			{
 				input = result.remaining();
-				results.emplace_back(std::move(result.value()));
-				continue;
+				results.emplace_back(std::move(*result));
 			}
 			else
 				break;
@@ -41,9 +40,9 @@ struct OneOrMore
 		do
 		{
 			result = P::lookahead(input);
-			successful = successful || result.has_value();
 			input = result.remaining();
-		} while (result);
+			successful |= result.has_value();
+		} while (result.has_value());
 
 		if (successful)
 			return { success, input };

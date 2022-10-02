@@ -12,16 +12,15 @@ struct ZeroOrMore
 	static constexpr Result<result_type> parse(Input input)
 	{
 		const Input original_input = input;
-
 		result_type results;
+
 		while (true)
 		{
 			auto result = P::parse(input);
 			if (result.has_value())
 			{
 				input = result.remaining();
-				results.emplace_back(std::move(result.value()));
-				continue;
+				results.emplace_back(std::move(*result));
 			}
 			else
 				break;
@@ -38,7 +37,7 @@ struct ZeroOrMore
 		{
 			result = P::lookahead(input);
 			input = result.remaining();
-		} while (result);
+		} while (result.has_value());
 
 		return { success, input };
 	}
