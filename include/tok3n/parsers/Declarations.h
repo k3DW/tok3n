@@ -30,20 +30,6 @@ template <class P> constexpr ParserType parser_type_v<const P> = parser_type_v<P
 template <class P> constexpr ParserType parser_type_v<P&>      = parser_type_v<P>;
 template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P>;
 
-template <class P> concept IsOneChar    = parser_type_v<P> == ParserType::OneChar;
-template <class P> concept IsNotChar    = parser_type_v<P> == ParserType::NotChar;
-template <class P> concept IsLiteral    = parser_type_v<P> == ParserType::Literal;
-template <class P> concept IsChoice     = parser_type_v<P> == ParserType::Choice;
-template <class P> concept IsSequence   = parser_type_v<P> == ParserType::Sequence;
-template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrMore;
-template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
-template <class P> concept IsMaybe      = parser_type_v<P> == ParserType::Maybe;
-template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transform;
-template <class P> concept IsJoin       = parser_type_v<P> == ParserType::Join;
-template <class P> concept IsIgnore     = parser_type_v<P> == ParserType::Ignore;
-template <class P> concept IsDelimit    = parser_type_v<P> == ParserType::Delimit;
-template <class P> concept IsCustom     = parser_type_v<P> == ParserType::Custom;
-
 using Input = std::string_view;
 
 template <class T>
@@ -64,6 +50,23 @@ concept Parser =
 		{ P::parse(input) } -> IsResult<typename P::result_type>;
 		{ P::lookahead(input) } -> IsResult<void>;
 	};
+
+
+
+template <class P> concept IsOneChar    = Parser<P> && parser_type_v<P> == ParserType::OneChar;
+template <class P> concept IsNotChar    = Parser<P> && parser_type_v<P> == ParserType::NotChar;
+template <class P> concept IsLiteral    = Parser<P> && parser_type_v<P> == ParserType::Literal;
+template <class P> concept IsChoice     = Parser<P> && parser_type_v<P> == ParserType::Choice;
+template <class P> concept IsSequence   = Parser<P> && parser_type_v<P> == ParserType::Sequence;
+template <class P> concept IsOneOrMore  = Parser<P> && parser_type_v<P> == ParserType::OneOrMore;
+template <class P> concept IsZeroOrMore = Parser<P> && parser_type_v<P> == ParserType::ZeroOrMore;
+template <class P> concept IsMaybe      = Parser<P> && parser_type_v<P> == ParserType::Maybe;
+template <class P> concept IsTransform  = Parser<P> && parser_type_v<P> == ParserType::Transform;
+template <class P> concept IsJoin       = Parser<P> && parser_type_v<P> == ParserType::Join;
+template <class P> concept IsIgnore     = Parser<P> && parser_type_v<P> == ParserType::Ignore;
+template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == ParserType::Delimit;
+template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
+
 
 
 template <static_string str>
