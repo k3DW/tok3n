@@ -11,7 +11,7 @@
 	using k3::tok3n::ZeroOrMore; \
 	using k3::tok3n::Maybe;      \
 	using k3::tok3n::Delimit;    \
-	using k3::tok3n::Flatten;    \
+	using k3::tok3n::Join;       \
 	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Transform
 
@@ -55,7 +55,7 @@ struct parser_type_of_t
 	static constexpr bool is_ZeroOrMore = IsZeroOrMore<T>;
 	static constexpr bool is_Maybe      = IsMaybe<T>;
 	static constexpr bool is_Transform  = IsTransform<T>;
-	static constexpr bool is_Flatten    = IsFlatten<T>;
+	static constexpr bool is_Join       = IsJoin<T>;
 	static constexpr bool is_Ignore     = IsIgnore<T>;
 	static constexpr bool is_Delimit    = IsDelimit<T>;
 	static constexpr bool is_Custom     = IsCustom<T>;

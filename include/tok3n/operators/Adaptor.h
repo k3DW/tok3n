@@ -10,12 +10,12 @@ constexpr auto operator%(P, fn_t<function>)
 }
 
 template <Parser P>
-constexpr auto operator%(P, flatten_t)
+constexpr auto operator%(P, join_t)
 {
 	if constexpr (std::same_as<Input, typename P::result_type>)
 		return P{};
 	else
-		return Flatten<P>{};
+		return Join<P>{};
 }
 
 template <Parser P>

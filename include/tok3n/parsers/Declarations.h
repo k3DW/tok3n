@@ -19,7 +19,7 @@ enum class ParserType
 	ZeroOrMore,
 	Maybe,
 	Transform,
-	Flatten,
+	Join,
 	Ignore,
 	Delimit,
 	Custom,
@@ -39,7 +39,7 @@ template <class P> concept IsOneOrMore  = parser_type_v<P> == ParserType::OneOrM
 template <class P> concept IsZeroOrMore = parser_type_v<P> == ParserType::ZeroOrMore;
 template <class P> concept IsMaybe      = parser_type_v<P> == ParserType::Maybe;
 template <class P> concept IsTransform  = parser_type_v<P> == ParserType::Transform;
-template <class P> concept IsFlatten    = parser_type_v<P> == ParserType::Flatten;
+template <class P> concept IsJoin       = parser_type_v<P> == ParserType::Join;
 template <class P> concept IsIgnore     = parser_type_v<P> == ParserType::Ignore;
 template <class P> concept IsDelimit    = parser_type_v<P> == ParserType::Delimit;
 template <class P> concept IsCustom     = parser_type_v<P> == ParserType::Custom;
@@ -142,26 +142,26 @@ template <auto function>
 constexpr auto fn = fn_t<function>{};
 
 
-template <class T> constexpr bool flattenable_v          = false;
-template <class T> constexpr bool flattenable_v<const T> = flattenable_v<T>;
-template <class T> constexpr bool flattenable_v<T&>      = flattenable_v<T>;
-template <class T> constexpr bool flattenable_v<T&&>     = flattenable_v<T>;
+template <class T> constexpr bool is_joinable_v          = false;
+template <class T> constexpr bool is_joinable_v<const T> = is_joinable_v<T>;
+template <class T> constexpr bool is_joinable_v<T&>      = is_joinable_v<T>;
+template <class T> constexpr bool is_joinable_v<T&&>     = is_joinable_v<T>;
 
-template <> constexpr bool flattenable_v<Input> = true;
-template <class T> constexpr bool flattenable_v<std::vector<T>> = flattenable_v<T>;
-template <class T> constexpr bool flattenable_v<std::optional<T>> = flattenable_v<T>;
-template <class... Ts> constexpr bool flattenable_v<std::tuple<Ts...>> = (... && flattenable_v<Ts>);
+template <> constexpr bool is_joinable_v<Input> = true;
+template <class T> constexpr bool is_joinable_v<std::vector<T>> = is_joinable_v<T>;
+template <class T> constexpr bool is_joinable_v<std::optional<T>> = is_joinable_v<T>;
+template <class... Ts> constexpr bool is_joinable_v<std::tuple<Ts...>> = (... && is_joinable_v<Ts>);
 
-template <class T> concept Flattenable = flattenable_v<T>;
-
-template <Parser P>
-requires Flattenable<typename P::result_type>
-struct Flatten;
+template <class T> concept Joinable = is_joinable_v<T>;
 
 template <Parser P>
-constexpr ParserType parser_type_v<Flatten<P>> = ParserType::Flatten;
+requires Joinable<typename P::result_type>
+struct Join;
 
-constexpr struct flatten_t {} flatten;
+template <Parser P>
+constexpr ParserType parser_type_v<Join<P>> = ParserType::Join;
+
+constexpr struct join_t {} join;
 
 
 template <Parser P>

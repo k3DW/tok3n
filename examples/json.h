@@ -69,10 +69,10 @@ inline namespace number_impl
 			return std::get<1>(tuple);
 	};
 
-	constexpr auto any_digits = +digit % flatten % fn<sv_to_int>;
+	constexpr auto any_digits = +digit % join % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(any_digits)::result_type, int64_t>);
 
-	constexpr auto natural_number = (zero % fn<get_zero>) | ((nonzerodigit >> *digit) % flatten % fn<sv_to_int>);
+	constexpr auto natural_number = (zero % fn<get_zero>) | ((nonzerodigit >> *digit) % join % fn<sv_to_int>);
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
 	constexpr auto integer = (~minus >> natural_number) % fn<give_sign>;
@@ -99,14 +99,14 @@ static_assert(std::same_as<decltype(number)::result_type, number_t>);
 inline namespace string_impl
 {
 
-	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % flatten;
+	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % join;
 	constexpr auto control = OneChar<"\"/\\bfnrt">{} | hex;
 
-	constexpr auto valid_char = !(quote | backslash) | ((backslash >> control) % flatten);
+	constexpr auto valid_char = !(quote | backslash) | ((backslash >> control) % join);
 
 }
 
-constexpr auto string = ignore(quote) >> (*valid_char % flatten) >> ignore(quote);
+constexpr auto string = ignore(quote) >> (*valid_char % join) >> ignore(quote);
 static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 
 
@@ -119,7 +119,7 @@ inline namespace whitespace_impl
 
 }
 
-constexpr auto whitespace = *OneChar<"\t\n\r ">{} % flatten;
+constexpr auto whitespace = *OneChar<"\t\n\r ">{} % join;
 static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
 
 template <class T>

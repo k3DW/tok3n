@@ -7,16 +7,16 @@ TOK3N_BEGIN_NAMESPACE()
 namespace detail::executors
 {
 
-	class Flatten
+	class Join
 	{
 	public:
 		template <class T>
-		constexpr Flatten(T&& t)
+		constexpr Join(T&& t)
 		{
 			valid = try_push(std::forward<T>(t));
 		}
 
-		constexpr std::optional<Input> flattened() const
+		constexpr std::optional<Input> joined() const
 		{
 			if (not valid)
 				return std::nullopt;
@@ -73,8 +73,8 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires Flattenable<typename P::result_type>
-struct Flatten
+requires Joinable<typename P::result_type>
+struct Join
 {
 	using result_type = Input;
 
@@ -83,10 +83,10 @@ struct Flatten
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			using Executor = detail::executors::Flatten;
-			std::optional<Input> flattened = Executor(*result).flattened();
-			if (flattened)
-				return { success, *flattened, result.remaining() };
+			using Executor = detail::executors::Join;
+			std::optional<Input> joined = Executor(*result).joined();
+			if (joined)
+				return { success, *joined, result.remaining() };
 		}
 		return { failure, input };
 	}

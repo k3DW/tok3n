@@ -14,7 +14,7 @@
 #include "tok3n/parsers/repeat/ZeroOrMore.h"
 
 #include "tok3n/parsers/adaptor/Transform.h"
-#include "tok3n/parsers/adaptor/Flatten.h"
+#include "tok3n/parsers/adaptor/Join.h"
 #include "tok3n/parsers/adaptor/Ignore.h"
 #include "tok3n/parsers/adaptor/Delimit.h"
 

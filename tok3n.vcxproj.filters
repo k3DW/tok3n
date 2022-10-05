@@ -84,7 +84,7 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Flatten.h">
+    <ClInclude Include="include\tok3n\parsers\adaptor\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h">
