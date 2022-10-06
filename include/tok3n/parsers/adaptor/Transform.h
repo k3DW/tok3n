@@ -5,10 +5,10 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, auto function>
-requires requires { std::invoke(function, std::declval<typename P::result_type>()); }
+requires std::invocable<decltype(function), typename P::result_type>
 struct Transform
 {
-	using result_type = decltype(std::invoke(function, std::declval<typename P::result_type>()));
+	using result_type = std::invoke_result_t<decltype(function), typename P::result_type>;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

@@ -3,11 +3,20 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
+
+
+template <auto function> struct fn_t final {};
+template <auto function> constexpr auto fn = fn_t<function>{};
+
 template <Parser P, auto function>
 constexpr auto operator%(P, fn_t<function>)
 {
 	return Transform<P, function>{};
 }
+
+
+
+constexpr struct join_t final {} join;
 
 template <Parser P>
 constexpr auto operator%(P, join_t)
@@ -18,6 +27,8 @@ constexpr auto operator%(P, join_t)
 		return Join<P>{};
 }
 
+
+
 template <Parser P>
 constexpr auto ignore(P)
 {
@@ -27,10 +38,14 @@ constexpr auto ignore(P)
 		return Ignore<P>{};
 }
 
+
+
 template <Parser P, Parser Delimiter>
 constexpr auto delimit(P, Delimiter)
 {
 	return Delimit<P, Delimiter>{};
 }
+
+
 
 TOK3N_END_NAMESPACE()

@@ -325,6 +325,7 @@
     <ClInclude Include="include\tok3n\operators\Sequence.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Custom.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Join.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
