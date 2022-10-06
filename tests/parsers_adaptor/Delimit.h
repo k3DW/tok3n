@@ -130,4 +130,23 @@ void parse_Delimit_reversed()
 		;
 }
 
+void delimit_operator()
+{
+	constexpr L1 l1;
+	constexpr L2 l2;
+	constexpr OC1 oc1;
+	constexpr OC2 oc2;
+
+	assert
+		, d1 == delimit(l1, oc1)
+		, d2 == delimit(l1, oc2)
+		, d3 == delimit(l2, oc1)
+		, d4 == delimit(l2, oc2)
+		, d5 == delimit(oc1, l1)
+		, d6 == delimit(oc2, l1)
+		, d7 == delimit(oc1, l2)
+		, d8 == delimit(oc2, l2)
+		;
+}
+
 TOK3N_END_NAMESPACE_TESTS(adaptor::Delimit)
