@@ -34,26 +34,10 @@ template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P
 
 
 
-namespace detail
-{
-
-	template <class Type, class With> constexpr bool is_joinable_v                   = std::is_same_v<Type, With>;
-	template <class Type, class With> constexpr bool is_joinable_v<Type, const With> = is_joinable_v<Type, With>;
-	template <class Type, class With> constexpr bool is_joinable_v<Type, With&>      = is_joinable_v<Type, With>;
-	template <class Type, class With> constexpr bool is_joinable_v<Type, With&&>     = is_joinable_v<Type, With>;
-
-	template <class Type, class Element>     constexpr bool is_joinable_v<Type, std::vector<Element>>    = is_joinable_v<Type, Element>;
-	template <class Type, class Element>     constexpr bool is_joinable_v<Type, std::optional<Element>>  = is_joinable_v<Type, Element>;
-	template <class Type, class... Elements> constexpr bool is_joinable_v<Type, std::tuple<Elements...>> = (... && is_joinable_v<Type, Elements>);
-
-}
-
-
-
 using Input = std::string_view;
 
-template <class With>
-concept Joinable = detail::is_joinable_v<Input, With>;
+template <class R>
+concept Joinable = mp::container_of<std::string_view, R, std::tuple, std::vector, std::allocator, std::optional>;
 
 template <class T>
 class Result;
