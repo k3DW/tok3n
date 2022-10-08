@@ -17,5 +17,6 @@
 #include "tests/parsers_repeat/combine.h"
 
 #include "tests/parsers_adaptor/Delimit.h"
+#include "tests/parsers_adaptor/Join.h"
 
 #endif
