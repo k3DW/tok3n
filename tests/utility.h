@@ -84,7 +84,7 @@ struct parse_t
 	consteval parse_t(Input input) : input(input) {}
 	Input input;
 
-	consteval bool success(const typename P::result_type& value, Input remaining) const
+	consteval bool success(const typename P::result_type& value, Input remaining) const&&
 	{
 		const auto parse_result = P::parse(input);
 		const bool parse_success = (parse_result) && (*parse_result == value) && (parse_result.remaining() == remaining);
@@ -95,7 +95,7 @@ struct parse_t
 		return parse_success && lookahead_success;
 	}
 
-	consteval bool failure(Input remaining) const
+	consteval bool failure(Input remaining) const&&
 	{
 		const auto parse_result = P::parse(input);
 		const bool parse_failure = (not parse_result) && (parse_result.remaining() == remaining);
