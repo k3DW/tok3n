@@ -24,6 +24,7 @@ enum class ParserType
 	Join,
 	Ignore,
 	Delimit,
+	Into,
 	Custom,
 };
 
@@ -59,6 +60,15 @@ concept Parser =
 		{ P::lookahead(input) } -> IsResult<void>;
 	};
 
+template <class To, class T>
+constexpr bool is_intoable_v = std::is_constructible_v<To, T>;
+
+template <class To, class... Ts>
+constexpr bool is_intoable_v<To, std::tuple<Ts...>> = std::is_constructible_v<To, Ts...>;
+
+template <class To, class T>
+concept Intoable = is_intoable_v<To, T>;
+
 
 
 template <class P> concept IsOneChar    = Parser<P> && parser_type_v<P> == ParserType::OneChar;
@@ -73,6 +83,7 @@ template <class P> concept IsTransform  = Parser<P> && parser_type_v<P> == Parse
 template <class P> concept IsJoin       = Parser<P> && parser_type_v<P> == ParserType::Join;
 template <class P> concept IsIgnore     = Parser<P> && parser_type_v<P> == ParserType::Ignore;
 template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == ParserType::Delimit;
+template <class P> concept IsInto       = Parser<P> && parser_type_v<P> == ParserType::Into;
 template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
 
 
@@ -89,6 +100,7 @@ template <Parser P, auto function>    requires std::invocable<decltype(function)
 template <Parser P>                   requires Joinable<typename P::result_type>                                 struct Join;
 template <Parser P>                                                                                              struct Ignore;
 template <Parser P, Parser Delimiter>                                                                            struct Delimit;
+template <Parser P, class T>          requires Intoable<T, typename P::result_type>                              struct Into;
 template <class CRTP>                                                                                            struct Custom;
 struct CustomBase {};
 
@@ -106,6 +118,7 @@ template <Parser P, auto function>         constexpr ParserType parser_type_v<Tr
 template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                = ParserType::Join;
 template <Parser P>                        constexpr ParserType parser_type_v<Ignore<P>>              = ParserType::Ignore;
 template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>  = ParserType::Delimit;
+template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
 template <std::derived_from<CustomBase> P> constexpr ParserType parser_type_v<P>                      = ParserType::Custom;
 
 

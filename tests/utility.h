@@ -10,10 +10,11 @@
 	using k3::tok3n::OneOrMore;  \
 	using k3::tok3n::ZeroOrMore; \
 	using k3::tok3n::Maybe;      \
-	using k3::tok3n::Delimit;    \
+	using k3::tok3n::Transform;  \
 	using k3::tok3n::Join;       \
 	using k3::tok3n::Ignore;     \
-	using k3::tok3n::Transform;  \
+	using k3::tok3n::Delimit;    \
+	using k3::tok3n::Into;       \
 	using k3::tok3n::Custom
 
 #ifdef TOK3N_TESTING

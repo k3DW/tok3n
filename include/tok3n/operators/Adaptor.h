@@ -29,6 +29,17 @@ constexpr auto operator%(P, join_t)
 
 
 
+template <class T> struct into_t final {};
+template <class T> constexpr auto into = into_t<T>{};
+
+template <Parser P, class T>
+constexpr auto operator%(P, into_t<T>)
+{
+	return Into<P, T>{};
+}
+
+
+
 template <Parser P>
 constexpr auto ignore(P)
 {

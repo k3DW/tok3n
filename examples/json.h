@@ -18,9 +18,9 @@ inline namespace basic
 	constexpr IsOneChar auto nonzerodigit = OneChar<"123456789">{};
 	constexpr IsOneChar auto Ee           = OneChar<"Ee">{};
 
-	constexpr IsOneChar auto quote          = OneChar<'"'>{};
-	constexpr IsOneChar auto backslash      = OneChar<'\\'>{};
-	constexpr IsOneChar auto u              = OneChar<"u">{};
+	constexpr IsOneChar auto quote     = OneChar<'"'>{};
+	constexpr IsOneChar auto backslash = OneChar<'\\'>{};
+	constexpr IsOneChar auto u         = OneChar<"u">{};
 
 	constexpr IsOneChar auto comma         = OneChar<','>{};
 	constexpr IsOneChar auto colon         = OneChar<':'>{};
@@ -33,20 +33,9 @@ inline namespace basic
 
 
 
-struct number_t
-{
-	int64_t integer;
-	std::optional<int64_t> fraction;
-	std::optional<int64_t> exponent;
-};
-
 inline namespace number_impl
 {
 
-	constexpr auto get_zero = [](std::string_view) -> int64_t
-	{
-		return 0;
-	};
 	constexpr auto sv_to_int = [](std::string_view str) -> int64_t
 	{
 		int64_t ret = 0;
@@ -72,7 +61,7 @@ inline namespace number_impl
 	constexpr auto any_digits = +digit % join % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(any_digits)::result_type, int64_t>);
 
-	constexpr auto natural_number = (zero % fn<get_zero>) | ((nonzerodigit >> *digit) % join % fn<sv_to_int>);
+	constexpr auto natural_number = (zero | ((nonzerodigit >> *digit) % join)) % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
 	constexpr auto integer = (~minus >> natural_number) % fn<give_sign>;
@@ -84,14 +73,16 @@ inline namespace number_impl
 	constexpr auto exponent = (ignore(Ee) >> ~signs >> any_digits) % fn<give_sign>;
 	static_assert(std::same_as<decltype(exponent)::result_type, int64_t>);
 
-	constexpr auto to_number = [](const std::tuple<int64_t, std::optional<int64_t>, std::optional<int64_t>>& tuple) -> number_t
-	{
-		return { .integer = std::get<0>(tuple), .fraction = std::get<1>(tuple), .exponent = std::get<2>(tuple) };
-	};
-
 }
 
-constexpr auto number = (integer >> ~fraction >> ~exponent) % fn<to_number>;
+struct number_t
+{
+	int64_t integer;
+	std::optional<int64_t> fraction;
+	std::optional<int64_t> exponent;
+};
+
+constexpr auto number = (integer >> ~fraction >> ~exponent) % into<number_t>;
 static_assert(std::same_as<decltype(number)::result_type, number_t>);
 
 
@@ -111,19 +102,11 @@ static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 
 
 
-inline namespace whitespace_impl
-{
-
-	template <class T>
-	constexpr auto empty_value = [](auto&&) -> T { return {}; };
-
-}
-
 constexpr auto whitespace = *OneChar<"\t\n\r ">{} % join;
 static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
 
 template <class T>
-constexpr auto whitespace_as = *OneChar<"\t\n\r ">{} % fn<empty_value<T>>;
+constexpr auto whitespace_as = *OneChar<"\t\n\r ">{} % fn<[](auto&&) -> T { return {}; }>;
 
 
 
@@ -131,18 +114,35 @@ struct object_t;
 struct array_t;
 struct value_t;
 
+using pair_t = std::pair<std::string_view, value_t>;
+
 struct object_t
 {
+	object_t() = default;
+	object_t(std::vector<pair_t>&& vec);
 	std::map<std::string, value_t> data;
 };
 struct array_t
 {
+	array_t() = default;
+	array_t(std::vector<value_t>&& vec);
 	std::vector<value_t> data;
 };
 struct value_t
 {
 	std::variant<std::string, number_t, object_t, array_t, bool, nullptr_t> data;
 };
+
+object_t::object_t(std::vector<pair_t>&& vec)
+{
+	for (auto&& pair : std::move(vec))
+		data.insert(pair);
+}
+array_t::array_t(std::vector<value_t>&& vec)
+{
+	for (auto&& pair : std::move(vec))
+		data.push_back(pair);
+}
 
 
 
@@ -164,82 +164,28 @@ struct JsonValueParser : Custom<JsonValueParser>
 
 consteval auto JsonObjectParser::get_parser()
 {
-	using pair_t = std::pair<std::string_view, value_t>;
-
-	constexpr auto get_pair = [](const std::tuple<std::string_view, value_t>& tuple) -> pair_t
-	{
-		return { std::get<0>(std::move(tuple)), std::get<1>(std::move(tuple)) };
-	};
-
-	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ignore(colon) >> JsonValueParser{}) % fn<get_pair>;
-
-	constexpr auto get_object = [](const std::vector<pair_t>& vec) -> object_t
-	{
-		object_t object{};
-	
-		for (const pair_t& pair : vec)
-			object.data.insert(pair);
-	
-		return object;
-	};
-
-	constexpr auto object = delimit(pair, comma) % fn<get_object>;
-
+	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ignore(colon) >> JsonValueParser{}) % into<pair_t>;
+	constexpr auto object = delimit(pair, comma) % into<object_t>;
 	constexpr auto the_parser = ignore(left_brace) >> (object | whitespace_as<object_t>) >> ignore(right_brace);
-
 	return the_parser;
 }
 
 consteval auto JsonArrayParser::get_parser()
 {
-	constexpr auto get_array = [](const std::vector<value_t>& vec) -> array_t
-	{
-		array_t arr;
-
-		for (const value_t& value : vec)
-			arr.data.push_back(value);
-
-		return arr;
-	};
-
-	constexpr auto values = delimit(JsonValueParser{}, comma) % fn<get_array>;
-
+	constexpr auto values = delimit(JsonValueParser{}, comma) % into<array_t>;
 	constexpr auto the_parser = ignore(left_bracket) >> (values | whitespace_as<array_t>) >> ignore(right_bracket);
-
 	return the_parser;
 }
 
 consteval auto JsonValueParser::get_parser()
 {
-	constexpr auto get_value_string = [](std::string_view str) -> value_t
-	{
-		return { .data = std::string(str) };
-	};
-	constexpr auto get_value_number = [](number_t num) -> value_t
-	{
-		return { .data = num };
-	};
-	constexpr auto get_value_object = [](const object_t& object) -> value_t
-	{
-		return { .data = std::move(object) };
-	};
-	constexpr auto get_value_array = [](const array_t& array) -> value_t
-	{
-		return { .data = std::move(array) };
-	};
-	constexpr auto get_value_true = [](std::string_view) -> value_t
-	{
-		return { .data = true };
-	};
-	constexpr auto get_value_false = [](std::string_view) -> value_t
-	{
-		return { .data = false };
-	};
-	constexpr auto get_value_null = [](std::string_view) -> value_t
-	{
-		return { .data = nullptr };
-	};
-
+	constexpr auto get_value_string = [](std::string_view str) -> value_t { return { .data = std::string(str) }; };
+	constexpr auto get_value_number = [](number_t&& num)       -> value_t { return { .data = std::move(num) }; };
+	constexpr auto get_value_object = [](object_t&& object)    -> value_t { return { .data = std::move(object) }; };
+	constexpr auto get_value_array  = [](array_t&& array)      -> value_t { return { .data = std::move(array) }; };
+	constexpr auto get_value_true   = [](std::string_view)     -> value_t { return { .data = true }; };
+	constexpr auto get_value_false  = [](std::string_view)     -> value_t { return { .data = false }; };
+	constexpr auto get_value_null   = [](std::string_view)     -> value_t { return { .data = nullptr }; };
 
 	constexpr auto value_parser =
 		(string             % fn<get_value_string>) |
@@ -250,9 +196,7 @@ consteval auto JsonValueParser::get_parser()
 		(Literal<"false">{} % fn<get_value_false>)  |
 		(Literal<"null">{}  % fn<get_value_null>);
 
-	constexpr auto the_parser = ignore(whitespace) >> value_parser >> ignore(whitespace);
-	
-	return the_parser;
+	return ignore(whitespace) >> value_parser >> ignore(whitespace);
 }
 
 
