@@ -19,5 +19,6 @@
 #include "tests/parsers_adaptor/Delimit.h"
 #include "tests/parsers_adaptor/Join.h"
 #include "tests/parsers_adaptor/Ignore.h"
+#include "tests/parsers_adaptor/Transform.h"
 
 #endif
