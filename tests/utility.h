@@ -127,7 +127,13 @@ struct parse_t
 template <Parser P>
 consteval parse_t<P> parse(Input input)
 {
-	return input;
+	return { input };
+}
+
+template <Parser P>
+consteval parse_t<P> parse(P, Input input)
+{
+	return { input };
 }
 
 

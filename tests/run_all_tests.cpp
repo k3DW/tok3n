@@ -21,5 +21,6 @@
 #include "tests/parsers_adaptor/Ignore.h"
 #include "tests/parsers_adaptor/Transform.h"
 #include "tests/parsers_adaptor/Custom.h"
+#include "tests/parsers_adaptor/combine.h"
 
 #endif

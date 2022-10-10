@@ -153,6 +153,9 @@
     <ClInclude Include="tests\parsers_adaptor\Custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\parsers_adaptor\combine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
