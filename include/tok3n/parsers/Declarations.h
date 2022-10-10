@@ -40,6 +40,7 @@ template <class R>
 concept Joinable = mp::container_of<std::string_view, R, std::tuple, std::vector, std::allocator, std::optional>;
 
 template <class T>
+requires (not std::is_reference_v<T>)
 class Result;
 
 template <class R, class T> constexpr bool is_result_v = false;

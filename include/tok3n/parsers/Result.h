@@ -9,6 +9,7 @@ static constexpr struct failure_t final {} failure;
 static constexpr struct success_t final {} success;
 
 template <class T>
+requires (not std::is_reference_v<T>)
 class Result
 {
 public:
