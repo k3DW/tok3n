@@ -13,7 +13,8 @@
 	using k3::tok3n::Delimit;    \
 	using k3::tok3n::Join;       \
 	using k3::tok3n::Ignore;     \
-	using k3::tok3n::Transform
+	using k3::tok3n::Transform;  \
+	using k3::tok3n::Custom
 
 #ifdef TOK3N_TESTING
 #define TOK3N_ASSERT_IF_NOT_TESTING

@@ -20,5 +20,6 @@
 #include "tests/parsers_adaptor/Join.h"
 #include "tests/parsers_adaptor/Ignore.h"
 #include "tests/parsers_adaptor/Transform.h"
+#include "tests/parsers_adaptor/Custom.h"
 
 #endif
