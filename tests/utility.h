@@ -84,7 +84,12 @@ struct parse_t
 	consteval parse_t(Input input) : input(input) {}
 	Input input;
 
-	consteval bool success(const typename P::result_type& value, Input remaining) const&&
+	static constexpr bool is_result_void = result_of<P>.is<void>;
+	using value_type = std::conditional_t<is_result_void, std::monostate, typename P::result_type>;
+
+	// We need this `value_type` indirection, otherwise the first `success()` overload causes compile errors when `result_type` is `void`.
+
+	consteval bool success(const value_type& value, Input remaining) const&& requires (not is_result_void)
 	{
 		const auto parse_result = P::parse(input);
 		const bool parse_success = (parse_result) && (*parse_result == value) && (parse_result.remaining() == remaining);
@@ -92,6 +97,17 @@ struct parse_t
 		const auto lookahead_result = P::lookahead(input);
 		const bool lookahead_success = (lookahead_result) && (lookahead_result.remaining() == remaining);
 
+		return parse_success && lookahead_success;
+	}
+
+	consteval bool success(Input remaining) const&& requires (is_result_void)
+	{
+		const auto parse_result = P::parse(input);
+		const bool parse_success = (parse_result) && (parse_result.remaining() == remaining);
+	
+		const auto lookahead_result = P::lookahead(input);
+		const bool lookahead_success = (lookahead_result) && (lookahead_result.remaining() == remaining);
+	
 		return parse_success && lookahead_success;
 	}
 
