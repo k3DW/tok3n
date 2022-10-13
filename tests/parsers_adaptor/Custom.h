@@ -42,8 +42,8 @@ void parse_Transform()
 		, parse<CC>("abcabcabcabc").success(12, "")
 		, parse<CC>("abcabcabcabc ??").success(12, " ??")
 		, parse<CC>("abc").success(3, "")
-		, parse<CC>(" abc").failure(" abc")
-		, parse<CC>("").failure("")
+		, parse<CC>(" abc").failure()
+		, parse<CC>("").failure()
 		;
 }
 

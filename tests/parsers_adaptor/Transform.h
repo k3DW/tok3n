@@ -86,8 +86,8 @@ void parse_Transform()
 {
 	assert
 		, parse<T1>("abcabcabcab").success(3, "ab")
-		, parse<T1>("").failure("")
-		, parse<T1>("ab").failure("ab")
+		, parse<T1>("").failure()
+		, parse<T1>("ab").failure()
 		, parse<T1>("abc").success(1, "")
 		
 		, parse<T2>("abcabc").success({ 'a', 'b', 'c' }, "abc")
@@ -97,17 +97,17 @@ void parse_Transform()
 		, parse<T2>(" ??abcabc").success({}, " ??abcabc")
 		
 		, parse<T3>("abc???????").success(false, "?")
-		, parse<T3>("??abc???????").failure("??abc???????")
+		, parse<T3>("??abc???????").failure()
 		, parse<T3>("abc??abc???????").success(false, "abc???????")
 		, parse<T3>("abc ??abc???????").success(true, " ??abc???????")
-		, parse<T3>("").failure("")
+		, parse<T3>("").failure()
 		
 		, parse<T4>("abcabcabcabc??").success(36, "")
 		, parse<T4>("abcabcabcabc").success(12, "")
 		, parse<T4>("abcabcabcabc ??").success(12, " ??")
 		, parse<T4>("abc").success(3, "")
-		, parse<T4>(" abc").failure(" abc")
-		, parse<T4>("").failure("")
+		, parse<T4>(" abc").failure()
+		, parse<T4>("").failure()
 		;
 }
 

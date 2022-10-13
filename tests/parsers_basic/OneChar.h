@@ -33,11 +33,11 @@ void parse_single()
 {
 	assert
 		, parse<Single>("ab").success("a", "b")
-		, parse<Single>("ba").failure("ba")
+		, parse<Single>("ba").failure()
 		, parse<Single>("abc").success("a", "bc")
-		, parse<Single>("Ab").failure("Ab")
-		, parse<Single>("Abc").failure("Abc")
-		, parse<Single>(" abc").failure(" abc")
+		, parse<Single>("Ab").failure()
+		, parse<Single>("Abc").failure()
+		, parse<Single>(" abc").failure()
 		;
 }
 void parse_multi()
@@ -49,14 +49,14 @@ void parse_multi()
 		, parse<Multi>("bca").success("b", "ca")
 		, parse<Multi>("cab").success("c", "ab")
 		, parse<Multi>("cba").success("c", "ba")
-		, parse<Multi>("ABC").failure("ABC")
-		, parse<Multi>("ACB").failure("ACB")
-		, parse<Multi>("BAC").failure("BAC")
-		, parse<Multi>("BCA").failure("BCA")
-		, parse<Multi>("CAB").failure("CAB")
-		, parse<Multi>("CBA").failure("CBA")
-		, parse<Multi>("dcba").failure("dcba")
-		, parse<Multi>(" cba").failure(" cba")
+		, parse<Multi>("ABC").failure()
+		, parse<Multi>("ACB").failure()
+		, parse<Multi>("BAC").failure()
+		, parse<Multi>("BCA").failure()
+		, parse<Multi>("CAB").failure()
+		, parse<Multi>("CBA").failure()
+		, parse<Multi>("dcba").failure()
+		, parse<Multi>(" cba").failure()
 		;
 }
 

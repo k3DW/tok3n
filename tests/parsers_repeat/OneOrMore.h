@@ -46,19 +46,19 @@ void requirements()
 void parse_OneOrMore_Literal()
 {
 	assert
-		, parse<P1>("litera").failure("litera")
+		, parse<P1>("litera").failure()
 		, parse<P1>("literal").success({ "literal" }, "")
 		, parse<P1>("literally").success({ "literal" }, "ly")
 		, parse<P1>("literallitera").success({ "literal" }, "litera")
 		, parse<P1>("literalliterallitera").success({ "literal", "literal" }, "litera")
-		, parse<P1>(" literalliterallitera").failure(" literalliterallitera")
+		, parse<P1>(" literalliterallitera").failure()
 		;
 }
 void parse_OneOrMore_OneChar()
 {
 	assert
 		, parse<P2>("abcdef").success({ "a", "b", "c", "d", "e" }, "f")
-		, parse<P2>("fedcba").failure("fedcba")
+		, parse<P2>("fedcba").failure()
 		, parse<P2>("cdebabcccbjklmnop").success({ "c", "d", "e", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
 		;
 }
@@ -75,7 +75,7 @@ void parse_OneOrMore_Sequence()
 	assert
 		, parse<P4>("literalaliteralcliteraldliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "d"}, {"literal", "b"} }, "")
 		, parse<P4>("literalaliteralcliteraldliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "d"}, {"literal", "b"} }, "literal")
-		, parse<P4>("aliteralaliteralcliteraldliteral").failure("aliteralaliteralcliteraldliteral")
+		, parse<P4>("aliteralaliteralcliteraldliteral").failure()
 		;
 }
 

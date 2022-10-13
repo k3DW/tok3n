@@ -28,7 +28,7 @@ void Ignore_Sequence()
 
 	assert
 		, parse(p, "abc??abc??").success({ "abc", "abc" }, "??")
-		, parse(p, "abcabc??").failure("abcabc??")
+		, parse(p, "abcabc??").failure()
 		;
 }
 
@@ -82,10 +82,10 @@ void Join_Transform()
 	assert
 		, parse(t1, "abcabc").success("b", "abc")
 		, parse(t1, "abc").success("b", "")
-		, parse(t1, "").failure("")
+		, parse(t1, "").failure()
 		, parse(j1, "abcabc").success("b", "abc")
 		, parse(j1, "abc").success("b", "")
-		, parse(j1, "").failure("")
+		, parse(j1, "").failure()
 
 		, parse(t2, "abc??abc").success({ "b", "??" }, "abc")
 		, parse(t2, "abc??").success({ "b", "??" }, "")

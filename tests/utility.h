@@ -100,9 +100,9 @@ struct parse_t
 		return parse_success(remaining) && lookahead_success(remaining);
 	}
 
-	consteval bool failure(Input remaining) const&&
+	consteval bool failure() const&&
 	{
-		return parse_failure(remaining) && lookahead_failure(remaining);
+		return parse_failure(input) && lookahead_failure(input);
 	}
 
 	consteval bool lookahead_success(Input parse_remaining, Input lookahead_remaining) const&&

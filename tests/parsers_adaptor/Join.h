@@ -55,12 +55,12 @@ void parse_Join()
 {
 	assert
 		, parse<J1>("abcabc").success("abc", "abc")
-		, parse<J1>("Abcabc").failure("Abcabc")
-		, parse<J1>(" abcabc").failure(" abcabc")
+		, parse<J1>("Abcabc").failure()
+		, parse<J1>(" abcabc").failure()
 
 		, parse<J2>("abcabcabcab").success("abcabcabc", "ab")
-		, parse<J2>("").failure("")
-		, parse<J2>("ab").failure("ab")
+		, parse<J2>("").failure()
+		, parse<J2>("ab").failure()
 		, parse<J2>("abc").success("abc", "")
 
 		, parse<J3>("abcabc").success("abc", "abc")
@@ -70,17 +70,17 @@ void parse_Join()
 		, parse<J3>(" ??abcabc").success("", " ??abcabc")
 
 		, parse<J4>("abc???????").success("abc??????", "?")
-		, parse<J4>("??abc???????").failure("??abc???????")
+		, parse<J4>("??abc???????").failure()
 		, parse<J4>("abc??abc???????").success("abc??", "abc???????")
 		, parse<J4>("abc ??abc???????").success("abc", " ??abc???????")
-		, parse<J4>("").failure("")
+		, parse<J4>("").failure()
 
 		, parse<J5>("abcabcabcabc??").success("abcabcabcabc??", "")
 		, parse<J5>("abcabcabcabc").success("abcabcabcabc", "")
 		, parse<J5>("abcabcabcabc ??").success("abcabcabcabc", " ??")
 		, parse<J5>("abc").success("abc", "")
-		, parse<J5>(" abc").failure(" abc")
-		, parse<J5>("").failure("")
+		, parse<J5>(" abc").failure()
+		, parse<J5>("").failure()
 		;
 }
 

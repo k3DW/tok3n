@@ -55,12 +55,12 @@ void parse_Ignore()
 {
 	assert
 		, parse<I1>("abcabc").success("abc")
-		, parse<I1>("Abcabc").failure("Abcabc")
-		, parse<I1>(" abcabc").failure(" abcabc")
+		, parse<I1>("Abcabc").failure()
+		, parse<I1>(" abcabc").failure()
 		
 		, parse<I2>("abcabcabcab").success("ab")
-		, parse<I2>("").failure("")
-		, parse<I2>("ab").failure("ab")
+		, parse<I2>("").failure()
+		, parse<I2>("ab").failure()
 		, parse<I2>("abc").success("")
 		
 		, parse<I3>("abcabc").success("abc")
@@ -70,17 +70,17 @@ void parse_Ignore()
 		, parse<I3>(" ??abcabc").success(" ??abcabc")
 		
 		, parse<I4>("abc???????").success("?")
-		, parse<I4>("??abc???????").failure("??abc???????")
+		, parse<I4>("??abc???????").failure()
 		, parse<I4>("abc??abc???????").success("abc???????")
 		, parse<I4>("abc ??abc???????").success(" ??abc???????")
-		, parse<I4>("").failure("")
+		, parse<I4>("").failure()
 		
 		, parse<I5>("abcabcabcabc??").success("")
 		, parse<I5>("abcabcabcabc").success("")
 		, parse<I5>("abcabcabcabc ??").success(" ??")
 		, parse<I5>("abc").success("")
-		, parse<I5>(" abc").failure(" abc")
-		, parse<I5>("").failure("")
+		, parse<I5>(" abc").failure()
+		, parse<I5>("").failure()
 		;
 }
 

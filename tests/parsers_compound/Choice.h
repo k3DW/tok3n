@@ -73,14 +73,14 @@ void parse_twoway()
 	assert
 		, parse<TwoWay1>("abc").success("ab", "c")
 		, parse<TwoWay1>("ba").success("b", "a")
-		, parse<TwoWay1>("cba").failure("cba")
-		, parse<TwoWay1>("dcba").failure("dcba")
+		, parse<TwoWay1>("cba").failure()
+		, parse<TwoWay1>("dcba").failure()
 		, parse<TwoWay1>("edcba").success("e", "dcba")
 
 		, parse<TwoWay2>("abc").success("a", "bc")
 		, parse<TwoWay2>("ba").success("b", "a")
-		, parse<TwoWay2>("cba").failure("cba")
-		, parse<TwoWay2>("dcba").failure("dcba")
+		, parse<TwoWay2>("cba").failure()
+		, parse<TwoWay2>("dcba").failure()
 		, parse<TwoWay2>("edcba").success("e", "dcba")
 		;
 }
@@ -99,9 +99,9 @@ void parse_threeway()
 		, parse<ThreeWay2>("dcba").success("d", "cba")
 		, parse<ThreeWay2>("edcba").success("e", "dcba")
 
-		, parse<ThreeWay1>("zyx").failure("zyx")
+		, parse<ThreeWay1>("zyx").failure()
 		, parse<ThreeWay1>("xyz").success("x", "yz")
-		, parse<ThreeWay2>("zyx").failure("zyx")
+		, parse<ThreeWay2>("zyx").failure()
 		, parse<ThreeWay2>("xyz").success("x", "yz")
 		;
 }

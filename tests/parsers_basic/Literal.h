@@ -21,10 +21,10 @@ void parse_single()
 	assert
 		, parse<L>("literal").success("literal", "")
 		, parse<L>("literally").success("literal", "ly")
-		, parse<L>("litera").failure("litera")
-		, parse<L>(" literal").failure(" literal")
-		, parse<L>("LITERAL").failure("LITERAL")
-		, parse<L>("LITERALLY").failure("LITERALLY")
+		, parse<L>("litera").failure()
+		, parse<L>(" literal").failure()
+		, parse<L>("LITERAL").failure()
+		, parse<L>("LITERALLY").failure()
 		;
 }
 

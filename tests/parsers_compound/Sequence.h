@@ -45,8 +45,8 @@ void requirements_threeway()
 void parse_twoway()
 {
 	assert
-		, parse<TwoWay>("abc").failure("abc")
-		, parse<TwoWay>("abcd").failure("abcd")
+		, parse<TwoWay>("abc").failure()
+		, parse<TwoWay>("abcd").failure()
 		, parse<TwoWay>("abef").success({ "ab", "e" }, "f")
 		, parse<TwoWay>("ab ef").success({ "ab", " " }, "ef")
 		;
@@ -56,7 +56,7 @@ void parse_threeway()
 	assert
 		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
 		, parse<ThreeWay>("abdc").success({ "ab", "d", "c" }, "")
-		, parse<ThreeWay>("abcz").failure("abcz")
+		, parse<ThreeWay>("abcz").failure()
 		;
 }
 
