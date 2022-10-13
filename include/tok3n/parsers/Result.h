@@ -18,15 +18,8 @@ public:
 	constexpr Result(failure_t, Input remaining)
 		: mResult(), mRemaining(remaining) {}
 
-	constexpr Result(success_t, const T& t, Input remaining)
-		: mResult(t), mRemaining(remaining) {}
-
 	constexpr Result(success_t, T&& t, Input remaining)
 		: mResult(std::move(t)), mRemaining(remaining) {}
-
-	template <std::convertible_to<T> U>
-	constexpr Result(success_t, U&& u, Input remaining)
-		: mResult(std::forward<U>(u)), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
 	constexpr bool has_value() const noexcept         { return mResult.has_value(); }

@@ -86,7 +86,7 @@ struct Join
 			using Executor = detail::executors::Join;
 			std::optional<Input> joined = Executor(*result).joined();
 			if (joined)
-				return { success, *joined, result.remaining() };
+				return { success, std::move(*joined), result.remaining()};
 		}
 		return { failure, input };
 	}
