@@ -90,9 +90,9 @@ struct parse_t
 	using value_type = std::conditional_t<is_result_void, std::monostate, typename P::result_type>;
 	// We need this `value_type` indirection, otherwise the first `success()` overload causes compile errors when `result_type` is `void`.
 
-	consteval bool success(const value_type& value, Input remaining) const&& requires (not is_result_void)
+	consteval bool success(value_type&& value, Input remaining) const&& requires (not is_result_void)
 	{
-		return parse_success(value, remaining) && lookahead_success(remaining);
+		return parse_success(std::move(value), remaining) && lookahead_success(remaining);
 	}
 
 	consteval bool success(Input remaining) const&& requires (is_result_void)
@@ -111,7 +111,7 @@ struct parse_t
 	}
 
 private:
-	consteval bool parse_success(const value_type& value, Input remaining) const requires (not is_result_void)
+	consteval bool parse_success(value_type&& value, Input remaining) const requires (not is_result_void)
 	{
 		const auto result = P::parse(input);
 		return (result) && (*result == value) && (result.remaining() == remaining);
