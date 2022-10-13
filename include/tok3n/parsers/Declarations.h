@@ -20,9 +20,9 @@ enum class ParserType
 	OneOrMore,
 	ZeroOrMore,
 	Maybe,
+	Ignore,
 	Transform,
 	Join,
-	Ignore,
 	Delimit,
 	Into,
 	Custom,
@@ -79,9 +79,9 @@ template <class P> concept IsSequence   = Parser<P> && parser_type_v<P> == Parse
 template <class P> concept IsOneOrMore  = Parser<P> && parser_type_v<P> == ParserType::OneOrMore;
 template <class P> concept IsZeroOrMore = Parser<P> && parser_type_v<P> == ParserType::ZeroOrMore;
 template <class P> concept IsMaybe      = Parser<P> && parser_type_v<P> == ParserType::Maybe;
+template <class P> concept IsIgnore     = Parser<P> && parser_type_v<P> == ParserType::Ignore;
 template <class P> concept IsTransform  = Parser<P> && parser_type_v<P> == ParserType::Transform;
 template <class P> concept IsJoin       = Parser<P> && parser_type_v<P> == ParserType::Join;
-template <class P> concept IsIgnore     = Parser<P> && parser_type_v<P> == ParserType::Ignore;
 template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == ParserType::Delimit;
 template <class P> concept IsInto       = Parser<P> && parser_type_v<P> == ParserType::Into;
 template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
@@ -96,9 +96,9 @@ template <Parser... Ps>               requires (sizeof...(Ps) >= 2)             
 template <Parser P>                                                                                              struct OneOrMore; 
 template <Parser P>                                                                                              struct ZeroOrMore;
 template <Parser P>                                                                                              struct Maybe;
+template <Parser P>                                                                                              struct Ignore;
 template <Parser P, auto function>    requires std::invocable<decltype(function), typename P::result_type>       struct Transform;
 template <Parser P>                   requires Joinable<typename P::result_type>                                 struct Join;
-template <Parser P>                                                                                              struct Ignore;
 template <Parser P, Parser Delimiter>                                                                            struct Delimit;
 template <Parser P, class T>          requires Intoable<T, typename P::result_type>                              struct Into;
 template <class CRTP>                                                                                            struct Custom;
@@ -114,9 +114,9 @@ template <Parser... Ps>                    constexpr ParserType parser_type_v<Se
 template <Parser P>                        constexpr ParserType parser_type_v<OneOrMore<P>>           = ParserType::OneOrMore;
 template <Parser P>                        constexpr ParserType parser_type_v<ZeroOrMore<P>>          = ParserType::ZeroOrMore;
 template <Parser P>                        constexpr ParserType parser_type_v<Maybe<P>>               = ParserType::Maybe;
+template <Parser P>                        constexpr ParserType parser_type_v<Ignore<P>>              = ParserType::Ignore;
 template <Parser P, auto function>         constexpr ParserType parser_type_v<Transform<P, function>> = ParserType::Transform;
 template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                = ParserType::Join;
-template <Parser P>                        constexpr ParserType parser_type_v<Ignore<P>>              = ParserType::Ignore;
 template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>  = ParserType::Delimit;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
 template <std::derived_from<CustomBase> P> constexpr ParserType parser_type_v<P>                      = ParserType::Custom;

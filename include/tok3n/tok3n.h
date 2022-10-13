@@ -12,10 +12,10 @@
 #include "tok3n/parsers/repeat/Maybe.h"
 #include "tok3n/parsers/repeat/OneOrMore.h"
 #include "tok3n/parsers/repeat/ZeroOrMore.h"
+#include "tok3n/parsers/repeat/Ignore.h"
 
 #include "tok3n/parsers/adaptor/Transform.h"
 #include "tok3n/parsers/adaptor/Join.h"
-#include "tok3n/parsers/adaptor/Ignore.h"
 #include "tok3n/parsers/adaptor/Delimit.h"
 #include "tok3n/parsers/adaptor/Into.h"
 #include "tok3n/parsers/adaptor/Custom.h"
