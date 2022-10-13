@@ -88,40 +88,57 @@ struct parse_t
 
 	static constexpr bool is_result_void = result_of<P>.is<void>;
 	using value_type = std::conditional_t<is_result_void, std::monostate, typename P::result_type>;
-
 	// We need this `value_type` indirection, otherwise the first `success()` overload causes compile errors when `result_type` is `void`.
 
 	consteval bool success(const value_type& value, Input remaining) const&& requires (not is_result_void)
 	{
-		const auto parse_result = P::parse(input);
-		const bool parse_success = (parse_result) && (*parse_result == value) && (parse_result.remaining() == remaining);
-
-		const auto lookahead_result = P::lookahead(input);
-		const bool lookahead_success = (lookahead_result) && (lookahead_result.remaining() == remaining);
-
-		return parse_success && lookahead_success;
+		return parse_success(value, remaining) && lookahead_success(remaining);
 	}
 
 	consteval bool success(Input remaining) const&& requires (is_result_void)
 	{
-		const auto parse_result = P::parse(input);
-		const bool parse_success = (parse_result) && (parse_result.remaining() == remaining);
-	
-		const auto lookahead_result = P::lookahead(input);
-		const bool lookahead_success = (lookahead_result) && (lookahead_result.remaining() == remaining);
-	
-		return parse_success && lookahead_success;
+		return parse_success(remaining) && lookahead_success(remaining);
 	}
 
 	consteval bool failure(Input remaining) const&&
 	{
-		const auto parse_result = P::parse(input);
-		const bool parse_failure = (not parse_result) && (parse_result.remaining() == remaining);
+		return parse_failure(remaining) && lookahead_failure(remaining);
+	}
 
-		const auto lookahead_result = P::lookahead(input);
-		const bool lookahead_failure = (not lookahead_result) && (lookahead_result.remaining() == remaining);
+	consteval bool lookahead_success(Input parse_remaining, Input lookahead_remaining) const&&
+	{
+		return parse_failure(parse_remaining) && lookahead_success(lookahead_remaining);
+	}
 
-		return parse_failure && lookahead_failure;
+private:
+	consteval bool parse_success(const value_type& value, Input remaining) const requires (not is_result_void)
+	{
+		const auto result = P::parse(input);
+		return (result) && (*result == value) && (result.remaining() == remaining);
+	}
+
+	consteval bool parse_success(Input remaining) const requires (is_result_void)
+	{
+		const auto result = P::parse(input);
+		return (result) && (result.remaining() == remaining);
+	}
+
+	consteval bool parse_failure(Input remaining) const
+	{
+		const auto result = P::parse(input);
+		return (not result) && (result.remaining() == remaining);
+	}
+
+	consteval bool lookahead_success(Input remaining) const
+	{
+		const auto result = P::lookahead(input);
+		return (result) && (result.remaining() == remaining);
+	}
+
+	consteval bool lookahead_failure(Input remaining) const
+	{
+		const auto result = P::lookahead(input);
+		return (not result) && (result.remaining() == remaining);
 	}
 };
 

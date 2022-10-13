@@ -93,16 +93,7 @@ struct Join
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		// We have to use `parse()` for `lookahead()` otherwise we don't know if the string_views are contiguous in memory
-		auto result = P::parse(input);
-		if (result.has_value())
-		{
-			using Executor = detail::executors::Join;
-			std::optional<Input> joined = Executor(*result).joined();
-			if (joined)
-				return { success, result.remaining() };
-		}
-		return { failure, input };
+		return P::lookahead(input);
 	}
 };
 

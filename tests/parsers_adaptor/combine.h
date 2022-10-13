@@ -17,8 +17,8 @@ void Join_Delimit()
 		, parse(d, "abc??abc??a").success({ "abc", "abc" }, "??a")
 		, parse(d, "abc??abc??abc").success({ "abc", "abc", "abc" }, "")
 		, parse(j, "abc").success("abc", "")
-		, parse(j, "abc??abc??a").failure("abc??abc??a")
-		, parse(j, "abc??abc??abc").failure("abc??abc??abc")
+		, parse(j, "abc??abc??a").lookahead_success("abc??abc??a", "??a")
+		, parse(j, "abc??abc??abc").lookahead_success("abc??abc??abc", "")
 		;
 }
 
@@ -53,8 +53,8 @@ void Join_Ignore()
 
 		, parse(s2, "abc??abc").success({ "abc", "abc" }, "")
 		, parse(s2, "abc??abc??a").success({ "abc", "abc" }, "??a")
-		, parse(j2, "abc??abc").failure("abc??abc")
-		, parse(j2, "abc??abc??a").failure("abc??abc??a")
+		, parse(j2, "abc??abc").lookahead_success("abc??abc", "")
+		, parse(j2, "abc??abc??a").lookahead_success("abc??abc??a", "??a")
 
 		, parse(s3, "abc??abc").success("abc??abc", "")
 		, parse(s3, "abc??abc??a").success("abc??abc", "??a")
@@ -89,13 +89,13 @@ void Join_Transform()
 
 		, parse(t2, "abc??abc").success({ "b", "??" }, "abc")
 		, parse(t2, "abc??").success({ "b", "??" }, "")
-		, parse(j2, "abc??abc").failure("abc??abc")
-		, parse(j2, "abc??").failure("abc??")
+		, parse(j2, "abc??abc").lookahead_success("abc??abc", "abc")
+		, parse(j2, "abc??").lookahead_success("abc??", "")
 
 		, parse(t3, "abcabc??abc??ab").success({ { "a", "??" }, { "b", "??" } }, "ab")
 		, parse(t3, "abc??abcabcabcabc??").success({ { "b", "??" }, { "a", "??" } }, "")
-		, parse(j3, "abcabc??abc??ab").failure("abcabc??abc??ab")
-		, parse(j3, "abc??abcabcabcabc??").failure("abc??abcabcabcabc??")
+		, parse(j3, "abcabc??abc??ab").lookahead_success("abcabc??abc??ab", "ab")
+		, parse(j3, "abc??abcabcabcabc??").lookahead_success("abc??abcabcabcabc??", "")
 		;
 }
 
