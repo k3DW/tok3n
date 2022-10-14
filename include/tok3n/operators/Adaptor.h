@@ -40,6 +40,14 @@ constexpr auto operator%(P, into_t<T>)
 
 
 
+template <std::size_t N, Parser P>
+constexpr auto exactly(P)
+{
+	return Exactly<P, N>{};
+}
+
+
+
 template <Parser P>
 constexpr auto ignore(P)
 {

@@ -329,6 +329,7 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Into.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Join.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\Exactly.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\Ignore.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h" />
     <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />

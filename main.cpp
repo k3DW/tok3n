@@ -43,4 +43,11 @@ int main()
 	}
 	else
 		std::cout << "Json parse error!!!\n";
+
+
+	constexpr auto oc = OneChar<"ab">{};
+	constexpr auto test = exactly<2>(oc);
+
+	auto result_ = test.parse("cbac");
+	auto result_2 = test.parse("abac");
 }
