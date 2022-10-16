@@ -41,14 +41,10 @@ void requirements_twoway()
 		, is_parser<TwoWay1>
 		, parser_type_of<TwoWay1>.is_Choice
 		, result_of<TwoWay1>.is<std::string_view>
-		, TwoWay1::parse == twoway1.parse
-		, TwoWay1::lookahead == twoway1.lookahead
 
 		, is_parser<TwoWay2>
 		, parser_type_of<TwoWay2>.is_Choice
 		, result_of<TwoWay2>.is<std::string_view>
-		, TwoWay2::parse == twoway2.parse
-		, TwoWay2::lookahead == twoway2.lookahead
 		;
 }
 void requirements_threeway()
@@ -57,14 +53,10 @@ void requirements_threeway()
 		, is_parser<ThreeWay1>
 		, parser_type_of<ThreeWay1>.is_Choice
 		, result_of<ThreeWay1>.is<std::string_view>
-		, ThreeWay1::parse == threeway1.parse
-		, ThreeWay1::lookahead == threeway1.lookahead
 
 		, is_parser<ThreeWay2>
 		, parser_type_of<ThreeWay2>.is_Choice
 		, result_of<ThreeWay2>.is<std::string_view>
-		, ThreeWay2::parse == threeway2.parse
-		, ThreeWay2::lookahead == threeway2.lookahead
 		;
 }
 

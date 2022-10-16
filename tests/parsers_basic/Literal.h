@@ -11,8 +11,6 @@ void requirements()
 		, is_parser<L>
 		, parser_type_of<L>.is_Literal
 		, result_of<L>.is<std::string_view>
-		, L::parse == l.parse
-		, L::lookahead == l.lookahead
 		;
 }
 

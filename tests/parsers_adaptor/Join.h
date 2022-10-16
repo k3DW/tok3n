@@ -22,32 +22,22 @@ void requirements()
 		, is_parser<J1>
 		, parser_type_of<J1>.is_Join
 		, result_of<J1>.is<std::string_view>
-		, J1::parse == j1.parse
-		, J1::lookahead == j1.lookahead
 		
 		, is_parser<J2>
 		, parser_type_of<J2>.is_Join
 		, result_of<J2>.is<std::string_view>
-		, J2::parse == j2.parse
-		, J2::lookahead == j2.lookahead
 		
 		, is_parser<J3>
 		, parser_type_of<J3>.is_Join
 		, result_of<J3>.is<std::string_view>
-		, J3::parse == j3.parse
-		, J3::lookahead == j3.lookahead
 		
 		, is_parser<J4>
 		, parser_type_of<J4>.is_Join
 		, result_of<J4>.is<std::string_view>
-		, J4::parse == j4.parse
-		, J4::lookahead == j4.lookahead
 		
 		, is_parser<J5>
 		, parser_type_of<J5>.is_Join
 		, result_of<J5>.is<std::string_view>
-		, J5::parse == j5.parse
-		, J5::lookahead == j5.lookahead
 		;
 }
 

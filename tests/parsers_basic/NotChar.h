@@ -14,8 +14,6 @@ void requirements_single()
 		, is_parser<Single>
 		, parser_type_of<Single>.is_NotChar
 		, result_of<Single>.is<std::string_view>
-		, Single::parse == single.parse
-		, Single::lookahead == single.lookahead
 		;
 }
 void requirements_multi()
@@ -24,8 +22,6 @@ void requirements_multi()
 		, is_parser<Multi>
 		, parser_type_of<Multi>.is_NotChar
 		, result_of<Multi>.is<std::string_view>
-		, Multi::parse == multi.parse
-		, Multi::lookahead == multi.lookahead
 		;
 }
 

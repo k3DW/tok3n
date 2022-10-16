@@ -27,8 +27,6 @@ void requirements_twoway()
 		, is_parser<TwoWay>
 		, parser_type_of<TwoWay>.is_Sequence
 		, result_of<TwoWay>.is<std::tuple<std::string_view, std::string_view>>
-		, TwoWay::parse == twoway.parse
-		, TwoWay::lookahead == twoway.lookahead
 		;
 }
 void requirements_threeway()
@@ -37,8 +35,6 @@ void requirements_threeway()
 		, is_parser<ThreeWay>
 		, parser_type_of<ThreeWay>.is_Sequence
 		, result_of<ThreeWay>.is<std::tuple<std::string_view, std::string_view, std::string_view>>
-		, ThreeWay::parse == threeway.parse
-		, ThreeWay::lookahead == threeway.lookahead
 		;
 }
 

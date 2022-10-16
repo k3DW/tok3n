@@ -28,10 +28,6 @@ void requirements()
 		, is_parser<CC>
 		, parser_type_of<CC>.is_Custom
 		, result_of<CC>.is<std::size_t>
-		, requires (Input input) { CC::parse(input); }
-		, requires (Input input) { cc.parse(input); }
-		, requires (Input input) { CC::lookahead(input); }
-		, requires (Input input) { cc.lookahead(input); }
 		;
 }
 

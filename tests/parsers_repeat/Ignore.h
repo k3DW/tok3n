@@ -22,32 +22,22 @@ void requirements()
 		, is_parser<I1>
 		, parser_type_of<I1>.is_Ignore
 		, result_of<I1>.is<void>
-		, I1::parse == i1.parse
-		, I1::lookahead == i1.lookahead
 
 		, is_parser<I2>
 		, parser_type_of<I2>.is_Ignore
 		, result_of<I2>.is<void>
-		, I2::parse == i2.parse
-		, I2::lookahead == i2.lookahead
 
 		, is_parser<I3>
 		, parser_type_of<I3>.is_Ignore
 		, result_of<I3>.is<void>
-		, I3::parse == i3.parse
-		, I3::lookahead == i3.lookahead
 
 		, is_parser<I4>
 		, parser_type_of<I4>.is_Ignore
 		, result_of<I4>.is<void>
-		, I4::parse == i4.parse
-		, I4::lookahead == i4.lookahead
 
 		, is_parser<I5>
 		, parser_type_of<I5>.is_Ignore
 		, result_of<I5>.is<void>
-		, I5::parse == i5.parse
-		, I5::lookahead == i5.lookahead
 		;
 }
 

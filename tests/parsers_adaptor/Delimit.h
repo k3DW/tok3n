@@ -32,26 +32,18 @@ void requirements_regular()
 		, is_parser<D1>
 		, parser_type_of<D1>.is_Delimit
 		, result_of<D1>.is<std::vector<std::string_view>>
-		, D1::parse == d1.parse
-		, D1::lookahead == d1.lookahead
 
 		, is_parser<D2>
 		, parser_type_of<D2>.is_Delimit
 		, result_of<D2>.is<std::vector<std::string_view>>
-		, D2::parse == d2.parse
-		, D2::lookahead == d2.lookahead
 
 		, is_parser<D3>
 		, parser_type_of<D3>.is_Delimit
 		, result_of<D3>.is<std::vector<std::string_view>>
-		, D3::parse == d3.parse
-		, D3::lookahead == d3.lookahead
 
 		, is_parser<D4>
 		, parser_type_of<D4>.is_Delimit
 		, result_of<D4>.is<std::vector<std::string_view>>
-		, D4::parse == d4.parse
-		, D4::lookahead == d4.lookahead
 		;
 }
 void requirements_reversed()
@@ -60,26 +52,18 @@ void requirements_reversed()
 		, is_parser<D5>
 		, parser_type_of<D5>.is_Delimit
 		, result_of<D5>.is<std::vector<std::string_view>>
-		, D5::parse == d5.parse
-		, D5::lookahead == d5.lookahead
 
 		, is_parser<D6>
 		, parser_type_of<D6>.is_Delimit
 		, result_of<D6>.is<std::vector<std::string_view>>
-		, D6::parse == d6.parse
-		, D6::lookahead == d6.lookahead
 
 		, is_parser<D7>
 		, parser_type_of<D7>.is_Delimit
 		, result_of<D7>.is<std::vector<std::string_view>>
-		, D7::parse == d7.parse
-		, D7::lookahead == d7.lookahead
 
 		, is_parser<D8>
 		, parser_type_of<D8>.is_Delimit
 		, result_of<D8>.is<std::vector<std::string_view>>
-		, D8::parse == d8.parse
-		, D8::lookahead == d8.lookahead
 		;
 }
 

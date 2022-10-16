@@ -59,26 +59,18 @@ void requirements()
 		, is_parser<T1>
 		, parser_type_of<T1>.is_Transform
 		, result_of<T1>.is<std::size_t>
-		, T1::parse == t1.parse
-		, T1::lookahead == t1.lookahead
 		
 		, is_parser<T2>
 		, parser_type_of<T2>.is_Transform
 		, result_of<T2>.is<std::vector<char>>
-		, T2::parse == t2.parse
-		, T2::lookahead == t2.lookahead
 		
 		, is_parser<T3>
 		, parser_type_of<T3>.is_Transform
 		, result_of<T3>.is<bool>
-		, T3::parse == t3.parse
-		, T3::lookahead == t3.lookahead
 		
 		, is_parser<T4>
 		, parser_type_of<T4>.is_Transform
 		, result_of<T4>.is<std::size_t>
-		, T4::parse == t4.parse
-		, T4::lookahead == t4.lookahead
 		;
 }
 
