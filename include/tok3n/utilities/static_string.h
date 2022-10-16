@@ -38,28 +38,38 @@ struct static_string
 	constexpr auto end()         { return data.end(); }
 
 	consteval std::size_t size() const noexcept { return N; }
-
-	constexpr bool ascii() const
-	{
-		return std::ranges::all_of(data, [](char c) -> bool { return (c & 0x80) == 0; });
-	}
-
-	constexpr bool unique_and_sorted() const
-	{
-		if constexpr (N == 1)
-			return true;
-		else
-		{
-			constexpr auto less = [](auto&& span) -> bool { return span[0] < span[1]; };
-			return std::ranges::all_of(data | std::views::slide(2), less);
-		}
-	}
 };
 
 template <std::size_t N>
 static_string(const char(&)[N]) -> static_string<N - 1>;
 
 static_string(char) -> static_string<1>;
+
+
+
+constexpr bool is_ascii(char c)
+{
+	return (c & 0x80) == 0;
+}
+
+template <std::size_t N>
+constexpr bool is_ascii(const static_string<N>& str)
+{
+	using type_ = bool(*)(char);
+	return std::ranges::all_of(str.data, static_cast<type_>(is_ascii));
+}
+
+template <std::size_t N>
+constexpr bool is_unique_and_sorted(const static_string<N>& str)
+{
+	if constexpr (N == 1)
+		return true;
+	else
+	{
+		constexpr auto less = [](std::span<const char> span) -> bool { return span[0] < span[1]; };
+		return std::ranges::all_of(str.data | std::views::slide(2), less);
+	}
+}
 
 
 

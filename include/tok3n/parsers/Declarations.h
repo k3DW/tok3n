@@ -74,6 +74,9 @@ constexpr bool is_intoable_v<To, std::tuple<Ts...>> = std::is_constructible_v<To
 template <class To, class T>
 concept Intoable = is_intoable_v<To, T>;
 
+template <static_string str>
+concept string_usable_in_basic_parser = is_ascii(str) && str.size() != 0;
+
 
 
 template <class M> constexpr bool is_modifier_v           = false;
@@ -107,9 +110,9 @@ template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == Parse
 
 
 
-template <static_string str>          requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)   struct OneChar;
-template <static_string str>          requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)   struct NotChar;
-template <static_string str>          requires (str.ascii()) && (str.size() != 0)                                struct Literal;
+template <static_string str>          requires string_usable_in_basic_parser<str> && (is_unique_and_sorted(str)) struct OneChar;
+template <static_string str>          requires string_usable_in_basic_parser<str> && (is_unique_and_sorted(str)) struct NotChar;
+template <static_string str>          requires string_usable_in_basic_parser<str>                                struct Literal;
 template <Parser... Ps>               requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...> struct Choice;
 template <Parser... Ps>               requires (sizeof...(Ps) >= 2)                                              struct Sequence;
 template <Parser P>                                                                                              struct OneOrMore; 
