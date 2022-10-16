@@ -13,11 +13,7 @@ namespace detail::executors
 		template <class... Us>
 		static constexpr T execute(std::tuple<Us...>&& tup)
 		{
-			static constexpr auto construct = []<class... Vs>(Vs&&... vs)
-			{
-				return T{ std::forward<Vs>(vs)... };
-			};
-			return std::apply(construct, std::move(tup));
+			return std::make_from_tuple<T>(std::move(tup));
 		}
 
 		template <class U>
