@@ -25,3 +25,5 @@
 #include "tok3n/parsers/adaptor/Custom.h"
 
 #include "tok3n/operators/Not.h"
+#include "tok3n/operators/Choice.h"
+#include "tok3n/operators/Sequence.h"

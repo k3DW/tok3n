@@ -5,7 +5,6 @@
 #include "tests/parsers_basic/OneChar.h"
 #include "tests/parsers_basic/NotChar.h"
 #include "tests/parsers_basic/Literal.h"
-//#include "tests/parsers_basic/combine.h"
 
 #include "tests/parsers_compound/Choice.h"
 #include "tests/parsers_compound/Sequence.h"
@@ -24,5 +23,7 @@
 //#include "tests/parsers_adaptor/combine.h"
 
 #include "tests/operators/Not.h"
+#include "tests/operators/Choice.h"
+#include "tests/operators/Sequence.h"
 
 #endif

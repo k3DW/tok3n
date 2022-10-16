@@ -1,13 +1,9 @@
 #include "tests/utility.h"
+#include "tests/common.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(operators::Not)
 
-constexpr auto oc1 = OneChar<"abc">{};
-constexpr auto oc2 = OneChar<"bcd">{};
-constexpr auto oc3 = OneChar<"xyz">{};
-constexpr auto nc1 = NotChar<"abc">{};
-constexpr auto nc2 = NotChar<"bcd">{};
-constexpr auto nc3 = NotChar<"xyz">{};
+using namespace samples::basic;
 
 void not_OneChar()
 {

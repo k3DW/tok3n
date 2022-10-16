@@ -99,9 +99,6 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_basic\combine.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="tests\parsers_basic\Literal.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -178,6 +175,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\operators\Not.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators\Choice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators\Sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

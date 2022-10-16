@@ -1,24 +1,18 @@
 #include "tests/utility.h"
+#include "tests/common.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::OneChar)
 
 using Single = OneChar<'a'>;
-constexpr Single single;
+using Multi  = OneChar<"abc">;
 
-using Multi = OneChar<"abc">;
-constexpr Multi multi;
-
-void requirements_single()
+void requirements()
 {
 	assert
 		, is_parser<Single>
 		, parser_type_of<Single>.is_OneChar
 		, result_of<Single>.is<std::string_view>
-		;
-}
-void requirements_multi()
-{
-	assert
+
 		, is_parser<Multi>
 		, parser_type_of<Multi>.is_OneChar
 		, result_of<Multi>.is<std::string_view>
@@ -36,6 +30,7 @@ void parse_single()
 		, parse<Single>(" abc").failure()
 		;
 }
+
 void parse_multi()
 {
 	assert
@@ -58,43 +53,34 @@ void parse_multi()
 
 
 
-struct constructible
-{
-	template <class T>           static constexpr bool from_all = false;
-	template <std::size_t... Is> static constexpr bool from_all<std::index_sequence<Is...>> = (... && requires { typename OneChar<(char)Is>; });
-
-	template <class T>           static constexpr bool from_any = false;
-	template <std::size_t... Is> static constexpr bool from_any<std::index_sequence<Is...>> = (... || requires { typename OneChar<(char)Is>; });
-
-	template <static_string str> static constexpr bool from_string = requires { typename OneChar<str>; };
-};
+using constructible = traits::basic::constructible<OneChar>;
 
 void constructible_from_ascii_only()
 {
-	using all_ascii_chars = std::make_index_sequence<128>;
-	using all_non_ascii_chars = decltype([]<std::size_t... Is>(std::index_sequence<Is...>) { return std::index_sequence<(Is - 128)...>{}; }(all_ascii_chars{}));
+	using all_ascii_chars = std::make_integer_sequence<int, 128>;
+	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
 
 	assert
-		, constructible::from_all<all_ascii_chars>
-		, not constructible::from_any<all_non_ascii_chars>
+		, constructible::from_all_chars<all_ascii_chars>
+		, not constructible::from_any_char<all_non_ascii_chars>
 		;
 }
 
 void constructible_alphabetically_only()
 {
 	assert
-		, constructible::from_string<"abc">
-		, not constructible::from_string<"acb">
-		, not constructible::from_string<"bac">
-		, not constructible::from_string<"bca">
-		, not constructible::from_string<"cab">
-		, not constructible::from_string<"cba">
+		, constructible::from<"abc">
+		, not constructible::from<"acb">
+		, not constructible::from<"bac">
+		, not constructible::from<"bca">
+		, not constructible::from<"cab">
+		, not constructible::from<"cba">
 		;
 }
 
 void not_constructible_empty()
 {
-	assert, not constructible::from_string<"">;
+	assert, not constructible::from<"">;
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::OneChar)

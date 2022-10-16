@@ -1,9 +1,9 @@
 #include "tests/utility.h"
+#include "tests/common.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
 
 using L = Literal<"literal">;
-constexpr L l;
 
 void requirements()
 {
@@ -28,10 +28,7 @@ void parse_single()
 
 
 
-struct constructible
-{
-	template <static_string str> static constexpr bool from = requires { typename Literal<str>; };
-};
+using constructible = traits::basic::constructible<Literal>;
 
 void constructible_from_ascii_only()
 {
