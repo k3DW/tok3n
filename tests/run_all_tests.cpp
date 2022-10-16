@@ -23,4 +23,6 @@
 //#include "tests/parsers_adaptor/Custom.h"
 //#include "tests/parsers_adaptor/combine.h"
 
+#include "tests/operators/Not.h"
+
 #endif

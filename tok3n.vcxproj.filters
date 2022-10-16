@@ -177,6 +177,9 @@
     <ClInclude Include="include\tok3n\parsers\Details.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\operators\Not.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
