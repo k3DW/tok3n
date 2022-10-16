@@ -51,6 +51,17 @@ constexpr auto operator%(P, constant_t<value>)
 
 
 
+template <class T> struct defaulted_t final {};
+template <class T> constexpr auto defaulted = defaulted_t<T>{};
+
+template <Parser P, class T>
+constexpr auto operator%(P, defaulted_t<T>)
+{
+	return Defaulted<P, T>{};
+}
+
+
+
 template <std::size_t N, Parser P>
 constexpr auto exactly(P)
 {

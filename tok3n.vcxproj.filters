@@ -165,6 +165,9 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\adaptor\Defaulted.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

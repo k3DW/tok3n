@@ -105,9 +105,6 @@ static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 constexpr auto whitespace = *OneChar<"\t\n\r ">{} % join;
 static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
 
-template <class T>
-constexpr auto whitespace_as = *OneChar<"\t\n\r ">{} % fn<[](auto&&) -> T { return {}; }>;
-
 
 
 struct object_t;
@@ -166,14 +163,14 @@ consteval auto JsonObjectParser::get_parser()
 {
 	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ignore(colon) >> JsonValueParser{}) % into<pair_t>;
 	constexpr auto object = delimit(pair, comma) % into<object_t>;
-	constexpr auto the_parser = ignore(left_brace) >> (object | whitespace_as<object_t>) >> ignore(right_brace);
+	constexpr auto the_parser = ignore(left_brace) >> (object | (whitespace % defaulted<object_t>)) >> ignore(right_brace);
 	return the_parser;
 }
 
 consteval auto JsonArrayParser::get_parser()
 {
 	constexpr auto values = delimit(JsonValueParser{}, comma) % into<array_t>;
-	constexpr auto the_parser = ignore(left_bracket) >> (values | whitespace_as<array_t>) >> ignore(right_bracket);
+	constexpr auto the_parser = ignore(left_bracket) >> (values | (whitespace % defaulted<array_t>)) >> ignore(right_bracket);
 	return the_parser;
 }
 
