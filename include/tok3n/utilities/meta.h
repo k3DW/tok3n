@@ -198,4 +198,9 @@ namespace detail
 template <class Type, class C, template <class...> class... Containers>
 concept container_of = detail::is_container_of_v<Type, C, Containers...>;
 
+
+
+template <class T>
+concept implicitly_default_constructible = requires (void(fn)(T)) { fn({}); };
+
 TOK3N_END_NAMESPACE(mp)

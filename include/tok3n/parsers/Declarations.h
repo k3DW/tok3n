@@ -57,6 +57,7 @@ template <class P>
 concept Parser =
 	(parser_type_v<P> != ParserType::None) &&
 	(std::is_empty_v<P>) &&
+	mp::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
