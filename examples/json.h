@@ -179,22 +179,14 @@ consteval auto JsonArrayParser::get_parser()
 
 consteval auto JsonValueParser::get_parser()
 {
-	constexpr auto get_value_string = [](std::string_view str) -> value_t { return { .data = std::string(str) }; };
-	constexpr auto get_value_number = [](number_t&& num)       -> value_t { return { .data = std::move(num) }; };
-	constexpr auto get_value_object = [](object_t&& object)    -> value_t { return { .data = std::move(object) }; };
-	constexpr auto get_value_array  = [](array_t&& array)      -> value_t { return { .data = std::move(array) }; };
-	constexpr auto get_value_true   = [](std::string_view)     -> value_t { return { .data = true }; };
-	constexpr auto get_value_false  = [](std::string_view)     -> value_t { return { .data = false }; };
-	constexpr auto get_value_null   = [](std::string_view)     -> value_t { return { .data = nullptr }; };
-
 	constexpr auto value_parser =
-		(string             % fn<get_value_string>) |
-		(number             % fn<get_value_number>) |
-		(JsonObjectParser{} % fn<get_value_object>) |
-		(JsonArrayParser{}  % fn<get_value_array>)  |
-		(Literal<"true">{}  % fn<get_value_true>)   |
-		(Literal<"false">{} % fn<get_value_false>)  |
-		(Literal<"null">{}  % fn<get_value_null>);
+		(string             % into<std::string> % into<value_t>) |
+		(number             % into<value_t>)                     |
+		(JsonObjectParser{} % into<value_t>)                     |
+		(JsonArrayParser{}  % into<value_t>)                     |
+		(Literal<"true">{}  % constant<true> % into<value_t>)    |
+		(Literal<"false">{} % constant<false> % into<value_t>)   |
+		(Literal<"null">{}  % constant<nullptr> % into<value_t>);
 
 	return ignore(whitespace) >> value_parser >> ignore(whitespace);
 }

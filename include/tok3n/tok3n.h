@@ -19,6 +19,7 @@
 #include "tok3n/parsers/adaptor/Join.h"
 #include "tok3n/parsers/adaptor/Delimit.h"
 #include "tok3n/parsers/adaptor/Into.h"
+#include "tok3n/parsers/adaptor/Constant.h"
 #include "tok3n/parsers/adaptor/Custom.h"
 
 #include "tok3n/operators/Not.h"

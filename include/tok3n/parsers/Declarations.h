@@ -26,6 +26,7 @@ enum class ParserType
 	Join,
 	Delimit,
 	Into,
+	Constant,
 	Custom,
 };
 
@@ -86,6 +87,7 @@ template <class P> concept IsTransform  = Parser<P> && parser_type_v<P> == Parse
 template <class P> concept IsJoin       = Parser<P> && parser_type_v<P> == ParserType::Join;
 template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == ParserType::Delimit;
 template <class P> concept IsInto       = Parser<P> && parser_type_v<P> == ParserType::Into;
+template <class P> concept IsConstant   = Parser<P> && parser_type_v<P> == ParserType::Constant;
 template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
 
 
@@ -104,6 +106,7 @@ template <Parser P, auto function>    requires std::invocable<decltype(function)
 template <Parser P>                   requires Joinable<typename P::result_type>                                 struct Join;
 template <Parser P, Parser Delimiter>                                                                            struct Delimit;
 template <Parser P, class T>          requires Intoable<T, typename P::result_type>                              struct Into;
+template <Parser P, auto value>                                                                                  struct Constant;
 template <class CRTP>                                                                                            struct Custom;
 struct CustomBase {};
 
@@ -123,6 +126,7 @@ template <Parser P, auto function>         constexpr ParserType parser_type_v<Tr
 template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                = ParserType::Join;
 template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>  = ParserType::Delimit;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
+template <Parser P, auto value>            constexpr ParserType parser_type_v<Constant<P, value>>     = ParserType::Constant;
 template <std::derived_from<CustomBase> P> constexpr ParserType parser_type_v<P>                      = ParserType::Custom;
 
 

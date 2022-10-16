@@ -40,6 +40,17 @@ constexpr auto operator%(P, into_t<T>)
 
 
 
+template <auto value> struct constant_t final {};
+template <auto value> constexpr auto constant = constant_t<value>{};
+
+template <Parser P, auto value>
+constexpr auto operator%(P, constant_t<value>)
+{
+	return Constant<P, value>{};
+}
+
+
+
 template <std::size_t N, Parser P>
 constexpr auto exactly(P)
 {
