@@ -21,6 +21,7 @@
 #include "tok3n/parsers/adaptor/Into.h"
 #include "tok3n/parsers/adaptor/Constant.h"
 #include "tok3n/parsers/adaptor/Defaulted.h"
+#include "tok3n/parsers/adaptor/Complete.h"
 #include "tok3n/parsers/adaptor/Custom.h"
 
 #include "tok3n/operators/Not.h"

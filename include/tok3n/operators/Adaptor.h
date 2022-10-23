@@ -81,6 +81,17 @@ constexpr auto ignore(P)
 
 
 
+template <Parser P>
+constexpr auto complete(P)
+{
+	if constexpr (IsComplete<P>)
+		return P{};
+	else
+		return Complete<P>{};
+}
+
+
+
 template <Parser P, Parser Delimiter>
 constexpr auto delimit(P, Delimiter)
 {

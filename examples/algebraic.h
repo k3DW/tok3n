@@ -70,7 +70,7 @@ consteval auto powterm::get_parser()
 		number    % into<powterm_t>;
 }
 
-constexpr auto input = ws >> expr >> ws;
+constexpr auto input = complete(ws >> expr >> ws);
 
 
 
@@ -190,7 +190,7 @@ namespace print
 
 auto test()
 {
-	auto result = input.parse("1 + 2 * 3");
+	auto result = input.parse("1 + 2 * 3 3");
 	if (result)
 		print::print(*result, 0);
 	else

@@ -171,6 +171,9 @@
     <ClInclude Include="examples\algebraic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
