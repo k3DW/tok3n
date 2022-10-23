@@ -176,14 +176,16 @@ consteval auto JsonArrayParser::get_parser()
 
 consteval auto JsonValueParser::get_parser()
 {
-	constexpr auto value_parser =
-		(string             % into<std::string> % into<value_t>) |
-		(number             % into<value_t>)                     |
-		(JsonObjectParser{} % into<value_t>)                     |
-		(JsonArrayParser{}  % into<value_t>)                     |
-		(Literal<"true">{}  % constant<true> % into<value_t>)    |
-		(Literal<"false">{} % constant<false> % into<value_t>)   |
-		(Literal<"null">{}  % constant<nullptr> % into<value_t>);
+	constexpr auto value_parser = into<value_t>
+	(
+		string % into<std::string>,
+		number,
+		JsonObjectParser{},
+		JsonArrayParser{},
+		Literal<"true">{}  % constant<true>,
+		Literal<"false">{} % constant<false>,
+		Literal<"null">{}  % constant<nullptr>
+	);
 
 	return ignore(whitespace) >> value_parser >> ignore(whitespace);
 }

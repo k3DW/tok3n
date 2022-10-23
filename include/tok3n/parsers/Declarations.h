@@ -28,6 +28,7 @@ enum class ParserType
 	Into,
 	Constant,
 	Defaulted,
+	Complete,
 	Custom,
 };
 
@@ -74,6 +75,16 @@ concept Intoable = is_intoable_v<To, T>;
 
 
 
+template <class M> constexpr bool is_modifier_v           = false;
+template <class M> constexpr bool is_modifier_v <const M> = is_modifier_v<M>;
+template <class M> constexpr bool is_modifier_v <M&>      = is_modifier_v<M>;
+template <class M> constexpr bool is_modifier_v <M&&>     = is_modifier_v<M>;
+
+template <class M>
+concept Modifier = is_modifier_v<M> && std::is_empty_v<M>;
+
+
+
 template <class P> concept IsOneChar    = Parser<P> && parser_type_v<P> == ParserType::OneChar;
 template <class P> concept IsNotChar    = Parser<P> && parser_type_v<P> == ParserType::NotChar;
 template <class P> concept IsLiteral    = Parser<P> && parser_type_v<P> == ParserType::Literal;
@@ -90,6 +101,7 @@ template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == Parse
 template <class P> concept IsInto       = Parser<P> && parser_type_v<P> == ParserType::Into;
 template <class P> concept IsConstant   = Parser<P> && parser_type_v<P> == ParserType::Constant;
 template <class P> concept IsDefaulted  = Parser<P> && parser_type_v<P> == ParserType::Defaulted;
+template <class P> concept IsComplete   = Parser<P> && parser_type_v<P> == ParserType::Complete;
 template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
 
 
@@ -110,6 +122,7 @@ template <Parser P, Parser Delimiter>                                           
 template <Parser P, class T>          requires Intoable<T, typename P::result_type>                              struct Into;
 template <Parser P, auto value>                                                                                  struct Constant;
 template <Parser P, class T>          requires std::is_default_constructible_v<T>                                struct Defaulted;
+template <Parser P>                                                                                              struct Complete;
 template <class CRTP>                                                                                            struct Custom;
 struct CustomBase {};
 
@@ -131,6 +144,7 @@ template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<De
 template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
 template <Parser P, auto value>            constexpr ParserType parser_type_v<Constant<P, value>>     = ParserType::Constant;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Defaulted<P, T>>        = ParserType::Defaulted;
+template <Parser P>                        constexpr ParserType parser_type_v<Complete<P>>            = ParserType::Complete;
 template <std::derived_from<CustomBase> P> constexpr ParserType parser_type_v<P>                      = ParserType::Custom;
 
 

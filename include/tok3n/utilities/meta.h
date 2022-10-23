@@ -136,6 +136,13 @@ struct unwrap_if_single<Template<T, Ts...>>
 	using type = std::conditional_t<value, T, Template<T, Ts...>>;
 };
 
+template <template <class...> class Template>
+struct unwrap_if_single<Template<>>
+{
+	static constexpr bool value = true;
+	using type = void;
+};
+
 
 
 namespace detail

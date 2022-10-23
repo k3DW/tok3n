@@ -317,14 +317,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="examples\algebraic.h" />
     <ClInclude Include="examples\json.h" />
-    <ClInclude Include="include\tok3n\operators\Adaptor.h" />
+    <ClInclude Include="include\tok3n\operators\Modifier.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Not.h" />
     <ClInclude Include="include\tok3n\operators\OneOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Sequence.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
+    <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Constant.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Custom.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Defaulted.h" />
