@@ -34,10 +34,10 @@ struct number_t
 namespace number_impl
 {
 	constexpr auto integer  = +dgt % join;
-	constexpr auto decimal  = ~(ignore(OneChar<".">{}) >> +dgt % join);
-	constexpr auto exponent = ~(ignore(OneChar<"Ee">{}) >> join(~OneChar<"-">{} >> +dgt));
+	constexpr auto decimal  = ~(OneChar<".">{} % ignore >> +dgt % join);
+	constexpr auto exponent = ~(OneChar<"Ee">{} % ignore >> join(~OneChar<"-">{} >> +dgt));
 }
-constexpr auto number = (number_impl::integer >> number_impl::decimal >> number_impl::exponent) % into<number_t>;
+constexpr auto number = into<number_t>(number_impl::integer >> number_impl::decimal >> number_impl::exponent);
 
 struct powterm_t
 {
@@ -56,9 +56,9 @@ struct powterm : Custom<powterm>
 	static consteval auto get_parser();
 };
 
-constexpr auto factor = delimit(ws >> powterm{}, ws >> OneChar<"^">{});
-constexpr auto term   = (ws >> factor) % delimit(ws >> OneChar<"*/">{});
-constexpr auto expr   = delimit(ws >> term,      ws >> OneChar<"+-">{});
+constexpr auto factor = (ws >> powterm{}) % delimit(ws >> OneChar<"^">{});
+constexpr auto term   = (ws >> factor)    % delimit(ws >> OneChar<"*/">{});
+constexpr auto expr   = (ws >> term)      % delimit(ws >> OneChar<"+-">{});
 
 consteval auto powterm::get_parser()
 {
