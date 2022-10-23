@@ -1,6 +1,7 @@
 #include "pch.h"
 #include <iostream>
 #include "examples/json.h"
+#include "examples/algebraic.h"
 
 int main()
 {
@@ -47,6 +48,8 @@ int main()
 
 	constexpr auto oc = OneChar<"ab">{};
 	constexpr auto test = exactly<2>(oc);
+
+	[[maybe_unused]] auto algtest = algebraic::test();
 
 	auto result_ = test.parse("cbac");
 	auto result_2 = test.parse("abac");
