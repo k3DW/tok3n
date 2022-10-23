@@ -319,7 +319,7 @@
   <ItemGroup>
     <ClInclude Include="examples\algebraic.h" />
     <ClInclude Include="examples\json.h" />
-    <ClInclude Include="include\tok3n\operators\Adaptor.h" />
+    <ClInclude Include="include\tok3n\operators\Modifier.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Not.h" />
     <ClInclude Include="include\tok3n\operators\OneOrMore.h" />

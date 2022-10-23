@@ -75,7 +75,7 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\operators\Adaptor.h">
+    <ClInclude Include="include\tok3n\operators\Modifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="examples\json.h">
