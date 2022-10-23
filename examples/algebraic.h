@@ -22,7 +22,7 @@ ws	::= [{' '|'\t'|'\n'|'\r'}];
 
 */
 
-constexpr auto ws  = ignore(*OneChar<"\t\n\r ">{});
+constexpr auto ws  = *OneChar<"\t\n\r ">{} % ignore;
 constexpr auto dgt = OneChar<"0123456789">{};
 
 struct number_t
@@ -35,7 +35,7 @@ namespace number_impl
 {
 	constexpr auto integer  = +dgt % join;
 	constexpr auto decimal  = ~(ignore(OneChar<".">{}) >> +dgt % join);
-	constexpr auto exponent = ~(ignore(OneChar<"Ee">{}) >> (~OneChar<"-">{} >> +dgt) % join);
+	constexpr auto exponent = ~(ignore(OneChar<"Ee">{}) >> join(~OneChar<"-">{} >> +dgt));
 }
 constexpr auto number = (number_impl::integer >> number_impl::decimal >> number_impl::exponent) % into<number_t>;
 
@@ -57,7 +57,7 @@ struct powterm : Custom<powterm>
 };
 
 constexpr auto factor = delimit(ws >> powterm{}, ws >> OneChar<"^">{});
-constexpr auto term   = delimit(ws >> factor,    ws >> OneChar<"*/">{});
+constexpr auto term   = (ws >> factor) % delimit(ws >> OneChar<"*/">{});
 constexpr auto expr   = delimit(ws >> term,      ws >> OneChar<"+-">{});
 
 consteval auto powterm::get_parser()
