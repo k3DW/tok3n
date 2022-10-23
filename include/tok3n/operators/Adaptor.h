@@ -5,206 +5,147 @@ TOK3N_BEGIN_NAMESPACE()
 
 
 
-template <auto function>
-struct fn_t final
+namespace detail::modifiers
 {
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Transform<P, function>{};
-	}
-};
 
-template <auto function>
-constexpr auto fn = fn_t<function>{};
-
-template <Parser P, auto function>
-consteval auto operator%(P p, fn_t<function> modifier)
-{
-	return modifier(p);
-}
-
-
-
-struct join_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (std::same_as<Input, typename P::result_type>)
-			return P{};
-		else
-			return Join<P>{};
-	}
-};
-
-constexpr auto join = join_t{};
-
-template <Parser P>
-consteval auto operator%(P p, join_t modifier)
-{
-	return modifier(p);
-}
-
-
-
-template <class T>
-struct into_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Into<P, T>{};
-	}
-};
-
-template <class T>
-constexpr auto into = into_t<T>{};
-
-template <Parser P, class T>
-consteval auto operator%(P p, into_t<T> modifier)
-{
-	return modifier(p);
-}
-
-
-
-template <auto value>
-struct constant_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Constant<P, value>{};
-	}
-};
-
-template <auto value>
-constexpr auto constant = constant_t<value>{};
-
-template <Parser P, auto value>
-consteval auto operator%(P p, constant_t<value> modifier)
-{
-	return modifier(p);
-}
-
-
-
-template <class T>
-struct defaulted_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Defaulted<P, T>{};
-	}
-};
-
-template <class T>
-constexpr auto defaulted = defaulted_t<T>{};
-
-template <Parser P, class T>
-consteval auto operator%(P p, defaulted_t<T> modifier)
-{
-	return modifier(p);
-}
-
-
-
-template <std::size_t N>
-struct exactly_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Exactly<P, N>{};
-	}
-};
-
-template <std::size_t N>
-constexpr auto exactly = exactly_t<N>{};
-
-template <std::size_t N, Parser P>
-consteval auto operator%(P p, exactly_t<N> modifier)
-{
-	return modifier(p);
-}
-
-
-
-struct ignore_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (IsIgnore<P>)
-			return P{};
-		else
-			return Ignore<P>{};
-	}
-};
-
-constexpr auto ignore = ignore_t{};
-
-template <Parser P>
-consteval auto operator%(P p, ignore_t modifier)
-{
-	return modifier(p);
-}
-
-
-
-struct complete_t final
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (IsComplete<P>)
-			return P{};
-		else
-			return Complete<P>{};
-	}
-};
-
-constexpr auto complete = complete_t{};
-
-template <Parser P>
-consteval auto operator%(P p, complete_t modifier)
-{
-	return modifier(p);
-}
-
-
-
-struct delimit_t final
-{
-	template <Parser P, Parser Delimiter>
-	consteval auto operator()(P, Delimiter) const
-	{
-		return Delimit<P, Delimiter>{};
-	}
-
-	template <Parser Delimiter>
-	struct inner final
+	template <auto function>
+	struct fn final
 	{
 		template <Parser P>
 		consteval auto operator()(P) const
 		{
-			return Delimit<P, Delimiter>{};
+			return Transform<P, function>{};
 		}
 	};
 
-	template <Parser Delimiter>
-	consteval auto operator()(Delimiter) const
+	struct join final
 	{
-		return inner<Delimiter>{};
-	}
-};
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			if constexpr (std::same_as<Input, typename P::result_type>)
+				return P{};
+			else
+				return Join<P>{};
+		}
+	};
 
-constexpr auto delimit = delimit_t{};
+	template <class T>
+	struct into final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			return Into<P, T>{};
+		}
+	};
 
-template <Parser P, Parser Delimiter>
-consteval auto operator%(P p, delimit_t::inner<Delimiter> modifier)
+	template <auto value>
+	struct constant final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			return Constant<P, value>{};
+		}
+	};
+
+	template <class T>
+	struct defaulted final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			return Defaulted<P, T>{};
+		}
+	};
+
+	template <std::size_t N>
+	struct exactly final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			return Exactly<P, N>{};
+		}
+	};
+
+	struct ignore final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			if constexpr (IsIgnore<P>)
+				return P{};
+			else
+				return Ignore<P>{};
+		}
+	};
+
+	struct complete final
+	{
+		template <Parser P>
+		consteval auto operator()(P) const
+		{
+			if constexpr (IsComplete<P>)
+				return P{};
+			else
+				return Complete<P>{};
+		}
+	};
+
+	struct delimit final
+	{
+		template <Parser P, Parser D>
+		consteval auto operator()(P, D) const
+		{
+			return Delimit<P, D>{};
+		}
+
+		template <Parser D>
+		struct inner final
+		{
+			template <Parser P>
+			consteval auto operator()(P) const
+			{
+				return Delimit<P, D>{};
+			}
+		};
+
+		template <Parser D>
+		consteval auto operator()(D) const
+		{
+			return inner<D>{};
+		}
+	};
+
+}
+
+
+
+template <auto function> constexpr auto fn        = detail::modifiers::fn<function>{};
+                         constexpr auto join      = detail::modifiers::join{};
+template <class T>       constexpr auto into      = detail::modifiers::into<T>{};
+template <auto value>    constexpr auto constant  = detail::modifiers::constant<value>{};
+template <class T>       constexpr auto defaulted = detail::modifiers::defaulted<T>{};
+template <std::size_t N> constexpr auto exactly   = detail::modifiers::exactly<N>{};
+                         constexpr auto ignore    = detail::modifiers::ignore{};
+                         constexpr auto complete  = detail::modifiers::complete{};
+                         constexpr auto delimit   = detail::modifiers::delimit{};
+
+template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>>      = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::join>              = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>>           = true;
+template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>>   = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>>      = true;
+template <std::size_t N> constexpr bool is_modifier_v<detail::modifiers::exactly<N>>        = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::ignore>            = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::complete>          = true;
+template <Parser D>      constexpr bool is_modifier_v<detail::modifiers::delimit::inner<D>> = true;
+
+
+
+consteval auto operator%(Parser auto p, Modifier auto modifier)
 {
 	return modifier(p);
 }

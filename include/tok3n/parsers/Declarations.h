@@ -75,6 +75,16 @@ concept Intoable = is_intoable_v<To, T>;
 
 
 
+template <class M> constexpr bool is_modifier_v           = false;
+template <class M> constexpr bool is_modifier_v <const M> = is_modifier_v<M>;
+template <class M> constexpr bool is_modifier_v <M&>      = is_modifier_v<M>;
+template <class M> constexpr bool is_modifier_v <M&&>     = is_modifier_v<M>;
+
+template <class M>
+concept Modifier = is_modifier_v<M> && std::is_empty_v<M>;
+
+
+
 template <class P> concept IsOneChar    = Parser<P> && parser_type_v<P> == ParserType::OneChar;
 template <class P> concept IsNotChar    = Parser<P> && parser_type_v<P> == ParserType::NotChar;
 template <class P> concept IsLiteral    = Parser<P> && parser_type_v<P> == ParserType::Literal;
