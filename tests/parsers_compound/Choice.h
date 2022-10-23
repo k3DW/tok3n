@@ -2,36 +2,15 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::Choice)
 
-using constructible = traits::compound::constructible<Choice>;
+using namespace samples::basic;
 
-void constructible_same_result_type()
-{
-	assert
-		, constructible::from<OneChar<'a'>, OneChar<"bc">, NotChar<'d'>, NotChar<"ef">, Literal<"literal">>
-		, not constructible::from<OneChar<"a">, Sequence<OneChar<"b">, OneChar<"c">>>
-		;
-}
+using TwoWay1 = Choice<L4, NC4>;
+using TwoWay2 = Choice<NC4, L4>;
 
-void not_constructible_empty()
-{
-	assert, not constructible::from<>;
-}
+using ThreeWay1 = Choice<L4, OC4, NC5>;
+using ThreeWay2 = Choice<NC5, L4, OC4>;
 
-
-
-using TwoWay1 = Choice<Literal<"ab">, NotChar<"cd">>;
-constexpr TwoWay1 twoway1;
-
-using TwoWay2 = Choice<NotChar<"cd">, Literal<"ab">>;
-constexpr TwoWay2 twoway2;
-
-using ThreeWay1 = Choice<Literal<"ab">, OneChar<"cd">, NotChar<'z'>>;
-constexpr ThreeWay1 threeway1;
-
-using ThreeWay2 = Choice<NotChar<'z'>, Literal<"ab">, OneChar<"cd">>;
-constexpr ThreeWay2 threeway2;
-
-void requirements_twoway()
+void requirements()
 {
 	assert
 		, is_parser<TwoWay1>
@@ -41,11 +20,7 @@ void requirements_twoway()
 		, is_parser<TwoWay2>
 		, parser_type_of<TwoWay2>.is_Choice
 		, result_of<TwoWay2>.is<std::string_view>
-		;
-}
-void requirements_threeway()
-{
-	assert
+
 		, is_parser<ThreeWay1>
 		, parser_type_of<ThreeWay1>.is_Choice
 		, result_of<ThreeWay1>.is<std::string_view>
@@ -72,6 +47,7 @@ void parse_twoway()
 		, parse<TwoWay2>("edcba").success("e", "dcba")
 		;
 }
+
 void parse_threeway()
 {
 	assert
@@ -92,6 +68,23 @@ void parse_threeway()
 		, parse<ThreeWay2>("zyx").failure()
 		, parse<ThreeWay2>("xyz").success("x", "yz")
 		;
+}
+
+
+
+using constructible = traits::compound::constructible<Choice>;
+
+void constructible_same_result_type()
+{
+	assert
+		, constructible::from<OC1, OC3, NC2, NC1, L2>
+		, not constructible::from<OC1, Sequence<OC2, OC3>>
+		;
+}
+
+void not_constructible_empty()
+{
+	assert, not constructible::from<>;
 }
 
 TOK3N_END_NAMESPACE_TESTS(compound::Choice)
