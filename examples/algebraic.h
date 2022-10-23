@@ -62,12 +62,14 @@ constexpr auto expr   = (ws >> term)      % delimit(ws >> OneChar<"+-">{});
 
 consteval auto powterm::get_parser()
 {
-	constexpr auto bracketed = (ignore(OneChar<"(">{}) >> ws >> expr >> ws >> ignore(OneChar<")">{})) % into<powterm_t::bracketed_expr>;
-	constexpr auto negated   = (ignore(OneChar<"-">{}) >> ws >> expr)                                 % into<powterm_t::negated_expr>;
-	return
-		bracketed % into<powterm_t> |
-		negated   % into<powterm_t> |
-		number    % into<powterm_t>;
+	constexpr auto bracketed = ignore(OneChar<"(">{}) >> ws >> expr >> ws >> ignore(OneChar<")">{});
+	constexpr auto negated   = ignore(OneChar<"-">{}) >> ws >> expr;
+	return into<powterm_t>
+	(
+		bracketed % into<powterm_t::bracketed_expr>,
+		negated   % into<powterm_t::negated_expr>,
+		number
+	);
 }
 
 constexpr auto input = complete(ws >> expr >> ws);
@@ -190,7 +192,7 @@ namespace print
 
 auto test()
 {
-	auto result = input.parse("1 + 2 * 3 3");
+	auto result = input.parse("4 ^ (2 + 4 * 6) + 1 * 3");
 	if (result)
 		print::print(*result, 0);
 	else

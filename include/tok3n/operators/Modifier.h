@@ -38,6 +38,12 @@ namespace detail::modifiers
 		{
 			return Into<P, T>{};
 		}
+
+		template <Parser... Ps>
+		consteval auto operator()(Ps...) const
+		{
+			return Choice<Into<Ps, T>...>{};
+		}
 	};
 
 	template <auto value>
