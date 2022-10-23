@@ -163,3 +163,5 @@ consteval bool operator==(P, Q)
 }
 
 TOK3N_END_NAMESPACE_TESTS()
+
+#include "tests/common.h"

@@ -2,11 +2,7 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::Choice)
 
-struct constructible
-{
-	template <class... Ps>
-	static constexpr bool from = requires { typename Choice<Ps...>; };
-};
+using constructible = traits::compound::constructible<Choice>;
 
 void constructible_same_result_type()
 {

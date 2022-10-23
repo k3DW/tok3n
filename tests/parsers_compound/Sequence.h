@@ -2,11 +2,7 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::Sequence)
 
-struct constructible
-{
-	template <class... Ps>
-	static constexpr bool from = requires { typename Sequence<Ps...>; };
-};
+using constructible = traits::compound::constructible<Sequence>;
 
 void not_constructible_empty()
 {

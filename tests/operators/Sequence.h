@@ -1,5 +1,4 @@
 #include "tests/utility.h"
-#include "tests/common.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(operators::Sequence)
 

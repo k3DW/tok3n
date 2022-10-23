@@ -43,4 +43,16 @@ namespace traits::basic
 
 }
 
+namespace traits::compound
+{
+
+	template <template <Parser...> class CompoundParser>
+	struct constructible
+	{
+		template <class... Ps>
+		static constexpr bool from = requires { typename CompoundParser<Ps...>; };
+	};
+
+}
+
 TOK3N_END_NAMESPACE_TESTS()
