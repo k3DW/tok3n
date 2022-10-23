@@ -43,19 +43,18 @@ namespace detail::executors
 }
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2)
+requires detail::Sequence_able<Ps...>
 struct Sequence
 {
-	using filtered = mp::filter<mp::is_not_type<void>, typename Ps::result_type...>;
-	using unwrap_trait = mp::unwrap_if_single<mp::retarget<filtered, std::tuple>>;
+	using _trait = detail::Sequence_result_trait<Ps...>;
 
-	using result_type = unwrap_trait::type;
-	static constexpr bool unwrapped = unwrap_trait::value;
+	using result_type                = _trait::type;
+	static constexpr bool _unwrapped = _trait::value;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_type, unwrapped>;
+		using Executor = detail::executors::Sequence<result_type, _unwrapped>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
@@ -72,7 +71,7 @@ struct Sequence
 	static constexpr Result<void> lookahead(Input input)
 	{
 		// Using std::monostate because we don't have regular void, but this could be anything since it isn't used
-		using Executor = detail::executors::Sequence<std::monostate, unwrapped>; // std::monostate is not significant, just needs to be empty (and not void)
+		using Executor = detail::executors::Sequence<std::monostate, _unwrapped>; // std::monostate is not significant, just needs to be empty (and not void)
 		Executor executor{ .input = input };
 
 		bool successful = (... && executor.execute<Ps, -1>());

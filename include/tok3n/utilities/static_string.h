@@ -1,10 +1,11 @@
 #pragma once
+#include "tok3n/utilities/namespace.h"
+
 #include <algorithm>
 #include <array>
 #include <cstddef>
 #include <ranges>
 #include <string_view>
-#include "tok3n/utilities/namespace.h"
 
 // Ideas mostly taken from CTRE
 

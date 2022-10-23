@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <static_string str>
-requires string_usable_in_basic_parser<str>
+requires detail::Literal_able<str>
 struct Literal
 {
 	using result_type = Input;

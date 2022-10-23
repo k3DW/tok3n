@@ -27,10 +27,10 @@ namespace detail::executors
 }
 
 template <Parser... Ps>
-requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>
+requires detail::Choice_able<Ps...>
 struct Choice
 {
-	using result_type = typename mp::head<Ps...>::result_type;
+	using result_type = detail::Choice_result<Ps...>;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
