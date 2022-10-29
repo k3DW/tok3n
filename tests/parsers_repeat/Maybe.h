@@ -2,72 +2,66 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Maybe)
 
-using P1 = Maybe<Literal<"literal">>;
-constexpr P1 p1;
-
-using P2 = Maybe<OneChar<"abcde">>;
-constexpr P2 p2;
-
-using P3 = Maybe<Choice<Literal<"literal">, OneChar<"abcde">>>;
-constexpr P3 p3;
-
-using P4 = Maybe<Sequence<Literal<"literal">, OneChar<"abcde">>>;
-constexpr P4 p4;
+using namespace samples::all;
 
 void requirements()
 {
 	assert
-		, is_parser<P1>
-		, parser_type_of<P1>.is_Maybe
-		, result_of<P1>.is<std::optional<std::string_view>>
+		, is_parser<May1>
+		, parser_type_of<May1>.is_Maybe
+		, result_of<May1>.is<std::optional<std::string_view>>
 
-		, is_parser<P2>
-		, parser_type_of<P2>.is_Maybe
-		, result_of<P2>.is<std::optional<std::string_view>>
+		, is_parser<May2>
+		, parser_type_of<May2>.is_Maybe
+		, result_of<May2>.is<std::optional<std::string_view>>
 
-		, is_parser<P3>
-		, parser_type_of<P3>.is_Maybe
-		, result_of<P3>.is<std::optional<std::string_view>>
+		, is_parser<May3>
+		, parser_type_of<May3>.is_Maybe
+		, result_of<May3>.is<std::optional<std::string_view>>
 
-		, is_parser<P4>
-		, parser_type_of<P4>.is_Maybe
-		, result_of<P4>.is<std::optional<std::tuple<std::string_view, std::string_view>>>
+		, is_parser<May4>
+		, parser_type_of<May4>.is_Maybe
+		, result_of<May4>.is<std::optional<std::tuple<std::string_view, std::string_view>>>
 		;
 }
 
 void parse_Maybe_Literal()
 {
 	assert
-		, parse<P1>("litera").success({}, "litera")
-		, parse<P1>("literal").success({ "literal" }, "")
-		, parse<P1>("literally").success({ "literal" }, "ly")
-		, parse<P1>("literallitera").success({ "literal" }, "litera")
-		, parse<P1>("literalliterallitera").success({ "literal" }, "literallitera")
-		, parse<P1>(" literalliterallitera").success({}, " literalliterallitera")
+		, parse<May1>("litera").success({}, "litera")
+		, parse<May1>("literal").success({ "literal" }, "")
+		, parse<May1>("literally").success({ "literal" }, "ly")
+		, parse<May1>("literallitera").success({ "literal" }, "litera")
+		, parse<May1>("literalliterallitera").success({ "literal" }, "literallitera")
+		, parse<May1>(" literalliterallitera").success({}, " literalliterallitera")
+		, parse<May1>("").success({}, "")
 		;
 }
 void parse_Maybe_OneChar()
 {
 	assert
-		, parse<P2>("abcdef").success({ "a" }, "bcdef")
-		, parse<P2>("fedcba").success({}, "fedcba")
-		, parse<P2>("cdebabcccbjklmnop").success({ "c" }, "debabcccbjklmnop")
+		, parse<May2>("abcdef").success({ "a" }, "bcdef")
+		, parse<May2>("fedcba").success({}, "fedcba")
+		, parse<May2>("cbabcccbjklmnop").success({ "c" }, "babcccbjklmnop")
+		, parse<May2>("").success({}, "")
 		;
 }
 void parse_Maybe_Choice()
 {
 	assert
-		, parse<P3>("abliteralcdliteralef").success({ "a" }, "bliteralcdliteralef")
-		, parse<P3>("abliteralcdlitralef").success({ "a" }, "bliteralcdlitralef")
-		, parse<P3>("literalabadliteral").success({ "literal" }, "abadliteral")
+		, parse<May3>("abliteralcbliteralcf").success({ "a" }, "bliteralcbliteralcf")
+		, parse<May3>("abliteralcblitralcf").success({ "a" }, "bliteralcblitralcf")
+		, parse<May3>("literalabacliteral").success({ "literal" }, "abacliteral")
+		, parse<May3>("").success({}, "")
 		;
 }
 void parse_Maybe_Sequence()
 {
 	assert
-		, parse<P4>("literalaliteralcliteraldliteralb").success({ {"literal", "a"} }, "literalcliteraldliteralb")
-		, parse<P4>("literalaliteralcliteraldliteralbliteral").success({ {"literal", "a"} }, "literalcliteraldliteralbliteral")
-		, parse<P4>("aliteralaliteralcliteraldliteral").success({}, "aliteralaliteralcliteraldliteral")
+		, parse<May4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"} }, "literalcliteralcliteralb")
+		, parse<May4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"} }, "literalcliteralcliteralbliteral")
+		, parse<May4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
+		, parse<May4>("").success({}, "")
 		;
 }
 

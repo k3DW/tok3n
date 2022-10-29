@@ -11,6 +11,7 @@
 //#include "tests/parsers_compound/Ignore.h"
 
 #include "tests/parsers_repeat/Maybe.h"
+#include "tests/parsers_repeat/Exactly.h"
 #include "tests/parsers_repeat/OneOrMore.h"
 #include "tests/parsers_repeat/ZeroOrMore.h"
 //#include "tests/parsers_repeat/combine.h"
