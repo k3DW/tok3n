@@ -369,7 +369,6 @@
     <ClInclude Include="tests\parsers_basic\NotChar.h" />
     <ClInclude Include="tests\parsers_basic\Literal.h" />
     <ClInclude Include="tests\parsers_compound\Choice.h" />
-    <ClInclude Include="tests\parsers_compound\combine.h" />
     <ClInclude Include="tests\parsers_compound\Sequence.h" />
     <ClInclude Include="tests\parsers_repeat\Maybe.h" />
     <ClInclude Include="tests\parsers_repeat\OneOrMore.h" />

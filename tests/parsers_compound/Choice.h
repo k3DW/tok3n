@@ -2,13 +2,13 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::Choice)
 
-using namespace samples::basic;
+using namespace samples::all;
 
-using TwoWay1 = Choice<L4, NC4>;
-using TwoWay2 = Choice<NC4, L4>;
+using TwoWay1 = Cho1;
+using TwoWay2 = Cho2;
 
-using ThreeWay1 = Choice<L4, OC4, NC5>;
-using ThreeWay2 = Choice<NC5, L4, OC4>;
+using ThreeWay1 = Cho3;
+using ThreeWay2 = Cho4;
 
 void requirements()
 {

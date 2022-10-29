@@ -2,10 +2,10 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(compound::Sequence)
 
-using namespace samples::basic;
+using namespace samples::all;
 
-using TwoWay = Sequence<L4, NC4>;
-using ThreeWay = Sequence<L4, OC4, NC5>;
+using TwoWay = Seq1;
+using ThreeWay = Seq3;
 
 void requirements()
 {

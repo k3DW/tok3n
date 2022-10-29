@@ -114,9 +114,6 @@
     <ClInclude Include="tests\parsers_compound\Sequence.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_compound\combine.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="tests\parsers_repeat\OneOrMore.h">
       <Filter>Source Files</Filter>
     </ClInclude>

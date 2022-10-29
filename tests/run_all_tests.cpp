@@ -8,7 +8,6 @@
 
 #include "tests/parsers_compound/Choice.h"
 #include "tests/parsers_compound/Sequence.h"
-//#include "tests/parsers_compound/combine.h"
 
 #include "tests/parsers_repeat/Maybe.h"
 #include "tests/parsers_repeat/OneOrMore.h"
