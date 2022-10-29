@@ -123,9 +123,6 @@
     <ClInclude Include="tests\parsers_repeat\Maybe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\combine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\utilities\forward_like.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -184,6 +181,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_repeat\Exactly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\Maybe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\OneOrMore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\ZeroOrMore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

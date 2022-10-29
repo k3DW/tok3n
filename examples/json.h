@@ -3,9 +3,6 @@
 #include <map>
 #include <variant>
 
-#include "tok3n/operators/Maybe.h"
-#include "tok3n/operators/OneOrMore.h"
-#include "tok3n/operators/ZeroOrMore.h"
 #include "tok3n/operators/Modifier.h"
 
 TOK3N_BEGIN_NAMESPACE(examples::json_parser)

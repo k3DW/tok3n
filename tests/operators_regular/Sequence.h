@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(operators::Sequence)
+TOK3N_BEGIN_NAMESPACE_TESTS(regular::Sequence)
 
 using namespace samples::all;
 
@@ -62,4 +62,4 @@ void anything_and_anything()
 	// TODO once everything is added to samples::all
 }
 
-TOK3N_END_NAMESPACE_TESTS(operators::Sequence)
+TOK3N_END_NAMESPACE_TESTS(regular::Sequence)

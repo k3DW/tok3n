@@ -14,8 +14,7 @@
 #include "tests/parsers_repeat/Exactly.h"
 #include "tests/parsers_repeat/OneOrMore.h"
 #include "tests/parsers_repeat/ZeroOrMore.h"
-//#include "tests/parsers_repeat/combine.h"
-//
+
 //#include "tests/parsers_adaptor/Delimit.h"
 //#include "tests/parsers_adaptor/Join.h"
 //#include "tests/parsers_adaptor/Transform.h"
@@ -25,5 +24,8 @@
 #include "tests/operators_regular/Not.h"
 #include "tests/operators_regular/Choice.h"
 #include "tests/operators_regular/Sequence.h"
+#include "tests/operators_regular/Maybe.h"
+#include "tests/operators_regular/OneOrMore.h"
+#include "tests/operators_regular/ZeroOrMore.h"
 
 #endif

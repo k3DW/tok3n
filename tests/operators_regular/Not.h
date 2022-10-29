@@ -1,6 +1,6 @@
 #include "tests/utility.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(operators::Not)
+TOK3N_BEGIN_NAMESPACE_TESTS(regular::Not)
 
 using namespace samples::basic;
 
@@ -28,4 +28,4 @@ void not_NotChar()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(operators::Not)
+TOK3N_END_NAMESPACE_TESTS(regular::Not)
