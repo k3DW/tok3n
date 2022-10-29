@@ -8,12 +8,12 @@
 
 #include "tok3n/parsers/compound/Choice.h"
 #include "tok3n/parsers/compound/Sequence.h"
+#include "tok3n/parsers/compound/Ignore.h"
 
 #include "tok3n/parsers/repeat/Maybe.h"
 #include "tok3n/parsers/repeat/Exactly.h"
 #include "tok3n/parsers/repeat/OneOrMore.h"
 #include "tok3n/parsers/repeat/ZeroOrMore.h"
-#include "tok3n/parsers/repeat/Ignore.h"
 
 #include "tok3n/parsers/adaptor/Transform.h"
 #include "tok3n/parsers/adaptor/Join.h"

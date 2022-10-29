@@ -334,7 +334,7 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Into.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Join.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\Exactly.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\Ignore.h" />
+    <ClInclude Include="include\tok3n\parsers\compound\Ignore.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h" />
     <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
     <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
@@ -360,7 +360,7 @@
     <ClInclude Include="tests\parsers_adaptor\combine.h" />
     <ClInclude Include="tests\parsers_adaptor\Custom.h" />
     <ClInclude Include="tests\parsers_adaptor\Delimit.h" />
-    <ClInclude Include="tests\parsers_repeat\Ignore.h" />
+    <ClInclude Include="tests\parsers_compound\Ignore.h" />
     <ClInclude Include="tests\parsers_adaptor\Join.h" />
     <ClInclude Include="tests\parsers_adaptor\Transform.h" />
     <ClInclude Include="tests\parsers_repeat\combine.h" />

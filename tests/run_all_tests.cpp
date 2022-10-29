@@ -8,11 +8,11 @@
 
 #include "tests/parsers_compound/Choice.h"
 #include "tests/parsers_compound/Sequence.h"
+//#include "tests/parsers_compound/Ignore.h"
 
 #include "tests/parsers_repeat/Maybe.h"
 #include "tests/parsers_repeat/OneOrMore.h"
 #include "tests/parsers_repeat/ZeroOrMore.h"
-//#include "tests/parsers_repeat/Ignore.h"
 //#include "tests/parsers_repeat/combine.h"
 //
 //#include "tests/parsers_adaptor/Delimit.h"

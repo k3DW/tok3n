@@ -81,7 +81,7 @@
     <ClInclude Include="examples\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\repeat\Ignore.h">
+    <ClInclude Include="include\tok3n\parsers\compound\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Join.h">
@@ -138,7 +138,7 @@
     <ClInclude Include="tests\parsers_adaptor\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\Ignore.h">
+    <ClInclude Include="tests\parsers_compound\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_adaptor\Transform.h">
