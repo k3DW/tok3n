@@ -354,9 +354,9 @@
     <ClInclude Include="include\tok3n\utilities\static_string.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="tests\common.h" />
-    <ClInclude Include="tests\operators\Choice.h" />
-    <ClInclude Include="tests\operators\Not.h" />
-    <ClInclude Include="tests\operators\Sequence.h" />
+    <ClInclude Include="tests\operators_regular\Choice.h" />
+    <ClInclude Include="tests\operators_regular\Not.h" />
+    <ClInclude Include="tests\operators_regular\Sequence.h" />
     <ClInclude Include="tests\parsers_adaptor\combine.h" />
     <ClInclude Include="tests\parsers_adaptor\Custom.h" />
     <ClInclude Include="tests\parsers_adaptor\Delimit.h" />

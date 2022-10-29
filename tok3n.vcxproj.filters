@@ -171,16 +171,16 @@
     <ClInclude Include="include\tok3n\parsers\Details.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\operators\Not.h">
+    <ClInclude Include="tests\operators_regular\Not.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\operators\Choice.h">
+    <ClInclude Include="tests\operators_regular\Choice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\common.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\operators\Sequence.h">
+    <ClInclude Include="tests\operators_regular\Sequence.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

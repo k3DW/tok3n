@@ -21,8 +21,8 @@
 //#include "tests/parsers_adaptor/Custom.h"
 //#include "tests/parsers_adaptor/combine.h"
 
-#include "tests/operators/Not.h"
-#include "tests/operators/Choice.h"
-#include "tests/operators/Sequence.h"
+#include "tests/operators_regular/Not.h"
+#include "tests/operators_regular/Choice.h"
+#include "tests/operators_regular/Sequence.h"
 
 #endif
