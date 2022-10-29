@@ -37,7 +37,7 @@ struct Exactly
 		for (std::size_t i = 0; i < N; i++)
 		{
 			auto result = P::lookahead(input);
-			if (result.has_value)
+			if (result.has_value())
 				input = result.remaining();
 			else
 				return { failure, original_input };
