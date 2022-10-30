@@ -85,6 +85,50 @@ namespace traits::repeat
 
 }
 
+namespace samples::functions
+{
+
+	constexpr std::size_t func1(std::vector<std::string_view>&& vec)
+	{
+		return vec.size();
+	}
+
+	constexpr auto func2 = [](const std::optional<std::string_view>& opt) -> std::vector<char>
+	{
+		if (not opt.has_value())
+			return {};
+		else
+		{
+			auto& sv = *opt;
+			return { sv.begin(), sv.end() };
+		}
+	};
+
+	constexpr struct func3_t
+	{
+		constexpr bool operator()(std::tuple<std::string_view, std::vector<std::string_view>>&& tup) const
+		{
+			auto&& [sv, vec] = std::move(tup);
+			return vec.size() % 2 == 0;
+		}
+	} func3;
+
+	struct func4
+	{
+		constexpr func4(int multiply_by)
+			: multiply_by(multiply_by) {}
+
+		int multiply_by;
+
+		constexpr std::size_t operator()(const std::tuple<std::vector<std::string_view>, std::optional<std::string_view>>& tup) const
+		{
+			const auto& [vec, opt] = tup;
+			return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
+		}
+	};
+
+}
+
 namespace samples::all
 {
 
@@ -166,6 +210,13 @@ namespace samples::all
 	using Joi4 = Join<Sub2::_4>; constexpr Joi4 joi4;
 	using Joi5 = Join<Sub2::_5>; constexpr Joi5 joi5;
 
+	using namespace functions;
+
+	using Tra1 = Transform<Sub2::_2, func1>;    constexpr Tra1 tra1;
+	using Tra2 = Transform<Sub2::_3, func2>;    constexpr Tra2 tra2;
+	using Tra3 = Transform<Sub2::_4, func3>;    constexpr Tra3 tra3;
+	using Tra4 = Transform<Sub2::_5, func4(3)>; constexpr Tra4 tra4;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
 		qq, abc, comma, spacedot,
@@ -176,7 +227,8 @@ namespace samples::all
 		Sub2::_1{}, Sub2::_2{}, Sub2::_3{}, Sub2::_4{}, Sub2::_5{},
 		ign1, ign2, ign3, ign4, ign5,
 		del1, del2, del3, del4, del5, del6, del7, del8,
-		com1, com2, com3, com4, com5, com6, com7
+		com1, com2, com3, com4, com5, com6, com7,
+		tra1, tra2, tra3, tra4
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
