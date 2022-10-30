@@ -7,18 +7,18 @@
 	using k3::tok3n::Literal;    \
 	using k3::tok3n::Choice;     \
 	using k3::tok3n::Sequence;   \
-	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Maybe;      \
 	using k3::tok3n::Exactly;    \
 	using k3::tok3n::OneOrMore;  \
 	using k3::tok3n::ZeroOrMore; \
-	using k3::tok3n::Transform;  \
-	using k3::tok3n::Join;       \
+	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Delimit;    \
+	using k3::tok3n::Complete;   \
+	using k3::tok3n::Join;       \
+	using k3::tok3n::Transform;  \
 	using k3::tok3n::Into;       \
 	using k3::tok3n::Constant;   \
 	using k3::tok3n::Defaulted;  \
-	using k3::tok3n::Complete;   \
 	using k3::tok3n::Custom
 
 
@@ -60,20 +60,21 @@ struct parser_type_of_t
 
 	static constexpr bool is_Choice     = IsChoice<T>;
 	static constexpr bool is_Sequence   = IsSequence<T>;
-	static constexpr bool is_Ignore     = IsIgnore<T>;
 
 	static constexpr bool is_Maybe      = IsMaybe<T>;
 	static constexpr bool is_Exactly    = IsExactly<T>;
 	static constexpr bool is_OneOrMore  = IsOneOrMore<T>;
 	static constexpr bool is_ZeroOrMore = IsZeroOrMore<T>;
 
-	static constexpr bool is_Transform  = IsTransform<T>;
-	static constexpr bool is_Join       = IsJoin<T>;
+	static constexpr bool is_Ignore     = IsIgnore<T>;
 	static constexpr bool is_Delimit    = IsDelimit<T>;
+	static constexpr bool is_Complete   = IsComplete<T>;
+	
+	static constexpr bool is_Join       = IsJoin<T>;
+	static constexpr bool is_Transform  = IsTransform<T>;
 	static constexpr bool is_Into       = IsInto <T>;
 	static constexpr bool is_Constant   = IsConstant<T>;
 	static constexpr bool is_Defaulted  = IsDefaulted<T>;
-	static constexpr bool is_Complete   = IsComplete<T>;
 	static constexpr bool is_Custom     = IsCustom<T>;
 };
 

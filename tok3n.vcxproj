@@ -362,6 +362,7 @@
     <ClInclude Include="tests\operators_regular\OneOrMore.h" />
     <ClInclude Include="tests\operators_regular\Sequence.h" />
     <ClInclude Include="tests\operators_regular\ZeroOrMore.h" />
+    <ClInclude Include="tests\parsers_adaptor\Complete.h" />
     <ClInclude Include="tests\parsers_divergent\combine.h" />
     <ClInclude Include="tests\parsers_divergent\Custom.h" />
     <ClInclude Include="tests\parsers_adaptor\Delimit.h" />

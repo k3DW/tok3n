@@ -135,6 +135,14 @@ namespace samples::all
 	using Del7 = Delimit<Comma, QQ>;     constexpr Del7 del7;
 	using Del8 = Delimit<SpaceDot, QQ>;  constexpr Del8 del8;
 
+	using Com1 = Complete<L1>;                            constexpr Com1 com1;
+	using Com2 = Complete<OC1>;                           constexpr Com2 com2;
+	using Com3 = Complete<Choice<L1, OC1>>;               constexpr Com3 com3;
+	using Com4 = Complete<Sequence<L1, OC1>>;             constexpr Com4 com4;
+	using Com5 = Complete<Maybe<Sequence<L1, OC1>>>;      constexpr Com5 com5;
+	using Com6 = Complete<OneOrMore<Sequence<L1, OC1>>>;  constexpr Com6 com6;
+	using Com7 = Complete<ZeroOrMore<Sequence<L1, OC1>>>; constexpr Com7 com7;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
 		qq, abc, comma, spacedot,
@@ -142,7 +150,8 @@ namespace samples::all
 		may1, may2, may3, may4, exa1, exa2, exa3, exa4,
 		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4,
 		ign1, ign2, ign3, ign4, ign5,
-		del1, del2, del3, del4, del5, del6, del7, del8
+		del1, del2, del3, del4, del5, del6, del7, del8,
+		com1, com2, com3, com4, com5, com6, com7
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
