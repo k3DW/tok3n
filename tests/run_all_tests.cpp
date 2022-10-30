@@ -18,7 +18,7 @@
 #include "tests/parsers_adaptor/Delimit.h"
 #include "tests/parsers_adaptor/Complete.h"
 
-//#include "tests/parsers_divergent/Join.h"
+#include "tests/parsers_divergent/Join.h"
 //#include "tests/parsers_divergent/Transform.h"
 //#include "tests/parsers_divergent/Custom.h"
 //#include "tests/parsers_divergent/combine.h"
@@ -34,5 +34,6 @@
 #include "tests/operators_modifier/Ignore.h"
 #include "tests/operators_modifier/Delimit.h"
 #include "tests/operators_modifier/Complete.h"
+#include "tests/operators_modifier/Join.h"
 
 #endif

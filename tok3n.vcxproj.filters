@@ -207,6 +207,9 @@
     <ClInclude Include="tests\operators_modifier\Exactly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Join.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

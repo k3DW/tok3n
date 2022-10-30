@@ -160,6 +160,12 @@ namespace samples::all
 	using Com6 = Complete<OneOrMore<Sub1::_4>>;  constexpr Com6 com6;
 	using Com7 = Complete<ZeroOrMore<Sub1::_4>>; constexpr Com7 com7;
 
+	using Joi1 = Join<Sub2::_1>; constexpr Joi1 joi1;
+	using Joi2 = Join<Sub2::_2>; constexpr Joi2 joi2;
+	using Joi3 = Join<Sub2::_3>; constexpr Joi3 joi3;
+	using Joi4 = Join<Sub2::_4>; constexpr Joi4 joi4;
+	using Joi5 = Join<Sub2::_5>; constexpr Joi5 joi5;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
 		qq, abc, comma, spacedot,
