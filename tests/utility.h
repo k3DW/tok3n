@@ -19,7 +19,16 @@
 	using k3::tok3n::Into;       \
 	using k3::tok3n::Constant;   \
 	using k3::tok3n::Defaulted;  \
-	using k3::tok3n::Custom
+	using k3::tok3n::Custom;     \
+	using k3::tok3n::exactly;    \
+	using k3::tok3n::ignore;     \
+	using k3::tok3n::delimit;    \
+	using k3::tok3n::complete;   \
+	using k3::tok3n::join;       \
+	using k3::tok3n::fn;         \
+	using k3::tok3n::into;       \
+	using k3::tok3n::constant;   \
+	using k3::tok3n::defaulted;
 
 
 
