@@ -21,6 +21,10 @@ namespace samples::basic
 	using NC5 = NotChar<"z">;  constexpr NC5 nc5;
 	using L4  = Literal<"ab">; constexpr L4  l4;
 
+	static_assert(parser_equality_operator::validate(
+		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4
+	), "operator==() and operator!=() are not implemented properly on Parser types");
+
 }
 
 namespace traits::basic
@@ -109,6 +113,13 @@ namespace samples::all
 	using Zom2 = ZeroOrMore<OC1>;               constexpr Zom2 zom2;
 	using Zom3 = ZeroOrMore<Choice<L1, OC1>>;   constexpr Zom3 zom3;
 	using Zom4 = ZeroOrMore<Sequence<L1, OC1>>; constexpr Zom4 zom4;
+
+	static_assert(parser_equality_operator::validate(
+		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
+		cho1, cho2, cho3, cho4, seq1, seq2, seq3, seq4,
+		may1, may2, may3, may4, exa1, exa2, exa3, exa4,
+		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4
+	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
 
