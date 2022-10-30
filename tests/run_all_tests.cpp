@@ -30,6 +30,7 @@
 #include "tests/operators_regular/OneOrMore.h"
 #include "tests/operators_regular/ZeroOrMore.h"
 
+#include "tests/operators_modifier/Exactly.h"
 #include "tests/operators_modifier/Ignore.h"
 #include "tests/operators_modifier/Delimit.h"
 #include "tests/operators_modifier/Complete.h"

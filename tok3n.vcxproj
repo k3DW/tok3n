@@ -356,6 +356,7 @@
     <ClInclude Include="tests\common.h" />
     <ClInclude Include="tests\operators_modifier\Complete.h" />
     <ClInclude Include="tests\operators_modifier\Delimit.h" />
+    <ClInclude Include="tests\operators_modifier\Exactly.h" />
     <ClInclude Include="tests\operators_modifier\Ignore.h" />
     <ClInclude Include="tests\operators_regular\Choice.h" />
     <ClInclude Include="tests\operators_regular\Maybe.h" />
