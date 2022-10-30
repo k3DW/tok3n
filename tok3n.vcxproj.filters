@@ -72,7 +72,7 @@
     <ClInclude Include="include\tok3n\utilities\meta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\Modifier.h">
@@ -81,10 +81,10 @@
     <ClInclude Include="examples\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\compound\Ignore.h">
+    <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Join.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h">
@@ -129,34 +129,34 @@
     <ClInclude Include="tests\parsers_adaptor\Delimit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Custom.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Join.h">
+    <ClInclude Include="tests\parsers_divergent\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_compound\Ignore.h">
+    <ClInclude Include="tests\parsers_adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Transform.h">
+    <ClInclude Include="tests\parsers_divergent\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Custom.h">
+    <ClInclude Include="tests\parsers_divergent\Custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\combine.h">
+    <ClInclude Include="tests\parsers_divergent\combine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Into.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Into.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\repeat\Exactly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Constant.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Defaulted.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Defaulted.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="examples\algebraic.h">

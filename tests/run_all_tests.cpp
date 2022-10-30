@@ -8,18 +8,19 @@
 
 #include "tests/parsers_compound/Choice.h"
 #include "tests/parsers_compound/Sequence.h"
-//#include "tests/parsers_compound/Ignore.h"
 
 #include "tests/parsers_repeat/Maybe.h"
 #include "tests/parsers_repeat/Exactly.h"
 #include "tests/parsers_repeat/OneOrMore.h"
 #include "tests/parsers_repeat/ZeroOrMore.h"
 
+//#include "tests/parsers_adaptor/Ignore.h"
 //#include "tests/parsers_adaptor/Delimit.h"
-//#include "tests/parsers_adaptor/Join.h"
-//#include "tests/parsers_adaptor/Transform.h"
-//#include "tests/parsers_adaptor/Custom.h"
-//#include "tests/parsers_adaptor/combine.h"
+
+//#include "tests/parsers_divergent/Join.h"
+//#include "tests/parsers_divergent/Transform.h"
+//#include "tests/parsers_divergent/Custom.h"
+//#include "tests/parsers_divergent/combine.h"
 
 #include "tests/operators_regular/Not.h"
 #include "tests/operators_regular/Choice.h"
