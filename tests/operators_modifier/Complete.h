@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Complete)
 
 using namespace samples::all;
 
-void complete_prefix()
+void prefix()
 {
 	assert
 		, com1 == complete(l1)
@@ -14,17 +14,10 @@ void complete_prefix()
 		, com5 == complete(~(l1 >> oc1))
 		, com6 == complete(+(l1 >> oc1))
 		, com7 == complete(*(l1 >> oc1))
-		, com1 == complete(com1)
-		, com2 == complete(com2)
-		, com3 == complete(com3)
-		, com4 == complete(com4)
-		, com5 == complete(com5)
-		, com6 == complete(com6)
-		, com7 == complete(com7)
 		;
 }
 
-void complete_infix()
+void infix()
 {
 	assert
 		, com1 == l1 % complete
@@ -34,6 +27,19 @@ void complete_infix()
 		, com5 == ~(l1 >> oc1) % complete
 		, com6 == +(l1 >> oc1) % complete
 		, com7 == *(l1 >> oc1) % complete
+		;
+}
+
+void idempotent()
+{
+	assert
+		, com1 == complete(com1)
+		, com2 == complete(com2)
+		, com3 == complete(com3)
+		, com4 == complete(com4)
+		, com5 == complete(com5)
+		, com6 == complete(com6)
+		, com7 == complete(com7)
 		, com1 == com1 % complete
 		, com2 == com2 % complete
 		, com3 == com3 % complete

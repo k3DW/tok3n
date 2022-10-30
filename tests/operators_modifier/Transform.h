@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Transform)
 
 using namespace samples::all;
 
-void transform_prefix()
+void prefix()
 {
 	assert
 		, tra1 == fn<func1>(+abc)
@@ -15,7 +15,7 @@ void transform_prefix()
 		;
 }
 
-void transform_infix()
+void infix()
 {
 	assert
 		, tra1 == +abc % fn<func1>

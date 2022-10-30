@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Join)
 
 using namespace samples::all;
 
-void join_prefix()
+void prefix()
 {
 	assert
 		, joi1 != join(abc)
@@ -13,15 +13,10 @@ void join_prefix()
 		, joi3 == join(~(abc | qq))
 		, joi4 == join(abc >> *qq)
 		, joi5 == join(+abc >> ~(abc | qq))
-		, joi1 == join(joi1)
-		, joi2 == join(joi2)
-		, joi3 == join(joi3)
-		, joi4 == join(joi4)
-		, joi5 == join(joi5)
 		;
 }
 
-void join_infix()
+void infix()
 {
 	assert
 		, joi1 != abc % join
@@ -30,6 +25,17 @@ void join_infix()
 		, joi3 == ~(abc | qq) % join
 		, joi4 == (abc >> *qq) % join
 		, joi5 == (+abc >> ~(abc | qq)) % join
+		;
+}
+
+void idempotent()
+{
+	assert
+		, joi1 == join(joi1)
+		, joi2 == join(joi2)
+		, joi3 == join(joi3)
+		, joi4 == join(joi4)
+		, joi5 == join(joi5)
 		, joi1 == joi1 % join
 		, joi2 == joi2 % join
 		, joi3 == joi3 % join

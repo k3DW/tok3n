@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Delimit)
 
 using namespace samples::all;
 
-void delimit_prefix()
+void prefix()
 {
 	assert
 		, del1 == delimit(abc, comma)
@@ -18,7 +18,7 @@ void delimit_prefix()
 		;
 }
 
-void delimit_infix()
+void infix()
 {
 	assert
 		, del1 == abc % delimit(comma)

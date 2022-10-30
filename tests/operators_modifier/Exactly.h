@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Exactly)
 
 using namespace samples::all;
 
-void exactly_prefix()
+void prefix()
 {
 	assert
 		, exa1 == exactly<3>(l1)
@@ -14,7 +14,7 @@ void exactly_prefix()
 		;
 }
 
-void exactly_infix()
+void infix()
 {
 	assert
 		, exa1 == l1 % exactly<3>
