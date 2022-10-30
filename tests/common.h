@@ -21,8 +21,14 @@ namespace samples::basic
 	using NC5 = NotChar<"z">;  constexpr NC5 nc5;
 	using L4  = Literal<"ab">; constexpr L4  l4;
 
+	using QQ       = Literal<"??">;  constexpr QQ       qq;
+	using ABC      = Literal<"abc">; constexpr ABC      abc;
+	using Comma    = OneChar<",">;   constexpr Comma    comma;
+	using SpaceDot = OneChar<" .">;  constexpr SpaceDot spacedot;
+
 	static_assert(parser_equality_operator::validate(
-		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4
+		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
+		qq, abc, comma, spacedot
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
@@ -114,11 +120,22 @@ namespace samples::all
 	using Zom3 = ZeroOrMore<Choice<L1, OC1>>;   constexpr Zom3 zom3;
 	using Zom4 = ZeroOrMore<Sequence<L1, OC1>>; constexpr Zom4 zom4;
 
+	using Del1 = Delimit<ABC, Comma>;    constexpr Del1 del1;
+	using Del2 = Delimit<ABC, SpaceDot>; constexpr Del2 del2;
+	using Del3 = Delimit<QQ, Comma>;     constexpr Del3 del3;
+	using Del4 = Delimit<QQ, SpaceDot>;  constexpr Del4 del4;
+	using Del5 = Delimit<Comma, ABC>;    constexpr Del5 del5;
+	using Del6 = Delimit<SpaceDot, ABC>; constexpr Del6 del6;
+	using Del7 = Delimit<Comma, QQ>;     constexpr Del7 del7;
+	using Del8 = Delimit<SpaceDot, QQ>;  constexpr Del8 del8;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
+		qq, abc, comma, spacedot,
 		cho1, cho2, cho3, cho4, seq1, seq2, seq3, seq4,
 		may1, may2, may3, may4, exa1, exa2, exa3, exa4,
-		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4
+		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4,
+		del1, del2, del3, del4, del5, del6, del7, del8
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }

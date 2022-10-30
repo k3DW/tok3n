@@ -31,3 +31,5 @@
 #include "tok3n/operators/Maybe.h"
 #include "tok3n/operators/OneOrMore.h"
 #include "tok3n/operators/ZeroOrMore.h"
+
+#include "tok3n/operators/Modifier.h"

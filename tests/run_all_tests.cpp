@@ -15,7 +15,7 @@
 #include "tests/parsers_repeat/ZeroOrMore.h"
 
 //#include "tests/parsers_adaptor/Ignore.h"
-//#include "tests/parsers_adaptor/Delimit.h"
+#include "tests/parsers_adaptor/Delimit.h"
 
 //#include "tests/parsers_divergent/Join.h"
 //#include "tests/parsers_divergent/Transform.h"
@@ -28,5 +28,7 @@
 #include "tests/operators_regular/Maybe.h"
 #include "tests/operators_regular/OneOrMore.h"
 #include "tests/operators_regular/ZeroOrMore.h"
+
+#include "tests/operators_modifier/Delimit.h"
 
 #endif

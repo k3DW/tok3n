@@ -2,134 +2,89 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Delimit)
 
-using L1 = Literal<"abc">;
-using L2 = Literal<"??">;
+using namespace samples::all;
 
-using OC1 = OneChar<",">;
-using OC2 = OneChar<" .">;
-
-using D1 = Delimit<L1, OC1>;
-constexpr D1 d1;
-using D2 = Delimit<L1, OC2>;
-constexpr D2 d2;
-using D3 = Delimit<L2, OC1>;
-constexpr D3 d3;
-using D4 = Delimit<L2, OC2>;
-constexpr D4 d4;
-
-using D5 = Delimit<OC1, L1>;
-constexpr D5 d5;
-using D6 = Delimit<OC2, L1>;
-constexpr D6 d6;
-using D7 = Delimit<OC1, L2>;
-constexpr D7 d7;
-using D8 = Delimit<OC2, L2>;
-constexpr D8 d8;
-
-void requirements_regular()
+void requirements()
 {
 	assert
-		, is_parser<D1>
-		, parser_type_of<D1>.is_Delimit
-		, result_of<D1>.is<std::vector<std::string_view>>
+		, is_parser<Del1>
+		, parser_type_of<Del1>.is_Delimit
+		, result_of<Del1>.is<std::vector<std::string_view>>
 
-		, is_parser<D2>
-		, parser_type_of<D2>.is_Delimit
-		, result_of<D2>.is<std::vector<std::string_view>>
+		, is_parser<Del2>
+		, parser_type_of<Del2>.is_Delimit
+		, result_of<Del2>.is<std::vector<std::string_view>>
 
-		, is_parser<D3>
-		, parser_type_of<D3>.is_Delimit
-		, result_of<D3>.is<std::vector<std::string_view>>
+		, is_parser<Del3>
+		, parser_type_of<Del3>.is_Delimit
+		, result_of<Del3>.is<std::vector<std::string_view>>
 
-		, is_parser<D4>
-		, parser_type_of<D4>.is_Delimit
-		, result_of<D4>.is<std::vector<std::string_view>>
-		;
-}
-void requirements_reversed()
-{
-	assert
-		, is_parser<D5>
-		, parser_type_of<D5>.is_Delimit
-		, result_of<D5>.is<std::vector<std::string_view>>
+		, is_parser<Del4>
+		, parser_type_of<Del4>.is_Delimit
+		, result_of<Del4>.is<std::vector<std::string_view>>
 
-		, is_parser<D6>
-		, parser_type_of<D6>.is_Delimit
-		, result_of<D6>.is<std::vector<std::string_view>>
+		, is_parser<Del5>
+		, parser_type_of<Del5>.is_Delimit
+		, result_of<Del5>.is<std::vector<std::string_view>>
 
-		, is_parser<D7>
-		, parser_type_of<D7>.is_Delimit
-		, result_of<D7>.is<std::vector<std::string_view>>
+		, is_parser<Del6>
+		, parser_type_of<Del6>.is_Delimit
+		, result_of<Del6>.is<std::vector<std::string_view>>
 
-		, is_parser<D8>
-		, parser_type_of<D8>.is_Delimit
-		, result_of<D8>.is<std::vector<std::string_view>>
+		, is_parser<Del7>
+		, parser_type_of<Del7>.is_Delimit
+		, result_of<Del7>.is<std::vector<std::string_view>>
+
+		, is_parser<Del8>
+		, parser_type_of<Del8>.is_Delimit
+		, result_of<Del8>.is<std::vector<std::string_view>>
 		;
 }
 
 void parse_Delimit_regular()
 {
 	assert
-		, parse<D1>("abc,abc,abc,,abc,abc,abc").success({ "abc", "abc", "abc" }, ",,abc,abc,abc")
-		, parse<D1>(",abc,abc,abc,,abc,abc,abc").failure()
-		, parse<D1>("abc ,abc,abc,abc,,abc,abc,abc").success({ "abc" }, " ,abc,abc,abc,,abc,abc,abc")
-		, parse<D1>("").failure()
-		, parse<D2>("abc.abc abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
-		, parse<D2>("abc abc.abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
-		, parse<D2>(".abc abc.abc .abc.abc abc").failure()
-		, parse<D2>(" abc abc.abc .abc.abc abc").failure()
-		, parse<D2>("").failure()
-		, parse<D3>("??,??,??,,??,??,??").success({ "??", "??", "??" }, ",,??,??,??")
-		, parse<D3>(",??,??,??,,??,??,??").failure()
-		, parse<D3>("?? ,??,??,??,,??,??,??").success({ "??" }, " ,??,??,??,,??,??,??")
-		, parse<D3>("").failure()
-		, parse<D4>("??.?? ?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
-		, parse<D4>("?? ??.?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
-		, parse<D4>(".?? ??.?? .??.?? ??").failure()
-		, parse<D4>(" ?? ??.?? .??.?? ??").failure()
-		, parse<D4>("").failure()
+		, parse<Del1>("abc,abc,abc,,abc,abc,abc").success({ "abc", "abc", "abc" }, ",,abc,abc,abc")
+		, parse<Del1>(",abc,abc,abc,,abc,abc,abc").failure()
+		, parse<Del1>("abc ,abc,abc,abc,,abc,abc,abc").success({ "abc" }, " ,abc,abc,abc,,abc,abc,abc")
+		, parse<Del1>("").failure()
+		, parse<Del2>("abc.abc abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
+		, parse<Del2>("abc abc.abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
+		, parse<Del2>(".abc abc.abc .abc.abc abc").failure()
+		, parse<Del2>(" abc abc.abc .abc.abc abc").failure()
+		, parse<Del2>("").failure()
+		, parse<Del3>("??,??,??,,??,??,??").success({ "??", "??", "??" }, ",,??,??,??")
+		, parse<Del3>(",??,??,??,,??,??,??").failure()
+		, parse<Del3>("?? ,??,??,??,,??,??,??").success({ "??" }, " ,??,??,??,,??,??,??")
+		, parse<Del3>("").failure()
+		, parse<Del4>("??.?? ?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
+		, parse<Del4>("?? ??.?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
+		, parse<Del4>(".?? ??.?? .??.?? ??").failure()
+		, parse<Del4>(" ?? ??.?? .??.?? ??").failure()
+		, parse<Del4>("").failure()
 		;
 }
 void parse_Delimit_reversed()
 {
 	assert
-		, parse<D5>("abc,abc,abc,,abc,abc,abc").failure()
-		, parse<D5>(",abc,abc,abc,,abc,abc,abc").success({ ",", ",", ",", "," }, ",abc,abc,abc")
-		, parse<D5>("abc ,abc,abc,abc,,abc,abc,abc").failure()
-		, parse<D5>("").failure()
-		, parse<D6>("abc.abc abc .abc.abc abc").failure()
-		, parse<D6>("abc abc.abc .abc.abc abc").failure()
-		, parse<D6>(".abc abc.abc .abc.abc abc").success({ ".", " ", ".", " " }, ".abc.abc abc")
-		, parse<D6>(" abc abc.abc .abc.abc abc").success({ " ", " ", ".", " " }, ".abc.abc abc")
-		, parse<D6>("").failure()
-		, parse<D7>("??,??,??,,??,??,??").failure()
-		, parse<D7>(",??,??,??,,??,??,??").success({ ",", ",", ",", "," }, ",??,??,??")
-		, parse<D7>("?? ,??,??,??,,??,??,??").failure()
-		, parse<D7>("").failure()
-		, parse<D8>("??.?? ?? .??.?? ??").failure()
-		, parse<D8>("?? ??.?? .??.?? ??").failure()
-		, parse<D8>(".?? ??.?? .??.?? ??").success({ ".", " ", ".", " " }, ".??.?? ??")
-		, parse<D8>(" ?? ??.?? .??.?? ??").success({ " ", " ", ".", " " }, ".??.?? ??")
-		, parse<D8>("").failure()
-		;
-}
-
-void delimit_operator()
-{
-	constexpr L1 l1;
-	constexpr L2 l2;
-	constexpr OC1 oc1;
-	constexpr OC2 oc2;
-
-	assert
-		, d1 == delimit(l1, oc1)
-		, d2 == delimit(l1, oc2)
-		, d3 == delimit(l2, oc1)
-		, d4 == delimit(l2, oc2)
-		, d5 == delimit(oc1, l1)
-		, d6 == delimit(oc2, l1)
-		, d7 == delimit(oc1, l2)
-		, d8 == delimit(oc2, l2)
+		, parse<Del5>("abc,abc,abc,,abc,abc,abc").failure()
+		, parse<Del5>(",abc,abc,abc,,abc,abc,abc").success({ ",", ",", ",", "," }, ",abc,abc,abc")
+		, parse<Del5>("abc ,abc,abc,abc,,abc,abc,abc").failure()
+		, parse<Del5>("").failure()
+		, parse<Del6>("abc.abc abc .abc.abc abc").failure()
+		, parse<Del6>("abc abc.abc .abc.abc abc").failure()
+		, parse<Del6>(".abc abc.abc .abc.abc abc").success({ ".", " ", ".", " " }, ".abc.abc abc")
+		, parse<Del6>(" abc abc.abc .abc.abc abc").success({ " ", " ", ".", " " }, ".abc.abc abc")
+		, parse<Del6>("").failure()
+		, parse<Del7>("??,??,??,,??,??,??").failure()
+		, parse<Del7>(",??,??,??,,??,??,??").success({ ",", ",", ",", "," }, ",??,??,??")
+		, parse<Del7>("?? ,??,??,??,,??,??,??").failure()
+		, parse<Del7>("").failure()
+		, parse<Del8>("??.?? ?? .??.?? ??").failure()
+		, parse<Del8>("?? ??.?? .??.?? ??").failure()
+		, parse<Del8>(".?? ??.?? .??.?? ??").success({ ".", " ", ".", " " }, ".??.?? ??")
+		, parse<Del8>(" ?? ??.?? .??.?? ??").success({ " ", " ", ".", " " }, ".??.?? ??")
+		, parse<Del8>("").failure()
 		;
 }
 
