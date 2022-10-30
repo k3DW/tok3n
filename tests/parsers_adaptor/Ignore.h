@@ -2,95 +2,63 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Ignore)
 
-using L1 = Literal<"abc">;
-using L2 = Literal<"??">;
-
-using I1 = Ignore<L1>;
-constexpr I1 i1;
-using I2 = Ignore<OneOrMore<L1>>;
-constexpr I2 i2;
-using I3 = Ignore<Maybe<Choice<L1, L2>>>;
-constexpr I3 i3;
-using I4 = Ignore<Sequence<L1, ZeroOrMore<L2>>>;
-constexpr I4 i4;
-using I5 = Ignore<Sequence<OneOrMore<L1>, Maybe<Choice<L1, L2>>>>;
-constexpr I5 i5;
+using namespace samples::all;
 
 void requirements()
 {
 	assert
-		, is_parser<I1>
-		, parser_type_of<I1>.is_Ignore
-		, result_of<I1>.is<void>
+		, is_parser<Ign1>
+		, parser_type_of<Ign1>.is_Ignore
+		, result_of<Ign1>.is<void>
 
-		, is_parser<I2>
-		, parser_type_of<I2>.is_Ignore
-		, result_of<I2>.is<void>
+		, is_parser<Ign2>
+		, parser_type_of<Ign2>.is_Ignore
+		, result_of<Ign2>.is<void>
 
-		, is_parser<I3>
-		, parser_type_of<I3>.is_Ignore
-		, result_of<I3>.is<void>
+		, is_parser<Ign3>
+		, parser_type_of<Ign3>.is_Ignore
+		, result_of<Ign3>.is<void>
 
-		, is_parser<I4>
-		, parser_type_of<I4>.is_Ignore
-		, result_of<I4>.is<void>
+		, is_parser<Ign4>
+		, parser_type_of<Ign4>.is_Ignore
+		, result_of<Ign4>.is<void>
 
-		, is_parser<I5>
-		, parser_type_of<I5>.is_Ignore
-		, result_of<I5>.is<void>
+		, is_parser<Ign5>
+		, parser_type_of<Ign5>.is_Ignore
+		, result_of<Ign5>.is<void>
 		;
 }
 
 void parse_Ignore()
 {
 	assert
-		, parse<I1>("abcabc").success("abc")
-		, parse<I1>("Abcabc").failure()
-		, parse<I1>(" abcabc").failure()
-		
-		, parse<I2>("abcabcabcab").success("ab")
-		, parse<I2>("").failure()
-		, parse<I2>("ab").failure()
-		, parse<I2>("abc").success("")
-		
-		, parse<I3>("abcabc").success("abc")
-		, parse<I3>("a??bcabc").success("a??bcabc")
-		, parse<I3>("").success("")
-		, parse<I3>("??abcabc").success("abcabc")
-		, parse<I3>(" ??abcabc").success(" ??abcabc")
-		
-		, parse<I4>("abc???????").success("?")
-		, parse<I4>("??abc???????").failure()
-		, parse<I4>("abc??abc???????").success("abc???????")
-		, parse<I4>("abc ??abc???????").success(" ??abc???????")
-		, parse<I4>("").failure()
-		
-		, parse<I5>("abcabcabcabc??").success("")
-		, parse<I5>("abcabcabcabc").success("")
-		, parse<I5>("abcabcabcabc ??").success(" ??")
-		, parse<I5>("abc").success("")
-		, parse<I5>(" abc").failure()
-		, parse<I5>("").failure()
-		;
-}
+		, parse<Ign1>("abcabc").success("abc")
+		, parse<Ign1>("Abcabc").failure()
+		, parse<Ign1>(" abcabc").failure()
 
-void ignore_operator()
-{
-	constexpr L1 l1;
-	constexpr L2 l2;
+		, parse<Ign2>("abcabcabcab").success("ab")
+		, parse<Ign2>("").failure()
+		, parse<Ign2>("ab").failure()
+		, parse<Ign2>("abc").success("")
 
-	assert
-		, i1 == ignore(l1)
-		, i2 == ignore(+l1)
-		, i3 == ignore(~(l1 | l2))
-		, i4 == ignore(l1 >> *l2)
-		, i5 == ignore(+l1 >> ~(l1 | l2))
+		, parse<Ign3>("abcabc").success("abc")
+		, parse<Ign3>("a??bcabc").success("a??bcabc")
+		, parse<Ign3>("").success("")
+		, parse<Ign3>("??abcabc").success("abcabc")
+		, parse<Ign3>(" ??abcabc").success(" ??abcabc")
 
-		, i1 == ignore(i1)
-		, i2 == ignore(i2)
-		, i3 == ignore(i3)
-		, i4 == ignore(i4)
-		, i5 == ignore(i5)
+		, parse<Ign4>("abc???????").success("?")
+		, parse<Ign4>("??abc???????").failure()
+		, parse<Ign4>("abc??abc???????").success("abc???????")
+		, parse<Ign4>("abc ??abc???????").success(" ??abc???????")
+		, parse<Ign4>("").failure()
+
+		, parse<Ign5>("abcabcabcabc??").success("")
+		, parse<Ign5>("abcabcabcabc").success("")
+		, parse<Ign5>("abcabcabcabc ??").success(" ??")
+		, parse<Ign5>("abc").success("")
+		, parse<Ign5>(" abc").failure()
+		, parse<Ign5>("").failure()
 		;
 }
 

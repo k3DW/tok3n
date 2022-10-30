@@ -195,6 +195,9 @@
     <ClInclude Include="tests\operators_modifier\Delimit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Ignore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

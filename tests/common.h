@@ -120,6 +120,12 @@ namespace samples::all
 	using Zom3 = ZeroOrMore<Choice<L1, OC1>>;   constexpr Zom3 zom3;
 	using Zom4 = ZeroOrMore<Sequence<L1, OC1>>; constexpr Zom4 zom4;
 
+	using Ign1 = Ignore<ABC>;                                              constexpr Ign1 ign1;
+	using Ign2 = Ignore<OneOrMore<ABC>>;                                   constexpr Ign2 ign2;
+	using Ign3 = Ignore<Maybe<Choice<ABC, QQ>>>;                           constexpr Ign3 ign3;
+	using Ign4 = Ignore<Sequence<ABC, ZeroOrMore<QQ>>>;                    constexpr Ign4 ign4;
+	using Ign5 = Ignore<Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>>; constexpr Ign5 ign5;
+
 	using Del1 = Delimit<ABC, Comma>;    constexpr Del1 del1;
 	using Del2 = Delimit<ABC, SpaceDot>; constexpr Del2 del2;
 	using Del3 = Delimit<QQ, Comma>;     constexpr Del3 del3;
@@ -135,6 +141,7 @@ namespace samples::all
 		cho1, cho2, cho3, cho4, seq1, seq2, seq3, seq4,
 		may1, may2, may3, may4, exa1, exa2, exa3, exa4,
 		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4,
+		ign1, ign2, ign3, ign4, ign5,
 		del1, del2, del3, del4, del5, del6, del7, del8
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
