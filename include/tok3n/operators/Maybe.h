@@ -16,6 +16,7 @@ namespace detail::zeroorone
 }
 
 template <Parser P>
+requires detail::Maybe_able<P>
 constexpr auto operator~(P)
 {
 	using namespace detail::zeroorone;

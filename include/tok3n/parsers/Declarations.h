@@ -101,9 +101,9 @@ template <static_string str>          requires detail::SingleChar_able<str>     
 template <static_string str>          requires detail::Literal_able<str>           struct Literal;
 template <Parser... Ps>               requires detail::Choice_able<Ps...>          struct Choice;
 template <Parser... Ps>               requires detail::Sequence_able<Ps...>        struct Sequence;
-template <Parser P>                                                                struct OneOrMore; 
-template <Parser P>                                                                struct ZeroOrMore;
-template <Parser P>                                                                struct Maybe;
+template <Parser P>                   requires detail::OneOrMore_able<P>           struct OneOrMore;
+template <Parser P>                   requires detail::ZeroOrMore_able<P>          struct ZeroOrMore;
+template <Parser P>                   requires detail::Maybe_able<P>               struct Maybe;
 template <Parser P, std::size_t N>    requires detail::Exactly_able<P, N>          struct Exactly;
 template <Parser P>                                                                struct Ignore;
 template <Parser P, auto function>    requires detail::Transform_able<P, function> struct Transform;

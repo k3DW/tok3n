@@ -5,6 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P>
+requires detail::OneOrMore_able<P>
 struct OneOrMore
 {
 	using result_type = std::vector<typename P::result_type>;
