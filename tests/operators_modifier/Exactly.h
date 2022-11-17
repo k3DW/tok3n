@@ -25,8 +25,9 @@ void infix()
 }
 
 
-template <auto lhs, auto rhs>
-constexpr bool operator_is_not_valid = not requires { lhs % rhs; };
+
+template <auto p>
+constexpr bool valid_for_exactly = traits::operators::valid_modulo<p, exactly<2>>;
 
 void exactly_anything()
 {
@@ -72,11 +73,11 @@ void exactly_anything()
 		, zom2 % exactly<2> == Exactly<Zom2, 2>{}
 		, zom3 % exactly<2> == Exactly<Zom3, 2>{}
 		, zom4 % exactly<2> == Exactly<Zom4, 2>{}
-		, operator_is_not_valid<ign1, exactly<2>>
-		, operator_is_not_valid<ign2, exactly<2>>
-		, operator_is_not_valid<ign3, exactly<2>>
-		, operator_is_not_valid<ign4, exactly<2>>
-		, operator_is_not_valid<ign5, exactly<2>>
+		, not valid_for_exactly<ign1>
+		, not valid_for_exactly<ign2>
+		, not valid_for_exactly<ign3>
+		, not valid_for_exactly<ign4>
+		, not valid_for_exactly<ign5>
 		, del1 % exactly<2> == Exactly<Del1, 2>{}
 		, del2 % exactly<2> == Exactly<Del2, 2>{}
 		, del3 % exactly<2> == Exactly<Del3, 2>{}

@@ -85,6 +85,14 @@ namespace traits::repeat
 
 }
 
+namespace traits::operators
+{
+
+	template <auto lhs, auto rhs>
+	constexpr bool valid_modulo = requires { lhs % rhs; };
+
+}
+
 namespace samples::functions
 {
 

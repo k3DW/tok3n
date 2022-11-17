@@ -28,8 +28,8 @@ void infix()
 
 
 
-template <auto lhs, auto rhs>
-constexpr bool operator_is_not_valid = not requires { lhs% rhs; };
+template <auto p>
+constexpr bool valid_for_transform = traits::operators::valid_modulo<p, fn<sink_func>>;
 
 void transform_anything()
 {
@@ -75,11 +75,11 @@ void transform_anything()
 		, zom2 % fn<sink_func> == Transform<Zom2, sink_func>{}
 		, zom3 % fn<sink_func> == Transform<Zom3, sink_func>{}
 		, zom4 % fn<sink_func> == Transform<Zom4, sink_func>{}
-		, operator_is_not_valid<ign1, fn<sink_func>>
-		, operator_is_not_valid<ign2, fn<sink_func>>
-		, operator_is_not_valid<ign3, fn<sink_func>>
-		, operator_is_not_valid<ign4, fn<sink_func>>
-		, operator_is_not_valid<ign5, fn<sink_func>>
+		, not valid_for_transform<ign1>
+		, not valid_for_transform<ign2>
+		, not valid_for_transform<ign3>
+		, not valid_for_transform<ign4>
+		, not valid_for_transform<ign5>
 		, del1 % fn<sink_func> == Transform<Del1, sink_func>{}
 		, del2 % fn<sink_func> == Transform<Del2, sink_func>{}
 		, del3 % fn<sink_func> == Transform<Del3, sink_func>{}

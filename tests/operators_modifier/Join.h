@@ -46,8 +46,8 @@ void idempotent()
 
 
 
-template <auto lhs, auto rhs>
-constexpr bool operator_is_not_valid = not requires { lhs % rhs; };
+template <auto p>
+constexpr bool valid_for_join = traits::operators::valid_modulo<p, join>;
 
 void join_anything()
 {
@@ -93,11 +93,11 @@ void join_anything()
 		, zom2 % join == Join<Zom2>{}
 		, zom3 % join == Join<Zom3>{}
 		, zom4 % join == Join<Zom4>{}
-		, operator_is_not_valid<ign1, join>
-		, operator_is_not_valid<ign2, join>
-		, operator_is_not_valid<ign3, join>
-		, operator_is_not_valid<ign4, join>
-		, operator_is_not_valid<ign5, join>
+		, not valid_for_join<ign1>
+		, not valid_for_join<ign2>
+		, not valid_for_join<ign3>
+		, not valid_for_join<ign4>
+		, not valid_for_join<ign5>
 		, del1 % join == Join<Del1>{}
 		, del2 % join == Join<Del2>{}
 		, del3 % join == Join<Del3>{}
@@ -113,18 +113,18 @@ void join_anything()
 		, com5 % join == Join<Com5>{}
 		, com6 % join == Join<Com6>{}
 		, com7 % join == Join<Com7>{}
-		, operator_is_not_valid<tra1, join>
-		, operator_is_not_valid<tra2, join>
-		, operator_is_not_valid<tra3, join>
-		, operator_is_not_valid<tra4, join>
-		, operator_is_not_valid<int1, join>
-		, operator_is_not_valid<int2, join>
-		, operator_is_not_valid<con1, join>
-		, operator_is_not_valid<con2, join>
-		, operator_is_not_valid<con3, join>
-		, operator_is_not_valid<con4, join>
-		, operator_is_not_valid<def1, join>
-		, operator_is_not_valid<def2, join>
+		, not valid_for_join<tra1>
+		, not valid_for_join<tra2>
+		, not valid_for_join<tra3>
+		, not valid_for_join<tra4>
+		, not valid_for_join<int1>
+		, not valid_for_join<int2>
+		, not valid_for_join<con1>
+		, not valid_for_join<con2>
+		, not valid_for_join<con3>
+		, not valid_for_join<con4>
+		, not valid_for_join<def1>
+		, not valid_for_join<def2>
 		;
 }
 

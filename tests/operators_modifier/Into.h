@@ -22,8 +22,8 @@ void infix()
 
 
 
-template <auto lhs, auto rhs>
-constexpr bool operator_is_not_valid = not requires { lhs % rhs; };
+template <auto p>
+constexpr bool valid_for_into = traits::operators::valid_modulo<p, into<Sink>>;
 
 void into_anything()
 {
@@ -69,11 +69,11 @@ void into_anything()
 		, zom2 % into<Sink> == Into<Zom2, Sink>{}
 		, zom3 % into<Sink> == Into<Zom3, Sink>{}
 		, zom4 % into<Sink> == Into<Zom4, Sink>{}
-		, operator_is_not_valid<ign1, into<Sink>>
-		, operator_is_not_valid<ign2, into<Sink>>
-		, operator_is_not_valid<ign3, into<Sink>>
-		, operator_is_not_valid<ign4, into<Sink>>
-		, operator_is_not_valid<ign5, into<Sink>>
+		, not valid_for_into<ign1>
+		, not valid_for_into<ign2>
+		, not valid_for_into<ign3>
+		, not valid_for_into<ign4>
+		, not valid_for_into<ign5>
 		, del1 % into<Sink> == Into<Del1, Sink>{}
 		, del2 % into<Sink> == Into<Del2, Sink>{}
 		, del3 % into<Sink> == Into<Del3, Sink>{}

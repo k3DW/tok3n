@@ -34,8 +34,8 @@ void infix()
 
 
 
-template <auto lhs, auto rhs>
-constexpr bool operator_is_not_valid = not requires { lhs % rhs; };
+template <auto p>
+constexpr bool valid_for_delimit = traits::operators::valid_modulo<p, delimit(comma)>;
 
 void delimit_anything()
 {
@@ -81,11 +81,11 @@ void delimit_anything()
 		, zom2 % delimit(comma) == Delimit<Zom2, Comma>{}
 		, zom3 % delimit(comma) == Delimit<Zom3, Comma>{}
 		, zom4 % delimit(comma) == Delimit<Zom4, Comma>{}
-		, operator_is_not_valid<ign1, delimit(comma)>
-		, operator_is_not_valid<ign2, delimit(comma)>
-		, operator_is_not_valid<ign3, delimit(comma)>
-		, operator_is_not_valid<ign4, delimit(comma)>
-		, operator_is_not_valid<ign5, delimit(comma)>
+		, not valid_for_delimit<ign1>
+		, not valid_for_delimit<ign2>
+		, not valid_for_delimit<ign3>
+		, not valid_for_delimit<ign4>
+		, not valid_for_delimit<ign5>
 		, del1 % delimit(comma) == Delimit<Del1, Comma>{}
 		, del2 % delimit(comma) == Delimit<Del2, Comma>{}
 		, del3 % delimit(comma) == Delimit<Del3, Comma>{}
