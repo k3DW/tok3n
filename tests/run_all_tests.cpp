@@ -23,7 +23,7 @@
 #include "tests/parsers_divergent/Into.h"
 #include "tests/parsers_divergent/Constant.h"
 #include "tests/parsers_divergent/Defaulted.h"
-//#include "tests/parsers_divergent/Custom.h"
+#include "tests/parsers_divergent/Custom.h"
 //#include "tests/parsers_divergent/combine.h"
 
 #include "tests/operators_regular/Not.h"
