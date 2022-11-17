@@ -13,7 +13,7 @@ struct Constant
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, value, input };
+			return { success, value, result.remaining() };
 		else
 			return { failure, input };
 	}
