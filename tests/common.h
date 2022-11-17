@@ -129,6 +129,55 @@ namespace samples::functions
 
 }
 
+namespace samples::classes
+{
+
+	class Class1
+	{
+	public:
+		explicit constexpr Class1(int value) : value(value) {}
+
+		explicit constexpr Class1(std::string_view sv)
+		{
+			if (sv.size() == 1)
+			{
+				switch (sv.front())
+				{
+					break; case ' ': value = 0;
+					break; case '.': value = 1;
+					break; default:  value = 2;
+				}
+			}
+			else
+				value = 3;
+		}
+
+		friend constexpr bool operator==(const Class1&, const Class1&) = default;
+
+	private:
+		int value;
+	};
+
+	class Class2
+	{
+	public:
+		explicit constexpr Class2(std::string_view sv1, std::string_view sv2)
+			: sv1(sv1), sv2(sv2) {}
+
+		explicit constexpr Class2(const std::tuple<std::string_view, std::string_view>& tup)
+		{
+			std::tie(sv1, sv2) = tup;
+		}
+
+		friend constexpr bool operator==(const Class2&, const Class2&) = default;
+
+	private:
+		std::string_view sv1;
+		std::string_view sv2;
+	};
+
+}
+
 namespace samples::all
 {
 
@@ -217,6 +266,11 @@ namespace samples::all
 	using Tra3 = Transform<Sub2::_4, func3>;    constexpr Tra3 tra3;
 	using Tra4 = Transform<Sub2::_5, func4(3)>; constexpr Tra4 tra4;
 
+	using namespace classes;
+
+	using Int1 = Into<SpaceDot, Class1>;                constexpr Int1 int1;
+	using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>; constexpr Int2 int2;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
 		qq, abc, comma, spacedot,
@@ -228,7 +282,7 @@ namespace samples::all
 		ign1, ign2, ign3, ign4, ign5,
 		del1, del2, del3, del4, del5, del6, del7, del8,
 		com1, com2, com3, com4, com5, com6, com7,
-		tra1, tra2, tra3, tra4
+		tra1, tra2, tra3, tra4, int1, int2
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }

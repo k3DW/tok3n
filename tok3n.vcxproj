@@ -358,6 +358,7 @@
     <ClInclude Include="tests\operators_modifier\Delimit.h" />
     <ClInclude Include="tests\operators_modifier\Exactly.h" />
     <ClInclude Include="tests\operators_modifier\Ignore.h" />
+    <ClInclude Include="tests\operators_modifier\Into.h" />
     <ClInclude Include="tests\operators_modifier\Join.h" />
     <ClInclude Include="tests\operators_modifier\Transform.h" />
     <ClInclude Include="tests\operators_regular\Choice.h" />
@@ -371,6 +372,7 @@
     <ClInclude Include="tests\parsers_divergent\Custom.h" />
     <ClInclude Include="tests\parsers_adaptor\Delimit.h" />
     <ClInclude Include="tests\parsers_adaptor\Ignore.h" />
+    <ClInclude Include="tests\parsers_divergent\Into.h" />
     <ClInclude Include="tests\parsers_divergent\Join.h" />
     <ClInclude Include="tests\parsers_divergent\Transform.h" />
     <ClInclude Include="tests\parsers_repeat\Exactly.h" />
