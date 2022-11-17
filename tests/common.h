@@ -176,6 +176,12 @@ namespace samples::classes
 		std::string_view sv2;
 	};
 
+	class Class3
+	{
+	public:
+		friend constexpr bool operator==(const Class3&, const Class3&) = default;
+	};
+
 }
 
 namespace samples::all
@@ -275,6 +281,9 @@ namespace samples::all
 	using Con2 = Constant<Sub2::_3, 't'>;     constexpr Con2 con2;
 	using Con3 = Constant<Sub2::_4, true>;    constexpr Con3 con3;
 	using Con4 = Constant<Sub2::_5, nullptr>; constexpr Con4 con4;
+	
+	using Def1 = Defaulted<Sub2::_2, int>;    constexpr Def1 def1;
+	using Def2 = Defaulted<Sub2::_3, Class3>; constexpr Def2 def2;
 
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
@@ -288,7 +297,7 @@ namespace samples::all
 		del1, del2, del3, del4, del5, del6, del7, del8,
 		com1, com2, com3, com4, com5, com6, com7,
 		tra1, tra2, tra3, tra4, int1, int2,
-		con1, con2, con3, con4
+		con1, con2, con3, con4, def1, def2
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
