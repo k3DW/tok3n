@@ -127,6 +127,8 @@ namespace samples::functions
 		}
 	};
 
+	constexpr auto sink_func = [](auto&&...) {};
+
 }
 
 namespace samples::classes
@@ -180,6 +182,11 @@ namespace samples::classes
 	{
 	public:
 		friend constexpr bool operator==(const Class3&, const Class3&) = default;
+	};
+
+	struct Sink
+	{
+		constexpr Sink(auto&&...) {};
 	};
 
 }

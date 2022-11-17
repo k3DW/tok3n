@@ -104,11 +104,11 @@ template <Parser... Ps>               requires detail::Sequence_able<Ps...>     
 template <Parser P>                                                                struct OneOrMore; 
 template <Parser P>                                                                struct ZeroOrMore;
 template <Parser P>                                                                struct Maybe;
-template <Parser P, std::size_t N>    requires (N != 0)                            struct Exactly;
+template <Parser P, std::size_t N>    requires detail::Exactly_able<P, N>          struct Exactly;
 template <Parser P>                                                                struct Ignore;
 template <Parser P, auto function>    requires detail::Transform_able<P, function> struct Transform;
 template <Parser P>                   requires detail::Join_able<P>                struct Join;
-template <Parser P, Parser Delimiter>                                              struct Delimit;
+template <Parser P, Parser Delimiter> requires detail::Delimit_able<P, Delimiter>  struct Delimit;
 template <Parser P, class T>          requires detail::Into_able<P, T>             struct Into;
 template <Parser P, auto value>                                                    struct Constant;
 template <Parser P, class T>          requires std::is_default_constructible_v<T>  struct Defaulted;

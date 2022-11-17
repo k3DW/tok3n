@@ -25,6 +25,9 @@ template <class... Ps> concept Sequence_able         = sizeof...(Ps) >= 2;
 template <class... Ps> using   Sequence_filter_types = mp::filter<mp::is_not_type<void>, typename Ps::result_type...>;
 template <class... Ps> using   Sequence_result_trait = mp::unwrap_if_single<mp::retarget<Sequence_filter_types<Ps...>, std::tuple>>;
 
+template <class P, std::size_t N>
+concept Exactly_able = (N != 0) && not std::same_as<typename P::result_type, void>;
+
 template <class P, auto function> concept Transform_able   = std::invocable<decltype(function), typename P::result_type&&>;
 template <class P, auto function> using   Transform_result = std::invoke_result_t<decltype(function), typename P::result_type&&>;
 
@@ -46,11 +49,16 @@ concept Join_able = is_joinable_v<typename P::result_type>;
 
 
 
+template <class P, class Delimiter>
+concept Delimit_able = not std::same_as<typename P::result_type, void>;
+
+
+
 template <class Into, class T>     constexpr bool is_intoable_v                          = std::is_constructible_v<Into, T>;
 template <class Into, class... Ts> constexpr bool is_intoable_v<Into, std::tuple<Ts...>> = std::is_constructible_v<Into, Ts...>;
 
 template <class P, class T>
-concept Into_able = is_intoable_v<T, typename P::result_type>;
+concept Into_able = not std::same_as<typename P::result_type, void> && is_intoable_v<T, typename P::result_type>;
 
 
 

@@ -5,6 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, Parser Delimiter>
+requires detail::Delimit_able<P, Delimiter>
 struct Delimit
 {
 	using result_type = std::vector<typename P::result_type>;

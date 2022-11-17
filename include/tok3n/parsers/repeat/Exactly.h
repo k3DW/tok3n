@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, std::size_t N>
-requires (N != 0)
+requires detail::Exactly_able<P, N>
 struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N>;

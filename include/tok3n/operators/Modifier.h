@@ -4,9 +4,11 @@
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
 template <std::size_t N>
+requires (N != 0)
 struct exactly final
 {
 	template <Parser P>
+	requires detail::Exactly_able<P, N>
 	consteval auto operator()(P) const
 	{
 		return Exactly<P, N>{};
@@ -28,6 +30,7 @@ struct ignore final
 struct delimit final
 {
 	template <Parser P, Parser D>
+	requires detail::Delimit_able<P, D>
 	consteval auto operator()(P, D) const
 	{
 		return Delimit<P, D>{};
@@ -37,6 +40,7 @@ struct delimit final
 	struct inner final
 	{
 		template <Parser P>
+		requires detail::Delimit_able<P, D>
 		consteval auto operator()(P) const
 		{
 			return Delimit<P, D>{};
@@ -65,6 +69,7 @@ struct complete final
 struct join final
 {
 	template <Parser P>
+	requires detail::Join_able<P>
 	consteval auto operator()(P) const
 	{
 		if constexpr (std::same_as<Input, typename P::result_type>)
@@ -78,6 +83,7 @@ template <auto function>
 struct fn final
 {
 	template <Parser P>
+	requires detail::Transform_able<P, function>
 	consteval auto operator()(P) const
 	{
 		return Transform<P, function>{};
@@ -88,12 +94,14 @@ template <class T>
 struct into final
 {
 	template <Parser P>
+	requires detail::Into_able<P, T>
 	consteval auto operator()(P) const
 	{
 		return Into<P, T>{};
 	}
 
 	template <Parser... Ps>
+	requires (... && detail::Into_able<Ps, T>)
 	consteval auto operator()(Ps...) const
 	{
 		return Choice<Into<Ps, T>...>{};
@@ -111,6 +119,7 @@ struct constant final
 };
 
 template <class T>
+requires std::is_default_constructible_v<T>
 struct defaulted final
 {
 	template <Parser P>
@@ -147,6 +156,7 @@ template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constan
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>>      = true;
 
 consteval auto operator%(Parser auto p, Modifier auto modifier)
+requires requires { modifier(p); }
 {
 	return modifier(p);
 }
