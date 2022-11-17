@@ -21,6 +21,7 @@
 #include "tests/parsers_divergent/Join.h"
 #include "tests/parsers_divergent/Transform.h"
 #include "tests/parsers_divergent/Into.h"
+#include "tests/parsers_divergent/Constant.h"
 //#include "tests/parsers_divergent/Custom.h"
 //#include "tests/parsers_divergent/combine.h"
 
@@ -38,5 +39,6 @@
 #include "tests/operators_modifier/Join.h"
 #include "tests/operators_modifier/Transform.h"
 #include "tests/operators_modifier/Into.h"
+#include "tests/operators_modifier/Constant.h"
 
 #endif

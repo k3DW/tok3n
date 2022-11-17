@@ -355,6 +355,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="tests\common.h" />
     <ClInclude Include="tests\operators_modifier\Complete.h" />
+    <ClInclude Include="tests\operators_modifier\Constant.h" />
     <ClInclude Include="tests\operators_modifier\Delimit.h" />
     <ClInclude Include="tests\operators_modifier\Exactly.h" />
     <ClInclude Include="tests\operators_modifier\Ignore.h" />
@@ -369,6 +370,7 @@
     <ClInclude Include="tests\operators_regular\ZeroOrMore.h" />
     <ClInclude Include="tests\parsers_adaptor\Complete.h" />
     <ClInclude Include="tests\parsers_divergent\combine.h" />
+    <ClInclude Include="tests\parsers_divergent\Constant.h" />
     <ClInclude Include="tests\parsers_divergent\Custom.h" />
     <ClInclude Include="tests\parsers_adaptor\Delimit.h" />
     <ClInclude Include="tests\parsers_adaptor\Ignore.h" />

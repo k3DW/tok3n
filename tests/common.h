@@ -271,6 +271,11 @@ namespace samples::all
 	using Int1 = Into<SpaceDot, Class1>;                constexpr Int1 int1;
 	using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>; constexpr Int2 int2;
 
+	using Con1 = Constant<Sub2::_2, 1>;       constexpr Con1 con1;
+	using Con2 = Constant<Sub2::_3, 't'>;     constexpr Con2 con2;
+	using Con3 = Constant<Sub2::_4, true>;    constexpr Con3 con3;
+	using Con4 = Constant<Sub2::_5, nullptr>; constexpr Con4 con4;
+
 	static_assert(parser_equality_operator::validate(
 		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
 		qq, abc, comma, spacedot,
@@ -282,7 +287,8 @@ namespace samples::all
 		ign1, ign2, ign3, ign4, ign5,
 		del1, del2, del3, del4, del5, del6, del7, del8,
 		com1, com2, com3, com4, com5, com6, com7,
-		tra1, tra2, tra3, tra4, int1, int2
+		tra1, tra2, tra3, tra4, int1, int2,
+		con1, con2, con3, con4
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
