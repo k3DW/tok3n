@@ -1,9 +1,7 @@
 #pragma once
 #include "tok3n/utilities/meta.h"
 #include "tok3n/utilities/static_string.h"
-#include <vector>
-#include <optional>
-#include <utility>
+#include "tok3n/parsers/Details.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -39,10 +37,7 @@ template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P
 
 
 
-using Input = std::string_view;
-
-template <class R>
-concept Joinable = mp::container_of<std::string_view, R, std::tuple, std::vector, std::allocator, std::optional>;
+using Input = detail::Input;
 
 template <class T>
 requires (not std::is_reference_v<T>)
@@ -57,21 +52,13 @@ template <class P>
 concept Parser =
 	(parser_type_v<P> != ParserType::None) &&
 	(std::is_empty_v<P>) &&
+	mp::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
 		{ P::parse(input) } -> IsResult<typename P::result_type>;
 		{ P::lookahead(input) } -> IsResult<void>;
 	};
-
-template <class To, class T>
-constexpr bool is_intoable_v = std::is_constructible_v<To, T>;
-
-template <class To, class... Ts>
-constexpr bool is_intoable_v<To, std::tuple<Ts...>> = std::is_constructible_v<To, Ts...>;
-
-template <class To, class T>
-concept Intoable = is_intoable_v<To, T>;
 
 
 
@@ -85,45 +72,48 @@ concept Modifier = is_modifier_v<M> && std::is_empty_v<M>;
 
 
 
-template <class P> concept IsOneChar    = Parser<P> && parser_type_v<P> == ParserType::OneChar;
-template <class P> concept IsNotChar    = Parser<P> && parser_type_v<P> == ParserType::NotChar;
-template <class P> concept IsLiteral    = Parser<P> && parser_type_v<P> == ParserType::Literal;
-template <class P> concept IsChoice     = Parser<P> && parser_type_v<P> == ParserType::Choice;
-template <class P> concept IsSequence   = Parser<P> && parser_type_v<P> == ParserType::Sequence;
-template <class P> concept IsOneOrMore  = Parser<P> && parser_type_v<P> == ParserType::OneOrMore;
-template <class P> concept IsZeroOrMore = Parser<P> && parser_type_v<P> == ParserType::ZeroOrMore;
-template <class P> concept IsMaybe      = Parser<P> && parser_type_v<P> == ParserType::Maybe;
-template <class P> concept IsExactly    = Parser<P> && parser_type_v<P> == ParserType::Exactly;
-template <class P> concept IsIgnore     = Parser<P> && parser_type_v<P> == ParserType::Ignore;
-template <class P> concept IsTransform  = Parser<P> && parser_type_v<P> == ParserType::Transform;
-template <class P> concept IsJoin       = Parser<P> && parser_type_v<P> == ParserType::Join;
-template <class P> concept IsDelimit    = Parser<P> && parser_type_v<P> == ParserType::Delimit;
-template <class P> concept IsInto       = Parser<P> && parser_type_v<P> == ParserType::Into;
-template <class P> concept IsConstant   = Parser<P> && parser_type_v<P> == ParserType::Constant;
-template <class P> concept IsDefaulted  = Parser<P> && parser_type_v<P> == ParserType::Defaulted;
-template <class P> concept IsComplete   = Parser<P> && parser_type_v<P> == ParserType::Complete;
-template <class P> concept IsCustom     = Parser<P> && parser_type_v<P> == ParserType::Custom;
+template <class P, ParserType type>
+concept IsParser = Parser<P> && parser_type_v<P> == type;
+
+template <class P> concept IsOneChar    = IsParser<P, ParserType::OneChar>;
+template <class P> concept IsNotChar    = IsParser<P, ParserType::NotChar>;
+template <class P> concept IsLiteral    = IsParser<P, ParserType::Literal>;
+template <class P> concept IsChoice     = IsParser<P, ParserType::Choice>;
+template <class P> concept IsSequence   = IsParser<P, ParserType::Sequence>;
+template <class P> concept IsOneOrMore  = IsParser<P, ParserType::OneOrMore>;
+template <class P> concept IsZeroOrMore = IsParser<P, ParserType::ZeroOrMore>;
+template <class P> concept IsMaybe      = IsParser<P, ParserType::Maybe>;
+template <class P> concept IsExactly    = IsParser<P, ParserType::Exactly>;
+template <class P> concept IsIgnore     = IsParser<P, ParserType::Ignore>;
+template <class P> concept IsTransform  = IsParser<P, ParserType::Transform>;
+template <class P> concept IsJoin       = IsParser<P, ParserType::Join>;
+template <class P> concept IsDelimit    = IsParser<P, ParserType::Delimit>;
+template <class P> concept IsInto       = IsParser<P, ParserType::Into>;
+template <class P> concept IsConstant   = IsParser<P, ParserType::Constant>;
+template <class P> concept IsDefaulted  = IsParser<P, ParserType::Defaulted>;
+template <class P> concept IsComplete   = IsParser<P, ParserType::Complete>;
+template <class P> concept IsCustom     = IsParser<P, ParserType::Custom>;
 
 
 
-template <static_string str>          requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)   struct OneChar;
-template <static_string str>          requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)   struct NotChar;
-template <static_string str>          requires (str.ascii()) && (str.size() != 0)                                struct Literal;
-template <Parser... Ps>               requires (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...> struct Choice;
-template <Parser... Ps>               requires (sizeof...(Ps) >= 2)                                              struct Sequence;
-template <Parser P>                                                                                              struct OneOrMore; 
-template <Parser P>                                                                                              struct ZeroOrMore;
-template <Parser P>                                                                                              struct Maybe;
-template <Parser P, std::size_t N>    requires (N != 0)                                                          struct Exactly;
-template <Parser P>                                                                                              struct Ignore;
-template <Parser P, auto function>    requires std::invocable<decltype(function), typename P::result_type>       struct Transform;
-template <Parser P>                   requires Joinable<typename P::result_type>                                 struct Join;
-template <Parser P, Parser Delimiter>                                                                            struct Delimit;
-template <Parser P, class T>          requires Intoable<T, typename P::result_type>                              struct Into;
-template <Parser P, auto value>                                                                                  struct Constant;
-template <Parser P, class T>          requires std::is_default_constructible_v<T>                                struct Defaulted;
-template <Parser P>                                                                                              struct Complete;
-template <class CRTP>                                                                                            struct Custom;
+template <static_string str>          requires detail::SingleChar_able<str>        struct OneChar;
+template <static_string str>          requires detail::SingleChar_able<str>        struct NotChar;
+template <static_string str>          requires detail::Literal_able<str>           struct Literal;
+template <Parser... Ps>               requires detail::Choice_able<Ps...>          struct Choice;
+template <Parser... Ps>               requires detail::Sequence_able<Ps...>        struct Sequence;
+template <Parser P>                   requires detail::OneOrMore_able<P>           struct OneOrMore;
+template <Parser P>                   requires detail::ZeroOrMore_able<P>          struct ZeroOrMore;
+template <Parser P>                   requires detail::Maybe_able<P>               struct Maybe;
+template <Parser P, std::size_t N>    requires detail::Exactly_able<P, N>          struct Exactly;
+template <Parser P>                                                                struct Ignore;
+template <Parser P, auto function>    requires detail::Transform_able<P, function> struct Transform;
+template <Parser P>                   requires detail::Join_able<P>                struct Join;
+template <Parser P, Parser Delimiter> requires detail::Delimit_able<P, Delimiter>  struct Delimit;
+template <Parser P, class T>          requires detail::Into_able<P, T>             struct Into;
+template <Parser P, auto value>                                                    struct Constant;
+template <Parser P, class T>          requires std::is_default_constructible_v<T>  struct Defaulted;
+template <Parser P>                                                                struct Complete;
+template <class CRTP>                                                              struct Custom;
 struct CustomBase {};
 
 

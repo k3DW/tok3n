@@ -1,7 +1,8 @@
 #pragma once
+#include "tok3n/utilities/namespace.h"
+
 #include <type_traits>
 #include <concepts>
-#include "tok3n/utilities/namespace.h"
 
 // Ideas mostly taken from Boost.Mp11
 
@@ -174,28 +175,7 @@ using filtered_sequence = typename detail::filtered_sequence_impl<Pred, 0, std::
 
 
 
-namespace detail
-{
-
-	template <template <class...> class A, template <class...> class B> constexpr bool is_same_type_template_v = false;
-	template <template <class...> class A>                              constexpr bool is_same_type_template_v<A, A> = true;
-
-	template <class T, class U, template <class...> class... Containers> constexpr bool is_container_of_v                            = std::is_same_v<T, U>;
-	template <class T, class U, template <class...> class... Containers> constexpr bool is_container_of_v<T, const U, Containers...> = is_container_of_v<T, U, Containers...>;
-	template <class T, class U, template <class...> class... Containers> constexpr bool is_container_of_v<T, U&, Containers...>      = is_container_of_v<T, U, Containers...>;
-	template <class T, class U, template <class...> class... Containers> constexpr bool is_container_of_v<T, U&&, Containers...>     = is_container_of_v<T, U, Containers...>;
-	
-	template <class T, class... Us, template <class...> class Container, template <class...> class... Containers>
-	constexpr bool is_container_of_v<T, Container<Us...>, Containers...>
-		= std::is_same_v<T, std::remove_cvref_t<Container<Us...>>>
-		|| (
-			(... || is_same_type_template_v<Container, Containers>) &&
-			(... && is_container_of_v<T, Us, Containers...>)
-		);
-
-}
-
-template <class Type, class C, template <class...> class... Containers>
-concept container_of = detail::is_container_of_v<Type, C, Containers...>;
+template <class T>
+concept implicitly_default_constructible = requires (void(fn)(T)) { fn({}); };
 
 TOK3N_END_NAMESPACE(mp)

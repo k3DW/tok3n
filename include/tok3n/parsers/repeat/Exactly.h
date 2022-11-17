@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, std::size_t N>
-requires (N != 0)
+requires detail::Exactly_able<P, N>
 struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N>;
@@ -37,7 +37,7 @@ struct Exactly
 		for (std::size_t i = 0; i < N; i++)
 		{
 			auto result = P::lookahead(input);
-			if (result.has_value)
+			if (result.has_value())
 				input = result.remaining();
 			else
 				return { failure, original_input };

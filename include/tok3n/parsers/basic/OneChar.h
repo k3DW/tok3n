@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <static_string str>
-requires (str.unique_and_sorted()) && (str.ascii()) && (str.size() != 0)
+requires detail::SingleChar_able<str>
 struct OneChar
 {
 	using result_type = Input;

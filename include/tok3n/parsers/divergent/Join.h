@@ -73,7 +73,7 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires Joinable<typename P::result_type>
+requires detail::Join_able<P>
 struct Join
 {
 	using result_type = Input;

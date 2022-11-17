@@ -3,12 +3,11 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-// OneChar
-namespace detail::choice
+namespace detail::Choice_operator
 {
 
 	template <static_string lhs, static_string rhs>
-	consteval auto onechar_onechar(OneChar<lhs>, OneChar<rhs>)
+	consteval auto OneChar_and_OneChar(OneChar<lhs>, OneChar<rhs>)
 	{
 		constexpr std::size_t count = []() consteval -> std::size_t
 		{
@@ -27,14 +26,8 @@ namespace detail::choice
 		return OneChar<get_merged>{};
 	}
 
-}
-
-// NotChar
-namespace detail::choice
-{
-
 	template <static_string lhs, static_string rhs>
-	consteval auto notchar_notchar(NotChar<lhs>, NotChar<rhs>)
+	consteval auto NotChar_and_NotChar(NotChar<lhs>, NotChar<rhs>)
 	{
 		if constexpr (lhs == rhs)
 			return NotChar<lhs>{};
@@ -65,7 +58,7 @@ namespace detail::choice
 	}
 
 	template <static_string lhs, static_string rhs>
-	consteval auto onechar_notchar(OneChar<lhs>, NotChar<rhs>)
+	consteval auto OneChar_and_NotChar(OneChar<lhs>, NotChar<rhs>)
 	{
 		if constexpr (lhs == rhs)
 			return OneChar<every_char>{};
@@ -92,26 +85,20 @@ namespace detail::choice
 		}
 	}
 
-}
-
-// Choice
-namespace detail::choice
-{
-
 	template <Parser... Ps, Parser... Qs>
-	consteval auto choice_choice(Choice<Ps...>, Choice<Qs...>)
+	consteval auto Choice_and_Choice(Choice<Ps...>, Choice<Qs...>)
 	{
 		return Choice<Ps..., Qs...>{};
 	}
 
 	template <Parser... Ps, Parser P>
-	consteval auto choice_parser(Choice<Ps...>, P)
+	consteval auto Choice_and_anything(Choice<Ps...>, P)
 	{
 		return Choice<Ps..., P>{};
 	}
 
 	template <Parser P, Parser... Ps>
-	consteval auto parser_choice(P, Choice<Ps...>)
+	consteval auto anything_and_Choice(P, Choice<Ps...>)
 	{
 		return Choice<P, Ps...>{};
 	}
@@ -122,27 +109,26 @@ template <Parser P1, Parser P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
 constexpr auto operator|(P1, P2)
 {
-	using namespace detail::choice;
+	using namespace detail::Choice_operator;
 
 	if constexpr (std::same_as<std::remove_cvref_t<P1>, std::remove_cvref_t<P2>>) // (P | P) == P
 		return P1{};
 
-	else if constexpr (IsOneChar<P1> && IsOneChar<P2>) // "ab" | "bc" == "abc"    <- set_union
-		return onechar_onechar(P1{}, P2{});
-
-	else if constexpr (IsNotChar<P1> && IsNotChar<P2>) // !"ab" | !"bc" == "b"    <- set_intersection
-		return notchar_notchar(P1{}, P2{});
-	else if constexpr (IsOneChar<P1> && IsNotChar<P2>)
-		return onechar_notchar(P1{}, P2{});
-	else if constexpr (IsNotChar<P1> && IsOneChar<P2>)
-		return onechar_notchar(P2{}, P1{});
+	else if constexpr (IsOneChar<P1> && IsOneChar<P2>) //  "ab" |  "bc" == "abc"    <- set_union
+		return OneChar_and_OneChar(P1{}, P2{});
+	else if constexpr (IsNotChar<P1> && IsNotChar<P2>) // !"ab" | !"bc" == "b"      <- set_intersection
+		return NotChar_and_NotChar(P1{}, P2{});
+	else if constexpr (IsOneChar<P1> && IsNotChar<P2>) //  "ab" | !"bc" == "c"      <- set_difference
+		return OneChar_and_NotChar(P1{}, P2{});
+	else if constexpr (IsNotChar<P1> && IsOneChar<P2>) // !"ab" |  "bc" == "a"      <- set_difference
+		return OneChar_and_NotChar(P2{}, P1{});
 
 	else if constexpr (IsChoice<P1> && IsChoice<P2>) // (P1 | P2) | (P3 | P4) == (P1 | P2 | P3 | P4)
-		return choice_choice(P1{}, P2{});
+		return Choice_and_Choice(P1{}, P2{});
 	else if constexpr (IsChoice<P1>)                 // (P1 | P2) | P3 == (P1 | P2 | P3)
-		return choice_parser(P1{}, P2{});
+		return Choice_and_anything(P1{}, P2{});
 	else if constexpr (IsChoice<P2>)                 // P1 | (P2 | P3) == (P1 | P2 | P3)
-		return parser_choice(P1{}, P2{});
+		return anything_and_Choice(P1{}, P2{});
 
 	else
 		return Choice<P1, P2>{};

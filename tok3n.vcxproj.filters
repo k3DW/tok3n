@@ -72,7 +72,7 @@
     <ClInclude Include="include\tok3n\utilities\meta.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Transform.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\Modifier.h">
@@ -81,10 +81,10 @@
     <ClInclude Include="examples\json.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\repeat\Ignore.h">
+    <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Join.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h">
@@ -98,9 +98,6 @@
     </ClInclude>
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_basic\combine.h">
-      <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_basic\Literal.h">
       <Filter>Source Files</Filter>
@@ -117,9 +114,6 @@
     <ClInclude Include="tests\parsers_compound\Sequence.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_compound\combine.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="tests\parsers_repeat\OneOrMore.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -129,49 +123,112 @@
     <ClInclude Include="tests\parsers_repeat\Maybe.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\combine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\utilities\forward_like.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tests\parsers_adaptor\Delimit.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Custom.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Join.h">
+    <ClInclude Include="tests\parsers_divergent\Join.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\Ignore.h">
+    <ClInclude Include="tests\parsers_adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Transform.h">
+    <ClInclude Include="tests\parsers_divergent\Transform.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Custom.h">
+    <ClInclude Include="tests\parsers_divergent\Custom.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\combine.h">
+    <ClInclude Include="tests\parsers_divergent\combine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Into.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Into.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\repeat\Exactly.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Constant.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Constant.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Defaulted.h">
+    <ClInclude Include="include\tok3n\parsers\divergent\Defaulted.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="examples\algebraic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\Details.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\Not.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\Choice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\common.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\Sequence.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_repeat\Exactly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\Maybe.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\OneOrMore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_regular\ZeroOrMore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Delimit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Ignore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_adaptor\Complete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Complete.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Exactly.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Join.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Transform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_divergent\Into.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Into.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_divergent\Constant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Constant.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\parsers_divergent\Defaulted.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tests\operators_modifier\Defaulted.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <static_string str>
-requires (str.ascii()) && (str.size() != 0)
+requires detail::Literal_able<str>
 struct Literal
 {
 	using result_type = Input;

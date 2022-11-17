@@ -16,6 +16,7 @@ namespace detail::oneormore
 }
 
 template <Parser P>
+requires detail::OneOrMore_able<P>
 constexpr auto operator+(P)
 {
 	using namespace detail::oneormore;

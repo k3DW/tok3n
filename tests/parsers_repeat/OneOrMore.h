@@ -2,80 +2,66 @@
 
 TOK3N_BEGIN_NAMESPACE_TESTS(repeat::OneOrMore)
 
-using P1 = OneOrMore<Literal<"literal">>;
-constexpr P1 p1;
-
-using P2 = OneOrMore<OneChar<"abcde">>;
-constexpr P2 p2;
-
-using P3 = OneOrMore<Choice<Literal<"literal">, OneChar<"abcde">>>;
-constexpr P3 p3;
-
-using P4 = OneOrMore<Sequence<Literal<"literal">, OneChar<"abcde">>>;
-constexpr P4 p4;
+using namespace samples::all;
 
 void requirements()
 {
 	assert
-		, is_parser<P1>
-		, parser_type_of<P1>.is_OneOrMore
-		, result_of<P1>.is<std::vector<std::string_view>>
-		, P1::parse == p1.parse
-		, P1::lookahead == p1.lookahead
+		, is_parser<Oom1>
+		, parser_type_of<Oom1>.is_OneOrMore
+		, result_of<Oom1>.is<std::vector<std::string_view>>
 
-		, is_parser<P2>
-		, parser_type_of<P2>.is_OneOrMore
-		, result_of<P2>.is<std::vector<std::string_view>>
-		, P2::parse == p2.parse
-		, P2::lookahead == p2.lookahead
+		, is_parser<Oom2>
+		, parser_type_of<Oom2>.is_OneOrMore
+		, result_of<Oom2>.is<std::vector<std::string_view>>
 
-		, is_parser<P3>
-		, parser_type_of<P3>.is_OneOrMore
-		, result_of<P3>.is<std::vector<std::string_view>>
-		, P3::parse == p3.parse
-		, P3::lookahead == p3.lookahead
+		, is_parser<Oom3>
+		, parser_type_of<Oom3>.is_OneOrMore
+		, result_of<Oom3>.is<std::vector<std::string_view>>
 
-		, is_parser<P4>
-		, parser_type_of<P4>.is_OneOrMore
-		, result_of<P4>.is<std::vector<std::tuple<std::string_view, std::string_view>>>
-		, P4::parse == p4.parse
-		, P4::lookahead == p4.lookahead
+		, is_parser<Oom4>
+		, parser_type_of<Oom4>.is_OneOrMore
+		, result_of<Oom4>.is<std::vector<std::tuple<std::string_view, std::string_view>>>
 		;
 }
 
 void parse_OneOrMore_Literal()
 {
 	assert
-		, parse<P1>("litera").failure()
-		, parse<P1>("literal").success({ "literal" }, "")
-		, parse<P1>("literally").success({ "literal" }, "ly")
-		, parse<P1>("literallitera").success({ "literal" }, "litera")
-		, parse<P1>("literalliterallitera").success({ "literal", "literal" }, "litera")
-		, parse<P1>(" literalliterallitera").failure()
+		, parse<Oom1>("litera").failure()
+		, parse<Oom1>("literal").success({ "literal" }, "")
+		, parse<Oom1>("literally").success({ "literal" }, "ly")
+		, parse<Oom1>("literallitera").success({ "literal" }, "litera")
+		, parse<Oom1>("literalliterallitera").success({ "literal", "literal" }, "litera")
+		, parse<Oom1>(" literalliterallitera").failure()
+		, parse<Oom1>("").failure()
 		;
 }
 void parse_OneOrMore_OneChar()
 {
 	assert
-		, parse<P2>("abcdef").success({ "a", "b", "c", "d", "e" }, "f")
-		, parse<P2>("fedcba").failure()
-		, parse<P2>("cdebabcccbjklmnop").success({ "c", "d", "e", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
+		, parse<Oom2>("abcdef").success({ "a", "b", "c" }, "def")
+		, parse<Oom2>("fedcba").failure()
+		, parse<Oom2>("cbabcccbjklmnop").success({ "c", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
+		, parse<Oom2>("").failure()
 		;
 }
 void parse_OneOrMore_Choice()
 {
 	assert
-		, parse<P3>("abliteralcdliteralef").success({ "a", "b", "literal", "c", "d", "literal", "e" }, "f")
-		, parse<P3>("abliteralcdlitralef").success({ "a", "b", "literal", "c", "d" }, "litralef")
-		, parse<P3>("literalabadliteral").success({ "literal", "a", "b", "a", "d", "literal" }, "")
+		, parse<Oom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
+		, parse<Oom3>("abliteralcblitralcf").success({ "a", "b", "literal", "c", "b" }, "litralcf")
+		, parse<Oom3>("literalabacliteral").success({ "literal", "a", "b", "a", "c", "literal" }, "")
+		, parse<Oom3>("").failure()
 		;
 }
 void parse_OneOrMore_Sequence()
 {
 	assert
-		, parse<P4>("literalaliteralcliteraldliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "d"}, {"literal", "b"} }, "")
-		, parse<P4>("literalaliteralcliteraldliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "d"}, {"literal", "b"} }, "literal")
-		, parse<P4>("aliteralaliteralcliteraldliteral").failure()
+		, parse<Oom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
+		, parse<Oom4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "literal")
+		, parse<Oom4>("aliteralaliteralcliteralbliteral").failure()
+		, parse<Oom4>("").failure()
 		;
 }
 

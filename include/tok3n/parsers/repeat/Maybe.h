@@ -5,6 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P>
+requires detail::Maybe_able<P>
 struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;

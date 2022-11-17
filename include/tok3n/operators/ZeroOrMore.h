@@ -22,6 +22,7 @@ namespace detail::zeroormore
 }
 
 template <Parser P>
+requires detail::ZeroOrMore_able<P>
 constexpr auto operator*(P)
 {
 	using namespace detail::zeroormore;

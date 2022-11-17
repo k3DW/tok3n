@@ -26,7 +26,7 @@ namespace detail::executors
 }
 
 template <Parser P, class T>
-requires Intoable<T, typename P::result_type>
+requires detail::Into_able<P, T>
 struct Into
 {
 	using result_type = T;

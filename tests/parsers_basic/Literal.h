@@ -3,7 +3,6 @@
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
 
 using L = Literal<"literal">;
-constexpr L l;
 
 void requirements()
 {
@@ -11,8 +10,6 @@ void requirements()
 		, is_parser<L>
 		, parser_type_of<L>.is_Literal
 		, result_of<L>.is<std::string_view>
-		, L::parse == l.parse
-		, L::lookahead == l.lookahead
 		;
 }
 
@@ -30,10 +27,7 @@ void parse_single()
 
 
 
-struct constructible
-{
-	template <static_string str> static constexpr bool from = requires { typename Literal<str>; };
-};
+using constructible = traits::basic::constructible<Literal>;
 
 void constructible_from_ascii_only()
 {

@@ -4,17 +4,16 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <Parser P, class T>
-requires std::is_default_constructible_v<T>
-struct Defaulted
+template <Parser P, auto value>
+struct Constant
 {
-	using result_type = T;
+	using result_type = decltype(value);
 
 	static constexpr Result<result_type> parse(Input input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, T{}, input };
+			return { success, value, result.remaining() };
 		else
 			return { failure, input };
 	}

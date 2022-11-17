@@ -20,7 +20,11 @@ struct Complete
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		return P::lookahead(input);
+		auto result = P::lookahead(input);
+		if (not result.has_value() or result.remaining() != "")
+			return { failure, input };
+		else
+			return result;
 	}
 };
 

@@ -7,15 +7,30 @@
 	using k3::tok3n::Literal;    \
 	using k3::tok3n::Choice;     \
 	using k3::tok3n::Sequence;   \
+	using k3::tok3n::Maybe;      \
+	using k3::tok3n::Exactly;    \
 	using k3::tok3n::OneOrMore;  \
 	using k3::tok3n::ZeroOrMore; \
-	using k3::tok3n::Maybe;      \
-	using k3::tok3n::Transform;  \
-	using k3::tok3n::Join;       \
 	using k3::tok3n::Ignore;     \
 	using k3::tok3n::Delimit;    \
+	using k3::tok3n::Complete;   \
+	using k3::tok3n::Join;       \
+	using k3::tok3n::Transform;  \
 	using k3::tok3n::Into;       \
-	using k3::tok3n::Custom
+	using k3::tok3n::Constant;   \
+	using k3::tok3n::Defaulted;  \
+	using k3::tok3n::Custom;     \
+	using k3::tok3n::exactly;    \
+	using k3::tok3n::ignore;     \
+	using k3::tok3n::delimit;    \
+	using k3::tok3n::complete;   \
+	using k3::tok3n::join;       \
+	using k3::tok3n::fn;         \
+	using k3::tok3n::into;       \
+	using k3::tok3n::constant;   \
+	using k3::tok3n::defaulted;
+
+
 
 #ifdef TOK3N_TESTING
 #define TOK3N_ASSERT_IF_NOT_TESTING
@@ -51,15 +66,24 @@ struct parser_type_of_t
 	static constexpr bool is_OneChar    = IsOneChar<T>;
 	static constexpr bool is_NotChar    = IsNotChar<T>;
 	static constexpr bool is_Literal    = IsLiteral<T>;
+
 	static constexpr bool is_Choice     = IsChoice<T>;
 	static constexpr bool is_Sequence   = IsSequence<T>;
+
+	static constexpr bool is_Maybe      = IsMaybe<T>;
+	static constexpr bool is_Exactly    = IsExactly<T>;
 	static constexpr bool is_OneOrMore  = IsOneOrMore<T>;
 	static constexpr bool is_ZeroOrMore = IsZeroOrMore<T>;
-	static constexpr bool is_Maybe      = IsMaybe<T>;
-	static constexpr bool is_Transform  = IsTransform<T>;
-	static constexpr bool is_Join       = IsJoin<T>;
+
 	static constexpr bool is_Ignore     = IsIgnore<T>;
 	static constexpr bool is_Delimit    = IsDelimit<T>;
+	static constexpr bool is_Complete   = IsComplete<T>;
+	
+	static constexpr bool is_Join       = IsJoin<T>;
+	static constexpr bool is_Transform  = IsTransform<T>;
+	static constexpr bool is_Into       = IsInto <T>;
+	static constexpr bool is_Constant   = IsConstant<T>;
+	static constexpr bool is_Defaulted  = IsDefaulted<T>;
 	static constexpr bool is_Custom     = IsCustom<T>;
 };
 
@@ -162,4 +186,33 @@ consteval bool operator==(P, Q)
 	return std::is_same_v<P, Q>;
 }
 
+namespace parser_equality_operator
+{
+
+	template <Parser P, Parser Q>
+	consteval bool validate_individual(P, Q)
+	{
+		return (std::is_same_v<std::remove_cvref_t<P>, std::remove_cvref_t<Q>>)
+			? (P{} == Q{})
+			: (P{} != Q{});
+	}
+
+	template <Parser P, Parser... Qs>
+	consteval bool validate_with_pack(P, Qs...)
+	{
+		return (... && validate_individual(P{}, Qs{}));
+	}
+
+	template <Parser... Ps>
+	consteval bool validate(Ps...)
+	{
+		return (... && validate_with_pack(Ps{}, Ps{}...));
+	}
+
+}
+
+
+
 TOK3N_END_NAMESPACE_TESTS()
+
+#include "tests/common.h"
