@@ -14,7 +14,7 @@ struct Defaulted
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, T{}, input };
+			return { success, T{}, result.remaining() };
 		else
 			return { failure, input };
 	}
