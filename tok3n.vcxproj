@@ -347,7 +347,6 @@
     <ClInclude Include="include\tok3n\parsers\Declarations.h" />
     <ClInclude Include="include\tok3n\parsers\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
-    <ClInclude Include="include\tok3n\utilities\forward_like.h" />
     <ClInclude Include="include\tok3n\utilities\meta.h" />
     <ClInclude Include="include\tok3n\utilities\namespace.h" />
     <ClInclude Include="include\tok3n\parsers\Details.h" />

@@ -1,7 +1,6 @@
 #pragma once
 #include <string_view>
 #include <optional>
-#include "tok3n/utilities/forward_like.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -27,12 +26,12 @@ public:
 	template <class Self>
 	constexpr decltype(auto) value(this Self&& self)
 	{
-		return forward_like<Self>(self.mResult.value());
+		return std::forward_like<Self>(self.mResult.value());
 	}
 	template <class Self>
 	constexpr decltype(auto) operator*(this Self&& self)
 	{
-		return forward_like<Self>(self.mResult.operator*());
+		return std::forward_like<Self>(self.mResult.operator*());
 	}
 
 	constexpr Input remaining() const noexcept { return mRemaining; }
