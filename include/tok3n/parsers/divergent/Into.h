@@ -19,7 +19,7 @@ namespace detail::executors
 		template <class U>
 		static constexpr T execute(U&& u)
 		{
-			return T{ std::forward<U>(u) };
+			return T(std::forward<U>(u));
 		}
 	};
 
