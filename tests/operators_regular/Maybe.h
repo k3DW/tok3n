@@ -133,6 +133,7 @@ void Maybe_anything()
 		, ~tra4 == Maybe<Tra4>{}
 		, ~int1 == Maybe<Int1>{}
 		, ~int2 == Maybe<Int2>{}
+		, ~int3 == Maybe<Int3>{}
 		, ~con1 == Maybe<Con1>{}
 		, ~con2 == Maybe<Con2>{}
 		, ~con3 == Maybe<Con3>{}

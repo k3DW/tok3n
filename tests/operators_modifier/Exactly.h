@@ -99,6 +99,7 @@ void exactly_anything()
 		, tra4 % exactly<2> == Exactly<Tra4, 2>{}
 		, int1 % exactly<2> == Exactly<Int1, 2>{}
 		, int2 % exactly<2> == Exactly<Int2, 2>{}
+		, int3 % exactly<2> == Exactly<Int3, 2>{}
 		, con1 % exactly<2> == Exactly<Con1, 2>{}
 		, con2 % exactly<2> == Exactly<Con2, 2>{}
 		, con3 % exactly<2> == Exactly<Con3, 2>{}

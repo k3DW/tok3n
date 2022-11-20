@@ -133,6 +133,7 @@ void ZeroOrMore_anything()
 		, *tra4 == ZeroOrMore<Tra4>{}
 		, *int1 == ZeroOrMore<Int1>{}
 		, *int2 == ZeroOrMore<Int2>{}
+		, *int3 == ZeroOrMore<Int3>{}
 		, *con1 == ZeroOrMore<Con1>{}
 		, *con2 == ZeroOrMore<Con2>{}
 		, *con3 == ZeroOrMore<Con3>{}

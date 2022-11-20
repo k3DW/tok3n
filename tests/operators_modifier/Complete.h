@@ -122,6 +122,7 @@ void complete_anything()
 		, tra4 % complete == Complete<Tra4>{}
 		, int1 % complete == Complete<Int1>{}
 		, int2 % complete == Complete<Int2>{}
+		, int3 % complete == Complete<Int3>{}
 		, con1 % complete == Complete<Con1>{}
 		, con2 % complete == Complete<Con2>{}
 		, con3 % complete == Complete<Con3>{}

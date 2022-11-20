@@ -107,6 +107,7 @@ void delimit_anything()
 		, tra4 % delimit(comma) == Delimit<Tra4, Comma>{}
 		, int1 % delimit(comma) == Delimit<Int1, Comma>{}
 		, int2 % delimit(comma) == Delimit<Int2, Comma>{}
+		, int3 % delimit(comma) == Delimit<Int3, Comma>{}
 		, con1 % delimit(comma) == Delimit<Con1, Comma>{}
 		, con2 % delimit(comma) == Delimit<Con2, Comma>{}
 		, con3 % delimit(comma) == Delimit<Con3, Comma>{}

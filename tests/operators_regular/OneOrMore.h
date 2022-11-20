@@ -133,6 +133,7 @@ void OneOrMore_anything()
 		, +tra4 == OneOrMore<Tra4>{}
 		, +int1 == OneOrMore<Int1>{}
 		, +int2 == OneOrMore<Int2>{}
+		, +int3 == OneOrMore<Int3>{}
 		, +con1 == OneOrMore<Con1>{}
 		, +con2 == OneOrMore<Con2>{}
 		, +con3 == OneOrMore<Con3>{}

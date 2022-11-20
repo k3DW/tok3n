@@ -114,6 +114,7 @@ void ignore_anything()
 		, tra4 % ignore == Ignore<Tra4>{}
 		, int1 % ignore == Ignore<Int1>{}
 		, int2 % ignore == Ignore<Int2>{}
+		, int3 % ignore == Ignore<Int3>{}
 		, con1 % ignore == Ignore<Con1>{}
 		, con2 % ignore == Ignore<Con2>{}
 		, con3 % ignore == Ignore<Con3>{}

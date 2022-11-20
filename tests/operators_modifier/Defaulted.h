@@ -92,6 +92,7 @@ void defaulted_anything()
 		, tra4 % defaulted<bool> == Defaulted<Tra4, bool>{}
 		, int1 % defaulted<bool> == Defaulted<Int1, bool>{}
 		, int2 % defaulted<bool> == Defaulted<Int2, bool>{}
+		, int3 % defaulted<bool> == Defaulted<Int3, bool>{}
 		, con1 % defaulted<bool> == Defaulted<Con1, bool>{}
 		, con2 % defaulted<bool> == Defaulted<Con2, bool>{}
 		, con3 % defaulted<bool> == Defaulted<Con3, bool>{}

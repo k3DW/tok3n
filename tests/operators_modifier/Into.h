@@ -95,6 +95,7 @@ void into_anything()
 		, tra4 % into<Sink> == Into<Tra4, Sink>{}
 		, int1 % into<Sink> == Into<Int1, Sink>{}
 		, int2 % into<Sink> == Into<Int2, Sink>{}
+		, int3 % into<Sink> == Into<Int3, Sink>{}
 		, con1 % into<Sink> == Into<Con1, Sink>{}
 		, con2 % into<Sink> == Into<Con2, Sink>{}
 		, con3 % into<Sink> == Into<Con3, Sink>{}

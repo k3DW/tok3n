@@ -192,6 +192,19 @@ namespace samples::classes
 		friend constexpr bool operator==(const Class3&, const Class3&) = default;
 	};
 
+	class Class4
+	{
+	public:
+		explicit constexpr Class4(std::string_view sv1, std::string_view sv2)
+			: sv1(sv1), sv2(sv2) {}
+
+		explicit constexpr operator Class2() const { return Class2{ sv1, sv2 }; }
+
+	private:
+		std::string_view sv1;
+		std::string_view sv2;
+	};
+
 	struct Sink
 	{
 		constexpr Sink(auto&&...) {};
@@ -289,8 +302,9 @@ namespace samples::all
 
 	using namespace classes;
 
-	using Int1 = Into<SpaceDot, Class1>;                constexpr Int1 int1;
-	using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>; constexpr Int2 int2;
+	using Int1 = Into<SpaceDot, Class1>;                              constexpr Int1 int1;
+	using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>;               constexpr Int2 int2;
+	using Int3 = Into<Into<Sequence<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
 
 	using Con1 = Constant<Sub2::_2, 1>;       constexpr Con1 con1;
 	using Con2 = Constant<Sub2::_3, 't'>;     constexpr Con2 con2;
@@ -311,7 +325,7 @@ namespace samples::all
 		ign1, ign2, ign3, ign4, ign5,
 		del1, del2, del3, del4, del5, del6, del7, del8,
 		com1, com2, com3, com4, com5, com6, com7,
-		tra1, tra2, tra3, tra4, int1, int2,
+		tra1, tra2, tra3, tra4, int1, int2, int3,
 		con1, con2, con3, con4, def1, def2
 	), "operator==() and operator!=() are not implemented properly on Parser types");
 
