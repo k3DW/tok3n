@@ -51,6 +51,17 @@ namespace detail::executors
 			return true;
 		}
 
+		template <class T, std::size_t N>
+		constexpr bool try_push(const std::array<T, N>& arr)
+		{
+			for (auto& t : arr)
+			{
+				if (not try_push(t))
+					return false;
+			}
+			return true;
+		}
+
 		template <class T>
 		constexpr bool try_push(const std::optional<T>& opt)
 		{
