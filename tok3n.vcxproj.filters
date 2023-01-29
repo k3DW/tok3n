@@ -228,6 +228,9 @@
     <ClInclude Include="tests\operators_modifier\Defaulted.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\operators\Basic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

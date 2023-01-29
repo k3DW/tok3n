@@ -25,6 +25,7 @@
 #include "tok3n/parsers/divergent/Defaulted.h"
 #include "tok3n/parsers/divergent/Custom.h"
 
+#include "tok3n/operators/Basic.h"
 #include "tok3n/operators/Not.h"
 #include "tok3n/operators/Choice.h"
 #include "tok3n/operators/Sequence.h"
