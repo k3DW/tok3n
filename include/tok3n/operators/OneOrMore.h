@@ -15,6 +15,9 @@ namespace detail::oneormore
 
 }
 
+inline namespace operators
+{
+
 template <Parser P>
 requires detail::OneOrMore_able<P>
 constexpr auto operator+(P)
@@ -30,6 +33,8 @@ constexpr auto operator+(P)
 
 	else
 		return OneOrMore<P>{};
+}
+
 }
 
 TOK3N_END_NAMESPACE()

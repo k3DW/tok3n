@@ -21,6 +21,9 @@ namespace detail::zeroormore
 
 }
 
+inline namespace operators
+{
+
 template <Parser P>
 requires detail::ZeroOrMore_able<P>
 constexpr auto operator*(P)
@@ -36,6 +39,8 @@ constexpr auto operator*(P)
 
 	else
 		return ZeroOrMore<P>{};
+}
+
 }
 
 TOK3N_END_NAMESPACE()

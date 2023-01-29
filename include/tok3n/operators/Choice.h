@@ -105,6 +105,9 @@ namespace detail::Choice_operator
 
 }
 
+inline namespace operators
+{
+
 template <Parser P1, Parser P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
 constexpr auto operator|(P1, P2)
@@ -132,6 +135,8 @@ constexpr auto operator|(P1, P2)
 
 	else
 		return Choice<P1, P2>{};
+}
+
 }
 
 TOK3N_END_NAMESPACE()

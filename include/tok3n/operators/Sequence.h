@@ -32,6 +32,9 @@ namespace detail::Sequence_operator
 
 }
 
+inline namespace operators
+{
+
 template <Parser P1, Parser P2>
 constexpr auto operator>>(P1, P2)
 {
@@ -49,6 +52,8 @@ constexpr auto operator>>(P1, P2)
 
 	else
 		return Sequence<P1, P2>{};
+}
+
 }
 
 TOK3N_END_NAMESPACE()

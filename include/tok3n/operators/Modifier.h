@@ -135,6 +135,19 @@ TOK3N_END_NAMESPACE(detail::modifiers)
 
 TOK3N_BEGIN_NAMESPACE()
 
+template <std::size_t N> constexpr bool is_modifier_v<detail::modifiers::exactly<N>> = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::ignore> = true;
+template <Parser D>      constexpr bool is_modifier_v<detail::modifiers::delimit::inner<D>> = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::complete> = true;
+template <>              constexpr bool is_modifier_v<detail::modifiers::join> = true;
+template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>> = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>> = true;
+template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>> = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>> = true;
+
+inline namespace operators
+{
+
 template <std::size_t N> constexpr auto exactly   = detail::modifiers::exactly<N>{};
                          constexpr auto ignore    = detail::modifiers::ignore{};
                          constexpr auto delimit   = detail::modifiers::delimit{};
@@ -145,20 +158,12 @@ template <class T>       constexpr auto into      = detail::modifiers::into<T>{}
 template <auto value>    constexpr auto constant  = detail::modifiers::constant<value>{};
 template <class T>       constexpr auto defaulted = detail::modifiers::defaulted<T>{};
 
-template <std::size_t N> constexpr bool is_modifier_v<detail::modifiers::exactly<N>>        = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::ignore>            = true;
-template <Parser D>      constexpr bool is_modifier_v<detail::modifiers::delimit::inner<D>> = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::complete>          = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::join>              = true;
-template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>>      = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>>           = true;
-template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>>   = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>>      = true;
-
 consteval auto operator%(Parser auto p, Modifier auto modifier)
 requires requires { modifier(p); }
 {
 	return modifier(p);
+}
+
 }
 
 TOK3N_END_NAMESPACE()
