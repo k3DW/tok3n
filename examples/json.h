@@ -7,29 +7,7 @@ TOK3N_BEGIN_NAMESPACE(examples::json_parser)
 
 
 
-inline namespace basic
-{
-
-	constexpr IsOneChar auto minus        = OneChar<'-'>{};
-	constexpr IsOneChar auto signs        = OneChar<"+-">{};
-	constexpr IsOneChar auto zero         = OneChar<'0'>{};
-	constexpr IsOneChar auto point        = OneChar<'.'>{};
-	constexpr IsOneChar auto digit        = OneChar<"0123456789">{};
-	constexpr IsOneChar auto nonzerodigit = OneChar<"123456789">{};
-	constexpr IsOneChar auto Ee           = OneChar<"Ee">{};
-
-	constexpr IsOneChar auto quote     = OneChar<'"'>{};
-	constexpr IsOneChar auto backslash = OneChar<'\\'>{};
-	constexpr IsOneChar auto u         = OneChar<"u">{};
-
-	constexpr IsOneChar auto comma         = OneChar<','>{};
-	constexpr IsOneChar auto colon         = OneChar<':'>{};
-	constexpr IsOneChar auto left_brace    = OneChar<'{'>{};
-	constexpr IsOneChar auto right_brace   = OneChar<'}'>{};
-	constexpr IsOneChar auto left_bracket  = OneChar<'['>{};
-	constexpr IsOneChar auto right_bracket = OneChar<']'>{};
-
-}
+constexpr IsOneChar auto digit = "0123456789"_one;
 
 
 
@@ -61,16 +39,16 @@ inline namespace number_impl
 	constexpr auto any_digits = +digit % join % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(any_digits)::result_type, int64_t>);
 
-	constexpr auto natural_number = (zero | ((nonzerodigit >> *digit) % join)) % fn<sv_to_int>;
+	constexpr auto natural_number = ("0"_lit | join("123456789"_one >> *digit)) % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
-	constexpr auto integer = (~minus >> natural_number) % fn<give_sign>;
+	constexpr auto integer = (~"-"_lit >> natural_number) % fn<give_sign>;
 	static_assert(std::same_as<decltype(integer)::result_type, int64_t>);
 		
-	constexpr auto fraction = ignore(point) >> any_digits;
+	constexpr auto fraction = "."_ign >> any_digits;
 	static_assert(std::same_as<decltype(fraction)::result_type, int64_t>);
 
-	constexpr auto exponent = (ignore(Ee) >> ~signs >> any_digits) % fn<give_sign>;
+	constexpr auto exponent = (ignore("Ee"_one) >> ~"+-"_one >> any_digits) % fn<give_sign>;
 	static_assert(std::same_as<decltype(exponent)::result_type, int64_t>);
 
 }
@@ -90,19 +68,19 @@ static_assert(std::same_as<decltype(number)::result_type, number_t>);
 inline namespace string_impl
 {
 
-	constexpr auto hex = (u >> digit >> digit >> digit >> digit) % join;
-	constexpr auto control = OneChar<"\"/\\bfnrt">{} | hex;
+	constexpr auto hex = ("u"_lit >> digit >> digit >> digit >> digit) % join;
+	constexpr auto control = "\"/\\bfnrt"_one | hex;
 
-	constexpr auto valid_char = !(quote | backslash) | ((backslash >> control) % join);
+	constexpr auto valid_char = not_<"\"\\"> | ((lit<'\\'> >> control) % join);
 
 }
 
-constexpr auto string = ignore(quote) >> (*valid_char % join) >> ignore(quote);
+constexpr auto string = ign<'"'> >> join(*valid_char) >> ign<'"'>;
 static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
 
 
 
-constexpr auto whitespace = *OneChar<"\t\n\r ">{} % join;
+constexpr auto whitespace = *one<"\t\n\r "> % join;
 static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
 
 
@@ -161,16 +139,16 @@ struct JsonValueParser : Custom<JsonValueParser>
 
 consteval auto JsonObjectParser::get_parser()
 {
-	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ignore(colon) >> JsonValueParser{}) % into<pair_t>;
-	constexpr auto object = delimit(pair, comma) % into<object_t>;
-	constexpr auto the_parser = ignore(left_brace) >> (object | (whitespace % defaulted<object_t>)) >> ignore(right_brace);
+	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ":"_ign >> JsonValueParser{}) % into<pair_t>;
+	constexpr auto object = delimit(pair, ","_lit) % into<object_t>;
+	constexpr auto the_parser = "{"_ign >> (object | (whitespace % defaulted<object_t>)) >> "}"_ign;
 	return the_parser;
 }
 
 consteval auto JsonArrayParser::get_parser()
 {
-	constexpr auto values = delimit(JsonValueParser{}, comma) % into<array_t>;
-	constexpr auto the_parser = ignore(left_bracket) >> (values | (whitespace % defaulted<array_t>)) >> ignore(right_bracket);
+	constexpr auto values = delimit(JsonValueParser{}, ","_lit) % into<array_t>;
+	constexpr auto the_parser = "["_ign >> (values | (whitespace % defaulted<array_t>)) >> "]"_ign;
 	return the_parser;
 }
 
@@ -182,9 +160,9 @@ consteval auto JsonValueParser::get_parser()
 		number,
 		JsonObjectParser{},
 		JsonArrayParser{},
-		Literal<"true">{}  % constant<true>,
-		Literal<"false">{} % constant<false>,
-		Literal<"null">{}  % constant<nullptr>
+		"true"_lit  % constant<true>,
+		"false"_lit % constant<false>,
+		"null"_lit  % constant<nullptr>
 	);
 
 	return ignore(whitespace) >> value_parser >> ignore(whitespace);

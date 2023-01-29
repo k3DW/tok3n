@@ -22,8 +22,8 @@ ws	::= [{' '|'\t'|'\n'|'\r'}];
 
 */
 
-constexpr auto ws  = *OneChar<"\t\n\r ">{} % ignore;
-constexpr auto dgt = OneChar<"0123456789">{};
+constexpr auto ws  = *"\t\n\r "_one % ignore;
+constexpr auto dgt = "0123456789"_one;
 
 struct number_t
 {
@@ -34,8 +34,8 @@ struct number_t
 namespace number_impl
 {
 	constexpr auto integer  = +dgt % join;
-	constexpr auto decimal  = ~(OneChar<".">{} % ignore >> +dgt % join);
-	constexpr auto exponent = ~(OneChar<"Ee">{} % ignore >> join(~OneChar<"-">{} >> +dgt));
+	constexpr auto decimal  = ~("."_ign >> +dgt % join);
+	constexpr auto exponent = ~("Ee"_one % ignore >> join(~"-"_lit >> +dgt));
 }
 constexpr auto number = into<number_t>(number_impl::integer >> number_impl::decimal >> number_impl::exponent);
 
@@ -62,8 +62,8 @@ constexpr auto expr   = (ws >> term)      % delimit(ws >> OneChar<"+-">{});
 
 consteval auto powterm::get_parser()
 {
-	constexpr auto bracketed = ignore(OneChar<"(">{}) >> ws >> expr >> ws >> ignore(OneChar<")">{});
-	constexpr auto negated   = ignore(OneChar<"-">{}) >> ws >> expr;
+	constexpr auto bracketed = "("_ign >> ws >> expr >> ws >> ")"_ign;
+	constexpr auto negated   = "-"_ign >> ws >> expr;
 	return into<powterm_t>
 	(
 		bracketed % into<powterm_t::bracketed_expr>,
