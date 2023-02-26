@@ -4,63 +4,38 @@
 #include <type_traits>
 #include <concepts>
 
-// Ideas mostly taken from Boost.Mp11
+// Ideas interpolated from Boost.Mp11
 
 TOK3N_BEGIN_NAMESPACE(mp)
 
-template <class... Ts>
-struct type_list {};
+template <auto F, class... Ts>
+using invoke_type = decltype(F(std::declval<Ts>()...));
 
 
 
 namespace detail
 {
 
-	template <class List>
-	struct head_impl {};
+	constexpr auto head_impl =
+		[]<class T, class... Ts>(T, Ts...) consteval -> T { throw; };
+
+}
+
+template <class... Ts>
+using head = invoke_type<detail::head_impl, Ts...>;
+
+
+
+namespace detail
+{
 	
-	template <template <class...> class Template, class T, class... Ts>
-	struct head_impl<Template<T, Ts...>> { using type = T; };
+	constexpr auto all_same_impl =
+		[]<class T, class... Ts>(T, Ts...) consteval -> std::bool_constant<(... && std::same_as<T, Ts>)> { throw; };
 
 }
 
 template <class... Ts>
-using head = typename detail::head_impl<type_list<Ts...>>::type;
-
-
-
-namespace detail
-{
-
-	template <class List>
-	constexpr bool all_same_impl = false;
-
-	template <template <class...> class Template, class T, class... Ts>
-	constexpr bool all_same_impl<Template<T, Ts...>> = (... && std::same_as<T, Ts>);
-
-}
-
-template <class... Ts>
-concept all_same = detail::all_same_impl<type_list<Ts...>>;
-
-
-
-namespace detail
-{
-
-	template <class T, class List>
-	struct append_impl {};
-
-	template <class T, template <class...> class ListTemplate, class... Ts>
-	struct append_impl<T, ListTemplate<Ts...>>
-	{
-		using type = ListTemplate<T, Ts...>;
-	};
-
-}
-
-template <class Head, class List>
-using append = typename detail::append_impl<Head, List>::type;
+concept all_same = invoke_type<detail::all_same_impl, Ts...>::value;
 
 
 
@@ -81,96 +56,96 @@ struct is_not_type
 namespace detail
 {
 
-	template <type_predicate Pred, class... Ts>
-	struct filter_impl {};
+	constexpr auto filter_impl =
+		[]<class Self, type_predicate Pred, class Head, class... Tail, template <class...> class List, class... Done>
+			(this Self&& self, Pred, List<Done...>, Head*, Tail*...) consteval
+		{
+			throw;
 
-	template <type_predicate Pred>
-	struct filter_impl<Pred>
-	{
-		using type = type_list<>;
-	};
-
-	template <type_predicate Pred, class Head, class... Tail>
-	struct filter_impl<Pred, Head, Tail...>
-	{
-		using type = std::conditional_t<
-			Pred::template predicate<Head>::value,
-			append<Head, typename filter_impl<Pred, Tail...>::type>,
-			typename filter_impl<Pred, Tail...>::type
-		>;
-	};
+			if constexpr (sizeof...(Tail) == 0)
+			{
+				if constexpr (Pred::template predicate<Head>::value)
+					return List<Done..., Head>{};
+				else
+					return List<Done...>{};
+			}
+			else
+			{
+				if constexpr (Pred::template predicate<Head>::value)
+					return self(Pred{}, List<Done..., Head>{}, static_cast<Tail*>(nullptr)...);
+				else
+					return self(Pred{}, List<Done...>{}, static_cast<Tail*>(nullptr)...);
+			}
+		};
 
 }
 
-template <type_predicate Pred, class... Ts>
-using filter = typename detail::filter_impl<Pred, Ts...>::type;
+template <type_predicate Pred, template <class...> class List, class... Ts>
+using filter = invoke_type<detail::filter_impl, Pred, List<>, Ts*...>;
 
 
 
 namespace detail
 {
 
-	template <class List, template <class...> class NewTemplate>
-	struct retarget_impl {};
-
-	template <template <class...> class OldTemplate, template <class...> class NewTemplate, class... Ts>
-	struct retarget_impl<OldTemplate<Ts...>, NewTemplate>
+	template <bool Value, class Type>
+	struct unwrap_if_single_trait
 	{
-		using type = NewTemplate<Ts...>;
+		static constexpr bool unwrapped = Value;
+		using type = Type;
 	};
+
+	constexpr auto unwrap_if_single_impl =
+		[]<template <class...> class List, class... Ts>(List<Ts...>) consteval
+		{
+			throw;
+
+			if constexpr (sizeof...(Ts) == 0)
+				return unwrap_if_single_trait<true, void>{};
+
+			else if constexpr (sizeof...(Ts) == 1)
+				return unwrap_if_single_trait<true, head<Ts...>>{};
+
+			else
+				return unwrap_if_single_trait<false, List<Ts...>>{};
+		};
 
 }
 
-template <class List, template <class...> class NewTemplate>
-using retarget = typename detail::retarget_impl<List, NewTemplate>::type;
-
-
-
-template <class List>
-struct unwrap_if_single {};
-
-template <template <class...> class Template, class T, class... Ts>
-struct unwrap_if_single<Template<T, Ts...>>
-{
-	static constexpr bool value = sizeof...(Ts) == 0;
-	using type = std::conditional_t<value, T, Template<T, Ts...>>;
-};
-
-template <template <class...> class Template>
-struct unwrap_if_single<Template<>>
-{
-	static constexpr bool value = true;
-	using type = void;
-};
+template <class List_Ts>
+using unwrap_if_single = invoke_type<detail::unwrap_if_single_impl, List_Ts>;
 
 
 
 namespace detail
 {
 
-	template <type_predicate Pred, std::size_t NextUp, class Seq, class... Ts>
-	struct filtered_sequence_impl {};
+	constexpr auto filtered_sequence_impl =
+		[]<class Self, type_predicate Pred, std::size_t Next, std::size_t... Is, class Head, class... Tail>
+			(this Self&& self, Pred, std::integral_constant<std::size_t, Next>, std::index_sequence<Is...>, Head*, Tail*...) consteval
+		{
+			throw;
 
-	template <type_predicate Pred, std::size_t NextUp, class Seq>
-	struct filtered_sequence_impl<Pred, NextUp, Seq>
-	{
-		using type = Seq;
-	};
-
-	template <type_predicate Pred, std::size_t NextUp, std::size_t... Is, class Head, class... Tail>
-	struct filtered_sequence_impl<Pred, NextUp, std::index_sequence<Is...>, Head, Tail...>
-	{
-		using type = std::conditional_t<
-			Pred::template predicate<Head>::value,
-			typename filtered_sequence_impl<Pred, NextUp + 1, std::index_sequence<Is..., NextUp>, Tail...>::type,
-			typename filtered_sequence_impl<Pred, NextUp,     std::index_sequence<Is..., -1>,     Tail...>::type
-		>;
-	};
+			if constexpr (sizeof...(Tail) == 0)
+			{
+				if constexpr (Pred::template predicate<Head>::value)
+					return std::index_sequence<Is..., Next>{};
+				else
+					return std::index_sequence<Is..., -1>{};
+			}
+			else
+			{
+				if constexpr (Pred::template predicate<Head>::value)
+					return self(Pred{}, std::integral_constant<std::size_t, Next + 1>{}, std::index_sequence<Is..., Next>{}, static_cast<Tail*>(nullptr)...);
+				else
+					return self(Pred{}, std::integral_constant<std::size_t, Next>{},     std::index_sequence<Is..., -1>{},   static_cast<Tail*>(nullptr)...);
+			}
+		};
 
 }
 
 template <type_predicate Pred, class... Ts>
-using filtered_sequence = typename detail::filtered_sequence_impl<Pred, 0, std::index_sequence<>, Ts...>::type;
+using filtered_sequence = invoke_type<detail::filtered_sequence_impl, Pred, std::integral_constant<std::size_t, 0>, std::index_sequence<>, Ts*...>;
 
 
 

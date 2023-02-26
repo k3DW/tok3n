@@ -25,8 +25,7 @@ template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && mp::all_s
 template <class... Ps> using   Choice_result = typename mp::head<Ps...>::result_type;
 
 template <class... Ps> concept Sequence_able         = sizeof...(Ps) >= 2;
-template <class... Ps> using   Sequence_filter_types = mp::filter<mp::is_not_type<void>, typename Ps::result_type...>;
-template <class... Ps> using   Sequence_result_trait = mp::unwrap_if_single<mp::retarget<Sequence_filter_types<Ps...>, std::tuple>>;
+template <class... Ps> using   Sequence_result_trait = mp::unwrap_if_single<mp::filter<mp::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
 template <class P> concept OneOrMore_able  = not void_result<P>;
 template <class P> concept ZeroOrMore_able = not void_result<P>;

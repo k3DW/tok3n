@@ -49,7 +49,7 @@ struct Sequence
 	using _trait = detail::Sequence_result_trait<Ps...>;
 
 	using result_type                = _trait::type;
-	static constexpr bool _unwrapped = _trait::value;
+	static constexpr bool _unwrapped = _trait::unwrapped;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
