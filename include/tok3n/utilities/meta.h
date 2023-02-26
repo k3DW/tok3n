@@ -66,8 +66,7 @@ using append = typename detail::append_impl<Head, List>::type;
 
 template <class Pred>
 concept type_predicate =
-	requires { Pred::template predicate; } &&
-	not requires { typename Pred::predicate; } &&
+	requires { typename Pred::template predicate<void>; } &&
 	std::same_as<const bool, decltype(Pred::template predicate<void>::value)>;
 
 template <class T>
