@@ -64,4 +64,15 @@ void anything_and_anything()
 	// I might set up some sort of code generation later.
 }
 
+void void_result()
+{
+	constexpr auto void_sequence = (ign1 >> ign2);
+
+	assert
+		, void_sequence == Sequence<Ign1, Ign2>{}
+		, result_of<decltype(void_sequence)>.is<void>
+		, parse(void_sequence, "abcabcabcdabcd").success("dabcd")
+		;
+}
+
 TOK3N_END_NAMESPACE_TESTS(regular::Sequence)
