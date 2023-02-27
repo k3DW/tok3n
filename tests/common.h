@@ -91,6 +91,9 @@ namespace traits::operators
 	template <auto lhs, auto rhs>
 	constexpr bool valid_modulo = requires { lhs % rhs; };
 
+	template <auto F, auto... args>
+	constexpr bool valid_function_call = requires { F(args...); };
+
 }
 
 namespace samples::functions

@@ -361,6 +361,7 @@
     <ClInclude Include="tests\operators_modifier\Exactly.h" />
     <ClInclude Include="tests\operators_modifier\Ignore.h" />
     <ClInclude Include="tests\operators_modifier\Into.h" />
+    <ClInclude Include="tests\operators_modifier\IntoChoice.h" />
     <ClInclude Include="tests\operators_modifier\Join.h" />
     <ClInclude Include="tests\operators_modifier\Transform.h" />
     <ClInclude Include="tests\operators_regular\Basic.h" />

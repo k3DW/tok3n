@@ -64,7 +64,7 @@ consteval auto powterm::get_parser()
 {
 	constexpr auto bracketed = "("_ign >> ws >> expr >> ws >> ")"_ign;
 	constexpr auto negated   = "-"_ign >> ws >> expr;
-	return into<powterm_t>
+	return into_choice<powterm_t>
 	(
 		bracketed % into<powterm_t::bracketed_expr>,
 		negated   % into<powterm_t::negated_expr>,

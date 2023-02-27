@@ -41,6 +41,7 @@
 #include "tests/operators_modifier/Join.h"
 #include "tests/operators_modifier/Transform.h"
 #include "tests/operators_modifier/Into.h"
+#include "tests/operators_modifier/IntoChoice.h"
 #include "tests/operators_modifier/Constant.h"
 #include "tests/operators_modifier/Defaulted.h"
 

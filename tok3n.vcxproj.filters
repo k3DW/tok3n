@@ -234,6 +234,9 @@
     <ClInclude Include="tests\operators_regular\Basic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\operators_modifier\IntoChoice.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -99,9 +99,13 @@ struct into final
 	{
 		return Into<P, T>{};
 	}
+};
 
+template <class T>
+struct into_choice final
+{
 	template <Parser... Ps>
-	requires (... && detail::Into_able<Ps, T>)
+	requires (... && detail::Into_able<Ps, T>) && (detail::Choice_able<Into<Ps, T>...>)
 	consteval auto operator()(Ps...) const
 	{
 		return Choice<Into<Ps, T>...>{};
@@ -142,21 +146,23 @@ template <>              constexpr bool is_modifier_v<detail::modifiers::complet
 template <>              constexpr bool is_modifier_v<detail::modifiers::join> = true;
 template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>> = true;
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>> = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::into_choice<T>> = true;
 template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>> = true;
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>> = true;
 
 inline namespace operators
 {
 
-template <std::size_t N> constexpr auto exactly   = detail::modifiers::exactly<N>{};
-                         constexpr auto ignore    = detail::modifiers::ignore{};
-                         constexpr auto delimit   = detail::modifiers::delimit{};
-                         constexpr auto complete  = detail::modifiers::complete{};
-                         constexpr auto join      = detail::modifiers::join{};
-template <auto function> constexpr auto fn        = detail::modifiers::fn<function>{};
-template <class T>       constexpr auto into      = detail::modifiers::into<T>{};
-template <auto value>    constexpr auto constant  = detail::modifiers::constant<value>{};
-template <class T>       constexpr auto defaulted = detail::modifiers::defaulted<T>{};
+template <std::size_t N> constexpr auto exactly     = detail::modifiers::exactly<N>{};
+                         constexpr auto ignore      = detail::modifiers::ignore{};
+                         constexpr auto delimit     = detail::modifiers::delimit{};
+                         constexpr auto complete    = detail::modifiers::complete{};
+                         constexpr auto join        = detail::modifiers::join{};
+template <auto function> constexpr auto fn          = detail::modifiers::fn<function>{};
+template <class T>       constexpr auto into        = detail::modifiers::into<T>{};
+template <class T>       constexpr auto into_choice = detail::modifiers::into_choice<T>{};
+template <auto value>    constexpr auto constant    = detail::modifiers::constant<value>{};
+template <class T>       constexpr auto defaulted   = detail::modifiers::defaulted<T>{};
 
 consteval auto operator%(Parser auto p, Modifier auto modifier)
 requires requires { modifier(p); }

@@ -154,7 +154,7 @@ consteval auto JsonArrayParser::get_parser()
 
 consteval auto JsonValueParser::get_parser()
 {
-	constexpr auto value_parser = into<value_t>
+	constexpr auto value_parser = into_choice<value_t>
 	(
 		string % into<std::string>,
 		number,
