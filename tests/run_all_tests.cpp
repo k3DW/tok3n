@@ -26,6 +26,7 @@
 #include "tests/parsers_divergent/Custom.h"
 //#include "tests/parsers_divergent/combine.h"
 
+#include "tests/operators_regular/Basic.h"
 #include "tests/operators_regular/Not.h"
 #include "tests/operators_regular/Choice.h"
 #include "tests/operators_regular/Sequence.h"
