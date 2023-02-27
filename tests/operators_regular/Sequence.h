@@ -59,7 +59,9 @@ void Sequence_and_anything()
 
 void anything_and_anything()
 {
-	// TODO once everything is added to samples::all
+	// I would like to add tests for everything,
+	// but it's infeasible to do all combinations of samples.
+	// I might set up some sort of code generation later.
 }
 
 TOK3N_END_NAMESPACE_TESTS(regular::Sequence)

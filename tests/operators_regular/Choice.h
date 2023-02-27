@@ -101,7 +101,9 @@ constexpr bool operator_is_not_valid = not requires { p1 | p2; };
 
 void anything_and_anything()
 {
-	// TODO once everything is added to samples::all
+	// I would like to add tests for everything,
+	// but it's infeasible to do all combinations of samples.
+	// I might set up some sort of code generation later.
 	assert
 		, operator_is_not_valid<cho1, seq1>
 		, operator_is_not_valid<seq1, cho1>
