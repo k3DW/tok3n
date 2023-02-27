@@ -7,16 +7,16 @@ TOK3N_BEGIN_NAMESPACE()
 namespace detail::executors
 {
 
-	template <class result_type>
+	template <class ResultType>
 	struct Choice
 	{
 		Input input;
-		Result<result_type> result = {};
+		Result<ResultType>& result;
 
 		template <Parser P>
 		constexpr bool execute()
 		{
-			if constexpr (std::is_same_v<result_type, void>)
+			if constexpr (std::is_same_v<ResultType, void>)
 				result = P::lookahead(input);
 			else
 				result = P::parse(input);
@@ -34,20 +34,24 @@ struct Choice
 
 	static constexpr Result<result_type> parse(Input input)
 	{
+		Result<result_type> result;
+
 		using Executor = detail::executors::Choice<result_type>;
-		Executor executor{.input = input };
+		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 
-		return executor.result;
+		return result;
 	}
 
 	static constexpr Result<void> lookahead(Input input)
 	{
+		Result<void> result;
+
 		using Executor = detail::executors::Choice<void>;
-		Executor executor{ .input = input };
+		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 
-		return executor.result;
+		return result;
 	}
 };
 

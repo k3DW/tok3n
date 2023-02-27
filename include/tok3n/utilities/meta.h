@@ -17,12 +17,12 @@ namespace detail
 {
 
 	constexpr auto head_impl =
-		[]<class T, class... Ts>(T, Ts...) consteval -> T { throw; };
+		[]<class T, class... Ts>(T*, Ts*...) consteval -> T { throw; };
 
 }
 
 template <class... Ts>
-using head = invoke_type<detail::head_impl, Ts...>;
+using head = invoke_type<detail::head_impl, Ts*...>;
 
 
 
@@ -30,12 +30,12 @@ namespace detail
 {
 	
 	constexpr auto all_same_impl =
-		[]<class T, class... Ts>(T, Ts...) consteval -> std::bool_constant<(... && std::same_as<T, Ts>)> { throw; };
+		[]<class T, class... Ts>(T*, Ts*...) consteval -> std::bool_constant<(... && std::same_as<T, Ts>)> { throw; };
 
 }
 
 template <class... Ts>
-concept all_same = invoke_type<detail::all_same_impl, Ts...>::value;
+concept all_same = invoke_type<detail::all_same_impl, Ts*...>::value;
 
 
 

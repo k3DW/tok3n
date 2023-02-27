@@ -110,4 +110,15 @@ void anything_and_anything()
 		;
 }
 
+void void_result()
+{
+	constexpr auto void_choice = (ign1 | ign2);
+
+	assert
+		, void_choice == Choice<Ign1, Ign2>{}
+		, result_of<decltype(void_choice)>.is<void>
+		, parse(void_choice, "abcabcabcdabcd").success("abcabcdabcd")
+		;
+}
+
 TOK3N_END_NAMESPACE_TESTS(regular::Choice)
