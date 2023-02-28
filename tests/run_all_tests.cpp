@@ -21,6 +21,7 @@
 #include "tests/parsers_divergent/Join.h"
 #include "tests/parsers_divergent/Transform.h"
 #include "tests/parsers_divergent/Into.h"
+#include "tests/parsers_divergent/ApplyInto.h"
 #include "tests/parsers_divergent/Constant.h"
 #include "tests/parsers_divergent/Defaulted.h"
 #include "tests/parsers_divergent/Custom.h"

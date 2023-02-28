@@ -108,6 +108,8 @@ void delimit_anything()
 		, int1 % delimit(comma) == Delimit<Int1, Comma>{}
 		, int2 % delimit(comma) == Delimit<Int2, Comma>{}
 		, int3 % delimit(comma) == Delimit<Int3, Comma>{}
+		, api1 % delimit(comma) == Delimit<Api1, Comma>{}
+		, api2 % delimit(comma) == Delimit<Api2, Comma>{}
 		, con1 % delimit(comma) == Delimit<Con1, Comma>{}
 		, con2 % delimit(comma) == Delimit<Con2, Comma>{}
 		, con3 % delimit(comma) == Delimit<Con3, Comma>{}

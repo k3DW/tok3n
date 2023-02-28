@@ -134,6 +134,8 @@ void Maybe_anything()
 		, ~int1 == Maybe<Int1>{}
 		, ~int2 == Maybe<Int2>{}
 		, ~int3 == Maybe<Int3>{}
+		, ~api1 == Maybe<Api1>{}
+		, ~api2 == Maybe<Api2>{}
 		, ~con1 == Maybe<Con1>{}
 		, ~con2 == Maybe<Con2>{}
 		, ~con3 == Maybe<Con3>{}

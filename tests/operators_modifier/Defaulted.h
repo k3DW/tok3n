@@ -93,6 +93,8 @@ void defaulted_anything()
 		, int1 % defaulted<bool> == Defaulted<Int1, bool>{}
 		, int2 % defaulted<bool> == Defaulted<Int2, bool>{}
 		, int3 % defaulted<bool> == Defaulted<Int3, bool>{}
+		, api1 % defaulted<bool> == Defaulted<Api1, bool>{}
+		, api2 % defaulted<bool> == Defaulted<Api2, bool>{}
 		, con1 % defaulted<bool> == Defaulted<Con1, bool>{}
 		, con2 % defaulted<bool> == Defaulted<Con2, bool>{}
 		, con3 % defaulted<bool> == Defaulted<Con3, bool>{}

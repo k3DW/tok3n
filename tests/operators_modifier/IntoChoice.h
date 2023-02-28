@@ -106,6 +106,8 @@ void into_anything()
 		, into_choice<Sink>(int1, sink_parser) == Choice<Into<Int1, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(int2, sink_parser) == Choice<Into<Int2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(int3, sink_parser) == Choice<Into<Int3, Sink>, Into<SinkParser, Sink>>{}
+		, into_choice<Sink>(api1, sink_parser) == Choice<Into<Api1, Sink>, Into<SinkParser, Sink>>{}
+		, into_choice<Sink>(api2, sink_parser) == Choice<Into<Api2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(con1, sink_parser) == Choice<Into<Con1, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(con2, sink_parser) == Choice<Into<Con2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(con3, sink_parser) == Choice<Into<Con3, Sink>, Into<SinkParser, Sink>>{}

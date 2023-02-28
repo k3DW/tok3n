@@ -123,6 +123,8 @@ void complete_anything()
 		, int1 % complete == Complete<Int1>{}
 		, int2 % complete == Complete<Int2>{}
 		, int3 % complete == Complete<Int3>{}
+		, api1 % complete == Complete<Api1>{}
+		, api2 % complete == Complete<Api2>{}
 		, con1 % complete == Complete<Con1>{}
 		, con2 % complete == Complete<Con2>{}
 		, con3 % complete == Complete<Con3>{}

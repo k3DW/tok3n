@@ -134,6 +134,8 @@ void ZeroOrMore_anything()
 		, *int1 == ZeroOrMore<Int1>{}
 		, *int2 == ZeroOrMore<Int2>{}
 		, *int3 == ZeroOrMore<Int3>{}
+		, *api1 == ZeroOrMore<Api1>{}
+		, *api2 == ZeroOrMore<Api2>{}
 		, *con1 == ZeroOrMore<Con1>{}
 		, *con2 == ZeroOrMore<Con2>{}
 		, *con3 == ZeroOrMore<Con3>{}

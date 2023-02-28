@@ -17,6 +17,7 @@
 	using k3::tok3n::Join;       \
 	using k3::tok3n::Transform;  \
 	using k3::tok3n::Into;       \
+	using k3::tok3n::ApplyInto;  \
 	using k3::tok3n::Constant;   \
 	using k3::tok3n::Defaulted;  \
 	using k3::tok3n::Custom;     \
@@ -27,6 +28,7 @@
 	using k3::tok3n::join;       \
 	using k3::tok3n::fn;         \
 	using k3::tok3n::into;       \
+	using k3::tok3n::apply_into; \
 	using k3::tok3n::constant;   \
 	using k3::tok3n::defaulted;
 
@@ -82,6 +84,7 @@ struct parser_type_of_t
 	static constexpr bool is_Join       = IsJoin<T>;
 	static constexpr bool is_Transform  = IsTransform<T>;
 	static constexpr bool is_Into       = IsInto <T>;
+	static constexpr bool is_ApplyInto  = IsApplyInto <T>;
 	static constexpr bool is_Constant   = IsConstant<T>;
 	static constexpr bool is_Defaulted  = IsDefaulted<T>;
 	static constexpr bool is_Custom     = IsCustom<T>;

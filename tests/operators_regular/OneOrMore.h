@@ -134,6 +134,8 @@ void OneOrMore_anything()
 		, +int1 == OneOrMore<Int1>{}
 		, +int2 == OneOrMore<Int2>{}
 		, +int3 == OneOrMore<Int3>{}
+		, +api1 == OneOrMore<Api1>{}
+		, +api2 == OneOrMore<Api2>{}
 		, +con1 == OneOrMore<Con1>{}
 		, +con2 == OneOrMore<Con2>{}
 		, +con3 == OneOrMore<Con3>{}

@@ -115,6 +115,8 @@ void ignore_anything()
 		, int1 % ignore == Ignore<Int1>{}
 		, int2 % ignore == Ignore<Int2>{}
 		, int3 % ignore == Ignore<Int3>{}
+		, api1 % ignore == Ignore<Api1>{}
+		, api2 % ignore == Ignore<Api2>{}
 		, con1 % ignore == Ignore<Con1>{}
 		, con2 % ignore == Ignore<Con2>{}
 		, con3 % ignore == Ignore<Con3>{}

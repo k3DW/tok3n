@@ -102,6 +102,8 @@ void transform_anything()
 		, int1 % fn<sink_func> == Transform<Int1, sink_func>{}
 		, int2 % fn<sink_func> == Transform<Int2, sink_func>{}
 		, int3 % fn<sink_func> == Transform<Int3, sink_func>{}
+		, api1 % fn<sink_func> == Transform<Api1, sink_func>{}
+		, api2 % fn<sink_func> == Transform<Api2, sink_func>{}
 		, con1 % fn<sink_func> == Transform<Con1, sink_func>{}
 		, con2 % fn<sink_func> == Transform<Con2, sink_func>{}
 		, con3 % fn<sink_func> == Transform<Con3, sink_func>{}

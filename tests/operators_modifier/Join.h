@@ -120,6 +120,8 @@ void join_anything()
 		, not valid_for_join<int1>
 		, not valid_for_join<int2>
 		, not valid_for_join<int3>
+		, not valid_for_join<api1>
+		, not valid_for_join<api2>
 		, not valid_for_join<con1>
 		, not valid_for_join<con2>
 		, not valid_for_join<con3>
