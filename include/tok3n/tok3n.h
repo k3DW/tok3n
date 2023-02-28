@@ -21,6 +21,7 @@
 #include "tok3n/parsers/divergent/Join.h"
 #include "tok3n/parsers/divergent/Transform.h"
 #include "tok3n/parsers/divergent/Into.h"
+#include "tok3n/parsers/divergent/ApplyInto.h"
 #include "tok3n/parsers/divergent/Constant.h"
 #include "tok3n/parsers/divergent/Defaulted.h"
 #include "tok3n/parsers/divergent/Custom.h"

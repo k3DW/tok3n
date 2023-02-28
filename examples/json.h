@@ -60,7 +60,7 @@ struct number_t
 	std::optional<int64_t> exponent;
 };
 
-constexpr auto number = (integer >> ~fraction >> ~exponent) % into<number_t>;
+constexpr auto number = (integer >> ~fraction >> ~exponent) % apply_into<number_t>;
 static_assert(std::same_as<decltype(number)::result_type, number_t>);
 
 
@@ -139,7 +139,7 @@ struct JsonValueParser : Custom<JsonValueParser>
 
 consteval auto JsonObjectParser::get_parser()
 {
-	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ":"_ign >> JsonValueParser{}) % into<pair_t>;
+	constexpr auto pair = (ignore(whitespace) >> string >> ignore(whitespace) >> ":"_ign >> JsonValueParser{}) % apply_into<pair_t>;
 	constexpr auto object = delimit(pair, ","_lit) % into<object_t>;
 	constexpr auto the_parser = "{"_ign >> (object | (whitespace % defaulted<object_t>)) >> "}"_ign;
 	return the_parser;

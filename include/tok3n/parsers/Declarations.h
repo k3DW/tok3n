@@ -24,6 +24,7 @@ enum class ParserType
 	Join,
 	Delimit,
 	Into,
+	ApplyInto,
 	Constant,
 	Defaulted,
 	Complete,
@@ -89,6 +90,7 @@ template <class P> concept IsTransform  = IsParser<P, ParserType::Transform>;
 template <class P> concept IsJoin       = IsParser<P, ParserType::Join>;
 template <class P> concept IsDelimit    = IsParser<P, ParserType::Delimit>;
 template <class P> concept IsInto       = IsParser<P, ParserType::Into>;
+template <class P> concept IsApplyInto  = IsParser<P, ParserType::ApplyInto>;
 template <class P> concept IsConstant   = IsParser<P, ParserType::Constant>;
 template <class P> concept IsDefaulted  = IsParser<P, ParserType::Defaulted>;
 template <class P> concept IsComplete   = IsParser<P, ParserType::Complete>;
@@ -110,6 +112,7 @@ template <Parser P, auto function>    requires detail::Transform_able<P, functio
 template <Parser P>                   requires detail::Join_able<P>                struct Join;
 template <Parser P, Parser Delimiter> requires detail::Delimit_able<P, Delimiter>  struct Delimit;
 template <Parser P, class T>          requires detail::Into_able<P, T>             struct Into;
+template <Parser P, class T>          requires detail::ApplyInto_able<P, T>        struct ApplyInto;
 template <Parser P, auto value>                                                    struct Constant;
 template <Parser P, class T>          requires std::is_default_constructible_v<T>  struct Defaulted;
 template <Parser P>                                                                struct Complete;
@@ -132,6 +135,7 @@ template <Parser P, auto function>         constexpr ParserType parser_type_v<Tr
 template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                = ParserType::Join;
 template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>  = ParserType::Delimit;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
+template <Parser P, class T>               constexpr ParserType parser_type_v<ApplyInto<P, T>>        = ParserType::ApplyInto;
 template <Parser P, auto value>            constexpr ParserType parser_type_v<Constant<P, value>>     = ParserType::Constant;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Defaulted<P, T>>        = ParserType::Defaulted;
 template <Parser P>                        constexpr ParserType parser_type_v<Complete<P>>            = ParserType::Complete;

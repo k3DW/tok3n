@@ -60,11 +60,11 @@ concept Delimit_able = not std::same_as<typename P::result_type, void>;
 
 
 
-template <class Into, class T>     constexpr bool is_intoable_v                          = std::is_constructible_v<Into, T>;
-template <class Into, class... Ts> constexpr bool is_intoable_v<Into, std::tuple<Ts...>> = std::is_constructible_v<Into, Ts...>;
+template <class P, class T>
+concept Into_able = not void_result<P> && requires { T(std::declval<typename P::result_type>()); };
 
 template <class P, class T>
-concept Into_able = not void_result<P> && is_intoable_v<T, typename P::result_type>;
+concept ApplyInto_able = not void_result<P> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
 
 

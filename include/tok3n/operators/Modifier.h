@@ -102,6 +102,17 @@ struct into final
 };
 
 template <class T>
+struct apply_into final
+{
+	template <Parser P>
+	requires detail::ApplyInto_able<P, T>
+	consteval auto operator()(P) const
+	{
+		return ApplyInto<P, T>{};
+	}
+};
+
+template <class T>
 struct into_choice final
 {
 	template <Parser... Ps>
@@ -146,6 +157,7 @@ template <>              constexpr bool is_modifier_v<detail::modifiers::complet
 template <>              constexpr bool is_modifier_v<detail::modifiers::join> = true;
 template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>> = true;
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>> = true;
+template <class T>       constexpr bool is_modifier_v<detail::modifiers::apply_into<T>> = true;
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::into_choice<T>> = true;
 template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>> = true;
 template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>> = true;
@@ -160,6 +172,7 @@ template <std::size_t N> constexpr auto exactly     = detail::modifiers::exactly
                          constexpr auto join        = detail::modifiers::join{};
 template <auto function> constexpr auto fn          = detail::modifiers::fn<function>{};
 template <class T>       constexpr auto into        = detail::modifiers::into<T>{};
+template <class T>       constexpr auto apply_into  = detail::modifiers::apply_into<T>{};
 template <class T>       constexpr auto into_choice = detail::modifiers::into_choice<T>{};
 template <auto value>    constexpr auto constant    = detail::modifiers::constant<value>{};
 template <class T>       constexpr auto defaulted   = detail::modifiers::defaulted<T>{};

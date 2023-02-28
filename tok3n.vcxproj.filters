@@ -237,6 +237,9 @@
     <ClInclude Include="tests\operators_modifier\IntoChoice.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\divergent\ApplyInto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

@@ -37,7 +37,7 @@ namespace number_impl
 	constexpr auto decimal  = ~("."_ign >> +dgt % join);
 	constexpr auto exponent = ~("Ee"_one % ignore >> join(~"-"_lit >> +dgt));
 }
-constexpr auto number = into<number_t>(number_impl::integer >> number_impl::decimal >> number_impl::exponent);
+constexpr auto number = apply_into<number_t>(number_impl::integer >> number_impl::decimal >> number_impl::exponent);
 
 struct powterm_t
 {

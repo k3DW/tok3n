@@ -5,8 +5,8 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, class T>
-requires detail::Into_able<P, T>
-struct Into
+requires detail::ApplyInto_able<P, T>
+struct ApplyInto
 {
 	using result_type = T;
 
@@ -14,7 +14,7 @@ struct Into
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, result_type(std::move(*result)), result.remaining()};
+			return { success, std::make_from_tuple<result_type>(std::move(*result)), result.remaining()};
 		else
 			return { failure, input };
 	}

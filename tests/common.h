@@ -198,8 +198,10 @@ namespace samples::classes
 	class Class4
 	{
 	public:
-		explicit constexpr Class4(std::string_view sv1, std::string_view sv2)
-			: sv1(sv1), sv2(sv2) {}
+		explicit constexpr Class4(const std::tuple<std::string_view, std::string_view>& tup)
+		{
+			std::tie(sv1, sv2) = tup;
+		}
 
 		explicit constexpr operator Class2() const { return Class2{ sv1, sv2 }; }
 

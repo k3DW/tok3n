@@ -328,6 +328,7 @@
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
+    <ClInclude Include="include\tok3n\parsers\divergent\ApplyInto.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Constant.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Custom.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Defaulted.h" />
