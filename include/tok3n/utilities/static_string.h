@@ -14,13 +14,13 @@ TOK3N_BEGIN_NAMESPACE()
 template <std::size_t N>
 struct static_string
 {
-	std::array<char, N> data = {};
+	std::array<char, N + 1> data = {};
 
 	constexpr static_string() = default;
 
 	constexpr static_string(const char(&input)[N + 1]) noexcept
 	{
-		std::ranges::copy_n(input, N, data.begin());
+		std::ranges::copy_n(input, N + 1, data.begin());
 	}
 
 	constexpr static_string(char c) noexcept requires (N == 1)
@@ -40,8 +40,8 @@ struct static_string
 
 	constexpr auto begin() const { return data.begin(); }
 	constexpr auto begin()       { return data.begin(); }
-	constexpr auto end()   const { return data.end(); }
-	constexpr auto end()         { return data.end(); }
+	constexpr auto end()   const { return data.end() - 1; }
+	constexpr auto end()         { return data.end() - 1; }
 
 	consteval std::size_t size() const noexcept { return N; }
 };
