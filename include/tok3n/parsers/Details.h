@@ -63,8 +63,11 @@ concept Delimit_able = not std::same_as<typename P::result_type, void>;
 template <class P, class T>
 concept Into_able = not void_result<P> && requires { T(std::declval<typename P::result_type>()); };
 
+template <class T>
+concept StructuredBinding_able = (std::is_aggregate_v<T>) || (requires { std::tuple_size<T>{}; } && std::tuple_size_v<T> > 0);
+
 template <class P, class T>
-concept ApplyInto_able = not void_result<P> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
+concept ApplyInto_able = not void_result<P> && StructuredBinding_able<typename P::result_type> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
 
 

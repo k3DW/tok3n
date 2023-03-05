@@ -243,6 +243,9 @@
     <ClInclude Include="tests\parsers_divergent\ApplyInto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="tests\operators_modifier\ApplyInto.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">

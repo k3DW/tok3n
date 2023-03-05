@@ -355,6 +355,7 @@
     <ClInclude Include="include\tok3n\utilities\static_string.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="tests\common.h" />
+    <ClInclude Include="tests\operators_modifier\ApplyInto.h" />
     <ClInclude Include="tests\operators_modifier\Complete.h" />
     <ClInclude Include="tests\operators_modifier\Constant.h" />
     <ClInclude Include="tests\operators_modifier\Defaulted.h" />
