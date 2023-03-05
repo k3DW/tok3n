@@ -5,8 +5,8 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::IntoChoice)
 
 using namespace samples::all;
 
-template <class T, auto... args>
-constexpr bool valid_for_into_choice = traits::operators::valid_function_call<into_choice<T>, args...>;
+template <class T, Parser auto... args>
+concept valid_for_into_choice = traits::operators::valid_function_call<into_choice<T>, args...>;
 
 void prefix()
 {

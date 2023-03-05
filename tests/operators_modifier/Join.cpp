@@ -47,8 +47,8 @@ void idempotent()
 
 
 
-template <auto p>
-constexpr bool valid_for_join = traits::operators::valid_modulo<p, join>;
+template <Parser auto p>
+concept valid_for_join = traits::operators::valid_modulo<p, join>;
 
 void join_anything()
 {

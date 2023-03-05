@@ -35,8 +35,8 @@ void infix()
 
 
 
-template <auto p>
-constexpr bool valid_for_delimit = traits::operators::valid_modulo<p, delimit(comma)>;
+template <Parser auto p>
+concept valid_for_delimit = traits::operators::valid_modulo<p, delimit(comma)>;
 
 void delimit_anything()
 {

@@ -88,11 +88,11 @@ namespace traits::repeat
 namespace traits::operators
 {
 
-	template <auto lhs, auto rhs>
-	constexpr bool valid_modulo = requires { lhs % rhs; };
+	template <Parser auto parser, Modifier auto modifier>
+	concept valid_modulo = requires { { parser % modifier } -> Parser; };
 
-	template <auto F, auto... args>
-	constexpr bool valid_function_call = requires { F(args...); };
+	template <Modifier auto modifier, Parser auto... parsers>
+	concept valid_function_call = requires { { modifier(parsers...) } -> Parser; };
 
 }
 

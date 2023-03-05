@@ -27,8 +27,8 @@ void infix()
 
 
 
-template <auto p>
-constexpr bool valid_for_exactly = traits::operators::valid_modulo<p, exactly<2>>;
+template <Parser auto p>
+concept valid_for_exactly = traits::operators::valid_modulo<p, exactly<2>>;
 
 void exactly_anything()
 {

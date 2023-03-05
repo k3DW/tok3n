@@ -23,8 +23,8 @@ void infix()
 
 
 
-template <auto p>
-constexpr bool valid_for_into = traits::operators::valid_modulo<p, into<Sink>>;
+template <Parser auto p>
+concept valid_for_into = traits::operators::valid_modulo<p, into<Sink>>;
 
 void into_anything()
 {

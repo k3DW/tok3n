@@ -29,8 +29,8 @@ void infix()
 
 
 
-template <auto p>
-constexpr bool valid_for_transform = traits::operators::valid_modulo<p, fn<sink_func>>;
+template <Parser auto p>
+concept valid_for_transform = traits::operators::valid_modulo<p, fn<sink_func>>;
 
 void transform_anything()
 {
