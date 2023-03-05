@@ -1,4 +1,5 @@
-#include "tests/utility.h"
+#ifdef TOK3N_TESTING
+#include "pch.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Into)
 
@@ -108,3 +109,5 @@ void into_anything()
 }
 
 TOK3N_END_NAMESPACE_TESTS(modifier::Into)
+
+#endif

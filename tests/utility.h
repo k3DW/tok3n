@@ -214,8 +214,4 @@ namespace parser_equality_operator
 
 }
 
-
-
 TOK3N_END_NAMESPACE_TESTS()
-
-#include "tests/common.h"

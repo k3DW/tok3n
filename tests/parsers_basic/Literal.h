@@ -1,4 +1,5 @@
-#include "tests/utility.h"
+#ifdef TOK3N_TESTING
+#include "pch.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
 
@@ -43,3 +44,5 @@ void not_constructible_empty()
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::Literal)
+
+#endif

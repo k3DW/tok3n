@@ -1,5 +1,5 @@
-#include "tests/utility.h"
-#include <iostream>
+#ifdef TOK3N_TESTING
+#include "pch.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Constant)
 
@@ -56,3 +56,5 @@ void parse_Constant()
 }
 
 TOK3N_END_NAMESPACE_TESTS(divergent::Constant)
+
+#endif

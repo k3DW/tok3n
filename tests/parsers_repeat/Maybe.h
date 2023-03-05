@@ -1,4 +1,5 @@
-#include "tests/utility.h"
+#ifdef TOK3N_TESTING
+#include "pch.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Maybe)
 
@@ -66,3 +67,5 @@ void parse_Maybe_Sequence()
 }
 
 TOK3N_END_NAMESPACE_TESTS(repeat::Maybe)
+
+#endif

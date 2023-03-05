@@ -1,4 +1,5 @@
-#include "tests/utility.h"
+#ifdef TOK3N_TESTING
+#include "pch.h"
 
 TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Defaulted)
 
@@ -34,3 +35,5 @@ void parse_Join()
 }
 
 TOK3N_END_NAMESPACE_TESTS(divergent::Defaulted)
+
+#endif
