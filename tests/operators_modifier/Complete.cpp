@@ -138,4 +138,3 @@ void complete_anything()
 TOK3N_END_NAMESPACE_TESTS(modifier::Complete)
 
 #endif
-

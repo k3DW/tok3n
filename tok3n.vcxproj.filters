@@ -99,49 +99,7 @@
     <ClInclude Include="pch.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\parsers_basic\Literal.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_basic\NotChar.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_basic\OneChar.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_compound\Choice.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_compound\Sequence.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\OneOrMore.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\ZeroOrMore.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\Maybe.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Delimit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\parsers\divergent\Custom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Join.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Ignore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Custom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\combine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\divergent\Into.h">
@@ -165,85 +123,13 @@
     <ClInclude Include="include\tok3n\parsers\Details.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\operators_regular\Not.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_regular\Choice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="tests\common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_regular\Sequence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_repeat\Exactly.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_regular\Maybe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_regular\OneOrMore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_regular\ZeroOrMore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Delimit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Ignore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_adaptor\Complete.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Complete.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Exactly.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Join.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Into.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Into.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Constant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Constant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\Defaulted.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\Defaulted.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\Basic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tests\operators_regular\Basic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\IntoChoice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\parsers\divergent\ApplyInto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\parsers_divergent\ApplyInto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tests\operators_modifier\ApplyInto.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -254,8 +140,120 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="tests\run_all_tests.cpp">
+    <ClCompile Include="tests\parsers_basic\Literal.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\parsers_basic\NotChar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_basic\OneChar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_compound\Choice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_compound\Sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\OneOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\Maybe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_adaptor\Delimit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Join.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_adaptor\Ignore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Custom.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\combine.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\Not.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\Choice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\Sequence.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_repeat\Exactly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\Maybe.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\OneOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\ZeroOrMore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Delimit.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Ignore.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_adaptor\Complete.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Complete.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Exactly.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Join.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Transform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Into.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Into.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Constant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Constant.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\Defaulted.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\Defaulted.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_regular\Basic.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\IntoChoice.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\parsers_divergent\ApplyInto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tests\operators_modifier\ApplyInto.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    
   </ItemGroup>
 </Project>
