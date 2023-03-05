@@ -88,6 +88,9 @@ namespace traits::repeat
 namespace traits::operators
 {
 
+	template <Parser auto parser>
+	concept valid_bang = requires { { !parser } -> Parser; };
+
 	template <Parser auto parser, Modifier auto modifier>
 	concept valid_modulo = requires { { parser % modifier } -> Parser; };
 
