@@ -1,6 +1,6 @@
-#ifdef TOK3N_TESTING
 #include "pch.h"
 
+#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Exactly)
 
 using namespace samples::all;
@@ -78,5 +78,4 @@ void parse_Exactly_Sequence()
 }
 
 TOK3N_END_NAMESPACE_TESTS(repeat::Exactly)
-
 #endif

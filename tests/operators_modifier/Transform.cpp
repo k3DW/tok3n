@@ -1,6 +1,6 @@
-#ifdef TOK3N_TESTING
 #include "pch.h"
 
+#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Transform)
 
 using namespace samples::all;
@@ -115,5 +115,4 @@ void transform_anything()
 }
 
 TOK3N_END_NAMESPACE_TESTS(modifier::Transform)
-
 #endif

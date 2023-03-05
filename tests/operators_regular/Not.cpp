@@ -1,6 +1,6 @@
-#ifdef TOK3N_TESTING
 #include "pch.h"
 
+#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(regular::Not)
 
 using namespace samples::basic;
@@ -30,5 +30,4 @@ void not_NotChar()
 }
 
 TOK3N_END_NAMESPACE_TESTS(regular::Not)
-
 #endif

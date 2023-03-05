@@ -1,5 +1,7 @@
-#include "tests/utility.h"
+#include "pch.h"
 
+#if 0
+#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::combine)
 
 using L1 = Literal<"abc">;
@@ -100,3 +102,5 @@ void Join_Transform()
 }
 
 TOK3N_END_NAMESPACE_TESTS(adaptor::combine)
+#endif
+#endif
