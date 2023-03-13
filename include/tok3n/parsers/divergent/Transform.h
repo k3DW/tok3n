@@ -14,7 +14,7 @@ struct Transform
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::invoke(function, std::move(*result)), result.remaining()};
+			return { success, std::invoke(function, std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}
