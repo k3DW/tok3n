@@ -379,6 +379,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release-Test|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="tests\operators_modifier\ApplyInto.cpp" />
+    <ClCompile Include="tests\operators_modifier\ApplyTransform.cpp" />
     <ClCompile Include="tests\operators_modifier\Complete.cpp" />
     <ClCompile Include="tests\operators_modifier\Constant.cpp" />
     <ClCompile Include="tests\operators_modifier\Defaulted.cpp" />

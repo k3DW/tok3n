@@ -260,5 +260,8 @@
     <ClCompile Include="tests\parsers_divergent\ApplyTransform.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="tests\operators_modifier\ApplyTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
