@@ -398,6 +398,7 @@
     <ClCompile Include="tests\operators_regular\ZeroOrMore.cpp" />
     <ClCompile Include="tests\parsers_adaptor\Complete.cpp" />
     <ClCompile Include="tests\parsers_divergent\ApplyInto.cpp" />
+    <ClCompile Include="tests\parsers_divergent\ApplyTransform.cpp" />
     <ClCompile Include="tests\parsers_divergent\combine.cpp" />
     <ClCompile Include="tests\parsers_divergent\Constant.cpp" />
     <ClCompile Include="tests\parsers_divergent\Custom.cpp" />

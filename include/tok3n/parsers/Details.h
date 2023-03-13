@@ -64,13 +64,13 @@ template <class P, class T>
 concept Into_able = not void_result<P> && requires { T(std::declval<typename P::result_type>()); };
 
 template <class T>
-concept StructuredBinding_able = (std::is_aggregate_v<T>) || (requires { std::tuple_size<T>{}; } && std::tuple_size_v<T> > 0);
+concept HasTupleSize = requires { std::tuple_size<T>{}; } && (std::tuple_size_v<T> > 0);
 
 template <class P, class T>
-concept ApplyInto_able = not void_result<P> && StructuredBinding_able<typename P::result_type> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
+concept ApplyInto_able = HasTupleSize<typename P::result_type> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
 template <class P, auto function>
-concept ApplyTransform_able = StructuredBinding_able<typename P::result_type> && requires { std::apply(function, std::declval<typename P::result_type>()); };
+concept ApplyTransform_able = HasTupleSize<typename P::result_type> && requires { std::apply(function, std::declval<typename P::result_type>()); };
 
 template <class P, auto function>
 requires ApplyTransform_able<P, function>

@@ -127,6 +127,14 @@ namespace samples::functions
 		}
 	} func3;
 
+	constexpr struct func3_apply_t
+	{
+		constexpr bool operator()(std::string_view, std::vector<std::string_view>&& vec) const
+		{
+			return vec.size() % 2 == 0;
+		}
+	} func3_apply;
+
 	struct func4
 	{
 		constexpr func4(int multiply_by)
@@ -137,6 +145,19 @@ namespace samples::functions
 		constexpr std::size_t operator()(const std::tuple<std::vector<std::string_view>, std::optional<std::string_view>>& tup) const
 		{
 			const auto& [vec, opt] = tup;
+			return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
+		}
+	};
+
+	struct func4_apply
+	{
+		constexpr func4_apply(int multiply_by)
+			: multiply_by(multiply_by) {}
+
+		int multiply_by;
+
+		constexpr std::size_t operator()(const std::vector<std::string_view>& vec, const std::optional<std::string_view>& opt) const
+		{
 			return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
 		}
 	};
@@ -320,6 +341,9 @@ namespace samples::all
 	using Tra2 = Transform<Sub2::_3, func2>;    constexpr Tra2 tra2;
 	using Tra3 = Transform<Sub2::_4, func3>;    constexpr Tra3 tra3;
 	using Tra4 = Transform<Sub2::_5, func4(3)>; constexpr Tra4 tra4;
+
+	using Apt1 = ApplyTransform<Sub2::_4, func3_apply>;    constexpr Apt1 apt1;
+	using Apt2 = ApplyTransform<Sub2::_5, func4_apply(3)>; constexpr Apt2 apt2;
 
 	using namespace classes;
 

@@ -132,6 +132,9 @@
     <ClInclude Include="tests\utility.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\divergent\ApplyTransform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -254,6 +257,8 @@
     <ClCompile Include="tests\operators_modifier\ApplyInto.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    
+    <ClCompile Include="tests\parsers_divergent\ApplyTransform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

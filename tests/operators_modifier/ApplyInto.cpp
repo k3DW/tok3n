@@ -104,7 +104,7 @@ void into_anything()
 		, not valid_for_apply_into<con3>
 		, not valid_for_apply_into<con4>
 		, not valid_for_apply_into<def1>
-		, def2 % apply_into<Sink> == ApplyInto<Def2, Sink>{}
+		, not valid_for_apply_into<def2>
 		;
 }
 
