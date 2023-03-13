@@ -118,6 +118,8 @@ void join_anything()
 		, not valid_for_join<tra2>
 		, not valid_for_join<tra3>
 		, not valid_for_join<tra4>
+		, not valid_for_join<apt1>
+		, not valid_for_join<apt2>
 		, not valid_for_join<int1>
 		, not valid_for_join<int2>
 		, not valid_for_join<int3>

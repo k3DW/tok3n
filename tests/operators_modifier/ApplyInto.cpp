@@ -94,6 +94,8 @@ void into_anything()
 		, not valid_for_apply_into<tra2>
 		, not valid_for_apply_into<tra3>
 		, not valid_for_apply_into<tra4>
+		, not valid_for_apply_into<apt1>
+		, not valid_for_apply_into<apt2>
 		, not valid_for_apply_into<int1>
 		, not valid_for_apply_into<int2>
 		, not valid_for_apply_into<int3>

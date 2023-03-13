@@ -104,6 +104,8 @@ void into_anything()
 		, into_choice<Sink>(tra2, sink_parser) == Choice<Into<Tra2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(tra3, sink_parser) == Choice<Into<Tra3, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(tra4, sink_parser) == Choice<Into<Tra4, Sink>, Into<SinkParser, Sink>>{}
+		, into_choice<Sink>(apt1, sink_parser) == Choice<Into<Apt1, Sink>, Into<SinkParser, Sink>>{}
+		, into_choice<Sink>(apt2, sink_parser) == Choice<Into<Apt2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(int1, sink_parser) == Choice<Into<Int1, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(int2, sink_parser) == Choice<Into<Int2, Sink>, Into<SinkParser, Sink>>{}
 		, into_choice<Sink>(int3, sink_parser) == Choice<Into<Int3, Sink>, Into<SinkParser, Sink>>{}

@@ -100,6 +100,8 @@ void transform_anything()
 		, tra2 % fn<sink_func> == Transform<Tra2, sink_func>{}
 		, tra3 % fn<sink_func> == Transform<Tra3, sink_func>{}
 		, tra4 % fn<sink_func> == Transform<Tra4, sink_func>{}
+		, apt1 % fn<sink_func> == Transform<Apt1, sink_func>{}
+		, apt2 % fn<sink_func> == Transform<Apt2, sink_func>{}
 		, int1 % fn<sink_func> == Transform<Int1, sink_func>{}
 		, int2 % fn<sink_func> == Transform<Int2, sink_func>{}
 		, int3 % fn<sink_func> == Transform<Int3, sink_func>{}

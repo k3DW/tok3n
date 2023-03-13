@@ -121,6 +121,8 @@ void complete_anything()
 		, tra2 % complete == Complete<Tra2>{}
 		, tra3 % complete == Complete<Tra3>{}
 		, tra4 % complete == Complete<Tra4>{}
+		, apt1 % complete == Complete<Apt1>{}
+		, apt2 % complete == Complete<Apt2>{}
 		, int1 % complete == Complete<Int1>{}
 		, int2 % complete == Complete<Int2>{}
 		, int3 % complete == Complete<Int3>{}

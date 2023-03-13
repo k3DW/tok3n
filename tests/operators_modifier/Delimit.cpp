@@ -106,6 +106,8 @@ void delimit_anything()
 		, tra2 % delimit(comma) == Delimit<Tra2, Comma>{}
 		, tra3 % delimit(comma) == Delimit<Tra3, Comma>{}
 		, tra4 % delimit(comma) == Delimit<Tra4, Comma>{}
+		, apt1 % delimit(comma) == Delimit<Apt1, Comma>{}
+		, apt2 % delimit(comma) == Delimit<Apt2, Comma>{}
 		, int1 % delimit(comma) == Delimit<Int1, Comma>{}
 		, int2 % delimit(comma) == Delimit<Int2, Comma>{}
 		, int3 % delimit(comma) == Delimit<Int3, Comma>{}

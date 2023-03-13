@@ -132,6 +132,8 @@ void Maybe_anything()
 		, ~tra2 == Maybe<Tra2>{}
 		, ~tra3 == Maybe<Tra3>{}
 		, ~tra4 == Maybe<Tra4>{}
+		, ~apt1 == Maybe<Apt1>{}
+		, ~apt2 == Maybe<Apt2>{}
 		, ~int1 == Maybe<Int1>{}
 		, ~int2 == Maybe<Int2>{}
 		, ~int3 == Maybe<Int3>{}

@@ -91,6 +91,8 @@ void defaulted_anything()
 		, tra2 % defaulted<bool> == Defaulted<Tra2, bool>{}
 		, tra3 % defaulted<bool> == Defaulted<Tra3, bool>{}
 		, tra4 % defaulted<bool> == Defaulted<Tra4, bool>{}
+		, apt1 % defaulted<bool> == Defaulted<Apt1, bool>{}
+		, apt2 % defaulted<bool> == Defaulted<Apt2, bool>{}
 		, int1 % defaulted<bool> == Defaulted<Int1, bool>{}
 		, int2 % defaulted<bool> == Defaulted<Int2, bool>{}
 		, int3 % defaulted<bool> == Defaulted<Int3, bool>{}

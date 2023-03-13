@@ -113,6 +113,8 @@ void ignore_anything()
 		, tra2 % ignore == Ignore<Tra2>{}
 		, tra3 % ignore == Ignore<Tra3>{}
 		, tra4 % ignore == Ignore<Tra4>{}
+		, apt1 % ignore == Ignore<Apt1>{}
+		, apt2 % ignore == Ignore<Apt2>{}
 		, int1 % ignore == Ignore<Int1>{}
 		, int2 % ignore == Ignore<Int2>{}
 		, int3 % ignore == Ignore<Int3>{}

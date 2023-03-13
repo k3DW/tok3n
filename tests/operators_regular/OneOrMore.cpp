@@ -132,6 +132,8 @@ void OneOrMore_anything()
 		, +tra2 == OneOrMore<Tra2>{}
 		, +tra3 == OneOrMore<Tra3>{}
 		, +tra4 == OneOrMore<Tra4>{}
+		, +apt1 == OneOrMore<Apt1>{}
+		, +apt2 == OneOrMore<Apt2>{}
 		, +int1 == OneOrMore<Int1>{}
 		, +int2 == OneOrMore<Int2>{}
 		, +int3 == OneOrMore<Int3>{}

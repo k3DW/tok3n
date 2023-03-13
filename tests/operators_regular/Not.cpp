@@ -102,6 +102,8 @@ void not_anything()
 		, not valid_not_operator<tra2>
 		, not valid_not_operator<tra3>
 		, not valid_not_operator<tra4>
+		, not valid_not_operator<apt1>
+		, not valid_not_operator<apt2>
 		, not valid_not_operator<int1>
 		, not valid_not_operator<int2>
 		, not valid_not_operator<int3>

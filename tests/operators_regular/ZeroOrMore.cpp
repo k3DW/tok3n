@@ -132,6 +132,8 @@ void ZeroOrMore_anything()
 		, *tra2 == ZeroOrMore<Tra2>{}
 		, *tra3 == ZeroOrMore<Tra3>{}
 		, *tra4 == ZeroOrMore<Tra4>{}
+		, *apt1 == ZeroOrMore<Apt1>{}
+		, *apt2 == ZeroOrMore<Apt2>{}
 		, *int1 == ZeroOrMore<Int1>{}
 		, *int2 == ZeroOrMore<Int2>{}
 		, *int3 == ZeroOrMore<Int3>{}

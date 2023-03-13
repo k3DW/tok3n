@@ -95,6 +95,8 @@ void constant_anything()
 		, tra2 % constant<0> == Constant<Tra2, 0>{}
 		, tra3 % constant<0> == Constant<Tra3, 0>{}
 		, tra4 % constant<0> == Constant<Tra4, 0>{}
+		, apt1 % constant<0> == Constant<Apt1, 0>{}
+		, apt2 % constant<0> == Constant<Apt2, 0>{}
 		, int1 % constant<0> == Constant<Int1, 0>{}
 		, int2 % constant<0> == Constant<Int2, 0>{}
 		, int3 % constant<0> == Constant<Int3, 0>{}
