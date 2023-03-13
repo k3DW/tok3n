@@ -344,6 +344,7 @@
     <ClInclude Include="include\tok3n\parsers\compound\Choice.h" />
     <ClInclude Include="include\tok3n\parsers\compound\Sequence.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\ApplyInto.h" />
+    <ClInclude Include="include\tok3n\parsers\divergent\ApplyTransform.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Constant.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Custom.h" />
     <ClInclude Include="include\tok3n\parsers\divergent\Defaulted.h" />

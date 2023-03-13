@@ -21,19 +21,18 @@ inline namespace number_impl
 			ret = (ret * 10) + (c - '0');
 		return ret;
 	};
-	constexpr auto give_sign = [](const std::tuple<std::optional<std::string_view>, int64_t>& tuple) -> int64_t
+	constexpr auto give_sign = [](const std::optional<std::string_view>& opt, const int64_t val) -> int64_t
 	{
-		auto& opt = std::get<0>(tuple);
 		if (opt.has_value())
 		{
 			if (*opt == "+")
-				return std::get<1>(tuple);
+				return val;
 			else if (*opt == "-")
-				return -std::get<1>(tuple);
+				return -val;
 			else throw;
 		}
 		else
-			return std::get<1>(tuple);
+			return val;
 	};
 
 	constexpr auto any_digits = +digit % join % fn<sv_to_int>;
@@ -42,13 +41,13 @@ inline namespace number_impl
 	constexpr auto natural_number = ("0"_lit | join("123456789"_one >> *digit)) % fn<sv_to_int>;
 	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
 
-	constexpr auto integer = (~"-"_lit >> natural_number) % fn<give_sign>;
+	constexpr auto integer = (~"-"_lit >> natural_number) % apply<give_sign>;
 	static_assert(std::same_as<decltype(integer)::result_type, int64_t>);
 		
 	constexpr auto fraction = "."_ign >> any_digits;
 	static_assert(std::same_as<decltype(fraction)::result_type, int64_t>);
 
-	constexpr auto exponent = (ignore("Ee"_one) >> ~"+-"_one >> any_digits) % fn<give_sign>;
+	constexpr auto exponent = (ignore("Ee"_one) >> ~"+-"_one >> any_digits) % apply<give_sign>;
 	static_assert(std::same_as<decltype(exponent)::result_type, int64_t>);
 
 }

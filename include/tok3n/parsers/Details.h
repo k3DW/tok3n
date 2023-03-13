@@ -69,6 +69,13 @@ concept StructuredBinding_able = (std::is_aggregate_v<T>) || (requires { std::tu
 template <class P, class T>
 concept ApplyInto_able = not void_result<P> && StructuredBinding_able<typename P::result_type> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
+template <class P, auto function>
+concept ApplyTransform_able = StructuredBinding_able<typename P::result_type> && requires { std::apply(function, std::declval<typename P::result_type>()); };
+
+template <class P, auto function>
+requires ApplyTransform_able<P, function>
+using ApplyTransform_result = decltype(std::apply(function, std::declval<typename P::result_type>()));
+
 
 
 TOK3N_END_NAMESPACE(detail)

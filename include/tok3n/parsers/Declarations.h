@@ -21,6 +21,7 @@ enum class ParserType
 	Exactly,
 	Ignore,
 	Transform,
+	ApplyTransform,
 	Join,
 	Delimit,
 	Into,
@@ -87,6 +88,7 @@ template <class P> concept IsMaybe      = IsParser<P, ParserType::Maybe>;
 template <class P> concept IsExactly    = IsParser<P, ParserType::Exactly>;
 template <class P> concept IsIgnore     = IsParser<P, ParserType::Ignore>;
 template <class P> concept IsTransform  = IsParser<P, ParserType::Transform>;
+template <class P> concept IsApplyTransform = IsParser<P, ParserType::ApplyTransform>;
 template <class P> concept IsJoin       = IsParser<P, ParserType::Join>;
 template <class P> concept IsDelimit    = IsParser<P, ParserType::Delimit>;
 template <class P> concept IsInto       = IsParser<P, ParserType::Into>;
@@ -109,6 +111,7 @@ template <Parser P>                   requires detail::Maybe_able<P>            
 template <Parser P, std::size_t N>    requires detail::Exactly_able<P, N>          struct Exactly;
 template <Parser P>                                                                struct Ignore;
 template <Parser P, auto function>    requires detail::Transform_able<P, function> struct Transform;
+template <Parser P, auto function>    requires detail::ApplyTransform_able<P, function> struct ApplyTransform;
 template <Parser P>                   requires detail::Join_able<P>                struct Join;
 template <Parser P, Parser Delimiter> requires detail::Delimit_able<P, Delimiter>  struct Delimit;
 template <Parser P, class T>          requires detail::Into_able<P, T>             struct Into;
@@ -132,6 +135,7 @@ template <Parser P>                        constexpr ParserType parser_type_v<Ma
 template <Parser P, std::size_t N>         constexpr ParserType parser_type_v<Exactly<P, N>>          = ParserType::Exactly;
 template <Parser P>                        constexpr ParserType parser_type_v<Ignore<P>>              = ParserType::Ignore;
 template <Parser P, auto function>         constexpr ParserType parser_type_v<Transform<P, function>> = ParserType::Transform;
+template <Parser P, auto function>         constexpr ParserType parser_type_v<ApplyTransform<P, function>> = ParserType::ApplyTransform;
 template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                = ParserType::Join;
 template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>  = ParserType::Delimit;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>             = ParserType::Into;
