@@ -120,7 +120,7 @@ template <Parser P, auto value>                                                 
 template <Parser P, class T>          requires std::is_default_constructible_v<T>       struct Defaulted;
 template <Parser P>                                                                     struct Complete;
 template <class CRTP>                                                                   struct Custom;
-struct CustomBase {};
+namespace detail { template <class P> concept IsDerivedFromCustom = std::is_base_of_v<Custom<P>, P>; }
 
 
 
@@ -143,7 +143,7 @@ template <Parser P, class T>               constexpr ParserType parser_type_v<Ap
 template <Parser P, auto value>            constexpr ParserType parser_type_v<Constant<P, value>>          = ParserType::Constant;
 template <Parser P, class T>               constexpr ParserType parser_type_v<Defaulted<P, T>>             = ParserType::Defaulted;
 template <Parser P>                        constexpr ParserType parser_type_v<Complete<P>>                 = ParserType::Complete;
-template <std::derived_from<CustomBase> P> constexpr ParserType parser_type_v<P>                           = ParserType::Custom;
+template <detail::IsDerivedFromCustom P>   constexpr ParserType parser_type_v<P>                           = ParserType::Custom;
 
 
 
