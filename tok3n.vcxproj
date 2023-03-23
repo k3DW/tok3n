@@ -360,6 +360,7 @@
     <ClInclude Include="include\tok3n\parsers\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
     <ClInclude Include="include\tok3n\types\Input.h" />
+    <ClInclude Include="include\tok3n\types\tags.h" />
     <ClInclude Include="include\tok3n\utilities\meta.h" />
     <ClInclude Include="include\tok3n\utilities\namespace.h" />
     <ClInclude Include="include\tok3n\utilities\static_string.h" />
