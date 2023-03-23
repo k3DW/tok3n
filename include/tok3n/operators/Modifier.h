@@ -1,11 +1,12 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
+#include "tok3n/types/ModifierBase.h"
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
 template <std::size_t N>
 requires (N != 0)
-struct exactly final
+struct exactly final : ModifierBase
 {
 	template <Parser P>
 	requires detail::Exactly_able<P, N>
@@ -15,7 +16,7 @@ struct exactly final
 	}
 };
 
-struct ignore final
+struct ignore final : ModifierBase
 {
 	template <Parser P>
 	consteval auto operator()(P) const
@@ -37,7 +38,7 @@ struct delimit final
 	}
 
 	template <Parser D>
-	struct inner final
+	struct inner final : ModifierBase
 	{
 		template <Parser P>
 		requires detail::Delimit_able<P, D>
@@ -54,7 +55,7 @@ struct delimit final
 	}
 };
 
-struct complete final
+struct complete final : ModifierBase
 {
 	template <Parser P>
 	consteval auto operator()(P) const
@@ -66,7 +67,7 @@ struct complete final
 	}
 };
 
-struct join final
+struct join final : ModifierBase
 {
 	template <Parser P>
 	requires detail::Join_able<P>
@@ -80,7 +81,7 @@ struct join final
 };
 
 template <auto function>
-struct fn final
+struct fn final : ModifierBase
 {
 	template <Parser P>
 	requires detail::Transform_able<P, function>
@@ -91,7 +92,7 @@ struct fn final
 };
 
 template <auto function>
-struct apply final
+struct apply final : ModifierBase
 {
 	template <Parser P>
 	requires detail::ApplyTransform_able<P, function>
@@ -102,7 +103,7 @@ struct apply final
 };
 
 template <class T>
-struct into final
+struct into final : ModifierBase
 {
 	template <Parser P>
 	requires detail::Into_able<P, T>
@@ -113,7 +114,7 @@ struct into final
 };
 
 template <class T>
-struct apply_into final
+struct apply_into final : ModifierBase
 {
 	template <Parser P>
 	requires detail::ApplyInto_able<P, T>
@@ -124,7 +125,7 @@ struct apply_into final
 };
 
 template <class T>
-struct into_choice final
+struct into_choice final : ModifierBase
 {
 	template <Parser... Ps>
 	requires (... && detail::Into_able<Ps, T>) && (detail::Choice_able<Into<Ps, T>...>)
@@ -135,7 +136,7 @@ struct into_choice final
 };
 
 template <auto value>
-struct constant final
+struct constant final : ModifierBase
 {
 	template <Parser P>
 	consteval auto operator()(P) const
@@ -146,7 +147,7 @@ struct constant final
 
 template <class T>
 requires std::is_default_constructible_v<T>
-struct defaulted final
+struct defaulted final : ModifierBase
 {
 	template <Parser P>
 	consteval auto operator()(P) const
@@ -160,19 +161,6 @@ TOK3N_END_NAMESPACE(detail::modifiers)
 
 
 TOK3N_BEGIN_NAMESPACE()
-
-template <std::size_t N> constexpr bool is_modifier_v<detail::modifiers::exactly<N>> = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::ignore> = true;
-template <Parser D>      constexpr bool is_modifier_v<detail::modifiers::delimit::inner<D>> = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::complete> = true;
-template <>              constexpr bool is_modifier_v<detail::modifiers::join> = true;
-template <auto function> constexpr bool is_modifier_v<detail::modifiers::fn<function>> = true;
-template <auto function> constexpr bool is_modifier_v<detail::modifiers::apply<function>> = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::into<T>> = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::apply_into<T>> = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::into_choice<T>> = true;
-template <auto value>    constexpr bool is_modifier_v<detail::modifiers::constant<value>> = true;
-template <class T>       constexpr bool is_modifier_v<detail::modifiers::defaulted<T>> = true;
 
 inline namespace operators
 {

@@ -330,6 +330,7 @@
     <ClInclude Include="include\tok3n\concepts\implicitly_default_constructible.h" />
     <ClInclude Include="include\tok3n\concepts\IsParser.h" />
     <ClInclude Include="include\tok3n\concepts\IsResult.h" />
+    <ClInclude Include="include\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\tok3n\concepts\Parser.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
@@ -361,6 +362,7 @@
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\Declarations.h" />
     <ClInclude Include="include\tok3n\parsers\Details.h" />
+    <ClInclude Include="include\tok3n\types\ModifierBase.h" />
     <ClInclude Include="include\tok3n\types\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
     <ClInclude Include="include\tok3n\types\Input.h" />
