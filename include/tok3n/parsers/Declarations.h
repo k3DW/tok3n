@@ -2,6 +2,7 @@
 #include "tok3n/utilities/meta.h"
 #include "tok3n/utilities/static_string.h"
 #include "tok3n/concepts/IsResult.h"
+#include "tok3n/concepts/implicitly_default_constructible.h"
 #include "tok3n/types/ParserType.h"
 #include "tok3n/parsers/Details.h"
 
@@ -15,7 +16,7 @@ concept Parser =
 	static_cast<int>(P::type) > static_cast<int>(ParserType::None) &&
 	static_cast<int>(P::type) < static_cast<int>(ParserType::END) &&
 	(std::is_empty_v<P>) &&
-	mp::implicitly_default_constructible<P> &&
+	implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{

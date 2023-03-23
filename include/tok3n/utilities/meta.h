@@ -147,9 +147,4 @@ namespace detail
 template <type_predicate Pred, class... Ts>
 using filtered_sequence = invoke_type<detail::filtered_sequence_impl, Pred, std::integral_constant<std::size_t, 0>, std::index_sequence<>, Ts*...>;
 
-
-
-template <class T>
-concept implicitly_default_constructible = requires (void(fn)(T)) { fn({}); };
-
 TOK3N_END_NAMESPACE(mp)
