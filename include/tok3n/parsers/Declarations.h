@@ -1,6 +1,7 @@
 #pragma once
 #include "tok3n/utilities/meta.h"
 #include "tok3n/utilities/static_string.h"
+#include "tok3n/concepts/IsResult.h"
 #include "tok3n/parsers/Details.h"
 
 TOK3N_BEGIN_NAMESPACE()
@@ -38,15 +39,6 @@ template <class P> constexpr ParserType parser_type_v<P&>      = parser_type_v<P
 template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P>;
 
 
-
-template <class T>
-requires (not std::is_reference_v<T>)
-class Result;
-
-template <class R, class T> constexpr bool is_result_v = false;
-template <class T>          constexpr bool is_result_v<Result<T>, T> = true;
-
-template <class R, class T> concept IsResult = is_result_v<R, T>;
 
 template <class P>
 concept Parser =

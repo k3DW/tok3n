@@ -327,6 +327,7 @@
   <ItemGroup>
     <ClInclude Include="examples\algebraic.h" />
     <ClInclude Include="examples\json.h" />
+    <ClInclude Include="include\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
