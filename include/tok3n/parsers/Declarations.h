@@ -62,28 +62,4 @@ template <class P> concept IsCustom         = IsParser<P, ParserType::Custom>;
 
 
 
-template <static_string str>          requires detail::SingleChar_able<str>             struct OneChar;
-template <static_string str>          requires detail::SingleChar_able<str>             struct NotChar;
-template <static_string str>          requires detail::Literal_able<str>                struct Literal;
-template <Parser... Ps>               requires detail::Choice_able<Ps...>               struct Choice;
-template <Parser... Ps>               requires detail::Sequence_able<Ps...>             struct Sequence;
-template <Parser P>                   requires detail::OneOrMore_able<P>                struct OneOrMore;
-template <Parser P>                   requires detail::ZeroOrMore_able<P>               struct ZeroOrMore;
-template <Parser P>                   requires detail::Maybe_able<P>                    struct Maybe;
-template <Parser P, std::size_t N>    requires detail::Exactly_able<P, N>               struct Exactly;
-template <Parser P>                                                                     struct Ignore;
-template <Parser P, auto function>    requires detail::Transform_able<P, function>      struct Transform;
-template <Parser P, auto function>    requires detail::ApplyTransform_able<P, function> struct ApplyTransform;
-template <Parser P>                   requires detail::Join_able<P>                     struct Join;
-template <Parser P, Parser Delimiter> requires detail::Delimit_able<P, Delimiter>       struct Delimit;
-template <Parser P, class T>          requires detail::Into_able<P, T>                  struct Into;
-template <Parser P, class T>          requires detail::ApplyInto_able<P, T>             struct ApplyInto;
-template <Parser P, auto value>                                                         struct Constant;
-template <Parser P, class T>          requires std::is_default_constructible_v<T>       struct Defaulted;
-template <Parser P>                                                                     struct Complete;
-template <class CRTP>                                                                   struct Custom;
-namespace detail { template <class P> concept IsDerivedFromCustom = std::is_base_of_v<Custom<P>, P>; }
-
-
-
 TOK3N_END_NAMESPACE()
