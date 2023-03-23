@@ -1,6 +1,7 @@
 #pragma once
 #include "tok3n/utilities/meta.h"
 #include "tok3n/utilities/static_string.h"
+#include "tok3n/types/Input.h"
 
 #include <array>
 #include <optional>
@@ -10,8 +11,6 @@
 TOK3N_BEGIN_NAMESPACE(detail)
 
 
-
-using Input = std::string_view;
 
 template <class P>
 concept void_result = std::same_as<typename P::result_type, void>;

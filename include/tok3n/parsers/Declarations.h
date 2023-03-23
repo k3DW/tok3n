@@ -39,8 +39,6 @@ template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P
 
 
 
-using Input = detail::Input;
-
 template <class T>
 requires (not std::is_reference_v<T>)
 class Result;

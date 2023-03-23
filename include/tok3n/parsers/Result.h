@@ -1,5 +1,5 @@
 #pragma once
-#include <string_view>
+#include <tok3n/types/Input.h>
 #include <optional>
 
 TOK3N_BEGIN_NAMESPACE()
