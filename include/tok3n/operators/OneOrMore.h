@@ -1,5 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
+#include <tok3n/parsers/repeat/Maybe.h>
+#include <tok3n/parsers/repeat/OneOrMore.h>
+#include <tok3n/parsers/repeat/ZeroOrMore.h>
 
 TOK3N_BEGIN_NAMESPACE()
 

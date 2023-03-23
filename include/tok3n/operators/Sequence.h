@@ -1,5 +1,6 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
+#include <tok3n/parsers/basic/Literal.h>
+#include <tok3n/parsers/compound/Sequence.h>
 
 TOK3N_BEGIN_NAMESPACE()
 

@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/types/ModifierBase.h"
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
+#include <tok3n/parsers.h>
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
