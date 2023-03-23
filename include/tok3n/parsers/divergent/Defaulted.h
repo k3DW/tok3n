@@ -1,6 +1,6 @@
 #pragma once
 #include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/types/Result.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
