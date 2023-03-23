@@ -1,6 +1,6 @@
 #pragma once
 #include "tok3n/utilities/meta.h"
-#include "tok3n/utilities/static_string.h"
+#include "tok3n/types/static_string.h"
 #include "tok3n/types/Input.h"
 
 #include <array>

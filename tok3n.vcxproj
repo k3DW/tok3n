@@ -370,7 +370,7 @@
     <ClInclude Include="include\tok3n\types\tags.h" />
     <ClInclude Include="include\tok3n\utilities\meta.h" />
     <ClInclude Include="include\tok3n\utilities\namespace.h" />
-    <ClInclude Include="include\tok3n\utilities\static_string.h" />
+    <ClInclude Include="include\tok3n\types\static_string.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="tests\common.h" />
     <ClInclude Include="tests\utility.h" />
