@@ -328,6 +328,7 @@
     <ClInclude Include="examples\algebraic.h" />
     <ClInclude Include="examples\json.h" />
     <ClInclude Include="include\tok3n\concepts\implicitly_default_constructible.h" />
+    <ClInclude Include="include\tok3n\concepts\IsParser.h" />
     <ClInclude Include="include\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\tok3n\concepts\Parser.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
