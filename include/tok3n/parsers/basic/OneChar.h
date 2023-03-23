@@ -10,6 +10,8 @@ struct OneChar
 {
 	using result_type = Input;
 
+	static constexpr ParserType type = ParserType::OneChar;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		if (input.empty() || not str.contains(input.front()))

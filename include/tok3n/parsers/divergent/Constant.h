@@ -9,6 +9,8 @@ struct Constant
 {
 	using result_type = decltype(value);
 
+	static constexpr ParserType type = ParserType::Constant;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		auto result = P::parse(input);

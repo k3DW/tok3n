@@ -11,7 +11,9 @@ TOK3N_BEGIN_NAMESPACE()
 
 template <class P>
 concept Parser =
-	(parser_type_v<P> != ParserType::None) &&
+	requires { typename std::integral_constant<ParserType, P::type>; } &&
+	static_cast<int>(P::type) > static_cast<int>(ParserType::None) &&
+	static_cast<int>(P::type) < static_cast<int>(ParserType::END) &&
 	(std::is_empty_v<P>) &&
 	mp::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
@@ -34,7 +36,7 @@ concept Modifier = is_modifier_v<M> && std::is_empty_v<M>;
 
 
 template <class P, ParserType type>
-concept IsParser = Parser<P> && parser_type_v<P> == type;
+concept IsParser = Parser<P> && P::type == type;
 
 template <class P> concept IsOneChar        = IsParser<P, ParserType::OneChar>;
 template <class P> concept IsNotChar        = IsParser<P, ParserType::NotChar>;
@@ -80,29 +82,6 @@ template <Parser P, class T>          requires std::is_default_constructible_v<T
 template <Parser P>                                                                     struct Complete;
 template <class CRTP>                                                                   struct Custom;
 namespace detail { template <class P> concept IsDerivedFromCustom = std::is_base_of_v<Custom<P>, P>; }
-
-
-
-template <static_string str>               constexpr ParserType parser_type_v<OneChar<str>>                = ParserType::OneChar;
-template <static_string str>               constexpr ParserType parser_type_v<NotChar<str>>                = ParserType::NotChar;
-template <static_string str>               constexpr ParserType parser_type_v<Literal<str>>                = ParserType::Literal;
-template <Parser... Ps>                    constexpr ParserType parser_type_v<Choice<Ps...>>               = ParserType::Choice;
-template <Parser... Ps>                    constexpr ParserType parser_type_v<Sequence<Ps...>>             = ParserType::Sequence;
-template <Parser P>                        constexpr ParserType parser_type_v<OneOrMore<P>>                = ParserType::OneOrMore;
-template <Parser P>                        constexpr ParserType parser_type_v<ZeroOrMore<P>>               = ParserType::ZeroOrMore;
-template <Parser P>                        constexpr ParserType parser_type_v<Maybe<P>>                    = ParserType::Maybe;
-template <Parser P, std::size_t N>         constexpr ParserType parser_type_v<Exactly<P, N>>               = ParserType::Exactly;
-template <Parser P>                        constexpr ParserType parser_type_v<Ignore<P>>                   = ParserType::Ignore;
-template <Parser P, auto function>         constexpr ParserType parser_type_v<Transform<P, function>>      = ParserType::Transform;
-template <Parser P, auto function>         constexpr ParserType parser_type_v<ApplyTransform<P, function>> = ParserType::ApplyTransform;
-template <Parser P>                        constexpr ParserType parser_type_v<Join<P>>                     = ParserType::Join;
-template <Parser P, Parser Delimiter>      constexpr ParserType parser_type_v<Delimit<P, Delimiter>>       = ParserType::Delimit;
-template <Parser P, class T>               constexpr ParserType parser_type_v<Into<P, T>>                  = ParserType::Into;
-template <Parser P, class T>               constexpr ParserType parser_type_v<ApplyInto<P, T>>             = ParserType::ApplyInto;
-template <Parser P, auto value>            constexpr ParserType parser_type_v<Constant<P, value>>          = ParserType::Constant;
-template <Parser P, class T>               constexpr ParserType parser_type_v<Defaulted<P, T>>             = ParserType::Defaulted;
-template <Parser P>                        constexpr ParserType parser_type_v<Complete<P>>                 = ParserType::Complete;
-template <detail::IsDerivedFromCustom P>   constexpr ParserType parser_type_v<P>                           = ParserType::Custom;
 
 
 

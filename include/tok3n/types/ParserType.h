@@ -26,11 +26,7 @@ enum class ParserType
 	Defaulted,
 	Complete,
 	Custom,
+	END
 };
-
-template <class P> constexpr ParserType parser_type_v          = ParserType::None;
-template <class P> constexpr ParserType parser_type_v<const P> = parser_type_v<P>;
-template <class P> constexpr ParserType parser_type_v<P&>      = parser_type_v<P>;
-template <class P> constexpr ParserType parser_type_v<P&&>     = parser_type_v<P>;
 
 TOK3N_END_NAMESPACE()

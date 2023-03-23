@@ -10,6 +10,8 @@ struct Literal
 {
 	using result_type = Input;
 
+	static constexpr ParserType type = ParserType::Literal;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		if (input.empty() || not input.starts_with(str.view()))

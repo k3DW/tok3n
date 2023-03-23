@@ -7,6 +7,8 @@ TOK3N_BEGIN_NAMESPACE()
 template <class CRTP>
 struct Custom
 {
+	static constexpr ParserType type = ParserType::Custom;
+
 	template <std::same_as<CRTP> P = CRTP>
 	static constexpr Result<typename P::result_type> parse(Input input)
 	{

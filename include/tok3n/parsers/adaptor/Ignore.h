@@ -9,6 +9,8 @@ struct Ignore
 {
 	using result_type = void;
 
+	static constexpr ParserType type = ParserType::Ignore;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		return P::lookahead(input);

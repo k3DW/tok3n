@@ -10,6 +10,8 @@ struct ZeroOrMore
 {
 	using result_type = std::vector<typename P::result_type>;
 
+	static constexpr ParserType type = ParserType::ZeroOrMore;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		const Input original_input = input;

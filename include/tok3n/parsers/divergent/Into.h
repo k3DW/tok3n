@@ -10,6 +10,8 @@ struct Into
 {
 	using result_type = T;
 
+	static constexpr ParserType type = ParserType::Into;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		auto result = P::parse(input);

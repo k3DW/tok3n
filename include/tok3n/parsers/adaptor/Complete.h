@@ -9,6 +9,8 @@ struct Complete
 {
 	using result_type = typename P::result_type;
 
+	static constexpr ParserType type = ParserType::Complete;
+
 	static constexpr Result<result_type> parse(Input input)
 	{
 		auto result = P::parse(input);
