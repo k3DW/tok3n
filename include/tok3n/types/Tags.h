@@ -1,5 +1,5 @@
 #pragma once
-#include <tok3n/utilities/namespace.h>
+#include <tok3n/namespace.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
