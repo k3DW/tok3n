@@ -5,7 +5,7 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <static_string str>
+template <StaticString str>
 requires detail::SingleChar_able<str>
 struct NotChar
 {

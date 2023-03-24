@@ -1,6 +1,6 @@
 #pragma once
 #include "tok3n/utilities/meta.h"
-#include "tok3n/types/static_string.h"
+#include "tok3n/types/StaticString.h"
 #include "tok3n/types/Input.h"
 
 #include <array>
@@ -17,8 +17,8 @@ concept void_result = std::same_as<typename P::result_type, void>;
 
 
 
-template <static_string str> concept Literal_able    = is_ascii(str) && str.size() != 0;
-template <static_string str> concept SingleChar_able = is_ascii(str) && str.size() != 0 && is_unique_and_sorted(str);
+template <StaticString str> concept Literal_able    = is_ascii(str) && str.size() != 0;
+template <StaticString str> concept SingleChar_able = is_ascii(str) && str.size() != 0 && is_unique_and_sorted(str);
 
 template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>;
 template <class... Ps> using   Choice_result = typename mp::head<Ps...>::result_type;
