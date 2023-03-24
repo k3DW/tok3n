@@ -2,7 +2,7 @@
 #include <tok3n/utilities/namespace.h>
 #include <tok3n/types/ParserType.h>
 #include <tok3n/types/Input.h>
-#include <tok3n/concepts/implicitly_default_constructible.h>
+#include <tok3n/concepts/ImplicitlyDefaultConstructible.h>
 #include <tok3n/concepts/IsResult.h>
 #include <type_traits>
 
@@ -14,7 +14,7 @@ concept Parser =
 	std::to_underlying(P::type) > std::to_underlying(ParserType::None) &&
 	std::to_underlying(P::type) < std::to_underlying(ParserType::END) &&
 	(std::is_empty_v<P>) &&
-	implicitly_default_constructible<P> &&
+	ImplicitlyDefaultConstructible<P> &&
 	requires { typename P::result_type; } &&
 	requires (Input input)
 	{
