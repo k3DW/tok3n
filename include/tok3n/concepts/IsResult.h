@@ -1,7 +1,7 @@
 #pragma once
 #include <tok3n/utilities/namespace.h>
 #include <tok3n/types/Input.h>
-#include <tok3n/types/tags.h>
+#include <tok3n/types/Tags.h>
 #include <concepts>
 
 TOK3N_BEGIN_NAMESPACE(detail)
@@ -21,8 +21,8 @@ namespace IsResult::Void
 	template <class R, class T>
 	concept Constructible =
 		std::constructible_from<R>                    and
-		std::constructible_from<R, failure_t, Input>  and
-		std::constructible_from<R, success_t, Input>;
+		std::constructible_from<R, FailureTag, Input>  and
+		std::constructible_from<R, SuccessTag, Input>;
 
 }
 
@@ -50,9 +50,9 @@ namespace IsResult::NonVoid
 	template <class R, class T>
 	concept Constructible =
 		std::constructible_from<R>                            and
-		std::constructible_from<R, failure_t, Input>          and
-		std::constructible_from<R, success_t, T&&, Input>     and
-		not std::constructible_from<R, success_t, T&, Input>;
+		std::constructible_from<R, FailureTag, Input>          and
+		std::constructible_from<R, SuccessTag, T&&, Input>     and
+		not std::constructible_from<R, SuccessTag, T&, Input>;
 
 }
 
