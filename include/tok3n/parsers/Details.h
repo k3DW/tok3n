@@ -17,8 +17,8 @@ concept void_result = std::same_as<typename P::result_type, void>;
 
 
 
-template <StaticString str> concept Literal_able    = is_ascii(str) && str.size() != 0;
-template <StaticString str> concept SingleChar_able = is_ascii(str) && str.size() != 0 && is_unique_and_sorted(str);
+template <StaticString str> concept Literal_able    = is_ascii(str);
+template <StaticString str> concept SingleChar_able = is_ascii(str) && is_unique_and_sorted(str);
 
 template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && meta::all_same<typename Ps::result_type...>;
 template <class... Ps> using   Choice_result = typename meta::head<Ps...>::result_type;

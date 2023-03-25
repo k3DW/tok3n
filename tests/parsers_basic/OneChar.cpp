@@ -80,7 +80,7 @@ void constructible_alphabetically_only()
 
 void not_constructible_empty()
 {
-	assert, not constructible::from<"">;
+	assert, constructible::from<"">;
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::OneChar)

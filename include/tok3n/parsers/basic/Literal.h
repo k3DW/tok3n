@@ -15,7 +15,7 @@ struct Literal
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		if (input.empty() || not input.starts_with(str.view()))
+		if (not input.starts_with(str.view()))
 			return { failure, input };
 		else
 		{
@@ -26,7 +26,7 @@ struct Literal
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		if (input.empty() || not input.starts_with(str.view()))
+		if (not input.starts_with(str.view()))
 			return { failure, input };
 		else
 		{
