@@ -219,6 +219,9 @@
     <ClInclude Include="include\tok3n\modifiers\fn.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="include\tok3n\modifiers\apply.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
