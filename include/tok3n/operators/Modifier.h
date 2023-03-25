@@ -3,18 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
-struct complete final : ModifierBase
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (IsComplete<P>)
-			return P{};
-		else
-			return Complete<P>{};
-	}
-};
-
 struct join final : ModifierBase
 {
 	template <Parser P>
@@ -113,10 +101,10 @@ TOK3N_BEGIN_NAMESPACE()
 inline namespace operators
 {
 
+                         constexpr auto complete    = modifiers::complete{};
                          constexpr auto delimit     = modifiers::delimit{};
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
                          constexpr auto ignore      = modifiers::ignore{};
-                         constexpr auto complete    = detail::modifiers::complete{};
                          constexpr auto join        = detail::modifiers::join{};
 template <auto function> constexpr auto fn          = detail::modifiers::fn<function>{};
 template <auto function> constexpr auto apply       = detail::modifiers::apply<function>{};
