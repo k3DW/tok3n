@@ -27,8 +27,8 @@ void NotChar_and_NotChar()
 		, (nc1 | nc3) == (nc3 | nc1)
 		, (nc2 | nc3) == (nc3 | nc2)
 		, (nc1 | nc2) == NotChar<"bc">{}
-		, (nc1 | nc3) == OneChar<every_char>{}
-		, (nc2 | nc3) == OneChar<every_char>{}
+		, (nc1 | nc3) == NotChar<"">{}
+		, (nc2 | nc3) == NotChar<"">{}
 		, (nc1 | nc1) == nc1
 		, (nc2 | nc2) == nc2
 		, (nc3 | nc3) == nc3
@@ -47,15 +47,15 @@ void OneChar_and_NotChar()
 		, (oc3 | nc1) == (nc1 | oc3)
 		, (oc3 | nc2) == (nc2 | oc3)
 		, (oc3 | nc3) == (nc3 | oc3)
-		, (oc1 | nc1) == OneChar<every_char>{}
+		, (oc1 | nc1) == NotChar<"">{}
 		, (oc1 | nc2) == NotChar<"d">{}
 		, (oc1 | nc3) == NotChar<"xyz">{}
 		, (oc2 | nc1) == NotChar<"a">{}
-		, (oc2 | nc2) == OneChar<every_char>{}
+		, (oc2 | nc2) == NotChar<"">{}
 		, (oc2 | nc3) == NotChar<"xyz">{}
 		, (oc3 | nc1) == NotChar<"abc">{}
 		, (oc3 | nc2) == NotChar<"bcd">{}
-		, (oc3 | nc3) == OneChar<every_char>{}
+		, (oc3 | nc3) == NotChar<"">{}
 		;
 }
 
