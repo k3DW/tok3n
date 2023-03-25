@@ -3,33 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
-struct delimit final
-{
-	template <Parser P, Parser D>
-	requires detail::Delimit_able<P, D>
-	consteval auto operator()(P, D) const
-	{
-		return Delimit<P, D>{};
-	}
-
-	template <Parser D>
-	struct inner final : ModifierBase
-	{
-		template <Parser P>
-		requires detail::Delimit_able<P, D>
-		consteval auto operator()(P) const
-		{
-			return Delimit<P, D>{};
-		}
-	};
-
-	template <Parser D>
-	consteval auto operator()(D) const
-	{
-		return inner<D>{};
-	}
-};
-
 struct complete final : ModifierBase
 {
 	template <Parser P>
@@ -140,9 +113,9 @@ TOK3N_BEGIN_NAMESPACE()
 inline namespace operators
 {
 
+                         constexpr auto delimit     = modifiers::delimit{};
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
                          constexpr auto ignore      = modifiers::ignore{};
-                         constexpr auto delimit     = detail::modifiers::delimit{};
                          constexpr auto complete    = detail::modifiers::complete{};
                          constexpr auto join        = detail::modifiers::join{};
 template <auto function> constexpr auto fn          = detail::modifiers::fn<function>{};
