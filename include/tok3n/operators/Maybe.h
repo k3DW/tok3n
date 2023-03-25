@@ -3,40 +3,29 @@
 #include <tok3n/parsers/repeat/OneOrMore.h>
 #include <tok3n/parsers/repeat/ZeroOrMore.h>
 
-TOK3N_BEGIN_NAMESPACE()
+TOK3N_BEGIN_NAMESPACE(detail::operators)
 
-// Maybe
-namespace detail::zeroorone
-{
+template <Parser P>
+consteval auto maybe(Maybe<P>) { return Maybe<P>{}; } // ~(~P) == ~P
 
-	template <Parser P>
-	consteval auto zeroorone_oneormore(OneOrMore<P>)
-	{
-		return ZeroOrMore<P>{};
-	}
+template <Parser P>
+consteval auto maybe(OneOrMore<P>) { return ZeroOrMore<P>{}; } // ~(+P) == *P
 
-}
+template <Parser P>
+consteval auto maybe(ZeroOrMore<P>) { return ZeroOrMore<P>{}; } // ~(*P) == *P
 
-inline namespace operators
-{
+template <Parser P>
+consteval auto maybe(P) { return Maybe<P>{}; } // default
+
+TOK3N_END_NAMESPACE(detail::operators)
+
+TOK3N_BEGIN_NAMESPACE(inline operators)
 
 template <Parser P>
 requires detail::Maybe_able<P>
-constexpr auto operator~(P)
+consteval auto operator~(P)
 {
-	using namespace detail::zeroorone;
-
-	if constexpr (IsMaybe<P>)       // ~(~P) == ~P
-		return P{};
-	else if constexpr (IsOneOrMore<P>)  // ~(+P) == *P
-		return zeroorone_oneormore(P{});
-	else if constexpr (IsZeroOrMore<P>) // ~(*P) == *P
-		return P{};
-
-	else
-		return Maybe<P>{};
+	return detail::operators::maybe(P{});
 }
 
-}
-
-TOK3N_END_NAMESPACE()
+TOK3N_END_NAMESPACE(inline operators)
