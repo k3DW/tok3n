@@ -333,6 +333,17 @@
     <ClInclude Include="include\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\tok3n\concepts\Parser.h" />
+    <ClInclude Include="include\tok3n\meta.h" />
+    <ClInclude Include="include\tok3n\meta\all_same.h" />
+    <ClInclude Include="include\tok3n\meta\filter.h" />
+    <ClInclude Include="include\tok3n\meta\filtered_sequence.h" />
+    <ClInclude Include="include\tok3n\meta\head.h" />
+    <ClInclude Include="include\tok3n\meta\invoke_type.h" />
+    <ClInclude Include="include\tok3n\meta\is_not_type.h" />
+    <ClInclude Include="include\tok3n\meta\list_cast.h" />
+    <ClInclude Include="include\tok3n\meta\type_list.h" />
+    <ClInclude Include="include\tok3n\meta\type_predicate.h" />
+    <ClInclude Include="include\tok3n\meta\unwrap_if_single.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
@@ -370,7 +381,6 @@
     <ClInclude Include="include\tok3n\types\Input.h" />
     <ClInclude Include="include\tok3n\types\ParserType.h" />
     <ClInclude Include="include\tok3n\types\Tags.h" />
-    <ClInclude Include="include\tok3n\utilities\meta.h" />
     <ClInclude Include="include\tok3n\namespace.h" />
     <ClInclude Include="include\tok3n\types\StaticString.h" />
     <ClInclude Include="pch.h" />

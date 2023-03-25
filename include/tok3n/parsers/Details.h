@@ -1,7 +1,7 @@
 #pragma once
-#include "tok3n/utilities/meta.h"
 #include "tok3n/types/StaticString.h"
 #include "tok3n/types/Input.h"
+#include "tok3n/meta.h"
 
 #include <array>
 #include <optional>
@@ -20,11 +20,11 @@ concept void_result = std::same_as<typename P::result_type, void>;
 template <StaticString str> concept Literal_able    = is_ascii(str) && str.size() != 0;
 template <StaticString str> concept SingleChar_able = is_ascii(str) && str.size() != 0 && is_unique_and_sorted(str);
 
-template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && mp::all_same<typename Ps::result_type...>;
-template <class... Ps> using   Choice_result = typename mp::head<Ps...>::result_type;
+template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && meta::all_same<typename Ps::result_type...>;
+template <class... Ps> using   Choice_result = typename meta::head<Ps...>::result_type;
 
 template <class... Ps> concept Sequence_able         = sizeof...(Ps) >= 2;
-template <class... Ps> using   Sequence_result_trait = mp::unwrap_if_single<mp::filter<mp::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
+template <class... Ps> using   Sequence_result_trait = meta::unwrap_if_single<meta::filter<meta::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
 template <class P> concept OneOrMore_able  = not void_result<P>;
 template <class P> concept ZeroOrMore_able = not void_result<P>;
