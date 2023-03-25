@@ -333,6 +333,7 @@
     <ClInclude Include="include\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\tok3n\concepts\Parser.h" />
+    <ClInclude Include="include\tok3n\meta\invoke_type.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
