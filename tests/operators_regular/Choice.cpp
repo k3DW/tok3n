@@ -117,7 +117,7 @@ void void_result()
 
 	assert
 		, void_choice == Choice<Ign1, Ign2>{}
-		, result_of<decltype(void_choice)>.is<void>
+		, ParserResultOf(void_choice).is<void>
 		, parse(void_choice, "abcabcabcdabcd").success("abcabcdabcd")
 		;
 }

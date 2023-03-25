@@ -10,11 +10,11 @@ void requirements()
 	assert
 		, is_parser<Apt1>
 		, parser_type_of<Apt1>.is_ApplyTransform
-		, result_of<Apt1>.is<bool>
+		, ParserResultOf<Apt1>::is<bool>
 
 		, is_parser<Apt2>
 		, parser_type_of<Apt2>.is_ApplyTransform
-		, result_of<Apt2>.is<std::size_t>
+		, ParserResultOf<Apt2>::is<std::size_t>
 		;
 }
 

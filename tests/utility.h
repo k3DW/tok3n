@@ -95,18 +95,6 @@ struct parser_type_of_t
 template <class T>
 static constexpr parser_type_of_t<T> parser_type_of{};
 
-template <class P>
-struct result_of_t
-{
-	static_assert(requires { typename P::result_type; }, R"(Type used in "result_of" has no type "result_type")");
-
-	template <class R>
-	static constexpr bool is = std::same_as<typename P::result_type, R>;
-};
-
-template <class T>
-static constexpr result_of_t<T> result_of{};
-
 
 
 template <Parser P>
@@ -115,7 +103,7 @@ struct parse_t
 	consteval parse_t(Input input) : input(input) {}
 	Input input;
 
-	static constexpr bool is_result_void = result_of<P>.is<void>;
+	static constexpr bool is_result_void = ParserResultOf<P>::template is<void>;
 	using value_type = std::conditional_t<is_result_void, std::monostate, typename P::result_type>;
 	// We need this `value_type` indirection, otherwise the first `success()` overload causes compile errors when `result_type` is `void`.
 

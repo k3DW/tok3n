@@ -16,19 +16,19 @@ void requirements()
 	assert
 		, is_parser<TwoWay1>
 		, parser_type_of<TwoWay1>.is_Choice
-		, result_of<TwoWay1>.is<std::string_view>
+		, ParserResultOf<TwoWay1>::is<std::string_view>
 
 		, is_parser<TwoWay2>
 		, parser_type_of<TwoWay2>.is_Choice
-		, result_of<TwoWay2>.is<std::string_view>
+		, ParserResultOf<TwoWay2>::is<std::string_view>
 
 		, is_parser<ThreeWay1>
 		, parser_type_of<ThreeWay1>.is_Choice
-		, result_of<ThreeWay1>.is<std::string_view>
+		, ParserResultOf<ThreeWay1>::is<std::string_view>
 
 		, is_parser<ThreeWay2>
 		, parser_type_of<ThreeWay2>.is_Choice
-		, result_of<ThreeWay2>.is<std::string_view>
+		, ParserResultOf<ThreeWay2>::is<std::string_view>
 		;
 }
 
