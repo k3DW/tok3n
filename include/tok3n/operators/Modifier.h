@@ -3,19 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
-struct join final : ModifierBase
-{
-	template <Parser P>
-	requires detail::Join_able<P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (std::same_as<Input, typename P::result_type>)
-			return P{};
-		else
-			return Join<P>{};
-	}
-};
-
 template <auto function>
 struct fn final : ModifierBase
 {
@@ -105,7 +92,7 @@ inline namespace operators
                          constexpr auto delimit     = modifiers::delimit{};
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
                          constexpr auto ignore      = modifiers::ignore{};
-                         constexpr auto join        = detail::modifiers::join{};
+                         constexpr auto join        = modifiers::join{};
 template <auto function> constexpr auto fn          = detail::modifiers::fn<function>{};
 template <auto function> constexpr auto apply       = detail::modifiers::apply<function>{};
 template <class T>       constexpr auto into        = detail::modifiers::into<T>{};
