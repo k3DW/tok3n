@@ -38,9 +38,13 @@ void constructible_from_ascii_only()
 		;
 }
 
-void not_constructible_empty()
+void parse_empty()
 {
-	assert, not constructible::from<"">;
+	assert
+		, constructible::from<"">
+		, parse<Literal<"">>("anything").success("", "anything")
+		, parse<Literal<"">>("").success("", "")
+		;
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::Literal)

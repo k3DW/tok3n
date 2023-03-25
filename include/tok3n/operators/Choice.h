@@ -43,7 +43,7 @@ namespace detail::Choice_operator
 			}();
 			
 			if constexpr (count == 0)
-				return OneChar<every_char>{};
+				return NotChar<"">{};
 
 			else
 			{
@@ -63,7 +63,7 @@ namespace detail::Choice_operator
 	consteval auto OneChar_and_NotChar(OneChar<lhs>, NotChar<rhs>)
 	{
 		if constexpr (lhs == rhs)
-			return OneChar<every_char>{};
+			return NotChar<"">{};
 
 		else
 		{

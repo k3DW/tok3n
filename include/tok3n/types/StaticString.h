@@ -92,14 +92,4 @@ constexpr StaticString<M + N> operator+(const StaticString<M>& lhs, const Static
 	return str;
 }
 
-
-
-constexpr StaticString every_char = []() consteval -> StaticString<128>
-{
-	StaticString<128> str;
-	for (std::size_t c = 0; c < 128; c++)
-		str.data[c] = static_cast<char>(c);
-	return str;
-}();
-
 TOK3N_END_NAMESPACE()
