@@ -3,7 +3,7 @@
 
 TOK3N_BEGIN_NAMESPACE(meta)
 
-namespace impl
+namespace detail
 {
 
 	constexpr auto filtered_sequence =
@@ -31,6 +31,6 @@ namespace impl
 }
 
 template <type_predicate Pred, class... Ts>
-using filtered_sequence = invoke_type<impl::filtered_sequence, Pred, std::integral_constant<std::size_t, 0>, std::index_sequence<>, std::type_identity<Ts>...>;
+using filtered_sequence = invoke_type<detail::filtered_sequence, Pred, std::integral_constant<std::size_t, 0>, std::index_sequence<>, std::type_identity<Ts>...>;
 
 TOK3N_END_NAMESPACE(meta)

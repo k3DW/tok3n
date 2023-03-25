@@ -8,7 +8,7 @@
 
 TOK3N_BEGIN_NAMESPACE(meta)
 
-namespace impl
+namespace detail
 {
 
 	constexpr auto filter =
@@ -36,6 +36,6 @@ namespace impl
 }
 
 template <type_predicate Pred, template <class...> class List, class... Ts>
-using filter = list_cast<List, invoke_type<impl::filter, Pred, type_list<>, std::type_identity<Ts>...>>;
+using filter = list_cast<List, invoke_type<detail::filter, Pred, type_list<>, std::type_identity<Ts>...>>;
 
 TOK3N_END_NAMESPACE(meta)

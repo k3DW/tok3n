@@ -4,7 +4,7 @@
 
 TOK3N_BEGIN_NAMESPACE(meta)
 
-namespace impl
+namespace detail
 {
 
 	template <template <class...> class List>
@@ -19,7 +19,7 @@ namespace impl
 }
 
 template <template <class...> class List, class type_list_Ts>
-using list_cast = invoke_type<impl::list_cast<List>, type_list_Ts>;
+using list_cast = invoke_type<detail::list_cast<List>, type_list_Ts>;
 
 static_assert(std::same_as<
 	list_cast<std::tuple, type_list<std::type_identity<int>, std::type_identity<double>, std::type_identity<char>>>,

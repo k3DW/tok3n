@@ -3,7 +3,7 @@
 
 TOK3N_BEGIN_NAMESPACE(meta)
 
-namespace impl
+namespace detail
 {
 
 	constexpr auto head =
@@ -17,6 +17,6 @@ namespace impl
 }
 
 template <class... Ts>
-using head = typename invoke_type<impl::head, std::type_identity<Ts>...>::type;
+using head = typename invoke_type<detail::head, std::type_identity<Ts>...>::type;
 
 TOK3N_END_NAMESPACE(meta)

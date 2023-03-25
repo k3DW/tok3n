@@ -11,7 +11,7 @@ struct unwrap_if_single_trait
 	using type = Type;
 };
 
-namespace impl
+namespace detail
 {
 
 	constexpr auto unwrap_if_single =
@@ -33,6 +33,6 @@ namespace impl
 }
 
 template <class List_Ts>
-using unwrap_if_single = invoke_type<impl::unwrap_if_single, List_Ts>;
+using unwrap_if_single = invoke_type<detail::unwrap_if_single, List_Ts>;
 
 TOK3N_END_NAMESPACE(meta)
