@@ -346,6 +346,7 @@
     <ClInclude Include="include\tok3n\meta\unwrap_if_single.h" />
     <ClInclude Include="include\tok3n\modifiers.h" />
     <ClInclude Include="include\tok3n\modifiers\apply.h" />
+    <ClInclude Include="include\tok3n\modifiers\apply_into.h" />
     <ClInclude Include="include\tok3n\modifiers\complete.h" />
     <ClInclude Include="include\tok3n\modifiers\delimit.h" />
     <ClInclude Include="include\tok3n\modifiers\exactly.h" />
