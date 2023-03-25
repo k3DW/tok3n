@@ -79,9 +79,13 @@ void constructible_alphabetically_only()
 		;
 }
 
-void not_constructible_empty()
+void parse_empty()
 {
-	assert, constructible::from<"">;
+	assert
+		, constructible::from<"">
+		, parse<NotChar<"">>("anything").success("a", "nything")
+		, parse<NotChar<"">>("").failure()
+		;
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::NotChar)
