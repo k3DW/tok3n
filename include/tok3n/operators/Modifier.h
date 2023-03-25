@@ -3,16 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
-template <auto value>
-struct constant final : ModifierBase
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		return Constant<P, value>{};
-	}
-};
-
 template <class T>
 requires std::is_default_constructible_v<T>
 struct defaulted final : ModifierBase
@@ -36,6 +26,7 @@ inline namespace operators
 template <auto function> constexpr auto apply       = modifiers::apply<function>{};
 template <class T>       constexpr auto apply_into  = modifiers::apply_into<T>{};
                          constexpr auto complete    = modifiers::complete{};
+template <auto value>    constexpr auto constant    = modifiers::constant<value>{};
                          constexpr auto delimit     = modifiers::delimit{};
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
 template <auto function> constexpr auto fn          = modifiers::fn<function>{};
@@ -43,7 +34,6 @@ template <auto function> constexpr auto fn          = modifiers::fn<function>{};
 template <class T>       constexpr auto into        = modifiers::into<T>{};
 template <class T>       constexpr auto into_choice = modifiers::into_choice<T>{};
                          constexpr auto join        = modifiers::join{};
-template <auto value>    constexpr auto constant    = detail::modifiers::constant<value>{};
 template <class T>       constexpr auto defaulted   = detail::modifiers::defaulted<T>{};
 
 consteval auto operator%(Parser auto p, Modifier auto modifier)
