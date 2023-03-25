@@ -4,6 +4,7 @@
 #include <tok3n/modifiers/apply_into.h>
 #include <tok3n/modifiers/complete.h>
 #include <tok3n/modifiers/constant.h>
+#include <tok3n/modifiers/defaulted.h>
 #include <tok3n/modifiers/delimit.h>
 #include <tok3n/modifiers/exactly.h>
 #include <tok3n/modifiers/fn.h>
