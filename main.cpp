@@ -1,4 +1,50 @@
 #include "pch.h"
+#include <cassert>
+
+struct CharWrapper
+{
+	constexpr CharWrapper(char chr) : chr(chr) {}
+
+	char chr;
+};
+
+template <auto value>
+concept True = true;
+
+template <CharWrapper wrapper>
+requires True<wrapper>
+struct Checker
+{
+	static constexpr bool check(char c)
+	{
+		return wrapper.chr == c;
+	}
+};
+
+int main()
+{
+	{
+		constexpr Checker<'a'> checker;
+
+		constexpr bool compile_time = checker.check('a');
+		bool run_time = checker.check('a');
+
+		assert(compile_time); // Passes
+		assert(run_time);     // Passes
+	}
+
+	[] {
+		constexpr Checker<'b'> checker;
+
+		constexpr bool compile_time = checker.check('b');
+		bool run_time = checker.check('b');
+
+		assert(compile_time); // Passes
+		assert(run_time);     // Fails!! This is wrong
+	}();
+}
+
+#if 0
 #include <iostream>
 #include "examples/json.h"
 #include "examples/algebraic.h"
@@ -54,3 +100,4 @@ int main()
 	auto result_ = test.parse("cbac");
 	auto result_2 = test.parse("abac");
 }
+#endif
