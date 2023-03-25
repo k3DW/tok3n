@@ -3,142 +3,117 @@
 #include <tok3n/parsers/basic/NotChar.h>
 #include <tok3n/parsers/compound/Choice.h>
 
-TOK3N_BEGIN_NAMESPACE()
+TOK3N_BEGIN_NAMESPACE(detail::operators)
 
-namespace detail::Choice_operator
+template <const auto& op, StaticString str1, StaticString str2>
+consteval auto merged_with()
 {
-
-	template <StaticString lhs, StaticString rhs>
-	consteval auto OneChar_and_OneChar(OneChar<lhs>, OneChar<rhs>)
+	constexpr auto size = []
 	{
-		constexpr std::size_t count = []() consteval -> std::size_t
-		{
-			std::string str;
-			std::ranges::set_union(rhs, lhs, std::back_inserter(str));
-			return str.size();
-		}();
+		std::string s;
+		s.reserve(str1.size() + str2.size());
+		op(str1, str2, std::back_inserter(s));
+		return s.size();
+	};
 
-		constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
-		{
-			StaticString<count> str;
-			std::ranges::set_union(rhs, lhs, str.begin());
-			return str;
-		}();
-
-		return OneChar<get_merged>{};
-	}
-
-	template <StaticString lhs, StaticString rhs>
-	consteval auto NotChar_and_NotChar(NotChar<lhs>, NotChar<rhs>)
-	{
-		if constexpr (lhs == rhs)
-			return NotChar<lhs>{};
-		else
-		{
-			constexpr std::size_t count = []() consteval -> std::size_t
-			{
-				std::string str;
-				std::ranges::set_intersection(rhs, lhs, std::back_inserter(str));
-				return str.size();
-			}();
-			
-			if constexpr (count == 0)
-				return NotChar<"">{};
-
-			else
-			{
-				constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
-				{
-					StaticString<count> str;
-					std::ranges::set_intersection(rhs, lhs, str.begin());
-					return str;
-				}();
-
-				return NotChar<get_merged>{};
-			}
-		}
-	}
-
-	template <StaticString lhs, StaticString rhs>
-	consteval auto OneChar_and_NotChar(OneChar<lhs>, NotChar<rhs>)
-	{
-		if constexpr (lhs == rhs)
-			return NotChar<"">{};
-
-		else
-		{
-
-			constexpr std::size_t count = []() consteval -> std::size_t
-			{
-				std::string str;
-				std::ranges::set_difference(rhs, lhs, std::back_inserter(str));
-				return str.size();
-			}();
-
-			constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
-			{
-				StaticString<count> str;
-				std::ranges::set_difference(rhs, lhs, str.begin());
-				return str;
-			}();
-
-			return NotChar<get_merged>{};
-
-		}
-	}
-
-	template <Parser... Ps, Parser... Qs>
-	consteval auto Choice_and_Choice(Choice<Ps...>, Choice<Qs...>)
-	{
-		return Choice<Ps..., Qs...>{};
-	}
-
-	template <Parser... Ps, Parser P>
-	consteval auto Choice_and_anything(Choice<Ps...>, P)
-	{
-		return Choice<Ps..., P>{};
-	}
-
-	template <Parser P, Parser... Ps>
-	consteval auto anything_and_Choice(P, Choice<Ps...>)
-	{
-		return Choice<P, Ps...>{};
-	}
-
+	StaticString<size()> str;
+	op(str1, str2, str.begin());
+	return str;
 }
 
-inline namespace operators
+template <StaticString str>
+consteval auto choice(OneChar<str>, OneChar<str>) // (P | P) == P
 {
+	return OneChar<str>{};
+}
+
+template <StaticString str>
+consteval auto choice(NotChar<str>, NotChar<str>) // (P | P) == P
+{
+	return NotChar<str>{};
+}
+
+template <StaticString str>
+consteval auto choice(OneChar<str>, NotChar<str>) // Every char
+{
+	return NotChar<"">{};
+}
+
+template <StaticString str>
+consteval auto choice(NotChar<str>, OneChar<str>) // Every char
+{
+	return NotChar<"">{};
+}
+
+template <StaticString lhs, StaticString rhs>
+consteval auto choice(OneChar<lhs>, OneChar<rhs>) //  "ab" |  "bc" == "abc"    <- set_union
+{
+	return OneChar<merged_with<std::ranges::set_union, lhs, rhs>()>{};
+}
+
+template <StaticString lhs, StaticString rhs>
+consteval auto choice(NotChar<lhs>, NotChar<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
+{
+	return NotChar<merged_with<std::ranges::set_intersection, lhs, rhs>()>{};
+}
+
+template <StaticString lhs, StaticString rhs>
+consteval auto choice(OneChar<lhs>, NotChar<rhs>) //  "ab" | !"bc" == "c"      <- set_difference
+{
+	return NotChar<merged_with<std::ranges::set_difference, rhs, lhs>()>{};
+}
+
+template <StaticString lhs, StaticString rhs>
+consteval auto choice(NotChar<lhs>, OneChar<rhs>) // !"ab" |  "bc" == "a"      <- set_difference
+{
+	return NotChar<merged_with<std::ranges::set_difference, lhs, rhs>()>{};
+}
+
+template <Parser... P1s, Parser... P2s>
+consteval auto choice(Choice<P1s...>, Choice<P2s...>) // (P1 | P2) | (P3 | P4) == (P1 | P2 | P3 | P4)
+{
+	return Choice<P1s..., P2s...>{};
+}
+
+template <Parser... Ps>
+consteval auto choice(Choice<Ps...>, Choice<Ps...>) // (P | P) == P
+{
+	return Choice<Ps...>{};
+}
+
+template <Parser... P1s, Parser P2>
+consteval auto choice(Choice<P1s...>, P2) // (P1 | P2) | P3 == (P1 | P2 | P3)
+{
+	return Choice<P1s..., P2>{};
+}
+
+template <Parser P1, Parser... P2s>
+consteval auto choice(P1, Choice<P2s...>) // P1 | (P2 | P3) == (P1 | P2 | P3)
+{
+	return Choice<P1, P2s...>{};
+}
+
+template <Parser P1, Parser P2>
+consteval auto choice(P1, P2) // default
+{
+	return Choice<P1, P2>{};
+}
+
+template <Parser P>
+consteval auto choice(P, P) // (P | P) == P
+{
+	return P{};
+}
+
+TOK3N_END_NAMESPACE(detail::operators)
+
+TOK3N_BEGIN_NAMESPACE(inline operators)
 
 template <Parser P1, Parser P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
-constexpr auto operator|(P1, P2)
+consteval auto operator|(P1, P2)
 {
-	using namespace detail::Choice_operator;
-
-	if constexpr (std::same_as<std::remove_cvref_t<P1>, std::remove_cvref_t<P2>>) // (P | P) == P
-		return P1{};
-
-	else if constexpr (IsOneChar<P1> && IsOneChar<P2>) //  "ab" |  "bc" == "abc"    <- set_union
-		return OneChar_and_OneChar(P1{}, P2{});
-	else if constexpr (IsNotChar<P1> && IsNotChar<P2>) // !"ab" | !"bc" == "b"      <- set_intersection
-		return NotChar_and_NotChar(P1{}, P2{});
-	else if constexpr (IsOneChar<P1> && IsNotChar<P2>) //  "ab" | !"bc" == "c"      <- set_difference
-		return OneChar_and_NotChar(P1{}, P2{});
-	else if constexpr (IsNotChar<P1> && IsOneChar<P2>) // !"ab" |  "bc" == "a"      <- set_difference
-		return OneChar_and_NotChar(P2{}, P1{});
-
-	else if constexpr (IsChoice<P1> && IsChoice<P2>) // (P1 | P2) | (P3 | P4) == (P1 | P2 | P3 | P4)
-		return Choice_and_Choice(P1{}, P2{});
-	else if constexpr (IsChoice<P1>)                 // (P1 | P2) | P3 == (P1 | P2 | P3)
-		return Choice_and_anything(P1{}, P2{});
-	else if constexpr (IsChoice<P2>)                 // P1 | (P2 | P3) == (P1 | P2 | P3)
-		return anything_and_Choice(P1{}, P2{});
-
-	else
-		return Choice<P1, P2>{};
+	return detail::operators::choice(P1{}, P2{});
 }
 
-}
-
-TOK3N_END_NAMESPACE()
+TOK3N_END_NAMESPACE(inline operators)
