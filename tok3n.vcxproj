@@ -334,6 +334,7 @@
     <ClInclude Include="include\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\tok3n\concepts\Parser.h" />
     <ClInclude Include="include\tok3n\meta\all_same.h" />
+    <ClInclude Include="include\tok3n\meta\filtered_sequence.h" />
     <ClInclude Include="include\tok3n\meta\head.h" />
     <ClInclude Include="include\tok3n\meta\invoke_type.h" />
     <ClInclude Include="include\tok3n\meta\is_not_type.h" />
