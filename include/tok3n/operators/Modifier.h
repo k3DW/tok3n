@@ -1,21 +1,7 @@
 #pragma once
-#include <tok3n/types.h>
-#include <tok3n/concepts.h>
-#include <tok3n/parsers.h>
+#include <tok3n/modifiers.h>
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
-
-template <std::size_t N>
-requires (N != 0)
-struct exactly final : ModifierBase
-{
-	template <Parser P>
-	requires detail::Exactly_able<P, N>
-	consteval auto operator()(P) const
-	{
-		return Exactly<P, N>{};
-	}
-};
 
 struct ignore final : ModifierBase
 {
@@ -166,7 +152,7 @@ TOK3N_BEGIN_NAMESPACE()
 inline namespace operators
 {
 
-template <std::size_t N> constexpr auto exactly     = detail::modifiers::exactly<N>{};
+template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
                          constexpr auto ignore      = detail::modifiers::ignore{};
                          constexpr auto delimit     = detail::modifiers::delimit{};
                          constexpr auto complete    = detail::modifiers::complete{};

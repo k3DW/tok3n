@@ -344,6 +344,8 @@
     <ClInclude Include="include\tok3n\meta\type_list.h" />
     <ClInclude Include="include\tok3n\meta\type_predicate.h" />
     <ClInclude Include="include\tok3n\meta\unwrap_if_single.h" />
+    <ClInclude Include="include\tok3n\modifiers.h" />
+    <ClInclude Include="include\tok3n\modifiers\exactly.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
