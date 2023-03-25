@@ -1,12 +1,13 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
+#include <tok3n/parsers/basic/Literal.h>
+#include <tok3n/parsers/compound/Sequence.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 namespace detail::Sequence_operator
 {
 
-	template <static_string lhs, static_string rhs>
+	template <StaticString lhs, StaticString rhs>
 	consteval auto Literal_and_Literal(Literal<lhs>, Literal<rhs>)
 	{
 		return Literal<lhs + rhs>{};

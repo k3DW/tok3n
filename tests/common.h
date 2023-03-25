@@ -36,7 +36,7 @@ namespace samples::basic
 namespace traits::basic
 {
 
-	template <template <static_string> class BasicParser>
+	template <template <StaticString> class BasicParser>
 	struct constructible
 	{
 		template <char c> static constexpr bool from_char = requires { typename BasicParser<c>; };
@@ -53,7 +53,7 @@ namespace traits::basic
 				return (... || from_char<(char)Is>);
 			}(Seq{});
 
-		template <static_string str> static constexpr bool from = requires { typename BasicParser<str>; };
+		template <StaticString str> static constexpr bool from = requires { typename BasicParser<str>; };
 	};
 
 }

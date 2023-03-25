@@ -327,6 +327,12 @@
   <ItemGroup>
     <ClInclude Include="examples\algebraic.h" />
     <ClInclude Include="examples\json.h" />
+    <ClInclude Include="include\tok3n\concepts.h" />
+    <ClInclude Include="include\tok3n\concepts\ImplicitlyDefaultConstructible.h" />
+    <ClInclude Include="include\tok3n\concepts\IsParser.h" />
+    <ClInclude Include="include\tok3n\concepts\IsResult.h" />
+    <ClInclude Include="include\tok3n\concepts\Modifier.h" />
+    <ClInclude Include="include\tok3n\concepts\Parser.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
@@ -335,6 +341,7 @@
     <ClInclude Include="include\tok3n\operators\OneOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Sequence.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />
+    <ClInclude Include="include\tok3n\parsers.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
@@ -355,13 +362,17 @@
     <ClInclude Include="include\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClInclude Include="include\tok3n\parsers\Declarations.h" />
     <ClInclude Include="include\tok3n\parsers\Details.h" />
-    <ClInclude Include="include\tok3n\parsers\Result.h" />
+    <ClInclude Include="include\tok3n\types.h" />
+    <ClInclude Include="include\tok3n\types\ModifierBase.h" />
+    <ClInclude Include="include\tok3n\types\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
+    <ClInclude Include="include\tok3n\types\Input.h" />
+    <ClInclude Include="include\tok3n\types\ParserType.h" />
+    <ClInclude Include="include\tok3n\types\Tags.h" />
     <ClInclude Include="include\tok3n\utilities\meta.h" />
-    <ClInclude Include="include\tok3n\utilities\namespace.h" />
-    <ClInclude Include="include\tok3n\utilities\static_string.h" />
+    <ClInclude Include="include\tok3n\namespace.h" />
+    <ClInclude Include="include\tok3n\types\StaticString.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="tests\common.h" />
     <ClInclude Include="tests\utility.h" />

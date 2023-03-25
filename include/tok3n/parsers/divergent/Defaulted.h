@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -9,6 +10,8 @@ requires std::is_default_constructible_v<T>
 struct Defaulted
 {
 	using result_type = T;
+
+	static constexpr ParserType type = ParserType::Defaulted;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

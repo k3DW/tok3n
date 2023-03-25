@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -9,6 +10,8 @@ requires detail::OneOrMore_able<P>
 struct OneOrMore
 {
 	using result_type = std::vector<typename P::result_type>;
+
+	static constexpr ParserType type = ParserType::OneOrMore;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

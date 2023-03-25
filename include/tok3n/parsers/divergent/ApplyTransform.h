@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -9,6 +10,8 @@ requires detail::ApplyTransform_able<P, function>
 struct ApplyTransform
 {
 	using result_type = detail::ApplyTransform_result<P, function>;
+
+	static constexpr ParserType type = ParserType::ApplyTransform;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

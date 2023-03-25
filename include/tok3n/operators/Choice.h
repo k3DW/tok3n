@@ -1,12 +1,14 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
+#include <tok3n/parsers/basic/OneChar.h>
+#include <tok3n/parsers/basic/NotChar.h>
+#include <tok3n/parsers/compound/Choice.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 namespace detail::Choice_operator
 {
 
-	template <static_string lhs, static_string rhs>
+	template <StaticString lhs, StaticString rhs>
 	consteval auto OneChar_and_OneChar(OneChar<lhs>, OneChar<rhs>)
 	{
 		constexpr std::size_t count = []() consteval -> std::size_t
@@ -16,9 +18,9 @@ namespace detail::Choice_operator
 			return str.size();
 		}();
 
-		constexpr static_string<count> get_merged = []() consteval -> static_string<count>
+		constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
 		{
-			static_string<count> str;
+			StaticString<count> str;
 			std::ranges::set_union(rhs, lhs, str.begin());
 			return str;
 		}();
@@ -26,7 +28,7 @@ namespace detail::Choice_operator
 		return OneChar<get_merged>{};
 	}
 
-	template <static_string lhs, static_string rhs>
+	template <StaticString lhs, StaticString rhs>
 	consteval auto NotChar_and_NotChar(NotChar<lhs>, NotChar<rhs>)
 	{
 		if constexpr (lhs == rhs)
@@ -45,9 +47,9 @@ namespace detail::Choice_operator
 
 			else
 			{
-				constexpr static_string<count> get_merged = []() consteval -> static_string<count>
+				constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
 				{
-					static_string<count> str;
+					StaticString<count> str;
 					std::ranges::set_intersection(rhs, lhs, str.begin());
 					return str;
 				}();
@@ -57,7 +59,7 @@ namespace detail::Choice_operator
 		}
 	}
 
-	template <static_string lhs, static_string rhs>
+	template <StaticString lhs, StaticString rhs>
 	consteval auto OneChar_and_NotChar(OneChar<lhs>, NotChar<rhs>)
 	{
 		if constexpr (lhs == rhs)
@@ -73,9 +75,9 @@ namespace detail::Choice_operator
 				return str.size();
 			}();
 
-			constexpr static_string<count> get_merged = []() consteval -> static_string<count>
+			constexpr StaticString<count> get_merged = []() consteval -> StaticString<count>
 			{
-				static_string<count> str;
+				StaticString<count> str;
 				std::ranges::set_difference(rhs, lhs, str.begin());
 				return str;
 			}();

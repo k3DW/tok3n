@@ -1,12 +1,15 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <class CRTP>
 struct Custom
 {
+	static constexpr ParserType type = ParserType::Custom;
+
 	template <std::same_as<CRTP> P = CRTP>
 	static constexpr Result<typename P::result_type> parse(Input input)
 	{

@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -59,6 +60,8 @@ requires detail::Sequence_able<Ps...>
 struct Sequence
 {
 	using _trait = detail::Sequence_result_trait<Ps...>;
+
+	static constexpr ParserType type = ParserType::Sequence;
 
 	using result_type                = _trait::type;
 	static constexpr bool _unwrapped = _trait::unwrapped;

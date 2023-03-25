@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -8,6 +9,8 @@ template <Parser P>
 struct Complete
 {
 	using result_type = typename P::result_type;
+
+	static constexpr ParserType type = ParserType::Complete;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

@@ -1,11 +1,9 @@
 #pragma once
-#include <string_view>
+#include <tok3n/types/Input.h>
+#include <tok3n/types/Tags.h>
 #include <optional>
 
 TOK3N_BEGIN_NAMESPACE()
-
-static constexpr struct failure_t final {} failure;
-static constexpr struct success_t final {} success;
 
 template <class T>
 requires (not std::is_reference_v<T>)
@@ -14,10 +12,10 @@ class Result
 public:
 	constexpr Result() = default;
 
-	constexpr Result(failure_t, Input remaining)
+	constexpr Result(FailureTag, Input remaining)
 		: mResult(), mRemaining(remaining) {}
 
-	constexpr Result(success_t, T&& t, Input remaining)
+	constexpr Result(SuccessTag, T&& t, Input remaining)
 		: mResult(std::move(t)), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
@@ -47,10 +45,10 @@ class Result<void>
 public:
 	constexpr Result() = default;
 
-	constexpr Result(failure_t, Input remaining)
+	constexpr Result(FailureTag, Input remaining)
 		: mSuccessful(false), mRemaining(remaining) {}
 
-	constexpr Result(success_t, Input remaining)
+	constexpr Result(SuccessTag, Input remaining)
 		: mSuccessful(true), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mSuccessful; }

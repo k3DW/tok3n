@@ -1,6 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Declarations.h"
-#include "tok3n/parsers/Result.h"
+#include "tok3n/parsers/Details.h"
+#include "tok3n/types.h"
+#include "tok3n/concepts.h"
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -9,6 +10,8 @@ requires detail::Maybe_able<P>
 struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;
+
+	static constexpr ParserType type = ParserType::Maybe;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
