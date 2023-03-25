@@ -362,7 +362,7 @@
     <ClInclude Include="include\tok3n\operators\Choice.h" />
     <ClInclude Include="include\tok3n\operators\Maybe.h" />
     <ClInclude Include="include\tok3n\operators\modifier.h" />
-    <ClInclude Include="include\tok3n\operators\Not.h" />
+    <ClInclude Include="include\tok3n\operators\not.h" />
     <ClInclude Include="include\tok3n\operators\OneOrMore.h" />
     <ClInclude Include="include\tok3n\operators\Sequence.h" />
     <ClInclude Include="include\tok3n\operators\ZeroOrMore.h" />

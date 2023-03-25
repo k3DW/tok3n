@@ -33,7 +33,7 @@
     <ClInclude Include="include\tok3n\operators\modifier.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\operators\Not.h">
+    <ClInclude Include="include\tok3n\operators\not.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators\OneOrMore.h">
