@@ -308,6 +308,7 @@
     <ClInclude Include="include\tok3n\parsers\Details.h" />
     <ClInclude Include="include\tok3n\types.h" />
     <ClInclude Include="include\tok3n\types\ModifierBase.h" />
+    <ClInclude Include="include\tok3n\types\ParserResultOf.h" />
     <ClInclude Include="include\tok3n\types\Result.h" />
     <ClInclude Include="include\tok3n\tok3n.h" />
     <ClInclude Include="include\tok3n\types\Input.h" />

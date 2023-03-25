@@ -1,6 +1,7 @@
 #pragma once
 #include "tok3n/types/StaticString.h"
 #include "tok3n/types/Input.h"
+#include "tok3n/types/ParserResultOf.h"
 #include "tok3n/meta.h"
 
 #include <array>
@@ -13,7 +14,7 @@ TOK3N_BEGIN_NAMESPACE(detail)
 
 
 template <class P>
-concept void_result = std::same_as<typename P::result_type, void>;
+concept void_result = ParserResultOf<P>::template is<void>;
 
 
 
