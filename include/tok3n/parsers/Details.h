@@ -1,12 +1,7 @@
 #pragma once
 #include "tok3n/types/StaticString.h"
 #include "tok3n/types/Input.h"
-#include "tok3n/meta/all_same.h"
-#include "tok3n/meta/filter.h"
-#include "tok3n/meta/filtered_sequence.h"
-#include "tok3n/meta/head.h"
-#include "tok3n/meta/is_not_type.h"
-#include "tok3n/meta/unwrap_if_single.h"
+#include "tok3n/meta.h"
 
 #include <array>
 #include <optional>
