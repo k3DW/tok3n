@@ -4,17 +4,6 @@
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
 template <class T>
-struct into final : ModifierBase
-{
-	template <Parser P>
-	requires detail::Into_able<P, T>
-	consteval auto operator()(P) const
-	{
-		return Into<P, T>{};
-	}
-};
-
-template <class T>
 struct apply_into final : ModifierBase
 {
 	template <Parser P>
@@ -72,8 +61,8 @@ template <auto function> constexpr auto apply       = modifiers::apply<function>
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
 template <auto function> constexpr auto fn          = modifiers::fn<function>{};
                          constexpr auto ignore      = modifiers::ignore{};
+template <class T>       constexpr auto into        = modifiers::into<T>{};
                          constexpr auto join        = modifiers::join{};
-template <class T>       constexpr auto into        = detail::modifiers::into<T>{};
 template <class T>       constexpr auto apply_into  = detail::modifiers::apply_into<T>{};
 template <class T>       constexpr auto into_choice = detail::modifiers::into_choice<T>{};
 template <auto value>    constexpr auto constant    = detail::modifiers::constant<value>{};
