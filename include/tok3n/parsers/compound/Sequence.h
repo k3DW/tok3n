@@ -75,7 +75,7 @@ struct Sequence
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
 			return (... && executor.execute<Ps, Is, _unwrapped>());
-		}(mp::filtered_sequence<mp::is_not_type<void>, typename Ps::result_type...>{});
+		}(meta::filtered_sequence<meta::is_not_type<void>, typename Ps::result_type...>{});
 
 		if (not successful)
 			return { failure, input };
