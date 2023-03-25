@@ -1,10 +1,7 @@
 #pragma once
 #include <tok3n/modifiers.h>
 
-TOK3N_BEGIN_NAMESPACE()
-
-inline namespace operators
-{
+TOK3N_BEGIN_NAMESPACE(inline operators)
 
 template <auto function> constexpr auto apply       = modifiers::apply<function>{};
 template <class T>       constexpr auto apply_into  = modifiers::apply_into<T>{};
@@ -25,6 +22,4 @@ requires requires { modifier(p); }
 	return modifier(p);
 }
 
-}
-
-TOK3N_END_NAMESPACE()
+TOK3N_END_NAMESPACE(inline operators)
