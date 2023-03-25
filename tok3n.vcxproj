@@ -338,6 +338,8 @@
     <ClInclude Include="include\tok3n\meta\head.h" />
     <ClInclude Include="include\tok3n\meta\invoke_type.h" />
     <ClInclude Include="include\tok3n\meta\is_not_type.h" />
+    <ClInclude Include="include\tok3n\meta\list_cast.h" />
+    <ClInclude Include="include\tok3n\meta\type_list.h" />
     <ClInclude Include="include\tok3n\meta\type_predicate.h" />
     <ClInclude Include="include\tok3n\meta\unwrap_if_single.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
