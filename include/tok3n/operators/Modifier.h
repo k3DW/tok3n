@@ -3,18 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(detail::modifiers)
 
-struct ignore final : ModifierBase
-{
-	template <Parser P>
-	consteval auto operator()(P) const
-	{
-		if constexpr (IsIgnore<P>)
-			return P{};
-		else
-			return Ignore<P>{};
-	}
-};
-
 struct delimit final
 {
 	template <Parser P, Parser D>
@@ -153,7 +141,7 @@ inline namespace operators
 {
 
 template <std::size_t N> constexpr auto exactly     = modifiers::exactly<N>{};
-                         constexpr auto ignore      = detail::modifiers::ignore{};
+                         constexpr auto ignore      = modifiers::ignore{};
                          constexpr auto delimit     = detail::modifiers::delimit{};
                          constexpr auto complete    = detail::modifiers::complete{};
                          constexpr auto join        = detail::modifiers::join{};
