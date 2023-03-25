@@ -8,4 +8,5 @@
 #include <tok3n/modifiers/fn.h>
 #include <tok3n/modifiers/ignore.h>
 #include <tok3n/modifiers/into.h>
+#include <tok3n/modifiers/into_choice.h>
 #include <tok3n/modifiers/join.h>

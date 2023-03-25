@@ -353,6 +353,7 @@
     <ClInclude Include="include\tok3n\modifiers\fn.h" />
     <ClInclude Include="include\tok3n\modifiers\ignore.h" />
     <ClInclude Include="include\tok3n\modifiers\into.h" />
+    <ClInclude Include="include\tok3n\modifiers\into_choice.h" />
     <ClInclude Include="include\tok3n\modifiers\join.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
     <ClInclude Include="include\tok3n\operators\Choice.h" />
