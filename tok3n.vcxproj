@@ -348,6 +348,7 @@
     <ClInclude Include="include\tok3n\modifiers\complete.h" />
     <ClInclude Include="include\tok3n\modifiers\delimit.h" />
     <ClInclude Include="include\tok3n\modifiers\exactly.h" />
+    <ClInclude Include="include\tok3n\modifiers\fn.h" />
     <ClInclude Include="include\tok3n\modifiers\ignore.h" />
     <ClInclude Include="include\tok3n\modifiers\join.h" />
     <ClInclude Include="include\tok3n\operators\Basic.h" />
