@@ -10,23 +10,23 @@ void requirements()
 	assert
 		, is_parser<Ign1>
 		, parser_type_of<Ign1>.is_Ignore
-		, result_of<Ign1>.is<void>
+		, ParserResultOf<Ign1>::is<void>
 
 		, is_parser<Ign2>
 		, parser_type_of<Ign2>.is_Ignore
-		, result_of<Ign2>.is<void>
+		, ParserResultOf<Ign2>::is<void>
 
 		, is_parser<Ign3>
 		, parser_type_of<Ign3>.is_Ignore
-		, result_of<Ign3>.is<void>
+		, ParserResultOf<Ign3>::is<void>
 
 		, is_parser<Ign4>
 		, parser_type_of<Ign4>.is_Ignore
-		, result_of<Ign4>.is<void>
+		, ParserResultOf<Ign4>::is<void>
 
 		, is_parser<Ign5>
 		, parser_type_of<Ign5>.is_Ignore
-		, result_of<Ign5>.is<void>
+		, ParserResultOf<Ign5>::is<void>
 		;
 }
 

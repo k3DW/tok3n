@@ -10,35 +10,35 @@ void requirements()
 	assert
 		, is_parser<Del1>
 		, parser_type_of<Del1>.is_Delimit
-		, result_of<Del1>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del1>::is<std::vector<std::string_view>>
 
 		, is_parser<Del2>
 		, parser_type_of<Del2>.is_Delimit
-		, result_of<Del2>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del2>::is<std::vector<std::string_view>>
 
 		, is_parser<Del3>
 		, parser_type_of<Del3>.is_Delimit
-		, result_of<Del3>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del3>::is<std::vector<std::string_view>>
 
 		, is_parser<Del4>
 		, parser_type_of<Del4>.is_Delimit
-		, result_of<Del4>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del4>::is<std::vector<std::string_view>>
 
 		, is_parser<Del5>
 		, parser_type_of<Del5>.is_Delimit
-		, result_of<Del5>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del5>::is<std::vector<std::string_view>>
 
 		, is_parser<Del6>
 		, parser_type_of<Del6>.is_Delimit
-		, result_of<Del6>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del6>::is<std::vector<std::string_view>>
 
 		, is_parser<Del7>
 		, parser_type_of<Del7>.is_Delimit
-		, result_of<Del7>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del7>::is<std::vector<std::string_view>>
 
 		, is_parser<Del8>
 		, parser_type_of<Del8>.is_Delimit
-		, result_of<Del8>.is<std::vector<std::string_view>>
+		, ParserResultOf<Del8>::is<std::vector<std::string_view>>
 		;
 }
 

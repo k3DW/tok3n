@@ -10,11 +10,11 @@ void requirements()
 	assert
 		, is_parser<Def1>
 		, parser_type_of<Def1>.is_Defaulted
-		, result_of<Def1>.is<int>
+		, ParserResultOf<Def1>::is<int>
 
 		, is_parser<Def2>
 		, parser_type_of<Def2>.is_Defaulted
-		, result_of<Def2>.is<Class3>
+		, ParserResultOf<Def2>::is<Class3>
 		;
 }
 

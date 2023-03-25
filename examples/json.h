@@ -36,19 +36,19 @@ inline namespace number_impl
 	};
 
 	constexpr auto any_digits = +digit % join % fn<sv_to_int>;
-	static_assert(std::same_as<decltype(any_digits)::result_type, int64_t>);
+	static_assert(ParserResultOf(any_digits).is<int64_t>);
 
 	constexpr auto natural_number = ("0"_lit | join("123456789"_one >> *digit)) % fn<sv_to_int>;
-	static_assert(std::same_as<decltype(natural_number)::result_type, int64_t>);
+	static_assert(ParserResultOf(natural_number).is<int64_t>);
 
 	constexpr auto integer = (~"-"_lit >> natural_number) % apply<give_sign>;
-	static_assert(std::same_as<decltype(integer)::result_type, int64_t>);
+	static_assert(ParserResultOf(integer).is<int64_t>);
 		
 	constexpr auto fraction = "."_ign >> any_digits;
-	static_assert(std::same_as<decltype(fraction)::result_type, int64_t>);
+	static_assert(ParserResultOf(fraction).is<int64_t>);
 
 	constexpr auto exponent = (ignore("Ee"_one) >> ~"+-"_one >> any_digits) % apply<give_sign>;
-	static_assert(std::same_as<decltype(exponent)::result_type, int64_t>);
+	static_assert(ParserResultOf(exponent).is<int64_t>);
 
 }
 
@@ -60,7 +60,7 @@ struct number_t
 };
 
 constexpr auto number = (integer >> ~fraction >> ~exponent) % apply_into<number_t>;
-static_assert(std::same_as<decltype(number)::result_type, number_t>);
+static_assert(ParserResultOf(number).is<number_t>);
 
 
 
@@ -75,12 +75,12 @@ inline namespace string_impl
 }
 
 constexpr auto string = ign<'"'> >> join(*valid_char) >> ign<'"'>;
-static_assert(std::same_as<decltype(string)::result_type, std::string_view>);
+static_assert(ParserResultOf(string).is<std::string_view>);
 
 
 
 constexpr auto whitespace = *one<"\t\n\r "> % join;
-static_assert(std::same_as<decltype(whitespace)::result_type, std::string_view>);
+static_assert(ParserResultOf(whitespace).is<std::string_view>);
 
 
 

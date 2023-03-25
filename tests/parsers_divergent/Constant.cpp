@@ -10,19 +10,19 @@ void requirements()
 	assert
 		, is_parser<Con1>
 		, parser_type_of<Con1>.is_Constant
-		, result_of<Con1>.is<int>
+		, ParserResultOf<Con1>::is<int>
 
 		, is_parser<Con2>
 		, parser_type_of<Con2>.is_Constant
-		, result_of<Con2>.is<char>
+		, ParserResultOf<Con2>::is<char>
 		
 		, is_parser<Con3>
 		, parser_type_of<Con3>.is_Constant
-		, result_of<Con3>.is<bool>
+		, ParserResultOf<Con3>::is<bool>
 		
 		, is_parser<Con4>
 		, parser_type_of<Con4>.is_Constant
-		, result_of<Con4>.is<std::nullptr_t>
+		, ParserResultOf<Con4>::is<std::nullptr_t>
 		;
 }
 

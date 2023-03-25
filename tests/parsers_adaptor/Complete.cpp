@@ -10,23 +10,23 @@ void requirements()
 	assert
 		, is_parser<Com1>
 		, parser_type_of<Com1>.is_Complete
-		, result_of<Com1>.is<std::string_view>
+		, ParserResultOf<Com1>::is<std::string_view>
 
 		, is_parser<Com2>
 		, parser_type_of<Com2>.is_Complete
-		, result_of<Com2>.is<std::string_view>
+		, ParserResultOf<Com2>::is<std::string_view>
 
 		, is_parser<Com3>
 		, parser_type_of<Com3>.is_Complete
-		, result_of<Com3>.is<std::string_view>
+		, ParserResultOf<Com3>::is<std::string_view>
 
 		, is_parser<Com4>
 		, parser_type_of<Com4>.is_Complete
-		, result_of<Com4>.is<std::tuple<std::string_view, std::string_view>>
+		, ParserResultOf<Com4>::is<std::tuple<std::string_view, std::string_view>>
 
 		, is_parser<Com5>
 		, parser_type_of<Com5>.is_Complete
-		, result_of<Com5>.is<std::optional<std::tuple<std::string_view, std::string_view>>>
+		, ParserResultOf<Com5>::is<std::optional<std::tuple<std::string_view, std::string_view>>>
 		;
 }
 

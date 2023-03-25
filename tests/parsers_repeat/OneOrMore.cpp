@@ -10,19 +10,19 @@ void requirements()
 	assert
 		, is_parser<Oom1>
 		, parser_type_of<Oom1>.is_OneOrMore
-		, result_of<Oom1>.is<std::vector<std::string_view>>
+		, ParserResultOf<Oom1>::is<std::vector<std::string_view>>
 
 		, is_parser<Oom2>
 		, parser_type_of<Oom2>.is_OneOrMore
-		, result_of<Oom2>.is<std::vector<std::string_view>>
+		, ParserResultOf<Oom2>::is<std::vector<std::string_view>>
 
 		, is_parser<Oom3>
 		, parser_type_of<Oom3>.is_OneOrMore
-		, result_of<Oom3>.is<std::vector<std::string_view>>
+		, ParserResultOf<Oom3>::is<std::vector<std::string_view>>
 
 		, is_parser<Oom4>
 		, parser_type_of<Oom4>.is_OneOrMore
-		, result_of<Oom4>.is<std::vector<std::tuple<std::string_view, std::string_view>>>
+		, ParserResultOf<Oom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
 		;
 }
 

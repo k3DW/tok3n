@@ -71,7 +71,7 @@ void void_result()
 
 	assert
 		, void_sequence == Sequence<Ign1, Ign2>{}
-		, result_of<decltype(void_sequence)>.is<void>
+		, ParserResultOf(void_sequence).is<void>
 		, parse(void_sequence, "abcabcabcdabcd").success("dabcd")
 		;
 }
