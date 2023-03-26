@@ -9,15 +9,15 @@ void requirements()
 {
 	assert
 		, is_parser<Int1>
-		, parser_type_of<Int1>.is_Into
+		, Int1::type == ParserType::Into
 		, ParserResultOf<Int1>::is<Class1>
 
 		, is_parser<Int2>
-		, parser_type_of<Int2>.is_Into
+		, Int2::type == ParserType::Into
 		, ParserResultOf<Int2>::is<Class2>
 
 		, is_parser<Int3>
-		, parser_type_of<Int3>.is_Into
+		, Int3::type == ParserType::Into
 		, ParserResultOf<Int3>::is<Class2>
 		;
 }

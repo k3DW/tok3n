@@ -9,23 +9,23 @@ void requirements()
 {
 	assert
 		, is_parser<Joi1>
-		, parser_type_of<Joi1>.is_Join
+		, Joi1::type == ParserType::Join
 		, ParserResultOf<Joi1>::is<std::string_view>
 		
 		, is_parser<Joi2>
-		, parser_type_of<Joi2>.is_Join
+		, Joi2::type == ParserType::Join
 		, ParserResultOf<Joi2>::is<std::string_view>
 		
 		, is_parser<Joi3>
-		, parser_type_of<Joi3>.is_Join
+		, Joi3::type == ParserType::Join
 		, ParserResultOf<Joi3>::is<std::string_view>
 		
 		, is_parser<Joi4>
-		, parser_type_of<Joi4>.is_Join
+		, Joi4::type == ParserType::Join
 		, ParserResultOf<Joi4>::is<std::string_view>
 		
 		, is_parser<Joi5>
-		, parser_type_of<Joi5>.is_Join
+		, Joi5::type == ParserType::Join
 		, ParserResultOf<Joi5>::is<std::string_view>
 		;
 }

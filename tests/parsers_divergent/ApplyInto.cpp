@@ -9,11 +9,11 @@ void requirements()
 {
 	assert
 		, is_parser<Api1>
-		, parser_type_of<Api1>.is_ApplyInto
+		, Api1::type == ParserType::ApplyInto
 		, ParserResultOf<Api1>::is<Class2>
 
 		, is_parser<Api2>
-		, parser_type_of<Api2>.is_ApplyInto
+		, Api2::type == ParserType::ApplyInto
 		, ParserResultOf<Api2>::is<Class5>
 		;
 }
