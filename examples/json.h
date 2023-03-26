@@ -7,7 +7,7 @@ TOK3N_BEGIN_NAMESPACE(examples::json_parser)
 
 
 
-constexpr IsOneChar auto digit = "0123456789"_one;
+constexpr auto digit = "0123456789"_one;
 
 
 
