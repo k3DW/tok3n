@@ -66,7 +66,7 @@ struct parse_t
 	consteval parse_t(Input input) : input(input) {}
 	Input input;
 
-	static constexpr bool is_result_void = ParserResultOf<P>::template is<void>;
+	static constexpr bool is_result_void = std::same_as<typename P::result_type, void>;
 	using value_type = std::conditional_t<is_result_void, std::monostate, typename P::result_type>;
 	// We need this `value_type` indirection, otherwise the first `success()` overload causes compile errors when `result_type` is `void`.
 
