@@ -8,12 +8,10 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, Parser<Def1>
-		, Def1::type == DefaultedType
+		, IsParser<Def1, DefaultedType>
 		, ParserResultOf<Def1>::is<int>
 
-		, Parser<Def2>
-		, Def2::type == DefaultedType
+		, IsParser<Def2, DefaultedType>
 		, ParserResultOf<Def2>::is<Class3>
 		;
 }

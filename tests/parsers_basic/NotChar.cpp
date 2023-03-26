@@ -9,12 +9,10 @@ using Multi  = NotChar<"abc">;
 void requirements()
 {
 	assert
-		, Parser<Single>
-		, Single::type == NotCharType
+		, IsParser<Single, NotCharType>
 		, ParserResultOf<Single>::is<std::string_view>
 
-		, Parser<Multi>
-		, Multi::type == NotCharType
+		, IsParser<Multi, NotCharType>
 		, ParserResultOf<Multi>::is<std::string_view>
 		;
 }

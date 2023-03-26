@@ -14,20 +14,16 @@ using ThreeWay2 = Cho4;
 void requirements()
 {
 	assert
-		, Parser<TwoWay1>
-		, TwoWay1::type == ChoiceType
+		, IsParser<TwoWay1, ChoiceType>
 		, ParserResultOf<TwoWay1>::is<std::string_view>
 
-		, Parser<TwoWay2>
-		, TwoWay2::type == ChoiceType
+		, IsParser<TwoWay2, ChoiceType>
 		, ParserResultOf<TwoWay2>::is<std::string_view>
 
-		, Parser<ThreeWay1>
-		, ThreeWay1::type == ChoiceType
+		, IsParser<ThreeWay1, ChoiceType>
 		, ParserResultOf<ThreeWay1>::is<std::string_view>
 
-		, Parser<ThreeWay2>
-		, ThreeWay2::type == ChoiceType
+		, IsParser<ThreeWay2, ChoiceType>
 		, ParserResultOf<ThreeWay2>::is<std::string_view>
 		;
 }

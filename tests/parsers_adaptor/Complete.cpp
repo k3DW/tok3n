@@ -8,24 +8,19 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, Parser<Com1>
-		, Com1::type == CompleteType
+		, IsParser<Com1, CompleteType>
 		, ParserResultOf<Com1>::is<std::string_view>
 
-		, Parser<Com2>
-		, Com2::type == CompleteType
+		, IsParser<Com2, CompleteType>
 		, ParserResultOf<Com2>::is<std::string_view>
 
-		, Parser<Com3>
-		, Com3::type == CompleteType
+		, IsParser<Com3, CompleteType>
 		, ParserResultOf<Com3>::is<std::string_view>
 
-		, Parser<Com4>
-		, Com4::type == CompleteType
+		, IsParser<Com4, CompleteType>
 		, ParserResultOf<Com4>::is<std::tuple<std::string_view, std::string_view>>
 
-		, Parser<Com5>
-		, Com5::type == CompleteType
+		, IsParser<Com5, CompleteType>
 		, ParserResultOf<Com5>::is<std::optional<std::tuple<std::string_view, std::string_view>>>
 		;
 }

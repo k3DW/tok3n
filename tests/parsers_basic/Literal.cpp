@@ -8,8 +8,7 @@ using L = Literal<"literal">;
 void requirements()
 {
 	assert
-		, Parser<L>
-		, L::type == LiteralType
+		, IsParser<L, LiteralType>
 		, ParserResultOf<L>::is<std::string_view>
 		;
 }

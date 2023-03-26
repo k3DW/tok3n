@@ -8,20 +8,16 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, Parser<May1>
-		, May1::type == MaybeType
+		, IsParser<May1, MaybeType>
 		, ParserResultOf<May1>::is<std::optional<std::string_view>>
 
-		, Parser<May2>
-		, May2::type == MaybeType
+		, IsParser<May2, MaybeType>
 		, ParserResultOf<May2>::is<std::optional<std::string_view>>
 
-		, Parser<May3>
-		, May3::type == MaybeType
+		, IsParser<May3, MaybeType>
 		, ParserResultOf<May3>::is<std::optional<std::string_view>>
 
-		, Parser<May4>
-		, May4::type == MaybeType
+		, IsParser<May4, MaybeType>
 		, ParserResultOf<May4>::is<std::optional<std::tuple<std::string_view, std::string_view>>>
 		;
 }
