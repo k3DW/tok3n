@@ -11,7 +11,7 @@ struct NotChar
 {
 	using result_type = Input;
 
-	static constexpr ParserType type = ParserType::NotChar;
+	static constexpr ParserType type = NotCharType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

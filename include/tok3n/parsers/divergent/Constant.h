@@ -10,7 +10,7 @@ struct Constant
 {
 	using result_type = decltype(value);
 
-	static constexpr ParserType type = ParserType::Constant;
+	static constexpr ParserType type = ConstantType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

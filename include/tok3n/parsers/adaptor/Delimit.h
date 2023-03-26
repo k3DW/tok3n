@@ -11,7 +11,7 @@ struct Delimit
 {
 	using result_type = std::vector<typename P::result_type>;
 
-	static constexpr ParserType type = ParserType::Delimit;
+	static constexpr ParserType type = DelimitType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

@@ -8,21 +8,10 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, is_parser<Zom1>
-		, parser_type_of<Zom1>.is_ZeroOrMore
-		, ParserResultOf<Zom1>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom2>
-		, parser_type_of<Zom2>.is_ZeroOrMore
-		, ParserResultOf<Zom2>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom3>
-		, parser_type_of<Zom3>.is_ZeroOrMore
-		, ParserResultOf<Zom3>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom4>
-		, parser_type_of<Zom4>.is_ZeroOrMore
-		, ParserResultOf<Zom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
+		, IsParser<Zom1, ZeroOrMoreType, std::vector<std::string_view>>
+		, IsParser<Zom2, ZeroOrMoreType, std::vector<std::string_view>>
+		, IsParser<Zom3, ZeroOrMoreType, std::vector<std::string_view>>
+		, IsParser<Zom4, ZeroOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>>
 		;
 }
 

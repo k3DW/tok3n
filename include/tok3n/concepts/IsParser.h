@@ -3,13 +3,15 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <class P, ParserType type>
-concept IsParser = Parser<P> and (P::type == type);
+namespace detail
+{
+	struct DoNotCareAboutResultTag {};
+}
 
-#define TOK3N_X_MACRO(TYPE)                           \
-	template <class P>                                \
-	concept Is##TYPE = IsParser<P, ParserType::TYPE>;
-TOK3N_DO_FOR_ALL_PARSER_TYPES(TOK3N_X_MACRO)
-#undef TOK3N_X_MACRO
+template <class P, ParserType type, class R = detail::DoNotCareAboutResultTag>
+concept IsParser =
+	Parser<P> and
+	P::type == type and
+	(std::same_as<R, detail::DoNotCareAboutResultTag> or std::same_as<typename P::result_type, R>);
 
 TOK3N_END_NAMESPACE()

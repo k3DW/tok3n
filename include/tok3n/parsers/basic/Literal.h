@@ -11,7 +11,7 @@ struct Literal
 {
 	using result_type = Input;
 
-	static constexpr ParserType type = ParserType::Literal;
+	static constexpr ParserType type = LiteralType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

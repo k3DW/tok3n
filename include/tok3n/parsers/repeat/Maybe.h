@@ -11,7 +11,7 @@ struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;
 
-	static constexpr ParserType type = ParserType::Maybe;
+	static constexpr ParserType type = MaybeType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

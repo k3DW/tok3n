@@ -8,13 +8,8 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, is_parser<Apt1>
-		, parser_type_of<Apt1>.is_ApplyTransform
-		, ParserResultOf<Apt1>::is<bool>
-
-		, is_parser<Apt2>
-		, parser_type_of<Apt2>.is_ApplyTransform
-		, ParserResultOf<Apt2>::is<std::size_t>
+		, IsParser<Apt1, ApplyTransformType, bool>
+		, IsParser<Apt2, ApplyTransformType, std::size_t>
 		;
 }
 

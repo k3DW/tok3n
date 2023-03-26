@@ -10,7 +10,7 @@ struct Complete
 {
 	using result_type = typename P::result_type;
 
-	static constexpr ParserType type = ParserType::Complete;
+	static constexpr ParserType type = CompleteType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

@@ -14,7 +14,7 @@ TOK3N_BEGIN_NAMESPACE(detail)
 
 
 template <class P>
-concept void_result = ParserResultOf<P>::template is<void>;
+concept void_result = std::same_as<typename P::result_type, void>;
 
 
 
@@ -56,7 +56,7 @@ concept Join_able = is_joinable_v<typename P::result_type>;
 
 
 template <class P, class Delimiter>
-concept Delimit_able = not std::same_as<typename P::result_type, void>;
+concept Delimit_able = not void_result<P>;
 
 
 

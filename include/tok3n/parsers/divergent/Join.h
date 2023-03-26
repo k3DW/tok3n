@@ -90,7 +90,7 @@ struct Join
 {
 	using result_type = Input;
 
-	static constexpr ParserType type = ParserType::Join;
+	static constexpr ParserType type = JoinType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

@@ -11,13 +11,8 @@ using ThreeWay = Seq3;
 void requirements()
 {
 	assert
-		, is_parser<TwoWay>
-		, parser_type_of<TwoWay>.is_Sequence
-		, ParserResultOf<TwoWay>::is<std::tuple<std::string_view, std::string_view>>
-
-		, is_parser<ThreeWay>
-		, parser_type_of<ThreeWay>.is_Sequence
-		, ParserResultOf<ThreeWay>::is<std::tuple<std::string_view, std::string_view, std::string_view>>
+		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
+		, IsParser<ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>>
 		;
 }
 

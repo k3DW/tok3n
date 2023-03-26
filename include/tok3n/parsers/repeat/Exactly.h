@@ -11,7 +11,7 @@ struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N>;
 
-	static constexpr ParserType type = ParserType::Exactly;
+	static constexpr ParserType type = ExactlyType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{
