@@ -8,17 +8,10 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Exa1, ExactlyType>
-		, ParserResultOf<Exa1>::is<std::array<std::string_view, 3>>
-
-		, IsParser<Exa2, ExactlyType>
-		, ParserResultOf<Exa2>::is<std::array<std::string_view, 5>>
-
-		, IsParser<Exa3, ExactlyType>
-		, ParserResultOf<Exa3>::is<std::array<std::string_view, 4>>
-
-		, IsParser<Exa4, ExactlyType>
-		, ParserResultOf<Exa4>::is<std::array<std::tuple<std::string_view, std::string_view>, 2>>
+		, IsParser<Exa1, ExactlyType, std::array<std::string_view, 3>>
+		, IsParser<Exa2, ExactlyType, std::array<std::string_view, 5>>
+		, IsParser<Exa3, ExactlyType, std::array<std::string_view, 4>>
+		, IsParser<Exa4, ExactlyType, std::array<std::tuple<std::string_view, std::string_view>, 2>>
 		;
 }
 

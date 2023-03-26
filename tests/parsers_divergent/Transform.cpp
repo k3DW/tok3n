@@ -8,17 +8,10 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Tra1, TransformType>
-		, ParserResultOf<Tra1>::is<std::size_t>
-		
-		, IsParser<Tra2, TransformType>
-		, ParserResultOf<Tra2>::is<std::vector<char>>
-		
-		, IsParser<Tra3, TransformType>
-		, ParserResultOf<Tra3>::is<bool>
-		
-		, IsParser<Tra4, TransformType>
-		, ParserResultOf<Tra4>::is<std::size_t>
+		, IsParser<Tra1, TransformType, std::size_t>
+		, IsParser<Tra2, TransformType, std::vector<char>>
+		, IsParser<Tra3, TransformType, bool>
+		, IsParser<Tra4, TransformType, std::size_t>
 		;
 }
 

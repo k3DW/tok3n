@@ -8,20 +8,11 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Ign1, IgnoreType>
-		, ParserResultOf<Ign1>::is<void>
-
-		, IsParser<Ign2, IgnoreType>
-		, ParserResultOf<Ign2>::is<void>
-
-		, IsParser<Ign3, IgnoreType>
-		, ParserResultOf<Ign3>::is<void>
-
-		, IsParser<Ign4, IgnoreType>
-		, ParserResultOf<Ign4>::is<void>
-
-		, IsParser<Ign5, IgnoreType>
-		, ParserResultOf<Ign5>::is<void>
+		, IsParser<Ign1, IgnoreType, void>
+		, IsParser<Ign2, IgnoreType, void>
+		, IsParser<Ign3, IgnoreType, void>
+		, IsParser<Ign4, IgnoreType, void>
+		, IsParser<Ign5, IgnoreType, void>
 		;
 }
 

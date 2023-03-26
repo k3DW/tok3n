@@ -8,29 +8,14 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Del1, DelimitType>
-		, ParserResultOf<Del1>::is<std::vector<std::string_view>>
-
-		, IsParser<Del2, DelimitType>
-		, ParserResultOf<Del2>::is<std::vector<std::string_view>>
-
-		, IsParser<Del3, DelimitType>
-		, ParserResultOf<Del3>::is<std::vector<std::string_view>>
-
-		, IsParser<Del4, DelimitType>
-		, ParserResultOf<Del4>::is<std::vector<std::string_view>>
-
-		, IsParser<Del5, DelimitType>
-		, ParserResultOf<Del5>::is<std::vector<std::string_view>>
-
-		, IsParser<Del6, DelimitType>
-		, ParserResultOf<Del6>::is<std::vector<std::string_view>>
-
-		, IsParser<Del7, DelimitType>
-		, ParserResultOf<Del7>::is<std::vector<std::string_view>>
-
-		, IsParser<Del8, DelimitType>
-		, ParserResultOf<Del8>::is<std::vector<std::string_view>>
+		, IsParser<Del1, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del2, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del3, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del4, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del5, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del6, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del7, DelimitType, std::vector<std::string_view>>
+		, IsParser<Del8, DelimitType, std::vector<std::string_view>>
 		;
 }
 

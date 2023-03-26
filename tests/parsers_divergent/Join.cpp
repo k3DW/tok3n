@@ -8,20 +8,11 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Joi1, JoinType>
-		, ParserResultOf<Joi1>::is<std::string_view>
-		
-		, IsParser<Joi2, JoinType>
-		, ParserResultOf<Joi2>::is<std::string_view>
-		
-		, IsParser<Joi3, JoinType>
-		, ParserResultOf<Joi3>::is<std::string_view>
-		
-		, IsParser<Joi4, JoinType>
-		, ParserResultOf<Joi4>::is<std::string_view>
-		
-		, IsParser<Joi5, JoinType>
-		, ParserResultOf<Joi5>::is<std::string_view>
+		, IsParser<Joi1, JoinType, std::string_view>
+		, IsParser<Joi2, JoinType, std::string_view>
+		, IsParser<Joi3, JoinType, std::string_view>
+		, IsParser<Joi4, JoinType, std::string_view>
+		, IsParser<Joi5, JoinType, std::string_view>
 		;
 }
 

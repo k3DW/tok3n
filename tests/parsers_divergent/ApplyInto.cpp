@@ -8,11 +8,8 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, IsParser<Api1, ApplyIntoType>
-		, ParserResultOf<Api1>::is<Class2>
-
-		, IsParser<Api2, ApplyIntoType>
-		, ParserResultOf<Api2>::is<Class5>
+		, IsParser<Api1, ApplyIntoType, Class2>
+		, IsParser<Api2, ApplyIntoType, Class5>
 		;
 }
 
