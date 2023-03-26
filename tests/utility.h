@@ -63,38 +63,6 @@ constexpr struct assert_t
 template <class T>
 static constexpr bool is_parser = Parser<T>;
 
-template <class T>
-struct parser_type_of_t
-{
-	static constexpr bool is_OneChar        = IsOneChar<T>;
-	static constexpr bool is_NotChar        = IsNotChar<T>;
-	static constexpr bool is_Literal        = IsLiteral<T>;
-
-	static constexpr bool is_Choice         = IsChoice<T>;
-	static constexpr bool is_Sequence       = IsSequence<T>;
-
-	static constexpr bool is_Maybe          = IsMaybe<T>;
-	static constexpr bool is_Exactly        = IsExactly<T>;
-	static constexpr bool is_OneOrMore      = IsOneOrMore<T>;
-	static constexpr bool is_ZeroOrMore     = IsZeroOrMore<T>;
-
-	static constexpr bool is_Ignore         = IsIgnore<T>;
-	static constexpr bool is_Delimit        = IsDelimit<T>;
-	static constexpr bool is_Complete       = IsComplete<T>;
-	
-	static constexpr bool is_Join           = IsJoin<T>;
-	static constexpr bool is_Transform      = IsTransform<T>;
-	static constexpr bool is_ApplyTransform = IsApplyTransform<T>;
-	static constexpr bool is_Into           = IsInto <T>;
-	static constexpr bool is_ApplyInto      = IsApplyInto <T>;
-	static constexpr bool is_Constant       = IsConstant<T>;
-	static constexpr bool is_Defaulted      = IsDefaulted<T>;
-	static constexpr bool is_Custom         = IsCustom<T>;
-};
-
-template <class T>
-static constexpr parser_type_of_t<T> parser_type_of{};
-
 
 
 template <Parser P>
