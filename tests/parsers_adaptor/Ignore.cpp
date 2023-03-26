@@ -8,23 +8,23 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, is_parser<Ign1>
+		, Parser<Ign1>
 		, Ign1::type == IgnoreType
 		, ParserResultOf<Ign1>::is<void>
 
-		, is_parser<Ign2>
+		, Parser<Ign2>
 		, Ign2::type == IgnoreType
 		, ParserResultOf<Ign2>::is<void>
 
-		, is_parser<Ign3>
+		, Parser<Ign3>
 		, Ign3::type == IgnoreType
 		, ParserResultOf<Ign3>::is<void>
 
-		, is_parser<Ign4>
+		, Parser<Ign4>
 		, Ign4::type == IgnoreType
 		, ParserResultOf<Ign4>::is<void>
 
-		, is_parser<Ign5>
+		, Parser<Ign5>
 		, Ign5::type == IgnoreType
 		, ParserResultOf<Ign5>::is<void>
 		;

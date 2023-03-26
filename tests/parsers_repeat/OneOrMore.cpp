@@ -8,19 +8,19 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, is_parser<Oom1>
+		, Parser<Oom1>
 		, Oom1::type == OneOrMoreType
 		, ParserResultOf<Oom1>::is<std::vector<std::string_view>>
 
-		, is_parser<Oom2>
+		, Parser<Oom2>
 		, Oom2::type == OneOrMoreType
 		, ParserResultOf<Oom2>::is<std::vector<std::string_view>>
 
-		, is_parser<Oom3>
+		, Parser<Oom3>
 		, Oom3::type == OneOrMoreType
 		, ParserResultOf<Oom3>::is<std::vector<std::string_view>>
 
-		, is_parser<Oom4>
+		, Parser<Oom4>
 		, Oom4::type == OneOrMoreType
 		, ParserResultOf<Oom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
 		;

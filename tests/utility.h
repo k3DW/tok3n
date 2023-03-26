@@ -60,11 +60,6 @@ constexpr struct assert_t
 
 
 
-template <class T>
-static constexpr bool is_parser = Parser<T>;
-
-
-
 template <Parser P>
 struct parse_t
 {

@@ -24,7 +24,7 @@ struct Cus : Custom<Cus>
 void requirements()
 {
 	assert
-		, is_parser<Cus>
+		, Parser<Cus>
 		, Cus::type == CustomType
 		, ParserResultOf<Cus>::is<std::size_t>
 		;

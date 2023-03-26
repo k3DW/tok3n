@@ -8,19 +8,19 @@ using namespace samples::all;
 void requirements()
 {
 	assert
-		, is_parser<Con1>
+		, Parser<Con1>
 		, Con1::type == ConstantType
 		, ParserResultOf<Con1>::is<int>
 
-		, is_parser<Con2>
+		, Parser<Con2>
 		, Con2::type == ConstantType
 		, ParserResultOf<Con2>::is<char>
 		
-		, is_parser<Con3>
+		, Parser<Con3>
 		, Con3::type == ConstantType
 		, ParserResultOf<Con3>::is<bool>
 		
-		, is_parser<Con4>
+		, Parser<Con4>
 		, Con4::type == ConstantType
 		, ParserResultOf<Con4>::is<std::nullptr_t>
 		;
