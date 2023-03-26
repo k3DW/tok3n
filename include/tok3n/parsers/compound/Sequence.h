@@ -61,7 +61,7 @@ struct Sequence
 {
 	using _trait = detail::Sequence_result_trait<Ps...>;
 
-	static constexpr ParserType type = ParserType::Sequence;
+	static constexpr ParserType type = SequenceType;
 
 	using result_type                = _trait::type;
 	static constexpr bool _unwrapped = _trait::unwrapped;

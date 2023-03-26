@@ -9,35 +9,35 @@ void requirements()
 {
 	assert
 		, is_parser<Del1>
-		, Del1::type == ParserType::Delimit
+		, Del1::type == DelimitType
 		, ParserResultOf<Del1>::is<std::vector<std::string_view>>
 
 		, is_parser<Del2>
-		, Del2::type == ParserType::Delimit
+		, Del2::type == DelimitType
 		, ParserResultOf<Del2>::is<std::vector<std::string_view>>
 
 		, is_parser<Del3>
-		, Del3::type == ParserType::Delimit
+		, Del3::type == DelimitType
 		, ParserResultOf<Del3>::is<std::vector<std::string_view>>
 
 		, is_parser<Del4>
-		, Del4::type == ParserType::Delimit
+		, Del4::type == DelimitType
 		, ParserResultOf<Del4>::is<std::vector<std::string_view>>
 
 		, is_parser<Del5>
-		, Del5::type == ParserType::Delimit
+		, Del5::type == DelimitType
 		, ParserResultOf<Del5>::is<std::vector<std::string_view>>
 
 		, is_parser<Del6>
-		, Del6::type == ParserType::Delimit
+		, Del6::type == DelimitType
 		, ParserResultOf<Del6>::is<std::vector<std::string_view>>
 
 		, is_parser<Del7>
-		, Del7::type == ParserType::Delimit
+		, Del7::type == DelimitType
 		, ParserResultOf<Del7>::is<std::vector<std::string_view>>
 
 		, is_parser<Del8>
-		, Del8::type == ParserType::Delimit
+		, Del8::type == DelimitType
 		, ParserResultOf<Del8>::is<std::vector<std::string_view>>
 		;
 }

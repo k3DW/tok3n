@@ -9,19 +9,19 @@ void requirements()
 {
 	assert
 		, is_parser<May1>
-		, May1::type == ParserType::Maybe
+		, May1::type == MaybeType
 		, ParserResultOf<May1>::is<std::optional<std::string_view>>
 
 		, is_parser<May2>
-		, May2::type == ParserType::Maybe
+		, May2::type == MaybeType
 		, ParserResultOf<May2>::is<std::optional<std::string_view>>
 
 		, is_parser<May3>
-		, May3::type == ParserType::Maybe
+		, May3::type == MaybeType
 		, ParserResultOf<May3>::is<std::optional<std::string_view>>
 
 		, is_parser<May4>
-		, May4::type == ParserType::Maybe
+		, May4::type == MaybeType
 		, ParserResultOf<May4>::is<std::optional<std::tuple<std::string_view, std::string_view>>>
 		;
 }

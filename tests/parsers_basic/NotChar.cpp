@@ -10,11 +10,11 @@ void requirements()
 {
 	assert
 		, is_parser<Single>
-		, Single::type == ParserType::NotChar
+		, Single::type == NotCharType
 		, ParserResultOf<Single>::is<std::string_view>
 
 		, is_parser<Multi>
-		, Multi::type == ParserType::NotChar
+		, Multi::type == NotCharType
 		, ParserResultOf<Multi>::is<std::string_view>
 		;
 }

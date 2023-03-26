@@ -12,11 +12,11 @@ void requirements()
 {
 	assert
 		, is_parser<TwoWay>
-		, TwoWay::type == ParserType::Sequence
+		, TwoWay::type == SequenceType
 		, ParserResultOf<TwoWay>::is<std::tuple<std::string_view, std::string_view>>
 
 		, is_parser<ThreeWay>
-		, ThreeWay::type == ParserType::Sequence
+		, ThreeWay::type == SequenceType
 		, ParserResultOf<ThreeWay>::is<std::tuple<std::string_view, std::string_view, std::string_view>>
 		;
 }

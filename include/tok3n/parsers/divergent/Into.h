@@ -11,7 +11,7 @@ struct Into
 {
 	using result_type = T;
 
-	static constexpr ParserType type = ParserType::Into;
+	static constexpr ParserType type = IntoType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

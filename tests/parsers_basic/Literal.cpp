@@ -9,7 +9,7 @@ void requirements()
 {
 	assert
 		, is_parser<L>
-		, L::type == ParserType::Literal
+		, L::type == LiteralType
 		, ParserResultOf<L>::is<std::string_view>
 		;
 }

@@ -11,7 +11,7 @@ struct ApplyTransform
 {
 	using result_type = detail::ApplyTransform_result<P, function>;
 
-	static constexpr ParserType type = ParserType::ApplyTransform;
+	static constexpr ParserType type = ApplyTransformType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

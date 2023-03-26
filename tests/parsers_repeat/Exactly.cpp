@@ -9,19 +9,19 @@ void requirements()
 {
 	assert
 		, is_parser<Exa1>
-		, Exa1::type == ParserType::Exactly
+		, Exa1::type == ExactlyType
 		, ParserResultOf<Exa1>::is<std::array<std::string_view, 3>>
 
 		, is_parser<Exa2>
-		, Exa2::type == ParserType::Exactly
+		, Exa2::type == ExactlyType
 		, ParserResultOf<Exa2>::is<std::array<std::string_view, 5>>
 
 		, is_parser<Exa3>
-		, Exa3::type == ParserType::Exactly
+		, Exa3::type == ExactlyType
 		, ParserResultOf<Exa3>::is<std::array<std::string_view, 4>>
 
 		, is_parser<Exa4>
-		, Exa4::type == ParserType::Exactly
+		, Exa4::type == ExactlyType
 		, ParserResultOf<Exa4>::is<std::array<std::tuple<std::string_view, std::string_view>, 2>>
 		;
 }

@@ -11,7 +11,7 @@ struct ApplyInto
 {
 	using result_type = T;
 
-	static constexpr ParserType type = ParserType::ApplyInto;
+	static constexpr ParserType type = ApplyIntoType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

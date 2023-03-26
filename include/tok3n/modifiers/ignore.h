@@ -9,7 +9,7 @@ struct ignore final : ModifierBase
 	template <Parser P>
 	consteval auto operator()(P) const
 	{
-		if constexpr (P::type == ParserType::Ignore)
+		if constexpr (P::type == IgnoreType)
 			return P{};
 		else
 			return Ignore<P>{};

@@ -10,7 +10,7 @@ struct Ignore
 {
 	using result_type = void;
 
-	static constexpr ParserType type = ParserType::Ignore;
+	static constexpr ParserType type = IgnoreType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

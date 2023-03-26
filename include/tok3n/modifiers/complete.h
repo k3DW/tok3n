@@ -9,7 +9,7 @@ struct complete final : ModifierBase
 	template <Parser P>
 	consteval auto operator()(P) const
 	{
-		if constexpr (P::type == ParserType::Complete)
+		if constexpr (P::type == CompleteType)
 			return P{};
 		else
 			return Complete<P>{};

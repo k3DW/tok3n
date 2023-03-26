@@ -9,19 +9,19 @@ void requirements()
 {
 	assert
 		, is_parser<Tra1>
-		, Tra1::type == ParserType::Transform
+		, Tra1::type == TransformType
 		, ParserResultOf<Tra1>::is<std::size_t>
 		
 		, is_parser<Tra2>
-		, Tra2::type == ParserType::Transform
+		, Tra2::type == TransformType
 		, ParserResultOf<Tra2>::is<std::vector<char>>
 		
 		, is_parser<Tra3>
-		, Tra3::type == ParserType::Transform
+		, Tra3::type == TransformType
 		, ParserResultOf<Tra3>::is<bool>
 		
 		, is_parser<Tra4>
-		, Tra4::type == ParserType::Transform
+		, Tra4::type == TransformType
 		, ParserResultOf<Tra4>::is<std::size_t>
 		;
 }

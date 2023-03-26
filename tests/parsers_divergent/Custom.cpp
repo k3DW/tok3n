@@ -25,7 +25,7 @@ void requirements()
 {
 	assert
 		, is_parser<Cus>
-		, Cus::type == ParserType::Custom
+		, Cus::type == CustomType
 		, ParserResultOf<Cus>::is<std::size_t>
 		;
 }

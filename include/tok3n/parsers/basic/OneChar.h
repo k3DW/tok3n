@@ -11,7 +11,7 @@ struct OneChar
 {
 	using result_type = Input;
 
-	static constexpr ParserType type = ParserType::OneChar;
+	static constexpr ParserType type = OneCharType;
 
 	static constexpr Result<result_type> parse(Input input)
 	{

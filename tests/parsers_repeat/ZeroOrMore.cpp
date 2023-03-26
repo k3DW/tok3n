@@ -9,19 +9,19 @@ void requirements()
 {
 	assert
 		, is_parser<Zom1>
-		, Zom1::type == ParserType::ZeroOrMore
+		, Zom1::type == ZeroOrMoreType
 		, ParserResultOf<Zom1>::is<std::vector<std::string_view>>
 
 		, is_parser<Zom2>
-		, Zom2::type == ParserType::ZeroOrMore
+		, Zom2::type == ZeroOrMoreType
 		, ParserResultOf<Zom2>::is<std::vector<std::string_view>>
 
 		, is_parser<Zom3>
-		, Zom3::type == ParserType::ZeroOrMore
+		, Zom3::type == ZeroOrMoreType
 		, ParserResultOf<Zom3>::is<std::vector<std::string_view>>
 
 		, is_parser<Zom4>
-		, Zom4::type == ParserType::ZeroOrMore
+		, Zom4::type == ZeroOrMoreType
 		, ParserResultOf<Zom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
 		;
 }

@@ -9,23 +9,23 @@ void requirements()
 {
 	assert
 		, is_parser<Ign1>
-		, Ign1::type == ParserType::Ignore
+		, Ign1::type == IgnoreType
 		, ParserResultOf<Ign1>::is<void>
 
 		, is_parser<Ign2>
-		, Ign2::type == ParserType::Ignore
+		, Ign2::type == IgnoreType
 		, ParserResultOf<Ign2>::is<void>
 
 		, is_parser<Ign3>
-		, Ign3::type == ParserType::Ignore
+		, Ign3::type == IgnoreType
 		, ParserResultOf<Ign3>::is<void>
 
 		, is_parser<Ign4>
-		, Ign4::type == ParserType::Ignore
+		, Ign4::type == IgnoreType
 		, ParserResultOf<Ign4>::is<void>
 
 		, is_parser<Ign5>
-		, Ign5::type == ParserType::Ignore
+		, Ign5::type == IgnoreType
 		, ParserResultOf<Ign5>::is<void>
 		;
 }

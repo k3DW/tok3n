@@ -15,19 +15,19 @@ void requirements()
 {
 	assert
 		, is_parser<TwoWay1>
-		, TwoWay1::type == ParserType::Choice
+		, TwoWay1::type == ChoiceType
 		, ParserResultOf<TwoWay1>::is<std::string_view>
 
 		, is_parser<TwoWay2>
-		, TwoWay2::type == ParserType::Choice
+		, TwoWay2::type == ChoiceType
 		, ParserResultOf<TwoWay2>::is<std::string_view>
 
 		, is_parser<ThreeWay1>
-		, ThreeWay1::type == ParserType::Choice
+		, ThreeWay1::type == ChoiceType
 		, ParserResultOf<ThreeWay1>::is<std::string_view>
 
 		, is_parser<ThreeWay2>
-		, ThreeWay2::type == ParserType::Choice
+		, ThreeWay2::type == ChoiceType
 		, ParserResultOf<ThreeWay2>::is<std::string_view>
 		;
 }
