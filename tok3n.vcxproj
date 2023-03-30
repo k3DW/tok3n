@@ -286,8 +286,9 @@
     <ClInclude Include="include\tok3n\operators\zero_or_more.h" />
     <ClInclude Include="include\tok3n\parsers.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
-    <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
+    <ClInclude Include="include\tok3n\parsers\repeat\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
+    <ClInclude Include="include\tok3n\parsers\_constructible\basic.h" />
     <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
     <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
     <ClInclude Include="include\tok3n\parsers\basic\OneChar.h" />
@@ -305,7 +306,9 @@
     <ClInclude Include="include\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClInclude Include="include\tok3n\parsers\Details.h" />
+    <ClInclude Include="include\tok3n\parsers\_constructible\compound.h" />
+    <ClInclude Include="include\tok3n\parsers\_constructible\divergent.h" />
+    <ClInclude Include="include\tok3n\parsers\_constructible\repeat.h" />
     <ClInclude Include="include\tok3n\types.h" />
     <ClInclude Include="include\tok3n\types\ModifierBase.h" />
     <ClInclude Include="include\tok3n\types\ParserResultOf.h" />

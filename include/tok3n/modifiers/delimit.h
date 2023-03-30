@@ -1,13 +1,13 @@
 #pragma once
 #include <tok3n/types/ModifierBase.h>
-#include <tok3n/parsers/adaptor/Delimit.h>
+#include <tok3n/parsers/repeat/Delimit.h>
 
 TOK3N_BEGIN_NAMESPACE(modifiers)
 
 struct delimit final
 {
 	template <Parser P, Parser D>
-	requires detail::Delimit_able<P, D>
+	requires constructible::Delimit<P, D>
 	consteval auto operator()(P, D) const
 	{
 		return Delimit<P, D>{};
@@ -17,7 +17,7 @@ struct delimit final
 	struct inner final : ModifierBase
 	{
 		template <Parser P>
-		requires detail::Delimit_able<P, D>
+		requires constructible::Delimit<P, D>
 		consteval auto operator()(P) const
 		{
 			return Delimit<P, D>{};

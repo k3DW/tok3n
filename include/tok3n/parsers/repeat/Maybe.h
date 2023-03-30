@@ -1,12 +1,12 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/repeat.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P>
-requires detail::Maybe_able<P>
+requires constructible::Maybe<P>
 struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;

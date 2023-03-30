@@ -7,20 +7,20 @@
 	XX(Literal)                           \
 	XX(Choice)                            \
 	XX(Sequence)                          \
-	XX(OneOrMore)                         \
-	XX(ZeroOrMore)                        \
 	XX(Maybe)                             \
 	XX(Exactly)                           \
+	XX(OneOrMore)                         \
+	XX(ZeroOrMore)                        \
+	XX(Delimit)                           \
 	XX(Ignore)                            \
+	XX(Complete)                          \
+	XX(Join)                              \
 	XX(Transform)                         \
 	XX(ApplyTransform)                    \
-	XX(Join)                              \
-	XX(Delimit)                           \
 	XX(Into)                              \
 	XX(ApplyInto)                         \
 	XX(Constant)                          \
 	XX(Defaulted)                         \
-	XX(Complete)                          \
 	XX(Custom)
 
 TOK3N_BEGIN_NAMESPACE()

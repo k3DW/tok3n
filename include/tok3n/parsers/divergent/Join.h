@@ -1,7 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/divergent.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -85,7 +85,7 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires detail::Join_able<P>
+requires constructible::Join<P>
 struct Join
 {
 	using result_type = Input;

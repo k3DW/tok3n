@@ -1,7 +1,6 @@
 #pragma once
 
 #include <tok3n/parsers/adaptor/Ignore.h>
-#include <tok3n/parsers/adaptor/Delimit.h>
 #include <tok3n/parsers/adaptor/Complete.h>
 
 #include <tok3n/parsers/basic/OneChar.h>
@@ -24,3 +23,4 @@
 #include <tok3n/parsers/repeat/Exactly.h>
 #include <tok3n/parsers/repeat/OneOrMore.h>
 #include <tok3n/parsers/repeat/ZeroOrMore.h>
+#include <tok3n/parsers/repeat/Delimit.h>

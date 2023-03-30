@@ -1,12 +1,12 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/repeat.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, std::size_t N>
-requires detail::Exactly_able<P, N>
+requires constructible::Exactly<P, N>
 struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N>;

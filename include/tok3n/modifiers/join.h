@@ -7,7 +7,7 @@ TOK3N_BEGIN_NAMESPACE(modifiers)
 struct join final : ModifierBase
 {
 	template <Parser P>
-	requires detail::Join_able<P>
+	requires constructible::Join<P>
 	consteval auto operator()(P) const
 	{
 		if constexpr (std::same_as<Input, typename P::result_type>)

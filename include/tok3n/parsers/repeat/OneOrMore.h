@@ -1,12 +1,12 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/repeat.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P>
-requires detail::OneOrMore_able<P>
+requires constructible::OneOrMore<P>
 struct OneOrMore
 {
 	using result_type = std::vector<typename P::result_type>;

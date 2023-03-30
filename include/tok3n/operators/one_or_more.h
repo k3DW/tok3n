@@ -22,7 +22,7 @@ TOK3N_END_NAMESPACE(detail::operators)
 TOK3N_BEGIN_NAMESPACE(inline operators)
 
 template <Parser P>
-requires detail::OneOrMore_able<P>
+requires constructible::OneOrMore<P>
 consteval auto operator+(P)
 {
 	return detail::operators::one_or_more(P{});
