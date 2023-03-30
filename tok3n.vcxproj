@@ -288,6 +288,7 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h" />
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
+    <ClInclude Include="include\tok3n\parsers\_constructible\basic.h" />
     <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
     <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
     <ClInclude Include="include\tok3n\parsers\basic\OneChar.h" />
