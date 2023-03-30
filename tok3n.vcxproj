@@ -306,7 +306,6 @@
     <ClInclude Include="include\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClInclude Include="include\tok3n\parsers\Details.h" />
     <ClInclude Include="include\tok3n\parsers\_constructible\compound.h" />
     <ClInclude Include="include\tok3n\parsers\_constructible\divergent.h" />
     <ClInclude Include="include\tok3n\parsers\_constructible\repeat.h" />
