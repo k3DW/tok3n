@@ -18,12 +18,6 @@ concept void_result = std::same_as<typename P::result_type, void>;
 
 
 
-template <class... Ps> concept Choice_able   = (sizeof...(Ps) >= 2) && meta::all_same<typename Ps::result_type...>;
-template <class... Ps> using   Choice_result = typename meta::head<Ps...>::result_type;
-
-template <class... Ps> concept Sequence_able         = sizeof...(Ps) >= 2;
-template <class... Ps> using   Sequence_result_trait = meta::unwrap_if_single<meta::filter<meta::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
-
 template <class P> concept OneOrMore_able  = not void_result<P>;
 template <class P> concept ZeroOrMore_able = not void_result<P>;
 template <class P> concept Maybe_able      = not void_result<P>;

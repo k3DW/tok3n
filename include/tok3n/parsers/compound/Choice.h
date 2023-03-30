@@ -1,7 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/compound.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -28,10 +28,10 @@ namespace detail::executors
 }
 
 template <Parser... Ps>
-requires detail::Choice_able<Ps...>
+requires constructible::Choice<Ps...>
 struct Choice
 {
-	using result_type = detail::Choice_result<Ps...>;
+	using result_type = typename meta::head<Ps...>::result_type;
 
 	static constexpr ParserType type = ChoiceType;
 

@@ -1,7 +1,7 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/compound.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
@@ -56,10 +56,10 @@ namespace detail::executors
 }
 
 template <Parser... Ps>
-requires detail::Sequence_able<Ps...>
+requires constructible::Sequence<Ps...>
 struct Sequence
 {
-	using _trait = detail::Sequence_result_trait<Ps...>;
+	using _trait = meta::unwrap_if_single<meta::filter<meta::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
 	static constexpr ParserType type = SequenceType;
 
