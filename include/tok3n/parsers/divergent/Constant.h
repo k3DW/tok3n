@@ -1,7 +1,6 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 

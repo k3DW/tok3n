@@ -14,9 +14,9 @@
 	XX(Delimit)                           \
 	XX(Ignore)                            \
 	XX(Complete)                          \
+	XX(Join)                              \
 	XX(Transform)                         \
 	XX(ApplyTransform)                    \
-	XX(Join)                              \
 	XX(Into)                              \
 	XX(ApplyInto)                         \
 	XX(Constant)                          \

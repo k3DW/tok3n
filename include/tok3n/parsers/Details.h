@@ -13,48 +13,4 @@ TOK3N_BEGIN_NAMESPACE(detail)
 
 
 
-template <class P>
-concept void_result = std::same_as<typename P::result_type, void>;
-
-
-
-template <class P, auto function> concept Transform_able   = std::invocable<decltype(function), typename P::result_type&&>;
-template <class P, auto function> using   Transform_result = std::invoke_result_t<decltype(function), typename P::result_type&&>;
-
-
-
-template <class T> constexpr bool is_joinable_v          = false;
-template <class T> constexpr bool is_joinable_v<const T> = is_joinable_v<T>;
-template <class T> constexpr bool is_joinable_v<T&>      = is_joinable_v<T>;
-template <class T> constexpr bool is_joinable_v<T&&>     = is_joinable_v<T>;
-
-template <>                       constexpr bool is_joinable_v<Input>             = true;
-template <class T, std::size_t N> constexpr bool is_joinable_v<std::array<T, N>>  = is_joinable_v<T>;
-template <class T>                constexpr bool is_joinable_v<std::vector<T>>    = is_joinable_v<T>;
-template <class T>                constexpr bool is_joinable_v<std::optional<T>>  = is_joinable_v<T>;
-template <class... Ts>            constexpr bool is_joinable_v<std::tuple<Ts...>> = (... && is_joinable_v<Ts>);
-
-template <class P>
-concept Join_able = is_joinable_v<typename P::result_type>;
-
-
-
-template <class P, class T>
-concept Into_able = not void_result<P> && requires { T(std::declval<typename P::result_type>()); };
-
-template <class T>
-concept HasTupleSize = requires { std::tuple_size<T>{}; } && (std::tuple_size_v<T> > 0);
-
-template <class P, class T>
-concept ApplyInto_able = HasTupleSize<typename P::result_type> && requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
-
-template <class P, auto function>
-concept ApplyTransform_able = HasTupleSize<typename P::result_type> && requires { std::apply(function, std::declval<typename P::result_type>()); };
-
-template <class P, auto function>
-requires ApplyTransform_able<P, function>
-using ApplyTransform_result = decltype(std::apply(function, std::declval<typename P::result_type>()));
-
-
-
 TOK3N_END_NAMESPACE(detail)

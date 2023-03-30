@@ -1,15 +1,15 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/divergent.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, auto function>
-requires detail::Transform_able<P, function>
+requires constructible::Transform<P, function>
 struct Transform
 {
-	using result_type = detail::Transform_result<P, function>;
+	using result_type = decltype(std::invoke(function, std::declval<typename P::result_type>()));
 
 	static constexpr ParserType type = TransformType;
 
