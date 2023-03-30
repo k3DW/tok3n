@@ -18,13 +18,6 @@ concept void_result = std::same_as<typename P::result_type, void>;
 
 
 
-template <class P> concept OneOrMore_able  = not void_result<P>;
-template <class P> concept ZeroOrMore_able = not void_result<P>;
-template <class P> concept Maybe_able      = not void_result<P>;
-
-template <class P, std::size_t N>
-concept Exactly_able = (N != 0) && not void_result<P>;
-
 template <class P, auto function> concept Transform_able   = std::invocable<decltype(function), typename P::result_type&&>;
 template <class P, auto function> using   Transform_result = std::invoke_result_t<decltype(function), typename P::result_type&&>;
 
