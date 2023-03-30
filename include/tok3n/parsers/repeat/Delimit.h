@@ -1,12 +1,12 @@
 #pragma once
-#include "tok3n/parsers/Details.h"
-#include "tok3n/types.h"
-#include "tok3n/concepts.h"
+#include <tok3n/parsers/_constructible/repeat.h>
+#include <tok3n/types.h>
+#include <tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <Parser P, Parser Delimiter>
-requires detail::Delimit_able<P, Delimiter>
+template <Parser P, Parser D>
+requires constructible::Delimit<P, D>
 struct Delimit
 {
 	using result_type = std::vector<typename P::result_type>;
@@ -26,11 +26,11 @@ struct Delimit
 			input = result.remaining();
 			results.emplace_back(std::move(*result));
 
-			auto delimited = Delimiter::lookahead(input);
-			if (not delimited.has_value())
+			auto delimit_result = D::parse(input);
+			if (not delimit_result)
 				break;
 
-			result = P::parse(delimited.remaining());
+			result = P::parse(delimit_result.remaining());
 		}
 
 		return { success, std::move(results), input };
@@ -46,11 +46,11 @@ struct Delimit
 		{
 			input = result.remaining();
 
-			auto delimited = Delimiter::lookahead(input);
-			if (not delimited.has_value())
+			auto delimit_result = D::lookahead(input);
+			if (not delimit_result)
 				break;
 
-			result = P::lookahead(delimited.remaining());
+			result = P::lookahead(delimit_result.remaining());
 		}
 
 		return { success, input };

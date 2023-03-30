@@ -11,8 +11,8 @@
 	using k3::tok3n::Exactly;        \
 	using k3::tok3n::OneOrMore;      \
 	using k3::tok3n::ZeroOrMore;     \
-	using k3::tok3n::Ignore;         \
 	using k3::tok3n::Delimit;        \
+	using k3::tok3n::Ignore;         \
 	using k3::tok3n::Complete;       \
 	using k3::tok3n::Join;           \
 	using k3::tok3n::Transform;      \

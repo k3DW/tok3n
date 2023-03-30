@@ -39,11 +39,6 @@ concept Join_able = is_joinable_v<typename P::result_type>;
 
 
 
-template <class P, class Delimiter>
-concept Delimit_able = not void_result<P>;
-
-
-
 template <class P, class T>
 concept Into_able = not void_result<P> && requires { T(std::declval<typename P::result_type>()); };
 
