@@ -48,9 +48,6 @@
     <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\adaptor\Delimit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -100,9 +97,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\tok3n\parsers\Details.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\tok3n.h">
@@ -238,6 +232,24 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="include\tok3n\operators.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\repeat\Delimit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\_constructible\basic.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\_constructible\compound.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\_constructible\divergent.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\parsers\_constructible\repeat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\tok3n\types\ParserResultOf.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
