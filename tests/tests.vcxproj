@@ -176,7 +176,6 @@
     <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />
     <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
     <ClCompile Include="operators_modifier\Complete.cpp" />

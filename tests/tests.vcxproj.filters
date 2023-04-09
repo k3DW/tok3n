@@ -15,7 +15,6 @@
     <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="operators_modifier\ApplyInto.cpp">
       <Filter>operators_modifier</Filter>
