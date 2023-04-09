@@ -42,6 +42,9 @@
     <ClInclude Include="samples\sub_parsers.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="samples\functions.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
