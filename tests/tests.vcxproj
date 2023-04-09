@@ -175,6 +175,7 @@
     <ClInclude Include="samples\classes.h" />
     <ClInclude Include="samples\divergent.h" />
     <ClInclude Include="samples\functions.h" />
+    <ClInclude Include="framework\parser_list.h" />
     <ClInclude Include="samples\repeat.h" />
     <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />

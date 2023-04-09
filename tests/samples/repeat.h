@@ -2,6 +2,7 @@
 #include <k3/tok3n.h>
 #include "samples/basic.h"
 #include "samples/sub_parsers.h"
+#include "framework/parser_list.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
@@ -33,5 +34,13 @@ using Del5 = Delimit<Comma, ABC>;    constexpr Del5 del5;
 using Del6 = Delimit<SpaceDot, ABC>; constexpr Del6 del6;
 using Del7 = Delimit<Comma, QQ>;     constexpr Del7 del7;
 using Del8 = Delimit<SpaceDot, QQ>;  constexpr Del8 del8;
+
+constexpr auto repeat_list = parser_list(
+	may1, may2, may3, may4,
+	exa1, exa2, exa3, exa4,
+	oom1, oom2, oom3, oom4,
+	zom1, zom2, zom3, zom4,
+	del1, del2, del3, del4, del5, del6, del7, del8
+);
 
 TOK3N_END_NAMESPACE(tests)
