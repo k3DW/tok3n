@@ -127,7 +127,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -146,7 +146,7 @@
       <PreprocessorDefinitions>TOK3N_TESTING;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -167,7 +167,7 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -188,7 +188,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -207,7 +207,7 @@
       <PreprocessorDefinitions>TOK3N_TESTING;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -228,7 +228,7 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpplatest</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -320,8 +320,6 @@
     <ClInclude Include="include\tok3n\namespace.h" />
     <ClInclude Include="include\tok3n\types\StaticString.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="tests\common.h" />
-    <ClInclude Include="tests\utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -333,46 +331,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Test|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="tests\operators_modifier\ApplyInto.cpp" />
-    <ClCompile Include="tests\operators_modifier\ApplyTransform.cpp" />
-    <ClCompile Include="tests\operators_modifier\Complete.cpp" />
-    <ClCompile Include="tests\operators_modifier\Constant.cpp" />
-    <ClCompile Include="tests\operators_modifier\Defaulted.cpp" />
-    <ClCompile Include="tests\operators_modifier\Delimit.cpp" />
-    <ClCompile Include="tests\operators_modifier\Exactly.cpp" />
-    <ClCompile Include="tests\operators_modifier\Ignore.cpp" />
-    <ClCompile Include="tests\operators_modifier\Into.cpp" />
-    <ClCompile Include="tests\operators_modifier\IntoChoice.cpp" />
-    <ClCompile Include="tests\operators_modifier\Join.cpp" />
-    <ClCompile Include="tests\operators_modifier\Transform.cpp" />
-    <ClCompile Include="tests\operators_regular\Basic.cpp" />
-    <ClCompile Include="tests\operators_regular\Choice.cpp" />
-    <ClCompile Include="tests\operators_regular\Maybe.cpp" />
-    <ClCompile Include="tests\operators_regular\Not.cpp" />
-    <ClCompile Include="tests\operators_regular\OneOrMore.cpp" />
-    <ClCompile Include="tests\operators_regular\Sequence.cpp" />
-    <ClCompile Include="tests\operators_regular\ZeroOrMore.cpp" />
-    <ClCompile Include="tests\parsers_adaptor\Complete.cpp" />
-    <ClCompile Include="tests\parsers_divergent\ApplyInto.cpp" />
-    <ClCompile Include="tests\parsers_divergent\ApplyTransform.cpp" />
-    <ClCompile Include="tests\parsers_divergent\combine.cpp" />
-    <ClCompile Include="tests\parsers_divergent\Constant.cpp" />
-    <ClCompile Include="tests\parsers_divergent\Custom.cpp" />
-    <ClCompile Include="tests\parsers_adaptor\Delimit.cpp" />
-    <ClCompile Include="tests\parsers_adaptor\Ignore.cpp" />
-    <ClCompile Include="tests\parsers_divergent\Defaulted.cpp" />
-    <ClCompile Include="tests\parsers_divergent\Into.cpp" />
-    <ClCompile Include="tests\parsers_divergent\Join.cpp" />
-    <ClCOmpile Include="tests\parsers_divergent\Transform.cpp" />
-    <ClCompile Include="tests\parsers_repeat\Exactly.cpp" />
-    <ClCompile Include="tests\parsers_basic\OneChar.cpp" />
-    <ClCompile Include="tests\parsers_basic\NotChar.cpp" />
-    <ClCompile Include="tests\parsers_basic\Literal.cpp" />
-    <ClCompile Include="tests\parsers_compound\Choice.cpp" />
-    <ClCompile Include="tests\parsers_compound\Sequence.cpp" />
-    <ClCompile Include="tests\parsers_repeat\Maybe.cpp" />
-    <ClCompile Include="tests\parsers_repeat\OneOrMore.cpp" />
-    <ClCompile Include="tests\parsers_repeat\ZeroOrMore.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
