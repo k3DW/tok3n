@@ -1,4 +1,5 @@
 #pragma once
+#include "samples/adaptor.h"
 #include "samples/basic.h"
 #include "samples/compound.h"
 #include "samples/repeat.h"
@@ -231,44 +232,21 @@ namespace samples::all
 
 	using namespace basic;
 
-	namespace Sub2
-	{
-		using _1 = ABC;
-		using _2 = OneOrMore<ABC>;
-		using _3 = Maybe<Choice<ABC, QQ>>;
-		using _4 = Sequence<ABC, ZeroOrMore<QQ>>;
-		using _5 = Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>;
-	}
-
-	using Ign1 = Ignore<Sub2::_1>; constexpr Ign1 ign1;
-	using Ign2 = Ignore<Sub2::_2>; constexpr Ign2 ign2;
-	using Ign3 = Ignore<Sub2::_3>; constexpr Ign3 ign3;
-	using Ign4 = Ignore<Sub2::_4>; constexpr Ign4 ign4;
-	using Ign5 = Ignore<Sub2::_5>; constexpr Ign5 ign5;
-
-	using Com1 = Complete<_11>;             constexpr Com1 com1;
-	using Com2 = Complete<_12>;             constexpr Com2 com2;
-	using Com3 = Complete<_13>;             constexpr Com3 com3;
-	using Com4 = Complete<_14>;             constexpr Com4 com4;
-	using Com5 = Complete<Maybe<_14>>;      constexpr Com5 com5;
-	using Com6 = Complete<OneOrMore<_14>>;  constexpr Com6 com6;
-	using Com7 = Complete<ZeroOrMore<_14>>; constexpr Com7 com7;
-
-	using Joi1 = Join<Sub2::_1>; constexpr Joi1 joi1;
-	using Joi2 = Join<Sub2::_2>; constexpr Joi2 joi2;
-	using Joi3 = Join<Sub2::_3>; constexpr Joi3 joi3;
-	using Joi4 = Join<Sub2::_4>; constexpr Joi4 joi4;
-	using Joi5 = Join<Sub2::_5>; constexpr Joi5 joi5;
+	using Joi1 = Join<_21>; constexpr Joi1 joi1;
+	using Joi2 = Join<_22>; constexpr Joi2 joi2;
+	using Joi3 = Join<_23>; constexpr Joi3 joi3;
+	using Joi4 = Join<_24>; constexpr Joi4 joi4;
+	using Joi5 = Join<_25>; constexpr Joi5 joi5;
 
 	using namespace functions;
 
-	using Tra1 = Transform<Sub2::_2, func1>;    constexpr Tra1 tra1;
-	using Tra2 = Transform<Sub2::_3, func2>;    constexpr Tra2 tra2;
-	using Tra3 = Transform<Sub2::_4, func3>;    constexpr Tra3 tra3;
-	using Tra4 = Transform<Sub2::_5, func4(3)>; constexpr Tra4 tra4;
+	using Tra1 = Transform<_22, func1>;    constexpr Tra1 tra1;
+	using Tra2 = Transform<_23, func2>;    constexpr Tra2 tra2;
+	using Tra3 = Transform<_24, func3>;    constexpr Tra3 tra3;
+	using Tra4 = Transform<_25, func4(3)>; constexpr Tra4 tra4;
 
-	using Apt1 = ApplyTransform<Sub2::_4, func3_apply>;    constexpr Apt1 apt1;
-	using Apt2 = ApplyTransform<Sub2::_5, func4_apply(3)>; constexpr Apt2 apt2;
+	using Apt1 = ApplyTransform<_24, func3_apply>;    constexpr Apt1 apt1;
+	using Apt2 = ApplyTransform<_25, func4_apply(3)>; constexpr Apt2 apt2;
 
 	using namespace classes;
 
@@ -279,13 +257,13 @@ namespace samples::all
 	using Api1 = ApplyInto<Sequence<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
 	using Api2 = ApplyInto<Sequence<SpaceDot, ABC>, Class5>; constexpr Api2 api2;
 
-	using Con1 = Constant<Sub2::_2, 1>;       constexpr Con1 con1;
-	using Con2 = Constant<Sub2::_3, 't'>;     constexpr Con2 con2;
-	using Con3 = Constant<Sub2::_4, true>;    constexpr Con3 con3;
-	using Con4 = Constant<Sub2::_5, nullptr>; constexpr Con4 con4;
+	using Con1 = Constant<_22, 1>;       constexpr Con1 con1;
+	using Con2 = Constant<_23, 't'>;     constexpr Con2 con2;
+	using Con3 = Constant<_24, true>;    constexpr Con3 con3;
+	using Con4 = Constant<_25, nullptr>; constexpr Con4 con4;
 	
-	using Def1 = Defaulted<Sub2::_2, int>;    constexpr Def1 def1;
-	using Def2 = Defaulted<Sub2::_3, Class3>; constexpr Def2 def2;
+	using Def1 = Defaulted<_22, int>;    constexpr Def1 def1;
+	using Def2 = Defaulted<_23, Class3>; constexpr Def2 def2;
 
 }
 

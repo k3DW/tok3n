@@ -10,7 +10,7 @@ struct Cus : Custom<Cus>
 
 	static consteval auto get_parser()
 	{
-		return Sub2::_5{} % fn<transform>;
+		return _25{} % fn<transform>;
 	}
 
 	static constexpr std::size_t transform(const std::tuple<std::vector<std::string_view>, std::optional<std::string_view>>& tup)

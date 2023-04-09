@@ -36,6 +36,9 @@
     <ClInclude Include="samples\repeat.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="samples\adaptor.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
