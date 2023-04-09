@@ -1,6 +1,5 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Custom)
 
 using namespace samples::all;
@@ -41,4 +40,3 @@ void parse_Transform()
 }
 
 TOK3N_END_NAMESPACE_TESTS(divergent::Custom)
-#endif

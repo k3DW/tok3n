@@ -1,6 +1,5 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
 
 using L = Literal<"literal">;
@@ -46,4 +45,3 @@ void parse_empty()
 }
 
 TOK3N_END_NAMESPACE_TESTS(basic::Literal)
-#endif

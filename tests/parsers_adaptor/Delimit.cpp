@@ -1,6 +1,5 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
 TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Delimit)
 
 using namespace samples::all;
@@ -67,4 +66,3 @@ void parse_Delimit_reversed()
 }
 
 TOK3N_END_NAMESPACE_TESTS(adaptor::Delimit)
-#endif
