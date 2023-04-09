@@ -1,5 +1,4 @@
 #pragma once
-#include "utility.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 

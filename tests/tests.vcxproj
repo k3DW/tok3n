@@ -176,7 +176,6 @@
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="framework\parse.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />
