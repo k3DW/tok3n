@@ -19,6 +19,9 @@
     <ClInclude Include="framework\assert.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\parse.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
