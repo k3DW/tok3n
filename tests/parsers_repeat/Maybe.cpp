@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Maybe)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<May1, MaybeType, std::optional<std::string_view>>
@@ -14,7 +14,7 @@ void requirements()
 		;
 }
 
-void parse_Maybe_Literal()
+inline void parse_Maybe_Literal()
 {
 	assert
 		, parse<May1>("litera").success({}, "litera")
@@ -26,7 +26,7 @@ void parse_Maybe_Literal()
 		, parse<May1>("").success({}, "")
 		;
 }
-void parse_Maybe_OneChar()
+inline void parse_Maybe_OneChar()
 {
 	assert
 		, parse<May2>("abcdef").success({ "a" }, "bcdef")
@@ -35,7 +35,7 @@ void parse_Maybe_OneChar()
 		, parse<May2>("").success({}, "")
 		;
 }
-void parse_Maybe_Choice()
+inline void parse_Maybe_Choice()
 {
 	assert
 		, parse<May3>("abliteralcbliteralcf").success({ "a" }, "bliteralcbliteralcf")
@@ -44,7 +44,7 @@ void parse_Maybe_Choice()
 		, parse<May3>("").success({}, "")
 		;
 }
-void parse_Maybe_Sequence()
+inline void parse_Maybe_Sequence()
 {
 	assert
 		, parse<May4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"} }, "literalcliteralcliteralb")

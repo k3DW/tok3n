@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::ApplyTransform)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, apt1 == apply<func3_apply>(abc >> *qq)
@@ -13,7 +13,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, apt1 == (abc >> *qq) % apply<func3_apply>
@@ -27,7 +27,7 @@ void infix()
 template <Parser auto p>
 concept valid_for_apply_transform = traits::operators::valid_modulo<p, apply<sink_func>>;
 
-void apply_transform_anything()
+inline void apply_transform_anything()
 {
 	assert
 		, not valid_for_apply_transform<oc1>

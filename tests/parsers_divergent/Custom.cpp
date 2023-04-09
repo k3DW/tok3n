@@ -20,14 +20,14 @@ struct Cus : Custom<Cus>
 	}
 };
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Cus, CustomType, std::size_t>
 		;
 }
 
-void parse_Transform()
+inline void parse_Transform()
 {
 	assert
 		, parse<Cus>("abcabcabcabc??").success(36, "")

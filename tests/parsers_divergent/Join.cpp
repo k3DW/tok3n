@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Join)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Joi1, JoinType, std::string_view>
@@ -15,7 +15,7 @@ void requirements()
 		;
 }
 
-void parse_Join()
+inline void parse_Join()
 {
 	assert
 		, parse<Joi1>("abcabc").success("abc", "abc")

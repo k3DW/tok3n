@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Exactly)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, exa1 == exactly<3>(l1)
@@ -14,7 +14,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, exa1 == l1 % exactly<3>
@@ -29,7 +29,7 @@ void infix()
 template <Parser auto p>
 concept valid_for_exactly = traits::operators::valid_modulo<p, exactly<2>>;
 
-void exactly_anything()
+inline void exactly_anything()
 {
 	assert
 		, oc1 % exactly<2> == Exactly<OC1, 2>{}

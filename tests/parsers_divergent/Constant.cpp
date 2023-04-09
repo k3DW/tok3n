@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Constant)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Con1, ConstantType, int>
@@ -14,7 +14,7 @@ void requirements()
 		;
 }
 
-void parse_Constant()
+inline void parse_Constant()
 {
 	assert
 		, parse<Con1>("abcabcabcab").success(1, "ab")

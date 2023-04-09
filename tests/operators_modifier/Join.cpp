@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Join)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, joi1 != join(abc)
@@ -16,7 +16,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, joi1 != abc % join
@@ -28,7 +28,7 @@ void infix()
 		;
 }
 
-void idempotent()
+inline void idempotent()
 {
 	assert
 		, joi1 == join(joi1)
@@ -49,7 +49,7 @@ void idempotent()
 template <Parser auto p>
 concept valid_for_join = traits::operators::valid_modulo<p, join>;
 
-void join_anything()
+inline void join_anything()
 {
 	assert
 		, oc1 % join == OC1{}

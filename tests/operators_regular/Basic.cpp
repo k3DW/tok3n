@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(regular::Basic)
 
 using namespace samples::basic;
 
-void one_literal()
+inline void one_literal()
 {
 	assert
 		, "abc"_one == oc1
@@ -16,7 +16,7 @@ void one_literal()
 		;
 }
 
-void one_operator()
+inline void one_operator()
 {
 	assert
 		, one<"abc"> == oc1
@@ -28,7 +28,7 @@ void one_operator()
 		;
 }
 
-void not_literal()
+inline void not_literal()
 {
 	assert
 		, "abc"_not == nc1
@@ -39,7 +39,7 @@ void not_literal()
 		;
 }
 
-void not_operator()
+inline void not_operator()
 {
 	assert
 		, not_<"abc"> == nc1
@@ -50,7 +50,7 @@ void not_operator()
 		;
 }
 
-void lit_literal()
+inline void lit_literal()
 {
 	assert
 		, "literal"_lit == l1
@@ -62,7 +62,7 @@ void lit_literal()
 		;
 }
 
-void lit_operator()
+inline void lit_operator()
 {
 	assert
 		, lit<"literal"> == l1
@@ -74,7 +74,7 @@ void lit_operator()
 		;
 }
 
-void ign_literal()
+inline void ign_literal()
 {
 	assert
 		, "literal"_ign == Ignore<L1>{}
@@ -86,7 +86,7 @@ void ign_literal()
 		;
 }
 
-void ign_operator()
+inline void ign_operator()
 {
 	assert
 		, ign<"literal"> == Ignore<L1>{}

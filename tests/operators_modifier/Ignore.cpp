@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Ignore)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, ign1 == ignore(abc)
@@ -15,7 +15,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, ign1 == abc % ignore
@@ -26,7 +26,7 @@ void infix()
 		;
 }
 
-void idempotent()
+inline void idempotent()
 {
 	assert
 		, ign1 == ignore(ign1)
@@ -44,7 +44,7 @@ void idempotent()
 
 
 
-void ignore_anything()
+inline void ignore_anything()
 {
 	assert
 		, oc1 % ignore == Ignore<OC1>{}

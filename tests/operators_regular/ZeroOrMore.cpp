@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(regular::ZeroOrMore)
 
 using namespace samples::all;
 
-void ZeroOrMore_Maybe()
+inline void ZeroOrMore_Maybe()
 {
 	assert
 		, *may1 == zom1
@@ -22,7 +22,7 @@ void ZeroOrMore_Maybe()
 		;
 }
 
-void ZeroOrMore_OneOrMore()
+inline void ZeroOrMore_OneOrMore()
 {
 	assert
 		, *oom1 == zom1
@@ -40,7 +40,7 @@ void ZeroOrMore_OneOrMore()
 		;
 }
 
-void ZeroOrMore_ZeroOrMore()
+inline void ZeroOrMore_ZeroOrMore()
 {
 	assert
 		, *zom1 == zom1
@@ -63,7 +63,7 @@ void ZeroOrMore_ZeroOrMore()
 template <auto p>
 constexpr bool valid_for_ZeroOrMore = requires { *p; };
 
-void ZeroOrMore_anything()
+inline void ZeroOrMore_anything()
 {
 	assert
 		, *oc1 == ZeroOrMore<OC1>{}

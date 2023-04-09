@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(regular::Not)
 
 using namespace samples::all;
 
-void not_OneChar()
+inline void not_OneChar()
 {
 	assert
 		, !oc1 == nc1
@@ -16,7 +16,7 @@ void not_OneChar()
 		;
 }
 
-void not_NotChar()
+inline void not_NotChar()
 {
 	assert
 		, !nc1 == oc1
@@ -33,7 +33,7 @@ void not_NotChar()
 template <Parser auto parser>
 concept valid_not_operator = traits::operators::valid_bang<parser>;
 
-void not_anything()
+inline void not_anything()
 {
 	assert
 		, !oc1 == NotChar<"abc">{}

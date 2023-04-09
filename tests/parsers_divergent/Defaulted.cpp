@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Defaulted)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Def1, DefaultedType, int>
@@ -12,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_Join()
+inline void parse_Join()
 {
 	assert
 		, parse<Def1>("abcabcabcab").success(0, "ab")

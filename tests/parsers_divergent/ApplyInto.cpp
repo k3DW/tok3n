@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(divergent::ApplyInto)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Api1, ApplyIntoType, Class2>
@@ -12,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_ApplyInto()
+inline void parse_ApplyInto()
 {
 	assert
 		, parse<Api1>("abc.").success(Class2{ "abc", "." }, "")

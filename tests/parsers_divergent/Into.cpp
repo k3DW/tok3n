@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Into)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Int1, IntoType, Class1>
@@ -13,7 +13,7 @@ void requirements()
 		;
 }
 
-void parse_Into()
+inline void parse_Into()
 {
 	assert
 		, parse<Int1>(" ").success(Class1(0), "")

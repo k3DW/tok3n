@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::ApplyTransform)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Apt1, ApplyTransformType, bool>
@@ -12,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_ApplyTransform()
+inline void parse_ApplyTransform()
 {
 	assert
 		, parse<Apt1>("abc???????").success(false, "?")

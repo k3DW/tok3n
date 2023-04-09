@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Ignore)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Ign1, IgnoreType, void>
@@ -15,7 +15,7 @@ void requirements()
 		;
 }
 
-void parse_Ignore()
+inline void parse_Ignore()
 {
 	assert
 		, parse<Ign1>("abcabc").success("abc")

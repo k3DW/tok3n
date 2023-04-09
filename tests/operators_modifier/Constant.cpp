@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Constant)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, con1 == constant<1>(+abc)
@@ -14,7 +14,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, con1 == +abc % constant<1>
@@ -26,7 +26,7 @@ void infix()
 
 
 
-void constant_anything()
+inline void constant_anything()
 {
 	assert
 		, oc1 % constant<0> == Constant<OC1, 0>{}

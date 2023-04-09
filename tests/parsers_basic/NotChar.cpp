@@ -5,7 +5,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(basic::NotChar)
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Single, NotCharType, std::string_view>
@@ -13,7 +13,7 @@ void requirements()
 		;
 }
 
-void parse_single()
+inline void parse_single()
 {
 	assert
 		, parse<Single>("ab").failure()
@@ -25,7 +25,7 @@ void parse_single()
 		;
 }
 
-void parse_multi()
+inline void parse_multi()
 {
 	assert
 		, parse<Multi>("abc").failure()
@@ -50,7 +50,7 @@ void parse_multi()
 
 using constructible = traits::basic::constructible<NotChar>;
 
-void constructible_from_ascii_only()
+inline void constructible_from_ascii_only()
 {
 	using all_ascii_chars = std::make_integer_sequence<int, 128>;
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
@@ -61,7 +61,7 @@ void constructible_from_ascii_only()
 		;
 }
 
-void constructible_alphabetically_only()
+inline void constructible_alphabetically_only()
 {
 	assert
 		, constructible::from<"abc">
@@ -73,7 +73,7 @@ void constructible_alphabetically_only()
 		;
 }
 
-void parse_empty()
+inline void parse_empty()
 {
 	assert
 		, constructible::from<"">

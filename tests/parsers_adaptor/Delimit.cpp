@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Delimit)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Del1, DelimitType, std::vector<std::string_view>>
@@ -18,7 +18,7 @@ void requirements()
 		;
 }
 
-void parse_Delimit_regular()
+inline void parse_Delimit_regular()
 {
 	assert
 		, parse<Del1>("abc,abc,abc,,abc,abc,abc").success({ "abc", "abc", "abc" }, ",,abc,abc,abc")
@@ -41,7 +41,7 @@ void parse_Delimit_regular()
 		, parse<Del4>("").failure()
 		;
 }
-void parse_Delimit_reversed()
+inline void parse_Delimit_reversed()
 {
 	assert
 		, parse<Del5>("abc,abc,abc,,abc,abc,abc").failure()

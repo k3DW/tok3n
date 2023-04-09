@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Transform)
 
 using namespace samples::all;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, tra1 == fn<func1>(+abc)
@@ -15,7 +15,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, tra1 == +abc % fn<func1>
@@ -31,7 +31,7 @@ void infix()
 template <Parser auto p>
 concept valid_for_transform = traits::operators::valid_modulo<p, fn<sink_func>>;
 
-void transform_anything()
+inline void transform_anything()
 {
 	assert
 		, oc1 % fn<sink_func> == Transform<OC1, sink_func>{}

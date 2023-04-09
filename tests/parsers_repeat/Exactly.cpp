@@ -4,7 +4,7 @@ TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Exactly)
 
 using namespace samples::all;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Exa1, ExactlyType, std::array<std::string_view, 3>>
@@ -14,7 +14,7 @@ void requirements()
 		;
 }
 
-void constructibility()
+inline void constructibility()
 {
 	using traits::repeat::Exactly::constructible;
 	assert
@@ -24,7 +24,7 @@ void constructibility()
 		;
 }
 
-void parse_Exactly_Literal()
+inline void parse_Exactly_Literal()
 {
 	assert
 		, parse<Exa1>("litera").failure()
@@ -37,7 +37,7 @@ void parse_Exactly_Literal()
 		, parse<Exa1>("").failure()
 		;
 }
-void parse_Exactly_OneChar()
+inline void parse_Exactly_OneChar()
 {
 	assert
 		, parse<Exa2>("abcbaa").success({ "a", "b", "c", "b", "a" }, "a")
@@ -46,7 +46,7 @@ void parse_Exactly_OneChar()
 		, parse<Exa2>("").failure()
 		;
 }
-void parse_Exactly_Choice()
+inline void parse_Exactly_Choice()
 {
 	assert
 		, parse<Exa3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c" }, "bliteralcf")
@@ -55,7 +55,7 @@ void parse_Exactly_Choice()
 		, parse<Exa3>("").failure()
 		;
 }
-void parse_Exactly_Sequence()
+inline void parse_Exactly_Sequence()
 {
 	assert
 		, parse<Exa4>("literalaliteralcliteralcliteralb").success({{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralb")
