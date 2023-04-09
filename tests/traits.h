@@ -1,11 +1,4 @@
 #pragma once
-#include "samples/adaptor.h"
-#include "samples/basic.h"
-#include "samples/classes.h"
-#include "samples/compound.h"
-#include "samples/divergent.h"
-#include "samples/functions.h"
-#include "samples/repeat.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
