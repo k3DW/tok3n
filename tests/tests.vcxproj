@@ -172,6 +172,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="samples\adaptor.h" />
+    <ClInclude Include="samples\classes.h" />
     <ClInclude Include="samples\functions.h" />
     <ClInclude Include="samples\repeat.h" />
     <ClInclude Include="samples\compound.h" />
