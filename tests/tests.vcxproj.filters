@@ -1,156 +1,141 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <Filter Include="operators_modifier" />
+    <Filter Include="operators_regular" />
+    <Filter Include="parsers_adaptor" />
+    <Filter Include="parsers_basic" />
+    <Filter Include="parsers_compound" />
+    <Filter Include="parsers_divergent" />
+    <Filter Include="parsers_repeat" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="utility.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="pch.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="parsers_repeat\Exactly.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\Maybe.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\OneOrMore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="operators_modifier\ApplyInto.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\ApplyTransform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Complete.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Constant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Defaulted.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Delimit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Exactly.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Ignore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Into.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\IntoChoice.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Join.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Transform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Basic.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Choice.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Maybe.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Not.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\OneOrMore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Sequence.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\ZeroOrMore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="parsers_adaptor\Complete.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_adaptor</Filter>
     </ClCompile>
     <ClCompile Include="parsers_adaptor\Delimit.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_adaptor</Filter>
     </ClCompile>
     <ClCompile Include="parsers_adaptor\Ignore.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_adaptor</Filter>
     </ClCompile>
     <ClCompile Include="parsers_basic\Literal.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_basic</Filter>
     </ClCompile>
     <ClCompile Include="parsers_basic\NotChar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_basic</Filter>
     </ClCompile>
     <ClCompile Include="parsers_basic\OneChar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_basic</Filter>
     </ClCompile>
     <ClCompile Include="parsers_compound\Choice.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_compound</Filter>
     </ClCompile>
     <ClCompile Include="parsers_compound\Sequence.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_compound</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\ApplyInto.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\ApplyTransform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\combine.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Constant.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Custom.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Defaulted.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Into.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Join.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Transform.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>parsers_divergent</Filter>
     </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="parsers_repeat\Exactly.cpp">
+      <Filter>parsers_repeat</Filter>
     </ClCompile>
-    <ClCompile Include="pch.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="parsers_repeat\Maybe.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\OneOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
