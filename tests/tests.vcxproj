@@ -180,6 +180,7 @@
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="framework\parse.h" />
     <ClInclude Include="pch.h" />
+    <ClInclude Include="samples\sub_parsers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />

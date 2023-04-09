@@ -1,18 +1,11 @@
 #pragma once
 #include <tok3n/tok3n.h>
 #include "samples/basic.h"
+#include "samples/sub_parsers.h"
 
 TOK3N_BEGIN_NAMESPACE(tests::samples::all)
 
 using namespace basic;
-
-namespace
-{
-	using _11 = L1;
-	using _12 = OC1;
-	using _13 = Choice<L1, OC1>;
-	using _14 = Sequence<L1, OC1>;
-}
 
 using May1 = Maybe<_11>; constexpr May1 may1;
 using May2 = Maybe<_12>; constexpr May2 may2;

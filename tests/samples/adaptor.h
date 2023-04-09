@@ -1,20 +1,11 @@
 #pragma once
 #include <tok3n/tok3n.h>
 #include "samples/basic.h"
-#include "samples/repeat.h"
+#include "samples/sub_parsers.h"
 
 TOK3N_BEGIN_NAMESPACE(tests::samples::all)
 
 using namespace basic;
-
-namespace
-{
-	using _21 = ABC;
-	using _22 = OneOrMore<ABC>;
-	using _23 = Maybe<Choice<ABC, QQ>>;
-	using _24 = Sequence<ABC, ZeroOrMore<QQ>>;
-	using _25 = Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>;
-}
 
 using Ign1 = Ignore<_21>; constexpr Ign1 ign1;
 using Ign2 = Ignore<_22>; constexpr Ign2 ign2;
