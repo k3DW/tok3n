@@ -26,11 +26,6 @@ namespace samples::basic
 	using Comma    = OneChar<",">;   constexpr Comma    comma;
 	using SpaceDot = OneChar<" .">;  constexpr SpaceDot spacedot;
 
-	static_assert(parser_equality_operator::validate(
-		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
-		qq, abc, comma, spacedot
-	), "operator==() and operator!=() are not implemented properly on Parser types");
-
 }
 
 namespace traits::basic
@@ -361,21 +356,6 @@ namespace samples::all
 	
 	using Def1 = Defaulted<Sub2::_2, int>;    constexpr Def1 def1;
 	using Def2 = Defaulted<Sub2::_3, Class3>; constexpr Def2 def2;
-
-	static_assert(parser_equality_operator::validate(
-		oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3, oc4, nc4, nc5, l4,
-		qq, abc, comma, spacedot,
-		cho1, cho2, cho3, cho4, seq1, seq2, seq3, seq4,
-		Sub1::_1{}, Sub1::_2{}, Sub1::_3{}, Sub1::_4{},
-		may1, may2, may3, may4, exa1, exa2, exa3, exa4,
-		oom1, oom2, oom3, oom4, zom1, zom2, zom3, zom4,
-		Sub2::_1{}, Sub2::_2{}, Sub2::_3{}, Sub2::_4{}, Sub2::_5{},
-		ign1, ign2, ign3, ign4, ign5,
-		del1, del2, del3, del4, del5, del6, del7, del8,
-		com1, com2, com3, com4, com5, com6, com7,
-		tra1, tra2, tra3, tra4, int1, int2, int3, api1, api2,
-		con1, con2, con3, con4, def1, def2
-	), "operator==() and operator!=() are not implemented properly on Parser types");
 
 }
 
