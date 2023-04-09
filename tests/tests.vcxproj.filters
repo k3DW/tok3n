@@ -30,6 +30,9 @@
     <ClInclude Include="samples\basic.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="samples\compound.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />
     <ClInclude Include="framework\assert.h" />
     <ClInclude Include="common.h" />
