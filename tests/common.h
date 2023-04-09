@@ -1,6 +1,7 @@
 #pragma once
 #include "samples/basic.h"
 #include "samples/compound.h"
+#include "samples/repeat.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
@@ -230,34 +231,6 @@ namespace samples::all
 
 	using namespace basic;
 
-	namespace Sub1
-	{
-		using _1 = L1;
-		using _2 = OC1;
-		using _3 = Choice<L1, OC1>;
-		using _4 = Sequence<L1, OC1>;
-	}
-
-	using May1 = Maybe<Sub1::_1>; constexpr May1 may1;
-	using May2 = Maybe<Sub1::_2>; constexpr May2 may2;
-	using May3 = Maybe<Sub1::_3>; constexpr May3 may3;
-	using May4 = Maybe<Sub1::_4>; constexpr May4 may4;
-
-	using Exa1 = Exactly<Sub1::_1, 3>; constexpr Exa1 exa1;
-	using Exa2 = Exactly<Sub1::_2, 5>; constexpr Exa2 exa2;
-	using Exa3 = Exactly<Sub1::_3, 4>; constexpr Exa3 exa3;
-	using Exa4 = Exactly<Sub1::_4, 2>; constexpr Exa4 exa4;
-
-	using Oom1 = OneOrMore<Sub1::_1>; constexpr Oom1 oom1;
-	using Oom2 = OneOrMore<Sub1::_2>; constexpr Oom2 oom2;
-	using Oom3 = OneOrMore<Sub1::_3>; constexpr Oom3 oom3;
-	using Oom4 = OneOrMore<Sub1::_4>; constexpr Oom4 oom4;
-
-	using Zom1 = ZeroOrMore<Sub1::_1>; constexpr Zom1 zom1;
-	using Zom2 = ZeroOrMore<Sub1::_2>; constexpr Zom2 zom2;
-	using Zom3 = ZeroOrMore<Sub1::_3>; constexpr Zom3 zom3;
-	using Zom4 = ZeroOrMore<Sub1::_4>; constexpr Zom4 zom4;
-
 	namespace Sub2
 	{
 		using _1 = ABC;
@@ -273,22 +246,13 @@ namespace samples::all
 	using Ign4 = Ignore<Sub2::_4>; constexpr Ign4 ign4;
 	using Ign5 = Ignore<Sub2::_5>; constexpr Ign5 ign5;
 
-	using Del1 = Delimit<ABC, Comma>;    constexpr Del1 del1;
-	using Del2 = Delimit<ABC, SpaceDot>; constexpr Del2 del2;
-	using Del3 = Delimit<QQ, Comma>;     constexpr Del3 del3;
-	using Del4 = Delimit<QQ, SpaceDot>;  constexpr Del4 del4;
-	using Del5 = Delimit<Comma, ABC>;    constexpr Del5 del5;
-	using Del6 = Delimit<SpaceDot, ABC>; constexpr Del6 del6;
-	using Del7 = Delimit<Comma, QQ>;     constexpr Del7 del7;
-	using Del8 = Delimit<SpaceDot, QQ>;  constexpr Del8 del8;
-
-	using Com1 = Complete<Sub1::_1>;             constexpr Com1 com1;
-	using Com2 = Complete<Sub1::_2>;             constexpr Com2 com2;
-	using Com3 = Complete<Sub1::_3>;             constexpr Com3 com3;
-	using Com4 = Complete<Sub1::_4>;             constexpr Com4 com4;
-	using Com5 = Complete<Maybe<Sub1::_4>>;      constexpr Com5 com5;
-	using Com6 = Complete<OneOrMore<Sub1::_4>>;  constexpr Com6 com6;
-	using Com7 = Complete<ZeroOrMore<Sub1::_4>>; constexpr Com7 com7;
+	using Com1 = Complete<_11>;             constexpr Com1 com1;
+	using Com2 = Complete<_12>;             constexpr Com2 com2;
+	using Com3 = Complete<_13>;             constexpr Com3 com3;
+	using Com4 = Complete<_14>;             constexpr Com4 com4;
+	using Com5 = Complete<Maybe<_14>>;      constexpr Com5 com5;
+	using Com6 = Complete<OneOrMore<_14>>;  constexpr Com6 com6;
+	using Com7 = Complete<ZeroOrMore<_14>>; constexpr Com7 com7;
 
 	using Joi1 = Join<Sub2::_1>; constexpr Joi1 joi1;
 	using Joi2 = Join<Sub2::_2>; constexpr Joi2 joi2;
