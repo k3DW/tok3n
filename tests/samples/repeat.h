@@ -3,9 +3,7 @@
 #include "samples/basic.h"
 #include "samples/sub_parsers.h"
 
-TOK3N_BEGIN_NAMESPACE(tests::samples::all)
-
-using namespace basic;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using May1 = Maybe<_11>; constexpr May1 may1;
 using May2 = Maybe<_12>; constexpr May2 may2;
@@ -36,4 +34,4 @@ using Del6 = Delimit<SpaceDot, ABC>; constexpr Del6 del6;
 using Del7 = Delimit<Comma, QQ>;     constexpr Del7 del7;
 using Del8 = Delimit<SpaceDot, QQ>;  constexpr Del8 del8;
 
-TOK3N_END_NAMESPACE(tests::samples::all)
+TOK3N_END_NAMESPACE(tests)

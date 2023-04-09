@@ -1,7 +1,7 @@
 #pragma once
 #include <tok3n/tok3n.h>
 
-TOK3N_BEGIN_NAMESPACE(tests::samples::basic)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using OC1 = OneChar<"abc">;     constexpr OC1 oc1;
 using OC2 = OneChar<"bcd">;     constexpr OC2 oc2;
@@ -23,4 +23,4 @@ using ABC      = Literal<"abc">; constexpr ABC      abc;
 using Comma    = OneChar<",">;   constexpr Comma    comma;
 using SpaceDot = OneChar<" .">;  constexpr SpaceDot spacedot;
 
-TOK3N_END_NAMESPACE(tests::samples::basic)
+TOK3N_END_NAMESPACE(tests)

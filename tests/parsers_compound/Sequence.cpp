@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 

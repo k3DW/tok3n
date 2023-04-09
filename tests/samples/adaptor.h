@@ -3,9 +3,7 @@
 #include "samples/basic.h"
 #include "samples/sub_parsers.h"
 
-TOK3N_BEGIN_NAMESPACE(tests::samples::all)
-
-using namespace basic;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using Ign1 = Ignore<_21>; constexpr Ign1 ign1;
 using Ign2 = Ignore<_22>; constexpr Ign2 ign2;
@@ -21,4 +19,4 @@ using Com5 = Complete<Maybe<_14>>;      constexpr Com5 com5;
 using Com6 = Complete<OneOrMore<_14>>;  constexpr Com6 com6;
 using Com7 = Complete<ZeroOrMore<_14>>; constexpr Com7 com7;
 
-TOK3N_END_NAMESPACE(tests::samples::all)
+TOK3N_END_NAMESPACE(tests)

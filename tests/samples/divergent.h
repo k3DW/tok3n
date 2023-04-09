@@ -4,11 +4,7 @@
 #include "samples/classes.h"
 #include "samples/functions.h"
 
-TOK3N_BEGIN_NAMESPACE(tests::samples::all)
-
-using namespace basic;
-using namespace classes;
-using namespace functions;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using Joi1 = Join<_21>; constexpr Joi1 joi1;
 using Joi2 = Join<_22>; constexpr Joi2 joi2;
@@ -56,4 +52,4 @@ struct Cus1 : Custom<Cus1>
 };
 constexpr Cus1 cus1;
 
-TOK3N_END_NAMESPACE(tests::samples::all)
+TOK3N_END_NAMESPACE(tests)

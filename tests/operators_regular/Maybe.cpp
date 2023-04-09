@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
 inline void Maybe_Maybe()
 {
 	assert

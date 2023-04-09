@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::basic;
-
 inline void one_literal()
 {
 	assert

@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;
 

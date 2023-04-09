@@ -2,9 +2,7 @@
 #include <tok3n/tok3n.h>
 #include "samples/basic.h"
 
-TOK3N_BEGIN_NAMESPACE(tests::samples::all)
-
-using namespace basic;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 inline namespace sub
 {
@@ -20,4 +18,4 @@ inline namespace sub
 	using _25 = Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>;
 }
 
-TOK3N_END_NAMESPACE(tests::samples::all)
+TOK3N_END_NAMESPACE(tests)

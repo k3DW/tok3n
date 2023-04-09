@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
 inline void OneChar_and_OneChar()
 {
 	assert

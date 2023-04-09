@@ -2,8 +2,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
 template <class T, Parser auto... args>
 concept valid_for_into_choice = traits::operators::valid_function_call<into_choice<T>, args...>;
 
