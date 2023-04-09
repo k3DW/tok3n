@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="operators_modifier" />
+    <Filter Include="operators_regular" />
+    <Filter Include="parsers_adaptor" />
+    <Filter Include="parsers_basic" />
+    <Filter Include="parsers_compound" />
+    <Filter Include="parsers_divergent" />
+    <Filter Include="parsers_repeat" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="common.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="utility.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="operators_modifier\ApplyInto.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\ApplyTransform.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Complete.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Constant.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Defaulted.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Delimit.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Exactly.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Ignore.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Into.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\IntoChoice.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Join.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\Transform.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\Basic.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\Choice.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\Maybe.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\Not.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\OneOrMore.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\Sequence.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\ZeroOrMore.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_adaptor\Complete.cpp">
+      <Filter>parsers_adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_adaptor\Delimit.cpp">
+      <Filter>parsers_adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_adaptor\Ignore.cpp">
+      <Filter>parsers_adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\Literal.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\NotChar.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\OneChar.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_compound\Choice.cpp">
+      <Filter>parsers_compound</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_compound\Sequence.cpp">
+      <Filter>parsers_compound</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\ApplyInto.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\ApplyTransform.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\combine.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Constant.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Custom.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Defaulted.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Into.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Join.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Transform.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Exactly.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Maybe.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\OneOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

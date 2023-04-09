@@ -5,14 +5,14 @@ VisualStudioVersion = 17.3.32825.248
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tok3n", "tok3n.vcxproj", "{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tests", "tests\tests.vcxproj", "{14B86835-3941-46E4-823E-F4BE69BE90A7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
-		Test|x64 = Test|x64
-		Test|x86 = Test|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Debug|x64.ActiveCfg = Debug|x64
@@ -23,10 +23,14 @@ Global
 		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Release|x64.Build.0 = Release|x64
 		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Release|x86.ActiveCfg = Release|Win32
 		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Release|x86.Build.0 = Release|Win32
-		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Test|x64.ActiveCfg = Test|x64
-		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Test|x64.Build.0 = Test|x64
-		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Test|x86.ActiveCfg = Test|Win32
-		{9CB93FCE-939F-4476-AD03-6BAF2FAA196B}.Test|x86.Build.0 = Test|Win32
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Debug|x64.ActiveCfg = Debug|x64
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Debug|x64.Build.0 = Debug|x64
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Debug|x86.ActiveCfg = Debug|Win32
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Debug|x86.Build.0 = Debug|Win32
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Release|x64.ActiveCfg = Release|x64
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Release|x64.Build.0 = Release|x64
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Release|x86.ActiveCfg = Release|Win32
+		{14B86835-3941-46E4-823E-F4BE69BE90A7}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

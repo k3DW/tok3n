@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{9cb93fce-939f-4476-ad03-6baf2faa196b}</ProjectGuid>
-    <RootNamespace>tok3n</RootNamespace>
+    <ProjectGuid>{14b86835-3941-46e4-823e-f4be69be90a7}</ProjectGuid>
+    <RootNamespace>tests</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\tests\</OutDir>
+    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\tests\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,9 +96,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -117,9 +117,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -138,9 +138,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -159,9 +159,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
-      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -171,85 +171,63 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="examples\algebraic.h" />
-    <ClInclude Include="examples\json.h" />
-    <ClInclude Include="include\tok3n\concepts.h" />
-    <ClInclude Include="include\tok3n\concepts\ImplicitlyDefaultConstructible.h" />
-    <ClInclude Include="include\tok3n\concepts\IsParser.h" />
-    <ClInclude Include="include\tok3n\concepts\IsResult.h" />
-    <ClInclude Include="include\tok3n\concepts\Modifier.h" />
-    <ClInclude Include="include\tok3n\concepts\Parser.h" />
-    <ClInclude Include="include\tok3n\meta.h" />
-    <ClInclude Include="include\tok3n\meta\all_same.h" />
-    <ClInclude Include="include\tok3n\meta\filter.h" />
-    <ClInclude Include="include\tok3n\meta\filtered_sequence.h" />
-    <ClInclude Include="include\tok3n\meta\head.h" />
-    <ClInclude Include="include\tok3n\meta\invoke_type.h" />
-    <ClInclude Include="include\tok3n\meta\is_not_type.h" />
-    <ClInclude Include="include\tok3n\meta\list_cast.h" />
-    <ClInclude Include="include\tok3n\meta\type_list.h" />
-    <ClInclude Include="include\tok3n\meta\type_predicate.h" />
-    <ClInclude Include="include\tok3n\meta\unwrap_if_single.h" />
-    <ClInclude Include="include\tok3n\modifiers.h" />
-    <ClInclude Include="include\tok3n\modifiers\apply.h" />
-    <ClInclude Include="include\tok3n\modifiers\apply_into.h" />
-    <ClInclude Include="include\tok3n\modifiers\complete.h" />
-    <ClInclude Include="include\tok3n\modifiers\constant.h" />
-    <ClInclude Include="include\tok3n\modifiers\defaulted.h" />
-    <ClInclude Include="include\tok3n\modifiers\delimit.h" />
-    <ClInclude Include="include\tok3n\modifiers\exactly.h" />
-    <ClInclude Include="include\tok3n\modifiers\fn.h" />
-    <ClInclude Include="include\tok3n\modifiers\ignore.h" />
-    <ClInclude Include="include\tok3n\modifiers\into.h" />
-    <ClInclude Include="include\tok3n\modifiers\into_choice.h" />
-    <ClInclude Include="include\tok3n\modifiers\join.h" />
-    <ClInclude Include="include\tok3n\operators.h" />
-    <ClInclude Include="include\tok3n\operators\basic.h" />
-    <ClInclude Include="include\tok3n\operators\choice.h" />
-    <ClInclude Include="include\tok3n\operators\maybe.h" />
-    <ClInclude Include="include\tok3n\operators\modifier.h" />
-    <ClInclude Include="include\tok3n\operators\not.h" />
-    <ClInclude Include="include\tok3n\operators\one_or_more.h" />
-    <ClInclude Include="include\tok3n\operators\sequence.h" />
-    <ClInclude Include="include\tok3n\operators\zero_or_more.h" />
-    <ClInclude Include="include\tok3n\parsers.h" />
-    <ClInclude Include="include\tok3n\parsers\adaptor\Complete.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\Delimit.h" />
-    <ClInclude Include="include\tok3n\parsers\adaptor\Ignore.h" />
-    <ClInclude Include="include\tok3n\parsers\_constructible\basic.h" />
-    <ClInclude Include="include\tok3n\parsers\basic\Literal.h" />
-    <ClInclude Include="include\tok3n\parsers\basic\NotChar.h" />
-    <ClInclude Include="include\tok3n\parsers\basic\OneChar.h" />
-    <ClInclude Include="include\tok3n\parsers\compound\Choice.h" />
-    <ClInclude Include="include\tok3n\parsers\compound\Sequence.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\ApplyInto.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\ApplyTransform.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Constant.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Custom.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Defaulted.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Into.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Join.h" />
-    <ClInclude Include="include\tok3n\parsers\divergent\Transform.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\Exactly.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\Maybe.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\OneOrMore.h" />
-    <ClInclude Include="include\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClInclude Include="include\tok3n\parsers\_constructible\compound.h" />
-    <ClInclude Include="include\tok3n\parsers\_constructible\divergent.h" />
-    <ClInclude Include="include\tok3n\parsers\_constructible\repeat.h" />
-    <ClInclude Include="include\tok3n\types.h" />
-    <ClInclude Include="include\tok3n\types\ModifierBase.h" />
-    <ClInclude Include="include\tok3n\types\ParserResultOf.h" />
-    <ClInclude Include="include\tok3n\types\Result.h" />
-    <ClInclude Include="include\tok3n\tok3n.h" />
-    <ClInclude Include="include\tok3n\types\Input.h" />
-    <ClInclude Include="include\tok3n\types\ParserType.h" />
-    <ClInclude Include="include\tok3n\types\Tags.h" />
-    <ClInclude Include="include\tok3n\namespace.h" />
-    <ClInclude Include="include\tok3n\types\StaticString.h" />
+    <ClInclude Include="common.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="utility.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="operators_modifier\ApplyInto.cpp" />
+    <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
+    <ClCompile Include="operators_modifier\Complete.cpp" />
+    <ClCompile Include="operators_modifier\Constant.cpp" />
+    <ClCompile Include="operators_modifier\Defaulted.cpp" />
+    <ClCompile Include="operators_modifier\Delimit.cpp" />
+    <ClCompile Include="operators_modifier\Exactly.cpp" />
+    <ClCompile Include="operators_modifier\Ignore.cpp" />
+    <ClCompile Include="operators_modifier\Into.cpp" />
+    <ClCompile Include="operators_modifier\IntoChoice.cpp" />
+    <ClCompile Include="operators_modifier\Join.cpp" />
+    <ClCompile Include="operators_modifier\Transform.cpp" />
+    <ClCompile Include="operators_regular\Basic.cpp" />
+    <ClCompile Include="operators_regular\Choice.cpp" />
+    <ClCompile Include="operators_regular\Maybe.cpp" />
+    <ClCompile Include="operators_regular\Not.cpp" />
+    <ClCompile Include="operators_regular\OneOrMore.cpp" />
+    <ClCompile Include="operators_regular\Sequence.cpp" />
+    <ClCompile Include="operators_regular\ZeroOrMore.cpp" />
+    <ClCompile Include="parsers_adaptor\Complete.cpp" />
+    <ClCompile Include="parsers_adaptor\Delimit.cpp" />
+    <ClCompile Include="parsers_adaptor\Ignore.cpp" />
+    <ClCompile Include="parsers_basic\Literal.cpp" />
+    <ClCompile Include="parsers_basic\NotChar.cpp" />
+    <ClCompile Include="parsers_basic\OneChar.cpp" />
+    <ClCompile Include="parsers_compound\Choice.cpp" />
+    <ClCompile Include="parsers_compound\Sequence.cpp" />
+    <ClCompile Include="parsers_divergent\ApplyInto.cpp" />
+    <ClCompile Include="parsers_divergent\ApplyTransform.cpp" />
+    <ClCompile Include="parsers_divergent\combine.cpp" />
+    <ClCompile Include="parsers_divergent\Constant.cpp" />
+    <ClCompile Include="parsers_divergent\Custom.cpp" />
+    <ClCompile Include="parsers_divergent\Defaulted.cpp" />
+    <ClCompile Include="parsers_divergent\Into.cpp" />
+    <ClCompile Include="parsers_divergent\Join.cpp" />
+    <ClCompile Include="parsers_divergent\Transform.cpp" />
+    <ClCompile Include="parsers_repeat\Exactly.cpp" />
+    <ClCompile Include="parsers_repeat\Maybe.cpp" />
+    <ClCompile Include="parsers_repeat\OneOrMore.cpp" />
+    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp" />
+    <ClCompile Include="pch.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\tok3n.vcxproj">
+      <Project>{9cb93fce-939f-4476-ad03-6baf2faa196b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
