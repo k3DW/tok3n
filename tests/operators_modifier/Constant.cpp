@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Constant)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -110,4 +110,4 @@ inline void constant_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Constant)
+TOK3N_END_NAMESPACE(tests)

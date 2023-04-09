@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(regular::Sequence)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -75,4 +75,4 @@ inline void void_result()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(regular::Sequence)
+TOK3N_END_NAMESPACE(tests)

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Defaulted)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -106,4 +106,4 @@ inline void defaulted_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Defaulted)
+TOK3N_END_NAMESPACE(tests)

@@ -1,7 +1,7 @@
 #pragma once
 #include "utility.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS()
+TOK3N_BEGIN_NAMESPACE(tests)
 
 namespace samples::basic
 {
@@ -379,4 +379,4 @@ namespace samples::all
 
 }
 
-TOK3N_END_NAMESPACE_TESTS()
+TOK3N_END_NAMESPACE(tests)

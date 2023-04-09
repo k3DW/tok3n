@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Exactly)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -113,4 +113,4 @@ inline void exactly_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Exactly)
+TOK3N_END_NAMESPACE(tests)

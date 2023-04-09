@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(regular::Basic)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::basic;
 
@@ -98,4 +98,4 @@ inline void ign_operator()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(regular::Basic)
+TOK3N_END_NAMESPACE(tests)

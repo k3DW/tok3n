@@ -1,46 +1,7 @@
 #pragma once
 #include "tok3n/tok3n.h"
 
-#define TOK3N_USING_ALL_PARSERS      \
-	using k3::tok3n::OneChar;        \
-	using k3::tok3n::NotChar;        \
-	using k3::tok3n::Literal;        \
-	using k3::tok3n::Choice;         \
-	using k3::tok3n::Sequence;       \
-	using k3::tok3n::Maybe;          \
-	using k3::tok3n::Exactly;        \
-	using k3::tok3n::OneOrMore;      \
-	using k3::tok3n::ZeroOrMore;     \
-	using k3::tok3n::Delimit;        \
-	using k3::tok3n::Ignore;         \
-	using k3::tok3n::Complete;       \
-	using k3::tok3n::Join;           \
-	using k3::tok3n::Transform;      \
-	using k3::tok3n::ApplyTransform; \
-	using k3::tok3n::Into;           \
-	using k3::tok3n::ApplyInto;      \
-	using k3::tok3n::Constant;       \
-	using k3::tok3n::Defaulted;      \
-	using k3::tok3n::Custom;         \
-	using k3::tok3n::exactly;        \
-	using k3::tok3n::ignore;         \
-	using k3::tok3n::delimit;        \
-	using k3::tok3n::complete;       \
-	using k3::tok3n::join;           \
-	using k3::tok3n::fn;             \
-	using k3::tok3n::into;           \
-	using k3::tok3n::apply_into;     \
-	using k3::tok3n::constant;       \
-	using k3::tok3n::defaulted;
-
-
-
-#define TOK3N_BEGIN_NAMESPACE_TESTS(...) namespace k3::tok3n::tests __VA_OPT__(::) __VA_ARGS__ { TOK3N_USING_ALL_PARSERS
-#define TOK3N_END_NAMESPACE_TESTS(...) }
-
-
-
-TOK3N_BEGIN_NAMESPACE_TESTS()
+TOK3N_BEGIN_NAMESPACE(tests)
 
 constexpr struct assert_t
 {
@@ -161,4 +122,4 @@ namespace parser_equality_operator
 
 }
 
-TOK3N_END_NAMESPACE_TESTS()
+TOK3N_END_NAMESPACE(tests)

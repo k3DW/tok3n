@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::ApplyTransform)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -111,4 +111,4 @@ inline void apply_transform_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::ApplyTransform)
+TOK3N_END_NAMESPACE(tests)

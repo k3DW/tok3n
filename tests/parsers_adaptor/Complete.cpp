@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Complete)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -99,4 +99,4 @@ inline void parse_Complete_ZeroOrMore()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::Complete)
+TOK3N_END_NAMESPACE(tests)

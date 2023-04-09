@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(basic::OneChar)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
@@ -81,4 +81,4 @@ inline void parse_empty()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(basic::OneChar)
+TOK3N_END_NAMESPACE(tests)

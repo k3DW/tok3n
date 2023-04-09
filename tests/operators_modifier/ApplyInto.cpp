@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::ApplyInto)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using namespace samples::all;
 
@@ -109,4 +109,4 @@ inline void into_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::ApplyInto)
+TOK3N_END_NAMESPACE(tests)

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(basic::NotChar)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
@@ -82,4 +82,4 @@ inline void parse_empty()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(basic::NotChar)
+TOK3N_END_NAMESPACE(tests)
