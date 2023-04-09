@@ -11,6 +11,9 @@
     <Filter Include="framework">
       <UniqueIdentifier>{c83f7b93-ae65-4adf-a404-0bb0e993c794}</UniqueIdentifier>
     </Filter>
+    <Filter Include="samples">
+      <UniqueIdentifier>{89d82a41-cd98-441d-9c63-9b9c1ece4c1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="common.h" />
@@ -23,6 +26,9 @@
     </ClInclude>
     <ClInclude Include="framework\comparison.h">
       <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\basic.h">
+      <Filter>samples</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
