@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="framework\assert.h" />
     <ClInclude Include="common.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="utility.h" />

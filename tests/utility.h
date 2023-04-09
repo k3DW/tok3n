@@ -3,18 +3,6 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-constexpr struct assert_t
-{
-	friend consteval assert_t operator,(assert_t self, bool b)
-	{
-		if (!b)
-			throw;
-		return self;
-	}
-} assert;
-
-
-
 template <Parser P>
 struct parse_t
 {
