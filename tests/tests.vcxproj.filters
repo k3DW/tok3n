@@ -48,6 +48,9 @@
     <ClInclude Include="samples\classes.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="samples\divergent.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
