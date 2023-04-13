@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "examples", "examples", "{6F
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "json", "examples\json\json.vcxproj", "{CDD5A652-EF9B-4180-B650-57148C97BC17}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "algebraic", "examples\algebraic\algebraic.vcxproj", "{933062EF-FFD6-4279-BE2B-50BEF974328B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -43,12 +45,21 @@ Global
 		{CDD5A652-EF9B-4180-B650-57148C97BC17}.Release|x64.Build.0 = Release|x64
 		{CDD5A652-EF9B-4180-B650-57148C97BC17}.Release|x86.ActiveCfg = Release|Win32
 		{CDD5A652-EF9B-4180-B650-57148C97BC17}.Release|x86.Build.0 = Release|Win32
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Debug|x64.ActiveCfg = Debug|x64
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Debug|x64.Build.0 = Debug|x64
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Debug|x86.ActiveCfg = Debug|Win32
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Debug|x86.Build.0 = Debug|Win32
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Release|x64.ActiveCfg = Release|x64
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Release|x64.Build.0 = Release|x64
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Release|x86.ActiveCfg = Release|Win32
+		{933062EF-FFD6-4279-BE2B-50BEF974328B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{CDD5A652-EF9B-4180-B650-57148C97BC17} = {6F333F3D-628A-45F7-AACF-7172FA70355B}
+		{933062EF-FFD6-4279-BE2B-50BEF974328B} = {6F333F3D-628A-45F7-AACF-7172FA70355B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {34BC5E1B-D753-4F49-B4BE-35F20E0F9A82}
