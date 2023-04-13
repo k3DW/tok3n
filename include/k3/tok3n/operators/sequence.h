@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/parsers/basic/Literal.h>
-#include <tok3n/parsers/compound/Sequence.h>
+#include <k3/tok3n/parsers/basic/Literal.h>
+#include <k3/tok3n/parsers/compound/Sequence.h>
 
 TOK3N_BEGIN_NAMESPACE(detail::operators)
 

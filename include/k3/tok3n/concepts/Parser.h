@@ -1,9 +1,9 @@
 #pragma once
-#include <tok3n/namespace.h>
-#include <tok3n/types/ParserType.h>
-#include <tok3n/types/Input.h>
-#include <tok3n/concepts/ImplicitlyDefaultConstructible.h>
-#include <tok3n/concepts/IsResult.h>
+#include <k3/tok3n/namespace.h>
+#include <k3/tok3n/types/ParserType.h>
+#include <k3/tok3n/types/Input.h>
+#include <k3/tok3n/concepts/ImplicitlyDefaultConstructible.h>
+#include <k3/tok3n/concepts/IsResult.h>
 #include <type_traits>
 
 TOK3N_BEGIN_NAMESPACE()

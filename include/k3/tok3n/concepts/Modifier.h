@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/namespace.h>
-#include <tok3n/types/ModifierBase.h>
+#include <k3/tok3n/namespace.h>
+#include <k3/tok3n/types/ModifierBase.h>
 #include <concepts>
 
 TOK3N_BEGIN_NAMESPACE()

@@ -1,5 +1,5 @@
 #pragma once
-#include <tok3n/namespace.h>
+#include <k3/tok3n/namespace.h>
 
 #define TOK3N_DO_FOR_ALL_PARSER_TYPES(XX) \
 	XX(OneChar)                           \

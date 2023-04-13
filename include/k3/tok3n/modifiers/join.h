@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/types/ModifierBase.h>
-#include <tok3n/parsers/divergent/Join.h>
+#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/parsers/divergent/Join.h>
 
 TOK3N_BEGIN_NAMESPACE(modifiers)
 

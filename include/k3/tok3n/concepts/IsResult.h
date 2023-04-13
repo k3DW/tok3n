@@ -1,7 +1,7 @@
 #pragma once
-#include <tok3n/namespace.h>
-#include <tok3n/types/Input.h>
-#include <tok3n/types/Tags.h>
+#include <k3/tok3n/namespace.h>
+#include <k3/tok3n/types/Input.h>
+#include <k3/tok3n/types/Tags.h>
 #include <concepts>
 
 TOK3N_BEGIN_NAMESPACE(detail)

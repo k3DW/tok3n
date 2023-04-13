@@ -1,5 +1,5 @@
 #pragma once
-#include <tok3n/modifiers.h>
+#include <k3/tok3n/modifiers.h>
 
 TOK3N_BEGIN_NAMESPACE(inline operators)
 

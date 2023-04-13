@@ -1,9 +1,9 @@
 #pragma once
-#include <tok3n/meta/invoke_type.h>
-#include <tok3n/meta/type_predicate.h>
-#include <tok3n/meta/list_cast.h>
+#include <k3/tok3n/meta/invoke_type.h>
+#include <k3/tok3n/meta/type_predicate.h>
+#include <k3/tok3n/meta/list_cast.h>
 
-#include <tok3n/meta/is_not_type.h>
+#include <k3/tok3n/meta/is_not_type.h>
 #include <tuple>
 
 TOK3N_BEGIN_NAMESPACE(meta)

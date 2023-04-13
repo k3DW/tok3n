@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/types/ModifierBase.h>
-#include <tok3n/parsers/adaptor/Complete.h>
+#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/parsers/adaptor/Complete.h>
 
 TOK3N_BEGIN_NAMESPACE(modifiers)
 

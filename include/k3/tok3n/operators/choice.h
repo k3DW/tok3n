@@ -1,7 +1,7 @@
 #pragma once
-#include <tok3n/parsers/basic/OneChar.h>
-#include <tok3n/parsers/basic/NotChar.h>
-#include <tok3n/parsers/compound/Choice.h>
+#include <k3/tok3n/parsers/basic/OneChar.h>
+#include <k3/tok3n/parsers/basic/NotChar.h>
+#include <k3/tok3n/parsers/compound/Choice.h>
 
 TOK3N_BEGIN_NAMESPACE(detail::operators)
 

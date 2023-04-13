@@ -1,7 +1,7 @@
 #pragma once
-#include <tok3n/parsers/_constructible/compound.h>
-#include <tok3n/types.h>
-#include <tok3n/concepts.h>
+#include <k3/tok3n/parsers/_constructible/compound.h>
+#include <k3/tok3n/types.h>
+#include <k3/tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 

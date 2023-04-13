@@ -1,5 +1,5 @@
 #pragma once
-#include <tok3n/tok3n.h>
+#include <k3/tok3n.h>
 #include "samples/basic.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)

@@ -1,7 +1,7 @@
 #pragma once
-#include <tok3n/types/ModifierBase.h>
-#include <tok3n/parsers/compound/Choice.h>
-#include <tok3n/parsers/divergent/Into.h>
+#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/parsers/compound/Choice.h>
+#include <k3/tok3n/parsers/divergent/Into.h>
 
 TOK3N_BEGIN_NAMESPACE(modifiers)
 

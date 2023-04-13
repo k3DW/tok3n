@@ -1,5 +1,5 @@
 #pragma once
-#include <tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticString.h>
 
 TOK3N_BEGIN_NAMESPACE(constructible)
 

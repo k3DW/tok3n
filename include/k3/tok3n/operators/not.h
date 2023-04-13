@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/parsers/basic/OneChar.h>
-#include <tok3n/parsers/basic/NotChar.h>
+#include <k3/tok3n/parsers/basic/OneChar.h>
+#include <k3/tok3n/parsers/basic/NotChar.h>
 
 TOK3N_BEGIN_NAMESPACE(inline operators)
 

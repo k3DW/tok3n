@@ -1,7 +1,7 @@
 #pragma once
-#include <tok3n/parsers/repeat/Maybe.h>
-#include <tok3n/parsers/repeat/OneOrMore.h>
-#include <tok3n/parsers/repeat/ZeroOrMore.h>
+#include <k3/tok3n/parsers/repeat/Maybe.h>
+#include <k3/tok3n/parsers/repeat/OneOrMore.h>
+#include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
 
 TOK3N_BEGIN_NAMESPACE(detail::operators)
 

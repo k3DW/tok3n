@@ -1,6 +1,6 @@
 #pragma once
-#include <tok3n/meta/head.h>
-#include <tok3n/meta/type_predicate.h>
+#include <k3/tok3n/meta/head.h>
+#include <k3/tok3n/meta/type_predicate.h>
 
 TOK3N_BEGIN_NAMESPACE(meta)
 
