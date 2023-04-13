@@ -1,246 +1,243 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <Filter Include="tok3n" />
+    <Filter Include="tok3n\concepts" />
+    <Filter Include="tok3n\meta" />
+    <Filter Include="tok3n\modifiers" />
+    <Filter Include="tok3n\operators" />
+    <Filter Include="tok3n\parsers" />
+    <Filter Include="tok3n\parsers\_constructible" />
+    <Filter Include="tok3n\parsers\adaptor" />
+    <Filter Include="tok3n\parsers\basic" />
+    <Filter Include="tok3n\parsers\compound" />
+    <Filter Include="tok3n\parsers\divergent" />
+    <Filter Include="tok3n\parsers\repeat" />
+    <Filter Include="tok3n\types" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\k3\tok3n\operators\basic.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\choice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\maybe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\modifier.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\not.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\one_or_more.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\sequence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\operators\zero_or_more.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\adaptor\Complete.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\adaptor\Ignore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\Literal.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\compound\Sequence.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\ApplyInto.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Constant.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Custom.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Defaulted.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Into.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Join.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\Transform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\Exactly.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\Maybe.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\OneOrMore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\ApplyTransform.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClInclude Include="include\k3\tok3n.h" />
     <ClInclude Include="include\k3\tok3n\concepts.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\ImplicitlyDefaultConstructible.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\IsParser.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\IsResult.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\Modifier.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\Parser.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\all_same.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\filter.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\filtered_sequence.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\head.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\invoke_type.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\is_not_type.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\list_cast.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\type_list.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\type_predicate.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\unwrap_if_single.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\ModifierBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\Result.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\Input.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\ParserType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\Tags.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\namespace.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\StaticString.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\exactly.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\meta</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\ignore.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\delimit.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\complete.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\join.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\fn.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers\apply.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\into.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\modifiers</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers\apply_into.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\modifiers</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\modifiers\into_choice.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\k3\tok3n\modifiers\complete.h">
+      <Filter>tok3n\modifiers</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers\constant.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\modifiers</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers\defaulted.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\delimit.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\exactly.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\fn.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\ignore.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\into.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\into_choice.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\join.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\namespace.h">
+      <Filter>tok3n</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\operators.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\Delimit.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\k3\tok3n\operators\basic.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\choice.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\maybe.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\modifier.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\not.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\one_or_more.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\sequence.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\operators\zero_or_more.h">
+      <Filter>tok3n\operators</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers.h">
+      <Filter>tok3n</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\basic.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\parsers\_constructible</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\compound.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\parsers\_constructible</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\divergent.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\parsers\_constructible</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\repeat.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\parsers\_constructible</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\adaptor\Complete.h">
+      <Filter>tok3n\parsers\adaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\adaptor\Ignore.h">
+      <Filter>tok3n\parsers\adaptor</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\Literal.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h">
+      <Filter>tok3n\parsers\compound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\compound\Sequence.h">
+      <Filter>tok3n\parsers\compound</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\ApplyInto.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\ApplyTransform.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Constant.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Custom.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Defaulted.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Into.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Join.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\Transform.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\Delimit.h">
+      <Filter>tok3n\parsers\repeat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\Exactly.h">
+      <Filter>tok3n\parsers\repeat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\Maybe.h">
+      <Filter>tok3n\parsers\repeat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\OneOrMore.h">
+      <Filter>tok3n\parsers\repeat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h">
+      <Filter>tok3n\parsers\repeat</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types.h">
+      <Filter>tok3n</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\Input.h">
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\ModifierBase.h">
+      <Filter>tok3n\types</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\ParserResultOf.h">
-      <Filter>Header Files</Filter>
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\ParserType.h">
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\Result.h">
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\StaticString.h">
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\Tags.h">
+      <Filter>tok3n\types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
 </Project>
