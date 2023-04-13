@@ -1,6 +1,8 @@
 #pragma once
 #include "tok3n/tok3n.h"
 #include <format>
+#include <variant>
+#include <iostream>
 
 TOK3N_BEGIN_NAMESPACE(examples::algebraic)
 
@@ -201,3 +203,13 @@ auto test()
 }
 
 TOK3N_END_NAMESPACE(examples::algebraic)
+
+
+
+int main()
+{
+	using namespace k3::tok3n::examples;
+
+	[[maybe_unused]] auto algtest = algebraic::test();
+}
+
