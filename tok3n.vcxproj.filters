@@ -18,9 +18,6 @@
     <ClInclude Include="examples\algebraic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="examples\json.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="include\tok3n\operators\basic.h">
       <Filter>Header Files</Filter>
     </ClInclude>
