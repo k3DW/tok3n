@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Constant)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Con1, ConstantType, int>
@@ -14,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_Constant()
+inline void parse_Constant()
 {
 	assert
 		, parse<Con1>("abcabcabcab").success(1, "ab")
@@ -43,4 +41,4 @@ void parse_Constant()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(divergent::Constant)
+TOK3N_END_NAMESPACE(tests)

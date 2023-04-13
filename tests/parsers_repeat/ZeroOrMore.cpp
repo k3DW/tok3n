@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(repeat::ZeroOrMore)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Zom1, ZeroOrMoreType, std::vector<std::string_view>>
@@ -14,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_ZeroOrMore_Literal()
+inline void parse_ZeroOrMore_Literal()
 {
 	assert
 		, parse<Zom1>("litera").success({}, "litera")
@@ -26,7 +24,7 @@ void parse_ZeroOrMore_Literal()
 		, parse<Zom1>("").success({}, "")
 		;
 }
-void parse_ZeroOrMore_OneChar()
+inline void parse_ZeroOrMore_OneChar()
 {
 	assert
 		, parse<Zom2>("abcdef").success({ "a", "b", "c" }, "def")
@@ -35,7 +33,7 @@ void parse_ZeroOrMore_OneChar()
 		, parse<Zom2>("").success({}, "")
 		;
 }
-void parse_ZeroOrMore_Choice()
+inline void parse_ZeroOrMore_Choice()
 {
 	assert
 		, parse<Zom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
@@ -44,7 +42,7 @@ void parse_ZeroOrMore_Choice()
 		, parse<Zom3>("").success({}, "")
 		;
 }
-void parse_ZeroOrMore_Sequence()
+inline void parse_ZeroOrMore_Sequence()
 {
 	assert
 		, parse<Zom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
@@ -54,4 +52,4 @@ void parse_ZeroOrMore_Sequence()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(repeat::ZeroOrMore)
+TOK3N_END_NAMESPACE(tests)

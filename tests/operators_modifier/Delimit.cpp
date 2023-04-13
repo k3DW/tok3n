@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Delimit)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void prefix()
+inline void prefix()
 {
 	assert
 		, del1 == delimit(abc, comma)
@@ -18,7 +16,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, del1 == abc % delimit(comma)
@@ -37,7 +35,7 @@ void infix()
 template <Parser auto p>
 concept valid_for_delimit = traits::operators::valid_modulo<p, delimit(comma)>;
 
-void delimit_anything()
+inline void delimit_anything()
 {
 	assert
 		, oc1 % delimit(comma) == Delimit<OC1, Comma>{}
@@ -121,4 +119,4 @@ void delimit_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Delimit)
+TOK3N_END_NAMESPACE(tests)

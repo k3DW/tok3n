@@ -1,13 +1,11 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(compound::Sequence)
-
-using namespace samples::all;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
@@ -15,7 +13,7 @@ void requirements()
 		;
 }
 
-void parse_twoway()
+inline void parse_twoway()
 {
 	assert
 		, parse<TwoWay>("abc").failure()
@@ -25,7 +23,7 @@ void parse_twoway()
 		;
 }
 
-void parse_threeway()
+inline void parse_threeway()
 {
 	assert
 		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
@@ -38,9 +36,9 @@ void parse_threeway()
 
 using constructible = traits::compound::constructible<Sequence>;
 
-void not_constructible_empty()
+inline void not_constructible_empty()
 {
 	assert, not constructible::from<>;
 }
 
-TOK3N_END_NAMESPACE_TESTS(compound::Sequence)
+TOK3N_END_NAMESPACE(tests)

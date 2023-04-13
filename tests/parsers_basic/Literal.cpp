@@ -1,17 +1,17 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using L = Literal<"literal">;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<L, LiteralType, std::string_view>
 		;
 }
 
-void parse_single()
+inline void parse_single()
 {
 	assert
 		, parse<L>("literal").success("literal", "")
@@ -27,7 +27,7 @@ void parse_single()
 
 using constructible = traits::basic::constructible<Literal>;
 
-void constructible_from_ascii_only()
+inline void constructible_from_ascii_only()
 {
 	assert
 		, constructible::from<"literal">
@@ -35,7 +35,7 @@ void constructible_from_ascii_only()
 		;
 }
 
-void parse_empty()
+inline void parse_empty()
 {
 	assert
 		, constructible::from<"">
@@ -44,4 +44,4 @@ void parse_empty()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(basic::Literal)
+TOK3N_END_NAMESPACE(tests)

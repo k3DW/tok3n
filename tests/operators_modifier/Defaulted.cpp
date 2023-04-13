@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Defaulted)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void prefix()
+inline void prefix()
 {
 	assert
 		, def1 == defaulted<int>(+abc)
@@ -12,7 +10,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, def1 == +abc % defaulted<int>
@@ -22,7 +20,7 @@ void infix()
 
 
 
-void defaulted_anything()
+inline void defaulted_anything()
 {
 	assert
 		, oc1 % defaulted<bool> == Defaulted<OC1, bool>{}
@@ -106,4 +104,4 @@ void defaulted_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Defaulted)
+TOK3N_END_NAMESPACE(tests)

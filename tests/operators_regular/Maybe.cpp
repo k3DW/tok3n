@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(regular::Maybe)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void Maybe_Maybe()
+inline void Maybe_Maybe()
 {
 	assert
 		, ~may1 == may1
@@ -22,7 +20,7 @@ void Maybe_Maybe()
 		;
 }
 
-void Maybe_OneOrMore()
+inline void Maybe_OneOrMore()
 {
 	assert
 		, ~oom1 == zom1
@@ -40,7 +38,7 @@ void Maybe_OneOrMore()
 		;
 }
 
-void Maybe_ZeroOrMore()
+inline void Maybe_ZeroOrMore()
 {
 	assert
 		, ~zom1 == zom1
@@ -63,7 +61,7 @@ void Maybe_ZeroOrMore()
 template <auto p>
 constexpr bool valid_for_Maybe = requires { ~p; };
 
-void Maybe_anything()
+inline void Maybe_anything()
 {
 	assert
 		, ~oc1 == Maybe<OC1>{}
@@ -147,4 +145,4 @@ void Maybe_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(regular::Maybe)
+TOK3N_END_NAMESPACE(tests)

@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(regular::Sequence)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void Literal_and_Literal()
+inline void Literal_and_Literal()
 {
 	assert
 		, (l1 >> l1) == Literal<"literalliteral">{}
@@ -21,7 +19,7 @@ void Literal_and_Literal()
 
 
 
-void Sequence_and_Sequence()
+inline void Sequence_and_Sequence()
 {
 	assert
 		, (seq1 >> seq1) == Sequence<L4, NC4, L4, NC4>{}
@@ -43,7 +41,7 @@ void Sequence_and_Sequence()
 		;
 }
 
-void Sequence_and_anything()
+inline void Sequence_and_anything()
 {
 	assert
 		, (seq1 >> oc1) == Sequence<L4, NC4, OC1>{}
@@ -57,14 +55,14 @@ void Sequence_and_anything()
 		;
 }
 
-void anything_and_anything()
+inline void anything_and_anything()
 {
 	// I would like to add tests for everything,
 	// but it's infeasible to do all combinations of samples.
 	// I might set up some sort of code generation later.
 }
 
-void void_result()
+inline void void_result()
 {
 	constexpr auto void_sequence = (ign1 >> ign2);
 
@@ -75,4 +73,4 @@ void void_result()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(regular::Sequence)
+TOK3N_END_NAMESPACE(tests)

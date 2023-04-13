@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Ignore)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Ign1, IgnoreType, void>
@@ -15,7 +13,7 @@ void requirements()
 		;
 }
 
-void parse_Ignore()
+inline void parse_Ignore()
 {
 	assert
 		, parse<Ign1>("abcabc").success("abc")
@@ -48,4 +46,4 @@ void parse_Ignore()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::Ignore)
+TOK3N_END_NAMESPACE(tests)

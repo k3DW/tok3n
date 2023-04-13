@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(regular::Choice)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void OneChar_and_OneChar()
+inline void OneChar_and_OneChar()
 {
 	assert
 		, (oc1 | oc2) == (oc2 | oc1)
@@ -19,7 +17,7 @@ void OneChar_and_OneChar()
 		;
 }
 
-void NotChar_and_NotChar()
+inline void NotChar_and_NotChar()
 {
 	assert
 		, (nc1 | nc2) == (nc2 | nc1)
@@ -34,7 +32,7 @@ void NotChar_and_NotChar()
 		;
 }
 
-void OneChar_and_NotChar()
+inline void OneChar_and_NotChar()
 {
 	assert
 		, (oc1 | nc1) == (nc1 | oc1)
@@ -60,7 +58,7 @@ void OneChar_and_NotChar()
 
 
 
-void Choice_and_Choice()
+inline void Choice_and_Choice()
 {
 	assert
 		, (cho1 | cho1) == cho1
@@ -82,7 +80,7 @@ void Choice_and_Choice()
 		;
 }
 
-void Choice_and_anything()
+inline void Choice_and_anything()
 {
 	assert
 		, (cho1 | oc1) == Choice<L4, NC4, OC1>{}
@@ -99,7 +97,7 @@ void Choice_and_anything()
 template <auto p1, auto p2>
 constexpr bool operator_is_not_valid = not requires { p1 | p2; };
 
-void anything_and_anything()
+inline void anything_and_anything()
 {
 	// I would like to add tests for everything,
 	// but it's infeasible to do all combinations of samples.
@@ -110,7 +108,7 @@ void anything_and_anything()
 		;
 }
 
-void void_result()
+inline void void_result()
 {
 	constexpr auto void_choice = (ign1 | ign2);
 
@@ -121,4 +119,4 @@ void void_result()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(regular::Choice)
+TOK3N_END_NAMESPACE(tests)

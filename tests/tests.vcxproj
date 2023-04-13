@@ -171,12 +171,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
+    <ClInclude Include="samples\adaptor.h" />
+    <ClInclude Include="samples\classes.h" />
+    <ClInclude Include="samples\divergent.h" />
+    <ClInclude Include="samples\functions.h" />
+    <ClInclude Include="samples\repeat.h" />
+    <ClInclude Include="samples\compound.h" />
+    <ClInclude Include="samples\basic.h" />
+    <ClInclude Include="framework\assert.h" />
+    <ClInclude Include="traits.h" />
+    <ClInclude Include="framework\comparison.h" />
+    <ClInclude Include="framework\parse.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="utility.h" />
+    <ClInclude Include="samples\sub_parsers.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />
     <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
     <ClCompile Include="operators_modifier\Complete.cpp" />

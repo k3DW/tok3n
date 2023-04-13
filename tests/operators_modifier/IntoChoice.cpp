@@ -1,13 +1,11 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::IntoChoice)
-
-using namespace samples::all;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 template <class T, Parser auto... args>
 concept valid_for_into_choice = traits::operators::valid_function_call<into_choice<T>, args...>;
 
-void prefix()
+inline void prefix()
 {
 	assert
 		, into_choice<Class1>(spacedot, abc) == Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}
@@ -17,7 +15,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	// Infix isn't ever valid with into_choice because Choice parsers must have 2 sub parsers
 	using traits::operators::valid_modulo;
@@ -32,7 +30,7 @@ void infix()
 
 
 
-void into_anything()
+inline void into_anything()
 {
 	constexpr auto sink_parser = "0"_one % constant<Sink{}>;
 	using SinkParser = std::remove_cvref_t<decltype(sink_parser)>;
@@ -119,4 +117,4 @@ void into_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::IntoChoice)
+TOK3N_END_NAMESPACE(tests)

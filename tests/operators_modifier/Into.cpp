@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(modifier::Into)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void prefix()
+inline void prefix()
 {
 	assert
 		, int1 == into<Class1>(spacedot)
@@ -12,7 +10,7 @@ void prefix()
 		;
 }
 
-void infix()
+inline void infix()
 {
 	assert
 		, int1 == spacedot % into<Class1>
@@ -25,7 +23,7 @@ void infix()
 template <Parser auto p>
 concept valid_for_into = traits::operators::valid_modulo<p, into<Sink>>;
 
-void into_anything()
+inline void into_anything()
 {
 	assert
 		, oc1 % into<Sink> == Into<OC1, Sink>{}
@@ -109,4 +107,4 @@ void into_anything()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(modifier::Into)
+TOK3N_END_NAMESPACE(tests)

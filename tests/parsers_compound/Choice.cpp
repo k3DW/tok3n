@@ -1,8 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(compound::Choice)
-
-using namespace samples::all;
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;
@@ -10,7 +8,7 @@ using TwoWay2 = Cho2;
 using ThreeWay1 = Cho3;
 using ThreeWay2 = Cho4;
 
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<TwoWay1, ChoiceType, std::string_view>
@@ -20,7 +18,7 @@ void requirements()
 		;
 }
 
-void parse_twoway()
+inline void parse_twoway()
 {
 	assert
 		, parse<TwoWay1>("abc").success("ab", "c")
@@ -37,7 +35,7 @@ void parse_twoway()
 		;
 }
 
-void parse_threeway()
+inline void parse_threeway()
 {
 	assert
 		, parse<ThreeWay1>("abc").success("ab", "c")
@@ -63,7 +61,7 @@ void parse_threeway()
 
 using constructible = traits::compound::constructible<Choice>;
 
-void constructible_same_result_type()
+inline void constructible_same_result_type()
 {
 	assert
 		, constructible::from<OC1, OC3, NC2, NC1, L2>
@@ -71,9 +69,9 @@ void constructible_same_result_type()
 		;
 }
 
-void not_constructible_empty()
+inline void not_constructible_empty()
 {
 	assert, not constructible::from<>;
 }
 
-TOK3N_END_NAMESPACE_TESTS(compound::Choice)
+TOK3N_END_NAMESPACE(tests)

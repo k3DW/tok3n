@@ -1,14 +1,14 @@
 #include "pch.h"
 
 #if 0
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::combine)
+TOK3N_BEGIN_NAMESPACE(tests)
 
 using L1 = Literal<"abc">;
 constexpr L1 l1;
 using L2 = Literal<"??">;
 constexpr L2 l2;
 
-void Join_Delimit()
+inline void Join_Delimit()
 {
 	constexpr auto d = delimit(l1, l2);
 	constexpr auto j = d % join;
@@ -23,7 +23,7 @@ void Join_Delimit()
 		;
 }
 
-void Ignore_Sequence()
+inline void Ignore_Sequence()
 {
 	constexpr auto p = l1 >> ignore(l2) >> l1;
 
@@ -33,7 +33,7 @@ void Ignore_Sequence()
 		;
 }
 
-void Join_Ignore()
+inline void Join_Ignore()
 {
 	constexpr auto q = OneChar<"?">{};
 
@@ -69,7 +69,7 @@ void Join_Ignore()
 		;
 }
 
-void Join_Transform()
+inline void Join_Transform()
 {
 	constexpr auto f = fn<[](auto&& v) -> std::string_view { return (v.size() % 2 == 0) ? "a" : "b"; }>;
 
@@ -100,5 +100,5 @@ void Join_Transform()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::combine)
+TOK3N_END_NAMESPACE(tests)
 #endif

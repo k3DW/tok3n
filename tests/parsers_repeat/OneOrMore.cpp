@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(repeat::OneOrMore)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Oom1, OneOrMoreType, std::vector<std::string_view>>
@@ -14,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_OneOrMore_Literal()
+inline void parse_OneOrMore_Literal()
 {
 	assert
 		, parse<Oom1>("litera").failure()
@@ -26,7 +24,7 @@ void parse_OneOrMore_Literal()
 		, parse<Oom1>("").failure()
 		;
 }
-void parse_OneOrMore_OneChar()
+inline void parse_OneOrMore_OneChar()
 {
 	assert
 		, parse<Oom2>("abcdef").success({ "a", "b", "c" }, "def")
@@ -35,7 +33,7 @@ void parse_OneOrMore_OneChar()
 		, parse<Oom2>("").failure()
 		;
 }
-void parse_OneOrMore_Choice()
+inline void parse_OneOrMore_Choice()
 {
 	assert
 		, parse<Oom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
@@ -44,7 +42,7 @@ void parse_OneOrMore_Choice()
 		, parse<Oom3>("").failure()
 		;
 }
-void parse_OneOrMore_Sequence()
+inline void parse_OneOrMore_Sequence()
 {
 	assert
 		, parse<Oom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
@@ -54,4 +52,4 @@ void parse_OneOrMore_Sequence()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(repeat::OneOrMore)
+TOK3N_END_NAMESPACE(tests)

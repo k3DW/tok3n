@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Complete)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Com1, CompleteType, std::string_view>
@@ -15,7 +13,7 @@ void requirements()
 		;
 }
 
-void parse_Complete_Literal()
+inline void parse_Complete_Literal()
 {
 	assert
 		, parse<Com1>("litera").failure()
@@ -27,7 +25,7 @@ void parse_Complete_Literal()
 		, parse<Com1>("").failure()
 		;
 }
-void parse_Complete_OneChar()
+inline void parse_Complete_OneChar()
 {
 	assert
 		, parse<Com2>("a").success({ "a" }, "")
@@ -38,7 +36,7 @@ void parse_Complete_OneChar()
 		, parse<Com2>("").failure()
 		;
 }
-void parse_Complete_Choice()
+inline void parse_Complete_Choice()
 {
 	assert
 		, parse<Com3>("abliteralcbliteralcf").failure()
@@ -50,7 +48,7 @@ void parse_Complete_Choice()
 		, parse<Com3>("").failure()
 		;
 }
-void parse_Complete_Sequence()
+inline void parse_Complete_Sequence()
 {
 	assert
 		, parse<Com4>("literalaliteralcliteralcliteralb").failure()
@@ -62,7 +60,7 @@ void parse_Complete_Sequence()
 		, parse<Com4>("").failure()
 		;
 }
-void parse_Complete_Maybe()
+inline void parse_Complete_Maybe()
 {
 	assert
 		, parse<Com5>("literalaliteralcliteralcliteralb").failure()
@@ -74,7 +72,7 @@ void parse_Complete_Maybe()
 		, parse<Com5>("").success({}, "")
 		;
 }
-void parse_Complete_OneOrMore()
+inline void parse_Complete_OneOrMore()
 {
 	assert
 		, parse<Com6>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
@@ -86,7 +84,7 @@ void parse_Complete_OneOrMore()
 		, parse<Com6>("").failure()
 		;
 }
-void parse_Complete_ZeroOrMore()
+inline void parse_Complete_ZeroOrMore()
 {
 	assert
 		, parse<Com7>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
@@ -99,4 +97,4 @@ void parse_Complete_ZeroOrMore()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::Complete)
+TOK3N_END_NAMESPACE(tests)

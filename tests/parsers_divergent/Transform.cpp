@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Transform)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Tra1, TransformType, std::size_t>
@@ -14,7 +12,7 @@ void requirements()
 		;
 }
 
-void parse_Transform()
+inline void parse_Transform()
 {
 	assert
 		, parse<Tra1>("abcabcabcab").success(3, "ab")
@@ -43,4 +41,4 @@ void parse_Transform()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::Transform)
+TOK3N_END_NAMESPACE(tests)

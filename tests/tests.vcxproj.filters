@@ -8,14 +8,51 @@
     <Filter Include="parsers_compound" />
     <Filter Include="parsers_divergent" />
     <Filter Include="parsers_repeat" />
+    <Filter Include="framework">
+      <UniqueIdentifier>{c83f7b93-ae65-4adf-a404-0bb0e993c794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samples">
+      <UniqueIdentifier>{89d82a41-cd98-441d-9c63-9b9c1ece4c1e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="common.h" />
+    <ClInclude Include="traits.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="utility.h" />
+    <ClInclude Include="framework\assert.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\parse.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\comparison.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\basic.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\compound.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\repeat.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\adaptor.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\sub_parsers.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\functions.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\classes.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\divergent.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="operators_modifier\ApplyInto.cpp">
       <Filter>operators_modifier</Filter>

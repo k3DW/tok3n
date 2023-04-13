@@ -1,10 +1,8 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::ApplyTransform)
+TOK3N_BEGIN_NAMESPACE(tests)
 
-using namespace samples::all;
-
-void requirements()
+inline void requirements()
 {
 	assert
 		, IsParser<Apt1, ApplyTransformType, bool>
@@ -12,7 +10,7 @@ void requirements()
 		;
 }
 
-void parse_ApplyTransform()
+inline void parse_ApplyTransform()
 {
 	assert
 		, parse<Apt1>("abc???????").success(false, "?")
@@ -30,4 +28,4 @@ void parse_ApplyTransform()
 		;
 }
 
-TOK3N_END_NAMESPACE_TESTS(adaptor::ApplyTransform)
+TOK3N_END_NAMESPACE(tests)
