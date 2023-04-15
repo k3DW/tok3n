@@ -3,10 +3,9 @@
 #include <map>
 #include <variant>
 #include <charconv>
+#include <iostream>
 
-TOK3N_BEGIN_NAMESPACE(examples::json_parser)
-
-
+using namespace k3::tok3n::operators;
 
 constexpr auto whitespace = *("\t\n\r "_one) % ignore;
 
@@ -32,6 +31,7 @@ constexpr auto number = []
 
 	return (integer >> ~fraction >> ~exponent) % apply_into<number_type>;
 }();
+
 
 
 constexpr auto string = []
@@ -103,12 +103,6 @@ consteval auto JsonValue::get_parser()
 
 
 
-TOK3N_END_NAMESPACE(examples::json_parser)
-
-
-
-#include <iostream>
-
 int main()
 {
 
@@ -131,13 +125,11 @@ int main()
 		}
 })";
 
-	using namespace k3::tok3n::examples;
+	//auto result = number.parse("-1234.5678e+9012");
+	auto result = string.parse(R"("-1234.5678e+9012tdtrwehfg)");
 
-	//auto result = json_parser::number.parse("-1234.5678e+9012");
-	auto result = json_parser::string.parse(R"("-1234.5678e+9012tdtrwehfg)");
-
-	//auto json_result = json_parser::JsonValue::parse(R"( [  "test"  , true, -1234.5678e+90123 , [  "test"  , true, -1234.5678e+90123 , "" ]   ]      )");
-	auto json_result = json_parser::JsonObject::parse(json);
+	//auto json_result = JsonValue::parse(R"( [  "test"  , true, -1234.5678e+90123 , [  "test"  , true, -1234.5678e+90123 , "" ]   ]      )");
+	auto json_result = JsonObject::parse(json);
 
 	volatile int x = 0;
 
