@@ -46,59 +46,41 @@ constexpr auto string = []
 
 
 
-struct JsonObject : Custom<JsonObject>
-{
-	struct result_type;
-	static consteval auto get_parser();
-};
-struct JsonArray : Custom<JsonArray>
-{
-	struct result_type;
-	static consteval auto get_parser();
-};
 struct JsonValue : Custom<JsonValue>
 {
 	struct result_type;
 	static consteval auto get_parser();
 };
 
-struct JsonObject::result_type
+struct JsonObject : Custom<JsonObject>
 {
-    using value_type = std::pair<std::string, JsonValue::result_type>;
-    result_type() = default;
-    result_type(std::vector<value_type>&& vec);
-    std::vector<value_type> data;
+	using result_type = std::vector<std::pair<std::string, JsonValue::result_type>>;
+	static consteval auto get_parser();
 };
-struct JsonArray::result_type
+
+struct JsonArray : Custom<JsonArray>
 {
-    using value_type = JsonValue::result_type;
-    result_type() = default;
-    result_type(std::vector<value_type>&& vec);
-    std::vector<value_type> data;
+	using result_type = std::vector<JsonValue::result_type>;
+	static consteval auto get_parser();
 };
 
 struct JsonValue::result_type
 {
-    std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, nullptr_t> data;
+	using variant_type = std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, nullptr_t>;
+	variant_type variant;
 };
-JsonObject::result_type::result_type(std::vector<value_type>&& vec)
-    : data(std::from_range, vec | std::views::as_rvalue)
-{}
-JsonArray::result_type::result_type(std::vector<value_type>&& vec)
-    : data(std::from_range, vec | std::views::as_rvalue)
-{}
 
 consteval auto JsonObject::get_parser()
 {
     constexpr auto pair = (whitespace >> string >> whitespace >> ":"_ign >> JsonValue{}) % apply_into<result_type::value_type>;
-    constexpr auto object = delimit(pair, ","_lit) % into<result_type>;
+    constexpr auto object = pair % delimit(","_lit);
     constexpr auto the_parser = "{"_ign >> (object | (whitespace % defaulted<result_type>)) >> "}"_ign;
     return the_parser;
 }
 
 consteval auto JsonArray::get_parser()
 {
-    constexpr auto values = delimit(JsonValue{}, ","_lit) % into<result_type>;
+    constexpr auto values = JsonValue{} % delimit(","_lit);
     constexpr auto the_parser = "["_ign >> (values | (whitespace % defaulted<result_type>)) >> "]"_ign;
     return the_parser;
 }
@@ -162,7 +144,7 @@ int main()
 	if (json_result)
 	{
 		auto& val = json_result.value();
-		x += val.data.empty() ? 0 : 1;
+		x += val.empty() ? 0 : 1;
 	}
 	else
 		std::cout << "Json parse error!!!\n";
