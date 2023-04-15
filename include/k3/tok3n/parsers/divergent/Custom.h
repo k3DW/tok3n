@@ -23,3 +23,7 @@ struct Custom
 };
 
 TOK3N_END_NAMESPACE()
+
+TOK3N_BEGIN_NAMESPACE(inline operators)
+using k3::tok3n::Custom;
+TOK3N_END_NAMESPACE(inline operators)
