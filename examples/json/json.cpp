@@ -1,4 +1,3 @@
-#pragma once
 #include <k3/tok3n.h>
 #include <map>
 #include <variant>
