@@ -7,7 +7,7 @@
 
 using namespace k3::tok3n::operators;
 
-constexpr auto whitespace = *("\t\n\r "_one) % ignore;
+constexpr auto whitespace = *(" \n\r\t"_one) % ignore;
 
 
 
@@ -27,7 +27,7 @@ constexpr auto number = []
 
 	constexpr auto fraction = ("."_ign >> +digit) % join;
 
-	constexpr auto exponent = (ignore("Ee"_one) >> ~"+-"_one >> +digit) % join;
+	constexpr auto exponent = (ignore("Ee"_one) >> ~"-+"_one >> +digit) % join;
 
 	return (integer >> ~fraction >> ~exponent) % apply_into<number_type>;
 }();
@@ -37,7 +37,7 @@ constexpr auto number = []
 constexpr auto string = []
 {
 	constexpr auto hex = ("u"_lit >> exactly<4>("0123456789ABCDEFabcdef"_one)) % join;
-	constexpr auto control = R"("/\bfnrt)"_one | hex;
+	constexpr auto control = R"("\/bfnrt)"_one | hex;
 	
 	constexpr auto valid_char = R"("\)"_not | join("\\"_lit >> control);
 
