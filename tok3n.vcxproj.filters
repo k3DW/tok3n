@@ -140,9 +140,6 @@
     <ClInclude Include="include\k3\tok3n\parsers.h">
       <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\_constructible\basic.h">
-      <Filter>tok3n\parsers\_constructible</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\compound.h">
       <Filter>tok3n\parsers\_constructible</Filter>
     </ClInclude>

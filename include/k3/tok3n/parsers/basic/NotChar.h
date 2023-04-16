@@ -1,12 +1,11 @@
 #pragma once
-#include <k3/tok3n/parsers/_constructible/basic.h>
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <StaticString str>
-requires constructible::NotChar<str>
+requires (is_ascii(str)) and (is_unique_and_sorted(str))
 struct NotChar
 {
 	using result_type = Input;
