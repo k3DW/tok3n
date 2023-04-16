@@ -16,4 +16,7 @@ consteval auto operator!(NotChar<str>)
 	return OneChar<str>{};
 }
 
+template <Parser P>
+consteval auto operator!(P) = delete;
+
 TOK3N_END_NAMESPACE(inline operators)
