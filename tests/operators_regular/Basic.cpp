@@ -96,4 +96,26 @@ inline void ign_operator()
 		;
 }
 
+inline void non_sorted_and_uniqued()
+{
+	assert
+		, "212312323321212311"_one == OneChar<"123">{}
+		, "212312323321212311"_not == NotChar<"123">{}
+		, "123abc"_one == OneChar<"123abc">{}
+		, "123abc"_not == NotChar<"123abc">{}
+		, "abc123"_one == OneChar<"123abc">{}
+		, "abc123"_not == NotChar<"123abc">{}
+		, "a1b2c3"_one == OneChar<"123abc">{}
+		, "a1b2c3"_not == NotChar<"123abc">{}
+		, "Aa"_one == OneChar<"Aa">{}
+		, "Aa"_not == NotChar<"Aa">{}
+		, "aA"_one == OneChar<"Aa">{}
+		, "aA"_not == NotChar<"Aa">{}
+		, "A"_one == OneChar<"A">{}
+		, "A"_not == NotChar<"A">{}
+		, ""_one == OneChar<"">{}
+		, ""_not == NotChar<"">{}
+		;
+}
+
 TOK3N_END_NAMESPACE(tests)

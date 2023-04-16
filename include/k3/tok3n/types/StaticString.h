@@ -61,14 +61,45 @@ consteval bool is_ascii(const StaticString<N>& str)
 }
 
 template <std::size_t N>
-consteval bool is_unique_and_sorted(const StaticString<N>& str)
+consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 {
-	if constexpr (N == 1)
+	if constexpr (N <= 1)
 		return true;
 	else
 	{
 		constexpr auto less = [](std::span<const char> span) -> bool { return span[0] < span[1]; };
 		return std::ranges::all_of(str.view() | std::views::slide(2), less);
+	}
+}
+
+template <StaticString str> // Must be a template parameter because the return type depends on it
+requires (is_ascii(str))
+consteval auto sort_and_unique()
+{
+	if constexpr (is_sorted_and_uniqued(str))
+		return str;
+
+	else
+	{
+		constexpr auto histogram = []
+		{
+			std::array<bool, 128> arr{}; // Histogram
+			for (char c : str)
+				arr[static_cast<std::size_t>(c)] = true;
+			return arr;
+		}();
+
+		constexpr auto N = std::ranges::count(histogram, true);
+
+		StaticString<N> out{};
+		auto it = out.begin();
+		for (std::size_t i = 0; i != 128; ++i)
+		{
+			if (histogram[i])
+				*it++ = static_cast<char>(i);
+		}
+
+		return out;
 	}
 }
 
