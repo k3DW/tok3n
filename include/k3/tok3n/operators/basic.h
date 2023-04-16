@@ -7,11 +7,11 @@
 TOK3N_BEGIN_NAMESPACE(inline operators)
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_unique_and_sorted(str))
+requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
 constexpr auto one = OneChar<str>{};
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_unique_and_sorted(str))
+requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
 constexpr auto not_ = NotChar<str>{};
 
 template <StaticString str>
@@ -25,14 +25,14 @@ constexpr auto ign = Ignore<Literal<str>>{};
 
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_unique_and_sorted(str))
+requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
 consteval auto operator"" _one()
 {
 	return one<str>;
 }
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_unique_and_sorted(str))
+requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
 consteval auto operator"" _not()
 {
 	return not_<str>;

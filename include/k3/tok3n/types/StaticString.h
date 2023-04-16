@@ -61,7 +61,7 @@ consteval bool is_ascii(const StaticString<N>& str)
 }
 
 template <std::size_t N>
-consteval bool is_unique_and_sorted(const StaticString<N>& str)
+consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 {
 	if constexpr (N == 1)
 		return true;

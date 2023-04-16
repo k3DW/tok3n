@@ -5,7 +5,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_unique_and_sorted(str))
+requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
 struct OneChar
 {
 	using result_type = Input;
