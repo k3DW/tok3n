@@ -27,54 +27,97 @@ ws	::= [{' '|'\t'|'\n'|'\r'}];
 constexpr auto ws  = *"\t\n\r "_one % ignore;
 constexpr auto dgt = "0123456789"_one;
 
-struct number_t
+struct number : Custom<number>
 {
-	std::string_view                integer;
-	std::optional<std::string_view> decimal;
-	std::optional<std::string_view> exponent;
+    struct result_type
+    {
+        std::string_view                integer;
+        std::optional<std::string_view> decimal;
+        std::optional<std::string_view> exponent;
+    };
+
+    static consteval auto get_parser()
+    {
+        constexpr auto integer = +dgt % join;
+        constexpr auto fraction = join("."_ign >> +dgt);
+        constexpr auto exponent = join(ignore("Ee"_one) >> ~"-"_lit >> +dgt);
+
+        return apply_into<result_type>(integer >> ~fraction >> ~exponent);
+    }
 };
-namespace number_impl
-{
-	constexpr auto integer  = +dgt % join;
-	constexpr auto decimal  = ~("."_ign >> +dgt % join);
-	constexpr auto exponent = ~("Ee"_one % ignore >> join(~"-"_lit >> +dgt));
-}
-constexpr auto number = apply_into<number_t>(number_impl::integer >> number_impl::decimal >> number_impl::exponent);
 
-struct powterm_t
-{
-	using factor_t  = std::vector<powterm_t>;
-	using term_t    = std::vector<factor_t>;
-	using expr_t    = std::vector<term_t>;
 
-	struct bracketed_expr { expr_t data; };
-	struct negated_expr   { expr_t data; };
 
-	std::variant<bracketed_expr, negated_expr, number_t> data;
-};
 struct powterm : Custom<powterm>
 {
-	using result_type = powterm_t;
+	struct result_type;
 	static consteval auto get_parser();
 };
 
-constexpr auto factor = (ws >> powterm{}) % delimit(ws >> OneChar<"^">{});
-constexpr auto term   = (ws >> factor)    % delimit(ws >> OneChar<"*/">{});
-constexpr auto expr   = (ws >> term)      % delimit(ws >> OneChar<"+-">{});
+struct factor : Custom<factor>
+{
+	using result_type = std::vector<powterm::result_type>;
+	static consteval auto get_parser();
+};
+
+struct term : Custom<term>
+{
+	using result_type = std::vector<factor::result_type>;
+	static consteval auto get_parser();
+};
+
+struct expr : Custom<expr>
+{
+	using result_type = std::vector<term::result_type>;
+	static consteval auto get_parser();
+};
+
+struct powterm::result_type
+{
+	struct bracketed_expr { expr::result_type data; };
+	struct negated_expr { expr::result_type data; };
+
+	std::variant<bracketed_expr, negated_expr, number::result_type> data;
+};
+
+
+
+consteval auto factor::get_parser()
+{
+	return (ws >> powterm{}) % delimit(ws >> "^"_one);
+}
+
+consteval auto term::get_parser()
+{
+	return (ws >> factor{}) % delimit(ws >> "*/"_one);
+}
+
+consteval auto expr::get_parser()
+{
+	return (ws >> term{}) % delimit(ws >> "+-"_one);
+}
 
 consteval auto powterm::get_parser()
 {
-	constexpr auto bracketed = "("_ign >> ws >> expr >> ws >> ")"_ign;
-	constexpr auto negated   = "-"_ign >> ws >> expr;
-	return into_choice<powterm_t>
-	(
-		bracketed % into<powterm_t::bracketed_expr>,
-		negated   % into<powterm_t::negated_expr>,
-		number
+	constexpr auto bracketed = "("_ign >> ws >> expr{} >> ws >> ")"_ign;
+	constexpr auto negated = "-"_ign >> ws >> expr{};
+	return into_choice<result_type>
+		(
+			bracketed % into<result_type::bracketed_expr>,
+			negated % into<result_type::negated_expr>,
+			number{}
 	);
 }
 
-constexpr auto input = complete(ws >> expr >> ws);
+
+
+struct input : Custom<input>
+{
+	static constexpr auto parser = complete(ws >> expr{} >> ws);
+	static consteval auto get_parser() { return parser; }
+
+	using result_type = decltype(parser)::result_type;
+};
 
 
 
@@ -116,35 +159,35 @@ namespace print
 		std::size_t tabs;
 	};
 
-	void print(const powterm_t& val, std::size_t tabs);
-	void print(const powterm_t::bracketed_expr& val, std::size_t tabs);
-	void print(const powterm_t::negated_expr& val, std::size_t tabs);
-	void print(const number_t& val, std::size_t tabs);
-	void print(const powterm_t::expr_t& val, std::size_t tabs);
-	void print(const powterm_t::term_t& val, std::size_t tabs);
-	void print(const powterm_t::factor_t& val, std::size_t tabs);
+	void print(const powterm::result_type& val, std::size_t tabs);
+	void print(const powterm::result_type::bracketed_expr& val, std::size_t tabs);
+	void print(const powterm::result_type::negated_expr& val, std::size_t tabs);
+	void print(const number::result_type& val, std::size_t tabs);
+	void print(const expr::result_type& val, std::size_t tabs);
+	void print(const term::result_type& val, std::size_t tabs);
+	void print(const factor::result_type& val, std::size_t tabs);
 
-	void print(const powterm_t& val, std::size_t tabs)
+	void print(const powterm::result_type& val, std::size_t tabs)
 	{
 		autoprint a("Powterm", tabs);
-		if (std::holds_alternative<powterm_t::bracketed_expr>(val.data))
-			print(std::get<powterm_t::bracketed_expr>(val.data), tabs + 1);
-		else if (std::holds_alternative<powterm_t::negated_expr>(val.data))
-			print(std::get<powterm_t::negated_expr>(val.data), tabs + 1);
+		if (std::holds_alternative<powterm::result_type::bracketed_expr>(val.data))
+			print(std::get<powterm::result_type::bracketed_expr>(val.data), tabs + 1);
+		else if (std::holds_alternative<powterm::result_type::negated_expr>(val.data))
+			print(std::get<powterm::result_type::negated_expr>(val.data), tabs + 1);
 		else
-			print(std::get<number_t>(val.data), tabs + 1);
+			print(std::get<number::result_type>(val.data), tabs + 1);
 	}
-	void print(const powterm_t::bracketed_expr& val, std::size_t tabs)
+	void print(const powterm::result_type::bracketed_expr& val, std::size_t tabs)
 	{
 		autoprint a("Bracketed Expr", tabs);
 		print(val.data, tabs + 1);
 	}
-	void print(const powterm_t::negated_expr& val, std::size_t tabs)
+	void print(const powterm::result_type::negated_expr& val, std::size_t tabs)
 	{
 		autoprint a("Negated Expr", tabs);
 		print(val.data, tabs + 1);
 	}
-	void print(const number_t& val, std::size_t tabs)
+	void print(const number::result_type& val, std::size_t tabs)
 	{
 		print("Number : ", tabs);
 
@@ -154,7 +197,7 @@ namespace print
 		if (val.exponent)
 			std::cout << "e" << *val.exponent;
 	}
-	void print(const powterm_t::expr_t& val, std::size_t tabs)
+	void print(const expr::result_type& val, std::size_t tabs)
 	{
 		autoprint a("Expr", tabs);
 
@@ -165,7 +208,7 @@ namespace print
 				std::cout << ",\n";
 		}
 	}
-	void print(const powterm_t::term_t& val, std::size_t tabs)
+	void print(const term::result_type& val, std::size_t tabs)
 	{
 		autoprint a("Term", tabs);
 
@@ -176,7 +219,7 @@ namespace print
 				std::cout << ",\n";
 		}
 	}
-	void print(const powterm_t::factor_t& val, std::size_t tabs)
+	void print(const factor::result_type& val, std::size_t tabs)
 	{
 		autoprint a("Factor", tabs);
 
@@ -194,7 +237,7 @@ namespace print
 
 auto test()
 {
-	auto result = input.parse("4 ^ (2 + 4 * 6) + 1 * 3");
+	auto result = input::parse("4 ^ (2 + 4 * 6) + 1 * 3");
 	if (result)
 		print::print(*result, 0);
 	else
