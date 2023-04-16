@@ -3,4 +3,8 @@
   <ItemGroup>
     <ClCompile Include="algebraic.cpp" />
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="parser.h" />
+    <ClInclude Include="print.h" />
+  </ItemGroup>
 </Project>
