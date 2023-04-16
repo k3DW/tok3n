@@ -166,6 +166,7 @@
     <ClCompile Include="algebraic.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="evaluate.h" />
     <ClInclude Include="parser.h" />
     <ClInclude Include="print.h" />
   </ItemGroup>
