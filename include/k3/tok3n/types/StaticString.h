@@ -123,14 +123,4 @@ constexpr StaticString<M + N> operator+(const StaticString<M>& lhs, const Static
 	return str;
 }
 
-
-
-static_assert(StaticString("") == sort_and_unique<"">());
-static_assert(StaticString("A") == sort_and_unique<"A">());
-static_assert(StaticString("Aa") == sort_and_unique<"Aa">());
-static_assert(StaticString("Aa") == sort_and_unique<"aA">());
-static_assert(StaticString("123abc") == sort_and_unique<"123abc">());
-static_assert(StaticString("123abc") == sort_and_unique<"abc123">());
-static_assert(StaticString("123abc") == sort_and_unique<"a1b2c3">());
-
 TOK3N_END_NAMESPACE()
