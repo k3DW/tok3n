@@ -4,7 +4,7 @@
 #include <variant>
 #include <iostream>
 
-TOK3N_BEGIN_NAMESPACE(examples::algebraic)
+using namespace k3::tok3n::operators;
 
 /*
 
@@ -235,24 +235,11 @@ namespace print
 
 
 
-auto test()
+int main()
 {
 	auto result = input::parse("4 ^ (2 + 4 * 6) + 1 * 3");
 	if (result)
 		print::print(*result, 0);
 	else
 		std::cout << "Parse failure.\n";
-	return true;
 }
-
-TOK3N_END_NAMESPACE(examples::algebraic)
-
-
-
-int main()
-{
-	using namespace k3::tok3n::examples;
-
-	[[maybe_unused]] auto algtest = algebraic::test();
-}
-
