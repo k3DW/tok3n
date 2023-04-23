@@ -30,9 +30,15 @@ private:
 	template <template <class> class ParserTemplate, Parser P>
 	static consteval auto impl(ParserTemplate<P>) { return P{}; }
 
+	template <template <StaticString> class ParserTemplate, StaticString str>
+	static consteval auto impl(ParserTemplate<str>) { return str; }
+
 public:
 	template <Parser P>
 	using parser = decltype(impl(P{}));
+
+	template <Parser P>
+	static constexpr auto string = impl(P{});
 };
 
 consteval bool check_all_samples(auto checker)

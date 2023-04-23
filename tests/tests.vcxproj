@@ -202,7 +202,7 @@
     <ClCompile Include="operators_regular\Basic.cpp" />
     <ClCompile Include="operators_regular\Choice.cpp" />
     <ClCompile Include="operators_regular\maybe.cpp" />
-    <ClCompile Include="operators_regular\Not.cpp" />
+    <ClCompile Include="operators_regular\not.cpp" />
     <ClCompile Include="operators_regular\one_or_more.cpp" />
     <ClCompile Include="operators_regular\Sequence.cpp" />
     <ClCompile Include="operators_regular\zero_or_more.cpp" />
