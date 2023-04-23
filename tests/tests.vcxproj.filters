@@ -105,7 +105,7 @@
     <ClCompile Include="operators_regular\Not.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\OneOrMore.cpp">
+    <ClCompile Include="operators_regular\one_or_more.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Sequence.cpp">
