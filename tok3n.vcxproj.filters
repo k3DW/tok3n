@@ -20,7 +20,7 @@
     <ClInclude Include="include\k3\tok3n\concepts.h">
       <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\concepts\ImplicitlyDefaultConstructible.h">
+    <ClInclude Include="include\k3\tok3n\concepts\implicitly_default_constructible.h">
       <Filter>tok3n\concepts</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\IsParser.h">
