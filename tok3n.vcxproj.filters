@@ -233,6 +233,9 @@
     <ClInclude Include="include\k3\tok3n\types\Tags.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\concepts\has_tuple_size.h">
+      <Filter>tok3n\concepts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
