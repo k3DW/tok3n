@@ -189,7 +189,7 @@
   <ItemGroup>
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />
     <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
-    <ClCompile Include="operators_modifier\Complete.cpp" />
+    <ClCompile Include="operators_modifier\complete.cpp" />
     <ClCompile Include="operators_modifier\Constant.cpp" />
     <ClCompile Include="operators_modifier\Defaulted.cpp" />
     <ClCompile Include="operators_modifier\Delimit.cpp" />

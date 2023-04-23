@@ -63,7 +63,7 @@
     <ClCompile Include="operators_modifier\ApplyTransform.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Complete.cpp">
+    <ClCompile Include="operators_modifier\complete.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Constant.cpp">
