@@ -17,6 +17,24 @@ TOK3N_BEGIN_NAMESPACE(tests)
 
 constexpr auto the_parser_list = adaptor_list + basic_list + compound_list + divergent_list + repeat_list;
 
+#define TOK3N_ASSERT_P(condition, message) \
+	do {                                   \
+		if constexpr (not (condition))     \
+			typename P::__error_with_type; \
+	} while(false)
+
+
+struct underlying
+{
+private:
+	template <template <class> class ParserTemplate, Parser P>
+	static consteval auto impl(ParserTemplate<P>) { return P{}; }
+
+public:
+	template <Parser P>
+	using parser = decltype(impl(P{}));
+};
+
 consteval bool check_all_samples(auto checker)
 {
 	return [checker]<Parser... Ps>(parser_list<Ps...>) -> bool

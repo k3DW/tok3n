@@ -201,7 +201,7 @@
     <ClCompile Include="operators_modifier\Transform.cpp" />
     <ClCompile Include="operators_regular\Basic.cpp" />
     <ClCompile Include="operators_regular\Choice.cpp" />
-    <ClCompile Include="operators_regular\Maybe.cpp" />
+    <ClCompile Include="operators_regular\maybe.cpp" />
     <ClCompile Include="operators_regular\Not.cpp" />
     <ClCompile Include="operators_regular\OneOrMore.cpp" />
     <ClCompile Include="operators_regular\Sequence.cpp" />
