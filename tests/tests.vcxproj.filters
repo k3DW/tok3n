@@ -111,7 +111,7 @@
     <ClCompile Include="operators_regular\Sequence.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\ZeroOrMore.cpp">
+    <ClCompile Include="operators_regular\zero_or_more.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="parsers_adaptor\Complete.cpp">

@@ -205,7 +205,7 @@
     <ClCompile Include="operators_regular\Not.cpp" />
     <ClCompile Include="operators_regular\one_or_more.cpp" />
     <ClCompile Include="operators_regular\Sequence.cpp" />
-    <ClCompile Include="operators_regular\ZeroOrMore.cpp" />
+    <ClCompile Include="operators_regular\zero_or_more.cpp" />
     <ClCompile Include="parsers_adaptor\Complete.cpp" />
     <ClCompile Include="parsers_adaptor\Delimit.cpp" />
     <ClCompile Include="parsers_adaptor\Ignore.cpp" />
