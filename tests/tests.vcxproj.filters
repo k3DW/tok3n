@@ -69,7 +69,7 @@
     <ClCompile Include="operators_modifier\Constant.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Defaulted.cpp">
+    <ClCompile Include="operators_modifier\defaulted.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\Delimit.cpp">
