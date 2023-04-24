@@ -195,7 +195,7 @@
     <ClCompile Include="operators_modifier\delimit.cpp" />
     <ClCompile Include="operators_modifier\exactly.cpp" />
     <ClCompile Include="operators_modifier\ignore.cpp" />
-    <ClCompile Include="operators_modifier\Into.cpp" />
+    <ClCompile Include="operators_modifier\into.cpp" />
     <ClCompile Include="operators_modifier\IntoChoice.cpp" />
     <ClCompile Include="operators_modifier\join.cpp" />
     <ClCompile Include="operators_modifier\Transform.cpp" />
