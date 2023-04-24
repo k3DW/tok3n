@@ -198,7 +198,7 @@
     <ClCompile Include="operators_modifier\into.cpp" />
     <ClCompile Include="operators_modifier\IntoChoice.cpp" />
     <ClCompile Include="operators_modifier\join.cpp" />
-    <ClCompile Include="operators_modifier\Transform.cpp" />
+    <ClCompile Include="operators_modifier\fn.cpp" />
     <ClCompile Include="operators_regular\Basic.cpp" />
     <ClCompile Include="operators_regular\Choice.cpp" />
     <ClCompile Include="operators_regular\maybe.cpp" />

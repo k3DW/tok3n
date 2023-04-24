@@ -90,7 +90,7 @@
     <ClCompile Include="operators_modifier\join.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Transform.cpp">
+    <ClCompile Include="operators_modifier\fn.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Basic.cpp">
