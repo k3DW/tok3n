@@ -193,7 +193,7 @@
     <ClCompile Include="operators_modifier\constant.cpp" />
     <ClCompile Include="operators_modifier\defaulted.cpp" />
     <ClCompile Include="operators_modifier\Delimit.cpp" />
-    <ClCompile Include="operators_modifier\Exactly.cpp" />
+    <ClCompile Include="operators_modifier\exactly.cpp" />
     <ClCompile Include="operators_modifier\ignore.cpp" />
     <ClCompile Include="operators_modifier\Into.cpp" />
     <ClCompile Include="operators_modifier\IntoChoice.cpp" />

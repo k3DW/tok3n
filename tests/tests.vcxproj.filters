@@ -75,7 +75,7 @@
     <ClCompile Include="operators_modifier\Delimit.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Exactly.cpp">
+    <ClCompile Include="operators_modifier\exactly.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\ignore.cpp">
