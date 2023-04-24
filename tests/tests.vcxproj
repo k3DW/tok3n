@@ -188,7 +188,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="operators_modifier\apply_into.cpp" />
-    <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
+    <ClCompile Include="operators_modifier\apply.cpp" />
     <ClCompile Include="operators_modifier\complete.cpp" />
     <ClCompile Include="operators_modifier\constant.cpp" />
     <ClCompile Include="operators_modifier\defaulted.cpp" />
