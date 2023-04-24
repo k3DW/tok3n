@@ -190,7 +190,7 @@
     <ClCompile Include="operators_modifier\ApplyInto.cpp" />
     <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
     <ClCompile Include="operators_modifier\complete.cpp" />
-    <ClCompile Include="operators_modifier\Constant.cpp" />
+    <ClCompile Include="operators_modifier\constant.cpp" />
     <ClCompile Include="operators_modifier\defaulted.cpp" />
     <ClCompile Include="operators_modifier\Delimit.cpp" />
     <ClCompile Include="operators_modifier\Exactly.cpp" />
