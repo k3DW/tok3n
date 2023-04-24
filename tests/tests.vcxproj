@@ -187,7 +187,7 @@
     <ClInclude Include="samples\sub_parsers.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="operators_modifier\ApplyInto.cpp" />
+    <ClCompile Include="operators_modifier\apply_into.cpp" />
     <ClCompile Include="operators_modifier\ApplyTransform.cpp" />
     <ClCompile Include="operators_modifier\complete.cpp" />
     <ClCompile Include="operators_modifier\constant.cpp" />
