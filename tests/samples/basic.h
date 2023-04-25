@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n.h>
+#include "framework/parser_list.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
@@ -22,5 +23,11 @@ using QQ       = Literal<"??">;  constexpr QQ       qq;
 using ABC      = Literal<"abc">; constexpr ABC      abc;
 using Comma    = OneChar<",">;   constexpr Comma    comma;
 using SpaceDot = OneChar<" .">;  constexpr SpaceDot spacedot;
+
+constexpr auto basic_list = parser_list(
+	oc1, oc2, oc3, nc1, nc2, nc3, l1, l2, l3,
+	oc4, nc4, nc5, l4,
+	qq, abc, comma, spacedot
+);
 
 TOK3N_END_NAMESPACE(tests)

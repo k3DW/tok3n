@@ -2,6 +2,7 @@
 #include <k3/tok3n.h>
 #include "samples/basic.h"
 #include "samples/sub_parsers.h"
+#include "framework/parser_list.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
@@ -18,5 +19,10 @@ using Com4 = Complete<_14>;             constexpr Com4 com4;
 using Com5 = Complete<Maybe<_14>>;      constexpr Com5 com5;
 using Com6 = Complete<OneOrMore<_14>>;  constexpr Com6 com6;
 using Com7 = Complete<ZeroOrMore<_14>>; constexpr Com7 com7;
+
+constexpr auto adaptor_list = parser_list(
+	ign1, ign2, ign3, ign4, ign5,
+	com1, com2, com3, com4, com5, com6, com7
+);
 
 TOK3N_END_NAMESPACE(tests)

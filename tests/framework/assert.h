@@ -19,4 +19,10 @@ namespace detail
 
 constexpr auto assert = detail::assert{};
 
+#define TOK3N_ASSERT_P(condition, message) \
+	do {                                   \
+		if constexpr (not (condition))     \
+			typename P::__error_with_type; \
+	} while(false)
+
 TOK3N_END_NAMESPACE(tests)

@@ -3,6 +3,7 @@
 #include "samples/basic.h"
 #include "samples/classes.h"
 #include "samples/functions.h"
+#include "framework/parser_list.h"
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
@@ -51,5 +52,16 @@ struct Cus1 : Custom<Cus1>
 	}
 };
 constexpr Cus1 cus1;
+
+constexpr auto divergent_list = parser_list(
+	joi1, joi2, joi3, joi4, joi5,
+	tra1, tra2, tra3, tra4,
+	apt1, apt2,
+	int1, int2, int3,
+	api1, api2,
+	con1, con2, con3, con4,
+	def1, def2,
+	cus1
+);
 
 TOK3N_END_NAMESPACE(tests)

@@ -51,64 +51,70 @@
     <ClInclude Include="samples\divergent.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="framework\parser_list.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\underlying.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="operators_modifier\ApplyInto.cpp">
+    <ClCompile Include="operators_modifier\apply_into.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\ApplyTransform.cpp">
+    <ClCompile Include="operators_modifier\apply.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Complete.cpp">
+    <ClCompile Include="operators_modifier\complete.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Constant.cpp">
+    <ClCompile Include="operators_modifier\constant.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Defaulted.cpp">
+    <ClCompile Include="operators_modifier\defaulted.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Delimit.cpp">
+    <ClCompile Include="operators_modifier\delimit.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Exactly.cpp">
+    <ClCompile Include="operators_modifier\exactly.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Ignore.cpp">
+    <ClCompile Include="operators_modifier\ignore.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Into.cpp">
+    <ClCompile Include="operators_modifier\into.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\IntoChoice.cpp">
+    <ClCompile Include="operators_modifier\into_choice.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Join.cpp">
+    <ClCompile Include="operators_modifier\join.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\Transform.cpp">
+    <ClCompile Include="operators_modifier\fn.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\Basic.cpp">
+    <ClCompile Include="operators_regular\basic.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Choice.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\Maybe.cpp">
+    <ClCompile Include="operators_regular\maybe.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\Not.cpp">
+    <ClCompile Include="operators_regular\not.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\OneOrMore.cpp">
+    <ClCompile Include="operators_regular\one_or_more.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\Sequence.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\ZeroOrMore.cpp">
+    <ClCompile Include="operators_regular\zero_or_more.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="parsers_adaptor\Complete.cpp">

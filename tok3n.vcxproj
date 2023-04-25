@@ -171,8 +171,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\concepts\has_tuple_size.h" />
     <ClInclude Include="include\k3\tok3n\concepts.h" />
-    <ClInclude Include="include\k3\tok3n\concepts\ImplicitlyDefaultConstructible.h" />
+    <ClInclude Include="include\k3\tok3n\concepts\implicitly_default_constructible.h" />
     <ClInclude Include="include\k3\tok3n\concepts\IsParser.h" />
     <ClInclude Include="include\k3\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\k3\tok3n\concepts\Modifier.h" />
