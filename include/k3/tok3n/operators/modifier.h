@@ -22,4 +22,28 @@ requires requires { modifier(p); }
 	return modifier(p);
 }
 
+template <Modifier LHS, Modifier RHS>
+consteval auto operator%(LHS, RHS)
+{
+	return modifiers::multi<LHS, RHS>{};
+}
+
+template <Modifier... LHS, Modifier RHS>
+consteval auto operator%(modifiers::multi<LHS...>, RHS)
+{
+	return modifiers::multi<LHS..., RHS>{};
+}
+
+template <Modifier LHS, Modifier... RHS>
+consteval auto operator%(LHS, modifiers::multi<RHS...>)
+{
+	return modifiers::multi<LHS, RHS...>{};
+}
+
+template <Modifier... LHS, Modifier... RHS>
+consteval auto operator%(modifiers::multi<LHS...>, modifiers::multi<RHS...>)
+{
+	return modifiers::multi<LHS..., RHS...>{};
+}
+
 TOK3N_END_NAMESPACE(inline operators)
