@@ -84,7 +84,7 @@
     <ClCompile Include="operators_modifier\into.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
-    <ClCompile Include="operators_modifier\IntoChoice.cpp">
+    <ClCompile Include="operators_modifier\into_choice.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
     <ClCompile Include="operators_modifier\join.cpp">
