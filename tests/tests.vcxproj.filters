@@ -54,6 +54,9 @@
     <ClInclude Include="framework\parser_list.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\underlying.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

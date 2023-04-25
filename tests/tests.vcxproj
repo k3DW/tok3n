@@ -185,6 +185,7 @@
     <ClInclude Include="framework\parse.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
+    <ClInclude Include="framework\underlying.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="operators_modifier\apply_into.cpp" />
