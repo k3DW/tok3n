@@ -35,12 +35,22 @@ using Del6 = Delimit<SpaceDot, ABC, false>; constexpr Del6 del6;
 using Del7 = Delimit<Comma, QQ, false>;     constexpr Del7 del7;
 using Del8 = Delimit<SpaceDot, QQ, false>;  constexpr Del8 del8;
 
+using Dek1 = Delimit<ABC, Comma, true>;    constexpr Dek1 dek1;
+using Dek2 = Delimit<ABC, SpaceDot, true>; constexpr Dek2 dek2;
+using Dek3 = Delimit<QQ, Comma, true>;     constexpr Dek3 dek3;
+using Dek4 = Delimit<QQ, SpaceDot, true>;  constexpr Dek4 dek4;
+using Dek5 = Delimit<Comma, ABC, true>;    constexpr Dek5 dek5;
+using Dek6 = Delimit<SpaceDot, ABC, true>; constexpr Dek6 dek6;
+using Dek7 = Delimit<Comma, QQ, true>;     constexpr Dek7 dek7;
+using Dek8 = Delimit<SpaceDot, QQ, true>;  constexpr Dek8 dek8;
+
 constexpr auto repeat_list = parser_list(
 	may1, may2, may3, may4,
 	exa1, exa2, exa3, exa4,
 	oom1, oom2, oom3, oom4,
 	zom1, zom2, zom3, zom4,
-	del1, del2, del3, del4, del5, del6, del7, del8
+	del1, del2, del3, del4, del5, del6, del7, del8,
+	dek1, dek2, dek3, dek4, dek5, dek6, dek7, dek8
 );
 
 TOK3N_END_NAMESPACE(tests)

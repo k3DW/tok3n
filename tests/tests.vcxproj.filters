@@ -120,9 +120,6 @@
     <ClCompile Include="parsers_adaptor\Complete.cpp">
       <Filter>parsers_adaptor</Filter>
     </ClCompile>
-    <ClCompile Include="parsers_adaptor\Delimit.cpp">
-      <Filter>parsers_adaptor</Filter>
-    </ClCompile>
     <ClCompile Include="parsers_adaptor\Ignore.cpp">
       <Filter>parsers_adaptor</Filter>
     </ClCompile>
@@ -178,6 +175,9 @@
       <Filter>parsers_repeat</Filter>
     </ClCompile>
     <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Delimit.cpp">
       <Filter>parsers_repeat</Filter>
     </ClCompile>
   </ItemGroup>
