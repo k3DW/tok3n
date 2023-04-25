@@ -188,6 +188,7 @@
     <ClInclude Include="framework\underlying.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="operators_modifier\multi.cpp" />
     <ClCompile Include="operators_modifier\apply_into.cpp" />
     <ClCompile Include="operators_modifier\apply.cpp" />
     <ClCompile Include="operators_modifier\complete.cpp" />

@@ -180,5 +180,8 @@
     <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
       <Filter>parsers_repeat</Filter>
     </ClCompile>
+    <ClCompile Include="operators_modifier\multi.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>
