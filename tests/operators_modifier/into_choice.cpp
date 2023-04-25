@@ -2,23 +2,21 @@
 
 TOK3N_BEGIN_NAMESPACE(tests)
 
-template <class T, Parser auto... args>
-concept valid_for_into_choice = traits::operators::valid_function_call<into_choice<T>, args...>;
+using namespace traits::operators;
 
 inline void prefix()
 {
 	assert
 		, into_choice<Class1>(spacedot, abc) == Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}
 		, into_choice<Class1>(abc, spacedot) == Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}
-		, not valid_for_into_choice<Class1, abc, (spacedot >> abc)>
-		, valid_for_into_choice<Sink, abc, (spacedot >> abc)>
+		, not valid_function_call<into_choice<Class1>, abc, (spacedot >> abc)>
+		, valid_function_call<into_choice<Sink>, abc, (spacedot >> abc)>
 		;
 }
 
 inline void infix()
 {
 	// Infix isn't ever valid with into_choice because Choice parsers must have 2 sub parsers
-	using traits::operators::valid_modulo;
 
 	assert
 		, not valid_modulo<spacedot, into_choice<Class1>>
