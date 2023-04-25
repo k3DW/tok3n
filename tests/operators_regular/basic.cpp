@@ -11,6 +11,7 @@ inline void one_literal()
 		, "cd"_one == oc4
 		, ","_one == comma
 		, " ."_one == spacedot
+		, ""_one == OneChar<"">{}
 		;
 }
 
@@ -23,6 +24,7 @@ inline void one_operator()
 		, one<"cd"> == oc4
 		, one<","> == comma
 		, one<" ."> == spacedot
+		, one<""> == OneChar<"">{}
 		;
 }
 
@@ -34,6 +36,7 @@ inline void not_literal()
 		, "xyz"_not == nc3
 		, "cd"_not == nc4
 		, "z"_not == nc5
+		, ""_not == NotChar<"">{}
 		;
 }
 
@@ -45,6 +48,7 @@ inline void not_operator()
 		, not_<"xyz"> == nc3
 		, not_<"cd"> == nc4
 		, not_<"z"> == nc5
+		, not_<""> == NotChar<"">{}
 		;
 }
 
@@ -57,6 +61,7 @@ inline void lit_literal()
 		, "ab"_lit == l4
 		, "??"_lit == qq
 		, "abc"_lit == abc
+		, ""_lit == Literal<"">{}
 		;
 }
 
@@ -69,6 +74,7 @@ inline void lit_operator()
 		, lit<"ab"> == l4
 		, lit<"??"> == qq
 		, lit<"abc"> == abc
+		, lit<""> == Literal<"">{}
 		;
 }
 
@@ -81,6 +87,7 @@ inline void ign_literal()
 		, "ab"_ign == Ignore<L4>{}
 		, "??"_ign == Ignore<QQ>{}
 		, "abc"_ign == Ignore<ABC>{}
+		, ""_ign == Ignore<Literal<"">>{}
 		;
 }
 
@@ -93,6 +100,7 @@ inline void ign_operator()
 		, ign<"ab"> == Ignore<L4>{}
 		, ign<"??"> == Ignore<QQ>{}
 		, ign<"abc"> == Ignore<ABC>{}
+		, ign<""> == Ignore<Literal<"">>{}
 		;
 }
 
