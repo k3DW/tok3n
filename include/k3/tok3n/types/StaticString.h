@@ -35,7 +35,7 @@ struct StaticString
 
 	constexpr bool contains(char c) const noexcept
 	{
-		return view().contains(c);
+		return view().find(c) != std::string_view::npos;
 	}
 
 	constexpr auto begin() const { return data.begin(); }
