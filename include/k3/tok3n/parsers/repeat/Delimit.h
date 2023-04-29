@@ -5,15 +5,18 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <Parser P, Parser D>
-requires constructible::Delimit<P, D>
+template <Parser P, Parser D, bool ShouldKeep>
+requires constructible::Delimit<P, D, ShouldKeep>
 struct Delimit
 {
-	using result_type = std::vector<typename P::result_type>;
+	using result_type = std::conditional_t<ShouldKeep,
+		std::pair<std::vector<typename P::result_type>, std::vector<typename D::result_type>>,
+		std::vector<typename P::result_type>
+	>;
 
 	static constexpr ParserType type = DelimitType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input input) requires (not ShouldKeep)
 	{
 		result_type results;
 
@@ -31,6 +34,33 @@ struct Delimit
 				break;
 
 			result = P::parse(delimit_result.remaining());
+		}
+
+		return { success, std::move(results), input };
+	}
+
+	
+	static constexpr Result<result_type> parse(Input input) requires (ShouldKeep)
+	{
+		result_type results;
+		auto& [values, delimiters] = results;
+
+		auto result = P::parse(input);
+		if (not result.has_value())
+			return { failure, input };
+
+		while (result)
+		{
+			input = result.remaining();
+			values.emplace_back(std::move(*result));
+
+			auto delimit_result = D::parse(input);
+			if (not delimit_result)
+				break;
+
+			result = P::parse(delimit_result.remaining());
+			if (result)
+				delimiters.emplace_back(std::move(*delimit_result));
 		}
 
 		return { success, std::move(results), input };

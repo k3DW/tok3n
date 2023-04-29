@@ -6,6 +6,7 @@
 #include <k3/tok3n/modifiers/constant.h>
 #include <k3/tok3n/modifiers/defaulted.h>
 #include <k3/tok3n/modifiers/delimit.h>
+#include <k3/tok3n/modifiers/delimit_keep.h>
 #include <k3/tok3n/modifiers/exactly.h>
 #include <k3/tok3n/modifiers/fn.h>
 #include <k3/tok3n/modifiers/ignore.h>
