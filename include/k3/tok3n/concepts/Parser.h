@@ -11,8 +11,8 @@ TOK3N_BEGIN_NAMESPACE()
 template <class P>
 concept Parser =
 	requires { typename std::integral_constant<ParserType, P::type>; } &&
-	std::to_underlying(P::type) > std::to_underlying(ParserType::None) &&
-	std::to_underlying(P::type) < std::to_underlying(ParserType::END) &&
+	static_cast<int>(P::type) > static_cast<int>(ParserType::None) &&
+	static_cast<int>(P::type) < static_cast<int>(ParserType::END) &&
 	(std::is_empty_v<P>) &&
 	implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
