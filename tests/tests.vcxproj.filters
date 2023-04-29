@@ -180,5 +180,8 @@
     <ClCompile Include="parsers_repeat\Delimit.cpp">
       <Filter>parsers_repeat</Filter>
     </ClCompile>
+    <ClCompile Include="operators_modifier\delimit_keep.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

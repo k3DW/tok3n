@@ -36,8 +36,8 @@ constexpr auto delimit_checker = []<Parser P>(P) -> bool
 {
 	if constexpr (std::same_as<typename P::result_type, void>)
 	{
-		TOK3N_ASSERT_P( not requires { delimit(P{}, comma); },  "exactly<2> prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % delimit(comma); }, "exactly<2> infix operator compiles, but it shouldn't" );
+		TOK3N_ASSERT_P( not requires { delimit(P{}, comma); },  "delimit prefix operator compiles, but it shouldn't" );
+		TOK3N_ASSERT_P( not requires { P{} % delimit(comma); }, "delimit infix operator compiles, but it shouldn't" );
 	}
 	else
 	{
