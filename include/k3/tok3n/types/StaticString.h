@@ -35,7 +35,7 @@ struct StaticString
 
 	constexpr bool contains(char c) const noexcept
 	{
-		return view().contains(c);
+		return view().find(c) != std::string_view::npos;
 	}
 
 	constexpr auto begin() const { return data.begin(); }
@@ -67,8 +67,10 @@ consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 		return true;
 	else
 	{
-		constexpr auto less = [](std::span<const char> span) -> bool { return span[0] < span[1]; };
-		return std::ranges::all_of(str.view() | std::views::slide(2), less);
+		for (std::size_t i = 0; i < N - 1; ++i)
+			if (str.data[i] >= str.data[i + 1])
+				return false;
+		return true;
 	}
 }
 

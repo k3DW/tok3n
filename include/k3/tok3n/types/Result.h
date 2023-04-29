@@ -21,16 +21,15 @@ public:
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
 	constexpr bool has_value() const noexcept         { return mResult.has_value(); }
 
-	template <class Self>
-	constexpr decltype(auto) value(this Self&& self)
-	{
-		return std::forward_like<Self>(self.mResult.value());
-	}
-	template <class Self>
-	constexpr decltype(auto) operator*(this Self&& self)
-	{
-		return std::forward_like<Self>(self.mResult.operator*());
-	}
+	constexpr T&        value() &       { return mResult.value(); }
+	constexpr const T&  value() const&  { return mResult.value(); }
+	constexpr T&&       value() &&      { return std::move(mResult).value(); }
+	constexpr const T&& value() const&& { return std::move(mResult).value(); }
+
+	constexpr T&        operator*() &       { return *mResult; }
+	constexpr const T&  operator*() const&  { return *mResult; }
+	constexpr T&&       operator*() &&      { return *std::move(mResult); }
+	constexpr const T&& operator*() const&& { return *std::move(mResult); }
 
 	constexpr Input remaining() const noexcept { return mRemaining; }
 
