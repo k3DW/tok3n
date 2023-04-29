@@ -183,5 +183,8 @@
     <ClCompile Include="operators_modifier\delimit_keep.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
+    <ClCompile Include="operators_modifier\multi.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

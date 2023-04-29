@@ -13,3 +13,4 @@
 #include <k3/tok3n/modifiers/into.h>
 #include <k3/tok3n/modifiers/into_choice.h>
 #include <k3/tok3n/modifiers/join.h>
+#include <k3/tok3n/modifiers/multi.h>

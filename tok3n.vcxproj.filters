@@ -239,6 +239,9 @@
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h">
       <Filter>tok3n\modifiers</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\modifiers\multi.h">
+      <Filter>tok3n\modifiers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
