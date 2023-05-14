@@ -79,22 +79,44 @@ void print(const expr::result_type& val, std::size_t tabs)
 {
 	autoprint a("Expr", tabs);
 
-	for (std::size_t i = 0; i != val.size(); ++i)
+	auto& [values, delimiters] = val;
+
+	for (std::size_t i = 0; i != values.size(); ++i)
 	{
-		print(val[i], tabs + 1);
-		if (i != val.size() - 1)
+		print(values[i], tabs + 1);
+		if (i != values.size() - 1)
+		{
 			std::cout << ",\n";
+			switch (delimiters[i].front())
+			{
+			break; case '+': print("<plus>", tabs + 1);
+			break; case '-': print("<minus>", tabs + 1);
+			break; default: throw;
+			}
+			std::cout << "\n";
+		}
 	}
 }
 void print(const term::result_type& val, std::size_t tabs)
 {
 	autoprint a("Term", tabs);
 
-	for (std::size_t i = 0; i != val.size(); ++i)
+	auto& [values, delimiters] = val;
+
+	for (std::size_t i = 0; i != values.size(); ++i)
 	{
-		print(val[i], tabs + 1);
-		if (i != val.size() - 1)
+		print(values[i], tabs + 1);
+		if (i != values.size() - 1)
+		{
 			std::cout << ",\n";
+			switch (delimiters[i].front())
+			{
+			break; case '*': print("<multiplied by>", tabs + 1);
+			break; case '/': print("<divided by>", tabs + 1);
+			break; default: throw;
+			}
+			std::cout << "\n";
+		}
 	}
 }
 void print(const factor::result_type& val, std::size_t tabs)

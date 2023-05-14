@@ -13,24 +13,73 @@ double evaluate(const number::result_type& val);
 
 double evaluate(const expr::result_type& val)
 {
-	using Type = double(*)(const term::result_type&);
-	auto out = std::ranges::fold_left_first(val | std::views::transform((Type)evaluate), std::plus{});
-	return out.value_or(0);
+	auto& [values, delimiters] = val;
+
+	auto it_val = values.begin();
+	auto it_delim = delimiters.begin();
+
+	const auto end_val = values.end();
+	const auto end_delim = delimiters.end();
+
+	double output = evaluate(*it_val);
+	++it_val;
+
+	// This would be much better with zip_transform
+	for (; it_val != end_val && it_delim != end_delim; ++it_val, ++it_delim)
+	{
+		switch (it_delim->front())
+		{
+		break; case '+': output += evaluate(*it_val);
+		break; case '-': output -= evaluate(*it_val);
+		break; default: throw;
+		}
+	}
+
+	return output;
 }
 
 double evaluate(const term::result_type& val)
 {
-	using Type = double(*)(const factor::result_type&);
-	auto out = std::ranges::fold_left_first(val | std::views::transform((Type)evaluate), std::multiplies{});
-	return out.value_or(0);
+	auto& [values, delimiters] = val;
+
+	auto it_val = values.begin();
+	auto it_delim = delimiters.begin();
+
+	const auto end_val = values.end();
+	const auto end_delim = delimiters.end();
+
+	double output = evaluate(*it_val);
+	++it_val;
+
+	// This would be much better with zip_transform
+	for (; it_val != end_val && it_delim != end_delim; ++it_val, ++it_delim)
+	{
+		switch (it_delim->front())
+		{
+		break; case '*': output *= evaluate(*it_val);
+		break; case '/': output /= evaluate(*it_val);
+		break; default: throw;
+		}
+	}
+
+	return output;
 }
 
 double evaluate(const factor::result_type& val)
 {
-	using Type = double(*)(const powterm::result_type&);
-	using OpType = double(*)(double, double);
-	auto out = std::ranges::fold_right_last(val | std::views::transform((Type)evaluate), (OpType)std::pow);
-	return out.value_or(0);
+	auto it = val.rbegin();
+	const auto end = val.rend();
+
+	double output = evaluate(*it);
+	++it;
+
+	// This would be much better with fold_right_last
+	for (; it != end; ++it)
+	{
+		output = std::pow(evaluate(*it), output);
+	}
+
+	return output;
 }
 
 double evaluate(const powterm::result_type& val)

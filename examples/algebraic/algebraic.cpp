@@ -12,4 +12,12 @@ int main()
 	}
 	else
 		std::cout << "Parse failure.\n";
+
+	double a10 = evaluate(*input::parse("1 + 2 + 3 + 4"));
+	double a4 = evaluate(*input::parse("1 + 2 - 3 + 4"));
+	double a333 = evaluate(*input::parse("3^3^3"));
+	
+	std::cout << "\n" << a10;
+	std::cout << "\n" << a4;
+	std::cout << "\n" << a333;
 }

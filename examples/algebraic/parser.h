@@ -60,13 +60,13 @@ struct factor : Custom<factor>
 
 struct term : Custom<term>
 {
-	using result_type = std::vector<factor::result_type>;
+	using result_type = std::pair<std::vector<factor::result_type>, std::vector<std::string_view>>;
 	static consteval auto get_parser();
 };
 
 struct expr : Custom<expr>
 {
-	using result_type = std::vector<term::result_type>;
+	using result_type = std::pair<std::vector<term::result_type>, std::vector<std::string_view>>;
 	static consteval auto get_parser();
 };
 
@@ -87,12 +87,12 @@ consteval auto factor::get_parser()
 
 consteval auto term::get_parser()
 {
-	return (ws >> factor{}) % delimit(ws >> "*/"_one);
+	return (ws >> factor{}) % delimit_keep(ws >> "*/"_one);
 }
 
 consteval auto expr::get_parser()
 {
-	return (ws >> term{}) % delimit(ws >> "+-"_one);
+	return (ws >> term{}) % delimit_keep(ws >> "+-"_one);
 }
 
 consteval auto powterm::get_parser()
