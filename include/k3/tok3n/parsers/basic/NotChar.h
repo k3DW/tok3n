@@ -14,7 +14,7 @@ struct NotChar
 
 	static constexpr Result<result_type> parse(Input input)
 	{
-		if (input.empty() || str.contains(input.front()))
+		if (_failure_condition(input))
 			return { failure, input };
 		else
 		{
@@ -25,13 +25,18 @@ struct NotChar
 
 	static constexpr Result<void> lookahead(Input input)
 	{
-		if (input.empty() || str.contains(input.front()))
+		if (_failure_condition(input))
 			return { failure, input };
 		else
 		{
 			input.remove_prefix(1);
 			return { success, input };
 		}
+	}
+
+	static constexpr bool _failure_condition(Input input)
+	{
+		return input.empty() || str.contains(input.front());
 	}
 };
 
