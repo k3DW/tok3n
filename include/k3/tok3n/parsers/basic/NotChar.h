@@ -18,8 +18,8 @@ struct NotChar
 			return { failure, input };
 		else
 		{
-			const auto begin = input.begin();
-			return { success, { begin, begin + 1 }, { begin + 1, input.end() } };
+			const auto data = input.data();
+			return { success, { data, 1 }, { data + 1, input.size() - 1 } };
 		}
 	}
 
