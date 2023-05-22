@@ -1,38 +1,17 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/_base/Basic.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <StaticString str>
 requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
-struct OneChar
+struct OneChar : detail::Basic<OneChar<str>>
 {
-	using result_type = Input;
-
 	static constexpr ParserType type = OneCharType;
 
-	static constexpr Result<result_type> parse(Input input)
-	{
-		if (_failure_condition(input))
-			return { failure, input };
-		else
-		{
-			const auto data = input.data();
-			return { success, { data, 1 }, { data + 1, input.size() - 1 } };
-		}
-	}
-
-	static constexpr Result<void> lookahead(Input input)
-	{
-		if (_failure_condition(input))
-			return { failure, input };
-		else
-		{
-			input.remove_prefix(1);
-			return { success, input };
-		}
-	}
+	static constexpr std::size_t _length = 1;
 
 	static constexpr bool _failure_condition(Input input)
 	{
