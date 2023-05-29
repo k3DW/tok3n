@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
     <ClInclude Include="include\k3\tok3n\concepts\has_tuple_size.h" />
     <ClInclude Include="include\k3\tok3n\concepts.h" />

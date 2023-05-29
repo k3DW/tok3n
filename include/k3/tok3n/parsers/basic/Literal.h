@@ -1,37 +1,21 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/_base/Basic.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <StaticString str>
 requires (is_ascii(str))
-struct Literal
+struct Literal : detail::Basic<Literal<str>>
 {
-	using result_type = Input;
-
 	static constexpr ParserType type = LiteralType;
 
-	static constexpr Result<result_type> parse(Input input)
-	{
-		if (not input.starts_with(str.view()))
-			return { failure, input };
-		else
-		{
-			const auto begin = input.begin();
-			return { success, { begin, begin + str.size() }, { begin + str.size(), input.end() } };
-		}
-	}
+	static constexpr std::size_t _length = str.size();
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr bool _failure_condition(Input input)
 	{
-		if (not input.starts_with(str.view()))
-			return { failure, input };
-		else
-		{
-			input.remove_prefix(str.size());
-			return { success, input };
-		}
+		return not input.starts_with(str.view());
 	}
 };
 

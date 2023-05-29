@@ -1,37 +1,21 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/_base/Basic.h>
 
 TOK3N_BEGIN_NAMESPACE()
 
 template <StaticString str>
 requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
-struct NotChar
+struct NotChar : detail::Basic<NotChar<str>>
 {
-	using result_type = Input;
-
 	static constexpr ParserType type = NotCharType;
 
-	static constexpr Result<result_type> parse(Input input)
-	{
-		if (input.empty() || str.contains(input.front()))
-			return { failure, input };
-		else
-		{
-			const auto begin = input.begin();
-			return { success, { begin, begin + 1 }, { begin + 1, input.end() } };
-		}
-	}
+	static constexpr std::size_t _length = 1;
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr bool _failure_condition(Input input)
 	{
-		if (input.empty() || str.contains(input.front()))
-			return { failure, input };
-		else
-		{
-			input.remove_prefix(1);
-			return { success, input };
-		}
+		return input.empty() || str.contains(input.front());
 	}
 };
 
