@@ -39,7 +39,6 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	
 	static constexpr Result<result_type> parse(Input input) requires (KeepDelimiters::value)
 	{
 		result_type results;
