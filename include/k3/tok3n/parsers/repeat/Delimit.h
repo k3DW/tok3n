@@ -6,7 +6,7 @@
 TOK3N_BEGIN_NAMESPACE()
 
 template <Parser P, Parser D, bool KeepDelimiters>
-requires constructible::Delimit<P, D, KeepDelimiters>
+requires constructible::Delimit<P, D, std::bool_constant<KeepDelimiters>>
 struct Delimit
 {
 	using result_type = std::conditional_t<KeepDelimiters,

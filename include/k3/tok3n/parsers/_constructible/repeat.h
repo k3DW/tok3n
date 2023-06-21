@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
+#include <k3/tok3n/concepts/is_bool_constant.h>
 
 TOK3N_BEGIN_NAMESPACE(constructible)
 
@@ -24,11 +25,12 @@ concept ZeroOrMore =
 	Parser<P> and
 	not std::same_as<typename P::result_type, void>;
 
-template <class P, class D, bool KeepDelimiters>
+template <class P, class D, class KeepDelimiters>
 concept Delimit =
 	Parser<P> and
 	Parser<D> and
+	is_bool_constant<KeepDelimiters> and
 	not std::same_as<typename P::result_type, void> and
-	((not KeepDelimiters) or (KeepDelimiters and not std::same_as<typename D::result_type, void>));
+	((not KeepDelimiters::value) or (KeepDelimiters::value and not std::same_as<typename D::result_type, void>));
 
 TOK3N_END_NAMESPACE(constructible)
