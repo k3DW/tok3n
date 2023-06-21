@@ -10,7 +10,7 @@ struct delimit final
 	requires constructible::Delimit<P, D, std::false_type>
 	consteval auto operator()(P, D) const
 	{
-		return Delimit<P, D, false>{};
+		return Delimit<P, D, std::false_type>{};
 	}
 
 	template <Parser D>
@@ -20,7 +20,7 @@ struct delimit final
 		requires constructible::Delimit<P, D, std::false_type>
 		consteval auto operator()(P) const
 		{
-			return Delimit<P, D, false>{};
+			return Delimit<P, D, std::false_type>{};
 		}
 	};
 

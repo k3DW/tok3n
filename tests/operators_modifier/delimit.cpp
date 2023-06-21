@@ -41,10 +41,10 @@ constexpr auto delimit_checker = []<Parser P>(P) -> bool
 	}
 	else
 	{
-		TOK3N_ASSERT_P( requires { delimit(P{}, comma); },                    "delimit prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( delimit(P{}, comma) == (Delimit<P, Comma, false>{}),  "delimit prefix operator of any other parser should give Delimit parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % delimit(comma); },                   "delimit infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % delimit(comma) == (Delimit<P, Comma, false>{}), "delimit infix operator of any other parser should give Delimit parser of the argument" );
+		TOK3N_ASSERT_P( requires { delimit(P{}, comma); },                              "delimit prefix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( delimit(P{}, comma) == (Delimit<P, Comma, std::false_type>{}),  "delimit prefix operator of any other parser should give Delimit parser of the argument" );
+		TOK3N_ASSERT_P( requires { P{} % delimit(comma); },                             "delimit infix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( P{} % delimit(comma) == (Delimit<P, Comma, std::false_type>{}), "delimit infix operator of any other parser should give Delimit parser of the argument" );
 	}
 
 	return true;

@@ -5,18 +5,18 @@
 
 TOK3N_BEGIN_NAMESPACE()
 
-template <Parser P, Parser D, bool KeepDelimiters>
-requires constructible::Delimit<P, D, std::bool_constant<KeepDelimiters>>
+template <Parser P, Parser D, is_bool_constant KeepDelimiters>
+requires constructible::Delimit<P, D, KeepDelimiters>
 struct Delimit
 {
-	using result_type = std::conditional_t<KeepDelimiters,
+	using result_type = std::conditional_t<KeepDelimiters::value,
 		std::pair<std::vector<typename P::result_type>, std::vector<typename D::result_type>>,
 		std::vector<typename P::result_type>
 	>;
 
 	static constexpr ParserType type = DelimitType;
 
-	static constexpr Result<result_type> parse(Input input) requires (not KeepDelimiters)
+	static constexpr Result<result_type> parse(Input input) requires (not KeepDelimiters::value)
 	{
 		result_type results;
 
@@ -40,7 +40,7 @@ struct Delimit
 	}
 
 	
-	static constexpr Result<result_type> parse(Input input) requires (KeepDelimiters)
+	static constexpr Result<result_type> parse(Input input) requires (KeepDelimiters::value)
 	{
 		result_type results;
 		auto& [values, delimiters] = results;

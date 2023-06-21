@@ -26,23 +26,23 @@ using Zom2 = ZeroOrMore<_12>; constexpr Zom2 zom2;
 using Zom3 = ZeroOrMore<_13>; constexpr Zom3 zom3;
 using Zom4 = ZeroOrMore<_14>; constexpr Zom4 zom4;
 
-using Del1 = Delimit<ABC, Comma, false>;    constexpr Del1 del1;
-using Del2 = Delimit<ABC, SpaceDot, false>; constexpr Del2 del2;
-using Del3 = Delimit<QQ, Comma, false>;     constexpr Del3 del3;
-using Del4 = Delimit<QQ, SpaceDot, false>;  constexpr Del4 del4;
-using Del5 = Delimit<Comma, ABC, false>;    constexpr Del5 del5;
-using Del6 = Delimit<SpaceDot, ABC, false>; constexpr Del6 del6;
-using Del7 = Delimit<Comma, QQ, false>;     constexpr Del7 del7;
-using Del8 = Delimit<SpaceDot, QQ, false>;  constexpr Del8 del8;
+using Del1 = Delimit<ABC, Comma, std::false_type>;    constexpr Del1 del1;
+using Del2 = Delimit<ABC, SpaceDot, std::false_type>; constexpr Del2 del2;
+using Del3 = Delimit<QQ, Comma, std::false_type>;     constexpr Del3 del3;
+using Del4 = Delimit<QQ, SpaceDot, std::false_type>;  constexpr Del4 del4;
+using Del5 = Delimit<Comma, ABC, std::false_type>;    constexpr Del5 del5;
+using Del6 = Delimit<SpaceDot, ABC, std::false_type>; constexpr Del6 del6;
+using Del7 = Delimit<Comma, QQ, std::false_type>;     constexpr Del7 del7;
+using Del8 = Delimit<SpaceDot, QQ, std::false_type>;  constexpr Del8 del8;
 
-using Dek1 = Delimit<ABC, Comma, true>;    constexpr Dek1 dek1;
-using Dek2 = Delimit<ABC, SpaceDot, true>; constexpr Dek2 dek2;
-using Dek3 = Delimit<QQ, Comma, true>;     constexpr Dek3 dek3;
-using Dek4 = Delimit<QQ, SpaceDot, true>;  constexpr Dek4 dek4;
-using Dek5 = Delimit<Comma, ABC, true>;    constexpr Dek5 dek5;
-using Dek6 = Delimit<SpaceDot, ABC, true>; constexpr Dek6 dek6;
-using Dek7 = Delimit<Comma, QQ, true>;     constexpr Dek7 dek7;
-using Dek8 = Delimit<SpaceDot, QQ, true>;  constexpr Dek8 dek8;
+using Dek1 = Delimit<ABC, Comma, std::true_type>;    constexpr Dek1 dek1;
+using Dek2 = Delimit<ABC, SpaceDot, std::true_type>; constexpr Dek2 dek2;
+using Dek3 = Delimit<QQ, Comma, std::true_type>;     constexpr Dek3 dek3;
+using Dek4 = Delimit<QQ, SpaceDot, std::true_type>;  constexpr Dek4 dek4;
+using Dek5 = Delimit<Comma, ABC, std::true_type>;    constexpr Dek5 dek5;
+using Dek6 = Delimit<SpaceDot, ABC, std::true_type>; constexpr Dek6 dek6;
+using Dek7 = Delimit<Comma, QQ, std::true_type>;     constexpr Dek7 dek7;
+using Dek8 = Delimit<SpaceDot, QQ, std::true_type>;  constexpr Dek8 dek8;
 
 constexpr auto repeat_list = parser_list(
 	may1, may2, may3, may4,
