@@ -7,20 +7,20 @@ TOK3N_BEGIN_NAMESPACE(modifiers)
 struct delimit_keep final
 {
 	template <Parser P, Parser D>
-	requires constructible::Delimit<P, D, true>
+	requires constructible::Delimit<P, D, std::true_type>
 	consteval auto operator()(P, D) const
 	{
-		return Delimit<P, D, true>{};
+		return Delimit<P, D, std::true_type>{};
 	}
 
 	template <Parser D>
 	struct inner final : ModifierBase
 	{
 		template <Parser P>
-		requires constructible::Delimit<P, D, true>
+		requires constructible::Delimit<P, D, std::true_type>
 		consteval auto operator()(P) const
 		{
-			return Delimit<P, D, true>{};
+			return Delimit<P, D, std::true_type>{};
 		}
 	};
 
