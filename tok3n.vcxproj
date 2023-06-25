@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\detail\all_same.h" />
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />
     <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
@@ -182,7 +183,6 @@
     <ClInclude Include="include\k3\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\k3\tok3n\concepts\Parser.h" />
     <ClInclude Include="include\k3\tok3n\meta.h" />
-    <ClInclude Include="include\k3\tok3n\meta\all_same.h" />
     <ClInclude Include="include\k3\tok3n\meta\filter.h" />
     <ClInclude Include="include\k3\tok3n\meta\filtered_sequence.h" />
     <ClInclude Include="include\k3\tok3n\meta\head.h" />
