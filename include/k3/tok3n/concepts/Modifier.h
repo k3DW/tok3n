@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <k3/tok3n/types/ModifierBase.h>
 #include <concepts>
 

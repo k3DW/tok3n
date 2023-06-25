@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <k3/tok3n/concepts/Parser.h>
 
 namespace k3::tok3n {

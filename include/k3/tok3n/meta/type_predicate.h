@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <concepts>
 #include <type_traits>
 

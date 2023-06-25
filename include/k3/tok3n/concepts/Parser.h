@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <k3/tok3n/types/ParserType.h>
 #include <k3/tok3n/types/Input.h>
 #include <k3/tok3n/concepts/implicitly_default_constructible.h>
