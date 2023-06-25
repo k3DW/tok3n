@@ -2,7 +2,7 @@
 #include <concepts>
 #include <type_traits>
 
-namespace k3::tok3n::meta {
+namespace k3::tok3n::detail {
 
 template <class Pred>
 concept type_predicate =
@@ -10,4 +10,4 @@ concept type_predicate =
 	std::same_as<const bool, decltype(Pred::template predicate<void>::value)> and
 	requires { std::bool_constant<(Pred::template predicate<void>::value, true)>{}; };
 
-} // namespace k3::tok3n::meta
+} // namespace k3::tok3n::detail
