@@ -1,7 +1,8 @@
 #pragma once
-#include <k3/tok3n/meta/type_predicate.h>
+#include <concepts>
+#include <type_traits>
 
-namespace k3::tok3n::meta {
+namespace k3::tok3n::detail {
 
 template <class T>
 struct is_not_type
@@ -10,4 +11,4 @@ struct is_not_type
 	using predicate = std::bool_constant<not std::same_as<T, U>>;
 };
 
-} // namespace k3::tok3n::meta
+} // namespace k3::tok3n::detail

@@ -187,7 +187,7 @@
     <ClInclude Include="include\k3\tok3n\meta\filter.h" />
     <ClInclude Include="include\k3\tok3n\meta\filtered_sequence.h" />
     <ClInclude Include="include\k3\tok3n\meta\head.h" />
-    <ClInclude Include="include\k3\tok3n\meta\is_not_type.h" />
+    <ClInclude Include="include\k3\tok3n\detail\is_not_type.h" />
     <ClInclude Include="include\k3\tok3n\meta\list_cast.h" />
     <ClInclude Include="include\k3\tok3n\meta\unwrap_if_single.h" />
     <ClInclude Include="include\k3\tok3n\modifiers.h" />
