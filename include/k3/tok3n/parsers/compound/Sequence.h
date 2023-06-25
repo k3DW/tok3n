@@ -2,6 +2,10 @@
 #include <k3/tok3n/parsers/_constructible/compound.h>
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/detail/filter.h>
+#include <k3/tok3n/detail/filtered_sequence.h>
+#include <k3/tok3n/detail/is_not_type.h>
+#include <k3/tok3n/detail/unwrap_if_single.h>
 
 namespace k3::tok3n {
 
@@ -59,7 +63,7 @@ template <Parser... Ps>
 requires constructible::Sequence<Ps...>
 struct Sequence
 {
-	using _trait = meta::unwrap_if_single<meta::filter<meta::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
+	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
 	static constexpr ParserType type = SequenceType;
 
@@ -75,7 +79,7 @@ struct Sequence
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
 			return (... && executor.execute<Ps, Is, _unwrapped>());
-		}(meta::filtered_sequence<meta::is_not_type<void>, typename Ps::result_type...>{});
+		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::result_type...>{});
 
 		if (not successful)
 			return { failure, input };
