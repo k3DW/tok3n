@@ -107,7 +107,7 @@ consteval auto choice(P, P) // (P | P) == P
 
 TOK3N_END_NAMESPACE(detail::operators)
 
-TOK3N_BEGIN_NAMESPACE(inline operators)
+namespace k3::tok3n::inline operators {
 
 template <Parser P1, Parser P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
@@ -116,4 +116,4 @@ consteval auto operator|(P1, P2)
 	return detail::operators::choice(P1{}, P2{});
 }
 
-TOK3N_END_NAMESPACE(inline operators)
+} // namespace k3::tok3n::inline operators

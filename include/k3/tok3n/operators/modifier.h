@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/modifiers.h>
 
-TOK3N_BEGIN_NAMESPACE(inline operators)
+namespace k3::tok3n::inline operators {
 
 template <auto function> constexpr auto apply        = modifiers::apply<function>{};
 template <class T>       constexpr auto apply_into   = modifiers::apply_into<T>{};
@@ -47,4 +47,4 @@ consteval auto operator%(modifiers::multi<LHS...>, modifiers::multi<RHS...>)
 	return modifiers::multi<LHS..., RHS...>{};
 }
 
-TOK3N_END_NAMESPACE(inline operators)
+} // namespace k3::tok3n::inline operators

@@ -19,7 +19,7 @@ consteval auto zero_or_more(P) { return ZeroOrMore<P>{}; } // default
 
 TOK3N_END_NAMESPACE(detail::operators)
 
-TOK3N_BEGIN_NAMESPACE(inline operators)
+namespace k3::tok3n::inline operators {
 
 template <Parser P>
 requires constructible::ZeroOrMore<P>
@@ -28,4 +28,4 @@ consteval auto operator*(P)
 	return detail::operators::zero_or_more(P{});
 }
 
-TOK3N_END_NAMESPACE(inline operators)
+} // namespace k3::tok3n::inline operators

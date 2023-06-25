@@ -19,7 +19,7 @@ consteval auto maybe(P) { return Maybe<P>{}; } // default
 
 TOK3N_END_NAMESPACE(detail::operators)
 
-TOK3N_BEGIN_NAMESPACE(inline operators)
+namespace k3::tok3n::inline operators {
 
 template <Parser P>
 requires constructible::Maybe<P>
@@ -28,4 +28,4 @@ consteval auto operator~(P)
 	return detail::operators::maybe(P{});
 }
 
-TOK3N_END_NAMESPACE(inline operators)
+} // namespace k3::tok3n::inline operators
