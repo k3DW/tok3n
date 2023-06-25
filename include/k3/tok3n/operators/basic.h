@@ -4,7 +4,7 @@
 #include <k3/tok3n/parsers/basic/Literal.h>
 #include <k3/tok3n/parsers/adaptor/Ignore.h>
 
-namespace k3::tok3n::inline operators {
+namespace k3::tok3n {
 
 template <StaticString str>
 requires (is_ascii(str))
@@ -52,4 +52,18 @@ consteval auto operator"" _ign()
 	return ign<str>;
 }
 
-} // namespace k3::tok3n::inline operators
+} // namespace k3::tok3n
+
+namespace k3::tok3n::operators {
+
+using ::k3::tok3n::one;
+using ::k3::tok3n::not_;
+using ::k3::tok3n::lit;
+using ::k3::tok3n::ign;
+
+using ::k3::tok3n::operator""_one;
+using ::k3::tok3n::operator""_not;
+using ::k3::tok3n::operator""_lit;
+using ::k3::tok3n::operator""_ign;
+
+} // namespace k3::tok3n::operators
