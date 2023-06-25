@@ -3,7 +3,7 @@
 #include <k3/tok3n/parsers/basic/NotChar.h>
 #include <k3/tok3n/parsers/compound/Choice.h>
 
-TOK3N_BEGIN_NAMESPACE(detail::operators)
+namespace k3::tok3n::detail::operators {
 
 template <const auto& op, StaticString str1, StaticString str2>
 consteval auto merged_with()
@@ -105,7 +105,7 @@ consteval auto choice(P, P) // (P | P) == P
 	return P{};
 }
 
-TOK3N_END_NAMESPACE(detail::operators)
+} // namespace k3::tok3n::detail::operators
 
 namespace k3::tok3n::inline operators {
 
