@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -96,5 +94,3 @@ inline void parse_Complete_ZeroOrMore()
 		, parse<Com7>("").success({}, "")
 		;
 }
-
-} // namespace k3::tok3n::tests

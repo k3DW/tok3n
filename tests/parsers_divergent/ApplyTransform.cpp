@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -27,5 +25,3 @@ inline void parse_ApplyTransform()
 		, parse<Apt2>("").failure()
 		;
 }
-
-} // namespace k3::tok3n::tests

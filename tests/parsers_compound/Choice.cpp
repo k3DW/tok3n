@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;
 
@@ -64,14 +62,12 @@ using constructible = traits::compound::constructible<Choice>;
 inline void constructible_same_result_type()
 {
 	assert
-		, constructible::from<OC1, OC3, NC2, NC1, L2>
-		, not constructible::from<OC1, Sequence<OC2, OC3>>
+		, ::constructible::from<OC1, OC3, NC2, NC1, L2>
+		, not ::constructible::from<OC1, Sequence<OC2, OC3>>
 		;
 }
 
 inline void not_constructible_empty()
 {
-	assert, not constructible::from<>;
+	assert, not ::constructible::from<>;
 }
-
-} // namespace k3::tok3n::tests

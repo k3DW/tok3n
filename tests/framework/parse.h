@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-namespace k3::tok3n::tests {
+using namespace k3::tok3n;
 
 namespace detail
 {
@@ -76,13 +76,11 @@ namespace detail
 template <Parser P>
 consteval auto parse(Input input)
 {
-	return detail::parse<P>{ input };
+	return ::detail::parse<P>{ input };
 }
 
 template <Parser P>
 consteval auto parse(P, Input input)
 {
-	return detail::parse<P>{ input };
+	return ::detail::parse<P>{ input };
 }
-
-} // namespace k3::tok3n::tests

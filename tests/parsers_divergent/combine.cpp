@@ -1,8 +1,6 @@
 #include "pch.h"
 
 #if 0
-namespace k3::tok3n::tests {
-
 using L1 = Literal<"abc">;
 constexpr L1 l1;
 using L2 = Literal<"??">;
@@ -99,6 +97,4 @@ inline void Join_Transform()
 		, parse(j3, "abc??abcabcabcabc??").only_lookahead("")
 		;
 }
-
-} // namespace k3::tok3n::tests
 #endif

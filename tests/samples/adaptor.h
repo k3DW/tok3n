@@ -4,8 +4,6 @@
 #include "samples/sub_parsers.h"
 #include "framework/parser_list.h"
 
-namespace k3::tok3n::tests {
-
 using Ign1 = Ignore<_21>; constexpr Ign1 ign1;
 using Ign2 = Ignore<_22>; constexpr Ign2 ign2;
 using Ign3 = Ignore<_23>; constexpr Ign3 ign3;
@@ -24,5 +22,3 @@ constexpr auto adaptor_list = parser_list(
 	ign1, ign2, ign3, ign4, ign5,
 	com1, com2, com3, com4, com5, com6, com7
 );
-
-} // namespace k3::tok3n::tests

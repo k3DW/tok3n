@@ -4,8 +4,6 @@
 #include "samples/sub_parsers.h"
 #include "framework/parser_list.h"
 
-namespace k3::tok3n::tests {
-
 using May1 = Maybe<_11>; constexpr May1 may1;
 using May2 = Maybe<_12>; constexpr May2 may2;
 using May3 = Maybe<_13>; constexpr May3 may3;
@@ -52,5 +50,3 @@ constexpr auto repeat_list = parser_list(
 	del1, del2, del3, del4, del5, del6, del7, del8,
 	dek1, dek2, dek3, dek4, dek5, dek6, dek7, dek8
 );
-
-} // namespace k3::tok3n::tests

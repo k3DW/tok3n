@@ -5,8 +5,6 @@
 #include "samples/functions.h"
 #include "framework/parser_list.h"
 
-namespace k3::tok3n::tests {
-
 using Joi1 = Join<_21>; constexpr Joi1 joi1;
 using Joi2 = Join<_22>; constexpr Joi2 joi2;
 using Joi3 = Join<_23>; constexpr Joi3 joi3;
@@ -63,5 +61,3 @@ constexpr auto divergent_list = parser_list(
 	def1, def2,
 	cus1
 );
-
-} // namespace k3::tok3n::tests

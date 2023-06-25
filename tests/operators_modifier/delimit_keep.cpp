@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void prefix()
 {
 	assert
@@ -59,5 +57,3 @@ inline void delimit_keep_anything()
 		, check_all_samples(delimit_keep_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

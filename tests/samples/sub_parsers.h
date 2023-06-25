@@ -2,8 +2,6 @@
 #include <k3/tok3n.h>
 #include "samples/basic.h"
 
-namespace k3::tok3n::tests {
-
 inline namespace sub
 {
 	using _11 = L1;
@@ -17,5 +15,3 @@ inline namespace sub
 	using _24 = Sequence<ABC, ZeroOrMore<QQ>>;
 	using _25 = Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>;
 }
-
-} // namespace k3::tok3n::tests

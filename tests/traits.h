@@ -1,6 +1,9 @@
 #pragma once
+#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/concepts/Parser.h>
+#include <k3/tok3n/concepts/Modifier.h>
 
-namespace k3::tok3n::tests {
+using namespace k3::tok3n;
 
 namespace traits::basic
 {
@@ -64,5 +67,3 @@ namespace traits::operators
 	concept valid_function_call = requires { { modifier(parsers...) } -> Parser; };
 
 }
-
-} // namespace k3::tok3n::tests

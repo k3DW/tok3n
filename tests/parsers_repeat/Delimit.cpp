@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -125,5 +123,3 @@ inline void parse_Delimit_keep_reversed()
 		, parse<Dek8>("").failure()
 		;
 }
-
-} // namespace k3::tok3n::tests

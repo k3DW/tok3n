@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void Literal_and_Literal()
 {
 	assert
@@ -72,5 +70,3 @@ inline void void_result()
 		, parse(void_sequence, "abcabcabcdabcd").success("dabcd")
 		;
 }
-
-} // namespace k3::tok3n::tests

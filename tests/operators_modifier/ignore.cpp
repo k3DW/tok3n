@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void prefix()
 {
 	assert
@@ -68,5 +66,3 @@ inline void ignore_anything()
 		, check_all_samples(ignore_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

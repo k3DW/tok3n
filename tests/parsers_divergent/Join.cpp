@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -45,5 +43,3 @@ inline void parse_Join()
 		, parse<Joi5>("").failure()
 		;
 }
-
-} // namespace k3::tok3n::tests

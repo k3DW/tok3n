@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void OneChar_and_OneChar()
 {
 	assert
@@ -118,5 +116,3 @@ inline void void_result()
 		, parse(void_choice, "abcabcabcdabcd").success("abcabcdabcd")
 		;
 }
-
-} // namespace k3::tok3n::tests

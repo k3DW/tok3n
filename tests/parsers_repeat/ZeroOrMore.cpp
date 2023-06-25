@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -51,5 +49,3 @@ inline void parse_ZeroOrMore_Sequence()
 		, parse<Zom4>("").success({}, "")
 		;
 }
-
-} // namespace k3::tok3n::tests

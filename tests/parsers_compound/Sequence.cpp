@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
@@ -38,7 +36,5 @@ using constructible = traits::compound::constructible<Sequence>;
 
 inline void not_constructible_empty()
 {
-	assert, not constructible::from<>;
+	assert, not ::constructible::from<>;
 }
-
-} // namespace k3::tok3n::tests

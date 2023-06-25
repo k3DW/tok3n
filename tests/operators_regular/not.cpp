@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void not_OneChar()
 {
 	assert
@@ -56,5 +54,3 @@ inline void not_anything()
 		, check_all_samples(not_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

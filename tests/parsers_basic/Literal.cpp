@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using L = Literal<"literal">;
 
 inline void requirements()
@@ -30,18 +28,16 @@ using constructible = traits::basic::constructible<Literal>;
 inline void constructible_from_ascii_only()
 {
 	assert
-		, constructible::from<"literal">
-		, not constructible::from<"lïterål">
+		, ::constructible::from<"literal">
+		, not ::constructible::from<"lïterål">
 		;
 }
 
 inline void parse_empty()
 {
 	assert
-		, constructible::from<"">
+		, ::constructible::from<"">
 		, parse<Literal<"">>("anything").success("", "anything")
 		, parse<Literal<"">>("").success("", "")
 		;
 }
-
-} // namespace k3::tok3n::tests

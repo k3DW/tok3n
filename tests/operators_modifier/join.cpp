@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void prefix()
 {
 	assert
@@ -75,5 +73,3 @@ inline void join_anything()
 		, check_all_samples(join_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests
