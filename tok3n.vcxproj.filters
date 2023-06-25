@@ -3,6 +3,7 @@
   <ItemGroup>
     <Filter Include="tok3n" />
     <Filter Include="tok3n\concepts" />
+    <Filter Include="tok3n\detail" />
     <Filter Include="tok3n\meta" />
     <Filter Include="tok3n\modifiers" />
     <Filter Include="tok3n\operators" />
