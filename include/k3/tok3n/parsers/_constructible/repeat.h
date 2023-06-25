@@ -2,7 +2,7 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/concepts/is_bool_constant.h>
 
-TOK3N_BEGIN_NAMESPACE(constructible)
+namespace k3::tok3n::constructible {
 
 template <class P>
 concept Maybe =
@@ -33,4 +33,4 @@ concept Delimit =
 	not std::same_as<typename P::result_type, void> and
 	((not KeepDelimiters::value) or (KeepDelimiters::value and not std::same_as<typename D::result_type, void>));
 
-TOK3N_END_NAMESPACE(constructible)
+} // namespace k3::tok3n::constructible
