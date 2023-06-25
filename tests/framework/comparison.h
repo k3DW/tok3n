@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 template <Parser LHS, Parser RHS>
 consteval bool operator==(LHS, RHS)
@@ -33,4 +33,4 @@ consteval bool operator!=(LHS, RHS)
 template <Modifier LHS, Modifier RHS>
 consteval auto operator<=>(LHS, RHS) = delete;
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

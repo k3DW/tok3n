@@ -2,7 +2,7 @@
 #include <k3/tok3n.h>
 #include "samples/basic.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 inline namespace sub
 {
@@ -18,4 +18,4 @@ inline namespace sub
 	using _25 = Sequence<OneOrMore<ABC>, Maybe<Choice<ABC, QQ>>>;
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

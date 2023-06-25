@@ -4,7 +4,7 @@
 #include "samples/sub_parsers.h"
 #include "framework/parser_list.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using Ign1 = Ignore<_21>; constexpr Ign1 ign1;
 using Ign2 = Ignore<_22>; constexpr Ign2 ign2;
@@ -25,4 +25,4 @@ constexpr auto adaptor_list = parser_list(
 	com1, com2, com3, com4, com5, com6, com7
 );
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

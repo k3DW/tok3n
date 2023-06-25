@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/namespace.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 namespace detail
 {
@@ -25,4 +25,4 @@ constexpr auto assert = detail::assert{};
 			typename P::__error_with_type; \
 	} while(false)
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

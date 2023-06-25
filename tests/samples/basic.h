@@ -2,7 +2,7 @@
 #include <k3/tok3n.h>
 #include "framework/parser_list.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using OC1 = OneChar<"abc">;     constexpr OC1 oc1;
 using OC2 = OneChar<"bcd">;     constexpr OC2 oc2;
@@ -30,4 +30,4 @@ constexpr auto basic_list = parser_list(
 	qq, abc, comma, spacedot
 );
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

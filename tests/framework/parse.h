@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 namespace detail
 {
@@ -85,4 +85,4 @@ consteval auto parse(P, Input input)
 	return detail::parse<P>{ input };
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

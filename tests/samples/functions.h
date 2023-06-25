@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 constexpr std::size_t func1(std::vector<std::string_view>&& vec)
 {
@@ -65,4 +65,4 @@ struct func4_apply
 
 constexpr auto sink_func = [](auto&&...) {};
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests
