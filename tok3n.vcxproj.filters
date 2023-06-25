@@ -49,9 +49,6 @@
     <ClInclude Include="include\k3\tok3n\meta\head.h">
       <Filter>tok3n\meta</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\meta\invoke_type.h">
-      <Filter>tok3n\meta</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\is_not_type.h">
       <Filter>tok3n\meta</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\implicitly_default_constructible.h">
+      <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\detail\invoke_type.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
   </ItemGroup>

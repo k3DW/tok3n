@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />
     <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h" />
@@ -185,7 +186,6 @@
     <ClInclude Include="include\k3\tok3n\meta\filter.h" />
     <ClInclude Include="include\k3\tok3n\meta\filtered_sequence.h" />
     <ClInclude Include="include\k3\tok3n\meta\head.h" />
-    <ClInclude Include="include\k3\tok3n\meta\invoke_type.h" />
     <ClInclude Include="include\k3\tok3n\meta\is_not_type.h" />
     <ClInclude Include="include\k3\tok3n\meta\list_cast.h" />
     <ClInclude Include="include\k3\tok3n\meta\type_list.h" />
