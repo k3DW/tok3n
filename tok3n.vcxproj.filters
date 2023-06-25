@@ -37,9 +37,6 @@
     <ClInclude Include="include\k3\tok3n\meta.h">
       <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\meta\filtered_sequence.h">
-      <Filter>tok3n\meta</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\unwrap_if_single.h">
       <Filter>tok3n\meta</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\filter.h">
+      <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\detail\filtered_sequence.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
   </ItemGroup>
