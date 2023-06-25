@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/meta/type_predicate.h>
 
-TOK3N_BEGIN_NAMESPACE(meta)
+namespace k3::tok3n::meta {
 
 namespace detail
 {
@@ -33,4 +33,4 @@ namespace detail
 template <type_predicate Pred, class... Ts>
 using filtered_sequence = invoke_type<detail::filtered_sequence, decltype(detail::filtered_sequence), Pred, std::integral_constant<std::size_t, 0>, std::index_sequence<>, std::type_identity<Ts>...>;
 
-TOK3N_END_NAMESPACE(meta)
+} // namespace k3::tok3n::meta

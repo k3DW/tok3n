@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 template <Parser... Ps>
 struct parser_list
@@ -19,4 +19,4 @@ consteval auto operator+(parser_list<LHS...>, parser_list<RHS...>)
 	return parser_list<LHS..., RHS...>{};
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

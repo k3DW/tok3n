@@ -2,7 +2,7 @@
 #include <k3/tok3n/types/ModifierBase.h>
 #include <k3/tok3n/parsers/divergent/ApplyInto.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 template <class T>
 struct apply_into final : ModifierBase
@@ -15,4 +15,4 @@ struct apply_into final : ModifierBase
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers

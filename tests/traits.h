@@ -1,6 +1,6 @@
 #pragma once
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 namespace traits::basic
 {
@@ -65,4 +65,4 @@ namespace traits::operators
 
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

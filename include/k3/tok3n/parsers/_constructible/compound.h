@@ -2,7 +2,7 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/meta/all_same.h>
 
-TOK3N_BEGIN_NAMESPACE(constructible)
+namespace k3::tok3n::constructible {
 
 template <class... Ps>
 concept Choice =
@@ -15,4 +15,4 @@ concept Sequence =
 	(Parser<Ps> and ...) and
 	(sizeof...(Ps) >= 2);
 
-TOK3N_END_NAMESPACE(constructible)
+} // namespace k3::tok3n::constructible

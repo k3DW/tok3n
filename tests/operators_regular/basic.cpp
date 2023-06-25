@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 inline void one_literal()
 {
@@ -126,4 +126,4 @@ inline void non_sorted_and_uniqued()
 		;
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

@@ -245,7 +245,6 @@
     <ClInclude Include="include\k3\tok3n\types\Input.h" />
     <ClInclude Include="include\k3\tok3n\types\ParserType.h" />
     <ClInclude Include="include\k3\tok3n\types\Tags.h" />
-    <ClInclude Include="include\k3\tok3n\namespace.h" />
     <ClInclude Include="include\k3\tok3n\types\StaticString.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
     <ClInclude Include="include\k3\tok3n\concepts\is_bool_constant.h" />

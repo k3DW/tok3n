@@ -108,9 +108,6 @@
     <ClInclude Include="include\k3\tok3n\modifiers\join.h">
       <Filter>tok3n\modifiers</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\namespace.h">
-      <Filter>tok3n</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\operators.h">
       <Filter>tok3n</Filter>
     </ClInclude>

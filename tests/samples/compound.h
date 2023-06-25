@@ -3,7 +3,7 @@
 #include "samples/basic.h"
 #include "framework/parser_list.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using Cho1 = Choice<L4, NC4>;      constexpr Cho1 cho1;
 using Cho2 = Choice<NC4, L4>;      constexpr Cho2 cho2;
@@ -20,4 +20,4 @@ constexpr auto compound_list = parser_list(
 	seq1, seq2, seq3, seq4
 );
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 inline void OneChar_and_OneChar()
 {
@@ -119,4 +119,4 @@ inline void void_result()
 		;
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

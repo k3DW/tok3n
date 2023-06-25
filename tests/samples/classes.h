@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 class Class1
 {
@@ -86,4 +86,4 @@ struct Sink
 	constexpr Sink(auto&&...) {};
 };
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

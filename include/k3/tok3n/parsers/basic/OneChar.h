@@ -3,7 +3,7 @@
 #include <k3/tok3n/concepts.h>
 #include <k3/tok3n/parsers/_base/Basic.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <StaticString str>
 requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
@@ -19,4 +19,4 @@ struct OneChar : detail::Basic<OneChar<str>>
 	}
 };
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

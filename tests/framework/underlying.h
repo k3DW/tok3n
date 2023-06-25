@@ -2,7 +2,7 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/types/StaticString.h>
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 struct underlying
 {
@@ -21,4 +21,4 @@ public:
 	static constexpr auto string = impl(P{});
 };
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

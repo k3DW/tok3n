@@ -6,7 +6,7 @@
 #include <optional>
 #include <tuple>
 
-TOK3N_BEGIN_NAMESPACE(constructible)
+namespace k3::tok3n::constructible {
 
 namespace detail
 {
@@ -55,4 +55,4 @@ concept ApplyInto =
 	has_tuple_size<typename P::result_type> and
 	requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
-TOK3N_END_NAMESPACE(constructible)
+} // namespace k3::tok3n::constructible

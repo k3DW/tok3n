@@ -3,7 +3,7 @@
 #include <k3/tok3n/parsers/compound/Choice.h>
 #include <k3/tok3n/parsers/divergent/Into.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 template <class T>
 struct into_choice final : ModifierBase
@@ -16,4 +16,4 @@ struct into_choice final : ModifierBase
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers

@@ -2,7 +2,7 @@
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <class CRTP>
 struct Custom
@@ -22,8 +22,8 @@ struct Custom
 	}
 };
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n
 
-TOK3N_BEGIN_NAMESPACE(inline operators)
+namespace k3::tok3n::inline operators {
 using k3::tok3n::Custom;
-TOK3N_END_NAMESPACE(inline operators)
+} // namespace k3::tok3n::inline operators

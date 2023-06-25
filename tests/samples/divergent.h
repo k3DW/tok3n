@@ -5,7 +5,7 @@
 #include "samples/functions.h"
 #include "framework/parser_list.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using Joi1 = Join<_21>; constexpr Joi1 joi1;
 using Joi2 = Join<_22>; constexpr Joi2 joi2;
@@ -64,4 +64,4 @@ constexpr auto divergent_list = parser_list(
 	cus1
 );
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

@@ -3,7 +3,7 @@
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 namespace detail::executors
 {
@@ -111,4 +111,4 @@ struct Join
 	}
 };
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

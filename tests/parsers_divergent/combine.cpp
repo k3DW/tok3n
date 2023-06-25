@@ -1,7 +1,7 @@
 #include "pch.h"
 
 #if 0
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using L1 = Literal<"abc">;
 constexpr L1 l1;
@@ -100,5 +100,5 @@ inline void Join_Transform()
 		;
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests
 #endif

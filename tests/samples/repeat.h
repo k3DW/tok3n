@@ -4,7 +4,7 @@
 #include "samples/sub_parsers.h"
 #include "framework/parser_list.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using May1 = Maybe<_11>; constexpr May1 may1;
 using May2 = Maybe<_12>; constexpr May2 may2;
@@ -53,4 +53,4 @@ constexpr auto repeat_list = parser_list(
 	dek1, dek2, dek3, dek4, dek5, dek6, dek7, dek8
 );
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

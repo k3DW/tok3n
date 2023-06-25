@@ -1,10 +1,9 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <k3/tok3n/types/Input.h>
 #include <k3/tok3n/types/Tags.h>
 #include <concepts>
 
-TOK3N_BEGIN_NAMESPACE(detail)
+namespace k3::tok3n::detail {
 
 namespace IsResult::Void
 {
@@ -65,13 +64,13 @@ concept IsResultNonVoid =
 	IsResult::NonVoid::Functionality<R&&, T&&>              and
 	IsResult::NonVoid::Functionality<const R&&, const T&&>;
 
-TOK3N_END_NAMESPACE(detail)
+} // namespace k3::tok3n::detail
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <class R, class T>
 concept IsResult =
 	not std::is_reference_v<T>
 	and (detail::IsResultVoid<R, T> or detail::IsResultNonVoid<R, T>);
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

@@ -3,7 +3,7 @@
 #include <k3/tok3n/types/Tags.h>
 #include <optional>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <class T>
 requires (not std::is_reference_v<T>)
@@ -60,4 +60,4 @@ private:
 	Input mRemaining;
 };
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

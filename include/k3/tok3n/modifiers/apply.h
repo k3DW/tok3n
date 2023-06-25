@@ -2,7 +2,7 @@
 #include <k3/tok3n/types/ModifierBase.h>
 #include <k3/tok3n/parsers/divergent/ApplyTransform.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 template <auto function>
 struct apply final : ModifierBase
@@ -15,4 +15,4 @@ struct apply final : ModifierBase
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers

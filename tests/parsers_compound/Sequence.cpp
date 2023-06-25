@@ -1,6 +1,6 @@
 #include "pch.h"
 
-TOK3N_BEGIN_NAMESPACE(tests)
+namespace k3::tok3n::tests {
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
@@ -41,4 +41,4 @@ inline void not_constructible_empty()
 	assert, not constructible::from<>;
 }
 
-TOK3N_END_NAMESPACE(tests)
+} // namespace k3::tok3n::tests

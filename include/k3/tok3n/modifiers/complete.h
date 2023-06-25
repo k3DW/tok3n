@@ -2,7 +2,7 @@
 #include <k3/tok3n/types/ModifierBase.h>
 #include <k3/tok3n/parsers/adaptor/Complete.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 struct complete final : ModifierBase
 {
@@ -16,4 +16,4 @@ struct complete final : ModifierBase
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers

@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 
 #define TOK3N_DO_FOR_ALL_PARSER_TYPES(XX) \
 	XX(OneChar)                           \
@@ -23,7 +22,7 @@
 	XX(Defaulted)                         \
 	XX(Custom)
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 enum class ParserType
 {
@@ -42,4 +41,4 @@ TOK3N_DO_FOR_ALL_PARSER_TYPES(TOK3N_X_MACRO)
 TOK3N_DO_FOR_ALL_PARSER_TYPES(TOK3N_X_MACRO)
 #undef TOK3N_X_MACRO
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

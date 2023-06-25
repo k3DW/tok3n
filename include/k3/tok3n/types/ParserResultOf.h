@@ -1,8 +1,7 @@
 #pragma once
-#include <k3/tok3n/namespace.h>
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <Parser P>
 struct ParserResultOf
@@ -13,4 +12,4 @@ struct ParserResultOf
 	static constexpr bool is = std::same_as<typename P::result_type, R>;
 };
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n
