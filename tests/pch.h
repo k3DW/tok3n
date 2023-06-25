@@ -14,6 +14,8 @@
 #include "samples/functions.h"
 #include "samples/repeat.h"
 
+using namespace k3::tok3n;
+
 constexpr auto the_parser_list = adaptor_list + basic_list + compound_list + divergent_list + repeat_list;
 
 consteval bool check_all_samples(auto checker)

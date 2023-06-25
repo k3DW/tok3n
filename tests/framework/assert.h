@@ -1,20 +1,17 @@
 #pragma once
 
-namespace detail
+using namespace k3::tok3n;
+
+struct assert_t final {};
+
+consteval assert_t operator,(assert_t self, bool b)
 {
-
-	struct assert final {};
-
-	consteval assert operator,(assert self, bool b)
-	{
-		if (!b)
-			throw;
-		return self;
-	}
-
+	if (!b)
+		throw;
+	return self;
 }
 
-constexpr auto assert = detail::assert{};
+constexpr auto assert = assert_t{};
 
 #define TOK3N_ASSERT_P(condition, message) \
 	do {                                   \

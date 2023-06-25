@@ -1,6 +1,8 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
+using namespace k3::tok3n;
+
 template <Parser LHS, Parser RHS>
 consteval bool operator==(LHS, RHS)
 {

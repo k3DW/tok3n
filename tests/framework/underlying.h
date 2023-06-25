@@ -2,6 +2,8 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/types/StaticString.h>
 
+using namespace k3::tok3n;
+
 struct underlying
 {
 private:

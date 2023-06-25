@@ -36,5 +36,5 @@ using constructible = traits::compound::constructible<Sequence>;
 
 inline void not_constructible_empty()
 {
-	assert, not constructible::from<>;
+	assert, not ::constructible::from<>;
 }
