@@ -52,9 +52,6 @@
     <ClInclude Include="include\k3\tok3n\meta\list_cast.h">
       <Filter>tok3n\meta</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\meta\type_list.h">
-      <Filter>tok3n\meta</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\meta\type_predicate.h">
       <Filter>tok3n\meta</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\all_same.h">
+      <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\detail\type_list.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
   </ItemGroup>

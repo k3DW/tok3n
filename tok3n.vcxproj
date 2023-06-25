@@ -188,7 +188,6 @@
     <ClInclude Include="include\k3\tok3n\meta\head.h" />
     <ClInclude Include="include\k3\tok3n\meta\is_not_type.h" />
     <ClInclude Include="include\k3\tok3n\meta\list_cast.h" />
-    <ClInclude Include="include\k3\tok3n\meta\type_list.h" />
     <ClInclude Include="include\k3\tok3n\meta\type_predicate.h" />
     <ClInclude Include="include\k3\tok3n\meta\unwrap_if_single.h" />
     <ClInclude Include="include\k3\tok3n\modifiers.h" />
@@ -248,6 +247,7 @@
     <ClInclude Include="include\k3\tok3n\types\StaticString.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
     <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h" />
+    <ClInclude Include="include\k3\tok3n\detail\type_list.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
