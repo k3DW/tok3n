@@ -68,7 +68,7 @@ inline void void_result()
 
 	assert
 		, void_sequence == Sequence<Ign1, Ign2>{}
-		, ParserResultOf(void_sequence).is<void>
+		, std::same_as<decltype(void_sequence)::result_type, void>
 		, parse(void_sequence, "abcabcabcdabcd").success("dabcd")
 		;
 }

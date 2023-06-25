@@ -114,7 +114,7 @@ inline void void_result()
 
 	assert
 		, void_choice == Choice<Ign1, Ign2>{}
-		, ParserResultOf(void_choice).is<void>
+		, std::same_as<decltype(void_choice)::result_type, void>
 		, parse(void_choice, "abcabcabcdabcd").success("abcabcdabcd")
 		;
 }
