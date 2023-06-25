@@ -24,6 +24,8 @@ struct Custom
 
 } // namespace k3::tok3n
 
-namespace k3::tok3n::inline operators {
-using k3::tok3n::Custom;
-} // namespace k3::tok3n::inline operators
+namespace k3::tok3n::operators {
+
+using ::k3::tok3n::Custom;
+
+} // namespace k3::tok3n::operators
