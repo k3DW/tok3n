@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
-#include <k3/tok3n/concepts/has_tuple_size.h>
+#include <k3/tok3n/detail/has_tuple_size.h>
 #include <array>
 #include <vector>
 #include <optional>
@@ -40,7 +40,7 @@ concept Transform =
 template <class P, auto function>
 concept ApplyTransform =
 	Parser<P> and
-	has_tuple_size<typename P::result_type> and
+	k3::tok3n::detail::has_tuple_size<typename P::result_type> and
 	requires { std::apply(function, std::declval<typename P::result_type>()); };
 
 template <class P, class T>
@@ -52,7 +52,7 @@ concept Into =
 template <class P, class T>
 concept ApplyInto =
 	Parser<P> and
-	has_tuple_size<typename P::result_type> and
+	k3::tok3n::detail::has_tuple_size<typename P::result_type> and
 	requires { std::make_from_tuple<T>(std::declval<typename P::result_type>()); };
 
 } // namespace k3::tok3n::constructible

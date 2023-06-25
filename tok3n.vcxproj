@@ -173,9 +173,9 @@
   <ItemGroup>
     <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
-    <ClInclude Include="include\k3\tok3n\concepts\has_tuple_size.h" />
+    <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h" />
     <ClInclude Include="include\k3\tok3n\concepts.h" />
-    <ClInclude Include="include\k3\tok3n\concepts\implicitly_default_constructible.h" />
+    <ClInclude Include="include\k3\tok3n\detail\implicitly_default_constructible.h" />
     <ClInclude Include="include\k3\tok3n\concepts\IsParser.h" />
     <ClInclude Include="include\k3\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\k3\tok3n\concepts\Modifier.h" />
@@ -247,7 +247,7 @@
     <ClInclude Include="include\k3\tok3n\types\Tags.h" />
     <ClInclude Include="include\k3\tok3n\types\StaticString.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
-    <ClInclude Include="include\k3\tok3n\concepts\is_bool_constant.h" />
+    <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

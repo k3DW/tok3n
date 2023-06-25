@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
-#include <k3/tok3n/concepts/is_bool_constant.h>
+#include <k3/tok3n/detail/is_bool_constant.h>
 
 namespace k3::tok3n::constructible {
 
@@ -29,7 +29,7 @@ template <class P, class D, class KeepDelimiters>
 concept Delimit =
 	Parser<P> and
 	Parser<D> and
-	is_bool_constant<KeepDelimiters> and
+	k3::tok3n::detail::is_bool_constant<KeepDelimiters> and
 	not std::same_as<typename P::result_type, void> and
 	((not KeepDelimiters::value) or (KeepDelimiters::value and not std::same_as<typename D::result_type, void>));
 
