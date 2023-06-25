@@ -4,7 +4,7 @@
 #include <k3/tok3n/types/Tags.h>
 #include <concepts>
 
-TOK3N_BEGIN_NAMESPACE(detail)
+namespace k3::tok3n::detail {
 
 namespace IsResult::Void
 {
@@ -65,7 +65,7 @@ concept IsResultNonVoid =
 	IsResult::NonVoid::Functionality<R&&, T&&>              and
 	IsResult::NonVoid::Functionality<const R&&, const T&&>;
 
-TOK3N_END_NAMESPACE(detail)
+} // namespace k3::tok3n::detail
 
 namespace k3::tok3n {
 

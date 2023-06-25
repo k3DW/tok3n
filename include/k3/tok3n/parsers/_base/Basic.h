@@ -2,7 +2,7 @@
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 
-TOK3N_BEGIN_NAMESPACE(detail)
+namespace k3::tok3n::detail {
 
 template <class CRTP>
 struct Basic
@@ -26,4 +26,4 @@ struct Basic
 	}
 };
 
-TOK3N_END_NAMESPACE(detail)
+} // namespace k3::tok3n::detail
