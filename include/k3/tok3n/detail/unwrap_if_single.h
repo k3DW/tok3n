@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/head.h>
+#include <k3/tok3n/detail/invoke_type.h>
 
 namespace k3::tok3n::detail {
 

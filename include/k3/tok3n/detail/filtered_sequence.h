@@ -1,4 +1,5 @@
 #pragma once
+#include <k3/tok3n/detail/invoke_type.h>
 #include <k3/tok3n/detail/type_predicate.h>
 
 namespace k3::tok3n::detail {

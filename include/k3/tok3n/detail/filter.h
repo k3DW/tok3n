@@ -1,8 +1,8 @@
 #pragma once
 #include <k3/tok3n/detail/invoke_type.h>
-#include <k3/tok3n/detail/type_predicate.h>
 #include <k3/tok3n/detail/list_cast.h>
-#include <k3/tok3n/detail/is_not_type.h>
+#include <k3/tok3n/detail/type_list.h>
+#include <k3/tok3n/detail/type_predicate.h>
 #include <tuple>
 
 namespace k3::tok3n::detail {

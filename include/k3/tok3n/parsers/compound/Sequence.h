@@ -4,6 +4,7 @@
 #include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/filter.h>
 #include <k3/tok3n/detail/filtered_sequence.h>
+#include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 
 namespace k3::tok3n {
