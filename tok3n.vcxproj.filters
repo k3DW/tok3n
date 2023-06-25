@@ -22,9 +22,6 @@
     <ClInclude Include="include\k3\tok3n\concepts.h">
       <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\concepts\implicitly_default_constructible.h">
-      <Filter>tok3n\concepts</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\IsParser.h">
       <Filter>tok3n\concepts</Filter>
     </ClInclude>
@@ -244,6 +241,9 @@
     <ClInclude Include="include\k3\tok3n\concepts\is_bool_constant.h">
       <Filter>tok3n\concepts</Filter>
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h">
+      <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\detail\implicitly_default_constructible.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     </ClInclude>
