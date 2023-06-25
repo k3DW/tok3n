@@ -235,9 +235,6 @@
     <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h">
       <Filter>tok3n\parsers\_base</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h">
-      <Filter>tok3n\concepts</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
@@ -245,6 +242,9 @@
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h">
+      <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
   </ItemGroup>
