@@ -184,7 +184,6 @@
     <ClInclude Include="include\k3\tok3n\concepts\IsResult.h" />
     <ClInclude Include="include\k3\tok3n\concepts\Modifier.h" />
     <ClInclude Include="include\k3\tok3n\concepts\Parser.h" />
-    <ClInclude Include="include\k3\tok3n\meta.h" />
     <ClInclude Include="include\k3\tok3n\detail\filtered_sequence.h" />
     <ClInclude Include="include\k3\tok3n\detail\head.h" />
     <ClInclude Include="include\k3\tok3n\detail\is_not_type.h" />
