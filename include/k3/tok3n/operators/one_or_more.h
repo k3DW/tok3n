@@ -3,7 +3,7 @@
 #include <k3/tok3n/parsers/repeat/OneOrMore.h>
 #include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
 
-namespace k3::tok3n::detail::operators {
+namespace k3::tok3n::operators_impl {
 
 template <Parser P>
 consteval auto one_or_more(Maybe<P>) { return ZeroOrMore<P>{}; } // +(~P) == *P
@@ -17,15 +17,21 @@ consteval auto one_or_more(ZeroOrMore<P>) { return ZeroOrMore<P>{}; } // +(*P) =
 template <Parser P>
 consteval auto one_or_more(P) { return OneOrMore<P>{}; } // default
 
-} // namespace k3::tok3n::detail::operators
+} // namespace k3::tok3n::operators_impl
 
-namespace k3::tok3n::inline operators {
+namespace k3::tok3n {
 
 template <Parser P>
 requires constructible::OneOrMore<P>
 consteval auto operator+(P)
 {
-	return detail::operators::one_or_more(P{});
+	return operators_impl::one_or_more(P{});
 }
 
-} // namespace k3::tok3n::inline operators
+} // namespace k3::tok3n
+
+namespace k3::tok3n::operators {
+
+using ::k3::tok3n::operator+;
+
+} // namespace k3::tok3n::operators
