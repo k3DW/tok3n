@@ -180,9 +180,6 @@
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\ParserResultOf.h">
-      <Filter>tok3n\types</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\ParserType.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>

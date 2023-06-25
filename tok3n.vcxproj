@@ -237,7 +237,6 @@
     <ClInclude Include="include\k3\tok3n\parsers\_constructible\repeat.h" />
     <ClInclude Include="include\k3\tok3n\types.h" />
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h" />
-    <ClInclude Include="include\k3\tok3n\types\ParserResultOf.h" />
     <ClInclude Include="include\k3\tok3n\types\Result.h" />
     <ClInclude Include="include\k3\tok3n.h" />
     <ClInclude Include="include\k3\tok3n\types\Input.h" />
