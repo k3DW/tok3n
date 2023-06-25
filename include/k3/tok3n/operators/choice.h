@@ -3,7 +3,7 @@
 #include <k3/tok3n/parsers/basic/NotChar.h>
 #include <k3/tok3n/parsers/compound/Choice.h>
 
-namespace k3::tok3n::detail::operators {
+namespace k3::tok3n::operators_impl {
 
 template <const auto& op, StaticString str1, StaticString str2>
 consteval auto merged_with()
@@ -105,15 +105,21 @@ consteval auto choice(P, P) // (P | P) == P
 	return P{};
 }
 
-} // namespace k3::tok3n::detail::operators
+} // namespace k3::tok3n::operators_impl
 
-namespace k3::tok3n::inline operators {
+namespace k3::tok3n {
 
 template <Parser P1, Parser P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
 consteval auto operator|(P1, P2)
 {
-	return detail::operators::choice(P1{}, P2{});
+	return operators_impl::choice(P1{}, P2{});
 }
 
-} // namespace k3::tok3n::inline operators
+} // namespace k3::tok3n
+
+namespace k3::tok3n::operators {
+
+using ::k3::tok3n::operator|;
+
+} // namespace k3::tok3n::operators
