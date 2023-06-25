@@ -3,7 +3,7 @@
 #include <k3/tok3n/concepts/Modifier.h>
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 template <Modifier... Ms>
 struct multi final : ModifierBase
@@ -16,4 +16,4 @@ struct multi final : ModifierBase
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers

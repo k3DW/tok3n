@@ -2,7 +2,7 @@
 #include <k3/tok3n/types/ModifierBase.h>
 #include <k3/tok3n/parsers/repeat/Delimit.h>
 
-TOK3N_BEGIN_NAMESPACE(modifiers)
+namespace k3::tok3n::modifiers {
 
 struct delimit final
 {
@@ -31,4 +31,4 @@ struct delimit final
 	}
 };
 
-TOK3N_END_NAMESPACE(modifiers)
+} // namespace k3::tok3n::modifiers
