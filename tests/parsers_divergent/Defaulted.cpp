@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void requirements()
 {
 	assert
@@ -25,5 +23,3 @@ inline void parse_Join()
 		, parse<Def2>(" ??abcabc").success(Class3{}, " ??abcabc")
 		;
 }
-
-} // namespace k3::tok3n::tests

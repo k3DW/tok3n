@@ -1,7 +1,5 @@
 #pragma once
 
-namespace k3::tok3n::tests {
-
 namespace detail
 {
 
@@ -23,5 +21,3 @@ constexpr auto assert = detail::assert{};
 		if constexpr (not (condition))     \
 			typename P::__error_with_type; \
 	} while(false)
-
-} // namespace k3::tok3n::tests

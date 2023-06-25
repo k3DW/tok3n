@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void one_literal()
 {
 	assert
@@ -125,5 +123,3 @@ inline void non_sorted_and_uniqued()
 		, ""_not == NotChar<"">{}
 		;
 }
-
-} // namespace k3::tok3n::tests

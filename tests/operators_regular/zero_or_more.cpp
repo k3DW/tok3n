@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void ZeroOrMore_Maybe()
 {
 	assert
@@ -91,5 +89,3 @@ inline void zero_or_more_anything()
 		, check_all_samples(zero_or_more_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

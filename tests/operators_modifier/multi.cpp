@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void creation()
 {
 	assert
@@ -40,5 +38,3 @@ inline void applying()
 		, oom1 % (join % complete % ignore) == Ignore<Complete<Join<Oom1>>>{}
 		;
 }
-
-} // namespace k3::tok3n::tests

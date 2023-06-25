@@ -2,8 +2,6 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/types/StaticString.h>
 
-namespace k3::tok3n::tests {
-
 struct underlying
 {
 private:
@@ -20,5 +18,3 @@ public:
 	template <Parser P>
 	static constexpr auto string = impl(P{});
 };
-
-} // namespace k3::tok3n::tests

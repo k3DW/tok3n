@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using namespace traits::operators;
 
 inline void prefix()
@@ -77,5 +75,3 @@ inline void into_choice_anything()
 		, check_all_samples(into_choice_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

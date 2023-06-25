@@ -2,8 +2,6 @@
 #include <k3/tok3n.h>
 #include "framework/parser_list.h"
 
-namespace k3::tok3n::tests {
-
 using OC1 = OneChar<"abc">;     constexpr OC1 oc1;
 using OC2 = OneChar<"bcd">;     constexpr OC2 oc2;
 using OC3 = OneChar<"xyz">;     constexpr OC3 oc3;
@@ -29,5 +27,3 @@ constexpr auto basic_list = parser_list(
 	oc4, nc4, nc5, l4,
 	qq, abc, comma, spacedot
 );
-
-} // namespace k3::tok3n::tests

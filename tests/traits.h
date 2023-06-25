@@ -1,7 +1,5 @@
 #pragma once
 
-namespace k3::tok3n::tests {
-
 namespace traits::basic
 {
 
@@ -64,5 +62,3 @@ namespace traits::operators
 	concept valid_function_call = requires { { modifier(parsers...) } -> Parser; };
 
 }
-
-} // namespace k3::tok3n::tests

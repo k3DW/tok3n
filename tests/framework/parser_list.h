@@ -1,8 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-namespace k3::tok3n::tests {
-
 template <Parser... Ps>
 struct parser_list
 {
@@ -18,5 +16,3 @@ consteval auto operator+(parser_list<LHS...>, parser_list<RHS...>)
 {
 	return parser_list<LHS..., RHS...>{};
 }
-
-} // namespace k3::tok3n::tests

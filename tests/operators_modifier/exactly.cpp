@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 inline void prefix()
 {
 	assert
@@ -48,5 +46,3 @@ inline void exactly_anything()
 		, check_all_samples(exactly_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

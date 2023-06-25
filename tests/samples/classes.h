@@ -1,8 +1,6 @@
 #pragma once
 #include <k3/tok3n.h>
 
-namespace k3::tok3n::tests {
-
 class Class1
 {
 public:
@@ -85,5 +83,3 @@ struct Sink
 {
 	constexpr Sink(auto&&...) {};
 };
-
-} // namespace k3::tok3n::tests

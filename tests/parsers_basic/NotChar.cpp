@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
@@ -81,5 +79,3 @@ inline void parse_empty()
 		, parse<NotChar<"">>("").failure()
 		;
 }
-
-} // namespace k3::tok3n::tests

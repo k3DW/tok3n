@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
 
@@ -80,5 +78,3 @@ inline void parse_empty()
 		, parse<OneChar<"">>("").failure()
 		;
 }
-
-} // namespace k3::tok3n::tests

@@ -1,6 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
 
 inline void OneOrMore_Maybe()
 {
@@ -91,5 +90,3 @@ inline void one_or_more_anything()
 		, check_all_samples(one_or_more_checker)
 		;
 }
-
-} // namespace k3::tok3n::tests

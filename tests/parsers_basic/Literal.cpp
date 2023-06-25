@@ -1,7 +1,5 @@
 #include "pch.h"
 
-namespace k3::tok3n::tests {
-
 using L = Literal<"literal">;
 
 inline void requirements()
@@ -43,5 +41,3 @@ inline void parse_empty()
 		, parse<Literal<"">>("").success("", "")
 		;
 }
-
-} // namespace k3::tok3n::tests
