@@ -6,7 +6,7 @@
 #include <k3/tok3n/concepts/IsResult.h>
 #include <type_traits>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <class P>
 concept Parser =
@@ -22,4 +22,4 @@ concept Parser =
 		{ P::lookahead(input) } -> IsResult<void>;
 	};
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

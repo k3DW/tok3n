@@ -2,8 +2,8 @@
 #include <k3/tok3n/namespace.h>
 #include <string_view>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 using Input = std::string_view;
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

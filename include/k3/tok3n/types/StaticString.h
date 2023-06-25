@@ -9,7 +9,7 @@
 
 // Ideas mostly taken from CTRE
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <std::size_t N>
 struct StaticString
@@ -125,4 +125,4 @@ constexpr StaticString<M + N> operator+(const StaticString<M>& lhs, const Static
 	return str;
 }
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

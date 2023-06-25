@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 namespace detail
 {
@@ -14,4 +14,4 @@ concept IsParser =
 	P::type == type and
 	(std::same_as<R, detail::DoNotCareAboutResultTag> or std::same_as<typename P::result_type, R>);
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

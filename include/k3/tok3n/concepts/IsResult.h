@@ -67,11 +67,11 @@ concept IsResultNonVoid =
 
 TOK3N_END_NAMESPACE(detail)
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 template <class R, class T>
 concept IsResult =
 	not std::is_reference_v<T>
 	and (detail::IsResultVoid<R, T> or detail::IsResultNonVoid<R, T>);
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n

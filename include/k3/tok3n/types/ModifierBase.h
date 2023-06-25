@@ -1,8 +1,8 @@
 #pragma once
 #include <k3/tok3n/namespace.h>
 
-TOK3N_BEGIN_NAMESPACE()
+namespace k3::tok3n {
 
 struct ModifierBase {};
 
-TOK3N_END_NAMESPACE()
+} // namespace k3::tok3n
