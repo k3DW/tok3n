@@ -2,7 +2,7 @@
 #include <k3/tok3n/meta/type_list.h>
 #include <type_traits>
 
-TOK3N_BEGIN_NAMESPACE(meta)
+namespace k3::tok3n::meta {
 
 namespace detail
 {
@@ -31,4 +31,4 @@ static_assert(std::same_as<
 	std::tuple<>
 >);
 
-TOK3N_END_NAMESPACE(meta)
+} // namespace k3::tok3n::meta

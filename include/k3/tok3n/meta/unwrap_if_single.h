@@ -2,7 +2,7 @@
 #include <k3/tok3n/meta/head.h>
 #include <k3/tok3n/meta/type_predicate.h>
 
-TOK3N_BEGIN_NAMESPACE(meta)
+namespace k3::tok3n::meta {
 
 template <bool Value, class Type>
 struct unwrap_if_single_trait
@@ -35,4 +35,4 @@ namespace detail
 template <class List_Ts>
 using unwrap_if_single = invoke_type<detail::unwrap_if_single, List_Ts>;
 
-TOK3N_END_NAMESPACE(meta)
+} // namespace k3::tok3n::meta

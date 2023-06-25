@@ -6,7 +6,7 @@
 #include <k3/tok3n/meta/is_not_type.h>
 #include <tuple>
 
-TOK3N_BEGIN_NAMESPACE(meta)
+namespace k3::tok3n::meta {
 
 namespace detail
 {
@@ -38,4 +38,4 @@ namespace detail
 template <type_predicate Pred, template <class...> class List, class... Ts>
 using filter = list_cast<List, invoke_type<detail::filter, decltype(detail::filter), Pred, type_list<>, std::type_identity<Ts>...>>;
 
-TOK3N_END_NAMESPACE(meta)
+} // namespace k3::tok3n::meta

@@ -2,9 +2,9 @@
 #include <k3/tok3n/namespace.h>
 #include <type_traits>
 
-TOK3N_BEGIN_NAMESPACE(meta)
+namespace k3::tok3n::meta {
 
 template <auto F, class... Ts>
 using invoke_type = decltype(F(std::declval<Ts>()...));
 
-TOK3N_END_NAMESPACE(meta)
+} // namespace k3::tok3n::meta
