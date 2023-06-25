@@ -2,7 +2,7 @@
 #include <k3/tok3n/parsers/basic/Literal.h>
 #include <k3/tok3n/parsers/compound/Sequence.h>
 
-namespace k3::tok3n::detail::operators {
+namespace k3::tok3n::operators_impl {
 
 template <StaticString lhs, StaticString rhs>
 consteval auto sequence(Literal<lhs>, Literal<rhs>) { return Literal<lhs + rhs>{}; } // "ab" >> "cd" == "abcd"
@@ -19,14 +19,20 @@ consteval auto sequence(P1, Sequence<P2s...>) { return Sequence<P1, P2s...>{}; }
 template <Parser P1, Parser P2>
 consteval auto sequence(P1, P2) { return Sequence<P1, P2>{}; } // default
 
-} // namespace k3::tok3n::detail::operators
+} // namespace k3::tok3n::operators_impl
 
-namespace k3::tok3n::inline operators {
+namespace k3::tok3n {
 
 template <Parser P1, Parser P2>
 consteval auto operator>>(P1, P2)
 {
-	return detail::operators::sequence(P1{}, P2{});
+	return operators_impl::sequence(P1{}, P2{});
 }
 
-} // namespace k3::tok3n::inline operators
+} // namespace k3::tok3n
+
+namespace k3::tok3n::operators {
+
+using ::k3::tok3n::operator>>;
+
+} // namespace k3::tok3n::operators
