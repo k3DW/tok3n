@@ -2,6 +2,7 @@
 #include <k3/tok3n/parsers/_constructible/compound.h>
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {
 
@@ -31,7 +32,7 @@ template <Parser... Ps>
 requires constructible::Choice<Ps...>
 struct Choice
 {
-	using result_type = typename meta::head<Ps...>::result_type;
+	using result_type = typename detail::head<Ps...>::result_type;
 
 	static constexpr ParserType type = ChoiceType;
 
