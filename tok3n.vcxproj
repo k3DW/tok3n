@@ -231,6 +231,7 @@
     <ClInclude Include="include\k3\tok3n\parsers\divergent\Join.h" />
     <ClInclude Include="include\k3\tok3n\parsers\divergent\Transform.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Exactly.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\fwd.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h" />
