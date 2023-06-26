@@ -176,7 +176,6 @@
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />
     <ClInclude Include="include\k3\tok3n\detail\type_predicate.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h" />
     <ClInclude Include="include\k3\tok3n\concepts.h" />

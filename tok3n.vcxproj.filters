@@ -7,7 +7,6 @@
     <Filter Include="tok3n\modifiers" />
     <Filter Include="tok3n\operators" />
     <Filter Include="tok3n\parsers" />
-    <Filter Include="tok3n\parsers\_base" />
     <Filter Include="tok3n\parsers\_constructible" />
     <Filter Include="tok3n\parsers\adaptor" />
     <Filter Include="tok3n\parsers\basic" />
@@ -194,9 +193,6 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h">
       <Filter>tok3n\modifiers</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h">
-      <Filter>tok3n\parsers\_base</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h">
       <Filter>tok3n\detail</Filter>
