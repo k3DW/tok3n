@@ -54,27 +54,27 @@ inline void constructible_from_ascii_only()
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
 
 	assert
-		, ::constructible::from_all_chars<all_ascii_chars>
-		, not ::constructible::from_any_char<all_non_ascii_chars>
+		, constructible::from_all_chars<all_ascii_chars>
+		, not constructible::from_any_char<all_non_ascii_chars>
 		;
 }
 
 inline void constructible_alphabetically_only()
 {
 	assert
-		, ::constructible::from<"abc">
-		, not ::constructible::from<"acb">
-		, not ::constructible::from<"bac">
-		, not ::constructible::from<"bca">
-		, not ::constructible::from<"cab">
-		, not ::constructible::from<"cba">
+		, constructible::from<"abc">
+		, not constructible::from<"acb">
+		, not constructible::from<"bac">
+		, not constructible::from<"bca">
+		, not constructible::from<"cab">
+		, not constructible::from<"cba">
 		;
 }
 
 inline void parse_empty()
 {
 	assert
-		, ::constructible::from<"">
+		, constructible::from<"">
 		, parse<NotChar<"">>("anything").success("a", "nything")
 		, parse<NotChar<"">>("").failure()
 		;

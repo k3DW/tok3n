@@ -1,22 +1,26 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
-#include <k3/tok3n/parsers/_base/Basic.h>
+#include <k3/tok3n/parsers/basic/_fwd.h>
+#include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
 
 template <StaticString str>
-requires (is_ascii(str)) and (is_sorted_and_uniqued(str))
-struct OneChar : detail::Basic<OneChar<str>>
+requires OneCharConstructible<str>
+struct BasicTraits<OneChar<str>>
 {
-	static constexpr ParserType type = OneCharType;
+	static constexpr std::size_t length = 1;
 
-	static constexpr std::size_t _length = 1;
-
-	static constexpr bool _failure_condition(Input input)
+	static constexpr bool failure_condition(Input input)
 	{
 		return input.empty() || not str.contains(input.front());
 	}
+};
+
+template <StaticString str>
+requires OneCharConstructible<str>
+struct OneChar : BasicBase<OneChar<str>>
+{
+	static constexpr ParserType type = OneCharType;
 };
 
 } // namespace k3::tok3n

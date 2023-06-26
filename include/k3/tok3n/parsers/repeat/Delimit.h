@@ -1,13 +1,10 @@
 #pragma once
-#include <k3/tok3n/detail/is_bool_constant.h>
-#include <k3/tok3n/parsers/_constructible/repeat.h>
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/repeat/_fwd.h>
 
 namespace k3::tok3n {
 
 template <Parser P, Parser D, detail::is_bool_constant KeepDelimiters>
-requires constructible::Delimit<P, D, KeepDelimiters>
+requires DelimitConstructible<P, D, KeepDelimiters>
 struct Delimit
 {
 	using result_type = std::conditional_t<KeepDelimiters::value,
