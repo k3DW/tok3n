@@ -235,7 +235,6 @@
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\_constructible\repeat.h" />
     <ClInclude Include="include\k3\tok3n\types.h" />
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h" />
     <ClInclude Include="include\k3\tok3n\types\Result.h" />
