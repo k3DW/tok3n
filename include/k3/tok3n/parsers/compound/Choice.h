@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/parsers/compound/fwd.h>
+#include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {

@@ -229,16 +229,16 @@
     <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\fwd.h">
+    <ClInclude Include="include\k3\tok3n\parsers\basic\_fwd.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\compound\fwd.h">
+    <ClInclude Include="include\k3\tok3n\parsers\compound\_fwd.h">
       <Filter>tok3n\parsers\compound</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\fwd.h">
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\_fwd.h">
       <Filter>tok3n\parsers\divergent</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\fwd.h">
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\_fwd.h">
       <Filter>tok3n\parsers\repeat</Filter>
     </ClInclude>
   </ItemGroup>
