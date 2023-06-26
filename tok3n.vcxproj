@@ -213,8 +213,8 @@
     <ClInclude Include="include\k3\tok3n\operators\zero_or_more.h" />
     <ClInclude Include="include\k3\tok3n\parsers.h" />
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Complete.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\compound\fwd.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\fwd.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\compound\_fwd.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\_fwd.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Delimit.h" />
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Ignore.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\Literal.h" />
@@ -231,7 +231,7 @@
     <ClInclude Include="include\k3\tok3n\parsers\divergent\Join.h" />
     <ClInclude Include="include\k3\tok3n\parsers\divergent\Transform.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Exactly.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\fwd.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\repeat\_fwd.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Maybe.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\OneOrMore.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h" />
@@ -246,7 +246,7 @@
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
     <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h" />
     <ClInclude Include="include\k3\tok3n\detail\type_list.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\basic\fwd.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\basic\_fwd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
