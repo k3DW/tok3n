@@ -1,11 +1,10 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/divergent/fwd.h>
 
 namespace k3::tok3n {
 
 template <Parser P, class T>
-requires std::is_default_constructible_v<T>
+requires DefaultedConstructible<P, T>
 struct Defaulted
 {
 	using result_type = T;

@@ -1,6 +1,5 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/divergent/fwd.h>
 
 namespace k3::tok3n {
 
