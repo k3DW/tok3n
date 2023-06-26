@@ -242,6 +242,9 @@
     <ClInclude Include="include\k3\tok3n\parsers\compound\fwd.h">
       <Filter>tok3n\parsers\compound</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\divergent\fwd.h">
+      <Filter>tok3n\parsers\divergent</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

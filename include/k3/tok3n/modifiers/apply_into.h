@@ -8,7 +8,7 @@ template <class T>
 struct apply_into final : ModifierBase
 {
 	template <Parser P>
-	requires constructible::ApplyInto<P, T>
+	requires ApplyIntoConstructible<P, T>
 	consteval auto operator()(P) const
 	{
 		return ApplyInto<P, T>{};

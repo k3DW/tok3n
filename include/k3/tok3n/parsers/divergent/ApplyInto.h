@@ -1,12 +1,10 @@
 #pragma once
-#include <k3/tok3n/parsers/_constructible/divergent.h>
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
+#include <k3/tok3n/parsers/divergent/fwd.h>
 
 namespace k3::tok3n {
 
 template <Parser P, class T>
-requires constructible::ApplyInto<P, T>
+requires ApplyIntoConstructible<P, T>
 struct ApplyInto
 {
 	using result_type = T;
