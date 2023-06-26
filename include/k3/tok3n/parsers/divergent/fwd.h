@@ -31,7 +31,7 @@ template <class P, class D, class KeepDelimiters>
 concept DelimitConstructible =
 	Parser<P> and
 	Parser<D> and
-	k3::tok3n::detail::is_bool_constant<KeepDelimiters> and
+	detail::is_bool_constant<KeepDelimiters> and
 	not std::same_as<typename P::result_type, void> and
 	((not KeepDelimiters::value) or (KeepDelimiters::value and not std::same_as<typename D::result_type, void>));
 
