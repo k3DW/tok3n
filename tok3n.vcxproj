@@ -175,6 +175,7 @@
     <ClInclude Include="include\k3\tok3n\detail\filter.h" />
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />
     <ClInclude Include="include\k3\tok3n\detail\type_predicate.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h" />
     <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\delimit_keep.h" />
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h" />
@@ -246,6 +247,7 @@
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
     <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h" />
     <ClInclude Include="include\k3\tok3n\detail\type_list.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\basic\fwd.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
