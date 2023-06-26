@@ -123,9 +123,6 @@
     <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
-      <Filter>tok3n\parsers\basic</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h">
       <Filter>tok3n\parsers\compound</Filter>
     </ClInclude>
@@ -239,6 +236,15 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\unwrap_if_single.h">
       <Filter>tok3n\detail</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\fwd.h">
+      <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
