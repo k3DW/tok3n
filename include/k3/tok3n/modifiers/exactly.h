@@ -9,7 +9,7 @@ requires (N != 0)
 struct exactly final : ModifierBase
 {
 	template <Parser P>
-	requires constructible::Exactly<P, N>
+	requires ExactlyConstructible<P, N>
 	consteval auto operator()(P) const
 	{
 		return Exactly<P, N>{};
