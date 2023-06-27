@@ -5,13 +5,13 @@
 namespace k3::tok3n {
 
 template <StaticString str>
-concept OneCharConstructible = (is_ascii(str)) and (is_sorted_and_uniqued(str));
+concept OneCharConstructible = is_sorted_and_uniqued(str);
 
 template <StaticString str>
-concept NotCharConstructible = (is_ascii(str)) and (is_sorted_and_uniqued(str));
+concept NotCharConstructible = is_sorted_and_uniqued(str);
 
 template <StaticString str>
-concept LiteralConstructible = (is_ascii(str));
+concept LiteralConstructible = true;
 
 
 
