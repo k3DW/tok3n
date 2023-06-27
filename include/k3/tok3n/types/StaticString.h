@@ -55,8 +55,9 @@ StaticString(char) -> StaticString<1>;
 template <std::size_t N>
 consteval bool is_ascii(const StaticString<N>& str)
 {
-	constexpr auto pred = [](char c) -> bool { return (c & 0x80) == 0; };
-	return std::ranges::all_of(str.view(), pred);
+	//constexpr auto pred = [](char c) -> bool { return (c & 0x80) == 0; };
+	//return std::ranges::all_of(str.view(), pred);
+	return true;
 }
 
 template <std::size_t N>

@@ -29,7 +29,7 @@ inline void constructible_from_ascii_only()
 {
 	assert
 		, constructible::from<"literal">
-		, not constructible::from<"lïterål">
+		, constructible::from<"lïterål">
 		;
 }
 

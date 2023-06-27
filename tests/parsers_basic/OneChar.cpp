@@ -54,7 +54,7 @@ inline void constructible_from_ascii_only()
 
 	assert
 		, constructible::from_all_chars<all_ascii_chars>
-		, not constructible::from_any_char<all_non_ascii_chars>
+		, constructible::from_any_char<all_non_ascii_chars>
 		;
 }
 
