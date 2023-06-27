@@ -44,7 +44,7 @@ inline void idempotent()
 
 constexpr auto join_checker = []<Parser P>(P) -> bool
 {
-	if constexpr (not constructible::detail::is_joinable_v<typename P::result_type>)
+	if constexpr (not detail::is_joinable_v<typename P::result_type>)
 	{
 		TOK3N_ASSERT_P( not requires { join(P{}); },  "join prefix operator compiles, but it shouldn't" );
 		TOK3N_ASSERT_P( not requires { P{} % join; }, "join infix operator compiles, but it shouldn't" );

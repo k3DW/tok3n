@@ -1,22 +1,26 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
-#include <k3/tok3n/parsers/_base/Basic.h>
+#include <k3/tok3n/parsers/basic/_fwd.h>
+#include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
 
 template <StaticString str>
-requires (is_ascii(str))
-struct Literal : detail::Basic<Literal<str>>
+requires LiteralConstructible<str>
+struct BasicTraits<Literal<str>>
 {
-	static constexpr ParserType type = LiteralType;
+	static constexpr std::size_t length = str.size();
 
-	static constexpr std::size_t _length = str.size();
-
-	static constexpr bool _failure_condition(Input input)
+	static constexpr bool failure_condition(Input input)
 	{
 		return not input.starts_with(str.view());
 	}
+};
+
+template <StaticString str>
+requires LiteralConstructible<str>
+struct Literal : BasicBase<Literal<str>>
+{
+	static constexpr ParserType type = LiteralType;
 };
 
 } // namespace k3::tok3n
