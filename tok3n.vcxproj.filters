@@ -7,6 +7,8 @@
     <Filter Include="tok3n\modifiers" />
     <Filter Include="tok3n\operators" />
     <Filter Include="tok3n\parsers" />
+    <Filter Include="tok3n\parsers\_base" />
+    <Filter Include="tok3n\parsers\_constructible" />
     <Filter Include="tok3n\parsers\adaptor" />
     <Filter Include="tok3n\parsers\basic" />
     <Filter Include="tok3n\parsers\compound" />
@@ -100,6 +102,15 @@
     <ClInclude Include="include\k3\tok3n\parsers.h">
       <Filter>tok3n</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\_constructible\compound.h">
+      <Filter>tok3n\parsers\_constructible</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\_constructible\divergent.h">
+      <Filter>tok3n\parsers\_constructible</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\_constructible\repeat.h">
+      <Filter>tok3n\parsers\_constructible</Filter>
+    </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Complete.h">
       <Filter>tok3n\parsers\adaptor</Filter>
     </ClInclude>
@@ -110,6 +121,9 @@
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h">
+      <Filter>tok3n\parsers\basic</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h">
@@ -184,6 +198,9 @@
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h">
       <Filter>tok3n\modifiers</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\_base\Basic.h">
+      <Filter>tok3n\parsers\_base</Filter>
+    </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\has_tuple_size.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
@@ -222,24 +239,6 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\unwrap_if_single.h">
       <Filter>tok3n\detail</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
-      <Filter>tok3n\parsers\basic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h">
-      <Filter>tok3n\parsers\basic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\_fwd.h">
-      <Filter>tok3n\parsers\basic</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\compound\_fwd.h">
-      <Filter>tok3n\parsers\compound</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\divergent\_fwd.h">
-      <Filter>tok3n\parsers\divergent</Filter>
-    </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\repeat\_fwd.h">
-      <Filter>tok3n\parsers\repeat</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

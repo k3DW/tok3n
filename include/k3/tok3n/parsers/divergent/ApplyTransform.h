@@ -1,10 +1,12 @@
 #pragma once
-#include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/parsers/_constructible/divergent.h>
+#include <k3/tok3n/types.h>
+#include <k3/tok3n/concepts.h>
 
 namespace k3::tok3n {
 
 template <Parser P, auto function>
-requires ApplyTransformConstructible<P, function>
+requires constructible::ApplyTransform<P, function>
 struct ApplyTransform
 {
 	using result_type = decltype(std::apply(function, std::declval<typename P::result_type>()));;

@@ -22,7 +22,7 @@ consteval auto one_or_more(P) { return OneOrMore<P>{}; } // default
 namespace k3::tok3n {
 
 template <Parser P>
-requires OneOrMoreConstructible<P>
+requires constructible::OneOrMore<P>
 consteval auto operator+(P)
 {
 	return operators_impl::one_or_more(P{});

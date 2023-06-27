@@ -1,5 +1,7 @@
 #pragma once
-#include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/parsers/_constructible/divergent.h>
+#include <k3/tok3n/types.h>
+#include <k3/tok3n/concepts.h>
 
 namespace k3::tok3n {
 
@@ -83,7 +85,7 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires JoinConstructible<P>
+requires constructible::Join<P>
 struct Join
 {
 	using result_type = Input;

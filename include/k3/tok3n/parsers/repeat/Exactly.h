@@ -1,10 +1,12 @@
 #pragma once
-#include <k3/tok3n/parsers/repeat/_fwd.h>
+#include <k3/tok3n/parsers/_constructible/repeat.h>
+#include <k3/tok3n/types.h>
+#include <k3/tok3n/concepts.h>
 
 namespace k3::tok3n {
 
 template <Parser P, std::size_t N>
-requires ExactlyConstructible<P, N>
+requires constructible::Exactly<P, N>
 struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N>;
