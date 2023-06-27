@@ -53,13 +53,6 @@ StaticString(char) -> StaticString<1>;
 
 
 template <std::size_t N>
-consteval bool is_ascii(const StaticString<N>& str)
-{
-	constexpr auto pred = [](char c) -> bool { return (c & 0x80) == 0; };
-	return std::ranges::all_of(str.view(), pred);
-}
-
-template <std::size_t N>
 consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 {
 	if constexpr (N <= 1)
@@ -74,7 +67,6 @@ consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 }
 
 template <StaticString str> // Must be a template parameter because the return type depends on it
-requires (is_ascii(str))
 consteval auto sort_and_unique()
 {
 	if constexpr (is_sorted_and_uniqued(str))

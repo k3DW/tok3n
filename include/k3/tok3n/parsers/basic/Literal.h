@@ -5,7 +5,6 @@
 namespace k3::tok3n {
 
 template <StaticString str>
-requires LiteralConstructible<str>
 struct BasicTraits<Literal<str>>
 {
 	static constexpr std::size_t length = str.size();
@@ -17,7 +16,6 @@ struct BasicTraits<Literal<str>>
 };
 
 template <StaticString str>
-requires LiteralConstructible<str>
 struct Literal : BasicBase<Literal<str>>
 {
 	static constexpr ParserType type = LiteralType;
