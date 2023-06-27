@@ -10,9 +10,6 @@ concept OneCharConstructible = is_sorted_and_uniqued(str);
 template <StaticString str>
 concept NotCharConstructible = is_sorted_and_uniqued(str);
 
-template <StaticString str>
-concept LiteralConstructible = true;
-
 
 
 template <StaticString str>
@@ -24,7 +21,6 @@ requires NotCharConstructible<str>
 struct NotChar;
 
 template <StaticString str>
-requires LiteralConstructible<str>
 struct Literal;
 
 } // namespace k3::tok3n
