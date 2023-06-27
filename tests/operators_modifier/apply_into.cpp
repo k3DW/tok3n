@@ -20,7 +20,7 @@ inline void infix()
 
 constexpr auto apply_into_checker = []<Parser P>(P) -> bool
 {
-	if constexpr (detail::has_tuple_size<typename P::result_type>)
+	if constexpr (k3::tok3n::detail::has_tuple_size<typename P::result_type>)
 	{
 		TOK3N_ASSERT_P( requires { apply_into<Sink>(P{}); },              "apply_into<Sink> prefix operator doesn't compile, but it should" );
 		TOK3N_ASSERT_P( apply_into<Sink>(P{}) == (ApplyInto<P, Sink>{}),  "apply_into<Sink> prefix operator of any other parser should give ApplyInto parser of the argument" );

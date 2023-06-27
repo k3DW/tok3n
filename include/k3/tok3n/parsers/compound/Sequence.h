@@ -1,5 +1,7 @@
 #pragma once
-#include <k3/tok3n/parsers/compound/_fwd.h>
+#include <k3/tok3n/parsers/_constructible/compound.h>
+#include <k3/tok3n/types.h>
+#include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/filter.h>
 #include <k3/tok3n/detail/filtered_sequence.h>
 #include <k3/tok3n/detail/is_not_type.h>
@@ -58,7 +60,7 @@ namespace detail::executors
 }
 
 template <Parser... Ps>
-requires SequenceConstructible<Ps...>
+requires constructible::Sequence<Ps...>
 struct Sequence
 {
 	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
