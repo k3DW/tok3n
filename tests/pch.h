@@ -25,3 +25,18 @@ consteval bool check_all_samples(auto checker)
 		return (... && checker(Ps{}));
 	}(the_parser_list);
 }
+
+constexpr bool check_all_sample_pairs(auto checker)
+{
+	auto inner = [checker] <Parser LHS, Parser... RHS>(LHS, parser_list<RHS...>) -> bool
+	{
+		return (... && checker(LHS{}, RHS{}));
+	};
+
+	auto outer = [inner] <Parser... Ps>(parser_list<Ps...>) -> bool
+	{
+		return (... && inner(Ps{}, parser_list<Ps...>{}));
+	};
+
+	return outer(the_parser_list);
+}
