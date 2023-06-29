@@ -99,7 +99,7 @@
     <ClCompile Include="operators_regular\basic.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="operators_regular\Choice.cpp">
+    <ClCompile Include="operators_regular\choice.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
     <ClCompile Include="operators_regular\maybe.cpp">
