@@ -263,7 +263,7 @@ constexpr auto choice_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
 			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_right(LHS{}, RHS{}))>; }, "choice operator on a non-Choice and Choice<Ps...> parser should give a Choice<non-Choice, Ps...>" );
 
 		else if constexpr (LHS::type == ChoiceType and RHS::type == ChoiceType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_both(LHS{}, RHS{}))>; }, "choice operator on 2 choice parsers, Choice<As...> and Choice<Bs...>, should give a Choice parser of the combined parser arguments, Choice<As..., Bs...>" );
+			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_both(LHS{}, RHS{}))>; }, "choice operator on 2 Choice parsers, Choice<As...> and Choice<Bs...>, should give a Choice parser of the combined parser arguments, Choice<As..., Bs...>" );
 
 		else
 			TOK3N_ASSERT_P2( (requires { { LHS{} | RHS{} } -> std::same_as<Choice<LHS, RHS>>; }), "choice operator on any parsers not satisfying the above conditions should just give a Choice of the 2 inputs" );
