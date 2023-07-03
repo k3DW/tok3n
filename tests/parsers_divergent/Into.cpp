@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Int1, IntoType, Class1>
@@ -9,7 +9,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_Into()
+static void parse_Into()
 {
 	assert
 		, parse<Int1>(" ").success(Class1(0), "")
@@ -27,4 +27,10 @@ inline void parse_Into()
 		, parse<Int3>("").failure()
 		, parse<Int3>("abc").failure()
 		;
+}
+
+void Into_tests()
+{
+	requirements();
+	parse_Into();
 }

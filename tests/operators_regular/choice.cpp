@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void OneChar_and_OneChar()
+static void OneChar_and_OneChar()
 {
 	assert
 		, (oc1 | oc2) == (oc2 | oc1)
@@ -15,7 +15,7 @@ inline void OneChar_and_OneChar()
 		;
 }
 
-inline void NotChar_and_NotChar()
+static void NotChar_and_NotChar()
 {
 	assert
 		, (nc1 | nc2) == (nc2 | nc1)
@@ -30,7 +30,7 @@ inline void NotChar_and_NotChar()
 		;
 }
 
-inline void OneChar_and_NotChar()
+static void OneChar_and_NotChar()
 {
 	assert
 		, (oc1 | nc1) == (nc1 | oc1)
@@ -56,7 +56,7 @@ inline void OneChar_and_NotChar()
 
 
 
-inline void Choice_and_Choice()
+static void Choice_and_Choice()
 {
 	assert
 		, (cho1 | cho1) == cho1
@@ -78,7 +78,7 @@ inline void Choice_and_Choice()
 		;
 }
 
-inline void Choice_and_anything()
+static void Choice_and_anything()
 {
 	assert
 		, (cho1 | oc1) == Choice<L4, NC4, OC1>{}
@@ -92,7 +92,7 @@ inline void Choice_and_anything()
 		;
 }
 
-inline void void_result()
+static void void_result()
 {
 	constexpr auto void_choice = (ign1 | ign2);
 
@@ -272,11 +272,22 @@ constexpr auto choice_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
 	return true;
 };
 
-inline void anything_and_anything()
+static void anything_and_anything()
 {
 	// Note that all the operations are reimplemented for choice_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
 	assert
 		, check_all_sample_pairs(choice_checker)
 		;
+}
+
+void choice_tests()
+{
+	OneChar_and_OneChar();
+	NotChar_and_NotChar();
+	OneChar_and_NotChar();
+	Choice_and_Choice();
+	Choice_and_anything();
+	void_result();
+	anything_and_anything();
 }

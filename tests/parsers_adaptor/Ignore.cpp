@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Ign1, IgnoreType, void>
@@ -11,7 +11,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_Ignore()
+static void parse_Ignore()
 {
 	assert
 		, parse<Ign1>("abcabc").success("abc")
@@ -42,4 +42,10 @@ inline void parse_Ignore()
 		, parse<Ign5>(" abc").failure()
 		, parse<Ign5>("").failure()
 		;
+}
+
+void Ignore_tests()
+{
+	requirements();
+	parse_Ignore();
 }

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void one_literal()
+static void one_literal()
 {
 	assert
 		, "abc"_one == oc1
@@ -13,7 +13,7 @@ inline void one_literal()
 		;
 }
 
-inline void one_operator()
+static void one_operator()
 {
 	assert
 		, one<"abc"> == oc1
@@ -26,7 +26,7 @@ inline void one_operator()
 		;
 }
 
-inline void not_literal()
+static void not_literal()
 {
 	assert
 		, "abc"_not == nc1
@@ -38,7 +38,7 @@ inline void not_literal()
 		;
 }
 
-inline void not_operator()
+static void not_operator()
 {
 	assert
 		, not_<"abc"> == nc1
@@ -50,7 +50,7 @@ inline void not_operator()
 		;
 }
 
-inline void lit_literal()
+static void lit_literal()
 {
 	assert
 		, "literal"_lit == l1
@@ -63,7 +63,7 @@ inline void lit_literal()
 		;
 }
 
-inline void lit_operator()
+static void lit_operator()
 {
 	assert
 		, lit<"literal"> == l1
@@ -76,7 +76,7 @@ inline void lit_operator()
 		;
 }
 
-inline void ign_literal()
+static void ign_literal()
 {
 	assert
 		, "literal"_ign == Ignore<L1>{}
@@ -89,7 +89,7 @@ inline void ign_literal()
 		;
 }
 
-inline void ign_operator()
+static void ign_operator()
 {
 	assert
 		, ign<"literal"> == Ignore<L1>{}
@@ -102,7 +102,7 @@ inline void ign_operator()
 		;
 }
 
-inline void non_sorted_and_uniqued()
+static void non_sorted_and_uniqued()
 {
 	assert
 		, "212312323321212311"_one == OneChar<"123">{}
@@ -122,4 +122,17 @@ inline void non_sorted_and_uniqued()
 		, ""_one == OneChar<"">{}
 		, ""_not == NotChar<"">{}
 		;
+}
+
+void basic_tests()
+{
+	one_literal();
+	one_operator();
+	not_literal();
+	not_operator();
+	lit_literal();
+	lit_operator();
+	ign_literal();
+	ign_operator();
+	non_sorted_and_uniqued();
 }

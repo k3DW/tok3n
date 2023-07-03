@@ -3,7 +3,7 @@
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
@@ -11,7 +11,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_twoway()
+static void parse_twoway()
 {
 	assert
 		, parse<TwoWay>("abc").failure()
@@ -21,7 +21,7 @@ inline void parse_twoway()
 		;
 }
 
-inline void parse_threeway()
+static void parse_threeway()
 {
 	assert
 		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
@@ -34,7 +34,15 @@ inline void parse_threeway()
 
 using constructible = traits::compound::constructible<Sequence>;
 
-inline void not_constructible_empty()
+static void not_constructible_empty()
 {
 	assert, not constructible::from<>;
+}
+
+void Sequence_tests()
+{
+	requirements();
+	parse_twoway();
+	parse_threeway();
+	not_constructible_empty();
 }

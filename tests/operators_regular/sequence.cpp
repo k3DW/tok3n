@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void Literal_and_Literal()
+static void Literal_and_Literal()
 {
 	assert
 		, (l1 >> l1) == Literal<"literalliteral">{}
@@ -17,7 +17,7 @@ inline void Literal_and_Literal()
 
 
 
-inline void Sequence_and_Sequence()
+static void Sequence_and_Sequence()
 {
 	assert
 		, (seq1 >> seq1) == Sequence<L4, NC4, L4, NC4>{}
@@ -39,7 +39,7 @@ inline void Sequence_and_Sequence()
 		;
 }
 
-inline void Sequence_and_anything()
+static void Sequence_and_anything()
 {
 	assert
 		, (seq1 >> oc1) == Sequence<L4, NC4, OC1>{}
@@ -53,7 +53,7 @@ inline void Sequence_and_anything()
 		;
 }
 
-inline void void_result()
+static void void_result()
 {
 	constexpr auto void_sequence = (ign1 >> ign2);
 
@@ -127,7 +127,7 @@ constexpr auto sequence_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
 	return true;
 };
 
-inline void anything_and_anything()
+static void anything_and_anything()
 {
 	// Note that all the operations are reimplemented for sequence_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
@@ -136,3 +136,11 @@ inline void anything_and_anything()
 		;
 }
 
+void sequence_tests()
+{
+	Literal_and_Literal();
+	Sequence_and_Sequence();
+	Sequence_and_anything();
+	void_result();
+	anything_and_anything();
+}

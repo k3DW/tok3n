@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Api1, ApplyIntoType, Class2>
@@ -8,7 +8,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_ApplyInto()
+static void parse_ApplyInto()
 {
 	assert
 		, parse<Api1>("abc.").success(Class2{ "abc", "." }, "")
@@ -21,4 +21,10 @@ inline void parse_ApplyInto()
 		, parse<Api2>(".").failure()
 		, parse<Api2>("abc").failure()
 		;
+}
+
+void ApplyInto_tests()
+{
+	requirements();
+	parse_ApplyInto();
 }

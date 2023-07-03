@@ -1,7 +1,7 @@
 #include "pch.h"
 
 
-inline void OneOrMore_Maybe()
+static void OneOrMore_Maybe()
 {
 	assert
 		, +may1 == zom1
@@ -19,7 +19,7 @@ inline void OneOrMore_Maybe()
 		;
 }
 
-inline void OneOrMore_OneOrMore()
+static void OneOrMore_OneOrMore()
 {
 	assert
 		, +oom1 == oom1
@@ -37,7 +37,7 @@ inline void OneOrMore_OneOrMore()
 		;
 }
 
-inline void OneOrMore_ZeroOrMore()
+static void OneOrMore_ZeroOrMore()
 {
 	assert
 		, +zom1 == zom1
@@ -84,9 +84,17 @@ constexpr auto one_or_more_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void one_or_more_anything()
+static void one_or_more_anything()
 {
 	assert
 		, check_all_samples(one_or_more_checker)
 		;
+}
+
+void one_or_more_tests()
+{
+	OneOrMore_Maybe();
+	OneOrMore_OneOrMore();
+	OneOrMore_ZeroOrMore();
+	one_or_more_anything();
 }

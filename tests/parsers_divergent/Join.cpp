@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Joi1, JoinType, std::string_view>
@@ -11,7 +11,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_Join()
+static void parse_Join()
 {
 	assert
 		, parse<Joi1>("abcabc").success("abc", "abc")
@@ -42,4 +42,10 @@ inline void parse_Join()
 		, parse<Joi5>(" abc").failure()
 		, parse<Joi5>("").failure()
 		;
+}
+
+void Join_tests()
+{
+	requirements();
+	parse_Join();
 }

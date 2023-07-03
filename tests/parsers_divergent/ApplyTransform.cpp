@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Apt1, ApplyTransformType, bool>
@@ -8,7 +8,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_ApplyTransform()
+static void parse_ApplyTransform()
 {
 	assert
 		, parse<Apt1>("abc???????").success(false, "?")
@@ -24,4 +24,10 @@ inline void parse_ApplyTransform()
 		, parse<Apt2>(" abc").failure()
 		, parse<Apt2>("").failure()
 		;
+}
+
+void ApplyTransform_tests()
+{
+	requirements();
+	parse_ApplyTransform();
 }

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, com1 == complete(l1)
@@ -13,7 +13,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, com1 == l1 % complete
@@ -26,7 +26,7 @@ inline void infix()
 		;
 }
 
-inline void idempotent()
+static void idempotent()
 {
 	assert
 		, com1 == complete(com1)
@@ -68,9 +68,17 @@ constexpr auto complete_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void complete_anything()
+static void complete_anything()
 {
 	assert
 		, check_all_samples(complete_checker)
 		;
+}
+
+void complete_tests()
+{
+	prefix();
+	infix();
+	idempotent();
+	complete_anything();
 }

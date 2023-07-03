@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void not_OneChar()
+static void not_OneChar()
 {
 	assert
 		, !oc1 == nc1
@@ -12,7 +12,7 @@ inline void not_OneChar()
 		;
 }
 
-inline void not_NotChar()
+static void not_NotChar()
 {
 	assert
 		, !nc1 == oc1
@@ -48,9 +48,16 @@ constexpr auto not_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void not_anything()
+static void not_anything()
 {
 	assert
 		, check_all_samples(not_checker)
 		;
+}
+
+void not_tests()
+{
+	not_OneChar();
+	not_NotChar();
+	not_anything();
 }

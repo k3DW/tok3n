@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, tra1 == fn<func1>(+abc)
@@ -11,7 +11,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, tra1 == +abc % fn<func1>
@@ -42,9 +42,16 @@ constexpr auto fn_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void fn_anything()
+static void fn_anything()
 {
 	assert
 		, check_all_samples(fn_checker)
 		;
+}
+
+void fn_tests()
+{
+	prefix();
+	infix();
+	fn_anything();
 }
