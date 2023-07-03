@@ -6,7 +6,7 @@ using TwoWay2 = Cho2;
 using ThreeWay1 = Cho3;
 using ThreeWay2 = Cho4;
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<TwoWay1, ChoiceType, std::string_view>
@@ -16,7 +16,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_twoway()
+static void parse_twoway()
 {
 	assert
 		, parse<TwoWay1>("abc").success("ab", "c")
@@ -33,7 +33,7 @@ inline void parse_twoway()
 		;
 }
 
-inline void parse_threeway()
+static void parse_threeway()
 {
 	assert
 		, parse<ThreeWay1>("abc").success("ab", "c")
@@ -59,7 +59,7 @@ inline void parse_threeway()
 
 using constructible = traits::compound::constructible<Choice>;
 
-inline void constructible_same_result_type()
+static void constructible_same_result_type()
 {
 	assert
 		, constructible::from<OC1, OC3, NC2, NC1, L2>
@@ -67,7 +67,16 @@ inline void constructible_same_result_type()
 		;
 }
 
-inline void not_constructible_empty()
+static void not_constructible_empty()
 {
 	assert, not constructible::from<>;
+}
+
+void Choice_tests()
+{
+	requirements();
+	parse_twoway();
+	parse_threeway();
+	constructible_same_result_type();
+	not_constructible_empty();
 }
