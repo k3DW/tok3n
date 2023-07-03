@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, apt1 == apply<func3_apply>(abc >> *qq)
@@ -9,7 +9,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, apt1 == (abc >> *qq) % apply<func3_apply>
@@ -38,9 +38,16 @@ constexpr auto apply_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void apply_anything()
+static void apply_anything()
 {
 	assert
 		, check_all_samples(apply_checker)
 		;
+}
+
+void apply_tests()
+{
+	prefix();
+	infix();
+	apply_anything();
 }

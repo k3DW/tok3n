@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, def1 == defaulted<int>(+abc)
@@ -8,7 +8,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, def1 == +abc % defaulted<int>
@@ -28,9 +28,16 @@ constexpr auto defaulted_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void defaulted_anything()
+static void defaulted_anything()
 {
 	assert
 		, check_all_samples(defaulted_checker)
 		;
+}
+
+void defaulted_tests()
+{
+	prefix();
+	infix();
+	defaulted_anything();
 }

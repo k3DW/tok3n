@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, api1 == apply_into<Class2>(abc >> spacedot)
@@ -8,7 +8,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, api1 == (abc >> spacedot) % apply_into<Class2>
@@ -36,9 +36,16 @@ constexpr auto apply_into_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void apply_into_anything()
+static void apply_into_anything()
 {
 	assert
 		, check_all_samples(apply_into_checker)
 		;
+}
+
+void apply_into_tests()
+{
+	prefix();
+	infix();
+	apply_into_anything();
 }

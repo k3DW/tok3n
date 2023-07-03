@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, dek1 == delimit_keep(abc, comma)
@@ -14,7 +14,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, dek1 == abc % delimit_keep(comma)
@@ -51,9 +51,16 @@ constexpr auto delimit_keep_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void delimit_keep_anything()
+static void delimit_keep_anything()
 {
 	assert
 		, check_all_samples(delimit_keep_checker)
 		;
+}
+
+void delimit_keep_tests()
+{
+	prefix();
+	infix();
+	delimit_keep_anything();
 }

@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, ign1 == ignore(abc)
@@ -11,7 +11,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, ign1 == abc % ignore
@@ -22,7 +22,7 @@ inline void infix()
 		;
 }
 
-inline void idempotent()
+static void idempotent()
 {
 	assert
 		, ign1 == ignore(ign1)
@@ -60,9 +60,17 @@ constexpr auto ignore_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void ignore_anything()
+static void ignore_anything()
 {
 	assert
 		, check_all_samples(ignore_checker)
 		;
+}
+
+void ignore_tests()
+{
+	prefix();
+	infix();
+	idempotent();
+	ignore_anything();
 }

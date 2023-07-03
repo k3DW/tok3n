@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, int1 == into<Class1>(spacedot)
@@ -8,7 +8,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, int1 == spacedot % into<Class1>
@@ -36,9 +36,16 @@ constexpr auto into_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void into_anything()
+static void into_anything()
 {
 	assert
 		, check_all_samples(into_checker)
 		;
+}
+
+void into_tests()
+{
+	prefix();
+	infix();
+	into_anything();
 }

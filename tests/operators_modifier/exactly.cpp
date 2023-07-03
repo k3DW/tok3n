@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void prefix()
+static void prefix()
 {
 	assert
 		, exa1 == exactly<3>(l1)
@@ -10,7 +10,7 @@ inline void prefix()
 		;
 }
 
-inline void infix()
+static void infix()
 {
 	assert
 		, exa1 == l1 % exactly<3>
@@ -40,9 +40,16 @@ constexpr auto exactly_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-inline void exactly_anything()
+static void exactly_anything()
 {
 	assert
 		, check_all_samples(exactly_checker)
 		;
+}
+
+void exactly_tests()
+{
+	prefix();
+	infix();
+	exactly_anything();
 }
