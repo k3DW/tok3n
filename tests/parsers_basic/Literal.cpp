@@ -2,14 +2,14 @@
 
 using L = Literal<"literal">;
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<L, LiteralType, std::string_view>
 		;
 }
 
-inline void parse_single()
+static void parse_single()
 {
 	assert
 		, parse<L>("literal").success("literal", "")
@@ -25,7 +25,7 @@ inline void parse_single()
 
 using constructible = traits::basic::constructible<Literal>;
 
-inline void constructible_from_ascii_only()
+static void constructible_from_ascii_only()
 {
 	assert
 		, constructible::from<"literal">
@@ -33,11 +33,19 @@ inline void constructible_from_ascii_only()
 		;
 }
 
-inline void parse_empty()
+static void parse_empty()
 {
 	assert
 		, constructible::from<"">
 		, parse<Literal<"">>("anything").success("", "anything")
 		, parse<Literal<"">>("").success("", "")
 		;
+}
+
+void Literal_test()
+{
+	requirements();
+	parse_single();
+	constructible_from_ascii_only();
+	parse_empty();
 }
