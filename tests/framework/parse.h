@@ -93,12 +93,14 @@ struct TestRunner
 	static inline std::size_t total_assertions;
 };
 
-inline void Assert(bool condition, std::string_view message, std::source_location location = std::source_location::current())
+inline bool Assert(bool condition, std::string_view message, std::source_location location = std::source_location::current())
 {
 	++TestRunner::total_assertions;
 
 	if (not condition)
 		TestRunner::all_errors.emplace_back(message, std::move(location));
+
+	return condition;
 }
 
 #define TOK3N_STATIC_ASSERT_DISABLED
@@ -106,12 +108,14 @@ inline void Assert(bool condition, std::string_view message, std::source_locatio
 #ifdef TOK3N_STATIC_ASSERT_DISABLED
 #define TOK3N_STATIC_ASSERT(...) static_assert(true)
 #else
-#define TOK3N_STATIC_ASSERT(...) static_assert(...)
+#define TOK3N_STATIC_ASSERT(...) static_assert(__VA_ARGS__)
 #endif
 
-#define TOK3N_ASSERT(CONDITION, MESSAGE)         \
-	TOK3N_STATIC_ASSERT((CONDITION), (MESSAGE)); \
-	Assert((CONDITION), (MESSAGE))
+#define TOK3N_ASSERT(CONDITION, MESSAGE)           \
+	[&]() -> bool {                                \
+		TOK3N_STATIC_ASSERT((CONDITION), MESSAGE); \
+		return Assert((CONDITION), (MESSAGE));     \
+	}()
 
 #define TOK3N_ASSERT_PARSER_CONCEPT(P)                   \
 	TOK3N_ASSERT(Parser<P>,                              \
@@ -148,8 +152,10 @@ inline void Assert(bool condition, std::string_view message, std::source_locatio
 #define TOK3N_ASSERT_SUCCESS(P, INPUT, OUTPUT, REMAINING)      \
 	do {                                                       \
 		TOK3N_ASSERT_PARSER_CONCEPT(P);                        \
-		TOK3N_ASSERT_PARSE_VALID(P, INPUT);                    \
-		TOK3N_ASSERT_PARSE_RESULT(P, INPUT, OUTPUT);           \
+		if (TOK3N_ASSERT_PARSE_VALID(P, INPUT))                \
+		{                                                      \
+			TOK3N_ASSERT_PARSE_RESULT(P, INPUT, OUTPUT);       \
+		}                                                      \
 		TOK3N_ASSERT_PARSE_REMAINING(P, INPUT, REMAINING);     \
 		TOK3N_ASSERT_LOOKAHEAD_VALID(P, INPUT);                \
 		TOK3N_ASSERT_LOOKAHEAD_REMAINING(P, INPUT, REMAINING); \
