@@ -57,6 +57,22 @@
     <ClInclude Include="framework\underlying.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\Error.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Test.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Fixture.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\TestResult.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\FixtureResult.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\AssertParse.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
