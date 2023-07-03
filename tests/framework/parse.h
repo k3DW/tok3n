@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
+#include <source_location>
 
 using namespace k3::tok3n;
 
@@ -80,36 +81,68 @@ consteval auto parse(P, Input input)
 	return parse_t<P>{ input };
 }
 
+struct TestRunner
+{
+	struct Error
+	{
+		std::string_view message;
+		std::source_location location;
+	};
+
+	static inline std::vector<Error> all_errors;
+	static inline std::size_t total_assertions;
+};
+
+inline void Assert(bool condition, std::string_view message, std::source_location location = std::source_location::current())
+{
+	++TestRunner::total_assertions;
+
+	if (not condition)
+		TestRunner::all_errors.emplace_back(message, std::move(location));
+}
+
+#define TOK3N_STATIC_ASSERT_DISABLED
+
+#ifdef TOK3N_STATIC_ASSERT_DISABLED
+#define TOK3N_STATIC_ASSERT(...) static_assert(true)
+#else
+#define TOK3N_STATIC_ASSERT(...) static_assert(...)
+#endif
+
+#define TOK3N_ASSERT(CONDITION, MESSAGE)         \
+	TOK3N_STATIC_ASSERT((CONDITION), (MESSAGE)); \
+	Assert((CONDITION), (MESSAGE))
+
 #define TOK3N_ASSERT_PARSER_CONCEPT(P)                   \
-	static_assert(Parser<P>,                             \
+	TOK3N_ASSERT(Parser<P>,                              \
 		"(" #P ") does not satisfy the Parser concept.")
 
 #define TOK3N_ASSERT_PARSE_VALID(P, INPUT)                                           \
-	static_assert((P::parse(INPUT)).has_value(),                                     \
+	TOK3N_ASSERT((P::parse(INPUT)).has_value(),                                      \
 		"(" #P "::parse(" #INPUT ")) does not give a valid result, but it should." )
 
 #define TOK3N_ASSERT_PARSE_INVALID(P, INPUT)                                     \
-	static_assert(not (P::parse(INPUT)).has_value(),                             \
+	TOK3N_ASSERT(not (P::parse(INPUT)).has_value(),                              \
 		"(" #P "::parse(" #INPUT ")) gives a valid result, but it should not." )
 
 #define TOK3N_ASSERT_PARSE_RESULT(P, INPUT, OUTPUT)                  \
-	static_assert(*(P::parse(INPUT)) == (OUTPUT),                    \
+	TOK3N_ASSERT(*(P::parse(INPUT)) == (OUTPUT),                     \
 		"*(" #P "::parse(" #INPUT ")) does not equal (" #OUTPUT ")")
 
 #define TOK3N_ASSERT_PARSE_REMAINING(P, INPUT, REMAINING)                          \
-	static_assert((P::parse(INPUT)).remaining() == (REMAINING),                    \
+	TOK3N_ASSERT((P::parse(INPUT)).remaining() == (REMAINING),                     \
 		"(" #P "::parse(" #INPUT ")).remaining() does not equal (" #REMAINING ")")
 
 #define TOK3N_ASSERT_LOOKAHEAD_VALID(P, INPUT)                                           \
-	static_assert((P::lookahead(INPUT)).has_value(),                                     \
+	TOK3N_ASSERT((P::lookahead(INPUT)).has_value(),                                      \
 		"(" #P "::lookahead(" #INPUT ")) does not give a valid result, but it should." )
 
 #define TOK3N_ASSERT_LOOKAHEAD_INVALID(P, INPUT)                                     \
-	static_assert(not (P::lookahead(INPUT)).has_value(),                             \
+	TOK3N_ASSERT(not (P::lookahead(INPUT)).has_value(),                              \
 		"(" #P "::lookahead(" #INPUT ")) gives a valid result, but it should not." )
 
 #define TOK3N_ASSERT_LOOKAHEAD_REMAINING(P, INPUT, REMAINING)                          \
-	static_assert((P::lookahead(INPUT)).remaining() == (REMAINING),                    \
+	TOK3N_ASSERT((P::lookahead(INPUT)).remaining() == (REMAINING),                     \
 		"(" #P "::lookahead(" #INPUT ")).remaining() does not equal (" #REMAINING ")")
 
 #define TOK3N_ASSERT_SUCCESS(P, INPUT, OUTPUT, REMAINING)      \
