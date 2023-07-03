@@ -1,13 +1,13 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Cus1, CustomType, std::size_t>
 		;
 }
 
-inline void parse_Transform()
+static void parse_Transform()
 {
 	assert
 		, parse<Cus1>("abcabcabcabc??").success(36, "")
@@ -17,4 +17,10 @@ inline void parse_Transform()
 		, parse<Cus1>(" abc").failure()
 		, parse<Cus1>("").failure()
 		;
+}
+
+void Custom_tests()
+{
+	requirements();
+	parse_Transform();
 }

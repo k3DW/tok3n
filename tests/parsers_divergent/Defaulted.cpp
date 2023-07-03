@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Def1, DefaultedType, int>
@@ -8,7 +8,7 @@ inline void requirements()
 		;
 }
 
-inline void parse_Join()
+static void parse_Join()
 {
 	assert
 		, parse<Def1>("abcabcabcab").success(0, "ab")
@@ -22,4 +22,10 @@ inline void parse_Join()
 		, parse<Def2>("??abcabc").success(Class3{}, "abcabc")
 		, parse<Def2>(" ??abcabc").success(Class3{}, " ??abcabc")
 		;
+}
+
+void Defaulted_tests()
+{
+	requirements();
+	parse_Join();
 }

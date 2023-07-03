@@ -6,7 +6,7 @@ constexpr L1 l1;
 using L2 = Literal<"??">;
 constexpr L2 l2;
 
-inline void Join_Delimit()
+static void Join_Delimit()
 {
 	constexpr auto d = delimit(l1, l2);
 	constexpr auto j = d % join;
@@ -21,7 +21,7 @@ inline void Join_Delimit()
 		;
 }
 
-inline void Ignore_Sequence()
+static void Ignore_Sequence()
 {
 	constexpr auto p = l1 >> ignore(l2) >> l1;
 
@@ -31,7 +31,7 @@ inline void Ignore_Sequence()
 		;
 }
 
-inline void Join_Ignore()
+static void Join_Ignore()
 {
 	constexpr auto q = OneChar<"?">{};
 
@@ -67,7 +67,7 @@ inline void Join_Ignore()
 		;
 }
 
-inline void Join_Transform()
+static void Join_Transform()
 {
 	constexpr auto f = fn<[](auto&& v) -> std::string_view { return (v.size() % 2 == 0) ? "a" : "b"; }>;
 
@@ -96,5 +96,13 @@ inline void Join_Transform()
 		, parse(j3, "abcabc??abc??ab").only_lookahead("ab")
 		, parse(j3, "abc??abcabcabcabc??").only_lookahead("")
 		;
+}
+
+void combine_tests()
+{
+	Join_Delimit();
+	Ignore_Sequence();
+	Join_Ignore();
+	Join_Transform();
 }
 #endif
