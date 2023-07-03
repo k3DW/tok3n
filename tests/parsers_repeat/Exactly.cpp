@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Exa1, ExactlyType, std::array<std::string_view, 3>>
@@ -10,7 +10,7 @@ inline void requirements()
 		;
 }
 
-inline void constructibility()
+static void constructibility()
 {
 	using traits::repeat::Exactly::constructible;
 	assert
@@ -20,7 +20,7 @@ inline void constructibility()
 		;
 }
 
-inline void parse_Exactly_Literal()
+static void parse_Exactly_Literal()
 {
 	assert
 		, parse<Exa1>("litera").failure()
@@ -33,7 +33,7 @@ inline void parse_Exactly_Literal()
 		, parse<Exa1>("").failure()
 		;
 }
-inline void parse_Exactly_OneChar()
+static void parse_Exactly_OneChar()
 {
 	assert
 		, parse<Exa2>("abcbaa").success({ "a", "b", "c", "b", "a" }, "a")
@@ -42,7 +42,7 @@ inline void parse_Exactly_OneChar()
 		, parse<Exa2>("").failure()
 		;
 }
-inline void parse_Exactly_Choice()
+static void parse_Exactly_Choice()
 {
 	assert
 		, parse<Exa3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c" }, "bliteralcf")
@@ -51,7 +51,7 @@ inline void parse_Exactly_Choice()
 		, parse<Exa3>("").failure()
 		;
 }
-inline void parse_Exactly_Sequence()
+static void parse_Exactly_Sequence()
 {
 	assert
 		, parse<Exa4>("literalaliteralcliteralcliteralb").success({{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralb")
@@ -59,4 +59,14 @@ inline void parse_Exactly_Sequence()
 		, parse<Exa4>("aliteralaliteralcliteralbliteral").failure()
 		, parse<Exa4>("").failure()
 		;
+}
+
+void Exactly_tests()
+{
+	requirements();
+	constructibility();
+	parse_Exactly_Literal();
+	parse_Exactly_OneChar();
+	parse_Exactly_Choice();
+	parse_Exactly_Sequence();
 }

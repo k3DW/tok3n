@@ -1,6 +1,6 @@
 #include "pch.h"
 
-inline void requirements()
+static void requirements()
 {
 	assert
 		, IsParser<Del1, DelimitType, std::vector<std::string_view>>
@@ -14,7 +14,7 @@ inline void requirements()
 		;
 }
 
-inline void requirements_keep()
+static void requirements_keep()
 {
 	assert
 		, IsParser<Dek1, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>>
@@ -28,7 +28,7 @@ inline void requirements_keep()
 		;
 }
 
-inline void parse_Delimit_regular()
+static void parse_Delimit_regular()
 {
 	assert
 		, parse<Del1>("abc,abc,abc,,abc,abc,abc").success({ "abc", "abc", "abc" }, ",,abc,abc,abc")
@@ -52,7 +52,7 @@ inline void parse_Delimit_regular()
 		;
 }
 
-inline void parse_Delimit_reversed()
+static void parse_Delimit_reversed()
 {
 	assert
 		, parse<Del5>("abc,abc,abc,,abc,abc,abc").failure()
@@ -76,7 +76,7 @@ inline void parse_Delimit_reversed()
 		;
 }
 
-inline void parse_Delimit_keep_regular()
+static void parse_Delimit_keep_regular()
 {
 	assert
 		, parse<Dek1>("abc,abc,abc,,abc,abc,abc").success({ { "abc", "abc", "abc" }, { ",", "," } }, ",,abc,abc,abc")
@@ -100,7 +100,7 @@ inline void parse_Delimit_keep_regular()
 		;
 }
 
-inline void parse_Delimit_keep_reversed()
+static void parse_Delimit_keep_reversed()
 {
 	assert
 		, parse<Dek5>("abc,abc,abc,,abc,abc,abc").failure()
@@ -122,4 +122,14 @@ inline void parse_Delimit_keep_reversed()
 		, parse<Dek8>(" ?? ??.?? .??.?? ??").success({ { " ", " ", ".", " " }, { "??", "??", "??" } }, ".??.?? ??")
 		, parse<Dek8>("").failure()
 		;
+}
+
+void Delimit_tests()
+{
+	requirements();
+	requirements_keep();
+	parse_Delimit_regular();
+	parse_Delimit_reversed();
+	parse_Delimit_keep_regular();
+	parse_Delimit_keep_reversed();
 }
