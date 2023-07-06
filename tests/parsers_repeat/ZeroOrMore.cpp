@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("ZeroOrMore", "Requirements")
 {
 	assert
 		, IsParser<Zom1, ZeroOrMoreType, std::vector<std::string_view>>
@@ -10,7 +10,7 @@ static void requirements()
 		;
 }
 
-static void parse_ZeroOrMore_Literal()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
 {
 	assert
 		, parse<Zom1>("litera").success({}, "litera")
@@ -22,7 +22,7 @@ static void parse_ZeroOrMore_Literal()
 		, parse<Zom1>("").success({}, "")
 		;
 }
-static void parse_ZeroOrMore_OneChar()
+TEST("ZeroOrMore", "Parse ZeroOrMore<OneChar>")
 {
 	assert
 		, parse<Zom2>("abcdef").success({ "a", "b", "c" }, "def")
@@ -31,7 +31,7 @@ static void parse_ZeroOrMore_OneChar()
 		, parse<Zom2>("").success({}, "")
 		;
 }
-static void parse_ZeroOrMore_Choice()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
 {
 	assert
 		, parse<Zom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
@@ -40,7 +40,7 @@ static void parse_ZeroOrMore_Choice()
 		, parse<Zom3>("").success({}, "")
 		;
 }
-static void parse_ZeroOrMore_Sequence()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
 {
 	assert
 		, parse<Zom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
@@ -48,13 +48,4 @@ static void parse_ZeroOrMore_Sequence()
 		, parse<Zom4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
 		, parse<Zom4>("").success({}, "")
 		;
-}
-
-void ZeroOrMore_tests()
-{
-	requirements();
-	parse_ZeroOrMore_Literal();
-	parse_ZeroOrMore_OneChar();
-	parse_ZeroOrMore_Choice();
-	parse_ZeroOrMore_Sequence();
 }

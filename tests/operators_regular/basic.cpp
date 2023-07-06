@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void one_literal()
+TEST("basic operators", "UDL _one")
 {
 	assert
 		, "abc"_one == oc1
@@ -13,7 +13,7 @@ static void one_literal()
 		;
 }
 
-static void one_operator()
+TEST("basic operators", "one<>")
 {
 	assert
 		, one<"abc"> == oc1
@@ -26,7 +26,7 @@ static void one_operator()
 		;
 }
 
-static void not_literal()
+TEST("basic operators", "UDL _not")
 {
 	assert
 		, "abc"_not == nc1
@@ -38,7 +38,7 @@ static void not_literal()
 		;
 }
 
-static void not_operator()
+TEST("basic operators", "not_<>")
 {
 	assert
 		, not_<"abc"> == nc1
@@ -50,7 +50,7 @@ static void not_operator()
 		;
 }
 
-static void lit_literal()
+TEST("basic operators", "UDL _lit")
 {
 	assert
 		, "literal"_lit == l1
@@ -63,7 +63,7 @@ static void lit_literal()
 		;
 }
 
-static void lit_operator()
+TEST("basic operators", "lit<>")
 {
 	assert
 		, lit<"literal"> == l1
@@ -76,7 +76,7 @@ static void lit_operator()
 		;
 }
 
-static void ign_literal()
+TEST("basic operators", "UDL _ign")
 {
 	assert
 		, "literal"_ign == Ignore<L1>{}
@@ -89,7 +89,7 @@ static void ign_literal()
 		;
 }
 
-static void ign_operator()
+TEST("basic operators", "ign<>")
 {
 	assert
 		, ign<"literal"> == Ignore<L1>{}
@@ -102,7 +102,7 @@ static void ign_operator()
 		;
 }
 
-static void non_sorted_and_uniqued()
+TEST("basic operators", "Non sorted_and_uniqued")
 {
 	assert
 		, "212312323321212311"_one == OneChar<"123">{}
@@ -122,17 +122,4 @@ static void non_sorted_and_uniqued()
 		, ""_one == OneChar<"">{}
 		, ""_not == NotChar<"">{}
 		;
-}
-
-void basic_tests()
-{
-	one_literal();
-	one_operator();
-	not_literal();
-	not_operator();
-	lit_literal();
-	lit_operator();
-	ign_literal();
-	ign_operator();
-	non_sorted_and_uniqued();
 }

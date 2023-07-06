@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Constant", "Requirements")
 {
 	assert
 		, IsParser<Con1, ConstantType, int>
@@ -10,7 +10,7 @@ static void requirements()
 		;
 }
 
-static void parse_Constant()
+TEST("Constant", "Parse all")
 {
 	assert
 		, parse<Con1>("abcabcabcab").success(1, "ab")
@@ -37,10 +37,4 @@ static void parse_Constant()
 		, parse<Con4>(" abc").failure()
 		, parse<Con4>("").failure()
 		;
-}
-
-void Constant_tests()
-{
-	requirements();
-	parse_Constant();
 }

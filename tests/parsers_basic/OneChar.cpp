@@ -3,7 +3,7 @@
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
 
-static void requirements()
+TEST("OneChar", "Requirements")
 {
 	assert
 		, IsParser<Single, OneCharType, std::string_view>
@@ -11,7 +11,7 @@ static void requirements()
 		;
 }
 
-static void parse_single()
+TEST("OneChar", "Parse single char")
 {
 	assert
 		, parse<Single>("ab").success("a", "b")
@@ -23,7 +23,7 @@ static void parse_single()
 		;
 }
 
-static void parse_multi()
+TEST("OneChar", "Parse multi char")
 {
 	assert
 		, parse<Multi>("abc").success("a", "bc")
@@ -47,7 +47,7 @@ static void parse_multi()
 
 using constructible = traits::basic::constructible<OneChar>;
 
-static void constructible_from_ascii_only()
+TEST("OneChar", "Constructible from ascii only")
 {
 	using all_ascii_chars = std::make_integer_sequence<int, 128>;
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
@@ -58,7 +58,7 @@ static void constructible_from_ascii_only()
 		;
 }
 
-static void constructible_alphabetically_only()
+TEST("OneChar", "Constructible from lexicographically sorted only")
 {
 	assert
 		, constructible::from<"abc">
@@ -70,21 +70,11 @@ static void constructible_alphabetically_only()
 		;
 }
 
-static void parse_empty()
+TEST("OneChar", "Parse empty")
 {
 	assert
 		, constructible::from<"">
 		, parse<OneChar<"">>("anything").failure()
 		, parse<OneChar<"">>("").failure()
 		;
-}
-
-void OneChar_tests()
-{
-	requirements();
-	parse_single();
-	parse_multi();
-	constructible_from_ascii_only();
-	constructible_alphabetically_only();
-	parse_empty();
 }

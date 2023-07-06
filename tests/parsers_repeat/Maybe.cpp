@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Maybe", "Requirements")
 {
 	assert
 		, IsParser<May1, MaybeType, std::optional<std::string_view>>
@@ -10,7 +10,7 @@ static void requirements()
 		;
 }
 
-static void parse_Maybe_Literal()
+TEST("Maybe", "Parse Maybe<Literal>")
 {
 	assert
 		, parse<May1>("litera").success({}, "litera")
@@ -22,7 +22,7 @@ static void parse_Maybe_Literal()
 		, parse<May1>("").success({}, "")
 		;
 }
-static void parse_Maybe_OneChar()
+TEST("Maybe", "Parse Maybe<OneChar>")
 {
 	assert
 		, parse<May2>("abcdef").success({ "a" }, "bcdef")
@@ -31,7 +31,7 @@ static void parse_Maybe_OneChar()
 		, parse<May2>("").success({}, "")
 		;
 }
-static void parse_Maybe_Choice()
+TEST("Maybe", "Parse Maybe<Choice>")
 {
 	assert
 		, parse<May3>("abliteralcbliteralcf").success({ "a" }, "bliteralcbliteralcf")
@@ -40,7 +40,7 @@ static void parse_Maybe_Choice()
 		, parse<May3>("").success({}, "")
 		;
 }
-static void parse_Maybe_Sequence()
+TEST("Maybe", "Parse Maybe<Sequence>")
 {
 	assert
 		, parse<May4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"} }, "literalcliteralcliteralb")
@@ -48,13 +48,4 @@ static void parse_Maybe_Sequence()
 		, parse<May4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
 		, parse<May4>("").success({}, "")
 		;
-}
-
-void Maybe_tests()
-{
-	requirements();
-	parse_Maybe_Literal();
-	parse_Maybe_OneChar();
-	parse_Maybe_Choice();
-	parse_Maybe_Sequence();
 }

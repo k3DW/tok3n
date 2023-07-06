@@ -3,7 +3,7 @@
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
-static void requirements()
+TEST("NotChar", "Requirements")
 {
 	assert
 		, IsParser<Single, NotCharType, std::string_view>
@@ -11,7 +11,7 @@ static void requirements()
 		;
 }
 
-static void parse_single()
+TEST("NotChar", "Parse single char")
 {
 	assert
 		, parse<Single>("ab").failure()
@@ -23,7 +23,7 @@ static void parse_single()
 		;
 }
 
-static void parse_multi()
+TEST("NotChar", "Parse multi char")
 {
 	assert
 		, parse<Multi>("abc").failure()
@@ -48,7 +48,7 @@ static void parse_multi()
 
 using constructible = traits::basic::constructible<NotChar>;
 
-static void constructible_from_ascii_only()
+TEST("NotChar", "Constructible from ascii only")
 {
 	using all_ascii_chars = std::make_integer_sequence<int, 128>;
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
@@ -59,7 +59,7 @@ static void constructible_from_ascii_only()
 		;
 }
 
-static void constructible_alphabetically_only()
+TEST("NotChar", "Constructible from lexicographically sorted only")
 {
 	assert
 		, constructible::from<"abc">
@@ -71,21 +71,11 @@ static void constructible_alphabetically_only()
 		;
 }
 
-static void parse_empty()
+TEST("NotChar", "Parse empty")
 {
 	assert
 		, constructible::from<"">
 		, parse<NotChar<"">>("anything").success("a", "nything")
 		, parse<NotChar<"">>("").failure()
 		;
-}
-
-void NotChar_tests()
-{
-	requirements();
-	parse_single();
-	parse_multi();
-	constructible_from_ascii_only();
-	constructible_alphabetically_only();
-	parse_empty();
 }

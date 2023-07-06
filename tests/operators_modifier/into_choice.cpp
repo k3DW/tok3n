@@ -2,7 +2,7 @@
 
 using namespace traits::operators;
 
-static void prefix()
+TEST("into_choice modifier", "prefix")
 {
 	assert
 		, into_choice<Class1>(spacedot, abc) == Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}
@@ -12,7 +12,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("into_choice modifier", "infix")
 {
 	// Infix isn't ever valid with into_choice because Choice parsers must have 2 sub parsers
 
@@ -69,16 +69,9 @@ constexpr auto into_choice_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void into_choice_anything()
+TEST("into_choice modifier", "modify anything")
 {
 	assert
 		, check_all_samples(into_choice_checker)
 		;
-}
-
-void into_choice_tests()
-{
-	prefix();
-	infix();
-	into_choice_anything();
 }

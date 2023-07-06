@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void prefix()
+TEST("ignore modifier", "prefix")
 {
 	assert
 		, ign1 == ignore(abc)
@@ -11,7 +11,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("ignore modifier", "infix")
 {
 	assert
 		, ign1 == abc % ignore
@@ -22,7 +22,7 @@ static void infix()
 		;
 }
 
-static void idempotent()
+TEST("ignore modifier", "idempotent")
 {
 	assert
 		, ign1 == ignore(ign1)
@@ -60,17 +60,9 @@ constexpr auto ignore_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void ignore_anything()
+TEST("ignore modifier", "modify anything")
 {
 	assert
 		, check_all_samples(ignore_checker)
 		;
-}
-
-void ignore_tests()
-{
-	prefix();
-	infix();
-	idempotent();
-	ignore_anything();
 }

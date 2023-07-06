@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Transform", "Requirements")
 {
 	assert
 		, IsParser<Tra1, TransformType, std::size_t>
@@ -10,7 +10,7 @@ static void requirements()
 		;
 }
 
-static void parse_Transform()
+TEST("Transform", "Parse all")
 {
 	assert
 		, parse<Tra1>("abcabcabcab").success(3, "ab")
@@ -37,10 +37,4 @@ static void parse_Transform()
 		, parse<Tra4>(" abc").failure()
 		, parse<Tra4>("").failure()
 		;
-}
-
-void Transform_tests()
-{
-	requirements();
-	parse_Transform();
 }

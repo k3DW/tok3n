@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void creation()
+TEST("multi operator", "creation")
 {
 	assert
 		, ignore % join == modifiers::multi<modifiers::ignore, modifiers::join>{}
@@ -12,7 +12,7 @@ static void creation()
 		;
 }
 
-static void not_commutative()
+TEST("multi operator", "not commutative")
 {
 	assert
 		, (ignore % join) != (join % ignore)
@@ -21,7 +21,7 @@ static void not_commutative()
 		;
 }
 
-static void associative()
+TEST("multi operator", "associative")
 {
 	assert
 		, ((ignore % join) % complete) % into<Sink> == (ignore % (join % complete)) % into<Sink>
@@ -31,18 +31,10 @@ static void associative()
 		;
 }
 
-static void applying()
+TEST("multi operator", "applying the modifier")
 {
 	assert
 		, oom1 % (join % ignore % complete) == Complete<Ignore<Join<Oom1>>>{}
 		, oom1 % (join % complete % ignore) == Ignore<Complete<Join<Oom1>>>{}
 		;
-}
-
-void multi_tests()
-{
-	creation();
-	not_commutative();
-	associative();
-	applying();
 }

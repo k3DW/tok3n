@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void prefix()
+TEST("join modifier", "prefix")
 {
 	assert
 		, joi1 != join(abc)
@@ -12,7 +12,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("join modifier", "infix")
 {
 	assert
 		, joi1 != abc % join
@@ -24,7 +24,7 @@ static void infix()
 		;
 }
 
-static void idempotent()
+TEST("join modifier", "idempotent")
 {
 	assert
 		, joi1 == join(joi1)
@@ -67,17 +67,9 @@ constexpr auto join_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void join_anything()
+TEST("join modifier", "modify anything")
 {
 	assert
 		, check_all_samples(join_checker)
 		;
-}
-
-void join_tests()
-{
-	prefix();
-	infix();
-	idempotent();
-	join_anything();
 }

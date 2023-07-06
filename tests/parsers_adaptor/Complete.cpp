@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Complete", "Requirements")
 {
 	assert
 		, IsParser<Com1, CompleteType, std::string_view>
@@ -11,7 +11,7 @@ static void requirements()
 		;
 }
 
-static void parse_Complete_Literal()
+TEST("Complete", "Complete<Literal>")
 {
 	assert
 		, parse<Com1>("litera").failure()
@@ -23,7 +23,7 @@ static void parse_Complete_Literal()
 		, parse<Com1>("").failure()
 		;
 }
-static void parse_Complete_OneChar()
+TEST("Complete", "Complete<OneChar>")
 {
 	assert
 		, parse<Com2>("a").success({ "a" }, "")
@@ -34,7 +34,7 @@ static void parse_Complete_OneChar()
 		, parse<Com2>("").failure()
 		;
 }
-static void parse_Complete_Choice()
+TEST("Complete", "Complete<Choice>")
 {
 	assert
 		, parse<Com3>("abliteralcbliteralcf").failure()
@@ -46,7 +46,7 @@ static void parse_Complete_Choice()
 		, parse<Com3>("").failure()
 		;
 }
-static void parse_Complete_Sequence()
+TEST("Complete", "Complete<Sequence>")
 {
 	assert
 		, parse<Com4>("literalaliteralcliteralcliteralb").failure()
@@ -58,7 +58,7 @@ static void parse_Complete_Sequence()
 		, parse<Com4>("").failure()
 		;
 }
-static void parse_Complete_Maybe()
+TEST("Complete", "Complete<Maybe>")
 {
 	assert
 		, parse<Com5>("literalaliteralcliteralcliteralb").failure()
@@ -70,7 +70,7 @@ static void parse_Complete_Maybe()
 		, parse<Com5>("").success({}, "")
 		;
 }
-static void parse_Complete_OneOrMore()
+TEST("Complete", "Complete<OneOrMore>")
 {
 	assert
 		, parse<Com6>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
@@ -82,7 +82,7 @@ static void parse_Complete_OneOrMore()
 		, parse<Com6>("").failure()
 		;
 }
-static void parse_Complete_ZeroOrMore()
+TEST("Complete", "Complete<ZeroOrMore>")
 {
 	assert
 		, parse<Com7>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
@@ -93,16 +93,4 @@ static void parse_Complete_ZeroOrMore()
 		, parse<Com7>("aliteralaliteralcliteralbliteral").failure()
 		, parse<Com7>("").success({}, "")
 		;
-}
-
-void Complete_tests()
-{
-	requirements();
-	parse_Complete_Literal();
-	parse_Complete_OneChar();
-	parse_Complete_Choice();
-	parse_Complete_Sequence();
-	parse_Complete_Maybe();
-	parse_Complete_OneOrMore();
-	parse_Complete_ZeroOrMore();
 }

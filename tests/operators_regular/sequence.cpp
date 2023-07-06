@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void Literal_and_Literal()
+TEST("sequence operator", "Literal >> Literal")
 {
 	assert
 		, (l1 >> l1) == Literal<"literalliteral">{}
@@ -17,29 +17,29 @@ static void Literal_and_Literal()
 
 
 
-static void Sequence_and_Sequence()
+TEST("sequence operator", "Sequence >> Sequence")
 {
 	assert
 		, (seq1 >> seq1) == Sequence<L4, NC4, L4, NC4>{}
-		, (seq2 >> seq2) == Sequence<NC4, L4, NC4, L4>{}
-		, (seq3 >> seq3) == Sequence<L4, OC4, NC5, L4, OC4, NC5>{}
-		, (seq4 >> seq4) == Sequence<NC5, L4, OC4, NC5, L4, OC4>{}
-		, (seq1 >> seq2) == Sequence<L4, NC4, NC4, L4>{}
-		, (seq2 >> seq1) == Sequence<NC4, L4, L4, NC4>{}
-		, (seq1 >> seq3) == Sequence<L4, NC4, L4, OC4, NC5>{}
-		, (seq3 >> seq1) == Sequence<L4, OC4, NC5, L4, NC4>{}
-		, (seq1 >> seq4) == Sequence<L4, NC4, NC5, L4, OC4>{}
-		, (seq4 >> seq1) == Sequence<NC5, L4, OC4, L4, NC4>{}
-		, (seq2 >> seq3) == Sequence<NC4, L4, L4, OC4, NC5>{}
-		, (seq3 >> seq2) == Sequence<L4, OC4, NC5, NC4, L4>{}
-		, (seq2 >> seq4) == Sequence<NC4, L4, NC5, L4, OC4>{}
-		, (seq4 >> seq2) == Sequence<NC5, L4, OC4, NC4, L4>{}
-		, (seq3 >> seq4) == Sequence<L4, OC4, NC5, NC5, L4, OC4>{}
-		, (seq4 >> seq3) == Sequence<NC5, L4, OC4, L4, OC4, NC5>{}
-		;
+	, (seq2 >> seq2) == Sequence<NC4, L4, NC4, L4>{}
+	, (seq3 >> seq3) == Sequence<L4, OC4, NC5, L4, OC4, NC5>{}
+	, (seq4 >> seq4) == Sequence<NC5, L4, OC4, NC5, L4, OC4>{}
+	, (seq1 >> seq2) == Sequence<L4, NC4, NC4, L4>{}
+	, (seq2 >> seq1) == Sequence<NC4, L4, L4, NC4>{}
+	, (seq1 >> seq3) == Sequence<L4, NC4, L4, OC4, NC5>{}
+	, (seq3 >> seq1) == Sequence<L4, OC4, NC5, L4, NC4>{}
+	, (seq1 >> seq4) == Sequence<L4, NC4, NC5, L4, OC4>{}
+	, (seq4 >> seq1) == Sequence<NC5, L4, OC4, L4, NC4>{}
+	, (seq2 >> seq3) == Sequence<NC4, L4, L4, OC4, NC5>{}
+	, (seq3 >> seq2) == Sequence<L4, OC4, NC5, NC4, L4>{}
+	, (seq2 >> seq4) == Sequence<NC4, L4, NC5, L4, OC4>{}
+	, (seq4 >> seq2) == Sequence<NC5, L4, OC4, NC4, L4>{}
+	, (seq3 >> seq4) == Sequence<L4, OC4, NC5, NC5, L4, OC4>{}
+	, (seq4 >> seq3) == Sequence<NC5, L4, OC4, L4, OC4, NC5>{}
+	;
 }
 
-static void Sequence_and_anything()
+TEST("sequence operator", "Sequence >> {anything}")
 {
 	assert
 		, (seq1 >> oc1) == Sequence<L4, NC4, OC1>{}
@@ -53,7 +53,7 @@ static void Sequence_and_anything()
 		;
 }
 
-static void void_result()
+TEST("sequence operator", "void result_type")
 {
 	constexpr auto void_sequence = (ign1 >> ign2);
 
@@ -127,20 +127,11 @@ constexpr auto sequence_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
 	return true;
 };
 
-static void anything_and_anything()
+TEST("sequence operator", "{anything} >> {anything}")
 {
 	// Note that all the operations are reimplemented for sequence_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
 	assert
 		, check_all_sample_pairs(sequence_checker)
 		;
-}
-
-void sequence_tests()
-{
-	Literal_and_Literal();
-	Sequence_and_Sequence();
-	Sequence_and_anything();
-	void_result();
-	anything_and_anything();
 }

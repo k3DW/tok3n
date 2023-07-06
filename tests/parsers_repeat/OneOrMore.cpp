@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void requirements()
+TEST("OneOrMore", "Requirements")
 {
 	assert
 		, IsParser<Oom1, OneOrMoreType, std::vector<std::string_view>>
@@ -10,7 +10,7 @@ static void requirements()
 		;
 }
 
-static void parse_OneOrMore_Literal()
+TEST("OneOrMore", "Parse OneOrMore<Literal>")
 {
 	assert
 		, parse<Oom1>("litera").failure()
@@ -22,7 +22,7 @@ static void parse_OneOrMore_Literal()
 		, parse<Oom1>("").failure()
 		;
 }
-static void parse_OneOrMore_OneChar()
+TEST("OneOrMore", "Parse OneOrMore<OneChar>")
 {
 	assert
 		, parse<Oom2>("abcdef").success({ "a", "b", "c" }, "def")
@@ -31,7 +31,7 @@ static void parse_OneOrMore_OneChar()
 		, parse<Oom2>("").failure()
 		;
 }
-static void parse_OneOrMore_Choice()
+TEST("OneOrMore", "Parse OneOrMore<Choice>")
 {
 	assert
 		, parse<Oom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
@@ -40,7 +40,7 @@ static void parse_OneOrMore_Choice()
 		, parse<Oom3>("").failure()
 		;
 }
-static void parse_OneOrMore_Sequence()
+TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 {
 	assert
 		, parse<Oom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
@@ -48,13 +48,4 @@ static void parse_OneOrMore_Sequence()
 		, parse<Oom4>("aliteralaliteralcliteralbliteral").failure()
 		, parse<Oom4>("").failure()
 		;
-}
-
-void OneOrMore_tests()
-{
-	requirements();
-	parse_OneOrMore_Literal();
-	parse_OneOrMore_OneChar();
-	parse_OneOrMore_Choice();
-	parse_OneOrMore_Sequence();
 }

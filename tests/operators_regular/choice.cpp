@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void OneChar_and_OneChar()
+TEST("choice operator", "OneChar | OneChar")
 {
 	assert
 		, (oc1 | oc2) == (oc2 | oc1)
@@ -15,7 +15,7 @@ static void OneChar_and_OneChar()
 		;
 }
 
-static void NotChar_and_NotChar()
+TEST("choice operator", "NotChar | NotChar")
 {
 	assert
 		, (nc1 | nc2) == (nc2 | nc1)
@@ -30,7 +30,7 @@ static void NotChar_and_NotChar()
 		;
 }
 
-static void OneChar_and_NotChar()
+TEST("choice operator", "OneChar | NotChar, and NotChar | OneChar")
 {
 	assert
 		, (oc1 | nc1) == (nc1 | oc1)
@@ -56,7 +56,7 @@ static void OneChar_and_NotChar()
 
 
 
-static void Choice_and_Choice()
+TEST("choice operator", "Choice | Choice")
 {
 	assert
 		, (cho1 | cho1) == cho1
@@ -78,7 +78,7 @@ static void Choice_and_Choice()
 		;
 }
 
-static void Choice_and_anything()
+TEST("choice operator", "Choice | {anything}, and {anything} | Choice")
 {
 	assert
 		, (cho1 | oc1) == Choice<L4, NC4, OC1>{}
@@ -92,7 +92,7 @@ static void Choice_and_anything()
 		;
 }
 
-static void void_result()
+TEST("choice operator", "void result_type")
 {
 	constexpr auto void_choice = (ign1 | ign2);
 
@@ -272,22 +272,11 @@ constexpr auto choice_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
 	return true;
 };
 
-static void anything_and_anything()
+TEST("choice operator", "{anything} | {anything}")
 {
 	// Note that all the operations are reimplemented for choice_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
 	assert
 		, check_all_sample_pairs(choice_checker)
 		;
-}
-
-void choice_tests()
-{
-	OneChar_and_OneChar();
-	NotChar_and_NotChar();
-	OneChar_and_NotChar();
-	Choice_and_Choice();
-	Choice_and_anything();
-	void_result();
-	anything_and_anything();
 }

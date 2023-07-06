@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void prefix()
+TEST("delimit modifier", "prefix")
 {
 	assert
 		, del1 == delimit(abc, comma)
@@ -14,7 +14,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("delimit modifier", "infix")
 {
 	assert
 		, del1 == abc % delimit(comma)
@@ -48,16 +48,9 @@ constexpr auto delimit_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void delimit_anything()
+TEST("delimit modifier", "modify anything")
 {
 	assert
 		, check_all_samples(delimit_checker)
 		;
-}
-
-void delimit_tests()
-{
-	prefix();
-	infix();
-	delimit_anything();
 }

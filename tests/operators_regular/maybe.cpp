@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void Maybe_Maybe()
+TEST("maybe operator", "~Maybe")
 {
 	assert
 		, ~may1 == may1
@@ -18,7 +18,7 @@ static void Maybe_Maybe()
 		;
 }
 
-static void Maybe_OneOrMore()
+TEST("maybe operator", "~OneOrMore")
 {
 	assert
 		, ~oom1 == zom1
@@ -36,7 +36,7 @@ static void Maybe_OneOrMore()
 		;
 }
 
-static void Maybe_ZeroOrMore()
+TEST("maybe operator", "~ZeroOrMore")
 {
 	assert
 		, ~zom1 == zom1
@@ -83,17 +83,9 @@ constexpr auto maybe_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void maybe_anything()
+TEST("maybe operator", "~{anything}")
 {
 	assert
 		, check_all_samples(maybe_checker)
 		;
-}
-
-void maybe_tests()
-{
-	Maybe_Maybe();
-	Maybe_OneOrMore();
-	Maybe_ZeroOrMore();
-	maybe_anything();
 }

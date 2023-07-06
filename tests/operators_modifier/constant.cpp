@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void prefix()
+TEST("constant modifier", "prefix")
 {
 	assert
 		, con1 == constant<1>(+abc)
@@ -10,7 +10,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("constant modifier", "infix")
 {
 	assert
 		, con1 == +abc % constant<1>
@@ -32,16 +32,9 @@ constexpr auto constant_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void constant_anything()
+TEST("constant modifier", "modify anything")
 {
 	assert
 		, check_all_samples(constant_checker)
 		;
-}
-
-void constant_tests()
-{
-	prefix();
-	infix();
-	constant_anything();
 }

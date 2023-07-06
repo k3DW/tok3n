@@ -1,6 +1,6 @@
 #include "pch.h"
 
-static void prefix()
+TEST("apply modifier", "prefix")
 {
 	assert
 		, apt1 == apply<func3_apply>(abc >> *qq)
@@ -9,7 +9,7 @@ static void prefix()
 		;
 }
 
-static void infix()
+TEST("apply modifier", "infix")
 {
 	assert
 		, apt1 == (abc >> *qq) % apply<func3_apply>
@@ -38,16 +38,9 @@ constexpr auto apply_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void apply_anything()
+TEST("apply modifier", "modify anything")
 {
 	assert
 		, check_all_samples(apply_checker)
 		;
-}
-
-void apply_tests()
-{
-	prefix();
-	infix();
-	apply_anything();
 }
