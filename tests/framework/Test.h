@@ -68,7 +68,7 @@ class TestOverride {};
 
 
 
-#define DISABLE_STATIC_ASSERT
+// #define DISABLE_STATIC_ASSERT
 
 #ifdef DISABLE_STATIC_ASSERT
 #define STATIC_ASSERT(...)
