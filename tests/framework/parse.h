@@ -79,15 +79,3 @@ consteval auto parse(P, Input input)
 {
 	return parse_t<P>{ input };
 }
-
-struct TestRunner
-{
-	struct Error
-	{
-		std::string_view message;
-		std::source_location location;
-	};
-
-	static inline std::vector<Error> all_errors;
-	static inline std::size_t total_assertions;
-};
