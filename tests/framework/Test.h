@@ -52,7 +52,7 @@ inline Test::Test(std::string_view fixture_name, std::string name)
 template <k3::tok3n::StaticString fixture, k3::tok3n::StaticString test>
 class TestOverride {};
 
-#define TOK3N_TEST(FIXTURE, NAME)                      \
+#define TEST(FIXTURE, NAME)                            \
 	template <>                                        \
 	class TestOverride<#FIXTURE, #NAME> : Test         \
 	{                                                  \
@@ -68,16 +68,16 @@ class TestOverride {};
 
 
 
-#define TOK3N_STATIC_ASSERT_DISABLED
+#define DISABLE_STATIC_ASSERT
 
-#ifdef TOK3N_STATIC_ASSERT_DISABLED
-#define TOK3N_STATIC_ASSERT(...)
+#ifdef DISABLE_STATIC_ASSERT
+#define STATIC_ASSERT(...)
 #else
-#define TOK3N_STATIC_ASSERT(...) static_assert(__VA_ARGS__)
+#define STATIC_ASSERT(...) static_assert(__VA_ARGS__)
 #endif
 
-#define TOK3N_ASSERT(CONDITION, MESSAGE)           \
-	[&]() -> bool {                                \
-		TOK3N_STATIC_ASSERT((CONDITION), MESSAGE); \
-		return Assert((CONDITION), (MESSAGE));     \
+#define ASSERT(CONDITION, MESSAGE)             \
+	[&]() -> bool {                            \
+		STATIC_ASSERT((CONDITION), MESSAGE);   \
+		return Assert((CONDITION), (MESSAGE)); \
 	}()
