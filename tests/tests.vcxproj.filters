@@ -72,7 +72,9 @@
     <ClInclude Include="framework\FixtureResult.h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="framework\AssertParse.h" />
+    <ClInclude Include="framework\AssertParse.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
