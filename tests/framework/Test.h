@@ -52,19 +52,19 @@ inline Test::Test(std::string_view fixture_name, std::string name)
 template <k3::tok3n::StaticString fixture, k3::tok3n::StaticString test>
 class TestOverride {};
 
-#define TEST(FIXTURE, NAME)                            \
-	template <>                                        \
-	class TestOverride<#FIXTURE, #NAME> : Test         \
-	{                                                  \
-		TestOverride() : Test(#FIXTURE, #NAME) {}      \
-		void _run() override;                          \
-		class Initializer;                             \
-	};                                                 \
-	class TestOverride<#FIXTURE, #NAME>::Initializer   \
-	{                                                  \
-		static inline TestOverride<#FIXTURE, #NAME> _; \
-	};                                                 \
-	void TestOverride<#FIXTURE, #NAME>::_run()
+#define TEST(FIXTURE, NAME)                          \
+	template <>                                      \
+	class TestOverride<FIXTURE, NAME> : Test         \
+	{                                                \
+		TestOverride() : Test(FIXTURE, NAME) {}      \
+		void _run() override;                        \
+		class Initializer;                           \
+	};                                               \
+	class TestOverride<FIXTURE, NAME>::Initializer   \
+	{                                                \
+		static inline TestOverride<FIXTURE, NAME> _; \
+	};                                               \
+	void TestOverride<FIXTURE, NAME>::_run()
 
 
 
