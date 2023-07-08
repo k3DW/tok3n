@@ -18,41 +18,37 @@ TEST("Choice", "Requirements")
 
 TEST("Choice", "Parse two-way Choice")
 {
-	assert
-		, parse<TwoWay1>("abc").success("ab", "c")
-		, parse<TwoWay1>("ba").success("b", "a")
-		, parse<TwoWay1>("cba").failure()
-		, parse<TwoWay1>("dcba").failure()
-		, parse<TwoWay1>("edcba").success("e", "dcba")
+	ASSERT_PARSE_SUCCESS(TwoWay1, "abc", "ab", "c");
+	ASSERT_PARSE_SUCCESS(TwoWay1, "ba", "b", "a");
+	ASSERT_PARSE_FAILURE(TwoWay1, "cba");
+	ASSERT_PARSE_FAILURE(TwoWay1, "dcba");
+	ASSERT_PARSE_SUCCESS(TwoWay1, "edcba", "e", "dcba");
 
-		, parse<TwoWay2>("abc").success("a", "bc")
-		, parse<TwoWay2>("ba").success("b", "a")
-		, parse<TwoWay2>("cba").failure()
-		, parse<TwoWay2>("dcba").failure()
-		, parse<TwoWay2>("edcba").success("e", "dcba")
-		;
+	ASSERT_PARSE_SUCCESS(TwoWay2, "abc", "a", "bc");
+	ASSERT_PARSE_SUCCESS(TwoWay2, "ba", "b", "a");
+	ASSERT_PARSE_FAILURE(TwoWay2, "cba");
+	ASSERT_PARSE_FAILURE(TwoWay2, "dcba");
+	ASSERT_PARSE_SUCCESS(TwoWay2, "edcba", "e", "dcba");
 }
 
 TEST("Choice", "Parse three-way Choice")
 {
-	assert
-		, parse<ThreeWay1>("abc").success("ab", "c")
-		, parse<ThreeWay1>("ba").success("b", "a")
-		, parse<ThreeWay1>("cba").success("c", "ba")
-		, parse<ThreeWay1>("dcba").success("d", "cba")
-		, parse<ThreeWay1>("edcba").success("e", "dcba")
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "abc", "ab", "c");
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "ba", "b", "a");
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "cba", "c", "ba");
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "dcba", "d", "cba");
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "edcba", "e", "dcba");
 
-		, parse<ThreeWay2>("abc").success("a", "bc")
-		, parse<ThreeWay2>("ba").success("b", "a")
-		, parse<ThreeWay2>("cba").success("c", "ba")
-		, parse<ThreeWay2>("dcba").success("d", "cba")
-		, parse<ThreeWay2>("edcba").success("e", "dcba")
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "abc", "a", "bc");
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "ba", "b", "a");
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "cba", "c", "ba");
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "dcba", "d", "cba");
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "edcba", "e", "dcba");
 
-		, parse<ThreeWay1>("zyx").failure()
-		, parse<ThreeWay1>("xyz").success("x", "yz")
-		, parse<ThreeWay2>("zyx").failure()
-		, parse<ThreeWay2>("xyz").success("x", "yz")
-		;
+	ASSERT_PARSE_FAILURE(ThreeWay1, "zyx");
+	ASSERT_PARSE_SUCCESS(ThreeWay1, "xyz", "x", "yz");
+	ASSERT_PARSE_FAILURE(ThreeWay2, "zyx");
+	ASSERT_PARSE_SUCCESS(ThreeWay2, "xyz", "x", "yz");
 }
 
 

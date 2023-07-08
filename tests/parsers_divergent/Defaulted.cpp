@@ -10,16 +10,14 @@ TEST("Defaulted", "Requirements")
 
 TEST("Defaulted", "Parse all")
 {
-	assert
-		, parse<Def1>("abcabcabcab").success(0, "ab")
-		, parse<Def1>("").failure()
-		, parse<Def1>("ab").failure()
-		, parse<Def1>("abc").success(0, "")
+	ASSERT_PARSE_SUCCESS(Def1, "abcabcabcab", 0, "ab");
+	ASSERT_PARSE_FAILURE(Def1, "");
+	ASSERT_PARSE_FAILURE(Def1, "ab");
+	ASSERT_PARSE_SUCCESS(Def1, "abc", 0, "");
 
-		, parse<Def2>("abcabc").success(Class3{}, "abc")
-		, parse<Def2>("a??bcabc").success(Class3{}, "a??bcabc")
-		, parse<Def2>("").success(Class3{}, "")
-		, parse<Def2>("??abcabc").success(Class3{}, "abcabc")
-		, parse<Def2>(" ??abcabc").success(Class3{}, " ??abcabc")
-		;
+	ASSERT_PARSE_SUCCESS(Def2, "abcabc", Class3{}, "abc");
+	ASSERT_PARSE_SUCCESS(Def2, "a??bcabc", Class3{}, "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Def2, "", Class3{}, "");
+	ASSERT_PARSE_SUCCESS(Def2, "??abcabc", Class3{}, "abcabc");
+	ASSERT_PARSE_SUCCESS(Def2, " ??abcabc", Class3{}, " ??abcabc");
 }

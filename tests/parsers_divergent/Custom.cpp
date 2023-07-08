@@ -9,12 +9,10 @@ TEST("Custom", "Requirements")
 
 TEST("Custom", "Parse all")
 {
-	assert
-		, parse<Cus1>("abcabcabcabc??").success(36, "")
-		, parse<Cus1>("abcabcabcabc").success(12, "")
-		, parse<Cus1>("abcabcabcabc ??").success(12, " ??")
-		, parse<Cus1>("abc").success(3, "")
-		, parse<Cus1>(" abc").failure()
-		, parse<Cus1>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc??", 36, "");
+	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc", 12, "");
+	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc ??", 12, " ??");
+	ASSERT_PARSE_SUCCESS(Cus1, "abc", 3, "");
+	ASSERT_PARSE_FAILURE(Cus1, " abc");
+	ASSERT_PARSE_FAILURE(Cus1, "");
 }

@@ -12,29 +12,27 @@ TEST("Transform", "Requirements")
 
 TEST("Transform", "Parse all")
 {
-	assert
-		, parse<Tra1>("abcabcabcab").success(3, "ab")
-		, parse<Tra1>("").failure()
-		, parse<Tra1>("ab").failure()
-		, parse<Tra1>("abc").success(1, "")
+	ASSERT_PARSE_SUCCESS(Tra1, "abcabcabcab", 3, "ab");
+	ASSERT_PARSE_FAILURE(Tra1, "");
+	ASSERT_PARSE_FAILURE(Tra1, "ab");
+	ASSERT_PARSE_SUCCESS(Tra1, "abc", 1, "");
 		
-		, parse<Tra2>("abcabc").success({ 'a', 'b', 'c' }, "abc")
-		, parse<Tra2>("a??bcabc").success({}, "a??bcabc")
-		, parse<Tra2>("").success({}, "")
-		, parse<Tra2>("??abcabc").success({ '?', '?' }, "abcabc")
-		, parse<Tra2>(" ??abcabc").success({}, " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", { 'a', 'b', 'c' }, "abc");
+	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", {}, "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, "", {}, "");
+	ASSERT_PARSE_SUCCESS(Tra2, "??abcabc", { '?', '?' }, "abcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, " ??abcabc", {}, " ??abcabc");
 		
-		, parse<Tra3>("abc???????").success(false, "?")
-		, parse<Tra3>("??abc???????").failure()
-		, parse<Tra3>("abc??abc???????").success(false, "abc???????")
-		, parse<Tra3>("abc ??abc???????").success(true, " ??abc???????")
-		, parse<Tra3>("").failure()
+	ASSERT_PARSE_SUCCESS(Tra3, "abc???????", false, "?");
+	ASSERT_PARSE_FAILURE(Tra3, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Tra3, "abc??abc???????", false, "abc???????");
+	ASSERT_PARSE_SUCCESS(Tra3, "abc ??abc???????", true, " ??abc???????");
+	ASSERT_PARSE_FAILURE(Tra3, "");
 		
-		, parse<Tra4>("abcabcabcabc??").success(36, "")
-		, parse<Tra4>("abcabcabcabc").success(12, "")
-		, parse<Tra4>("abcabcabcabc ??").success(12, " ??")
-		, parse<Tra4>("abc").success(3, "")
-		, parse<Tra4>(" abc").failure()
-		, parse<Tra4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc??", 36, "");
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc", 12, "");
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc ??", 12, " ??");
+	ASSERT_PARSE_SUCCESS(Tra4, "abc", 3, "");
+	ASSERT_PARSE_FAILURE(Tra4, " abc");
+	ASSERT_PARSE_FAILURE(Tra4, "");
 }

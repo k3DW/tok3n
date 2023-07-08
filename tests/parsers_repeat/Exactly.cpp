@@ -22,41 +22,33 @@ TEST("Exactly", "Constructibility")
 
 TEST("Exactly", "Parse Exactly<Literal>")
 {
-	assert
-		, parse<Exa1>("litera").failure()
-		, parse<Exa1>("literal").failure()
-		, parse<Exa1>("literalliteral").failure()
-		, parse<Exa1>("literalliteralliteral").success({ "literal", "literal", "literal" }, "")
-		, parse<Exa1>(" literalliteralliteral").failure()
-		, parse<Exa1>("literalliteralliteralliteral").success({ "literal", "literal", "literal" }, "literal")
-		, parse<Exa1>("literalliteralliterallyliteral").success({ "literal", "literal", "literal" }, "lyliteral")
-		, parse<Exa1>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Exa1, "litera");
+	ASSERT_PARSE_FAILURE(Exa1, "literal");
+	ASSERT_PARSE_FAILURE(Exa1, "literalliteral");
+	ASSERT_PARSE_SUCCESS(Exa1, "literalliteralliteral", { "literal", "literal", "literal" }, "");
+	ASSERT_PARSE_FAILURE(Exa1, " literalliteralliteral");
+	ASSERT_PARSE_SUCCESS(Exa1, "literalliteralliteralliteral", { "literal", "literal", "literal" }, "literal");
+	ASSERT_PARSE_SUCCESS(Exa1, "literalliteralliterallyliteral", { "literal", "literal", "literal" }, "lyliteral");
+	ASSERT_PARSE_FAILURE(Exa1, "");
 }
 TEST("Exactly", "Parse Exactly<OneChar>")
 {
-	assert
-		, parse<Exa2>("abcbaa").success({ "a", "b", "c", "b", "a" }, "a")
-		, parse<Exa2>("fedcba").failure()
-		, parse<Exa2>("cbabcccbjklmnop").success({ "c", "b", "a", "b", "c" }, "ccbjklmnop")
-		, parse<Exa2>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Exa2, "abcbaa", { "a", "b", "c", "b", "a" }, "a");
+	ASSERT_PARSE_FAILURE(Exa2, "fedcba");
+	ASSERT_PARSE_SUCCESS(Exa2, "cbabcccbjklmnop", { "c", "b", "a", "b", "c" }, "ccbjklmnop");
+	ASSERT_PARSE_FAILURE(Exa2, "");
 }
 TEST("Exactly", "Parse Exactly<Choice>")
 {
-	assert
-		, parse<Exa3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c" }, "bliteralcf")
-		, parse<Exa3>("abliteralcblitralcf").success({ "a", "b", "literal", "c" }, "blitralcf")
-		, parse<Exa3>("literalabacliteral").success({ "literal", "a", "b", "a" }, "cliteral")
-		, parse<Exa3>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Exa3, "abliteralcbliteralcf", { "a", "b", "literal", "c" }, "bliteralcf");
+	ASSERT_PARSE_SUCCESS(Exa3, "abliteralcblitralcf", { "a", "b", "literal", "c" }, "blitralcf");
+	ASSERT_PARSE_SUCCESS(Exa3, "literalabacliteral", { "literal", "a", "b", "a" }, "cliteral");
+	ASSERT_PARSE_FAILURE(Exa3, "");
 }
 TEST("Exactly", "Parse Exactly<Sequence>")
 {
-	assert
-		, parse<Exa4>("literalaliteralcliteralcliteralb").success({{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralb")
-		, parse<Exa4>("literalaliteralcliteralcliteralbliteral").success({{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralbliteral")
-		, parse<Exa4>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Exa4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralb", {{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralb");
+	ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralbliteral", {{ {"literal", "a"}, {"literal", "c"} }}, "literalcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Exa4, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Exa4, "");
 }

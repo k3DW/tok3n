@@ -11,14 +11,12 @@ TEST("Literal", "Requirements")
 
 TEST("Literal", "Parse 'literal'")
 {
-	assert
-		, parse<L>("literal").success("literal", "")
-		, parse<L>("literally").success("literal", "ly")
-		, parse<L>("litera").failure()
-		, parse<L>(" literal").failure()
-		, parse<L>("LITERAL").failure()
-		, parse<L>("LITERALLY").failure()
-		;
+	ASSERT_PARSE_SUCCESS(L, "literal", "literal", "");
+	ASSERT_PARSE_SUCCESS(L, "literally", "literal", "ly");
+	ASSERT_PARSE_FAILURE(L, "litera");
+	ASSERT_PARSE_FAILURE(L, " literal");
+	ASSERT_PARSE_FAILURE(L, "LITERAL");
+	ASSERT_PARSE_FAILURE(L, "LITERALLY");
 }
 
 
@@ -37,7 +35,7 @@ TEST("Literal", "Parse empty")
 {
 	assert
 		, constructible::from<"">
-		, parse<Literal<"">>("anything").success("", "anything")
-		, parse<Literal<"">>("").success("", "")
 		;
+	ASSERT_PARSE_SUCCESS(Literal<"">, "anything", "", "anything");
+	ASSERT_PARSE_SUCCESS(Literal<"">, "", "", "");
 }

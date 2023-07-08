@@ -13,84 +13,70 @@ TEST("Complete", "Requirements")
 
 TEST("Complete", "Complete<Literal>")
 {
-	assert
-		, parse<Com1>("litera").failure()
-		, parse<Com1>("literal").success({ "literal" }, "")
-		, parse<Com1>("literally").failure()
-		, parse<Com1>("literallitera").failure()
-		, parse<Com1>("literalliterallitera").failure()
-		, parse<Com1>(" literalliterallitera").failure()
-		, parse<Com1>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Com1, "litera");
+	ASSERT_PARSE_SUCCESS(Com1, "literal", { "literal" }, "");
+	ASSERT_PARSE_FAILURE(Com1, "literally");
+	ASSERT_PARSE_FAILURE(Com1, "literallitera");
+	ASSERT_PARSE_FAILURE(Com1, "literalliterallitera");
+	ASSERT_PARSE_FAILURE(Com1, " literalliterallitera");
+	ASSERT_PARSE_FAILURE(Com1, "");
 }
 TEST("Complete", "Complete<OneChar>")
 {
-	assert
-		, parse<Com2>("a").success({ "a" }, "")
-		, parse<Com2>("b").success({ "b" }, "")
-		, parse<Com2>("abcdef").failure()
-		, parse<Com2>("fedcba").failure()
-		, parse<Com2>("cbabcccbjklmnop").failure()
-		, parse<Com2>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Com2, "a", { "a" }, "");
+	ASSERT_PARSE_SUCCESS(Com2, "b", { "b" }, "");
+	ASSERT_PARSE_FAILURE(Com2, "abcdef");
+	ASSERT_PARSE_FAILURE(Com2, "fedcba");
+	ASSERT_PARSE_FAILURE(Com2, "cbabcccbjklmnop");
+	ASSERT_PARSE_FAILURE(Com2, "");
 }
 TEST("Complete", "Complete<Choice>")
 {
-	assert
-		, parse<Com3>("abliteralcbliteralcf").failure()
-		, parse<Com3>("abliteralcblitralcf").failure()
-		, parse<Com3>("literalabacliteral").failure()
-		, parse<Com3>("literal").success({ "literal" }, "")
-		, parse<Com3>("a").success({ "a" }, "")
-		, parse<Com3>("b").success({ "b" }, "")
-		, parse<Com3>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Com3, "abliteralcbliteralcf");
+	ASSERT_PARSE_FAILURE(Com3, "abliteralcblitralcf");
+	ASSERT_PARSE_FAILURE(Com3, "literalabacliteral");
+	ASSERT_PARSE_SUCCESS(Com3, "literal", { "literal" }, "");
+	ASSERT_PARSE_SUCCESS(Com3, "a", { "a" }, "");
+	ASSERT_PARSE_SUCCESS(Com3, "b", { "b" }, "");
+	ASSERT_PARSE_FAILURE(Com3, "");
 }
 TEST("Complete", "Complete<Sequence>")
 {
-	assert
-		, parse<Com4>("literalaliteralcliteralcliteralb").failure()
-		, parse<Com4>("literalaliteralcliteralcliteralbliteral").failure()
-		, parse<Com4>("literala").success({ "literal", "a" }, "")
-		, parse<Com4>("literalb").success({ "literal", "b" }, "")
-		, parse<Com4>("literald").failure()
-		, parse<Com4>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Com4>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralb");
+	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com4, "literala", { "literal", "a" }, "");
+	ASSERT_PARSE_SUCCESS(Com4, "literalb", { "literal", "b" }, "");
+	ASSERT_PARSE_FAILURE(Com4, "literald");
+	ASSERT_PARSE_FAILURE(Com4, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Com4, "");
 }
 TEST("Complete", "Complete<Maybe>")
 {
-	assert
-		, parse<Com5>("literalaliteralcliteralcliteralb").failure()
-		, parse<Com5>("literalaliteralcliteralcliteralbliteral").failure()
-		, parse<Com5>("literala").success({ { "literal", "a" } }, "")
-		, parse<Com5>("literalb").success({ { "literal", "b" } }, "")
-		, parse<Com5>("literald").failure()
-		, parse<Com5>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Com5>("").success({}, "")
-		;
+	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralb");
+	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com5, "literala", { { "literal", "a" } }, "");
+	ASSERT_PARSE_SUCCESS(Com5, "literalb", { { "literal", "b" } }, "");
+	ASSERT_PARSE_FAILURE(Com5, "literald");
+	ASSERT_PARSE_FAILURE(Com5, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com5, "", {}, "");
 }
 TEST("Complete", "Complete<OneOrMore>")
 {
-	assert
-		, parse<Com6>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
-		, parse<Com6>("literalaliteralcliteralcliteralbliteral").failure()
-		, parse<Com6>("literala").success({ { "literal", "a" } }, "")
-		, parse<Com6>("literalb").success({ { "literal", "b" } }, "")
-		, parse<Com6>("literald").failure()
-		, parse<Com6>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Com6>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", { { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "");
+	ASSERT_PARSE_FAILURE(Com6, "literalaliteralcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com6, "literala", { { "literal", "a" } }, "");
+	ASSERT_PARSE_SUCCESS(Com6, "literalb", { { "literal", "b" } }, "");
+	ASSERT_PARSE_FAILURE(Com6, "literald");
+	ASSERT_PARSE_FAILURE(Com6, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Com6, "");
 }
 TEST("Complete", "Complete<ZeroOrMore>")
 {
-	assert
-		, parse<Com7>("literalaliteralcliteralcliteralb").success({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "")
-		, parse<Com7>("literalaliteralcliteralcliteralbliteral").failure()
-		, parse<Com7>("literala").success({ { "literal", "a" } }, "")
-		, parse<Com7>("literalb").success({ { "literal", "b" } }, "")
-		, parse<Com7>("literald").failure()
-		, parse<Com7>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Com7>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", { { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }, "");
+	ASSERT_PARSE_FAILURE(Com7, "literalaliteralcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com7, "literala", { { "literal", "a" } }, "");
+	ASSERT_PARSE_SUCCESS(Com7, "literalb", { { "literal", "b" } }, "");
+	ASSERT_PARSE_FAILURE(Com7, "literald");
+	ASSERT_PARSE_FAILURE(Com7, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Com7, "", {}, "");
 }

@@ -12,40 +12,32 @@ TEST("OneOrMore", "Requirements")
 
 TEST("OneOrMore", "Parse OneOrMore<Literal>")
 {
-	assert
-		, parse<Oom1>("litera").failure()
-		, parse<Oom1>("literal").success({ "literal" }, "")
-		, parse<Oom1>("literally").success({ "literal" }, "ly")
-		, parse<Oom1>("literallitera").success({ "literal" }, "litera")
-		, parse<Oom1>("literalliterallitera").success({ "literal", "literal" }, "litera")
-		, parse<Oom1>(" literalliterallitera").failure()
-		, parse<Oom1>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Oom1, "litera");
+	ASSERT_PARSE_SUCCESS(Oom1, "literal", { "literal" }, "");
+	ASSERT_PARSE_SUCCESS(Oom1, "literally", { "literal" }, "ly");
+	ASSERT_PARSE_SUCCESS(Oom1, "literallitera", { "literal" }, "litera");
+	ASSERT_PARSE_SUCCESS(Oom1, "literalliterallitera", { "literal", "literal" }, "litera");
+	ASSERT_PARSE_FAILURE(Oom1, " literalliterallitera");
+	ASSERT_PARSE_FAILURE(Oom1, "");
 }
 TEST("OneOrMore", "Parse OneOrMore<OneChar>")
 {
-	assert
-		, parse<Oom2>("abcdef").success({ "a", "b", "c" }, "def")
-		, parse<Oom2>("fedcba").failure()
-		, parse<Oom2>("cbabcccbjklmnop").success({ "c", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
-		, parse<Oom2>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Oom2, "abcdef", { "a", "b", "c" }, "def");
+	ASSERT_PARSE_FAILURE(Oom2, "fedcba");
+	ASSERT_PARSE_SUCCESS(Oom2, "cbabcccbjklmnop", { "c", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop");
+	ASSERT_PARSE_FAILURE(Oom2, "");
 }
 TEST("OneOrMore", "Parse OneOrMore<Choice>")
 {
-	assert
-		, parse<Oom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
-		, parse<Oom3>("abliteralcblitralcf").success({ "a", "b", "literal", "c", "b" }, "litralcf")
-		, parse<Oom3>("literalabacliteral").success({ "literal", "a", "b", "a", "c", "literal" }, "")
-		, parse<Oom3>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Oom3, "abliteralcbliteralcf", { "a", "b", "literal", "c", "b", "literal", "c" }, "f");
+	ASSERT_PARSE_SUCCESS(Oom3, "abliteralcblitralcf", { "a", "b", "literal", "c", "b" }, "litralcf");
+	ASSERT_PARSE_SUCCESS(Oom3, "literalabacliteral", { "literal", "a", "b", "a", "c", "literal" }, "");
+	ASSERT_PARSE_FAILURE(Oom3, "");
 }
 TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 {
-	assert
-		, parse<Oom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
-		, parse<Oom4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "literal")
-		, parse<Oom4>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Oom4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralb", { {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "");
+	ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralbliteral", { {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "literal");
+	ASSERT_PARSE_FAILURE(Oom4, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Oom4, "");
 }

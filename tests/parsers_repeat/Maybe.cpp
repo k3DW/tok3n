@@ -12,40 +12,32 @@ TEST("Maybe", "Requirements")
 
 TEST("Maybe", "Parse Maybe<Literal>")
 {
-	assert
-		, parse<May1>("litera").success({}, "litera")
-		, parse<May1>("literal").success({ "literal" }, "")
-		, parse<May1>("literally").success({ "literal" }, "ly")
-		, parse<May1>("literallitera").success({ "literal" }, "litera")
-		, parse<May1>("literalliterallitera").success({ "literal" }, "literallitera")
-		, parse<May1>(" literalliterallitera").success({}, " literalliterallitera")
-		, parse<May1>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May1, "litera", {}, "litera");
+	ASSERT_PARSE_SUCCESS(May1, "literal", { "literal" }, "");
+	ASSERT_PARSE_SUCCESS(May1, "literally", { "literal" }, "ly");
+	ASSERT_PARSE_SUCCESS(May1, "literallitera", { "literal" }, "litera");
+	ASSERT_PARSE_SUCCESS(May1, "literalliterallitera", { "literal" }, "literallitera");
+	ASSERT_PARSE_SUCCESS(May1, " literalliterallitera", {}, " literalliterallitera");
+	ASSERT_PARSE_SUCCESS(May1, "", {}, "");
 }
 TEST("Maybe", "Parse Maybe<OneChar>")
 {
-	assert
-		, parse<May2>("abcdef").success({ "a" }, "bcdef")
-		, parse<May2>("fedcba").success({}, "fedcba")
-		, parse<May2>("cbabcccbjklmnop").success({ "c" }, "babcccbjklmnop")
-		, parse<May2>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May2, "abcdef", { "a" }, "bcdef");
+	ASSERT_PARSE_SUCCESS(May2, "fedcba", {}, "fedcba");
+	ASSERT_PARSE_SUCCESS(May2, "cbabcccbjklmnop", { "c" }, "babcccbjklmnop");
+	ASSERT_PARSE_SUCCESS(May2, "", {}, "");
 }
 TEST("Maybe", "Parse Maybe<Choice>")
 {
-	assert
-		, parse<May3>("abliteralcbliteralcf").success({ "a" }, "bliteralcbliteralcf")
-		, parse<May3>("abliteralcblitralcf").success({ "a" }, "bliteralcblitralcf")
-		, parse<May3>("literalabacliteral").success({ "literal" }, "abacliteral")
-		, parse<May3>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May3, "abliteralcbliteralcf", { "a" }, "bliteralcbliteralcf");
+	ASSERT_PARSE_SUCCESS(May3, "abliteralcblitralcf", { "a" }, "bliteralcblitralcf");
+	ASSERT_PARSE_SUCCESS(May3, "literalabacliteral", { "literal" }, "abacliteral");
+	ASSERT_PARSE_SUCCESS(May3, "", {}, "");
 }
 TEST("Maybe", "Parse Maybe<Sequence>")
 {
-	assert
-		, parse<May4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"} }, "literalcliteralcliteralb")
-		, parse<May4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"} }, "literalcliteralcliteralbliteral")
-		, parse<May4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
-		, parse<May4>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", { {"literal", "a"} }, "literalcliteralcliteralb");
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", { {"literal", "a"} }, "literalcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, "aliteralaliteralcliteralbliteral", {}, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, "", {}, "");
 }

@@ -13,21 +13,17 @@ TEST("Sequence", "Requirements")
 
 TEST("Sequence", "Parse two-way Sequence")
 {
-	assert
-		, parse<TwoWay>("abc").failure()
-		, parse<TwoWay>("abcd").failure()
-		, parse<TwoWay>("abef").success({ "ab", "e" }, "f")
-		, parse<TwoWay>("ab ef").success({ "ab", " " }, "ef")
-		;
+	ASSERT_PARSE_FAILURE(TwoWay, "abc");
+	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
+	ASSERT_PARSE_SUCCESS(TwoWay, "abef", { "ab", "e" }, "f");
+	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", { "ab", " " }, "ef");
 }
 
 TEST("Sequence", "Parse three-way Sequence")
 {
-	assert
-		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
-		, parse<ThreeWay>("abdc").success({ "ab", "d", "c" }, "")
-		, parse<ThreeWay>("abcz").failure()
-		;
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", { "ab", "c", "d" }, "e");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", { "ab", "d", "c" }, "");
+	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
 }
 
 

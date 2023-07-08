@@ -30,96 +30,88 @@ TEST("Delimit keep", "Requirements")
 
 TEST("Delimit regular", "Parse all")
 {
-	assert
-		, parse<Del1>("abc,abc,abc,,abc,abc,abc").success({ "abc", "abc", "abc" }, ",,abc,abc,abc")
-		, parse<Del1>(",abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Del1>("abc ,abc,abc,abc,,abc,abc,abc").success({ "abc" }, " ,abc,abc,abc,,abc,abc,abc")
-		, parse<Del1>("").failure()
-		, parse<Del2>("abc.abc abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
-		, parse<Del2>("abc abc.abc .abc.abc abc").success({ "abc", "abc", "abc" }, " .abc.abc abc")
-		, parse<Del2>(".abc abc.abc .abc.abc abc").failure()
-		, parse<Del2>(" abc abc.abc .abc.abc abc").failure()
-		, parse<Del2>("").failure()
-		, parse<Del3>("??,??,??,,??,??,??").success({ "??", "??", "??" }, ",,??,??,??")
-		, parse<Del3>(",??,??,??,,??,??,??").failure()
-		, parse<Del3>("?? ,??,??,??,,??,??,??").success({ "??" }, " ,??,??,??,,??,??,??")
-		, parse<Del3>("").failure()
-		, parse<Del4>("??.?? ?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
-		, parse<Del4>("?? ??.?? .??.?? ??").success({ "??", "??", "??" }, " .??.?? ??")
-		, parse<Del4>(".?? ??.?? .??.?? ??").failure()
-		, parse<Del4>(" ?? ??.?? .??.?? ??").failure()
-		, parse<Del4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Del1, "abc,abc,abc,,abc,abc,abc", { "abc", "abc", "abc" }, ",,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Del1, ",abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_SUCCESS(Del1, "abc ,abc,abc,abc,,abc,abc,abc", { "abc" }, " ,abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Del1, "");
+	ASSERT_PARSE_SUCCESS(Del2, "abc.abc abc .abc.abc abc", { "abc", "abc", "abc" }, " .abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Del2, "abc abc.abc .abc.abc abc", { "abc", "abc", "abc" }, " .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Del2, ".abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Del2, " abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Del2, "");
+	ASSERT_PARSE_SUCCESS(Del3, "??,??,??,,??,??,??", { "??", "??", "??" }, ",,??,??,??");
+	ASSERT_PARSE_FAILURE(Del3, ",??,??,??,,??,??,??");
+	ASSERT_PARSE_SUCCESS(Del3, "?? ,??,??,??,,??,??,??", { "??" }, " ,??,??,??,,??,??,??");
+	ASSERT_PARSE_FAILURE(Del3, "");
+	ASSERT_PARSE_SUCCESS(Del4, "??.?? ?? .??.?? ??", { "??", "??", "??" }, " .??.?? ??");
+	ASSERT_PARSE_SUCCESS(Del4, "?? ??.?? .??.?? ??", { "??", "??", "??" }, " .??.?? ??");
+	ASSERT_PARSE_FAILURE(Del4, ".?? ??.?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Del4, " ?? ??.?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Del4, "");
 }
 
 TEST("Delimit regular", "Parse all inverted")
 {
-	assert
-		, parse<Del5>("abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Del5>(",abc,abc,abc,,abc,abc,abc").success({ ",", ",", ",", "," }, ",abc,abc,abc")
-		, parse<Del5>("abc ,abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Del5>("").failure()
-		, parse<Del6>("abc.abc abc .abc.abc abc").failure()
-		, parse<Del6>("abc abc.abc .abc.abc abc").failure()
-		, parse<Del6>(".abc abc.abc .abc.abc abc").success({ ".", " ", ".", " " }, ".abc.abc abc")
-		, parse<Del6>(" abc abc.abc .abc.abc abc").success({ " ", " ", ".", " " }, ".abc.abc abc")
-		, parse<Del6>("").failure()
-		, parse<Del7>("??,??,??,,??,??,??").failure()
-		, parse<Del7>(",??,??,??,,??,??,??").success({ ",", ",", ",", "," }, ",??,??,??")
-		, parse<Del7>("?? ,??,??,??,,??,??,??").failure()
-		, parse<Del7>("").failure()
-		, parse<Del8>("??.?? ?? .??.?? ??").failure()
-		, parse<Del8>("?? ??.?? .??.?? ??").failure()
-		, parse<Del8>(".?? ??.?? .??.?? ??").success({ ".", " ", ".", " " }, ".??.?? ??")
-		, parse<Del8>(" ?? ??.?? .??.?? ??").success({ " ", " ", ".", " " }, ".??.?? ??")
-		, parse<Del8>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Del5, "abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_SUCCESS(Del5, ",abc,abc,abc,,abc,abc,abc", { ",", ",", ",", "," }, ",abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Del5, "abc ,abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Del5, "");
+	ASSERT_PARSE_FAILURE(Del6, "abc.abc abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Del6, "abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Del6, ".abc abc.abc .abc.abc abc", { ".", " ", ".", " " }, ".abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Del6, " abc abc.abc .abc.abc abc", { " ", " ", ".", " " }, ".abc.abc abc");
+	ASSERT_PARSE_FAILURE(Del6, "");
+	ASSERT_PARSE_FAILURE(Del7, "??,??,??,,??,??,??");
+	ASSERT_PARSE_SUCCESS(Del7, ",??,??,??,,??,??,??", { ",", ",", ",", "," }, ",??,??,??");
+	ASSERT_PARSE_FAILURE(Del7, "?? ,??,??,??,,??,??,??");
+	ASSERT_PARSE_FAILURE(Del7, "");
+	ASSERT_PARSE_FAILURE(Del8, "??.?? ?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Del8, "?? ??.?? .??.?? ??");
+	ASSERT_PARSE_SUCCESS(Del8, ".?? ??.?? .??.?? ??", { ".", " ", ".", " " }, ".??.?? ??");
+	ASSERT_PARSE_SUCCESS(Del8, " ?? ??.?? .??.?? ??", { " ", " ", ".", " " }, ".??.?? ??");
+	ASSERT_PARSE_FAILURE(Del8, "");
 }
 
 TEST("Delimit keep", "Parse all")
 {
-	assert
-		, parse<Dek1>("abc,abc,abc,,abc,abc,abc").success({ { "abc", "abc", "abc" }, { ",", "," } }, ",,abc,abc,abc")
-		, parse<Dek1>(",abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Dek1>("abc ,abc,abc,abc,,abc,abc,abc").success({ { "abc" }, {} }, " ,abc,abc,abc,,abc,abc,abc")
-		, parse<Dek1>("").failure()
-		, parse<Dek2>("abc.abc abc .abc.abc abc").success({ { "abc", "abc", "abc" }, { ".", " " } }, " .abc.abc abc")
-		, parse<Dek2>("abc abc.abc .abc.abc abc").success({ { "abc", "abc", "abc" }, { " ", "." } }, " .abc.abc abc")
-		, parse<Dek2>(".abc abc.abc .abc.abc abc").failure()
-		, parse<Dek2>(" abc abc.abc .abc.abc abc").failure()
-		, parse<Dek2>("").failure()
-		, parse<Dek3>("??,??,??,,??,??,??").success({ { "??", "??", "??" }, { ",", "," } }, ",,??,??,??")
-		, parse<Dek3>(",??,??,??,,??,??,??").failure()
-		, parse<Dek3>("?? ,??,??,??,,??,??,??").success({ { "??" }, {} }, " ,??,??,??,,??,??,??")
-		, parse<Dek3>("").failure()
-		, parse<Dek4>("??.?? ?? .??.?? ??").success({ { "??", "??", "??" }, { ".", " " } }, " .??.?? ??")
-		, parse<Dek4>("?? ??.?? .??.?? ??").success({ { "??", "??", "??" }, { " ", "." } }, " .??.?? ??")
-		, parse<Dek4>(".?? ??.?? .??.?? ??").failure()
-		, parse<Dek4>(" ?? ??.?? .??.?? ??").failure()
-		, parse<Dek4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Dek1, "abc,abc,abc,,abc,abc,abc", { { "abc", "abc", "abc" }, { ",", "," } }, ",,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Dek1, ",abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_SUCCESS(Dek1, "abc ,abc,abc,abc,,abc,abc,abc", { { "abc" }, {} }, " ,abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Dek1, "");
+	ASSERT_PARSE_SUCCESS(Dek2, "abc.abc abc .abc.abc abc", { { "abc", "abc", "abc" }, { ".", " " } }, " .abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Dek2, "abc abc.abc .abc.abc abc", { { "abc", "abc", "abc" }, { " ", "." } }, " .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Dek2, ".abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Dek2, " abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Dek2, "");
+	ASSERT_PARSE_SUCCESS(Dek3, "??,??,??,,??,??,??", { { "??", "??", "??" }, { ",", "," } }, ",,??,??,??");
+	ASSERT_PARSE_FAILURE(Dek3, ",??,??,??,,??,??,??");
+	ASSERT_PARSE_SUCCESS(Dek3, "?? ,??,??,??,,??,??,??", { { "??" }, {} }, " ,??,??,??,,??,??,??");
+	ASSERT_PARSE_FAILURE(Dek3, "");
+	ASSERT_PARSE_SUCCESS(Dek4, "??.?? ?? .??.?? ??", { { "??", "??", "??" }, { ".", " " } }, " .??.?? ??");
+	ASSERT_PARSE_SUCCESS(Dek4, "?? ??.?? .??.?? ??", { { "??", "??", "??" }, { " ", "." } }, " .??.?? ??");
+	ASSERT_PARSE_FAILURE(Dek4, ".?? ??.?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Dek4, " ?? ??.?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Dek4, "");
 }
 
 TEST("Delimit keep", "Parse all inverted")
 {
-	assert
-		, parse<Dek5>("abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Dek5>(",abc,abc,abc,,abc,abc,abc").success({ { ",", ",", ",", "," }, { "abc", "abc", "abc" } }, ",abc,abc,abc")
-		, parse<Dek5>("abc ,abc,abc,abc,,abc,abc,abc").failure()
-		, parse<Dek5>("").failure()
-		, parse<Dek6>("abc.abc abc .abc.abc abc").failure()
-		, parse<Dek6>("abc abc.abc .abc.abc abc").failure()
-		, parse<Dek6>(".abc abc.abc .abc.abc abc").success({ { ".", " ", ".", " " }, { "abc", "abc", "abc" } }, ".abc.abc abc")
-		, parse<Dek6>(" abc abc.abc .abc.abc abc").success({ { " ", " ", ".", " " }, { "abc", "abc", "abc" } }, ".abc.abc abc")
-		, parse<Dek6>("").failure()
-		, parse<Dek7>("??,??,??,,??,??,??").failure()
-		, parse<Dek7>(",??,??,??,,??,??,??").success({ { ",", ",", ",", "," }, { "??", "??", "??" } }, ",??,??,??")
-		, parse<Dek7>("?? ,??,??,??,,??,??,??").failure()
-		, parse<Dek7>("").failure()
-		, parse<Dek8>("??.?? ?? .??.?? ??").failure()
-		, parse<Dek8>("?? ??.?? .??.?? ??").failure()
-		, parse<Dek8>(".?? ??.?? .??.?? ??").success({ { ".", " ", ".", " " }, { "??", "??", "??" } }, ".??.?? ??")
-		, parse<Dek8>(" ?? ??.?? .??.?? ??").success({ { " ", " ", ".", " " }, { "??", "??", "??" } }, ".??.?? ??")
-		, parse<Dek8>("").failure()
-		;
+	ASSERT_PARSE_FAILURE(Dek5, "abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_SUCCESS(Dek5, ",abc,abc,abc,,abc,abc,abc", { { ",", ",", ",", "," }, { "abc", "abc", "abc" } }, ",abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Dek5, "abc ,abc,abc,abc,,abc,abc,abc");
+	ASSERT_PARSE_FAILURE(Dek5, "");
+	ASSERT_PARSE_FAILURE(Dek6, "abc.abc abc .abc.abc abc");
+	ASSERT_PARSE_FAILURE(Dek6, "abc abc.abc .abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Dek6, ".abc abc.abc .abc.abc abc", { { ".", " ", ".", " " }, { "abc", "abc", "abc" } }, ".abc.abc abc");
+	ASSERT_PARSE_SUCCESS(Dek6, " abc abc.abc .abc.abc abc", { { " ", " ", ".", " " }, { "abc", "abc", "abc" } }, ".abc.abc abc");
+	ASSERT_PARSE_FAILURE(Dek6, "");
+	ASSERT_PARSE_FAILURE(Dek7, "??,??,??,,??,??,??");
+	ASSERT_PARSE_SUCCESS(Dek7, ",??,??,??,,??,??,??", { { ",", ",", ",", "," }, { "??", "??", "??" } }, ",??,??,??");
+	ASSERT_PARSE_FAILURE(Dek7, "?? ,??,??,??,,??,??,??");
+	ASSERT_PARSE_FAILURE(Dek7, "");
+	ASSERT_PARSE_FAILURE(Dek8, "??.?? ?? .??.?? ??");
+	ASSERT_PARSE_FAILURE(Dek8, "?? ??.?? .??.?? ??");
+	ASSERT_PARSE_SUCCESS(Dek8, ".?? ??.?? .??.?? ??", { { ".", " ", ".", " " }, { "??", "??", "??" } }, ".??.?? ??");
+	ASSERT_PARSE_SUCCESS(Dek8, " ?? ??.?? .??.?? ??", { { " ", " ", ".", " " }, { "??", "??", "??" } }, ".??.?? ??");
+	ASSERT_PARSE_FAILURE(Dek8, "");
 }

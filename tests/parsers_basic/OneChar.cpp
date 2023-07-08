@@ -13,34 +13,30 @@ TEST("OneChar", "Requirements")
 
 TEST("OneChar", "Parse single char")
 {
-	assert
-		, parse<Single>("ab").success("a", "b")
-		, parse<Single>("ba").failure()
-		, parse<Single>("abc").success("a", "bc")
-		, parse<Single>("Ab").failure()
-		, parse<Single>("Abc").failure()
-		, parse<Single>(" abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
+	ASSERT_PARSE_FAILURE(Single, "ba");
+	ASSERT_PARSE_SUCCESS(Single, "abc", "a", "bc");
+	ASSERT_PARSE_FAILURE(Single, "Ab");
+	ASSERT_PARSE_FAILURE(Single, "Abc");
+	ASSERT_PARSE_FAILURE(Single, " abc");
 }
 
 TEST("OneChar", "Parse multi char")
 {
-	assert
-		, parse<Multi>("abc").success("a", "bc")
-		, parse<Multi>("acb").success("a", "cb")
-		, parse<Multi>("bac").success("b", "ac")
-		, parse<Multi>("bca").success("b", "ca")
-		, parse<Multi>("cab").success("c", "ab")
-		, parse<Multi>("cba").success("c", "ba")
-		, parse<Multi>("ABC").failure()
-		, parse<Multi>("ACB").failure()
-		, parse<Multi>("BAC").failure()
-		, parse<Multi>("BCA").failure()
-		, parse<Multi>("CAB").failure()
-		, parse<Multi>("CBA").failure()
-		, parse<Multi>("dcba").failure()
-		, parse<Multi>(" cba").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
+	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
+	ASSERT_PARSE_SUCCESS(Multi, "bac", "b", "ac");
+	ASSERT_PARSE_SUCCESS(Multi, "bca", "b", "ca");
+	ASSERT_PARSE_SUCCESS(Multi, "cab", "c", "ab");
+	ASSERT_PARSE_SUCCESS(Multi, "cba", "c", "ba");
+	ASSERT_PARSE_FAILURE(Multi, "ABC");
+	ASSERT_PARSE_FAILURE(Multi, "ACB");
+	ASSERT_PARSE_FAILURE(Multi, "BAC");
+	ASSERT_PARSE_FAILURE(Multi, "BCA");
+	ASSERT_PARSE_FAILURE(Multi, "CAB");
+	ASSERT_PARSE_FAILURE(Multi, "CBA");
+	ASSERT_PARSE_FAILURE(Multi, "dcba");
+	ASSERT_PARSE_FAILURE(Multi, " cba");
 }
 
 
@@ -74,7 +70,7 @@ TEST("OneChar", "Parse empty")
 {
 	assert
 		, constructible::from<"">
-		, parse<OneChar<"">>("anything").failure()
-		, parse<OneChar<"">>("").failure()
 		;
+	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
+	ASSERT_PARSE_FAILURE(OneChar<"">, "");
 }

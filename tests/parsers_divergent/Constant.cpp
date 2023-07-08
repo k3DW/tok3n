@@ -12,29 +12,27 @@ TEST("Constant", "Requirements")
 
 TEST("Constant", "Parse all")
 {
-	assert
-		, parse<Con1>("abcabcabcab").success(1, "ab")
-		, parse<Con1>("").failure()
-		, parse<Con1>("ab").failure()
-		, parse<Con1>("abc").success(1, "")
+	ASSERT_PARSE_SUCCESS(Con1, "abcabcabcab", 1, "ab");
+	ASSERT_PARSE_FAILURE(Con1, "");
+	ASSERT_PARSE_FAILURE(Con1, "ab");
+	ASSERT_PARSE_SUCCESS(Con1, "abc", 1, "");
 		
-		, parse<Con2>("abcabc").success('t', "abc")
-		, parse<Con2>("a??bcabc").success('t', "a??bcabc")
-		, parse<Con2>("").success('t', "")
-		, parse<Con2>("??abcabc").success('t', "abcabc")
-		, parse<Con2>(" ??abcabc").success('t', " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Con2, "abcabc", 't', "abc");
+	ASSERT_PARSE_SUCCESS(Con2, "a??bcabc", 't', "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Con2, "", 't', "");
+	ASSERT_PARSE_SUCCESS(Con2, "??abcabc", 't', "abcabc");
+	ASSERT_PARSE_SUCCESS(Con2, " ??abcabc", 't', " ??abcabc");
 		
-		, parse<Con3>("abc???????").success(true, "?")
-		, parse<Con3>("??abc???????").failure()
-		, parse<Con3>("abc??abc???????").success(true, "abc???????")
-		, parse<Con3>("abc ??abc???????").success(true, " ??abc???????")
-		, parse<Con3>("").failure()
+	ASSERT_PARSE_SUCCESS(Con3, "abc???????", true, "?");
+	ASSERT_PARSE_FAILURE(Con3, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Con3, "abc??abc???????", true, "abc???????");
+	ASSERT_PARSE_SUCCESS(Con3, "abc ??abc???????", true, " ??abc???????");
+	ASSERT_PARSE_FAILURE(Con3, "");
 		
-		, parse<Con4>("abcabcabcabc??").success(nullptr, "")
-		, parse<Con4>("abcabcabcabc").success(nullptr, "")
-		, parse<Con4>("abcabcabcabc ??").success(nullptr, " ??")
-		, parse<Con4>("abc").success(nullptr, "")
-		, parse<Con4>(" abc").failure()
-		, parse<Con4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc??", nullptr, "");
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc", nullptr, "");
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc ??", nullptr, " ??");
+	ASSERT_PARSE_SUCCESS(Con4, "abc", nullptr, "");
+	ASSERT_PARSE_FAILURE(Con4, " abc");
+	ASSERT_PARSE_FAILURE(Con4, "");
 }

@@ -10,15 +10,13 @@ TEST("ApplyInto", "Requirements")
 
 TEST("ApplyInto", "Parse all")
 {
-	assert
-		, parse<Api1>("abc.").success(Class2{ "abc", "." }, "")
-		, parse<Api1>("abc . ").success(Class2{ "abc", " " }, ". ")
-		, parse<Api1>("").failure()
-		, parse<Api1>("abc").failure()
+	ASSERT_PARSE_SUCCESS(Api1, "abc.", Class2{ "abc", "." }, "");
+	ASSERT_PARSE_SUCCESS(Api1, "abc . ", Class2{ "abc", " " }, ". ");
+	ASSERT_PARSE_FAILURE(Api1, "");
+	ASSERT_PARSE_FAILURE(Api1, "abc");
 
-		, parse<Api2>(".abc").success(Class5{ ".", "abc" }, "")
-		, parse<Api2>(" abc. ").success(Class5{ " ", "abc" }, ". ")
-		, parse<Api2>(".").failure()
-		, parse<Api2>("abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Api2, ".abc", Class5{ ".", "abc" }, "");
+	ASSERT_PARSE_SUCCESS(Api2, " abc. ", Class5{ " ", "abc" }, ". ");
+	ASSERT_PARSE_FAILURE(Api2, ".");
+	ASSERT_PARSE_FAILURE(Api2, "abc");
 }
