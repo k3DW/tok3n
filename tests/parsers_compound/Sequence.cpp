@@ -15,14 +15,14 @@ TEST("Sequence", "Parse two-way Sequence")
 {
 	ASSERT_PARSE_FAILURE(TwoWay, "abc");
 	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
-	ASSERT_PARSE_SUCCESS(TwoWay, "abef", { "ab", "e" }, "f");
-	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", { "ab", " " }, "ef");
+	ASSERT_PARSE_SUCCESS(TwoWay, "abef", std::tuple("ab", "e"), "f");
+	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", std::tuple("ab", " "), "ef");
 }
 
 TEST("Sequence", "Parse three-way Sequence")
 {
-	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", { "ab", "c", "d" }, "e");
-	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", { "ab", "d", "c" }, "");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
 	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
 }
 

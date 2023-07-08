@@ -17,11 +17,11 @@ TEST("Transform", "Parse all")
 	ASSERT_PARSE_FAILURE(Tra1, "ab");
 	ASSERT_PARSE_SUCCESS(Tra1, "abc", 1, "");
 		
-	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", { 'a', 'b', 'c' }, "abc");
-	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", {}, "a??bcabc");
-	ASSERT_PARSE_SUCCESS(Tra2, "", {}, "");
-	ASSERT_PARSE_SUCCESS(Tra2, "??abcabc", { '?', '?' }, "abcabc");
-	ASSERT_PARSE_SUCCESS(Tra2, " ??abcabc", {}, " ??abcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", std::vector({ 'a', 'b', 'c' }), "abc");
+	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", std::vector<char>{}, "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, "", std::vector<char>{}, "");
+	ASSERT_PARSE_SUCCESS(Tra2, "??abcabc", std::vector<char>({ '?', '?' }), "abcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, " ??abcabc", std::vector<char>{}, " ??abcabc");
 		
 	ASSERT_PARSE_SUCCESS(Tra3, "abc???????", false, "?");
 	ASSERT_PARSE_FAILURE(Tra3, "??abc???????");
