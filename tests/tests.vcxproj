@@ -188,7 +188,6 @@
     <ClInclude Include="framework\Test.h" />
     <ClInclude Include="traits.h" />
     <ClInclude Include="framework\comparison.h" />
-    <ClInclude Include="framework\parse.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
     <ClInclude Include="framework\underlying.h" />
