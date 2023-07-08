@@ -80,7 +80,5 @@ constexpr auto one_or_more_checker = []<Parser P>(P) -> bool
 
 TEST("one_or_more operator", "+{anything}")
 {
-	assert
-		, check_all_samples(one_or_more_checker)
-		;
+	ASSERT(check_all_samples(one_or_more_checker), "check_all_samples(one_or_more_checker) failed");
 }

@@ -79,7 +79,5 @@ constexpr auto maybe_checker = []<Parser P>(P) -> bool
 
 TEST("maybe operator", "~{anything}")
 {
-	assert
-		, check_all_samples(maybe_checker)
-		;
+	ASSERT(check_all_samples(maybe_checker), "check_all_samples(maybe_checker) failed");
 }

@@ -34,7 +34,5 @@ constexpr auto into_checker = []<Parser P>(P) -> bool
 
 TEST("into modifier", "modify anything")
 {
-	assert
-		, check_all_samples(into_checker)
-		;
+	ASSERT(check_all_samples(into_checker), "check_all_samples(into_checker) failed");
 }

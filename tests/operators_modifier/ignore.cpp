@@ -56,7 +56,5 @@ constexpr auto ignore_checker = []<Parser P>(P) -> bool
 
 TEST("ignore modifier", "modify anything")
 {
-	assert
-		, check_all_samples(ignore_checker)
-		;
+	ASSERT(check_all_samples(ignore_checker), "check_all_samples(ignore_checker) failed");
 }

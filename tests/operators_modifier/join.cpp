@@ -63,7 +63,5 @@ constexpr auto join_checker = []<Parser P>(P) -> bool
 
 TEST("join modifier", "modify anything")
 {
-	assert
-		, check_all_samples(join_checker)
-		;
+	ASSERT(check_all_samples(join_checker), "check_all_samples(join_checker) failed");
 }

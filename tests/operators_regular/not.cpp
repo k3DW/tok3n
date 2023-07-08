@@ -46,7 +46,5 @@ constexpr auto not_checker = []<Parser P>(P) -> bool
 
 TEST("not operator", "!{anything}")
 {
-	assert
-		, check_all_samples(not_checker)
-		;
+	ASSERT(check_all_samples(not_checker), "check_all_samples(not_checker) failed");
 }

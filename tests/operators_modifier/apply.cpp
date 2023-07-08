@@ -36,7 +36,5 @@ constexpr auto apply_checker = []<Parser P>(P) -> bool
 
 TEST("apply modifier", "modify anything")
 {
-	assert
-		, check_all_samples(apply_checker)
-		;
+	ASSERT(check_all_samples(apply_checker), "check_all_samples(apply_checker) failed");
 }

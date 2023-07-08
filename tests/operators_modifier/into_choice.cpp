@@ -71,7 +71,5 @@ constexpr auto into_choice_checker = []<Parser P>(P) -> bool
 
 TEST("into_choice modifier", "modify anything")
 {
-	assert
-		, check_all_samples(into_choice_checker)
-		;
+	ASSERT(check_all_samples(into_choice_checker), "check_all_samples(into_choice_checker) failed");
 }

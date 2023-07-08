@@ -49,7 +49,5 @@ constexpr auto delimit_keep_checker = []<Parser P>(P) -> bool
 
 TEST("delimit_keep modifier", "modify anything")
 {
-	assert
-		, check_all_samples(delimit_keep_checker)
-		;
+	ASSERT(check_all_samples(delimit_keep_checker), "check_all_samples(delimit_keep_checker) failed");
 }

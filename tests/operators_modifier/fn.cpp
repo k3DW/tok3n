@@ -40,7 +40,5 @@ constexpr auto fn_checker = []<Parser P>(P) -> bool
 
 TEST("fn modifier", "modify anything")
 {
-	assert
-		, check_all_samples(fn_checker)
-		;
+	ASSERT(check_all_samples(fn_checker), "check_all_samples(fn_checker) failed");
 }

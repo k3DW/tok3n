@@ -64,7 +64,5 @@ constexpr auto complete_checker = []<Parser P>(P) -> bool
 
 TEST("complete modifier", "modify anything")
 {
-	assert
-		, check_all_samples(complete_checker)
-		;
+	ASSERT(check_all_samples(complete_checker), "check_all_samples(complete_checker) failed");
 }

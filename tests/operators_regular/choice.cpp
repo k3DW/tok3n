@@ -262,7 +262,5 @@ TEST("choice operator", "{anything} | {anything}")
 {
 	// Note that all the operations are reimplemented for choice_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
-	assert
-		, check_all_sample_pairs(choice_checker)
-		;
+	ASSERT(check_all_sample_pairs(choice_checker), "check_all_sample_pairs(choice_checker) failed");
 }

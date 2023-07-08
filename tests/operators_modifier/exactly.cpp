@@ -38,7 +38,5 @@ constexpr auto exactly_checker = []<Parser P>(P) -> bool
 
 TEST("exactly modifier", "modify anything")
 {
-	assert
-		, check_all_samples(exactly_checker)
-		;
+	ASSERT(check_all_samples(exactly_checker), "check_all_samples(exactly_checker) failed");
 }

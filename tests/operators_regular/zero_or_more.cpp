@@ -79,7 +79,5 @@ constexpr auto zero_or_more_checker = []<Parser P>(P) -> bool
 
 TEST("zero_or_more operator", "*{anything}")
 {
-	assert
-		, check_all_samples(zero_or_more_checker)
-		;
+	ASSERT(check_all_samples(zero_or_more_checker), "check_all_samples(zero_or_more_checker) failed");
 }

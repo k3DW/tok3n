@@ -26,7 +26,5 @@ constexpr auto defaulted_checker = []<Parser P>(P) -> bool
 
 TEST("defaulted modifier", "modify anything")
 {
-	assert
-		, check_all_samples(defaulted_checker)
-		;
+	ASSERT(check_all_samples(defaulted_checker), "check_all_samples(defaulted_checker) failed");
 }

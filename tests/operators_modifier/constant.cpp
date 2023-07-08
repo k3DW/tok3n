@@ -30,7 +30,5 @@ constexpr auto constant_checker = []<Parser P>(P) -> bool
 
 TEST("constant modifier", "modify anything")
 {
-	assert
-		, check_all_samples(constant_checker)
-		;
+	ASSERT(check_all_samples(constant_checker), "check_all_samples(constant_checker) failed");
 }
