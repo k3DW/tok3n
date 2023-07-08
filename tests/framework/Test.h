@@ -65,19 +65,3 @@ class TestOverride {};
 		static inline TestOverride<FIXTURE, NAME> _; \
 	};                                               \
 	void TestOverride<FIXTURE, NAME>::_run()
-
-
-
-// #define DISABLE_STATIC_ASSERT
-
-#ifdef DISABLE_STATIC_ASSERT
-#define STATIC_ASSERT(...)
-#else
-#define STATIC_ASSERT(...) static_assert(__VA_ARGS__)
-#endif
-
-#define ASSERT(CONDITION, MESSAGE)             \
-	[&]() -> bool {                            \
-		STATIC_ASSERT((CONDITION), MESSAGE);   \
-		return Assert((CONDITION), (MESSAGE)); \
-	}()

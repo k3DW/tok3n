@@ -13,6 +13,41 @@ consteval assert_t operator,(assert_t self, bool b)
 
 constexpr auto assert = assert_t{};
 
+
+
+// #define DISABLE_STATIC_ASSERT
+
+#ifdef DISABLE_STATIC_ASSERT
+#define STATIC_ASSERT(...)
+#else
+#define STATIC_ASSERT(...) static_assert(__VA_ARGS__)
+#endif
+
+#define ASSERT(CONDITION, MESSAGE)             \
+	[&]() -> bool {                            \
+		STATIC_ASSERT((CONDITION), MESSAGE);   \
+		return Assert((CONDITION), (MESSAGE)); \
+	}()
+
+
+
+#define ASSERT_PARSER_CONCEPT(P)                         \
+	ASSERT(Parser<P>,                                    \
+		"(" #P ") does not satisfy the Parser concept.")
+
+#define ASSERT_IS_PARSER(P, PARSER_TYPE, RESULT_TYPE)                                 \
+	do {                                                                              \
+		ASSERT_PARSER_CONCEPT(P);                                                     \
+		ASSERT(P::type == PARSER_TYPE,                                                \
+			"(" #P "::type) does not equal " #PARSER_TYPE);                           \
+		ASSERT(std::same_as<typename P::result_type, RESULT_TYPE>,                    \
+			"(" #P "::result_type) is not " #RESULT_TYPE);                            \
+		ASSERT(IsParser<P, PARSER_TYPE, RESULT_TYPE>,                                 \
+			"IsParser<" #P ", " #PARSER_TYPE ", " #RESULT_TYPE "> is not satisfied"); \
+	} while(false)
+
+
+
 #define TOK3N_ASSERT_P(condition, message) \
 	do {                                   \
 		if constexpr (not (condition))     \
