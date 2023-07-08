@@ -2,12 +2,10 @@
 
 TEST("Exactly", "Requirements")
 {
-	assert
-		, IsParser<Exa1, ExactlyType, std::array<std::string_view, 3>>
-		, IsParser<Exa2, ExactlyType, std::array<std::string_view, 5>>
-		, IsParser<Exa3, ExactlyType, std::array<std::string_view, 4>>
-		, IsParser<Exa4, ExactlyType, std::array<std::tuple<std::string_view, std::string_view>, 2>>
-		;
+	ASSERT_IS_PARSER(Exa1, ExactlyType, std::array<std::string_view, 3>);
+	ASSERT_IS_PARSER(Exa2, ExactlyType, std::array<std::string_view, 5>);
+	ASSERT_IS_PARSER(Exa3, ExactlyType, std::array<std::string_view, 4>);
+	ASSERT_IS_PARSER(Exa4, ExactlyType, std::array<std::tuple<std::string_view, std::string_view>, 2>);
 }
 
 TEST("Exactly", "Constructibility")

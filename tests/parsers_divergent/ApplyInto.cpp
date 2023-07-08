@@ -2,10 +2,8 @@
 
 TEST("ApplyInto", "Requirements")
 {
-	assert
-		, IsParser<Api1, ApplyIntoType, Class2>
-		, IsParser<Api2, ApplyIntoType, Class5>
-		;
+	ASSERT_IS_PARSER(Api1, ApplyIntoType, Class2);
+	ASSERT_IS_PARSER(Api2, ApplyIntoType, Class5);
 }
 
 TEST("ApplyInto", "Parse all")

@@ -2,12 +2,10 @@
 
 TEST("ZeroOrMore", "Requirements")
 {
-	assert
-		, IsParser<Zom1, ZeroOrMoreType, std::vector<std::string_view>>
-		, IsParser<Zom2, ZeroOrMoreType, std::vector<std::string_view>>
-		, IsParser<Zom3, ZeroOrMoreType, std::vector<std::string_view>>
-		, IsParser<Zom4, ZeroOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom2, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom3, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>);
 }
 
 TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")

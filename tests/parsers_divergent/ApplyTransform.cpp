@@ -2,10 +2,8 @@
 
 TEST("ApplyTransform", "Requirements")
 {
-	assert
-		, IsParser<Apt1, ApplyTransformType, bool>
-		, IsParser<Apt2, ApplyTransformType, std::size_t>
-		;
+	ASSERT_IS_PARSER(Apt1, ApplyTransformType, bool);
+	ASSERT_IS_PARSER(Apt2, ApplyTransformType, std::size_t);
 }
 
 TEST("ApplyTransform", "Parse all")

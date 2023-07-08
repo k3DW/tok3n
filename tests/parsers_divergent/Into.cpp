@@ -2,11 +2,9 @@
 
 TEST("Into", "Requirements")
 {
-	assert
-		, IsParser<Int1, IntoType, Class1>
-		, IsParser<Int2, IntoType, Class2>
-		, IsParser<Int3, IntoType, Class2>
-		;
+	ASSERT_IS_PARSER(Int1, IntoType, Class1);
+	ASSERT_IS_PARSER(Int2, IntoType, Class2);
+	ASSERT_IS_PARSER(Int3, IntoType, Class2);
 }
 
 TEST("Into", "Parse all")

@@ -5,10 +5,8 @@ using Multi  = OneChar<"abc">;
 
 TEST("OneChar", "Requirements")
 {
-	assert
-		, IsParser<Single, OneCharType, std::string_view>
-		, IsParser<Multi, OneCharType, std::string_view>
-		;
+	ASSERT_IS_PARSER(Single, OneCharType, std::string_view);
+	ASSERT_IS_PARSER(Multi, OneCharType, std::string_view);
 }
 
 TEST("OneChar", "Parse single char")

@@ -2,13 +2,11 @@
 
 TEST("Ignore", "Requirements")
 {
-	assert
-		, IsParser<Ign1, IgnoreType, void>
-		, IsParser<Ign2, IgnoreType, void>
-		, IsParser<Ign3, IgnoreType, void>
-		, IsParser<Ign4, IgnoreType, void>
-		, IsParser<Ign5, IgnoreType, void>
-		;
+	ASSERT_IS_PARSER(Ign1, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign2, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign3, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign4, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign5, IgnoreType, void);
 }
 
 TEST("Ignore", "Parse all")

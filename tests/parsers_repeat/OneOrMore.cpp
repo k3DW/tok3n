@@ -2,12 +2,10 @@
 
 TEST("OneOrMore", "Requirements")
 {
-	assert
-		, IsParser<Oom1, OneOrMoreType, std::vector<std::string_view>>
-		, IsParser<Oom2, OneOrMoreType, std::vector<std::string_view>>
-		, IsParser<Oom3, OneOrMoreType, std::vector<std::string_view>>
-		, IsParser<Oom4, OneOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(Oom1, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom2, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom3, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom4, OneOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>);
 }
 
 TEST("OneOrMore", "Parse OneOrMore<Literal>")

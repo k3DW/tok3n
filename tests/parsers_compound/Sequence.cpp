@@ -5,11 +5,9 @@ using ThreeWay = Seq3;
 
 TEST("Sequence", "Requirements")
 {
-	assert
-		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
-		, IsParser<ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>>
-		, IsParser<Seq5, SequenceType, void>
-		;
+	ASSERT_IS_PARSER(TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(Seq5, SequenceType, void);
 }
 
 TEST("Sequence", "Parse two-way Sequence")

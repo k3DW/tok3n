@@ -4,9 +4,7 @@ using L = Literal<"literal">;
 
 TEST("Literal", "Requirements")
 {
-	assert
-		, IsParser<L, LiteralType, std::string_view>
-		;
+	ASSERT_IS_PARSER(L, LiteralType, std::string_view);
 }
 
 TEST("Literal", "Parse 'literal'")

@@ -2,10 +2,8 @@
 
 TEST("Defaulted", "Requirements")
 {
-	assert
-		, IsParser<Def1, DefaultedType, int>
-		, IsParser<Def2, DefaultedType, Class3>
-		;
+	ASSERT_IS_PARSER(Def1, DefaultedType, int);
+	ASSERT_IS_PARSER(Def2, DefaultedType, Class3);
 }
 
 TEST("Defaulted", "Parse all")

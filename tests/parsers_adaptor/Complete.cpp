@@ -2,15 +2,13 @@
 
 TEST("Complete", "Requirements")
 {
-	assert
-		, IsParser<Com1, CompleteType, std::string_view>
-		, IsParser<Com2, CompleteType, std::string_view>
-		, IsParser<Com3, CompleteType, std::string_view>
-		, IsParser<Com4, CompleteType, std::tuple<std::string_view, std::string_view>>
-		, IsParser<Com5, CompleteType, std::optional<std::tuple<std::string_view, std::string_view>>>
-		, IsParser<Com6, CompleteType, std::vector<std::tuple<std::string_view, std::string_view>>>
-		, IsParser<Com7, CompleteType, std::vector<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(Com1, CompleteType, std::string_view);
+	ASSERT_IS_PARSER(Com2, CompleteType, std::string_view);
+	ASSERT_IS_PARSER(Com3, CompleteType, std::string_view);
+	ASSERT_IS_PARSER(Com4, CompleteType, std::tuple<std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(Com5, CompleteType, std::optional<std::tuple<std::string_view, std::string_view>>);
+	ASSERT_IS_PARSER(Com6, CompleteType, std::vector<std::tuple<std::string_view, std::string_view>>);
+	ASSERT_IS_PARSER(Com7, CompleteType, std::vector<std::tuple<std::string_view, std::string_view>>);
 }
 
 TEST("Complete", "Complete<Literal>")

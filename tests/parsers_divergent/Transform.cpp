@@ -2,12 +2,10 @@
 
 TEST("Transform", "Requirements")
 {
-	assert
-		, IsParser<Tra1, TransformType, std::size_t>
-		, IsParser<Tra2, TransformType, std::vector<char>>
-		, IsParser<Tra3, TransformType, bool>
-		, IsParser<Tra4, TransformType, std::size_t>
-		;
+	ASSERT_IS_PARSER(Tra1, TransformType, std::size_t);
+	ASSERT_IS_PARSER(Tra2, TransformType, std::vector<char>);
+	ASSERT_IS_PARSER(Tra3, TransformType, bool);
+	ASSERT_IS_PARSER(Tra4, TransformType, std::size_t);
 }
 
 TEST("Transform", "Parse all")

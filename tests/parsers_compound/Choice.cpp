@@ -8,13 +8,11 @@ using ThreeWay2 = Cho4;
 
 TEST("Choice", "Requirements")
 {
-	assert
-		, IsParser<TwoWay1, ChoiceType, std::string_view>
-		, IsParser<TwoWay2, ChoiceType, std::string_view>
-		, IsParser<ThreeWay1, ChoiceType, std::string_view>
-		, IsParser<ThreeWay2, ChoiceType, std::string_view>
-		, IsParser<Cho5, ChoiceType, void>
-		;
+	ASSERT_IS_PARSER(TwoWay1, ChoiceType, std::string_view);
+	ASSERT_IS_PARSER(TwoWay2, ChoiceType, std::string_view);
+	ASSERT_IS_PARSER(ThreeWay1, ChoiceType, std::string_view);
+	ASSERT_IS_PARSER(ThreeWay2, ChoiceType, std::string_view);
+	ASSERT_IS_PARSER(Cho5, ChoiceType, void);
 }
 
 TEST("Choice", "Parse two-way Choice")

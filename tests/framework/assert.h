@@ -35,15 +35,15 @@ constexpr auto assert = assert_t{};
 	ASSERT(Parser<P>,                                    \
 		"(" #P ") does not satisfy the Parser concept.")
 
-#define ASSERT_IS_PARSER(P, PARSER_TYPE, RESULT_TYPE)                                 \
+#define ASSERT_IS_PARSER(P, PARSER_TYPE, ...)                                         \
 	do {                                                                              \
 		ASSERT_PARSER_CONCEPT(P);                                                     \
 		ASSERT(P::type == PARSER_TYPE,                                                \
 			"(" #P "::type) does not equal " #PARSER_TYPE);                           \
-		ASSERT(std::same_as<typename P::result_type, RESULT_TYPE>,                    \
-			"(" #P "::result_type) is not " #RESULT_TYPE);                            \
-		ASSERT(IsParser<P, PARSER_TYPE, RESULT_TYPE>,                                 \
-			"IsParser<" #P ", " #PARSER_TYPE ", " #RESULT_TYPE "> is not satisfied"); \
+		ASSERT((std::same_as<typename P::result_type, __VA_ARGS__>),                  \
+			"(" #P "::result_type) is not " #__VA_ARGS__);                            \
+		ASSERT((IsParser<P, PARSER_TYPE, __VA_ARGS__>),                               \
+			"IsParser<" #P ", " #PARSER_TYPE ", " #__VA_ARGS__ "> is not satisfied"); \
 	} while(false)
 
 

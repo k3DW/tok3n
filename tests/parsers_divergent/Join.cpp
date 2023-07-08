@@ -2,13 +2,11 @@
 
 TEST("Join", "Requirements")
 {
-	assert
-		, IsParser<Joi1, JoinType, std::string_view>
-		, IsParser<Joi2, JoinType, std::string_view>
-		, IsParser<Joi3, JoinType, std::string_view>
-		, IsParser<Joi4, JoinType, std::string_view>
-		, IsParser<Joi5, JoinType, std::string_view>
-		;
+	ASSERT_IS_PARSER(Joi1, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi2, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi3, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi4, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi5, JoinType, std::string_view);
 }
 
 TEST("Join", "Parse all")
