@@ -2,18 +2,14 @@
 
 TEST("apply_into modifier", "prefix")
 {
-	assert
-		, api1 == apply_into<Class2>(abc >> spacedot)
-		, api2 == apply_into<Class5>(spacedot >> abc)
-		;
+	ASSERT_PARSER_VALUES_EQ(api1, apply_into<Class2>(abc >> spacedot));
+	ASSERT_PARSER_VALUES_EQ(api2, apply_into<Class5>(spacedot >> abc));
 }
 
 TEST("apply_into modifier", "infix")
 {
-	assert
-		, api1 == (abc >> spacedot) % apply_into<Class2>
-		, api2 == (spacedot >> abc) % apply_into<Class5>
-		;
+	ASSERT_PARSER_VALUES_EQ(api1, (abc >> spacedot) % apply_into<Class2>);
+	ASSERT_PARSER_VALUES_EQ(api2, (spacedot >> abc) % apply_into<Class5>);
 }
 
 

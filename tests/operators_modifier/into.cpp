@@ -2,18 +2,14 @@
 
 TEST("into modifier", "prefix")
 {
-	assert
-		, int1 == into<Class1>(spacedot)
-		, int2 == into<Class2>(abc >> spacedot)
-		;
+	ASSERT_PARSER_VALUES_EQ(int1, into<Class1>(spacedot));
+	ASSERT_PARSER_VALUES_EQ(int2, into<Class2>(abc >> spacedot));
 }
 
 TEST("into modifier", "infix")
 {
-	assert
-		, int1 == spacedot % into<Class1>
-		, int2 == (abc >> spacedot) % into<Class2>
-		;
+	ASSERT_PARSER_VALUES_EQ(int1, spacedot % into<Class1>);
+	ASSERT_PARSER_VALUES_EQ(int2, (abc >> spacedot) % into<Class2>);
 }
 
 

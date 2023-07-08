@@ -2,103 +2,91 @@
 
 TEST("choice operator", "OneChar | OneChar")
 {
-	assert
-		, (oc1 | oc2) == (oc2 | oc1)
-		, (oc1 | oc3) == (oc3 | oc1)
-		, (oc2 | oc3) == (oc3 | oc2)
-		, (oc1 | oc2) == OneChar<"abcd">{}
-		, (oc1 | oc3) == OneChar<"abcxyz">{}
-		, (oc2 | oc3) == OneChar<"bcdxyz">{}
-		, (oc1 | oc1) == oc1
-		, (oc2 | oc2) == oc2
-		, (oc3 | oc3) == oc3
-		;
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, oc2 | oc1);
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, oc3 | oc1);
+	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, oc3 | oc2);
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, OneChar<"abcd">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, OneChar<"abcxyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, OneChar<"bcdxyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc1, oc1);
+	ASSERT_PARSER_VALUES_EQ(oc2 | oc2, oc2);
+	ASSERT_PARSER_VALUES_EQ(oc3 | oc3, oc3);
 }
 
 TEST("choice operator", "NotChar | NotChar")
 {
-	assert
-		, (nc1 | nc2) == (nc2 | nc1)
-		, (nc1 | nc3) == (nc3 | nc1)
-		, (nc2 | nc3) == (nc3 | nc2)
-		, (nc1 | nc2) == NotChar<"bc">{}
-		, (nc1 | nc3) == NotChar<"">{}
-		, (nc2 | nc3) == NotChar<"">{}
-		, (nc1 | nc1) == nc1
-		, (nc2 | nc2) == nc2
-		, (nc3 | nc3) == nc3
-		;
+	ASSERT_PARSER_VALUES_EQ(nc1 | nc2, nc2 | nc1);
+	ASSERT_PARSER_VALUES_EQ(nc1 | nc3, nc3 | nc1);
+	ASSERT_PARSER_VALUES_EQ(nc2 | nc3, nc3 | nc2);
+	ASSERT_PARSER_VALUES_EQ(nc1 | nc2, NotChar<"bc">{});
+	ASSERT_PARSER_VALUES_EQ(nc1 | nc3, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(nc2 | nc3, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(nc1 | nc1, nc1);
+	ASSERT_PARSER_VALUES_EQ(nc2 | nc2, nc2);
+	ASSERT_PARSER_VALUES_EQ(nc3 | nc3, nc3);
 }
 
 TEST("choice operator", "OneChar | NotChar, and NotChar | OneChar")
 {
-	assert
-		, (oc1 | nc1) == (nc1 | oc1)
-		, (oc1 | nc2) == (nc2 | oc1)
-		, (oc1 | nc3) == (nc3 | oc1)
-		, (oc2 | nc1) == (nc1 | oc2)
-		, (oc2 | nc2) == (nc2 | oc2)
-		, (oc2 | nc3) == (nc3 | oc2)
-		, (oc3 | nc1) == (nc1 | oc3)
-		, (oc3 | nc2) == (nc2 | oc3)
-		, (oc3 | nc3) == (nc3 | oc3)
-		, (oc1 | nc1) == NotChar<"">{}
-		, (oc1 | nc2) == NotChar<"d">{}
-		, (oc1 | nc3) == NotChar<"xyz">{}
-		, (oc2 | nc1) == NotChar<"a">{}
-		, (oc2 | nc2) == NotChar<"">{}
-		, (oc2 | nc3) == NotChar<"xyz">{}
-		, (oc3 | nc1) == NotChar<"abc">{}
-		, (oc3 | nc2) == NotChar<"bcd">{}
-		, (oc3 | nc3) == NotChar<"">{}
-		;
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc1, nc1 | oc1);
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc2, nc2 | oc1);
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc3, nc3 | oc1);
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc1, nc1 | oc2);
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc2, nc2 | oc2);
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc3, nc3 | oc2);
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc1, nc1 | oc3);
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc2, nc2 | oc3);
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc3, nc3 | oc3);
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc1, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc2, NotChar<"d">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | nc3, NotChar<"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc1, NotChar<"a">{});
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc2, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(oc2 | nc3, NotChar<"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc1, NotChar<"abc">{});
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc2, NotChar<"bcd">{});
+	ASSERT_PARSER_VALUES_EQ(oc3 | nc3, NotChar<"">{});
 }
 
 
 
 TEST("choice operator", "Choice | Choice")
 {
-	assert
-		, (cho1 | cho1) == cho1
-		, (cho2 | cho2) == cho2
-		, (cho3 | cho3) == cho3
-		, (cho4 | cho4) == cho4
-		, (cho1 | cho2) == Choice<L4, NC4, NC4, L4>{}
-		, (cho2 | cho1) == Choice<NC4, L4, L4, NC4>{}
-		, (cho1 | cho3) == Choice<L4, NC4, L4, OC4, NC5>{}
-		, (cho3 | cho1) == Choice<L4, OC4, NC5, L4, NC4>{}
-		, (cho1 | cho4) == Choice<L4, NC4, NC5, L4, OC4>{}
-		, (cho4 | cho1) == Choice<NC5, L4, OC4, L4, NC4>{}
-		, (cho2 | cho3) == Choice<NC4, L4, L4, OC4, NC5>{}
-		, (cho3 | cho2) == Choice<L4, OC4, NC5, NC4, L4>{}
-		, (cho2 | cho4) == Choice<NC4, L4, NC5, L4, OC4>{}
-		, (cho4 | cho2) == Choice<NC5, L4, OC4, NC4, L4>{}
-		, (cho3 | cho4) == Choice<L4, OC4, NC5, NC5, L4, OC4>{}
-		, (cho4 | cho3) == Choice<NC5, L4, OC4, L4, OC4, NC5>{}
-		, (cho5 | cho5) == cho5
-		;
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho1, cho1);
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho2, cho2);
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho3, cho3);
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho4, cho4);
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho2, (Choice<L4, NC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho1, (Choice<NC4, L4, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho3, (Choice<L4, NC4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho1, (Choice<L4, OC4, NC5, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho4, (Choice<L4, NC4, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho1, (Choice<NC5, L4, OC4, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho3, (Choice<NC4, L4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho2, (Choice<L4, OC4, NC5, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho4, (Choice<NC4, L4, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho2, (Choice<NC5, L4, OC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho4, (Choice<L4, OC4, NC5, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho3, (Choice<NC5, L4, OC4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho5 | cho5, cho5);
 }
 
 TEST("choice operator", "Choice | {anything}, and {anything} | Choice")
 {
-	assert
-		, (cho1 | oc1) == Choice<L4, NC4, OC1>{}
-		, (oc1 | cho1) == Choice<OC1, L4, NC4>{}
-		, (cho2 | oc4) == Choice<NC4, L4, OC4>{}
-		, (oc4 | cho2) == Choice<OC4, NC4, L4>{}
-		, (cho3 | oc3) == Choice<L4, OC4, NC5, OC3>{}
-		, (oc3 | cho3) == Choice<OC3, L4, OC4, NC5>{}
-		, (cho4 | oc2) == Choice<NC5, L4, OC4, OC2>{}
-		, (oc2 | cho4) == Choice<OC2, NC5, L4, OC4>{}
-		;
+	ASSERT_PARSER_VALUES_EQ(cho1 | oc1, (Choice<L4, NC4, OC1>{}));
+	ASSERT_PARSER_VALUES_EQ(oc1 | cho1, (Choice<OC1, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | oc4, (Choice<NC4, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(oc4 | cho2, (Choice<OC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | oc3, (Choice<L4, OC4, NC5, OC3>{}));
+	ASSERT_PARSER_VALUES_EQ(oc3 | cho3, (Choice<OC3, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | oc2, (Choice<NC5, L4, OC4, OC2>{}));
+	ASSERT_PARSER_VALUES_EQ(oc2 | cho4, (Choice<OC2, NC5, L4, OC4>{}));
 }
 
 TEST("choice operator", "void result_type")
 {
-	assert
-		, (ign1 | ign2) == cho5
-		, (ign2 | ign1) != cho5
-		;
+	ASSERT_PARSER_VALUES_EQ(ign1 | ign2, cho5);
+	ASSERT_PARSER_VALUES_NE(ign2 | ign1, cho5);
 }
 
 

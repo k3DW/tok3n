@@ -2,18 +2,14 @@
 
 TEST("defaulted modifier", "prefix")
 {
-	assert
-		, def1 == defaulted<int>(+abc)
-		, def2 == defaulted<Class3>(~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_EQ(def1, defaulted<int>(+abc));
+	ASSERT_PARSER_VALUES_EQ(def2, defaulted<Class3>(~(abc | qq)));
 }
 
 TEST("defaulted modifier", "infix")
 {
-	assert
-		, def1 == +abc % defaulted<int>
-		, def2 == ~(abc | qq) % defaulted<Class3>
-		;
+	ASSERT_PARSER_VALUES_EQ(def1, +abc % defaulted<int>);
+	ASSERT_PARSER_VALUES_EQ(def2, ~(abc | qq) % defaulted<Class3>);
 }
 
 

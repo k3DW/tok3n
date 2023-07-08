@@ -2,26 +2,22 @@
 
 TEST("not operator", "!OneChar")
 {
-	assert
-		, !oc1 == nc1
-		, !oc2 == nc2
-		, !oc3 == nc3
-		, !!oc1 == oc1
-		, !!oc2 == oc2
-		, !!oc3 == oc3
-		;
+	ASSERT_PARSER_VALUES_EQ(!oc1, nc1);
+	ASSERT_PARSER_VALUES_EQ(!oc2, nc2);
+	ASSERT_PARSER_VALUES_EQ(!oc3, nc3);
+	ASSERT_PARSER_VALUES_EQ(!!oc1, oc1);
+	ASSERT_PARSER_VALUES_EQ(!!oc2, oc2);
+	ASSERT_PARSER_VALUES_EQ(!!oc3, oc3);
 }
 
 TEST("not operator", "!NotChar")
 {
-	assert
-		, !nc1 == oc1
-		, !nc2 == oc2
-		, !nc3 == oc3
-		, !!nc1 == nc1
-		, !!nc2 == nc2
-		, !!nc3 == nc3
-		;
+	ASSERT_PARSER_VALUES_EQ(!nc1, oc1);
+	ASSERT_PARSER_VALUES_EQ(!nc2, oc2);
+	ASSERT_PARSER_VALUES_EQ(!nc3, oc3);
+	ASSERT_PARSER_VALUES_EQ(!!nc1, nc1);
+	ASSERT_PARSER_VALUES_EQ(!!nc2, nc2);
+	ASSERT_PARSER_VALUES_EQ(!!nc3, nc3);
 }
 
 

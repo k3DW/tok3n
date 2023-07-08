@@ -2,24 +2,20 @@
 
 TEST("fn modifier", "prefix")
 {
-	assert
-		, tra1 == fn<func1>(+abc)
-		, tra2 == fn<func2>(~(abc | qq))
-		, tra3 == fn<func3>(abc >> *qq)
-		, tra4 == fn<func4(3)>(+abc >> ~(abc | qq))
-		, tra4 != fn<func4(2)>(+abc >> ~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_EQ(tra1, fn<func1>(+abc));
+	ASSERT_PARSER_VALUES_EQ(tra2, fn<func2>(~(abc | qq)));
+	ASSERT_PARSER_VALUES_EQ(tra3, fn<func3>(abc >> *qq));
+	ASSERT_PARSER_VALUES_EQ(tra4, fn<func4(3)>(+abc >> ~(abc | qq)));
+	ASSERT_PARSER_VALUES_NE(tra4, fn<func4(2)>(+abc >> ~(abc | qq)));
 }
 
 TEST("fn modifier", "infix")
 {
-	assert
-		, tra1 == +abc % fn<func1>
-		, tra2 == ~(abc | qq) % fn<func2>
-		, tra3 == (abc >> *qq) % fn<func3>
-		, tra4 == (+abc >> ~(abc | qq)) % fn<func4(3)>
-		, tra4 != (+abc >> ~(abc | qq)) % fn<func4(2)>
-		;
+	ASSERT_PARSER_VALUES_EQ(tra1, +abc % fn<func1>);
+	ASSERT_PARSER_VALUES_EQ(tra2, ~(abc | qq) % fn<func2>);
+	ASSERT_PARSER_VALUES_EQ(tra3, (abc >> *qq) % fn<func3>);
+	ASSERT_PARSER_VALUES_EQ(tra4, (+abc >> ~(abc | qq)) % fn<func4(3)>);
+	ASSERT_PARSER_VALUES_NE(tra4, (+abc >> ~(abc | qq)) % fn<func4(2)>);
 }
 
 

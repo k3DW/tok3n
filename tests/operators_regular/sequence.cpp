@@ -2,72 +2,64 @@
 
 TEST("sequence operator", "Literal >> Literal")
 {
-	assert
-		, (l1 >> l1) == Literal<"literalliteral">{}
-		, (l1 >> l2) == Literal<"literally">{}
-		, (l1 >> l3) == Literal<"literaltest">{}
-		, (l2 >> l1) == Literal<"lyliteral">{}
-		, (l2 >> l2) == Literal<"lyly">{}
-		, (l2 >> l3) == Literal<"lytest">{}
-		, (l3 >> l1) == Literal<"testliteral">{}
-		, (l3 >> l2) == Literal<"testly">{}
-		, (l3 >> l3) == Literal<"testtest">{}
-		;
+	ASSERT_PARSER_VALUES_EQ(l1 >> l1, Literal<"literalliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l1 >> l2, Literal<"literally">{});
+	ASSERT_PARSER_VALUES_EQ(l1 >> l3, Literal<"literaltest">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l1, Literal<"lyliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l2, Literal<"lyly">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l3, Literal<"lytest">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l1, Literal<"testliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l2, Literal<"testly">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l3, Literal<"testtest">{});
 }
 
 
 
 TEST("sequence operator", "Sequence >> Sequence")
 {
-	assert
-		, (seq1 >> seq1) == Sequence<L4, NC4, L4, NC4>{}
-	, (seq2 >> seq2) == Sequence<NC4, L4, NC4, L4>{}
-	, (seq3 >> seq3) == Sequence<L4, OC4, NC5, L4, OC4, NC5>{}
-	, (seq4 >> seq4) == Sequence<NC5, L4, OC4, NC5, L4, OC4>{}
-		, (seq5 >> seq5) == Sequence<Ign1, Ign2, Ign1, Ign2>{}
-	, (seq1 >> seq2) == Sequence<L4, NC4, NC4, L4>{}
-	, (seq2 >> seq1) == Sequence<NC4, L4, L4, NC4>{}
-	, (seq1 >> seq3) == Sequence<L4, NC4, L4, OC4, NC5>{}
-	, (seq3 >> seq1) == Sequence<L4, OC4, NC5, L4, NC4>{}
-	, (seq1 >> seq4) == Sequence<L4, NC4, NC5, L4, OC4>{}
-	, (seq4 >> seq1) == Sequence<NC5, L4, OC4, L4, NC4>{}
-		, (seq1 >> seq5) == Sequence<L4, NC4, Ign1, Ign2>{}
-		, (seq5 >> seq1) == Sequence<Ign1, Ign2, L4, NC4>{}
-	, (seq2 >> seq3) == Sequence<NC4, L4, L4, OC4, NC5>{}
-	, (seq3 >> seq2) == Sequence<L4, OC4, NC5, NC4, L4>{}
-	, (seq2 >> seq4) == Sequence<NC4, L4, NC5, L4, OC4>{}
-	, (seq4 >> seq2) == Sequence<NC5, L4, OC4, NC4, L4>{}
-		, (seq2 >> seq5) == Sequence<NC4, L4, Ign1, Ign2>{}
-		, (seq5 >> seq2) == Sequence<Ign1, Ign2, NC4, L4>{}
-	, (seq3 >> seq4) == Sequence<L4, OC4, NC5, NC5, L4, OC4>{}
-	, (seq4 >> seq3) == Sequence<NC5, L4, OC4, L4, OC4, NC5>{}
-		, (seq3 >> seq5) == Sequence<L4, OC4, NC5, Ign1, Ign2>{}
-		, (seq5 >> seq3) == Sequence<Ign1, Ign2, L4, OC4, NC5>{}
-		, (seq4 >> seq5) == Sequence<NC5, L4, OC4, Ign1, Ign2>{}
-		, (seq5 >> seq4) == Sequence<Ign1, Ign2, NC5, L4, OC4>{}
-	;
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq1, (Sequence<L4, NC4, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq2, (Sequence<NC4, L4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq3, (Sequence<L4, OC4, NC5, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq4, (Sequence<NC5, L4, OC4, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq5, (Sequence<Ign1, Ign2, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq2, (Sequence<L4, NC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq1, (Sequence<NC4, L4, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq3, (Sequence<L4, NC4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq1, (Sequence<L4, OC4, NC5, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq4, (Sequence<L4, NC4, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq1, (Sequence<NC5, L4, OC4, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq5, (Sequence<L4, NC4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq1, (Sequence<Ign1, Ign2, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq3, (Sequence<NC4, L4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq2, (Sequence<L4, OC4, NC5, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq4, (Sequence<NC4, L4, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq2, (Sequence<NC5, L4, OC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq5, (Sequence<NC4, L4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq2, (Sequence<Ign1, Ign2, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq4, (Sequence<L4, OC4, NC5, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq3, (Sequence<NC5, L4, OC4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq5, (Sequence<L4, OC4, NC5, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq3, (Sequence<Ign1, Ign2, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq5, (Sequence<NC5, L4, OC4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq4, (Sequence<Ign1, Ign2, NC5, L4, OC4>{}));
 }
 
 TEST("sequence operator", "Sequence >> {anything}")
 {
-	assert
-		, (seq1 >> oc1) == Sequence<L4, NC4, OC1>{}
-		, (oc1 >> seq1) == Sequence<OC1, L4, NC4>{}
-		, (seq2 >> oc4) == Sequence<NC4, L4, OC4>{}
-		, (oc4 >> seq2) == Sequence<OC4, NC4, L4>{}
-		, (seq3 >> oc3) == Sequence<L4, OC4, NC5, OC3>{}
-		, (oc3 >> seq3) == Sequence<OC3, L4, OC4, NC5>{}
-		, (seq4 >> oc2) == Sequence<NC5, L4, OC4, OC2>{}
-		, (oc2 >> seq4) == Sequence<OC2, NC5, L4, OC4>{}
-		;
+	ASSERT_PARSER_VALUES_EQ(seq1 >> oc1, (Sequence<L4, NC4, OC1>{}));
+	ASSERT_PARSER_VALUES_EQ(oc1 >> seq1, (Sequence<OC1, L4, NC4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> oc4, (Sequence<NC4, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(oc4 >> seq2, (Sequence<OC4, NC4, L4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> oc3, (Sequence<L4, OC4, NC5, OC3>{}));
+	ASSERT_PARSER_VALUES_EQ(oc3 >> seq3, (Sequence<OC3, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> oc2, (Sequence<NC5, L4, OC4, OC2>{}));
+	ASSERT_PARSER_VALUES_EQ(oc2 >> seq4, (Sequence<OC2, NC5, L4, OC4>{}));
 }
 
 TEST("sequence operator", "void result_type")
 {
-	assert
-		, (ign1 >> ign2) == seq5
-		, (ign2 >> ign1) != seq5
-		;
+	ASSERT_PARSER_VALUES_EQ(ign1 >> ign2, seq5);
+	ASSERT_PARSER_VALUES_NE(ign2 >> ign1, seq5);
 }
 
 

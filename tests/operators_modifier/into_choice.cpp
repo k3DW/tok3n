@@ -4,9 +4,9 @@ using namespace traits::operators;
 
 TEST("into_choice modifier", "prefix")
 {
+	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(spacedot, abc), (Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}));
+	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(abc, spacedot), (Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}));
 	assert
-		, into_choice<Class1>(spacedot, abc) == Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}
-		, into_choice<Class1>(abc, spacedot) == Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}
 		, not valid_function_call<into_choice<Class1>, abc, (spacedot >> abc)>
 		, valid_function_call<into_choice<Sink>, abc, (spacedot >> abc)>
 		;

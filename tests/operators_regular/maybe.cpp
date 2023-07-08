@@ -2,56 +2,50 @@
 
 TEST("maybe operator", "~Maybe")
 {
-	assert
-		, ~may1 == may1
-		, ~~may1 == may1
-		, ~~~may1 == may1
-		, ~may2 == may2
-		, ~~may2 == may2
-		, ~~~may2 == may2
-		, ~may3 == may3
-		, ~~may3 == may3
-		, ~~~may3 == may3
-		, ~may4 == may4
-		, ~~may4 == may4
-		, ~~~may4 == may4
-		;
+	ASSERT_PARSER_VALUES_EQ(~may1, may1);
+	ASSERT_PARSER_VALUES_EQ(~~may1, may1);
+	ASSERT_PARSER_VALUES_EQ(~~~may1, may1);
+	ASSERT_PARSER_VALUES_EQ(~may2, may2);
+	ASSERT_PARSER_VALUES_EQ(~~may2, may2);
+	ASSERT_PARSER_VALUES_EQ(~~~may2, may2);
+	ASSERT_PARSER_VALUES_EQ(~may3, may3);
+	ASSERT_PARSER_VALUES_EQ(~~may3, may3);
+	ASSERT_PARSER_VALUES_EQ(~~~may3, may3);
+	ASSERT_PARSER_VALUES_EQ(~may4, may4);
+	ASSERT_PARSER_VALUES_EQ(~~may4, may4);
+	ASSERT_PARSER_VALUES_EQ(~~~may4, may4);
 }
 
 TEST("maybe operator", "~OneOrMore")
 {
-	assert
-		, ~oom1 == zom1
-		, ~~oom1 == zom1
-		, ~~~oom1 == zom1
-		, ~oom2 == zom2
-		, ~~oom2 == zom2
-		, ~~~oom2 == zom2
-		, ~oom3 == zom3
-		, ~~oom3 == zom3
-		, ~~~oom3 == zom3
-		, ~oom4 == zom4
-		, ~~oom4 == zom4
-		, ~~~oom4 == zom4
-		;
+	ASSERT_PARSER_VALUES_EQ(~oom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~~oom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~~~oom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~oom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~~oom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~~~oom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~oom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~~oom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~~~oom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~oom4, zom4);
+	ASSERT_PARSER_VALUES_EQ(~~oom4, zom4);
+	ASSERT_PARSER_VALUES_EQ(~~~oom4, zom4);
 }
 
 TEST("maybe operator", "~ZeroOrMore")
 {
-	assert
-		, ~zom1 == zom1
-		, ~~zom1 == zom1
-		, ~~~zom1 == zom1
-		, ~zom2 == zom2
-		, ~~zom2 == zom2
-		, ~~~zom2 == zom2
-		, ~zom3 == zom3
-		, ~~zom3 == zom3
-		, ~~~zom3 == zom3
-		, ~zom4 == zom4
-		, ~~zom4 == zom4
-		, ~~~zom4 == zom4
-		;
+	ASSERT_PARSER_VALUES_EQ(~zom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~~zom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~~~zom1, zom1);
+	ASSERT_PARSER_VALUES_EQ(~zom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~~zom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~~~zom2, zom2);
+	ASSERT_PARSER_VALUES_EQ(~zom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~~zom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~~~zom3, zom3);
+	ASSERT_PARSER_VALUES_EQ(~zom4, zom4);
+	ASSERT_PARSER_VALUES_EQ(~~zom4, zom4);
+	ASSERT_PARSER_VALUES_EQ(~~~zom4, zom4);
 }
 
 
