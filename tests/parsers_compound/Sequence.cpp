@@ -8,6 +8,7 @@ TEST("Sequence", "Requirements")
 	assert
 		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
 		, IsParser<ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>>
+		, IsParser<Seq5, SequenceType, void>
 		;
 }
 
@@ -24,6 +25,13 @@ TEST("Sequence", "Parse three-way Sequence")
 	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
 	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
 	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
+}
+
+TEST("Sequence", "Parse void result_type")
+{
+	ASSERT_PARSE_FAILURE(Seq5, "ab");
+	ASSERT_PARSE_FAILURE(Seq5, "abca");
+	ASSERT_PARSE_SUCCESS_VOID(Seq5, "abcabcabcdabcd", "dabcd");
 }
 
 

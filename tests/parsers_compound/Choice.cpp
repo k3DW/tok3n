@@ -13,6 +13,7 @@ TEST("Choice", "Requirements")
 		, IsParser<TwoWay2, ChoiceType, std::string_view>
 		, IsParser<ThreeWay1, ChoiceType, std::string_view>
 		, IsParser<ThreeWay2, ChoiceType, std::string_view>
+		, IsParser<Cho5, ChoiceType, void>
 		;
 }
 
@@ -49,6 +50,13 @@ TEST("Choice", "Parse three-way Choice")
 	ASSERT_PARSE_SUCCESS(ThreeWay1, "xyz", "x", "yz");
 	ASSERT_PARSE_FAILURE(ThreeWay2, "zyx");
 	ASSERT_PARSE_SUCCESS(ThreeWay2, "xyz", "x", "yz");
+}
+
+TEST("Choice", "Parse void result_type")
+{
+	ASSERT_PARSE_FAILURE(Cho5, "ab");
+	ASSERT_PARSE_SUCCESS_VOID(Cho5, "abca", "a");
+	ASSERT_PARSE_SUCCESS_VOID(Cho5, "abcabcabc", "abcabc");
 }
 
 

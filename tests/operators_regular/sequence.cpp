@@ -24,18 +24,27 @@ TEST("sequence operator", "Sequence >> Sequence")
 	, (seq2 >> seq2) == Sequence<NC4, L4, NC4, L4>{}
 	, (seq3 >> seq3) == Sequence<L4, OC4, NC5, L4, OC4, NC5>{}
 	, (seq4 >> seq4) == Sequence<NC5, L4, OC4, NC5, L4, OC4>{}
+		, (seq5 >> seq5) == Sequence<Ign1, Ign2, Ign1, Ign2>{}
 	, (seq1 >> seq2) == Sequence<L4, NC4, NC4, L4>{}
 	, (seq2 >> seq1) == Sequence<NC4, L4, L4, NC4>{}
 	, (seq1 >> seq3) == Sequence<L4, NC4, L4, OC4, NC5>{}
 	, (seq3 >> seq1) == Sequence<L4, OC4, NC5, L4, NC4>{}
 	, (seq1 >> seq4) == Sequence<L4, NC4, NC5, L4, OC4>{}
 	, (seq4 >> seq1) == Sequence<NC5, L4, OC4, L4, NC4>{}
+		, (seq1 >> seq5) == Sequence<L4, NC4, Ign1, Ign2>{}
+		, (seq5 >> seq1) == Sequence<Ign1, Ign2, L4, NC4>{}
 	, (seq2 >> seq3) == Sequence<NC4, L4, L4, OC4, NC5>{}
 	, (seq3 >> seq2) == Sequence<L4, OC4, NC5, NC4, L4>{}
 	, (seq2 >> seq4) == Sequence<NC4, L4, NC5, L4, OC4>{}
 	, (seq4 >> seq2) == Sequence<NC5, L4, OC4, NC4, L4>{}
+		, (seq2 >> seq5) == Sequence<NC4, L4, Ign1, Ign2>{}
+		, (seq5 >> seq2) == Sequence<Ign1, Ign2, NC4, L4>{}
 	, (seq3 >> seq4) == Sequence<L4, OC4, NC5, NC5, L4, OC4>{}
 	, (seq4 >> seq3) == Sequence<NC5, L4, OC4, L4, OC4, NC5>{}
+		, (seq3 >> seq5) == Sequence<L4, OC4, NC5, Ign1, Ign2>{}
+		, (seq5 >> seq3) == Sequence<Ign1, Ign2, L4, OC4, NC5>{}
+		, (seq4 >> seq5) == Sequence<NC5, L4, OC4, Ign1, Ign2>{}
+		, (seq5 >> seq4) == Sequence<Ign1, Ign2, NC5, L4, OC4>{}
 	;
 }
 
@@ -55,12 +64,9 @@ TEST("sequence operator", "Sequence >> {anything}")
 
 TEST("sequence operator", "void result_type")
 {
-	constexpr auto void_sequence = (ign1 >> ign2);
-
 	assert
-		, void_sequence == Sequence<Ign1, Ign2>{}
-		, std::same_as<decltype(void_sequence)::result_type, void>
-		, parse(void_sequence, "abcabcabcdabcd").success("dabcd")
+		, (ign1 >> ign2) == seq5
+		, (ign2 >> ign1) != seq5
 		;
 }
 

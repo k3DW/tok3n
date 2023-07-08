@@ -75,6 +75,7 @@ TEST("choice operator", "Choice | Choice")
 		, (cho4 | cho2) == Choice<NC5, L4, OC4, NC4, L4>{}
 		, (cho3 | cho4) == Choice<L4, OC4, NC5, NC5, L4, OC4>{}
 		, (cho4 | cho3) == Choice<NC5, L4, OC4, L4, OC4, NC5>{}
+		, (cho5 | cho5) == cho5
 		;
 }
 
@@ -94,12 +95,9 @@ TEST("choice operator", "Choice | {anything}, and {anything} | Choice")
 
 TEST("choice operator", "void result_type")
 {
-	constexpr auto void_choice = (ign1 | ign2);
-
 	assert
-		, void_choice == Choice<Ign1, Ign2>{}
-		, std::same_as<decltype(void_choice)::result_type, void>
-		, parse(void_choice, "abcabcabcdabcd").success("abcabcdabcd")
+		, (ign1 | ign2) == cho5
+		, (ign2 | ign1) != cho5
 		;
 }
 
