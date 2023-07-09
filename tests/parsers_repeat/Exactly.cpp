@@ -12,9 +12,9 @@ TEST("Exactly", "Constructibility")
 {
 	using traits::repeat::Exactly::constructible;
 	assert
-		, not constructible::from<OC1, 0>
-		, constructible::from<OC1, 1>
-		, constructible::from<OC1, 2>
+		, not constructible::from<OC1, Index<0>>
+		, constructible::from<OC1, Index<1>>
+		, constructible::from<OC1, Index<2>>
 		;
 }
 

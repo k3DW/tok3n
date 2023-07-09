@@ -11,10 +11,11 @@ concept MaybeConstructible =
 	Parser<P> and
 	not std::same_as<typename P::result_type, void>;
 
-template <class P, std::size_t N>
+template <class P, class N>
 concept ExactlyConstructible =
 	Parser<P> and
-	(N != 0) and
+	detail::is_integral_constant<N, std::size_t> and
+	(N::value != 0) and
 	not std::same_as<typename P::result_type, void>;
 
 template <class P>
@@ -41,7 +42,7 @@ template <Parser P>
 requires MaybeConstructible<P>
 struct Maybe;
 
-template <Parser P, std::size_t N>
+template <Parser P, detail::is_integral_constant<std::size_t> N>
 requires ExactlyConstructible<P, N>
 struct Exactly;
 

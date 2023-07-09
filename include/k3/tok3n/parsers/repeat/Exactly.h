@@ -3,11 +3,11 @@
 
 namespace k3::tok3n {
 
-template <Parser P, std::size_t N>
+template <Parser P, detail::is_integral_constant<std::size_t> N>
 requires ExactlyConstructible<P, N>
 struct Exactly
 {
-	using result_type = std::array<typename P::result_type, N>;
+	using result_type = std::array<typename P::result_type, N::value>;
 
 	static constexpr ParserType type = ExactlyType;
 
@@ -16,7 +16,7 @@ struct Exactly
 		const Input original_input = input;
 		result_type results;
 
-		for (std::size_t i = 0; i < N; i++)
+		for (std::size_t i = 0; i < N::value; i++)
 		{
 			auto result = P::parse(input);
 			if (result.has_value())
@@ -35,7 +35,7 @@ struct Exactly
 	{
 		const Input original_input = input;
 
-		for (std::size_t i = 0; i < N; i++)
+		for (std::size_t i = 0; i < N::value; i++)
 		{
 			auto result = P::lookahead(input);
 			if (result.has_value())
