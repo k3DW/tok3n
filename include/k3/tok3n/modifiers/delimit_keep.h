@@ -7,20 +7,20 @@ namespace k3::tok3n::modifiers {
 struct delimit_keep final
 {
 	template <Parser P, Parser D>
-	requires DelimitConstructible<P, D, std::true_type>
+	requires DelimitConstructible<P, D, True>
 	consteval auto operator()(P, D) const
 	{
-		return Delimit<P, D, std::true_type>{};
+		return Delimit<P, D, True>{};
 	}
 
 	template <Parser D>
 	struct inner final : ModifierBase
 	{
 		template <Parser P>
-		requires DelimitConstructible<P, D, std::true_type>
+		requires DelimitConstructible<P, D, True>
 		consteval auto operator()(P) const
 		{
-			return Delimit<P, D, std::true_type>{};
+			return Delimit<P, D, True>{};
 		}
 	};
 
