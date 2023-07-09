@@ -56,14 +56,3 @@ namespace traits::repeat
 	}
 
 }
-
-namespace traits::operators
-{
-
-	template <Parser auto parser, Modifier auto modifier>
-	concept valid_modulo = requires { { parser % modifier } -> Parser; };
-
-	template <Modifier auto modifier, Parser auto... parsers>
-	concept valid_function_call = requires { { modifier(parsers...) } -> Parser; };
-
-}
