@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, Parser D, detail::is_bool_constant KeepDelimiters>
+template <Parser P, Parser D, detail::is_integral_constant<bool> KeepDelimiters>
 requires DelimitConstructible<P, D, KeepDelimiters>
 struct Delimit
 {

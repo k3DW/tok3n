@@ -193,7 +193,7 @@
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\detail\is_bool_constant.h">
+    <ClInclude Include="include\k3\tok3n\detail\is_integral_constant.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\all_same.h">
