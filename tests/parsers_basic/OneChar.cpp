@@ -3,51 +3,45 @@
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
 
-static void requirements()
+TEST("OneChar", "Requirements")
 {
-	assert
-		, IsParser<Single, OneCharType, std::string_view>
-		, IsParser<Multi, OneCharType, std::string_view>
-		;
+	ASSERT_IS_PARSER(Single, OneCharType, std::string_view);
+	ASSERT_IS_PARSER(Multi, OneCharType, std::string_view);
 }
 
-static void parse_single()
+TEST("OneChar", "Parse single char")
 {
-	assert
-		, parse<Single>("ab").success("a", "b")
-		, parse<Single>("ba").failure()
-		, parse<Single>("abc").success("a", "bc")
-		, parse<Single>("Ab").failure()
-		, parse<Single>("Abc").failure()
-		, parse<Single>(" abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
+	ASSERT_PARSE_FAILURE(Single, "ba");
+	ASSERT_PARSE_SUCCESS(Single, "abc", "a", "bc");
+	ASSERT_PARSE_FAILURE(Single, "Ab");
+	ASSERT_PARSE_FAILURE(Single, "Abc");
+	ASSERT_PARSE_FAILURE(Single, " abc");
 }
 
-static void parse_multi()
+TEST("OneChar", "Parse multi char")
 {
-	assert
-		, parse<Multi>("abc").success("a", "bc")
-		, parse<Multi>("acb").success("a", "cb")
-		, parse<Multi>("bac").success("b", "ac")
-		, parse<Multi>("bca").success("b", "ca")
-		, parse<Multi>("cab").success("c", "ab")
-		, parse<Multi>("cba").success("c", "ba")
-		, parse<Multi>("ABC").failure()
-		, parse<Multi>("ACB").failure()
-		, parse<Multi>("BAC").failure()
-		, parse<Multi>("BCA").failure()
-		, parse<Multi>("CAB").failure()
-		, parse<Multi>("CBA").failure()
-		, parse<Multi>("dcba").failure()
-		, parse<Multi>(" cba").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
+	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
+	ASSERT_PARSE_SUCCESS(Multi, "bac", "b", "ac");
+	ASSERT_PARSE_SUCCESS(Multi, "bca", "b", "ca");
+	ASSERT_PARSE_SUCCESS(Multi, "cab", "c", "ab");
+	ASSERT_PARSE_SUCCESS(Multi, "cba", "c", "ba");
+	ASSERT_PARSE_FAILURE(Multi, "ABC");
+	ASSERT_PARSE_FAILURE(Multi, "ACB");
+	ASSERT_PARSE_FAILURE(Multi, "BAC");
+	ASSERT_PARSE_FAILURE(Multi, "BCA");
+	ASSERT_PARSE_FAILURE(Multi, "CAB");
+	ASSERT_PARSE_FAILURE(Multi, "CBA");
+	ASSERT_PARSE_FAILURE(Multi, "dcba");
+	ASSERT_PARSE_FAILURE(Multi, " cba");
 }
 
 
 
 using constructible = traits::basic::constructible<OneChar>;
 
-static void constructible_from_ascii_only()
+TEST("OneChar", "Constructible from ascii only")
 {
 	using all_ascii_chars = std::make_integer_sequence<int, 128>;
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
@@ -58,7 +52,7 @@ static void constructible_from_ascii_only()
 		;
 }
 
-static void constructible_alphabetically_only()
+TEST("OneChar", "Constructible from lexicographically sorted only")
 {
 	assert
 		, constructible::from<"abc">
@@ -70,21 +64,11 @@ static void constructible_alphabetically_only()
 		;
 }
 
-static void parse_empty()
+TEST("OneChar", "Parse empty")
 {
 	assert
 		, constructible::from<"">
-		, parse<OneChar<"">>("anything").failure()
-		, parse<OneChar<"">>("").failure()
 		;
-}
-
-void OneChar_tests()
-{
-	requirements();
-	parse_single();
-	parse_multi();
-	constructible_from_ascii_only();
-	constructible_alphabetically_only();
-	parse_empty();
+	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
+	ASSERT_PARSE_FAILURE(OneChar<"">, "");
 }

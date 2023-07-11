@@ -1,19 +1,15 @@
 #include "pch.h"
 
-static void prefix()
+TEST("defaulted modifier", "prefix")
 {
-	assert
-		, def1 == defaulted<int>(+abc)
-		, def2 == defaulted<Class3>(~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_EQ(def1, defaulted<int>(+abc));
+	ASSERT_PARSER_VALUES_EQ(def2, defaulted<Class3>(~(abc | qq)));
 }
 
-static void infix()
+TEST("defaulted modifier", "infix")
 {
-	assert
-		, def1 == +abc % defaulted<int>
-		, def2 == ~(abc | qq) % defaulted<Class3>
-		;
+	ASSERT_PARSER_VALUES_EQ(def1, +abc % defaulted<int>);
+	ASSERT_PARSER_VALUES_EQ(def2, ~(abc | qq) % defaulted<Class3>);
 }
 
 
@@ -28,16 +24,7 @@ constexpr auto defaulted_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void defaulted_anything()
+TEST("defaulted modifier", "modify anything")
 {
-	assert
-		, check_all_samples(defaulted_checker)
-		;
-}
-
-void defaulted_tests()
-{
-	prefix();
-	infix();
-	defaulted_anything();
+	ASSERT(check_all_samples(defaulted_checker), "check_all_samples(defaulted_checker) failed");
 }

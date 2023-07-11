@@ -1,31 +1,27 @@
 #include "pch.h"
 
-static void prefix()
+TEST("delimit modifier", "prefix")
 {
-	assert
-		, del1 == delimit(abc, comma)
-		, del2 == delimit(abc, spacedot)
-		, del3 == delimit(qq, comma)
-		, del4 == delimit(qq, spacedot)
-		, del5 == delimit(comma, abc)
-		, del6 == delimit(spacedot, abc)
-		, del7 == delimit(comma, qq)
-		, del8 == delimit(spacedot, qq)
-		;
+	ASSERT_PARSER_VALUES_EQ(del1, delimit(abc, comma));
+	ASSERT_PARSER_VALUES_EQ(del2, delimit(abc, spacedot));
+	ASSERT_PARSER_VALUES_EQ(del3, delimit(qq, comma));
+	ASSERT_PARSER_VALUES_EQ(del4, delimit(qq, spacedot));
+	ASSERT_PARSER_VALUES_EQ(del5, delimit(comma, abc));
+	ASSERT_PARSER_VALUES_EQ(del6, delimit(spacedot, abc));
+	ASSERT_PARSER_VALUES_EQ(del7, delimit(comma, qq));
+	ASSERT_PARSER_VALUES_EQ(del8, delimit(spacedot, qq));
 }
 
-static void infix()
+TEST("delimit modifier", "infix")
 {
-	assert
-		, del1 == abc % delimit(comma)
-		, del2 == abc % delimit(spacedot)
-		, del3 == qq % delimit(comma)
-		, del4 == qq % delimit(spacedot)
-		, del5 == comma % delimit(abc)
-		, del6 == spacedot % delimit(abc)
-		, del7 == comma % delimit(qq)
-		, del8 == spacedot % delimit(qq)
-		;
+	ASSERT_PARSER_VALUES_EQ(del1, abc % delimit(comma));
+	ASSERT_PARSER_VALUES_EQ(del2, abc % delimit(spacedot));
+	ASSERT_PARSER_VALUES_EQ(del3, qq % delimit(comma));
+	ASSERT_PARSER_VALUES_EQ(del4, qq % delimit(spacedot));
+	ASSERT_PARSER_VALUES_EQ(del5, comma % delimit(abc));
+	ASSERT_PARSER_VALUES_EQ(del6, spacedot % delimit(abc));
+	ASSERT_PARSER_VALUES_EQ(del7, comma % delimit(qq));
+	ASSERT_PARSER_VALUES_EQ(del8, spacedot % delimit(qq));
 }
 
 
@@ -48,16 +44,7 @@ constexpr auto delimit_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void delimit_anything()
+TEST("delimit modifier", "modify anything")
 {
-	assert
-		, check_all_samples(delimit_checker)
-		;
-}
-
-void delimit_tests()
-{
-	prefix();
-	infix();
-	delimit_anything();
+	ASSERT(check_all_samples(delimit_checker), "check_all_samples(delimit_checker) failed");
 }

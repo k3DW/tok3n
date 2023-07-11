@@ -1,49 +1,43 @@
 #include "pch.h"
 
-static void prefix()
+TEST("complete modifier", "prefix")
 {
-	assert
-		, com1 == complete(l1)
-		, com2 == complete(oc1)
-		, com3 == complete(l1 | oc1)
-		, com4 == complete(l1 >> oc1)
-		, com5 == complete(~(l1 >> oc1))
-		, com6 == complete(+(l1 >> oc1))
-		, com7 == complete(*(l1 >> oc1))
-		;
+	ASSERT_PARSER_VALUES_EQ(com1, complete(l1));
+	ASSERT_PARSER_VALUES_EQ(com2, complete(oc1));
+	ASSERT_PARSER_VALUES_EQ(com3, complete(l1 | oc1));
+	ASSERT_PARSER_VALUES_EQ(com4, complete(l1 >> oc1));
+	ASSERT_PARSER_VALUES_EQ(com5, complete(~(l1 >> oc1)));
+	ASSERT_PARSER_VALUES_EQ(com6, complete(+(l1 >> oc1)));
+	ASSERT_PARSER_VALUES_EQ(com7, complete(*(l1 >> oc1)));
 }
 
-static void infix()
+TEST("complete modifier", "infix")
 {
-	assert
-		, com1 == l1 % complete
-		, com2 == oc1 % complete
-		, com3 == (l1 | oc1) % complete
-		, com4 == (l1 >> oc1) % complete
-		, com5 == ~(l1 >> oc1) % complete
-		, com6 == +(l1 >> oc1) % complete
-		, com7 == *(l1 >> oc1) % complete
-		;
+	ASSERT_PARSER_VALUES_EQ(com1, l1 % complete);
+	ASSERT_PARSER_VALUES_EQ(com2, oc1 % complete);
+	ASSERT_PARSER_VALUES_EQ(com3, (l1 | oc1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com4, (l1 >> oc1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com5, ~(l1 >> oc1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com6, +(l1 >> oc1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com7, *(l1 >> oc1) % complete);
 }
 
-static void idempotent()
+TEST("complete modifier", "idempotent")
 {
-	assert
-		, com1 == complete(com1)
-		, com2 == complete(com2)
-		, com3 == complete(com3)
-		, com4 == complete(com4)
-		, com5 == complete(com5)
-		, com6 == complete(com6)
-		, com7 == complete(com7)
-		, com1 == com1 % complete
-		, com2 == com2 % complete
-		, com3 == com3 % complete
-		, com4 == com4 % complete
-		, com5 == com5 % complete
-		, com6 == com6 % complete
-		, com7 == com7 % complete
-		;
+	ASSERT_PARSER_VALUES_EQ(com1, complete(com1));
+	ASSERT_PARSER_VALUES_EQ(com2, complete(com2));
+	ASSERT_PARSER_VALUES_EQ(com3, complete(com3));
+	ASSERT_PARSER_VALUES_EQ(com4, complete(com4));
+	ASSERT_PARSER_VALUES_EQ(com5, complete(com5));
+	ASSERT_PARSER_VALUES_EQ(com6, complete(com6));
+	ASSERT_PARSER_VALUES_EQ(com7, complete(com7));
+	ASSERT_PARSER_VALUES_EQ(com1, com1 % complete);
+	ASSERT_PARSER_VALUES_EQ(com2, com2 % complete);
+	ASSERT_PARSER_VALUES_EQ(com3, com3 % complete);
+	ASSERT_PARSER_VALUES_EQ(com4, com4 % complete);
+	ASSERT_PARSER_VALUES_EQ(com5, com5 % complete);
+	ASSERT_PARSER_VALUES_EQ(com6, com6 % complete);
+	ASSERT_PARSER_VALUES_EQ(com7, com7 % complete);
 }
 
 
@@ -68,17 +62,7 @@ constexpr auto complete_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void complete_anything()
+TEST("complete modifier", "modify anything")
 {
-	assert
-		, check_all_samples(complete_checker)
-		;
-}
-
-void complete_tests()
-{
-	prefix();
-	infix();
-	idempotent();
-	complete_anything();
+	ASSERT(check_all_samples(complete_checker), "check_all_samples(complete_checker) failed");
 }

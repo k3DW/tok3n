@@ -3,52 +3,46 @@
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
-static void requirements()
+TEST("NotChar", "Requirements")
 {
-	assert
-		, IsParser<Single, NotCharType, std::string_view>
-		, IsParser<Multi, NotCharType, std::string_view>
-		;
+	ASSERT_IS_PARSER(Single, NotCharType, std::string_view);
+	ASSERT_IS_PARSER(Multi, NotCharType, std::string_view);
 }
 
-static void parse_single()
+TEST("NotChar", "Parse single char")
 {
-	assert
-		, parse<Single>("ab").failure()
-		, parse<Single>("ba").success("b", "a")
-		, parse<Single>("abc").failure()
-		, parse<Single>("Ab").success("A", "b")
-		, parse<Single>("Abc").success("A", "bc")
-		, parse<Single>(" abc").success(" ", "abc")
-		;
+	ASSERT_PARSE_FAILURE(Single, "ab");
+	ASSERT_PARSE_SUCCESS(Single, "ba", "b", "a");
+	ASSERT_PARSE_FAILURE(Single, "abc");
+	ASSERT_PARSE_SUCCESS(Single, "Ab", "A", "b");
+	ASSERT_PARSE_SUCCESS(Single, "Abc", "A", "bc");
+	ASSERT_PARSE_SUCCESS(Single, " abc", " ", "abc");
 }
 
-static void parse_multi()
+TEST("NotChar", "Parse multi char")
 {
-	assert
-		, parse<Multi>("abc").failure()
-		, parse<Multi>("acb").failure()
-		, parse<Multi>("bac").failure()
-		, parse<Multi>("bca").failure()
-		, parse<Multi>("cab").failure()
-		, parse<Multi>("cba").failure()
-		, parse<Multi>("ABC").success("A", "BC")
-		, parse<Multi>("ACB").success("A", "CB")
-		, parse<Multi>("BAC").success("B", "AC")
-		, parse<Multi>("BCA").success("B", "CA")
-		, parse<Multi>("CAB").success("C", "AB")
-		, parse<Multi>("CBA").success("C", "BA")
-		, parse<Multi>("dcba").success("d", "cba")
-		, parse<Multi>("edcba").success("e", "dcba")
-		, parse<Multi>(" cba").success(" ", "cba")
-		;
+	ASSERT_PARSE_FAILURE(Multi, "abc");
+	ASSERT_PARSE_FAILURE(Multi, "acb");
+	ASSERT_PARSE_FAILURE(Multi, "bac");
+	ASSERT_PARSE_FAILURE(Multi, "bca");
+	ASSERT_PARSE_FAILURE(Multi, "cab");
+	ASSERT_PARSE_FAILURE(Multi, "cba");
+	ASSERT_PARSE_SUCCESS(Multi, "ABC", "A", "BC");
+	ASSERT_PARSE_SUCCESS(Multi, "ACB", "A", "CB");
+	ASSERT_PARSE_SUCCESS(Multi, "BAC", "B", "AC");
+	ASSERT_PARSE_SUCCESS(Multi, "BCA", "B", "CA");
+	ASSERT_PARSE_SUCCESS(Multi, "CAB", "C", "AB");
+	ASSERT_PARSE_SUCCESS(Multi, "CBA", "C", "BA");
+	ASSERT_PARSE_SUCCESS(Multi, "dcba", "d", "cba");
+	ASSERT_PARSE_SUCCESS(Multi, "edcba", "e", "dcba");
+	ASSERT_PARSE_SUCCESS(Multi, " cba", " ", "cba");
 }
 
 
 
 using constructible = traits::basic::constructible<NotChar>;
 
-static void constructible_from_ascii_only()
+TEST("NotChar", "Constructible from ascii only")
 {
 	using all_ascii_chars = std::make_integer_sequence<int, 128>;
 	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
@@ -59,7 +53,7 @@ static void constructible_from_ascii_only()
 		;
 }
 
-static void constructible_alphabetically_only()
+TEST("NotChar", "Constructible from lexicographically sorted only")
 {
 	assert
 		, constructible::from<"abc">
@@ -71,21 +65,11 @@ static void constructible_alphabetically_only()
 		;
 }
 
-static void parse_empty()
+TEST("NotChar", "Parse empty")
 {
 	assert
 		, constructible::from<"">
-		, parse<NotChar<"">>("anything").success("a", "nything")
-		, parse<NotChar<"">>("").failure()
 		;
-}
-
-void NotChar_tests()
-{
-	requirements();
-	parse_single();
-	parse_multi();
-	constructible_from_ascii_only();
-	constructible_alphabetically_only();
-	parse_empty();
+	ASSERT_PARSE_SUCCESS(NotChar<"">, "anything", "a", "nything");
+	ASSERT_PARSE_FAILURE(NotChar<"">, "");
 }

@@ -1,41 +1,35 @@
 #include "pch.h"
 
-static void prefix()
+TEST("ignore modifier", "prefix")
 {
-	assert
-		, ign1 == ignore(abc)
-		, ign2 == ignore(+abc)
-		, ign3 == ignore(~(abc | qq))
-		, ign4 == ignore(abc >> *qq)
-		, ign5 == ignore(+abc >> ~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_EQ(ign1, ignore(abc));
+	ASSERT_PARSER_VALUES_EQ(ign2, ignore(+abc));
+	ASSERT_PARSER_VALUES_EQ(ign3, ignore(~(abc | qq)));
+	ASSERT_PARSER_VALUES_EQ(ign4, ignore(abc >> *qq));
+	ASSERT_PARSER_VALUES_EQ(ign5, ignore(+abc >> ~(abc | qq)));
 }
 
-static void infix()
+TEST("ignore modifier", "infix")
 {
-	assert
-		, ign1 == abc % ignore
-		, ign2 == +abc % ignore
-		, ign3 == ~(abc | qq) % ignore
-		, ign4 == (abc >> *qq) % ignore
-		, ign5 == (+abc >> ~(abc | qq)) % ignore
-		;
+	ASSERT_PARSER_VALUES_EQ(ign1, abc % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign2, +abc % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign3, ~(abc | qq) % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign4, (abc >> *qq) % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign5, (+abc >> ~(abc | qq)) % ignore);
 }
 
-static void idempotent()
+TEST("ignore modifier", "idempotent")
 {
-	assert
-		, ign1 == ignore(ign1)
-		, ign2 == ignore(ign2)
-		, ign3 == ignore(ign3)
-		, ign4 == ignore(ign4)
-		, ign5 == ignore(ign5)
-		, ign1 == ign1 % ignore
-		, ign2 == ign2 % ignore
-		, ign3 == ign3 % ignore
-		, ign4 == ign4 % ignore
-		, ign5 == ign5 % ignore
-		;
+	ASSERT_PARSER_VALUES_EQ(ign1, ignore(ign1));
+	ASSERT_PARSER_VALUES_EQ(ign2, ignore(ign2));
+	ASSERT_PARSER_VALUES_EQ(ign3, ignore(ign3));
+	ASSERT_PARSER_VALUES_EQ(ign4, ignore(ign4));
+	ASSERT_PARSER_VALUES_EQ(ign5, ignore(ign5));
+	ASSERT_PARSER_VALUES_EQ(ign1, ign1 % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign2, ign2 % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign3, ign3 % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign4, ign4 % ignore);
+	ASSERT_PARSER_VALUES_EQ(ign5, ign5 % ignore);
 }
 
 
@@ -60,17 +54,7 @@ constexpr auto ignore_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void ignore_anything()
+TEST("ignore modifier", "modify anything")
 {
-	assert
-		, check_all_samples(ignore_checker)
-		;
-}
-
-void ignore_tests()
-{
-	prefix();
-	infix();
-	idempotent();
-	ignore_anything();
+	ASSERT(check_all_samples(ignore_checker), "check_all_samples(ignore_checker) failed");
 }

@@ -1,30 +1,20 @@
 #include "pch.h"
 
-static void requirements()
+TEST("ApplyInto", "Requirements")
 {
-	assert
-		, IsParser<Api1, ApplyIntoType, Class2>
-		, IsParser<Api2, ApplyIntoType, Class5>
-		;
+	ASSERT_IS_PARSER(Api1, ApplyIntoType, Class2);
+	ASSERT_IS_PARSER(Api2, ApplyIntoType, Class5);
 }
 
-static void parse_ApplyInto()
+TEST("ApplyInto", "Parse all")
 {
-	assert
-		, parse<Api1>("abc.").success(Class2{ "abc", "." }, "")
-		, parse<Api1>("abc . ").success(Class2{ "abc", " " }, ". ")
-		, parse<Api1>("").failure()
-		, parse<Api1>("abc").failure()
+	ASSERT_PARSE_SUCCESS(Api1, "abc.", Class2("abc", "."), "");
+	ASSERT_PARSE_SUCCESS(Api1, "abc . ", Class2("abc", " "), ". ");
+	ASSERT_PARSE_FAILURE(Api1, "");
+	ASSERT_PARSE_FAILURE(Api1, "abc");
 
-		, parse<Api2>(".abc").success(Class5{ ".", "abc" }, "")
-		, parse<Api2>(" abc. ").success(Class5{ " ", "abc" }, ". ")
-		, parse<Api2>(".").failure()
-		, parse<Api2>("abc").failure()
-		;
-}
-
-void ApplyInto_tests()
-{
-	requirements();
-	parse_ApplyInto();
+	ASSERT_PARSE_SUCCESS(Api2, ".abc", Class5(".", "abc"), "");
+	ASSERT_PARSE_SUCCESS(Api2, " abc. ", Class5(" ", "abc"), ". ");
+	ASSERT_PARSE_FAILURE(Api2, ".");
+	ASSERT_PARSE_FAILURE(Api2, "abc");
 }

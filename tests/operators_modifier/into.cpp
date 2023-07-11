@@ -1,19 +1,15 @@
 #include "pch.h"
 
-static void prefix()
+TEST("into modifier", "prefix")
 {
-	assert
-		, int1 == into<Class1>(spacedot)
-		, int2 == into<Class2>(abc >> spacedot)
-		;
+	ASSERT_PARSER_VALUES_EQ(int1, into<Class1>(spacedot));
+	ASSERT_PARSER_VALUES_EQ(int2, into<Class2>(abc >> spacedot));
 }
 
-static void infix()
+TEST("into modifier", "infix")
 {
-	assert
-		, int1 == spacedot % into<Class1>
-		, int2 == (abc >> spacedot) % into<Class2>
-		;
+	ASSERT_PARSER_VALUES_EQ(int1, spacedot % into<Class1>);
+	ASSERT_PARSER_VALUES_EQ(int2, (abc >> spacedot) % into<Class2>);
 }
 
 
@@ -36,16 +32,7 @@ constexpr auto into_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void into_anything()
+TEST("into modifier", "modify anything")
 {
-	assert
-		, check_all_samples(into_checker)
-		;
-}
-
-void into_tests()
-{
-	prefix();
-	infix();
-	into_anything();
+	ASSERT(check_all_samples(into_checker), "check_all_samples(into_checker) failed");
 }

@@ -1,43 +1,37 @@
 #include "pch.h"
 
-static void prefix()
+TEST("join modifier", "prefix")
 {
-	assert
-		, joi1 != join(abc)
-		, abc == join(abc)
-		, joi2 == join(+abc)
-		, joi3 == join(~(abc | qq))
-		, joi4 == join(abc >> *qq)
-		, joi5 == join(+abc >> ~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_NE(joi1, join(abc));
+	ASSERT_PARSER_VALUES_EQ(abc, join(abc));
+	ASSERT_PARSER_VALUES_EQ(joi2, join(+abc));
+	ASSERT_PARSER_VALUES_EQ(joi3, join(~(abc | qq)));
+	ASSERT_PARSER_VALUES_EQ(joi4, join(abc >> *qq));
+	ASSERT_PARSER_VALUES_EQ(joi5, join(+abc >> ~(abc | qq)));
 }
 
-static void infix()
+TEST("join modifier", "infix")
 {
-	assert
-		, joi1 != abc % join
-		, abc == abc % join
-		, joi2 == +abc % join
-		, joi3 == ~(abc | qq) % join
-		, joi4 == (abc >> *qq) % join
-		, joi5 == (+abc >> ~(abc | qq)) % join
-		;
+	ASSERT_PARSER_VALUES_NE(joi1, abc % join);
+	ASSERT_PARSER_VALUES_EQ(abc, abc % join);
+	ASSERT_PARSER_VALUES_EQ(joi2, +abc % join);
+	ASSERT_PARSER_VALUES_EQ(joi3, ~(abc | qq) % join);
+	ASSERT_PARSER_VALUES_EQ(joi4, (abc >> *qq) % join);
+	ASSERT_PARSER_VALUES_EQ(joi5, (+abc >> ~(abc | qq)) % join);
 }
 
-static void idempotent()
+TEST("join modifier", "idempotent")
 {
-	assert
-		, joi1 == join(joi1)
-		, joi2 == join(joi2)
-		, joi3 == join(joi3)
-		, joi4 == join(joi4)
-		, joi5 == join(joi5)
-		, joi1 == joi1 % join
-		, joi2 == joi2 % join
-		, joi3 == joi3 % join
-		, joi4 == joi4 % join
-		, joi5 == joi5 % join
-		;
+	ASSERT_PARSER_VALUES_EQ(joi1, join(joi1));
+	ASSERT_PARSER_VALUES_EQ(joi2, join(joi2));
+	ASSERT_PARSER_VALUES_EQ(joi3, join(joi3));
+	ASSERT_PARSER_VALUES_EQ(joi4, join(joi4));
+	ASSERT_PARSER_VALUES_EQ(joi5, join(joi5));
+	ASSERT_PARSER_VALUES_EQ(joi1, joi1 % join);
+	ASSERT_PARSER_VALUES_EQ(joi2, joi2 % join);
+	ASSERT_PARSER_VALUES_EQ(joi3, joi3 % join);
+	ASSERT_PARSER_VALUES_EQ(joi4, joi4 % join);
+	ASSERT_PARSER_VALUES_EQ(joi5, joi5 % join);
 }
 
 
@@ -67,17 +61,7 @@ constexpr auto join_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void join_anything()
+TEST("join modifier", "modify anything")
 {
-	assert
-		, check_all_samples(join_checker)
-		;
-}
-
-void join_tests()
-{
-	prefix();
-	infix();
-	idempotent();
-	join_anything();
+	ASSERT(check_all_samples(join_checker), "check_all_samples(join_checker) failed");
 }

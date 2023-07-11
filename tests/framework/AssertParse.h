@@ -1,10 +1,6 @@
 #pragma once
 #include "Test.h"
 
-#define ASSERT_PARSE_IMPL_PARSER_CONCEPT_(P)             \
-	ASSERT(Parser<P>,                                    \
-		"(" #P ") does not satisfy the Parser concept.")
-
 #define ASSERT_PARSE_IMPL_PARSE_VALID_(P, INPUT)                                     \
 	ASSERT((P::parse(INPUT)).has_value(),                                            \
 		"(" #P "::parse(" #INPUT ")) does not give a valid result, but it should." )
@@ -37,11 +33,9 @@
 
 #define ASSERT_PARSE_SUCCESS(P, INPUT, OUTPUT, REMAINING)            \
 	do {                                                             \
-		ASSERT_PARSE_IMPL_PARSER_CONCEPT_(P);                        \
+		ASSERT_PARSER_CONCEPT(P);                                    \
 		if (ASSERT_PARSE_IMPL_PARSE_VALID_(P, INPUT))                \
-		{                                                            \
 			ASSERT_PARSE_IMPL_PARSE_RESULT_(P, INPUT, OUTPUT);       \
-		}                                                            \
 		ASSERT_PARSE_IMPL_PARSE_REMAINING_(P, INPUT, REMAINING);     \
 		ASSERT_PARSE_IMPL_LOOKAHEAD_VALID_(P, INPUT);                \
 		ASSERT_PARSE_IMPL_LOOKAHEAD_REMAINING_(P, INPUT, REMAINING); \
@@ -49,7 +43,7 @@
 
 #define ASSERT_PARSE_SUCCESS_VOID(P, INPUT, REMAINING)               \
 	do {                                                             \
-		ASSERT_PARSE_IMPL_PARSER_CONCEPT_(P);                        \
+		ASSERT_PARSER_CONCEPT(P);                                    \
 		ASSERT_PARSE_IMPL_PARSE_VALID_(P, INPUT);                    \
 		ASSERT_PARSE_IMPL_PARSE_REMAINING_(P, INPUT, REMAINING);     \
 		ASSERT_PARSE_IMPL_LOOKAHEAD_VALID_(P, INPUT);                \
@@ -58,7 +52,7 @@
 
 #define ASSERT_PARSE_FAILURE(P, INPUT)                           \
 	do {                                                         \
-		ASSERT_PARSE_IMPL_PARSER_CONCEPT_(P);                    \
+		ASSERT_PARSER_CONCEPT(P);                                \
 		ASSERT_PARSE_IMPL_PARSE_INVALID_(P, INPUT);              \
 		ASSERT_PARSE_IMPL_PARSE_REMAINING_(P, INPUT, INPUT);     \
 		ASSERT_PARSE_IMPL_LOOKAHEAD_INVALID_(P, INPUT);          \
@@ -67,7 +61,7 @@
 
 #define ASSERT_PARSE_LOOKAHEAD_ONLY(P, INPUT, REMAINING)             \
 	do {                                                             \
-		ASSERT_PARSE_IMPL_PARSER_CONCEPT_(P);                        \
+		ASSERT_PARSER_CONCEPT(P);                                    \
 		ASSERT_PARSE_IMPL_PARSE_INVALID_(P, INPUT);                  \
 		ASSERT_PARSE_IMPL_PARSE_REMAINING_(P, INPUT, INPUT);         \
 		ASSERT_PARSE_IMPL_LOOKAHEAD_VALID_(P, INPUT);                \

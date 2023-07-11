@@ -3,46 +3,40 @@
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
-static void requirements()
+TEST("Sequence", "Requirements")
 {
-	assert
-		, IsParser<TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>>
-		, IsParser<ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>>
-		;
+	ASSERT_IS_PARSER(TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(Seq5, SequenceType, void);
 }
 
-static void parse_twoway()
+TEST("Sequence", "Parse two-way Sequence")
 {
-	assert
-		, parse<TwoWay>("abc").failure()
-		, parse<TwoWay>("abcd").failure()
-		, parse<TwoWay>("abef").success({ "ab", "e" }, "f")
-		, parse<TwoWay>("ab ef").success({ "ab", " " }, "ef")
-		;
+	ASSERT_PARSE_FAILURE(TwoWay, "abc");
+	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
+	ASSERT_PARSE_SUCCESS(TwoWay, "abef", std::tuple("ab", "e"), "f");
+	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", std::tuple("ab", " "), "ef");
 }
 
-static void parse_threeway()
+TEST("Sequence", "Parse three-way Sequence")
 {
-	assert
-		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
-		, parse<ThreeWay>("abdc").success({ "ab", "d", "c" }, "")
-		, parse<ThreeWay>("abcz").failure()
-		;
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
+	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
+}
+
+TEST("Sequence", "Parse void result_type")
+{
+	ASSERT_PARSE_FAILURE(Seq5, "ab");
+	ASSERT_PARSE_FAILURE(Seq5, "abca");
+	ASSERT_PARSE_SUCCESS_VOID(Seq5, "abcabcabcdabcd", "dabcd");
 }
 
 
 
 using constructible = traits::compound::constructible<Sequence>;
 
-static void not_constructible_empty()
+TEST("Sequence", "Not constructible empty")
 {
 	assert, not constructible::from<>;
-}
-
-void Sequence_tests()
-{
-	requirements();
-	parse_twoway();
-	parse_threeway();
-	not_constructible_empty();
 }

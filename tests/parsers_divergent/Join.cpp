@@ -1,51 +1,41 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Join", "Requirements")
 {
-	assert
-		, IsParser<Joi1, JoinType, std::string_view>
-		, IsParser<Joi2, JoinType, std::string_view>
-		, IsParser<Joi3, JoinType, std::string_view>
-		, IsParser<Joi4, JoinType, std::string_view>
-		, IsParser<Joi5, JoinType, std::string_view>
-		;
+	ASSERT_IS_PARSER(Joi1, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi2, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi3, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi4, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi5, JoinType, std::string_view);
 }
 
-static void parse_Join()
+TEST("Join", "Parse all")
 {
-	assert
-		, parse<Joi1>("abcabc").success("abc", "abc")
-		, parse<Joi1>("Abcabc").failure()
-		, parse<Joi1>(" abcabc").failure()
+	ASSERT_PARSE_SUCCESS(Joi1, "abcabc", "abc", "abc");
+	ASSERT_PARSE_FAILURE(Joi1, "Abcabc");
+	ASSERT_PARSE_FAILURE(Joi1, " abcabc");
 
-		, parse<Joi2>("abcabcabcab").success("abcabcabc", "ab")
-		, parse<Joi2>("").failure()
-		, parse<Joi2>("ab").failure()
-		, parse<Joi2>("abc").success("abc", "")
+	ASSERT_PARSE_SUCCESS(Joi2, "abcabcabcab", "abcabcabc", "ab");
+	ASSERT_PARSE_FAILURE(Joi2, "");
+	ASSERT_PARSE_FAILURE(Joi2, "ab");
+	ASSERT_PARSE_SUCCESS(Joi2, "abc", "abc", "");
 
-		, parse<Joi3>("abcabc").success("abc", "abc")
-		, parse<Joi3>("a??bcabc").success("", "a??bcabc")
-		, parse<Joi3>("").success("", "")
-		, parse<Joi3>("??abcabc").success("??", "abcabc")
-		, parse<Joi3>(" ??abcabc").success("", " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Joi3, "abcabc", "abc", "abc");
+	ASSERT_PARSE_SUCCESS(Joi3, "a??bcabc", "", "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Joi3, "", "", "");
+	ASSERT_PARSE_SUCCESS(Joi3, "??abcabc", "??", "abcabc");
+	ASSERT_PARSE_SUCCESS(Joi3, " ??abcabc", "", " ??abcabc");
 
-		, parse<Joi4>("abc???????").success("abc??????", "?")
-		, parse<Joi4>("??abc???????").failure()
-		, parse<Joi4>("abc??abc???????").success("abc??", "abc???????")
-		, parse<Joi4>("abc ??abc???????").success("abc", " ??abc???????")
-		, parse<Joi4>("").failure()
+	ASSERT_PARSE_SUCCESS(Joi4, "abc???????", "abc??????", "?");
+	ASSERT_PARSE_FAILURE(Joi4, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Joi4, "abc??abc???????", "abc??", "abc???????");
+	ASSERT_PARSE_SUCCESS(Joi4, "abc ??abc???????", "abc", " ??abc???????");
+	ASSERT_PARSE_FAILURE(Joi4, "");
 
-		, parse<Joi5>("abcabcabcabc??").success("abcabcabcabc??", "")
-		, parse<Joi5>("abcabcabcabc").success("abcabcabcabc", "")
-		, parse<Joi5>("abcabcabcabc ??").success("abcabcabcabc", " ??")
-		, parse<Joi5>("abc").success("abc", "")
-		, parse<Joi5>(" abc").failure()
-		, parse<Joi5>("").failure()
-		;
-}
-
-void Join_tests()
-{
-	requirements();
-	parse_Join();
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc??", "abcabcabcabc??", "");
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc", "abcabcabcabc", "");
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc ??", "abcabcabcabc", " ??");
+	ASSERT_PARSE_SUCCESS(Joi5, "abc", "abc", "");
+	ASSERT_PARSE_FAILURE(Joi5, " abc");
+	ASSERT_PARSE_FAILURE(Joi5, "");
 }

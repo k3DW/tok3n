@@ -1,27 +1,22 @@
 #include "pch.h"
 
-using namespace traits::operators;
-
-static void prefix()
+TEST("into_choice modifier", "prefix")
 {
-	assert
-		, into_choice<Class1>(spacedot, abc) == Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}
-		, into_choice<Class1>(abc, spacedot) == Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}
-		, not valid_function_call<into_choice<Class1>, abc, (spacedot >> abc)>
-		, valid_function_call<into_choice<Sink>, abc, (spacedot >> abc)>
-		;
+	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(spacedot, abc), (Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}));
+	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(abc, spacedot), (Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}));
+
+	ASSERT_MODIFIER_NOT_CALLABLE_2(into_choice<Class1>, abc, (spacedot >> abc));
+	ASSERT_MODIFIER_CALLABLE_2(into_choice<Sink>, abc, (spacedot >> abc));
 }
 
-static void infix()
+TEST("into_choice modifier", "infix")
 {
 	// Infix isn't ever valid with into_choice because Choice parsers must have 2 sub parsers
 
-	assert
-		, not valid_modulo<spacedot, into_choice<Class1>>
-		, not valid_modulo<spacedot, into_choice<Sink>>
-		, not valid_modulo<(abc >> spacedot), into_choice<Class2>>
-		, not valid_modulo<(abc >> spacedot), into_choice<Sink>>
-		;
+	ASSERT_MODIFIER_NOT_MODULO_OPERABLE(spacedot, into_choice<Class1>);
+	ASSERT_MODIFIER_NOT_MODULO_OPERABLE(spacedot, into_choice<Sink>);
+	ASSERT_MODIFIER_NOT_MODULO_OPERABLE((abc >> spacedot), into_choice<Class2>);
+	ASSERT_MODIFIER_NOT_MODULO_OPERABLE((abc >> spacedot), into_choice<Sink>);
 }
 
 
@@ -69,16 +64,7 @@ constexpr auto into_choice_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void into_choice_anything()
+TEST("into_choice modifier", "modify anything")
 {
-	assert
-		, check_all_samples(into_choice_checker)
-		;
-}
-
-void into_choice_tests()
-{
-	prefix();
-	infix();
-	into_choice_anything();
+	ASSERT(check_all_samples(into_choice_checker), "check_all_samples(into_choice_checker) failed");
 }

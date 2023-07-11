@@ -1,21 +1,17 @@
 #include "pch.h"
 
-static void prefix()
+TEST("apply modifier", "prefix")
 {
-	assert
-		, apt1 == apply<func3_apply>(abc >> *qq)
-		, apt2 == apply<func4_apply(3)>(+abc >> ~(abc | qq))
-		, apt2 != apply<func4_apply(2)>(+abc >> ~(abc | qq))
-		;
+	ASSERT_PARSER_VALUES_EQ(apt1, apply<func3_apply>(abc >> *qq));
+	ASSERT_PARSER_VALUES_EQ(apt2, apply<func4_apply(3)>(+abc >> ~(abc | qq)));
+	ASSERT_PARSER_VALUES_NE(apt2, apply<func4_apply(2)>(+abc >> ~(abc | qq)));
 }
 
-static void infix()
+TEST("apply modifier", "infix")
 {
-	assert
-		, apt1 == (abc >> *qq) % apply<func3_apply>
-		, apt2 == (+abc >> ~(abc | qq)) % apply<func4_apply(3)>
-		, apt2 != (+abc >> ~(abc | qq)) % apply<func4_apply(2)>
-		;
+	ASSERT_PARSER_VALUES_EQ(apt1, (abc >> *qq) % apply<func3_apply>);
+	ASSERT_PARSER_VALUES_EQ(apt2, (+abc >> ~(abc | qq)) % apply<func4_apply(3)>);
+	ASSERT_PARSER_VALUES_NE(apt2, (+abc >> ~(abc | qq)) % apply<func4_apply(2)>);
 }
 
 
@@ -38,16 +34,7 @@ constexpr auto apply_checker = []<Parser P>(P) -> bool
 	return true;
 };
 
-static void apply_anything()
+TEST("apply modifier", "modify anything")
 {
-	assert
-		, check_all_samples(apply_checker)
-		;
-}
-
-void apply_tests()
-{
-	prefix();
-	infix();
-	apply_anything();
+	ASSERT(check_all_samples(apply_checker), "check_all_samples(apply_checker) failed");
 }

@@ -2,30 +2,26 @@
 
 using L = Literal<"literal">;
 
-static void requirements()
+TEST("Literal", "Requirements")
 {
-	assert
-		, IsParser<L, LiteralType, std::string_view>
-		;
+	ASSERT_IS_PARSER(L, LiteralType, std::string_view);
 }
 
-static void parse_single()
+TEST("Literal", "Parse 'literal'")
 {
-	assert
-		, parse<L>("literal").success("literal", "")
-		, parse<L>("literally").success("literal", "ly")
-		, parse<L>("litera").failure()
-		, parse<L>(" literal").failure()
-		, parse<L>("LITERAL").failure()
-		, parse<L>("LITERALLY").failure()
-		;
+	ASSERT_PARSE_SUCCESS(L, "literal", "literal", "");
+	ASSERT_PARSE_SUCCESS(L, "literally", "literal", "ly");
+	ASSERT_PARSE_FAILURE(L, "litera");
+	ASSERT_PARSE_FAILURE(L, " literal");
+	ASSERT_PARSE_FAILURE(L, "LITERAL");
+	ASSERT_PARSE_FAILURE(L, "LITERALLY");
 }
 
 
 
 using constructible = traits::basic::constructible<Literal>;
 
-static void constructible_from_ascii_only()
+TEST("Literal", "Constructible from ascii only")
 {
 	assert
 		, constructible::from<"literal">
@@ -33,19 +29,11 @@ static void constructible_from_ascii_only()
 		;
 }
 
-static void parse_empty()
+TEST("Literal", "Parse empty")
 {
 	assert
 		, constructible::from<"">
-		, parse<Literal<"">>("anything").success("", "anything")
-		, parse<Literal<"">>("").success("", "")
 		;
-}
-
-void Literal_test()
-{
-	requirements();
-	parse_single();
-	constructible_from_ascii_only();
-	parse_empty();
+	ASSERT_PARSE_SUCCESS(Literal<"">, "anything", "", "anything");
+	ASSERT_PARSE_SUCCESS(Literal<"">, "", "", "");
 }

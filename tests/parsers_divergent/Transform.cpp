@@ -1,46 +1,36 @@
 #include "pch.h"
 
-static void requirements()
+TEST("Transform", "Requirements")
 {
-	assert
-		, IsParser<Tra1, TransformType, std::size_t>
-		, IsParser<Tra2, TransformType, std::vector<char>>
-		, IsParser<Tra3, TransformType, bool>
-		, IsParser<Tra4, TransformType, std::size_t>
-		;
+	ASSERT_IS_PARSER(Tra1, TransformType, std::size_t);
+	ASSERT_IS_PARSER(Tra2, TransformType, std::vector<char>);
+	ASSERT_IS_PARSER(Tra3, TransformType, bool);
+	ASSERT_IS_PARSER(Tra4, TransformType, std::size_t);
 }
 
-static void parse_Transform()
+TEST("Transform", "Parse all")
 {
-	assert
-		, parse<Tra1>("abcabcabcab").success(3, "ab")
-		, parse<Tra1>("").failure()
-		, parse<Tra1>("ab").failure()
-		, parse<Tra1>("abc").success(1, "")
+	ASSERT_PARSE_SUCCESS(Tra1, "abcabcabcab", 3, "ab");
+	ASSERT_PARSE_FAILURE(Tra1, "");
+	ASSERT_PARSE_FAILURE(Tra1, "ab");
+	ASSERT_PARSE_SUCCESS(Tra1, "abc", 1, "");
 		
-		, parse<Tra2>("abcabc").success({ 'a', 'b', 'c' }, "abc")
-		, parse<Tra2>("a??bcabc").success({}, "a??bcabc")
-		, parse<Tra2>("").success({}, "")
-		, parse<Tra2>("??abcabc").success({ '?', '?' }, "abcabc")
-		, parse<Tra2>(" ??abcabc").success({}, " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", std::vector({ 'a', 'b', 'c' }), "abc");
+	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", std::vector<char>{}, "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, "", std::vector<char>{}, "");
+	ASSERT_PARSE_SUCCESS(Tra2, "??abcabc", std::vector<char>({ '?', '?' }), "abcabc");
+	ASSERT_PARSE_SUCCESS(Tra2, " ??abcabc", std::vector<char>{}, " ??abcabc");
 		
-		, parse<Tra3>("abc???????").success(false, "?")
-		, parse<Tra3>("??abc???????").failure()
-		, parse<Tra3>("abc??abc???????").success(false, "abc???????")
-		, parse<Tra3>("abc ??abc???????").success(true, " ??abc???????")
-		, parse<Tra3>("").failure()
+	ASSERT_PARSE_SUCCESS(Tra3, "abc???????", false, "?");
+	ASSERT_PARSE_FAILURE(Tra3, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Tra3, "abc??abc???????", false, "abc???????");
+	ASSERT_PARSE_SUCCESS(Tra3, "abc ??abc???????", true, " ??abc???????");
+	ASSERT_PARSE_FAILURE(Tra3, "");
 		
-		, parse<Tra4>("abcabcabcabc??").success(36, "")
-		, parse<Tra4>("abcabcabcabc").success(12, "")
-		, parse<Tra4>("abcabcabcabc ??").success(12, " ??")
-		, parse<Tra4>("abc").success(3, "")
-		, parse<Tra4>(" abc").failure()
-		, parse<Tra4>("").failure()
-		;
-}
-
-void Transform_tests()
-{
-	requirements();
-	parse_Transform();
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc??", 36, "");
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc", 12, "");
+	ASSERT_PARSE_SUCCESS(Tra4, "abcabcabcabc ??", 12, " ??");
+	ASSERT_PARSE_SUCCESS(Tra4, "abc", 3, "");
+	ASSERT_PARSE_FAILURE(Tra4, " abc");
+	ASSERT_PARSE_FAILURE(Tra4, "");
 }
