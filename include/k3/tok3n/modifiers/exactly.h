@@ -9,10 +9,10 @@ requires (N != 0)
 struct exactly final : ModifierBase
 {
 	template <Parser P>
-	requires ExactlyConstructible<P, N>
+	requires ExactlyConstructible<P, Index<N>>
 	consteval auto operator()(P) const
 	{
-		return Exactly<P, N>{};
+		return Exactly<P, Index<N>>{};
 	}
 };
 

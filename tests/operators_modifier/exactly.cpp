@@ -27,10 +27,10 @@ constexpr auto exactly_checker = []<Parser P>(P) -> bool
 	}
 	else
 	{
-		TOK3N_ASSERT_P( requires { exactly<2>(P{}); },         "exactly<2> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( exactly<2>(P{}) == (Exactly<P, 2>{}),  "exactly<2> prefix operator of any other parser should give Exactly parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % exactly<2>; },        "exactly<2> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % exactly<2> == (Exactly<P, 2>{}), "exactly<2> infix operator of any other parser should give Exactly parser of the argument" );
+		TOK3N_ASSERT_P( requires { exactly<2>(P{}); },                "exactly<2> prefix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( exactly<2>(P{}) == (Exactly<P, Index<2>>{}),  "exactly<2> prefix operator of any other parser should give Exactly parser of the argument" );
+		TOK3N_ASSERT_P( requires { P{} % exactly<2>; },               "exactly<2> infix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( P{} % exactly<2> == (Exactly<P, Index<2>>{}), "exactly<2> infix operator of any other parser should give Exactly parser of the argument" );
 	}
 
 	return true;
