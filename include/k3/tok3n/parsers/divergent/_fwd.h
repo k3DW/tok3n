@@ -81,7 +81,7 @@ template <Parser P, class T>
 requires ApplyIntoConstructible<P, T>
 struct ApplyInto;
 
-template <Parser P, auto value>
+template <Parser P, detail::is_integral_constant Value>
 struct Constant;
 
 template <Parser P, class T>
