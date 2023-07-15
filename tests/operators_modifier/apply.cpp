@@ -20,10 +20,10 @@ constexpr auto apply_checker = []<Parser P>(P) -> bool
 {
 	if constexpr (detail::has_tuple_size<typename P::result_type>)
 	{
-		TOK3N_ASSERT_P( requires { apply<sink_func>(P{}); },                       "apply<sink_func> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( apply<sink_func>(P{}) == (ApplyTransform<P, sink_func>{}),  "apply<sink_func> prefix operator of any other parser should give ApplyTransform parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % apply<sink_func>; },                      "apply<sink_func> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % apply<sink_func> == (ApplyTransform<P, sink_func>{}), "apply<sink_func> infix operator of any other parser should give ApplyTransform parser of the argument" );
+		TOK3N_ASSERT_P( requires { apply<sink_func>(P{}); },                               "apply<sink_func> prefix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( apply<sink_func>(P{}) == (ApplyTransform<P, Const<sink_func>>{}),  "apply<sink_func> prefix operator of any other parser should give ApplyTransform parser of the argument" );
+		TOK3N_ASSERT_P( requires { P{} % apply<sink_func>; },                              "apply<sink_func> infix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( P{} % apply<sink_func> == (ApplyTransform<P, Const<sink_func>>{}), "apply<sink_func> infix operator of any other parser should give ApplyTransform parser of the argument" );
 	}
 	else
 	{

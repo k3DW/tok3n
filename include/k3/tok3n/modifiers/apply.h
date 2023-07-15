@@ -8,10 +8,10 @@ template <auto function>
 struct apply final : ModifierBase
 {
 	template <Parser P>
-	requires ApplyTransformConstructible<P, function>
+	requires ApplyTransformConstructible<P, Const<function>>
 	consteval auto operator()(P) const
 	{
-		return ApplyTransform<P, function>{};
+		return ApplyTransform<P, Const<function>>{};
 	}
 };
 

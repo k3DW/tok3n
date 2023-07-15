@@ -16,8 +16,8 @@ using Tra2 = Transform<_23, Const<func2>>;    constexpr Tra2 tra2;
 using Tra3 = Transform<_24, Const<func3>>;    constexpr Tra3 tra3;
 using Tra4 = Transform<_25, Const<func4(3)>>; constexpr Tra4 tra4;
 
-using Apt1 = ApplyTransform<_24, func3_apply>;    constexpr Apt1 apt1;
-using Apt2 = ApplyTransform<_25, func4_apply(3)>; constexpr Apt2 apt2;
+using Apt1 = ApplyTransform<_24, Const<func3_apply>>;    constexpr Apt1 apt1;
+using Apt2 = ApplyTransform<_25, Const<func4_apply(3)>>; constexpr Apt2 apt2;
 
 using Int1 = Into<SpaceDot, Class1>;                              constexpr Int1 int1;
 using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>;               constexpr Int2 int2;

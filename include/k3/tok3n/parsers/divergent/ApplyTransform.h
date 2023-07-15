@@ -3,11 +3,11 @@
 
 namespace k3::tok3n {
 
-template <Parser P, auto function>
-requires ApplyTransformConstructible<P, function>
+template <Parser P, detail::is_integral_constant FunctionValue>
+requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform
 {
-	using result_type = decltype(std::apply(function, std::declval<typename P::result_type>()));;
+	using result_type = decltype(std::apply(FunctionValue::value, std::declval<typename P::result_type>()));;
 
 	static constexpr ParserType type = ApplyTransformType;
 
@@ -15,7 +15,7 @@ struct ApplyTransform
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::apply(function, std::move(*result)), result.remaining() };
+			return { success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}

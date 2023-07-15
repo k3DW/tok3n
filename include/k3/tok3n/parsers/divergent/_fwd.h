@@ -35,11 +35,12 @@ concept TransformConstructible =
 	detail::is_integral_constant<FunctionValue> and
 	requires { std::invoke(FunctionValue::value, std::declval<typename P::result_type>()); };
 
-template <class P, auto function>
+template <class P, class FunctionValue>
 concept ApplyTransformConstructible =
 	Parser<P> and
 	detail::has_tuple_size<typename P::result_type> and
-	requires { std::apply(function, std::declval<typename P::result_type>()); };
+	detail::is_integral_constant<FunctionValue> and
+	requires { std::apply(FunctionValue::value, std::declval<typename P::result_type>()); };
 
 template <class P, class T>
 concept IntoConstructible =
@@ -68,8 +69,8 @@ template <Parser P, detail::is_integral_constant FunctionValue>
 requires TransformConstructible<P, FunctionValue>
 struct Transform;
 
-template <Parser P, auto function>
-requires ApplyTransformConstructible<P, function>
+template <Parser P, detail::is_integral_constant FunctionValue>
+requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform;
 
 template <Parser P, class T>
