@@ -184,7 +184,7 @@
     <ClInclude Include="samples\repeat.h" />
     <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />
-    <ClInclude Include="framework\assert.h" />
+    <ClInclude Include="framework\Assert.h" />
     <ClInclude Include="framework\Test.h" />
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="pch.h" />

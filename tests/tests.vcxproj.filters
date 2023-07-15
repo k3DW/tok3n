@@ -17,7 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
-    <ClInclude Include="framework\assert.h">
+    <ClInclude Include="framework\Assert.h">
       <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="framework\comparison.h">
