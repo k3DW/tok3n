@@ -15,7 +15,7 @@ public:
 	constexpr Result(FailureTag, Input remaining)
 		: mResult(), mRemaining(remaining) {}
 
-	constexpr Result(SuccessTag, T&& t, Input remaining)
+	constexpr Result(SuccessTag, T t, Input remaining)
 		: mResult(std::move(t)), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
