@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, detail::is_integral_constant FunctionValue>
+template <Parser P, IsConst FunctionValue>
 requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform
 {

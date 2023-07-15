@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, detail::is_integral_constant Value>
+template <Parser P, IsConst Value>
 struct Constant
 {
 	using result_type = typename Value::value_type;

@@ -245,9 +245,9 @@
     <ClInclude Include="include\k3\tok3n\types\Tags.h" />
     <ClInclude Include="include\k3\tok3n\types\StaticString.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\multi.h" />
-    <ClInclude Include="include\k3\tok3n\detail\is_integral_constant.h" />
     <ClInclude Include="include\k3\tok3n\detail\type_list.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\_fwd.h" />
+    <ClInclude Include="include\k3\tok3n\concepts\IsConst.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

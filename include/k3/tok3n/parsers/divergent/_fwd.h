@@ -2,7 +2,6 @@
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/has_tuple_size.h>
-#include <k3/tok3n/detail/is_integral_constant.h>
 #include <vector>
 
 namespace k3::tok3n {
@@ -32,14 +31,14 @@ concept JoinConstructible =
 template <class P, class FunctionValue>
 concept TransformConstructible =
 	Parser<P> and
-	detail::is_integral_constant<FunctionValue> and
+	IsConst<FunctionValue> and
 	requires { std::invoke(FunctionValue::value, std::declval<typename P::result_type>()); };
 
 template <class P, class FunctionValue>
 concept ApplyTransformConstructible =
 	Parser<P> and
 	detail::has_tuple_size<typename P::result_type> and
-	detail::is_integral_constant<FunctionValue> and
+	IsConst<FunctionValue> and
 	requires { std::apply(FunctionValue::value, std::declval<typename P::result_type>()); };
 
 template <class P, class T>
@@ -65,11 +64,11 @@ template <Parser P>
 requires JoinConstructible<P>
 struct Join;
 
-template <Parser P, detail::is_integral_constant FunctionValue>
+template <Parser P, IsConst FunctionValue>
 requires TransformConstructible<P, FunctionValue>
 struct Transform;
 
-template <Parser P, detail::is_integral_constant FunctionValue>
+template <Parser P, IsConst FunctionValue>
 requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform;
 
@@ -81,7 +80,7 @@ template <Parser P, class T>
 requires ApplyIntoConstructible<P, T>
 struct ApplyInto;
 
-template <Parser P, detail::is_integral_constant Value>
+template <Parser P, IsConst Value>
 struct Constant;
 
 template <Parser P, class T>

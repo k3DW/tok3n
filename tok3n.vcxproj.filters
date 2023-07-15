@@ -193,9 +193,6 @@
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\detail\is_integral_constant.h">
-      <Filter>tok3n\detail</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\all_same.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
@@ -243,6 +240,9 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\IntegralConstants.h">
       <Filter>tok3n\types</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\concepts\IsConst.h">
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, detail::is_integral_constant<std::size_t> N>
+template <Parser P, IsConst<std::size_t> N>
 requires ExactlyConstructible<P, N>
 struct Exactly
 {
