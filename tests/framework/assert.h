@@ -2,19 +2,6 @@
 
 using namespace k3::tok3n;
 
-struct assert_t final {};
-
-consteval assert_t operator,(assert_t self, bool b)
-{
-	if (!b)
-		throw;
-	return self;
-}
-
-constexpr auto assert = assert_t{};
-
-
-
 // #define DISABLE_STATIC_ASSERT
 
 #ifdef DISABLE_STATIC_ASSERT
