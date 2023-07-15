@@ -10,7 +10,7 @@ struct constant final : ModifierBase
 	template <Parser P>
 	consteval auto operator()(P) const
 	{
-		return Constant<P, value>{};
+		return Constant<P, Const<value>>{};
 	}
 };
 

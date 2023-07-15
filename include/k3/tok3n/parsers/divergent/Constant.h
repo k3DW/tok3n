@@ -3,10 +3,10 @@
 
 namespace k3::tok3n {
 
-template <Parser P, auto value>
+template <Parser P, IsConst Value>
 struct Constant
 {
-	using result_type = decltype(value);
+	using result_type = typename Value::value_type;
 
 	static constexpr ParserType type = ConstantType;
 
@@ -14,7 +14,7 @@ struct Constant
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, value, result.remaining() };
+			return { success, Value::value, result.remaining() };
 		else
 			return { failure, input };
 	}

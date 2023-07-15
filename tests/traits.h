@@ -50,7 +50,7 @@ namespace traits::repeat
 		using k3::tok3n::Exactly;
 		struct constructible
 		{
-			template <Parser P, detail::is_integral_constant<std::size_t> N>
+			template <Parser P, IsConst<std::size_t> N>
 			static constexpr bool from = requires { typename Exactly<P, N>; };
 		};
 	}

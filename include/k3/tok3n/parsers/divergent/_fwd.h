@@ -28,16 +28,18 @@ concept JoinConstructible =
 	Parser<P> and
 	detail::is_joinable_v<typename P::result_type>;
 
-template <class P, auto function>
+template <class P, class FunctionValue>
 concept TransformConstructible =
 	Parser<P> and
-	requires { std::invoke(function, std::declval<typename P::result_type>()); };
+	IsConst<FunctionValue> and
+	requires { std::invoke(FunctionValue::value, std::declval<typename P::result_type>()); };
 
-template <class P, auto function>
+template <class P, class FunctionValue>
 concept ApplyTransformConstructible =
 	Parser<P> and
 	detail::has_tuple_size<typename P::result_type> and
-	requires { std::apply(function, std::declval<typename P::result_type>()); };
+	IsConst<FunctionValue> and
+	requires { std::apply(FunctionValue::value, std::declval<typename P::result_type>()); };
 
 template <class P, class T>
 concept IntoConstructible =
@@ -62,12 +64,12 @@ template <Parser P>
 requires JoinConstructible<P>
 struct Join;
 
-template <Parser P, auto function>
-requires TransformConstructible<P, function>
+template <Parser P, IsConst FunctionValue>
+requires TransformConstructible<P, FunctionValue>
 struct Transform;
 
-template <Parser P, auto function>
-requires ApplyTransformConstructible<P, function>
+template <Parser P, IsConst FunctionValue>
+requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform;
 
 template <Parser P, class T>
@@ -78,7 +80,7 @@ template <Parser P, class T>
 requires ApplyIntoConstructible<P, T>
 struct ApplyInto;
 
-template <Parser P, auto value>
+template <Parser P, IsConst Value>
 struct Constant;
 
 template <Parser P, class T>
