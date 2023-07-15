@@ -128,6 +128,26 @@ concept modulo_operable = requires(LHS&& lhs, RHS&& rhs) {
 
 
 
+template <template <class...> class ParserFamily, class... Args>
+concept constructible_from = requires { typename ParserFamily<Args...>; };
+
+template <template <StaticString> class ParserFamily, StaticString str>
+concept basic_constructible_from = requires { typename ParserFamily<str>; };
+
+#define ASSERT_PARSER_CONSTRUCTIBLE(FAMILY, ...) \
+	ASSERT((constructible_from<FAMILY __VA_OPT__(,) __VA_ARGS__>), "A " #FAMILY " parser should be constructible from " #__VA_ARGS__)
+
+#define ASSERT_PARSER_NOT_CONSTRUCTIBLE(FAMILY, ...) \
+	ASSERT((not constructible_from<FAMILY __VA_OPT__(,) __VA_ARGS__>), "A " #FAMILY " parser should not be constructible from " #__VA_ARGS__)
+
+#define ASSERT_PARSER_BASIC_CONSTRUCTIBLE(FAMILY, STRING) \
+	ASSERT((basic_constructible_from<FAMILY, STRING>), "A " #FAMILY " parser should be constructible from " #STRING)
+
+#define ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(FAMILY, STRING) \
+	ASSERT((not basic_constructible_from<FAMILY, STRING>), "A " #FAMILY " parser should not be constructible from " #STRING)
+
+
+
 #define TOK3N_ASSERT_P(condition, message) \
 	do {                                   \
 		if constexpr (not (condition))     \

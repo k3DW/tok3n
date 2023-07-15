@@ -38,5 +38,5 @@ using constructible = traits::compound::constructible<Sequence>;
 
 TEST("Sequence", "Not constructible empty")
 {
-	assert, not constructible::from<>;
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Sequence);
 }

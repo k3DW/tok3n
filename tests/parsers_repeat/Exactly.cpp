@@ -10,12 +10,13 @@ TEST("Exactly", "Requirements")
 
 TEST("Exactly", "Constructibility")
 {
-	using traits::repeat::Exactly::constructible;
-	assert
-		, not constructible::from<OC1, Index<0>>
-		, constructible::from<OC1, Index<1>>
-		, constructible::from<OC1, Index<2>>
-		;
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Index<0>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, OC1, Index<1>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, OC1, Index<2>);
+
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<0>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<1>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<2>);
 }
 
 TEST("Exactly", "Parse Exactly<Literal>")

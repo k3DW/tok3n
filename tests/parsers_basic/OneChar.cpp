@@ -54,21 +54,18 @@ TEST("OneChar", "Constructible from ascii only")
 
 TEST("OneChar", "Constructible from lexicographically sorted only")
 {
-	assert
-		, constructible::from<"abc">
-		, not constructible::from<"acb">
-		, not constructible::from<"bac">
-		, not constructible::from<"bca">
-		, not constructible::from<"cab">
-		, not constructible::from<"cba">
-		;
+	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(OneChar, "abc");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "acb");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "bac");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "bca");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "cab");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "cba");
 }
 
 TEST("OneChar", "Parse empty")
 {
-	assert
-		, constructible::from<"">
-		;
+	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(OneChar, "");
+	
 	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
 	ASSERT_PARSE_FAILURE(OneChar<"">, "");
 }
