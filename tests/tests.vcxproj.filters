@@ -71,6 +71,9 @@
     <ClInclude Include="framework\AssertParse.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\AssertConcept.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

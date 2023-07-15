@@ -2,6 +2,7 @@
 #include <k3/tok3n.h>
 
 #include "framework/Assert.h"
+#include "framework/AssertConcept.h"
 #include "framework/AssertParse.h"
 #include "framework/comparison.h"
 #include "framework/Error.h"
