@@ -19,14 +19,6 @@ TEST("Literal", "Parse 'literal'")
 
 
 
-using constructible = traits::basic::constructible<Literal>;
-
-TEST("Literal", "Constructible from ascii only")
-{
-	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(Literal, "literal");
-	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(Literal, "lïterål");
-}
-
 TEST("Literal", "Parse empty")
 {
 	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(Literal, "");

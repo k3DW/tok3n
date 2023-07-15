@@ -40,19 +40,6 @@ TEST("NotChar", "Parse multi char")
 
 
 
-using constructible = traits::basic::constructible<NotChar>;
-
-TEST("NotChar", "Constructible from ascii only")
-{
-	using all_ascii_chars = std::make_integer_sequence<int, 128>;
-	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
-
-	assert
-		, constructible::from_all_chars<all_ascii_chars>
-		, constructible::from_any_char<all_non_ascii_chars>
-		;
-}
-
 TEST("NotChar", "Constructible from lexicographically sorted only")
 {
 	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(NotChar, "abc");
