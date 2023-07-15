@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n.h>
 
-#include "traits.h"
 #include "framework/assert.h"
 #include "framework/AssertParse.h"
 #include "framework/comparison.h"

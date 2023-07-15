@@ -59,8 +59,6 @@ TEST("Choice", "Parse void result_type")
 
 
 
-using constructible = traits::compound::constructible<Choice>;
-
 TEST("Choice", "Constructible only from parsers with the same result_type")
 {
 	ASSERT_PARSER_CONSTRUCTIBLE(Choice, OC1, OC3, NC2, NC1, L2);

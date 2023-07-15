@@ -186,7 +186,6 @@
     <ClInclude Include="samples\basic.h" />
     <ClInclude Include="framework\assert.h" />
     <ClInclude Include="framework\Test.h" />
-    <ClInclude Include="traits.h" />
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />

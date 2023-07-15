@@ -16,7 +16,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="traits.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="framework\assert.h">
       <Filter>framework</Filter>
