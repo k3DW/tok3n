@@ -2,6 +2,7 @@
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/has_tuple_size.h>
+#include <k3/tok3n/detail/is_integral_constant.h>
 #include <vector>
 
 namespace k3::tok3n {
@@ -28,10 +29,11 @@ concept JoinConstructible =
 	Parser<P> and
 	detail::is_joinable_v<typename P::result_type>;
 
-template <class P, auto function>
+template <class P, class FunctionValue>
 concept TransformConstructible =
 	Parser<P> and
-	requires { std::invoke(function, std::declval<typename P::result_type>()); };
+	detail::is_integral_constant<FunctionValue> and
+	requires { std::invoke(FunctionValue::value, std::declval<typename P::result_type>()); };
 
 template <class P, auto function>
 concept ApplyTransformConstructible =
@@ -62,8 +64,8 @@ template <Parser P>
 requires JoinConstructible<P>
 struct Join;
 
-template <Parser P, auto function>
-requires TransformConstructible<P, function>
+template <Parser P, detail::is_integral_constant FunctionValue>
+requires TransformConstructible<P, FunctionValue>
 struct Transform;
 
 template <Parser P, auto function>

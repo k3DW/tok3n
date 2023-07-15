@@ -29,10 +29,10 @@ constexpr auto fn_checker = []<Parser P>(P) -> bool
 	}
 	else
 	{
-		TOK3N_ASSERT_P( requires { fn<sink_func>(P{}); },                   "fn<sink_func> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( fn<sink_func>(P{}) == (Transform<P, sink_func>{}),  "fn<sink_func> prefix operator of any other parser should give Transform parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % fn<sink_func>; },                  "fn<sink_func> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % fn<sink_func> == (Transform<P, sink_func>{}), "fn<sink_func> infix operator of any other parser should give Transform parser of the argument" );
+		TOK3N_ASSERT_P( requires { fn<sink_func>(P{}); },                          "fn<sink_func> prefix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( fn<sink_func>(P{}) == (Transform<P, Const<sink_func>>{}),  "fn<sink_func> prefix operator of any other parser should give Transform parser of the argument" );
+		TOK3N_ASSERT_P( requires { P{} % fn<sink_func>; },                         "fn<sink_func> infix operator doesn't compile, but it should" );
+		TOK3N_ASSERT_P( P{} % fn<sink_func> == (Transform<P, Const<sink_func>>{}), "fn<sink_func> infix operator of any other parser should give Transform parser of the argument" );
 	}
 
 	return true;
