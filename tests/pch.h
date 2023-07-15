@@ -3,6 +3,7 @@
 
 #include "framework/Assert.h"
 #include "framework/AssertConcept.h"
+#include "framework/AssertConstructible.h"
 #include "framework/AssertEquality.h"
 #include "framework/AssertOperation.h"
 #include "framework/AssertParse.h"
