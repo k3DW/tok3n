@@ -173,6 +173,7 @@
   <ItemGroup>
     <ClInclude Include="framework\AssertConcept.h" />
     <ClInclude Include="framework\AssertEquality.h" />
+    <ClInclude Include="framework\AssertOperation.h" />
     <ClInclude Include="framework\AssertParse.h" />
     <ClInclude Include="framework\Fixture.h" />
     <ClInclude Include="framework\Error.h" />
