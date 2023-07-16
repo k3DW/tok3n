@@ -59,17 +59,13 @@ TEST("Choice", "Parse void result_type")
 
 
 
-using constructible = traits::compound::constructible<Choice>;
-
 TEST("Choice", "Constructible only from parsers with the same result_type")
 {
-	assert
-		, constructible::from<OC1, OC3, NC2, NC1, L2>
-		, not constructible::from<OC1, Sequence<OC2, OC3>>
-		;
+	ASSERT_PARSER_CONSTRUCTIBLE(Choice, OC1, OC3, NC2, NC1, L2);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice, OC1, Sequence<OC2, OC3>);
 }
 
 TEST("Choice", "Not constructible empty")
 {
-	assert, not constructible::from<>;
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice);
 }

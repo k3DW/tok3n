@@ -16,9 +16,8 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="traits.h" />
     <ClInclude Include="pch.h" />
-    <ClInclude Include="framework\assert.h">
+    <ClInclude Include="framework\Assert.h">
       <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="framework\comparison.h">
@@ -70,6 +69,18 @@
       <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="framework\AssertParse.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\AssertConcept.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\AssertEquality.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\AssertOperation.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\AssertConstructible.h">
       <Filter>framework</Filter>
     </ClInclude>
   </ItemGroup>

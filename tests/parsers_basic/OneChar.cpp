@@ -39,36 +39,20 @@ TEST("OneChar", "Parse multi char")
 
 
 
-using constructible = traits::basic::constructible<OneChar>;
-
-TEST("OneChar", "Constructible from ascii only")
-{
-	using all_ascii_chars = std::make_integer_sequence<int, 128>;
-	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
-
-	assert
-		, constructible::from_all_chars<all_ascii_chars>
-		, constructible::from_any_char<all_non_ascii_chars>
-		;
-}
-
 TEST("OneChar", "Constructible from lexicographically sorted only")
 {
-	assert
-		, constructible::from<"abc">
-		, not constructible::from<"acb">
-		, not constructible::from<"bac">
-		, not constructible::from<"bca">
-		, not constructible::from<"cab">
-		, not constructible::from<"cba">
-		;
+	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(OneChar, "abc");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "acb");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "bac");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "bca");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "cab");
+	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(OneChar, "cba");
 }
 
 TEST("OneChar", "Parse empty")
 {
-	assert
-		, constructible::from<"">
-		;
+	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(OneChar, "");
+	
 	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
 	ASSERT_PARSE_FAILURE(OneChar<"">, "");
 }

@@ -171,6 +171,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="framework\AssertConcept.h" />
+    <ClInclude Include="framework\AssertConstructible.h" />
+    <ClInclude Include="framework\AssertEquality.h" />
+    <ClInclude Include="framework\AssertOperation.h" />
     <ClInclude Include="framework\AssertParse.h" />
     <ClInclude Include="framework\Fixture.h" />
     <ClInclude Include="framework\Error.h" />
@@ -184,9 +188,8 @@
     <ClInclude Include="samples\repeat.h" />
     <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />
-    <ClInclude Include="framework\assert.h" />
+    <ClInclude Include="framework\Assert.h" />
     <ClInclude Include="framework\Test.h" />
-    <ClInclude Include="traits.h" />
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
