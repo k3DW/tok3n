@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("not operator");
+
 TEST("not operator", "!OneChar")
 {
 	ASSERT_PARSER_VALUES_EQ(!oc1, nc1);

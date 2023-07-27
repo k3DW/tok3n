@@ -3,6 +3,8 @@
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
+FIXTURE("NotChar");
+
 TEST("NotChar", "Requirements")
 {
 	ASSERT_IS_PARSER(Single, NotCharType, std::string_view);

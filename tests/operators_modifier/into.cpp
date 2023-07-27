@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("into modifier");
+
 TEST("into modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(int1, into<Class1>(spacedot));

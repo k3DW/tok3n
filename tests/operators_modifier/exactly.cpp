@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("exactly modifier");
+
 TEST("exactly modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(exa1, exactly<3>(l1));

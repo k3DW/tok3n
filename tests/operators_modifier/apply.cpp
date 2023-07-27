@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("apply modifier");
+
 TEST("apply modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(apt1, apply<func3_apply>(abc >> *qq));

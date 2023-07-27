@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Join");
+
 TEST("Join", "Requirements")
 {
 	ASSERT_IS_PARSER(Joi1, JoinType, std::string_view);

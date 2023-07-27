@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("constant modifier");
+
 TEST("constant modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(con1, constant<1>(+abc));

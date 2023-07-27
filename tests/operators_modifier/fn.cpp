@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("fn modifier");
+
 TEST("fn modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(tra1, fn<func1>(+abc));

@@ -2,6 +2,8 @@
 
 using L = Literal<"literal">;
 
+FIXTURE("Literal");
+
 TEST("Literal", "Requirements")
 {
 	ASSERT_IS_PARSER(L, LiteralType, std::string_view);

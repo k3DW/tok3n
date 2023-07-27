@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("defaulted modifier");
+
 TEST("defaulted modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(def1, defaulted<int>(+abc));

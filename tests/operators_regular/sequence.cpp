@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("sequence operator");
+
 TEST("sequence operator", "Literal >> Literal")
 {
 	ASSERT_PARSER_VALUES_EQ(l1 >> l1, Literal<"literalliteral">{});

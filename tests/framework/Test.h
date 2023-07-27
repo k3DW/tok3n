@@ -1,67 +1,50 @@
 #pragma once
-#include "framework/Error.h"
-#include "framework/TestResult.h"
 #include <string>
-#include <vector>
+#include <string_view>
+#include <k3/tok3n/types/StaticString.h>
+#include "framework/TestResult.h"
 
 class Test
 {
 public:
-	Test(std::string_view fixture_name, std::string name);
-
-	[[nodiscard]] TestResult run()
-	{
-		_errors.clear();
-		_run();
-		if (_errors.empty())
-			return TestResult(this);
-		else
-			return TestResult(this, std::move(_errors));
-	}
-
 	std::string_view name() const
 	{
 		return _name;
 	}
 
-private:
-	std::string _name;
-	std::vector<Error> _errors;
-
-	virtual void _run() = 0;
+	void run();
+	std::string print_results() const;
 
 protected:
-	bool Assert(bool condition, std::string_view message, std::source_location location = std::source_location::current())
-	{
-		if (not condition)
-			_errors.emplace_back(message, std::move(location));
-		return condition;
-	}
+	Test(std::string name)
+		: _name(std::move(name))
+	{}
+
+private:
+	std::string _name;
+
+	TestResult _result{};
+
+	virtual void _run() = 0;
 };
 
-#include "framework/Fixture.h"
-
-inline Test::Test(std::string_view fixture_name, std::string name)
-	: _name(std::move(name))
-{
-	Fixture::add_test_to_fixture(this, fixture_name);
-}
 
 
+template <k3::tok3n::StaticString, k3::tok3n::StaticString>
+class TestImpl {};
 
-template <k3::tok3n::StaticString fixture, k3::tok3n::StaticString test>
-class TestOverride {};
-
-#define TEST(FIXTURE, NAME)                          \
-	template <>                                      \
-	class TestOverride<FIXTURE, NAME> : Test         \
-	{                                                \
-		TestOverride() : Test(FIXTURE, NAME) {}      \
-		void _run() override;                        \
-		class Initializer;                           \
-	};                                               \
-	class TestOverride<FIXTURE, NAME>::Initializer   \
-	{                                                \
-		static inline TestOverride<FIXTURE, NAME> _; \
-	};                                               \
-	void TestOverride<FIXTURE, NAME>::_run()
+#define TEST(FIXTURE_NAME, NAME)                                             \
+	template <>                                                              \
+	class TestImpl<FIXTURE_NAME, NAME> : public Test                         \
+	{                                                                        \
+	private:                                                                 \
+		static_assert(std::is_base_of_v<Fixture, FixtureImpl<FIXTURE_NAME>>, \
+			"Fixture \"" FIXTURE_NAME "\" has not been declared.");          \
+		TestImpl() : Test(NAME) {}                                           \
+		static const Test& _self;                                            \
+		void _run() override;                                                \
+	};                                                                       \
+	const Test& TestImpl<FIXTURE_NAME, NAME>::_self                          \
+		= Runner::get().add(FIXTURE_NAME, []() -> auto&                      \
+		{ static TestImpl<FIXTURE_NAME, NAME> t; return t; }());             \
+	void TestImpl<FIXTURE_NAME, NAME>::_run()

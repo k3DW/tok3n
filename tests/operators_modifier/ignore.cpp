@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("ignore modifier");
+
 TEST("ignore modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(ign1, ignore(abc));

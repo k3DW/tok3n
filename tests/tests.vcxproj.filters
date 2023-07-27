@@ -14,6 +14,9 @@
     <Filter Include="samples">
       <UniqueIdentifier>{89d82a41-cd98-441d-9c63-9b9c1ece4c1e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="asserts">
+      <UniqueIdentifier>{04a30643-4eee-441c-b443-7531dfcd42fb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -56,31 +59,31 @@
     <ClInclude Include="framework\Error.h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="framework\Test.h">
+    <ClInclude Include="framework\Runner.h">
       <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Concept.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Constructible.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Equality.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Operation.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Parse.h">
+      <Filter>asserts</Filter>
     </ClInclude>
     <ClInclude Include="framework\Fixture.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\Test.h">
+      <Filter>framework</Filter>
+    </ClInclude>
     <ClInclude Include="framework\TestResult.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\FixtureResult.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\AssertParse.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\AssertConcept.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\AssertEquality.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\AssertOperation.h">
-      <Filter>framework</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\AssertConstructible.h">
       <Filter>framework</Filter>
     </ClInclude>
   </ItemGroup>
@@ -211,6 +214,18 @@
     </ClCompile>
     <ClCompile Include="operators_modifier\multi.cpp">
       <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Fixture.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Runner.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Test.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\TestResult.cpp">
+      <Filter>framework</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

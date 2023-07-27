@@ -1,7 +1,5 @@
 #pragma once
 
-using namespace k3::tok3n;
-
 // #define DISABLE_STATIC_ASSERT
 
 #ifdef DISABLE_STATIC_ASSERT
@@ -10,11 +8,14 @@ using namespace k3::tok3n;
 #define STATIC_ASSERT(...) static_assert(__VA_ARGS__)
 #endif
 
-#define ASSERT(CONDITION, MESSAGE)             \
-	[&]() -> bool {                            \
-		STATIC_ASSERT((CONDITION), MESSAGE);   \
-		return Assert((CONDITION), (MESSAGE)); \
-	}()
+#define REQUIRE_SEMICOLON static_assert(true, "require semicolon")
+
+#define ASSERT(CONDITION, MESSAGE)                        \
+	{                                                     \
+		STATIC_ASSERT(CONDITION, MESSAGE);                \
+		if (!TestResultContext::check(CONDITION))         \
+			return TestResultContext::add_error(MESSAGE); \
+	} REQUIRE_SEMICOLON
 
 
 

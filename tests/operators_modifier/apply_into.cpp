@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("apply_into modifier");
+
 TEST("apply_into modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(api1, apply_into<Class2>(abc >> spacedot));

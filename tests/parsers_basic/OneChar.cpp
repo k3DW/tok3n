@@ -3,6 +3,8 @@
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
 
+FIXTURE("OneChar");
+
 TEST("OneChar", "Requirements")
 {
 	ASSERT_IS_PARSER(Single, OneCharType, std::string_view);

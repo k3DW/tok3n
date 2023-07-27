@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("ZeroOrMore");
+
 TEST("ZeroOrMore", "Requirements")
 {
 	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<std::string_view>);

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("into_choice modifier");
+
 TEST("into_choice modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(spacedot, abc), (Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}));

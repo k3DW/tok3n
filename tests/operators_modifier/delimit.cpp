@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("delimit modifier");
+
 TEST("delimit modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(del1, delimit(abc, comma));

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("join modifier");
+
 TEST("join modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_NE(joi1, join(abc));

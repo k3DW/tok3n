@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("complete modifier");
+
 TEST("complete modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(com1, complete(l1));

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Custom");
+
 TEST("Custom", "Requirements")
 {
 	ASSERT_IS_PARSER(Cus1, CustomType, std::size_t);

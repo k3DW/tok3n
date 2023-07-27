@@ -1,4 +1,5 @@
 #pragma once
+#include "framework/Assert.h"
 #include <k3/tok3n/types/StaticString.h>
 
 template <template <class...> class ParserFamily, class... Args>

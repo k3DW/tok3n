@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("OneOrMore");
+
 TEST("OneOrMore", "Requirements")
 {
 	ASSERT_IS_PARSER(Oom1, OneOrMoreType, std::vector<std::string_view>);

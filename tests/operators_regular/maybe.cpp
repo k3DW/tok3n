@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("maybe operator");
+
 TEST("maybe operator", "~Maybe")
 {
 	ASSERT_PARSER_VALUES_EQ(~may1, may1);
