@@ -20,3 +20,7 @@ constexpr auto compound_list = parser_list(
 	cho1, cho2, cho3, cho4, cho5,
 	seq1, seq2, seq3, seq4, seq5
 );
+
+#define DO_TO_SAMPLES_COMPOUND(F)           \
+	F(Cho1) F(Cho2) F(Cho3) F(Cho4) F(Cho5) \
+	F(Seq1) F(Seq2) F(Seq3) F(Seq4) F(Seq5)
