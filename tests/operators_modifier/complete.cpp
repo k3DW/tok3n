@@ -44,27 +44,25 @@ TEST("complete modifier", "idempotent")
 
 
 
-constexpr auto complete_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (P::type == CompleteType)
-	{
-		TOK3N_ASSERT_P( requires { complete(P{}); },  "complete prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( complete(P{}) == P{},         "complete prefix operator of Complete parser should give itself" );
-		TOK3N_ASSERT_P( requires { P{} % complete; }, "complete infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % complete == P{},        "complete infix operator of Complete parser should give itself" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { complete(P{}); },     "complete prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( complete(P{}) == Complete<P>{},  "complete prefix operator of any other parser should give Complete parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % complete; },    "complete infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % complete == Complete<P>{}, "complete infix operator of any other parser should give Complete parser of the argument" );
-	}
-
-	return true;
-};
+#define COMPLETE_MODIFIER_ASSERTER(P)                                             \
+	[&]<Parser PP>(PP) {                                                          \
+		if constexpr (PP::type == CompleteType)                                   \
+		{                                                                         \
+			ASSERT_MODIFIER_CALLABLE_DEP_1_R(complete, PP{}, PP{},                \
+				                             complete, P{},  P{});                \
+			ASSERT_MODIFIER_MODULO_OPERABLE_DEP_R(PP{}, complete, PP{},           \
+				                                  P{},  complete, P{});           \
+		}                                                                         \
+		else                                                                      \
+		{                                                                         \
+			ASSERT_MODIFIER_CALLABLE_DEP_1_R(complete, PP{}, Complete<PP>{},      \
+				                             complete, P{},  Complete<P>{});      \
+			ASSERT_MODIFIER_MODULO_OPERABLE_DEP_R(PP{}, complete, Complete<PP>{}, \
+				                                  P{},  complete, Complete<P>{}); \
+		}                                                                         \
+	}(P{});
 
 TEST("complete modifier", "modify anything")
 {
-	ASSERT(check_all_samples(complete_checker), "check_all_samples(complete_checker) failed");
+	DO_TO_SAMPLES_ALL(COMPLETE_MODIFIER_ASSERTER);
 }
