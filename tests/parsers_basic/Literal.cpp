@@ -23,7 +23,7 @@ TEST("Literal", "Parse 'literal'")
 
 TEST("Literal", "Parse empty")
 {
-	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(Literal, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(Literal, "");
 
 	ASSERT_PARSE_SUCCESS(Literal<"">, "anything", "", "anything");
 	ASSERT_PARSE_SUCCESS(Literal<"">, "", "", "");
