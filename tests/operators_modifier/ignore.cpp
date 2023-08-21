@@ -36,27 +36,25 @@ TEST("ignore modifier", "idempotent")
 
 
 
-constexpr auto ignore_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (P::type == IgnoreType)
-	{
-		TOK3N_ASSERT_P( requires { ignore(P{}); },  "ignore prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( ignore(P{}) == P{},         "ignore prefix operator of Ignore parser should give itself" );
-		TOK3N_ASSERT_P( requires { P{} % ignore; }, "ignore infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % ignore == P{},        "ignore infix operator of Ignore parser should give itself" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { ignore(P{}); },   "ignore prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( ignore(P{}) == Ignore<P>{},  "ignore prefix operator of any other parser should give Ignore parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % ignore; },  "ignore infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % ignore == Ignore<P>{}, "ignore infix operator of any other parser should give Ignore parser of the argument" );
-	}
-
-	return true;
-};
+#define IGNORE_MODIFIER_ASSERTER(P)                                           \
+	[&]<Parser PP>(PP) {                                                      \
+		if constexpr (PP::type == IgnoreType)                                 \
+		{                                                                     \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
+				                           ignore, (P{}),  P{});              \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, PP{},         \
+				                                  P{},  ignore, P{});         \
+		}                                                                     \
+		else                                                                  \
+		{                                                                     \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), Ignore<PP>{},      \
+				                           ignore, (P{}),  Ignore<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, Ignore<PP>{}, \
+				                                  P{},  ignore, Ignore<P>{}); \
+		}                                                                     \
+	}(P{});
 
 TEST("ignore modifier", "modify anything")
 {
-	ASSERT(check_all_samples(ignore_checker), "check_all_samples(ignore_checker) failed");
+	DO_TO_SAMPLES_ALL(IGNORE_MODIFIER_ASSERTER);
 }

@@ -20,17 +20,11 @@ TEST("constant modifier", "infix")
 
 
 
-constexpr auto constant_checker = []<Parser P>(P) -> bool
-{
-	TOK3N_ASSERT_P( requires { constant<0>(P{}); },                 "constant<0> prefix operator doesn't compile, but it should" );
-	TOK3N_ASSERT_P( constant<0>(P{}) == (Constant<P, Const<0>>{}),  "constant<0> prefix operator of any other parser should give Constant parser of the argument" );
-	TOK3N_ASSERT_P( requires { P{} % constant<0>; },                "constant<0> infix operator doesn't compile, but it should" );
-	TOK3N_ASSERT_P( P{} % constant<0> == (Constant<P, Const<0>>{}), "constant<0> infix operator of any other parser should give Constant parser of the argument" );
-
-	return true;
-};
+#define CONSTANT_MODIFIER_ASSERTER(P)                                               \
+	ASSERT_MODIFIER_CALLABLE_R(constant<0>, (P{}), (Constant<P, Const<0>>{}));      \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, constant<0>, (Constant<P, Const<0>>{}));
 
 TEST("constant modifier", "modify anything")
 {
-	ASSERT(check_all_samples(constant_checker), "check_all_samples(constant_checker) failed");
+	DO_TO_SAMPLES_ALL(CONSTANT_MODIFIER_ASSERTER);
 }
