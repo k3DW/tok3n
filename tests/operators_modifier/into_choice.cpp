@@ -7,8 +7,8 @@ TEST("into_choice modifier", "prefix")
 	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(spacedot, abc), (Choice<Into<SpaceDot, Class1>, Into<ABC, Class1>>{}));
 	ASSERT_PARSER_VALUES_EQ(into_choice<Class1>(abc, spacedot), (Choice<Into<ABC, Class1>, Into<SpaceDot, Class1>>{}));
 
-	ASSERT_MODIFIER_NOT_CALLABLE_2(into_choice<Class1>, abc, (spacedot >> abc));
-	ASSERT_MODIFIER_CALLABLE_2(into_choice<Sink>, abc, (spacedot >> abc));
+	ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Class1>, (abc, (spacedot >> abc)));
+	ASSERT_MODIFIER_CALLABLE(into_choice<Sink>, (abc, (spacedot >> abc)));
 }
 
 TEST("into_choice modifier", "infix")

@@ -48,16 +48,16 @@ TEST("complete modifier", "idempotent")
 	[&]<Parser PP>(PP) {                                                          \
 		if constexpr (PP::type == CompleteType)                                   \
 		{                                                                         \
-			ASSERT_MODIFIER_CALLABLE_DEP_1_R(complete, PP{}, PP{},                \
-				                             complete, P{},  P{});                \
-			ASSERT_MODIFIER_MODULO_OPERABLE_DEP_R(PP{}, complete, PP{},           \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
+				                           complete, (P{}),  P{});                \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, PP{},           \
 				                                  P{},  complete, P{});           \
 		}                                                                         \
 		else                                                                      \
 		{                                                                         \
-			ASSERT_MODIFIER_CALLABLE_DEP_1_R(complete, PP{}, Complete<PP>{},      \
-				                             complete, P{},  Complete<P>{});      \
-			ASSERT_MODIFIER_MODULO_OPERABLE_DEP_R(PP{}, complete, Complete<PP>{}, \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), Complete<PP>{},      \
+				                           complete, (P{}),  Complete<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, Complete<PP>{}, \
 				                                  P{},  complete, Complete<P>{}); \
 		}                                                                         \
 	}(P{});
