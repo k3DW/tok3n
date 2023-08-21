@@ -17,49 +17,47 @@ concept modulo_operable = requires {
 template <auto... ps>
 concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 
-#define IDENTITY(...) __VA_ARGS__
-
 
 
 // Checking in a dependent context, so the error messages are still nice
 
-#define DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS) \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                 \
-	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                \
-		"`" #P_VALUES "` do not all satisfy the Parser concept.");                 \
-	ASSERT((callable<MOD_VALUE, IDENTITY P_VALUES>),                               \
-		"`" #MOD_DISPLAY #P_DISPLAYS "` does not satisfy the Parser concept.")
+#define DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)     \
+	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                     \
+	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                    \
+		"`" STR(P_VALUES) "` do not all satisfy the Parser concept.");                 \
+	ASSERT((callable<MOD_VALUE, IDENTITY P_VALUES>),                                   \
+		"`" STR(MOD_DISPLAY) STR(P_DISPLAYS) "` does not satisfy the Parser concept.")
 
-#define DEP_ASSERT_MODIFIER_NOT_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)     \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                         \
-	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                \
-		"`" #P_VALUES "` do not all satisfy the Parser concept.");                 \
-	ASSERT((not callable<MOD_VALUE, IDENTITY P_VALUES>),                                   \
-		"`" #MOD_DISPLAY #P_DISPLAYS "` satisfies the Parser concept, but it should not.")
-
-#define DEP_ASSERT_MODIFIER_CALLABLE_R(MOD_VALUE, P_VALUES, R_VALUE, MOD_DISPLAY, P_DISPLAYS, R_DISPLAY) \
-	DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS);                          \
-	ASSERT_CONCEPT(Parser, decltype(R_VALUE));                                                           \
-	DEP_ASSERT_PARSER_VALUES_EQ((MOD_VALUE)P_VALUES, R_VALUE, (MOD_DISPLAY)P_DISPLAYS, R_DISPLAY)
-
-
-
-#define DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)            \
-	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                     \
+#define DEP_ASSERT_MODIFIER_NOT_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)             \
 	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                 \
-	ASSERT((modulo_operable<P_VALUE, MOD_VALUE>),                                                  \
-		"`" #P_DISPLAY " % " #MOD_DISPLAY "` does not satisfy the Parser concept, but it should.")
+	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                                \
+		"`" STR(P_VALUES) "` do not all satisfy the Parser concept.");                             \
+	ASSERT((not callable<MOD_VALUE, IDENTITY P_VALUES>),                                           \
+		"`" STR(MOD_DISPLAY) STR(P_DISPLAYS) "` satisfies the Parser concept, but it should not.")
 
-#define DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)          \
-	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                       \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                   \
-	ASSERT((not modulo_operable<P_VALUE, MOD_VALUE>),                                                \
-		"`" #P_DISPLAY " % " #MOD_DISPLAY "` does satisfies the Parser concept, but it should not.")
+#define DEP_ASSERT_MODIFIER_CALLABLE_R(MOD_VALUE, P_VALUES, R_VALUE, MOD_DISPLAY, P_DISPLAYS, R_DISPLAY)  \
+	DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS);                           \
+	ASSERT_CONCEPT(Parser, decltype(R_VALUE));                                                            \
+	DEP_ASSERT_PARSER_VALUES_EQ(MOD_VALUE P_VALUES, R_VALUE, MOD_DISPLAY(IDENTITY P_DISPLAYS), R_DISPLAY)
+
+
+
+#define DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)                    \
+	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                             \
+	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                         \
+	ASSERT((modulo_operable<P_VALUE, MOD_VALUE>),                                                          \
+		"`" STR(P_DISPLAY) " % " STR(MOD_DISPLAY) "` does not satisfy the Parser concept, but it should.")
+
+#define DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)                  \
+	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                               \
+	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                           \
+	ASSERT((not modulo_operable<P_VALUE, MOD_VALUE>),                                                        \
+		"`" STR(P_DISPLAY) " % " STR(MOD_DISPLAY) "` does satisfies the Parser concept, but it should not.")
 
 #define DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(P_VALUE, MOD_VALUE, R_VALUE, P_DISPLAY, MOD_DISPLAY, R_DISPLAY) \
 	DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY);                          \
 	ASSERT_CONCEPT(Parser, decltype(R_VALUE));                                                                \
-	DEP_ASSERT_PARSER_VALUES_EQ((P_VALUE) % (MOD_VALUE), R_VALUE, (P_DISPLAY) % (MOD_DISPLAY), R_DISPLAY)
+	DEP_ASSERT_PARSER_VALUES_EQ(P_VALUE % MOD_VALUE, R_VALUE, P_DISPLAY % MOD_DISPLAY, R_DISPLAY)
 
 
 

@@ -19,6 +19,12 @@
 
 
 
+#define IDENTITY(...) __VA_ARGS__
+
+#define STR(...) #__VA_ARGS__
+
+
+
 #define TOK3N_ASSERT_P(condition, message) \
 	do {                                   \
 		if constexpr (not (condition))     \
