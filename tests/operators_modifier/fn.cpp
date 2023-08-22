@@ -22,25 +22,25 @@ TEST("fn modifier", "infix")
 
 
 
-constexpr auto fn_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { fn<sink_func>(P{}); },  "fn<sink_func> prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % fn<sink_func>; }, "fn<sink_func> infix operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { fn<sink_func>(P{}); },                          "fn<sink_func> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( fn<sink_func>(P{}) == (Transform<P, Const<sink_func>>{}),  "fn<sink_func> prefix operator of any other parser should give Transform parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % fn<sink_func>; },                         "fn<sink_func> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % fn<sink_func> == (Transform<P, Const<sink_func>>{}), "fn<sink_func> infix operator of any other parser should give Transform parser of the argument" );
-	}
-
-	return true;
-};
+#define FN_MODIFIER_ASSERTER(P)                                                                             \
+	[&]<Parser PP>(PP) {                                                                                    \
+		if constexpr (std::same_as<typename PP::result_type, void>)                                         \
+		{                                                                                                   \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(fn<sink_func>, (PP{}),                                         \
+				                             fn<sink_func>, (P{}));                                         \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, fn<sink_func>,                                    \
+				                                    P{},  fn<sink_func>);                                   \
+		}                                                                                                   \
+		else                                                                                                \
+		{                                                                                                   \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(fn<sink_func>, (PP{}), (Transform<PP, Const<sink_func>>{}),      \
+				                           fn<sink_func>, (P{}),  (Transform<P, Const<sink_func>>{}));      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, fn<sink_func>, (Transform<PP, Const<sink_func>>{}), \
+				                                  P{},  fn<sink_func>, (Transform<P, Const<sink_func>>{})); \
+		}                                                                                                   \
+	}(P{});
 
 TEST("fn modifier", "modify anything")
 {
-	ASSERT(check_all_samples(fn_checker), "check_all_samples(fn_checker) failed");
+	DO_TO_SAMPLES_ALL(FN_MODIFIER_ASSERTER);
 }

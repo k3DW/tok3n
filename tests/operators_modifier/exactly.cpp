@@ -20,25 +20,25 @@ TEST("exactly modifier", "infix")
 
 
 
-constexpr auto exactly_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { exactly<2>(P{}); },  "exactly<2> prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % exactly<2>; }, "exactly<2> infix operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { exactly<2>(P{}); },                "exactly<2> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( exactly<2>(P{}) == (Exactly<P, Index<2>>{}),  "exactly<2> prefix operator of any other parser should give Exactly parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % exactly<2>; },               "exactly<2> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % exactly<2> == (Exactly<P, Index<2>>{}), "exactly<2> infix operator of any other parser should give Exactly parser of the argument" );
-	}
-
-	return true;
-};
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                           \
+	[&]<Parser PP>(PP) {                                                                       \
+		if constexpr (std::same_as<typename PP::result_type, void>)                            \
+		{                                                                                      \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(exactly<2>, (PP{}),                               \
+				                             exactly<2>, (P{}));                               \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, exactly<2>,                          \
+				                                    P{},  exactly<2>);                         \
+		}                                                                                      \
+		else                                                                                   \
+		{                                                                                      \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, Index<2>>{}),      \
+				                           exactly<2>, (P{}),  (Exactly<P, Index<2>>{}));      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, Index<2>>{}), \
+				                                  P{},  exactly<2>, (Exactly<P, Index<2>>{})); \
+		}                                                                                      \
+	}(P{});
 
 TEST("exactly modifier", "modify anything")
 {
-	ASSERT(check_all_samples(exactly_checker), "check_all_samples(exactly_checker) failed");
+	DO_TO_SAMPLES_ALL(EXACTLY_MODIFIER_ASSERTER);
 }

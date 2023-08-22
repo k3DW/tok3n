@@ -16,25 +16,25 @@ TEST("into modifier", "infix")
 
 
 
-constexpr auto into_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { into<Sink>(P{}); },  "into<Sink> prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % into<Sink>; }, "into<Sink> infix operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { into<Sink>(P{}); },         "into<Sink> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( into<Sink>(P{}) == (Into<P, Sink>{}),  "into<Sink> prefix operator of any other parser should give Into parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % into<Sink>; },        "into<Sink> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % into<Sink> == (Into<P, Sink>{}), "into<Sink> infix operator of any other parser should give Into parser of the argument" );
-	}
-
-	return true;
-};
+#define INTO_MODIFIER_ASSERTER(P)                                                       \
+	[&]<Parser PP>(PP) {                                                                \
+		if constexpr (std::same_as<typename PP::result_type, void>)                     \
+		{                                                                               \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into<Sink>, (PP{}),                        \
+				                             into<Sink>, (P{}));                        \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, into<Sink>,                   \
+				                                    P{},  into<Sink>);                  \
+		}                                                                               \
+		else                                                                            \
+		{                                                                               \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(into<Sink>, (PP{}), (Into<PP, Sink>{}),      \
+				                           into<Sink>, (P{}),  (Into<P, Sink>{}));      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, into<Sink>, (Into<PP, Sink>{}), \
+				                                  P{},  into<Sink>, (Into<P, Sink>{})); \
+		}                                                                               \
+	}(P{});
 
 TEST("into modifier", "modify anything")
 {
-	ASSERT(check_all_samples(into_checker), "check_all_samples(into_checker) failed");
+	DO_TO_SAMPLES_ALL(INTO_MODIFIER_ASSERTER);
 }
