@@ -28,28 +28,27 @@ TEST("delimit_keep modifier", "infix")
 
 
 
-constexpr auto delimit_keep_checker = []<Parser P>(P) -> bool
-{
-	TOK3N_ASSERT_P( not requires { delimit_keep(P{}, ignore(comma)); },  "delimit_keep prefix operator compiles with an ignored delimiter, but it shouldn't" );
-	TOK3N_ASSERT_P( not requires { P{} % delimit_keep(ignore(comma)); }, "delimit_keep infix operator compiles with an ignored delimiter, but it shouldn't" );
-
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { delimit_keep(P{}, comma); },  "delimit_keep prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % delimit_keep(comma); }, "delimit_keep infix operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { delimit_keep(P{}, comma); },                   "delimit_keep prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( delimit_keep(P{}, comma) == (Delimit<P, Comma, True>{}),  "delimit_keep prefix operator of any other parser should give Delimit parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % delimit_keep(comma); },                  "delimit_keep infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % delimit_keep(comma) == (Delimit<P, Comma, True>{}), "delimit_keep infix operator of any other parser should give Delimit parser of the argument" );
-	}
-
-	return true;
-};
+#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                                  \
+	[&]<Parser PP>(PP) {                                                                                   \
+		ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (P{}, ignore(comma)));                                  \
+		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, delimit_keep(ignore(comma)));                             \
+		if constexpr (std::same_as<typename PP::result_type, void>)                                        \
+		{                                                                                                  \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (PP{}, comma),                                  \
+				                             delimit_keep, (P{}, comma));                                  \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, delimit_keep(comma),                             \
+				                                    P{},  delimit_keep(comma));                            \
+		}                                                                                                  \
+		else                                                                                               \
+		{                                                                                                  \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(delimit_keep, (PP{}, comma), (Delimit<PP, Comma, True>{}),      \
+				                           delimit_keep, (P{}, comma),  (Delimit<P, Comma, True>{}));      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit_keep(comma), (Delimit<PP, Comma, True>{}), \
+				                                  P{},  delimit_keep(comma), (Delimit<P, Comma, True>{})); \
+		}                                                                                                  \
+	}(P{});
 
 TEST("delimit_keep modifier", "modify anything")
 {
-	ASSERT(check_all_samples(delimit_keep_checker), "check_all_samples(delimit_keep_checker) failed");
+	DO_TO_SAMPLES_ALL(DELIMIT_KEEP_MODIFIER_ASSERTER);
 }
