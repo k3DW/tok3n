@@ -52,34 +52,39 @@ TEST("one_or_more operator", "+ZeroOrMore")
 
 
 
-constexpr auto one_or_more_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { +P{}; }, "one_or_more operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { +P{}; },               "one_or_more operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( requires { { +P{} } -> Parser; }, "one_or_more operator compiles, but doesn't give a Parser" );
-
-		if constexpr (P::type == MaybeType)
-			TOK3N_ASSERT_P( +P{} == ZeroOrMore<underlying::parser<P>>{}, "one_or_more operator of Maybe parser should give ZeroOrMore parser of the underlying" );
-
-		else if constexpr (P::type == OneOrMoreType)
-			TOK3N_ASSERT_P( +P{} == P{}, "one_or_more operator of OneOrMore parser should give itself" );
-
-		else if constexpr (P::type == ZeroOrMoreType)
-			TOK3N_ASSERT_P( +P{} == P{}, "one_or_more operator of ZeroOrMore parser should give itself" );
-
-		else
-			TOK3N_ASSERT_P( +P{} == OneOrMore<P>{}, "one_or_more operator of any other parser should give OneOrMore parser of the argument" );
-	}
-
-	return true;
-};
+#define ONE_OR_MORE_OPERATOR_ASSERTER(P)                                                 \
+	[&]<Parser PP>(PP) {                                                                 \
+		if constexpr (std::same_as<typename PP::result_type, void>)                      \
+		{                                                                                \
+			DEP_ASSERT_UNARY_NOT_OPERABLE(+, PP{}, P{});                                 \
+		}                                                                                \
+		else                                                                             \
+		{                                                                                \
+			DEP_ASSERT_UNARY_OPERABLE(+, PP{}, P{});                                     \
+			if constexpr (PP::type == MaybeType)                                         \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, ZeroOrMore<underlying::parser<PP>>{}, \
+					                        +P{},  ZeroOrMore<underlying::parser<P>>{}); \
+			}                                                                            \
+			else if constexpr (PP::type == OneOrMoreType)                                \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                                 \
+				                            +P{},  P{});                                 \
+			}                                                                            \
+			else if constexpr (PP::type == ZeroOrMoreType)                               \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                                 \
+				                            +P{},  P{});                                 \
+			}                                                                            \
+			else                                                                         \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, OneOrMore<PP>{},                      \
+				                            +P{},  OneOrMore<P>{});                      \
+			}                                                                            \
+		}                                                                                \
+	}(P{});
 
 TEST("one_or_more operator", "+{anything}")
 {
-	ASSERT(check_all_samples(one_or_more_checker), "check_all_samples(one_or_more_checker) failed");
+	DO_TO_SAMPLES_ALL(ONE_OR_MORE_OPERATOR_ASSERTER);
 }

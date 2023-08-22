@@ -52,34 +52,39 @@ TEST("maybe operator", "~ZeroOrMore")
 
 
 
-constexpr auto maybe_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { ~P{}; }, "maybe operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { ~P{}; },               "maybe operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( requires { { ~P{} } -> Parser; }, "maybe operator compiles, but doesn't give a Parser" );
-
-		if constexpr (P::type == MaybeType)
-			TOK3N_ASSERT_P( ~P{} == P{}, "maybe operator of Maybe parser should give itself" );
-
-		else if constexpr (P::type == OneOrMoreType)
-			TOK3N_ASSERT_P( ~P{} == ZeroOrMore<underlying::parser<P>>{}, "maybe operator of OneOrMore parser should give ZeroOrMore parser of the underlying" );
-
-		else if constexpr (P::type == ZeroOrMoreType)
-			TOK3N_ASSERT_P( ~P{} == P{}, "maybe operator of ZeroOrMore parser should give itself" );
-
-		else
-			TOK3N_ASSERT_P( ~P{} == Maybe<P>{}, "maybe operator of any other parser should give Maybe parser of the argument" );
-	}
-
-	return true;
-};
+#define MAYBE_OPERATOR_ASSERTER(P)                                                       \
+	[&]<Parser PP>(PP) {                                                                 \
+		if constexpr (std::same_as<typename PP::result_type, void>)                      \
+		{                                                                                \
+			DEP_ASSERT_UNARY_NOT_OPERABLE(~, PP{}, P{});                                 \
+		}                                                                                \
+		else                                                                             \
+		{                                                                                \
+			DEP_ASSERT_UNARY_OPERABLE(~, PP{}, P{});                                     \
+			if constexpr (PP::type == MaybeType)                                         \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                 \
+					                        ~P{},  P{});                                 \
+			}                                                                            \
+			else if constexpr (PP::type == OneOrMoreType)                                \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, ZeroOrMore<underlying::parser<PP>>{}, \
+				                            ~P{},  ZeroOrMore<underlying::parser<P>>{}); \
+			}                                                                            \
+			else if constexpr (PP::type == ZeroOrMoreType)                               \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                 \
+				                            ~P{},  P{});                                 \
+			}                                                                            \
+			else                                                                         \
+			{                                                                            \
+				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, Maybe<PP>{},                          \
+				                            ~P{},  Maybe<P>{});                          \
+			}                                                                            \
+		}                                                                                \
+	}(P{});
 
 TEST("maybe operator", "~{anything}")
 {
-	ASSERT(check_all_samples(maybe_checker), "check_all_samples(maybe_checker) failed");
+	DO_TO_SAMPLES_ALL(MAYBE_OPERATOR_ASSERTER);
 }
