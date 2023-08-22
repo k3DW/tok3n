@@ -61,6 +61,15 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 
 
 
+#define DEP_ASSERT_UNARY_OPERABLE(OPERATOR, P_VALUE, P_DISPLAY)                                                        \
+	ASSERT((requires { OPERATOR (P_VALUE); }), "`" STR(OPERATOR) STR(P_DISPLAY) "` does not compile, but it should."); \
+	ASSERT_CONCEPT(Parser, decltype(OPERATOR P_VALUE))
+
+#define DEP_ASSERT_UNARY_NOT_OPERABLE(OPERATOR, P_VALUE, P_DISPLAY) \
+	ASSERT((not requires { OPERATOR (P_VALUE); }), "`" STR(OPERATOR) STR(P_DISPLAY) "` compiles, but it should not.")
+
+
+
 // Checking in a context where dependent types are not required
 
 #define ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES) \
