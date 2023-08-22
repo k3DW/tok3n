@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("ApplyTransform");
+
 TEST("ApplyTransform", "Requirements")
 {
 	ASSERT_IS_PARSER(Apt1, ApplyTransformType, bool);

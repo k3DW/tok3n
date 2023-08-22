@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("multi operator");
+
 TEST("multi operator", "creation")
 {
 	ASSERT_MODIFIER_VALUES_EQ(ignore % join, (modifiers::multi<modifiers::ignore, modifiers::join>{}));

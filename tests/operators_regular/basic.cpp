@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("basic operators");
+
 TEST("basic operators", "UDL _one")
 {
 	ASSERT_PARSER_VALUES_EQ("abc"_one, oc1);

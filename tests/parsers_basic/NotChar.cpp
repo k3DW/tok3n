@@ -3,6 +3,8 @@
 using Single = NotChar<'a'>;
 using Multi  = NotChar<"abc">;
 
+FIXTURE("NotChar");
+
 TEST("NotChar", "Requirements")
 {
 	ASSERT_IS_PARSER(Single, NotCharType, std::string_view);
@@ -42,17 +44,17 @@ TEST("NotChar", "Parse multi char")
 
 TEST("NotChar", "Constructible from lexicographically sorted only")
 {
-	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(NotChar, "abc");
-	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(NotChar, "acb");
-	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(NotChar, "bac");
-	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(NotChar, "bca");
-	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(NotChar, "cab");
-	ASSERT_PARSER_BASIC_NOT_CONSTRUCTIBLE(NotChar, "cba");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NotChar, "abc");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "acb");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "bac");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "bca");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "cab");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "cba");
 }
 
 TEST("NotChar", "Parse empty")
 {
-	ASSERT_PARSER_BASIC_CONSTRUCTIBLE(NotChar, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NotChar, "");
 
 	ASSERT_PARSE_SUCCESS(NotChar<"">, "anything", "a", "nything");
 	ASSERT_PARSE_FAILURE(NotChar<"">, "");

@@ -1,70 +1,49 @@
 #pragma once
-#include "framework/Test.h"
-#include "framework/FixtureResult.h"
-#include "framework/TestResult.h"
-#include <map>
+#include <string>
+#include <string_view>
+#include <unordered_map>
+#include <k3/tok3n/types/StaticString.h>
+
+class Test;
 
 class Fixture
 {
 public:
-	Fixture(std::string_view name)
-		: _name(name)
-	{}
-
-	[[nodiscard]] FixtureResult run()
-	{
-		FixtureResult result(this);
-
-		for (Test* test : _tests)
-		{
-			TestResult r = test->run();
-			if (r.has_errors())
-				result.add_failure(std::move(r));
-			else
-				result.add_success(std::move(r));
-		}
-		
-		return result;
-	}
-
-	[[nodiscard]] static FixtureResults run_all()
-	{
-		FixtureResults results;
-
-		for (auto& [_, fixture] : _all_fixtures)
-		{
-			FixtureResult r = fixture.run();
-			if (r.has_errors())
-				results.add_failure(std::move(r));
-			else
-				results.add_success(std::move(r));
-		}
-
-		return results;
-	}
+	void add_test(Test& test);
 
 	std::string_view name() const
 	{
 		return _name;
 	}
 
-	static void add_test_to_fixture(Test* test, std::string_view fixture_name)
-	{
-		auto it = _all_fixtures.find(fixture_name);
-		if (it != _all_fixtures.end())
-		{
-			it->second._tests.push_back(test);
-		}
-		else
-		{
-			auto [emplace_it, _] = _all_fixtures.emplace(fixture_name, fixture_name);
-			emplace_it->second._tests.push_back(test);
-		}
-	}
+	void run();
+	std::string print_results() const;
+
+protected:
+	Fixture(std::string name)
+		: _name(std::move(name))
+	{}
+
+	virtual ~Fixture() = 0 {}
 
 private:
 	std::string _name;
-	std::vector<Test*> _tests;
-
-	static inline std::map<std::string, Fixture, std::less<>> _all_fixtures;
+	std::unordered_map<std::string_view, Test*> _tests;
 };
+
+
+
+template <k3::tok3n::StaticString>
+class FixtureImpl {};
+
+#define FIXTURE(NAME)                                \
+	template <>                                      \
+	class FixtureImpl<NAME> : public Fixture         \
+	{                                                \
+	private:                                         \
+		FixtureImpl() : Fixture(NAME) {}             \
+		static const Fixture& _self;                 \
+	};                                               \
+	const Fixture& FixtureImpl<NAME>::_self          \
+		= Runner::get().add([]() -> auto&            \
+		{ static FixtureImpl<NAME> f; return f; }())

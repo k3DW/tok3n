@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Ignore");
+
 TEST("Ignore", "Requirements")
 {
 	ASSERT_IS_PARSER(Ign1, IgnoreType, void);

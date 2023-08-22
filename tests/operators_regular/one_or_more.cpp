@@ -1,5 +1,6 @@
 #include "pch.h"
 
+FIXTURE("one_or_more operator");
 
 TEST("one_or_more operator", "+Maybe")
 {

@@ -50,3 +50,11 @@ constexpr auto repeat_list = parser_list(
 	del1, del2, del3, del4, del5, del6, del7, del8,
 	dek1, dek2, dek3, dek4, dek5, dek6, dek7, dek8
 );
+
+#define DO_TO_SAMPLES_REPEAT(F)                                     \
+	F(May1) F(May2) F(May3) F(May4)                                 \
+	F(Exa1) F(Exa2) F(Exa3) F(Exa4)                                 \
+	F(Oom1) F(Oom2) F(Oom3) F(Oom4)                                 \
+	F(Zom1) F(Zom2) F(Zom3) F(Zom4)                                 \
+	F(Del1) F(Del2) F(Del3) F(Del4) F(Del5) F(Del6) F(Del7) F(Del8) \
+	F(Dek1) F(Dek2) F(Dek3) F(Dek4) F(Dek5) F(Dek6) F(Dek7) F(Dek8)

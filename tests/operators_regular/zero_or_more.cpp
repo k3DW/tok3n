@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("zero_or_more operator");
+
 TEST("zero_or_more operator", "*Maybe")
 {
 	ASSERT_PARSER_VALUES_EQ(*may1, zom1);

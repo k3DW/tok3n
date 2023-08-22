@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Transform");
+
 TEST("Transform", "Requirements")
 {
 	ASSERT_IS_PARSER(Tra1, TransformType, std::size_t);

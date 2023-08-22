@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("choice operator");
+
 TEST("choice operator", "OneChar | OneChar")
 {
 	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, oc2 | oc1);

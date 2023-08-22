@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Maybe");
+
 TEST("Maybe", "Requirements")
 {
 	ASSERT_IS_PARSER(May1, MaybeType, std::optional<std::string_view>);

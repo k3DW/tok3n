@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Exactly");
+
 TEST("Exactly", "Requirements")
 {
 	ASSERT_IS_PARSER(Exa1, ExactlyType, std::array<std::string_view, 3>);

@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("ApplyInto");
+
 TEST("ApplyInto", "Requirements")
 {
 	ASSERT_IS_PARSER(Api1, ApplyIntoType, Class2);

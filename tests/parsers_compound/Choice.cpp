@@ -6,6 +6,8 @@ using TwoWay2 = Cho2;
 using ThreeWay1 = Cho3;
 using ThreeWay2 = Cho4;
 
+FIXTURE("Choice");
+
 TEST("Choice", "Requirements")
 {
 	ASSERT_IS_PARSER(TwoWay1, ChoiceType, std::string_view);

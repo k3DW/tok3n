@@ -27,3 +27,8 @@ constexpr auto basic_list = parser_list(
 	oc4, nc4, nc5, l4,
 	qq, abc, comma, spacedot
 );
+
+#define DO_TO_SAMPLES_BASIC(F)                                  \
+	F(OC1) F(OC2) F(OC3) F(NC1) F(NC2) F(NC3) F(L1) F(L2) F(L3) \
+	F(OC4) F(NC4) F(NC5) F(L4)                                  \
+	F(QQ) F(ABC) F(Comma) F(SpaceDot)

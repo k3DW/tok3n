@@ -5,6 +5,9 @@ namespace
 	using vec_type = std::vector<std::string_view>;
 }
 
+FIXTURE("Delimit regular");
+FIXTURE("Delimit keep");
+
 TEST("Delimit regular", "Requirements")
 {
 	ASSERT_IS_PARSER(Del1, DelimitType, std::vector<std::string_view>);

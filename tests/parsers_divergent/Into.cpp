@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Into");
+
 TEST("Into", "Requirements")
 {
 	ASSERT_IS_PARSER(Int1, IntoType, Class1);

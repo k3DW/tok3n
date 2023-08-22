@@ -1,26 +1,29 @@
 #pragma once
 #include "framework/Error.h"
 
-class Test;
+struct TestResult
+{
+	std::size_t checks = 0;
+	std::vector<Error> errors{};
+};
 
-class TestResult
+class TestResultContext
 {
 public:
-	TestResult(const Test* test, std::vector<Error>&& errors)
-		: _test(test)
-		, _errors(std::move(errors))
-	{}
+	[[nodiscard]] TestResultContext(TestResult& result);
 
-	TestResult(const Test* test)
-		: _test(test)
-	{}
-	
-	bool has_errors() const { return not _errors.empty(); }
+	~TestResultContext();
 
-	const Test* test()   const { return _test; }
-	const auto& errors() const { return _errors; }
+	TestResultContext(const TestResultContext&) = delete;
+	TestResultContext(TestResultContext&&) = delete;
+	TestResultContext& operator=(const TestResultContext&) = delete;
+	TestResultContext& operator=(TestResultContext&&) = delete;
+
+	static void add_error(std::string_view message, std::source_location location = std::source_location::current());
+
+	static bool check(bool condition);
 
 private:
-	const Test* _test;
-	std::vector<Error> _errors;
+	static inline TestResult* _current_result = nullptr;
+	TestResult* _old_result;
 };

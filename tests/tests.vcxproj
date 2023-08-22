@@ -171,14 +171,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="framework\AssertConcept.h" />
-    <ClInclude Include="framework\AssertConstructible.h" />
-    <ClInclude Include="framework\AssertEquality.h" />
-    <ClInclude Include="framework\AssertOperation.h" />
-    <ClInclude Include="framework\AssertParse.h" />
+    <ClInclude Include="asserts\Concept.h" />
+    <ClInclude Include="asserts\Constructible.h" />
+    <ClInclude Include="asserts\Equality.h" />
+    <ClInclude Include="asserts\Operation.h" />
+    <ClInclude Include="asserts\Parse.h" />
     <ClInclude Include="framework\Fixture.h" />
     <ClInclude Include="framework\Error.h" />
-    <ClInclude Include="framework\FixtureResult.h" />
+    <ClInclude Include="framework\Test.h" />
+    <ClInclude Include="framework\Runner.h" />
     <ClInclude Include="framework\TestResult.h" />
     <ClInclude Include="samples\adaptor.h" />
     <ClInclude Include="samples\classes.h" />
@@ -189,13 +190,16 @@
     <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />
     <ClInclude Include="framework\Assert.h" />
-    <ClInclude Include="framework\Test.h" />
     <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
     <ClInclude Include="framework\underlying.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="framework\Fixture.cpp" />
+    <ClCompile Include="framework\Runner.cpp" />
+    <ClCompile Include="framework\Test.cpp" />
+    <ClCompile Include="framework\TestResult.cpp" />
     <ClCompile Include="operators_modifier\multi.cpp" />
     <ClCompile Include="operators_modifier\delimit_keep.cpp" />
     <ClCompile Include="operators_modifier\apply_into.cpp" />

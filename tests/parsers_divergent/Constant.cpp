@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Constant");
+
 TEST("Constant", "Requirements")
 {
 	ASSERT_IS_PARSER(Con1, ConstantType, int);

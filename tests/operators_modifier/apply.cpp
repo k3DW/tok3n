@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("apply modifier");
+
 TEST("apply modifier", "prefix")
 {
 	ASSERT_PARSER_VALUES_EQ(apt1, apply<func3_apply>(abc >> *qq));
@@ -16,25 +18,25 @@ TEST("apply modifier", "infix")
 
 
 
-constexpr auto apply_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (detail::has_tuple_size<typename P::result_type>)
-	{
-		TOK3N_ASSERT_P( requires { apply<sink_func>(P{}); },                               "apply<sink_func> prefix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( apply<sink_func>(P{}) == (ApplyTransform<P, Const<sink_func>>{}),  "apply<sink_func> prefix operator of any other parser should give ApplyTransform parser of the argument" );
-		TOK3N_ASSERT_P( requires { P{} % apply<sink_func>; },                              "apply<sink_func> infix operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( P{} % apply<sink_func> == (ApplyTransform<P, Const<sink_func>>{}), "apply<sink_func> infix operator of any other parser should give ApplyTransform parser of the argument" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( not requires { apply<sink_func>(P{}); },  "apply<sink_func> prefix operator compiles, but it shouldn't" );
-		TOK3N_ASSERT_P( not requires { P{} % apply<sink_func>; }, "apply<sink_func> infix operator compiles, but it shouldn't" );
-	}
-
-	return true;
-};
+#define APPLY_MODIFIER_ASSERTER(P)                                                                                  \
+	[&]<Parser PP>(PP) {                                                                                            \
+		if constexpr (detail::has_tuple_size<typename PP::result_type>)                                             \
+		{                                                                                                           \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(apply<sink_func>, (PP{}), (ApplyTransform<PP, Const<sink_func>>{}),      \
+				                           apply<sink_func>, (P{}),  (ApplyTransform<P, Const<sink_func>>{}));      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply<sink_func>, (ApplyTransform<PP, Const<sink_func>>{}), \
+				                                  P{},  apply<sink_func>, (ApplyTransform<P, Const<sink_func>>{})); \
+		}                                                                                                           \
+		else                                                                                                        \
+		{                                                                                                           \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(apply<sink_func>, (PP{}),                                              \
+				                             apply<sink_func>, (P{}));                                              \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, apply<sink_func>,                                         \
+				                                    P{},  apply<sink_func>);                                        \
+		}                                                                                                           \
+	}(P{});
 
 TEST("apply modifier", "modify anything")
 {
-	ASSERT(check_all_samples(apply_checker), "check_all_samples(apply_checker) failed");
+	DO_TO_SAMPLES_ALL(APPLY_MODIFIER_ASSERTER);
 }

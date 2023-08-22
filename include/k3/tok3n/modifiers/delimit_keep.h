@@ -4,7 +4,7 @@
 
 namespace k3::tok3n::modifiers {
 
-struct delimit_keep final
+struct delimit_keep final : ModifierBase
 {
 	template <Parser P, Parser D>
 	requires DelimitConstructible<P, D, True>

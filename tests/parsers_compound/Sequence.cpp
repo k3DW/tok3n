@@ -3,6 +3,8 @@
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
+FIXTURE("Sequence");
+
 TEST("Sequence", "Requirements")
 {
 	ASSERT_IS_PARSER(TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>);

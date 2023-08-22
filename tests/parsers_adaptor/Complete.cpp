@@ -1,5 +1,7 @@
 #include "pch.h"
 
+FIXTURE("Complete");
+
 TEST("Complete", "Requirements")
 {
 	ASSERT_IS_PARSER(Com1, CompleteType, std::string_view);
