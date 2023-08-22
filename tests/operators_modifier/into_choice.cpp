@@ -32,41 +32,39 @@ namespace
 	using EmptyLiteralParser = std::remove_cvref_t<decltype(empty_literal_parser)>;
 }
 
-constexpr auto into_choice_checker = []<Parser P>(P) -> bool
-{
-	TOK3N_ASSERT_P( not requires { into_choice<Sink>(P{}); },  "into_choice<Sink> prefix operator compiles with 1 parser, but it shouldn't" );
-	TOK3N_ASSERT_P( not requires { P{} % into_choice<Sink>; }, "into_choice<Sink> infix operator compiles with 1 parser, but it shouldn't" );
-	
-	if constexpr (std::same_as<typename P::result_type, void>)
-	{
-		TOK3N_ASSERT_P( not requires { into_choice<Sink>(P{}, sink_parser); },
-			"into_choice<Sink> prefix operator compiles with 2 parsers, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( requires { into_choice<Sink>(P{}, sink_parser); },
-			"into_choice<Sink> prefix operator doesn't compile with 2 parsers, but it should" );
-		TOK3N_ASSERT_P( into_choice<Sink>(P{}, sink_parser) == (Choice<Into<P, Sink>, Into<SinkParser, Sink>>{}),
-			"into_choice<Sink> prefix operator of any other parser should give the complicated parser above" );
-	}
-	
-	if constexpr (std::constructible_from<std::string_view, typename P::result_type>)
-	{
-		TOK3N_ASSERT_P( requires { into_choice<std::string_view>(P{}, empty_literal_parser); },
-			"into_choice<std::string_view> prefix operator doesn't compile with these 2 parsers, but it shouldn't" );
-		TOK3N_ASSERT_P( into_choice<std::string_view>(P{}, empty_literal_parser) == (Choice<Into<P, std::string_view>, Into<EmptyLiteralParser, std::string_view>>{}),
-			"into_choice<std::string_view> prefix operator of any other parser should give the complicated parser above" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( not requires { into_choice<std::string_view>(P{}, empty_literal_parser); },
-			"into_choice<std::string_view> prefix operator compiles with these 2 parsers, but it shouldn't" );
-	}
-
-	return true;
-};
+#define INTO_CHOICE_MODIFIER_ASSERTER(P)                                                                                            \
+	[&]<Parser PP>(PP) {                                                                                                            \
+		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (P{}));                                                                     \
+		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Sink>);                                                                \
+		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<std::string_view>, (P{}));                                                         \
+		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<std::string_view>);                                                    \
+		if constexpr (std::same_as<typename PP::result_type, void>)                                                                 \
+		{                                                                                                                           \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (PP{}, sink_parser),                                                \
+				                             into_choice<Sink>, (P{}, sink_parser));                                                \
+		}                                                                                                                           \
+		else                                                                                                                        \
+		{                                                                                                                           \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Sink>, (PP{}, sink_parser),                                                  \
+												(Choice<Into<PP, Sink>, Into<SinkParser, Sink>>{}),                                 \
+				                           into_choice<Sink>, (P{}, sink_parser),                                                   \
+												(Choice<Into<P, Sink>, Into<SinkParser, Sink>>{}));                                 \
+		}                                                                                                                           \
+		if constexpr (std::constructible_from<std::string_view, typename PP::result_type>)                                          \
+		{                                                                                                                           \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<std::string_view>, (PP{}, empty_literal_parser),                             \
+												(Choice<Into<PP, std::string_view>, Into<EmptyLiteralParser, std::string_view>>{}), \
+				                           into_choice<std::string_view>, (P{}, empty_literal_parser),                              \
+												(Choice<Into<P, std::string_view>, Into<EmptyLiteralParser, std::string_view>>{})); \
+		}                                                                                                                           \
+		else                                                                                                                        \
+		{                                                                                                                           \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<std::string_view>, (PP{}, empty_literal_parser),                           \
+				                             into_choice<std::string_view>, (P{}, empty_literal_parser));                           \
+		}                                                                                                                           \
+	}(P{});
 
 TEST("into_choice modifier", "modify anything")
 {
-	ASSERT(check_all_samples(into_choice_checker), "check_all_samples(into_choice_checker) failed");
+	DO_TO_SAMPLES_ALL(INTO_CHOICE_MODIFIER_ASSERTER);
 }
