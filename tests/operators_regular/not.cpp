@@ -24,29 +24,27 @@ TEST("not operator", "!NotChar")
 
 
 
-constexpr auto not_checker = []<Parser P>(P) -> bool
-{
-	if constexpr (P::type == OneCharType)
-	{
-		TOK3N_ASSERT_P( requires { !P{}; },                       "not operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( (!P{}).type == NotCharType,               "not operator of OneChar parser should give NotChar parser" );
-		TOK3N_ASSERT_P( !P{} == NotChar<underlying::string<P>>{}, "not operator of OneChar parser should give NotChar parser of the underlying string" );
-	}
-	else if constexpr (P::type == NotCharType)
-	{
-		TOK3N_ASSERT_P( requires { !P{}; },                       "not operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P( (!P{}).type == OneCharType,               "not operator of NotChar parser should give OneChar parser" );
-		TOK3N_ASSERT_P( !P{} == OneChar<underlying::string<P>>{}, "not operator of NotChar parser should give OneChar parser of the underlying string" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P( not requires { !P{}; }, "not operator compiles, but it shouldn't" );
-	}
-
-	return true;
-};
+#define NOT_OPERATOR_ASSERTER(P)                                                  \
+	[&]<Parser PP>(PP) {                                                          \
+		if constexpr (PP::type == OneCharType)                                    \
+		{                                                                         \
+			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NotChar<underlying::string<PP>>{}, \
+					                    !P{},  NotChar<underlying::string<P>>{}); \
+		}                                                                         \
+		else if constexpr (PP::type == NotCharType)                               \
+		{                                                                         \
+			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, OneChar<underlying::string<PP>>{}, \
+					                    !P{},  OneChar<underlying::string<P>>{}); \
+		}                                                                         \
+		else                                                                      \
+		{                                                                         \
+			DEP_ASSERT_UNARY_NOT_OPERABLE(!, PP{}, P{});                          \
+		}                                                                         \
+	}(P{});
 
 TEST("not operator", "!{anything}")
 {
-	ASSERT(check_all_samples(not_checker), "check_all_samples(not_checker) failed");
+	DO_TO_SAMPLES_ALL(NOT_OPERATOR_ASSERTER);
 }
