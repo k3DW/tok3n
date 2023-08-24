@@ -86,6 +86,9 @@
     <ClInclude Include="framework\TestResult.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="samples\macros.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
@@ -226,6 +229,9 @@
     </ClCompile>
     <ClCompile Include="framework\TestResult.cpp">
       <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="samples\macros_test.cpp">
+      <Filter>samples</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

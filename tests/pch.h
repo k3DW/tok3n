@@ -22,6 +22,7 @@
 #include "samples/compound.h"
 #include "samples/divergent.h"
 #include "samples/functions.h"
+#include "samples/macros.h"
 #include "samples/repeat.h"
 
 #include <format>
@@ -35,15 +36,6 @@
 using namespace k3::tok3n;
 
 constexpr auto the_parser_list = adaptor_list + basic_list + compound_list + divergent_list + repeat_list;
-
-#define DO_TO_SAMPLES_ALL(F)       \
-	{                              \
-		DO_TO_SAMPLES_ADAPTOR(F)   \
-		DO_TO_SAMPLES_BASIC(F)     \
-		DO_TO_SAMPLES_COMPOUND(F)  \
-		DO_TO_SAMPLES_DIVERGENT(F) \
-		DO_TO_SAMPLES_REPEAT(F)    \
-	} REQUIRE_SEMICOLON
 
 consteval bool check_all_samples(auto checker)
 {
