@@ -220,7 +220,12 @@
     <ClCompile Include="operators_regular\maybe.cpp" />
     <ClCompile Include="operators_regular\not.cpp" />
     <ClCompile Include="operators_regular\one_or_more.cpp" />
-    <ClCompile Include="operators_regular\sequence.cpp" />
+    <ClCompile Include="operators_regular\sequence.cpp">
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="operators_regular\zero_or_more.cpp" />
     <ClCompile Include="parsers_adaptor\Complete.cpp" />
     <ClCompile Include="parsers_repeat\Delimit.cpp" />
