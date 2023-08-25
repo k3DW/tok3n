@@ -20,6 +20,7 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 
 
 // Checking in a dependent context, so the error messages are still nice
+// This wouldn't be needed if we had CWG2518 or P2593
 
 #define DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)     \
 	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                     \

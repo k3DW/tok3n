@@ -8,6 +8,7 @@ concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remo
 
 
 // Checking in a dependent context, so the error messages are still nice
+// This wouldn't be needed if we had CWG2518 or P2593
 
 #define DEP_ASSERT_PARSER_VALUES_EQ(LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)  \
 	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE));                                     \
