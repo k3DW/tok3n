@@ -181,17 +181,14 @@
     <ClInclude Include="framework\Test.h" />
     <ClInclude Include="framework\Runner.h" />
     <ClInclude Include="framework\TestResult.h" />
-    <ClInclude Include="samples\macros.h" />
     <ClInclude Include="samples\adaptor.h" />
     <ClInclude Include="samples\classes.h" />
     <ClInclude Include="samples\divergent.h" />
     <ClInclude Include="samples\functions.h" />
-    <ClInclude Include="framework\parser_list.h" />
     <ClInclude Include="samples\repeat.h" />
     <ClInclude Include="samples\compound.h" />
     <ClInclude Include="samples\basic.h" />
     <ClInclude Include="framework\Assert.h" />
-    <ClInclude Include="framework\comparison.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
     <ClInclude Include="framework\underlying.h" />
@@ -254,7 +251,6 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="samples\macros_test.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tok3n.vcxproj">
