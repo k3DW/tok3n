@@ -23,9 +23,6 @@
     <ClInclude Include="framework\Assert.h">
       <Filter>framework</Filter>
     </ClInclude>
-    <ClInclude Include="framework\comparison.h">
-      <Filter>framework</Filter>
-    </ClInclude>
     <ClInclude Include="samples\basic.h">
       <Filter>samples</Filter>
     </ClInclude>
@@ -49,9 +46,6 @@
     </ClInclude>
     <ClInclude Include="samples\divergent.h">
       <Filter>samples</Filter>
-    </ClInclude>
-    <ClInclude Include="framework\parser_list.h">
-      <Filter>framework</Filter>
     </ClInclude>
     <ClInclude Include="framework\underlying.h">
       <Filter>framework</Filter>

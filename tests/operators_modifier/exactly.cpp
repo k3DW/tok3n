@@ -40,5 +40,5 @@ TEST("exactly modifier", "infix")
 
 TEST("exactly modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(EXACTLY_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(EXACTLY_MODIFIER_ASSERTER);
 }

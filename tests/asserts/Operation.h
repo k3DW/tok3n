@@ -20,6 +20,7 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 
 
 // Checking in a dependent context, so the error messages are still nice
+// This wouldn't be needed if we had CWG2518 or P2593
 
 #define DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)     \
 	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                     \
@@ -58,6 +59,24 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 	DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY);                          \
 	ASSERT_CONCEPT(Parser, decltype(R_VALUE));                                                                \
 	DEP_ASSERT_PARSER_VALUES_EQ(P_VALUE % MOD_VALUE, R_VALUE, P_DISPLAY % MOD_DISPLAY, R_DISPLAY)
+
+
+
+#define DEP_ASSERT_UNARY_OPERABLE(OPERATOR, P_VALUE, P_DISPLAY)                                                        \
+	ASSERT((requires { OPERATOR (P_VALUE); }), "`" STR(OPERATOR) STR(P_DISPLAY) "` does not compile, but it should."); \
+	ASSERT_CONCEPT(Parser, decltype(OPERATOR P_VALUE))
+
+#define DEP_ASSERT_UNARY_NOT_OPERABLE(OPERATOR, P_VALUE, P_DISPLAY) \
+	ASSERT((not requires { OPERATOR (P_VALUE); }), "`" STR(OPERATOR) STR(P_DISPLAY) "` compiles, but it should not.")
+
+#define DEP_ASSERT_BINARY_OPERABLE(OPERATOR, LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)               \
+	ASSERT((requires { (LHS_VALUE) OPERATOR (RHS_VALUE); }),                                               \
+		"`" STR(LHS_DISPLAY) " " STR(OPERATOR) " " STR(RHS_DISPLAY) "` does not compile, but it should."); \
+	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE OPERATOR RHS_VALUE))
+
+#define DEP_ASSERT_BINARY_NOT_OPERABLE(OPERATOR, LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)      \
+	ASSERT((not requires { (LHS_VALUE) OPERATOR (RHS_VALUE); }),                                      \
+		"`" STR(LHS_DISPLAY) " " STR(OPERATOR) " " STR(RHS_DISPLAY) "` compiles, but it should not.")
 
 
 

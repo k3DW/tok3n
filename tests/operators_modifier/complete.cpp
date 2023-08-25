@@ -64,5 +64,5 @@ TEST("complete modifier", "idempotent")
 
 TEST("complete modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(COMPLETE_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(COMPLETE_MODIFIER_ASSERTER);
 }

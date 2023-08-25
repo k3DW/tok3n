@@ -1,10 +1,8 @@
 #pragma once
 
 #include "framework/Assert.h"
-#include "framework/comparison.h"
 #include "framework/Error.h"
 #include "framework/Fixture.h"
-#include "framework/parser_list.h"
 #include "framework/Runner.h"
 #include "framework/Test.h"
 #include "framework/TestResult.h"
@@ -32,38 +30,53 @@
 #include <unordered_map>
 #include <k3/tok3n.h>
 
-using namespace k3::tok3n;
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
 
-constexpr auto the_parser_list = adaptor_list + basic_list + compound_list + divergent_list + repeat_list;
+#define ASSERT_ALL_SAMPLES_IMPL(R, DATA, ELEM) \
+	DATA(ELEM)
 
-#define DO_TO_SAMPLES_ALL(F)       \
-	{                              \
-		DO_TO_SAMPLES_ADAPTOR(F)   \
-		DO_TO_SAMPLES_BASIC(F)     \
-		DO_TO_SAMPLES_COMPOUND(F)  \
-		DO_TO_SAMPLES_DIVERGENT(F) \
-		DO_TO_SAMPLES_REPEAT(F)    \
+#define ASSERT_ALL_SAMPLES(ASSERTER)                                                                                                              \
+	{                                                                                                                                             \
+		BOOST_PP_SEQ_FOR_EACH(ASSERT_ALL_SAMPLES_IMPL, ASSERTER, ADAPTOR_SAMPLES BASIC_SAMPLES COMPOUND_SAMPLES DIVERGENT_SAMPLES REPEAT_SAMPLES) \
 	} REQUIRE_SEMICOLON
 
-consteval bool check_all_samples(auto checker)
-{
-	return [checker]<Parser... Ps>(parser_list<Ps...>) -> bool
-	{
-		return (... && checker(Ps{}));
-	}(the_parser_list);
-}
 
-constexpr bool check_all_sample_pairs(auto checker)
-{
-	auto inner = [checker] <Parser LHS, Parser... RHS>(LHS, parser_list<RHS...>) -> bool
-	{
-		return (... && checker(LHS{}, RHS{}));
-	};
 
-	auto outer = [inner] <Parser... Ps>(parser_list<Ps...>) -> bool
-	{
-		return (... && inner(Ps{}, parser_list<Ps...>{}));
-	};
+#define ASSERT_ALL_SAMPLES_2_EXPAND(ELEM1) \
+	ELEM1, IDENTITY
 
-	return outer(the_parser_list);
-}
+#define ASSERT_ALL_SAMPLES_2_IMPL(r, product) \
+	(ASSERT_ALL_SAMPLES_2_EXPAND product)
+
+// This macro needs to be manually expanded in this ugly way otherwise it crashes the compiler
+#define ASSERT_ALL_SAMPLES_2(ASSERTER)                                                                                      \
+	{                                                                                                                       \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (ADAPTOR_SAMPLES)(ADAPTOR_SAMPLES)))     \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (ADAPTOR_SAMPLES)(BASIC_SAMPLES)))       \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (ADAPTOR_SAMPLES)(COMPOUND_SAMPLES)))    \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (ADAPTOR_SAMPLES)(DIVERGENT_SAMPLES)))   \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (ADAPTOR_SAMPLES)(REPEAT_SAMPLES)))      \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (BASIC_SAMPLES)(ADAPTOR_SAMPLES)))       \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (BASIC_SAMPLES)(BASIC_SAMPLES)))         \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (BASIC_SAMPLES)(COMPOUND_SAMPLES)))      \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (BASIC_SAMPLES)(DIVERGENT_SAMPLES)))     \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (BASIC_SAMPLES)(REPEAT_SAMPLES)))        \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (COMPOUND_SAMPLES)(ADAPTOR_SAMPLES)))    \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (COMPOUND_SAMPLES)(BASIC_SAMPLES)))      \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (COMPOUND_SAMPLES)(COMPOUND_SAMPLES)))   \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (COMPOUND_SAMPLES)(DIVERGENT_SAMPLES)))  \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (COMPOUND_SAMPLES)(REPEAT_SAMPLES)))     \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (DIVERGENT_SAMPLES)(ADAPTOR_SAMPLES)))   \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (DIVERGENT_SAMPLES)(BASIC_SAMPLES)))     \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (DIVERGENT_SAMPLES)(COMPOUND_SAMPLES)))  \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (DIVERGENT_SAMPLES)(DIVERGENT_SAMPLES))) \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (DIVERGENT_SAMPLES)(REPEAT_SAMPLES)))    \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(ADAPTOR_SAMPLES)))      \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(BASIC_SAMPLES)))        \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(COMPOUND_SAMPLES)))     \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(DIVERGENT_SAMPLES)))    \
+		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(REPEAT_SAMPLES)))       \
+	} REQUIRE_SEMICOLON
+
+using namespace k3::tok3n;

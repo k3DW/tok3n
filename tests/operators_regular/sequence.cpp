@@ -69,7 +69,7 @@ TEST("sequence operator", "void result_type")
 namespace {
 
 template <StaticString lhs, StaticString rhs>
-consteval auto combine_strings(Literal<lhs>, Literal<rhs>)
+constexpr auto combine_strings = []
 {
 	StaticString<lhs.size() + rhs.size()> str;
 	auto it = str.begin();
@@ -79,7 +79,7 @@ consteval auto combine_strings(Literal<lhs>, Literal<rhs>)
 		*it++ = c;
 
 	return str;
-}
+}();
 
 template <Parser... LHS, Parser RHS>
 requires (not IsParser<RHS, SequenceType>)
@@ -105,31 +105,42 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 
 
 
-constexpr auto sequence_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
-{
-	TOK3N_ASSERT_P2( requires { LHS{} >> RHS{}; }, "sequence operator doesn't compile, but it should" );
-
-	if constexpr (LHS::type == LiteralType and RHS::type == LiteralType)
-		TOK3N_ASSERT_P2( requires { { LHS{} >> RHS{} } -> std::same_as<Literal<combine_strings(LHS{}, RHS{})>>; }, "sequence operator on 2 Literal parsers should give a Literal parser with the concatenation of both strings" );
-
-	else if constexpr (LHS::type == SequenceType and RHS::type != SequenceType)
-		TOK3N_ASSERT_P2( requires { { LHS{} >> RHS{} } -> std::same_as<decltype(sequence_combined_left(LHS{}, RHS{}))>; }, "sequence operator on a Sequence<Ps...> and non-Sequence parser should give a Sequence<Ps..., non-Sequence>" );
-
-	else if constexpr (LHS::type != SequenceType and RHS::type == SequenceType)
-		TOK3N_ASSERT_P2( requires { { LHS{} >> RHS{} } -> std::same_as<decltype(sequence_combined_right(LHS{}, RHS{}))>; }, "sequence operator on a non-Sequence and Sequence<Ps...> parser should give a Sequence<non-Sequence, Ps...>" );
-
-	else if constexpr (LHS::type == SequenceType and RHS::type == SequenceType)
-		TOK3N_ASSERT_P2( requires { { LHS{} >> RHS{} } -> std::same_as<decltype(sequence_combined_both(LHS{}, RHS{}))>; }, "sequence operator on 2 Sequence parsers, Sequence<As...> and Sequence<Bs...>, should give a Sequence parser of the combined parser arguments, Sequence<As..., Bs...>" );
-
-	else
-		TOK3N_ASSERT_P2( (requires { { LHS{} >> RHS{} } -> std::same_as<Sequence<LHS, RHS>>; }), "sequence operator on any parsers not satisfying the above conditions should just give a Sequence of the 2 inputs");
-
-	return true;
-};
+#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                          \
+	[&]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                       \
+		DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                 \
+		if constexpr (LLHS::type == LiteralType and RRHS::type == LiteralType)                        \
+		{                                                                                             \
+			constexpr auto str = combine_strings<underlying::string<LLHS>, underlying::string<RRHS>>; \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, Literal<str>{},                             \
+					                    LHS{}  >> RHS{},  Literal<str>{});                            \
+		}                                                                                             \
+		else if constexpr (LLHS::type == SequenceType and RRHS::type != SequenceType)                 \
+		{                                                                                             \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),     \
+					                    LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));     \
+		}                                                                                             \
+		else if constexpr (LLHS::type != SequenceType and RRHS::type == SequenceType)                 \
+		{                                                                                             \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}),    \
+					                    LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{}));    \
+		}                                                                                             \
+		else if constexpr (LLHS::type == SequenceType and RRHS::type == SequenceType)                 \
+		{                                                                                             \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),     \
+					                    LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));     \
+		}                                                                                             \
+		else                                                                                          \
+		{                                                                                             \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (Sequence<LLHS, RRHS>{}),                   \
+					                    LHS{}  >> RHS{},  (Sequence<LHS,  RHS>{}));                   \
+		}                                                                                             \
+	}(LHS{}, RHS{});
 
 TEST("sequence operator", "{anything} >> {anything}")
 {
 	// Note that all the operations are reimplemented for sequence_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
-	ASSERT(check_all_sample_pairs(sequence_checker), "check_all_sample_pairs(sequence_checker) failed");
+
+	// This works just fine, but it takes forever and may crash your computer. User beware.
+	//ASSERT_ALL_SAMPLES_2(SEQUENCE_OPERATOR_ASSERTER);
 }

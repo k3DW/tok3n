@@ -26,5 +26,5 @@ TEST("constant modifier", "infix")
 
 TEST("constant modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(CONSTANT_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(CONSTANT_MODIFIER_ASSERTER);
 }

@@ -22,5 +22,5 @@ TEST("defaulted modifier", "infix")
 
 TEST("defaulted modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(DEFAULTED_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(DEFAULTED_MODIFIER_ASSERTER);
 }
