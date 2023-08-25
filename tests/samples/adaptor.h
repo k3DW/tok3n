@@ -26,3 +26,7 @@ constexpr auto adaptor_list = parser_list(
 #define DO_TO_SAMPLES_ADAPTOR(F)                            \
 	F(Ign1) F(Ign2) F(Ign3) F(Ign4) F(Ign5)                 \
 	F(Com1) F(Com2) F(Com3) F(Com4) F(Com5) F(Com6) F(Com7)
+
+#define ADAPTOR_SAMPLES                              \
+	(Ign1) (Ign2) (Ign3) (Ign4) (Ign5)               \
+	(Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7)

@@ -32,3 +32,8 @@ constexpr auto basic_list = parser_list(
 	F(OC1) F(OC2) F(OC3) F(NC1) F(NC2) F(NC3) F(L1) F(L2) F(L3) \
 	F(OC4) F(NC4) F(NC5) F(L4)                                  \
 	F(QQ) F(ABC) F(Comma) F(SpaceDot)
+
+#define BASIC_SAMPLES                                  \
+	(OC1) (OC2) (OC3) (NC1) (NC2) (NC3) (L1) (L2) (L3) \
+	(OC4) (NC4) (NC5) (L4)                             \
+	(QQ) (ABC) (Comma) (SpaceDot)

@@ -36,5 +36,5 @@ TEST("apply_into modifier", "infix")
 
 TEST("apply_into modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(APPLY_INTO_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(APPLY_INTO_MODIFIER_ASSERTER);
 }

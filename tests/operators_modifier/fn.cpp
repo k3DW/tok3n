@@ -42,5 +42,5 @@ TEST("fn modifier", "infix")
 
 TEST("fn modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(FN_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(FN_MODIFIER_ASSERTER);
 }

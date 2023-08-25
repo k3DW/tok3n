@@ -33,6 +33,17 @@
 #include <unordered_map>
 #include <k3/tok3n.h>
 
+#include <boost/preprocessor/seq/for_each.hpp>
+
+#define ALL_SAMPLES \
+	ADAPTOR_SAMPLES BASIC_SAMPLES COMPOUND_SAMPLES DIVERGENT_SAMPLES REPEAT_SAMPLES
+
+#define ASSERT_ALL_SAMPLES_IMPL(R, DATA, ELEM) \
+	DATA(ELEM)
+
+#define ASSERT_ALL_SAMPLES(ASSERTER) \
+	{ BOOST_PP_SEQ_FOR_EACH(ASSERT_ALL_SAMPLES_IMPL, ASSERTER, ALL_SAMPLES) } REQUIRE_SEMICOLON
+
 using namespace k3::tok3n;
 
 constexpr auto the_parser_list = adaptor_list + basic_list + compound_list + divergent_list + repeat_list;

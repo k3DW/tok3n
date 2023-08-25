@@ -46,5 +46,5 @@ TEST("not operator", "!NotChar")
 
 TEST("not operator", "!{anything}")
 {
-	DO_TO_SAMPLES_ALL(NOT_OPERATOR_ASSERTER);
+	ASSERT_ALL_SAMPLES(NOT_OPERATOR_ASSERTER);
 }

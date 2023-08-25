@@ -86,5 +86,5 @@ TEST("maybe operator", "~ZeroOrMore")
 
 TEST("maybe operator", "~{anything}")
 {
-	DO_TO_SAMPLES_ALL(MAYBE_OPERATOR_ASSERTER);
+	ASSERT_ALL_SAMPLES(MAYBE_OPERATOR_ASSERTER);
 }

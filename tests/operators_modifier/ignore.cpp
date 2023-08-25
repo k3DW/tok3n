@@ -56,5 +56,5 @@ TEST("ignore modifier", "idempotent")
 
 TEST("ignore modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(IGNORE_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(IGNORE_MODIFIER_ASSERTER);
 }

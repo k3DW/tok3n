@@ -86,5 +86,5 @@ TEST("one_or_more operator", "+ZeroOrMore")
 
 TEST("one_or_more operator", "+{anything}")
 {
-	DO_TO_SAMPLES_ALL(ONE_OR_MORE_OPERATOR_ASSERTER);
+	ASSERT_ALL_SAMPLES(ONE_OR_MORE_OPERATOR_ASSERTER);
 }

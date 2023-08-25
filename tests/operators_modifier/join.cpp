@@ -65,5 +65,5 @@ TEST("join modifier", "idempotent")
 
 TEST("join modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(JOIN_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(JOIN_MODIFIER_ASSERTER);
 }

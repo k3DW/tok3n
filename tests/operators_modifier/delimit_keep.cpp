@@ -50,5 +50,5 @@ TEST("delimit_keep modifier", "infix")
 
 TEST("delimit_keep modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(DELIMIT_KEEP_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(DELIMIT_KEEP_MODIFIER_ASSERTER);
 }

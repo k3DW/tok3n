@@ -71,3 +71,13 @@ constexpr auto divergent_list = parser_list(
 	F(Con1) F(Con2) F(Con3) F(Con4)         \
 	F(Def1) F(Def2)                         \
 	F(Cus1)
+
+#define DIVERGENT_SAMPLES              \
+	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
+	(Tra1) (Tra2) (Tra3) (Tra4)        \
+	(Apt1) (Apt2)                      \
+	(Int1) (Int2) (Int3)               \
+	(Api1) (Api2)                      \
+	(Con1) (Con2) (Con3) (Con4)        \
+	(Def1) (Def2)                      \
+	(Cus1)

@@ -48,5 +48,5 @@ TEST("delimit modifier", "infix")
 
 TEST("delimit modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(DELIMIT_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(DELIMIT_MODIFIER_ASSERTER);
 }

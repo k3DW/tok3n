@@ -66,5 +66,5 @@ namespace
 
 TEST("into_choice modifier", "modify anything")
 {
-	DO_TO_SAMPLES_ALL(INTO_CHOICE_MODIFIER_ASSERTER);
+	ASSERT_ALL_SAMPLES(INTO_CHOICE_MODIFIER_ASSERTER);
 }
