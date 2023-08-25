@@ -166,31 +166,19 @@ constexpr auto set_operation_general()
 
 template <StaticString lhs, StaticString rhs>
 requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
-consteval auto set_union_string(OneChar<lhs>, OneChar<rhs>)
-{
-	return set_operation_general<lhs, rhs, OpType::set_union>();
-}
+constexpr auto set_union_string = set_operation_general<lhs, rhs, OpType::set_union>();
 
 template <StaticString lhs, StaticString rhs>
 requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
-consteval auto set_intersection_string(NotChar<lhs>, NotChar<rhs>)
-{
-	return set_operation_general<lhs, rhs, OpType::set_intersection>();
-}
+constexpr auto set_intersection_string = set_operation_general<lhs, rhs, OpType::set_intersection>();
 
 template <StaticString lhs, StaticString rhs>
 requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
-consteval auto set_difference_left_string(NotChar<lhs>, OneChar<rhs>)
-{
-	return set_operation_general<lhs, rhs, OpType::set_difference_left>();
-}
+constexpr auto set_difference_left_string = set_operation_general<lhs, rhs, OpType::set_difference_left>();
 
 template <StaticString lhs, StaticString rhs>
 requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
-consteval auto set_difference_right_string(OneChar<lhs>, NotChar<rhs>)
-{
-	return set_operation_general<lhs, rhs, OpType::set_difference_right>();
-}
+constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 
 template <Parser... LHS, Parser RHS>
 requires (not IsParser<RHS, ChoiceType>)
@@ -216,53 +204,73 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 
 
 
-constexpr auto choice_checker = []<Parser LHS, Parser RHS>(LHS, RHS) -> bool
-{
-	if constexpr (not std::same_as<typename LHS::result_type, typename RHS::result_type>)
-	{
-		TOK3N_ASSERT_P2( not requires { LHS{} | RHS{}; }, "choice operator compiles, but it shouldn't" );
-	}
-	else
-	{
-		TOK3N_ASSERT_P2( requires { LHS{} | RHS{}; },               "choice operator doesn't compile, but it should" );
-		TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> Parser; }, "choice operator compiles, but doesn't give a Parser" );
+#define CHOICE_OPERATOR_ASSERTER(LHS, RHS)                                                                            \
+	[&]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                                       \
+		if constexpr (not std::same_as<typename LLHS::result_type, typename RRHS::result_type>)                       \
+		{                                                                                                             \
+			DEP_ASSERT_BINARY_NOT_OPERABLE(|, LLHS{}, RRHS{}, LHS{}, RHS{});                                          \
+		}                                                                                                             \
+		else                                                                                                          \
+		{                                                                                                             \
+			DEP_ASSERT_BINARY_OPERABLE(|, LLHS{}, RRHS{}, LHS{}, RHS{});                                              \
+			if constexpr (std::same_as<LLHS, RRHS>)                                                                   \
+			{                                                                                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
+					                        LHS{}  | RHS{},  LHS{});                                                  \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == OneCharType and RRHS::type == OneCharType)                               \
+			{                                                                                                         \
+				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, OneChar<str>{},                                          \
+					                        LHS{}  | RHS{},  OneChar<str>{});                                         \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == NotCharType and RRHS::type == NotCharType)                               \
+			{                                                                                                         \
+				constexpr auto str = set_intersection_string<underlying::string<LLHS>, underlying::string<RRHS>>;     \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
+					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == NotCharType and RRHS::type == OneCharType)                               \
+			{                                                                                                         \
+				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
+					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == OneCharType and RRHS::type == NotCharType)                               \
+			{                                                                                                         \
+				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
+					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == ChoiceType and RRHS::type != ChoiceType)                                 \
+			{                                                                                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_left(LLHS{}, RRHS{}),                    \
+					                        LHS{}  | RHS{},  choice_combined_left(LHS{},  RHS{}));                    \
+			}                                                                                                         \
+			else if constexpr (LLHS::type != ChoiceType and RRHS::type == ChoiceType)                                 \
+			{                                                                                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_right(LLHS{}, RRHS{}),                   \
+					                        LHS{}  | RHS{},  choice_combined_right(LHS{},  RHS{}));                   \
+			}                                                                                                         \
+			else if constexpr (LLHS::type == ChoiceType and RRHS::type == ChoiceType)                                 \
+			{                                                                                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_both(LLHS{}, RRHS{}),                    \
+					                        LHS{}  | RHS{},  choice_combined_both(LHS{},  RHS{}));                    \
+			}                                                                                                         \
+			else                                                                                                      \
+			{                                                                                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, (Choice<LLHS, RRHS>{}),                                  \
+					                        LHS{}  | RHS{},  (Choice<LHS,  RHS>{}));                                  \
+			}                                                                                                         \
+		}                                                                                                             \
+	}(LHS{}, RHS{});
 
-		if constexpr (std::same_as<LHS, RHS>)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<LHS>; }, "choice operator on 2 of the same parsers should give that parser" );
-
-
-		else if constexpr (LHS::type == OneCharType and RHS::type == OneCharType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<OneChar<set_union_string(LHS{}, RHS{})>>; }, "choice operator on 2 OneChar parsers should give a OneChar parser with the set union of the 2 input strings" );
-		
-		else if constexpr (LHS::type == NotCharType and RHS::type == NotCharType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<NotChar<set_intersection_string(LHS{}, RHS{})>>; }, "choice operator on 2 NotChar parsers should give a OneChar parser with the set intersection of the 2 input strings" );
-		
-		else if constexpr (LHS::type == NotCharType and RHS::type == OneCharType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<NotChar<set_difference_left_string(LHS{}, RHS{})>>; }, "choice operator on a NotChar and OneChar parser should give a NotChar parser with the set difference of the left and right input strings, in that order" );
-		
-		else if constexpr (LHS::type == OneCharType and RHS::type == NotCharType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<NotChar<set_difference_right_string(LHS{}, RHS{})>>; }, "choice operator on a OneChar and NotChar parser should give a NotChar parser with the set difference of the right and left input strings, in that order" );
-
-
-		else if constexpr (LHS::type == ChoiceType and RHS::type != ChoiceType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_left(LHS{}, RHS{}))>; }, "choice operator on a Choice<Ps...> and non-Choice parser should give a Choice<Ps..., non-Choice>" );
-
-		else if constexpr (LHS::type != ChoiceType and RHS::type == ChoiceType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_right(LHS{}, RHS{}))>; }, "choice operator on a non-Choice and Choice<Ps...> parser should give a Choice<non-Choice, Ps...>" );
-
-		else if constexpr (LHS::type == ChoiceType and RHS::type == ChoiceType)
-			TOK3N_ASSERT_P2( requires { { LHS{} | RHS{} } -> std::same_as<decltype(choice_combined_both(LHS{}, RHS{}))>; }, "choice operator on 2 Choice parsers, Choice<As...> and Choice<Bs...>, should give a Choice parser of the combined parser arguments, Choice<As..., Bs...>" );
-
-		else
-			TOK3N_ASSERT_P2( (requires { { LHS{} | RHS{} } -> std::same_as<Choice<LHS, RHS>>; }), "choice operator on any parsers not satisfying the above conditions should just give a Choice of the 2 inputs" );
-	}
-
-	return true;
-};
 
 TEST("choice operator", "{anything} | {anything}")
 {
 	// Note that all the operations are reimplemented for choice_checker. This is intentional. That way, there's redundancy in the code.
 	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
-	ASSERT(check_all_sample_pairs(choice_checker), "check_all_sample_pairs(choice_checker) failed");
+
+	// This works just fine, but it takes forever and may crash your computer. User beware.
+	//ASSERT_ALL_SAMPLES_2(CHOICE_OPERATOR_ASSERTER);
 }
