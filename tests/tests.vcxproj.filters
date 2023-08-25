@@ -17,6 +17,9 @@
     <Filter Include="asserts">
       <UniqueIdentifier>{04a30643-4eee-441c-b443-7531dfcd42fb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="parsers_optimizations">
+      <UniqueIdentifier>{41975ec8-355f-4ac5-ad99-52a84c5925be}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -220,6 +223,9 @@
     </ClCompile>
     <ClCompile Include="framework\TestResult.cpp">
       <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_optimizations\JoinContiguous.cpp">
+      <Filter>parsers_optimizations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
