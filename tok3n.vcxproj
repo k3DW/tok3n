@@ -215,6 +215,7 @@
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Complete.h" />
     <ClInclude Include="include\k3\tok3n\parsers\compound\_fwd.h" />
     <ClInclude Include="include\k3\tok3n\parsers\divergent\_fwd.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinMaybeBasic.h" />
     <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.h" />
     <ClInclude Include="include\k3\tok3n\parsers\repeat\Delimit.h" />
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Ignore.h" />
