@@ -10,16 +10,16 @@ concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remo
 // Checking in a dependent context, so the error messages are still nice
 // This wouldn't be needed if we had CWG2518 or P2593
 
-#define DEP_ASSERT_PARSER_VALUES_EQ(LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)  \
-	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE));                                     \
-	ASSERT_CONCEPT(Parser, decltype(RHS_VALUE));                                     \
-	ASSERT((same_values<(LHS_VALUE), (RHS_VALUE)>),                                  \
+#define DEP_ASSERT_PARSER_VALUES_EQ(LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)          \
+	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE));                                             \
+	ASSERT_CONCEPT(Parser, decltype(RHS_VALUE));                                             \
+	ASSERT((same_values<(LHS_VALUE), (RHS_VALUE)>),                                          \
 		"`" STR(LHS_DISPLAY) "` and `" STR(RHS_DISPLAY) "` are not the same, but should be")
 
-#define DEP_ASSERT_PARSER_VALUES_NE(LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)  \
-	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE));                                     \
-	ASSERT_CONCEPT(Parser, decltype(RHS_VALUE));                                     \
-	ASSERT((not same_values<(LHS_VALUE), (RHS_VALUE)>),                              \
+#define DEP_ASSERT_PARSER_VALUES_NE(LHS_VALUE, RHS_VALUE, LHS_DISPLAY, RHS_DISPLAY)          \
+	ASSERT_CONCEPT(Parser, decltype(LHS_VALUE));                                             \
+	ASSERT_CONCEPT(Parser, decltype(RHS_VALUE));                                             \
+	ASSERT((not same_values<(LHS_VALUE), (RHS_VALUE)>),                                      \
 		"`" STR(LHS_DISPLAY) "` and `" STR(RHS_DISPLAY) "` are the same, but should not be")
 
 
