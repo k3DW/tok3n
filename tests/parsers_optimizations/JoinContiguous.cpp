@@ -8,6 +8,9 @@ using Joi_Oom_L   = Join<OneOrMore<Literal<"123">>>;
 using Joi_Zom_OC  = Join<ZeroOrMore<OneChar<"123">>>;
 using Joi_Zom_NC  = Join<ZeroOrMore<NotChar<"123">>>;
 using Joi_Zom_L   = Join<ZeroOrMore<Literal<"123">>>;
+using Joi_May_OC  = Join<Maybe<OneChar<"123">>>;
+using Joi_May_NC  = Join<Maybe<NotChar<"123">>>;
+using Joi_May_L   = Join<Maybe<Literal<"123">>>;
 
 TEST("JoinContiguous", "Requirements")
 {
@@ -17,6 +20,9 @@ TEST("JoinContiguous", "Requirements")
     ASSERT_IS_PARSER(Joi_Zom_OC, JoinType, std::string_view);
     ASSERT_IS_PARSER(Joi_Zom_NC, JoinType, std::string_view);
     ASSERT_IS_PARSER(Joi_Zom_L, JoinType, std::string_view);
+    ASSERT_IS_PARSER(Joi_May_OC, JoinType, std::string_view);
+    ASSERT_IS_PARSER(Joi_May_NC, JoinType, std::string_view);
+    ASSERT_IS_PARSER(Joi_May_L, JoinType, std::string_view);
 }
 
 TEST("JoinContiguous", "OneOrMore<OneChar>")
@@ -73,4 +79,32 @@ TEST("JoinContiguous", "ZeroOrMore<Literal>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, " 12321321", "", " 12321321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12341321", "123", "41321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "012341321", "", "012341321");
+}
+
+TEST("JoinContiguous", "Maybe<OneChar>")
+{
+    ASSERT_PARSE_SUCCESS(Joi_May_OC, "12321321", "1", "2321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_OC, "1232 1321", "1", "232 1321");
+    ASSERT_PARSE_SUCCESS(Joi_May_OC, " 12321321", "", " 12321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_OC, "12341321", "1", "2341321");
+    ASSERT_PARSE_SUCCESS(Joi_May_OC, "012341321", "", "012341321");
+}
+
+TEST("JoinContiguous", "Maybe<NotChar>")
+{
+    ASSERT_PARSE_SUCCESS(Joi_May_NC, "12321321", "", "12321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_NC, "1232 1321", "", "1232 1321");
+    ASSERT_PARSE_SUCCESS(Joi_May_NC, " 12321321", " ", "12321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_NC, "12341321", "", "12341321");
+    ASSERT_PARSE_SUCCESS(Joi_May_NC, "012341321", "0", "12341321");
+}
+
+TEST("JoinContiguous", "Maybe<Literal>")
+{
+    ASSERT_PARSE_SUCCESS(Joi_May_L, "12321321", "123", "21321");
+    ASSERT_PARSE_SUCCESS(Joi_May_L, "12312321321", "123", "12321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_L, "1232 1321", "123", "2 1321");
+    ASSERT_PARSE_SUCCESS(Joi_May_L, " 12321321", "", " 12321321");
+    ASSERT_PARSE_SUCCESS(Joi_May_L, "12341321", "123", "41321");
+    ASSERT_PARSE_SUCCESS(Joi_May_L, "012341321", "", "012341321");
 }
