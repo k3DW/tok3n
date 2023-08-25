@@ -13,6 +13,9 @@
     <Filter Include="tok3n\parsers\divergent" />
     <Filter Include="tok3n\parsers\repeat" />
     <Filter Include="tok3n\types" />
+    <Filter Include="tok3n\parsers\optimizations">
+      <UniqueIdentifier>{f2ffcef5-9a48-419e-a440-d6d590443b48}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\k3\tok3n.h" />
@@ -243,6 +246,9 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\IsConst.h">
       <Filter>tok3n\concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.h">
+      <Filter>tok3n\parsers\optimizations</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

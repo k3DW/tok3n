@@ -24,3 +24,5 @@
 #include <k3/tok3n/parsers/repeat/OneOrMore.h>
 #include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
 #include <k3/tok3n/parsers/repeat/Delimit.h>
+
+#include <k3/tok3n/parsers/optimizations/JoinOneOrMoreBasic.h>
