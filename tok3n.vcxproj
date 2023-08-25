@@ -249,6 +249,7 @@
     <ClInclude Include="include\k3\tok3n\detail\type_list.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\_fwd.h" />
     <ClInclude Include="include\k3\tok3n\concepts\IsConst.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

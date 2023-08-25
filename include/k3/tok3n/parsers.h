@@ -26,3 +26,4 @@
 #include <k3/tok3n/parsers/repeat/Delimit.h>
 
 #include <k3/tok3n/parsers/optimizations/JoinOneOrMoreBasic.h>
+#include <k3/tok3n/parsers/optimizations/JoinZeroOrMoreBasic.h>
