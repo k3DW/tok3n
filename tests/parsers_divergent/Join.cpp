@@ -41,3 +41,13 @@ TEST("Join", "Parse all")
 	ASSERT_PARSE_FAILURE(Joi5, " abc");
 	ASSERT_PARSE_FAILURE(Joi5, "");
 }
+
+TEST("Join", "Contiguous empty strings")
+{
+	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
+	using J2 = Join<ZeroOrMore<Sequence<L1, OC2>>>;
+
+	using P = Join<Sequence<Literal<"**start**">, J1, J2, Literal<"__end__">>>;
+
+	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
+}

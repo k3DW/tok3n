@@ -34,8 +34,9 @@ namespace detail::executors
 				joined = input;
 				return true;
 			}
-			else if (&joined->back() + 1 == &input.front())
+			else if (joined->data() + joined->size() == input.data())
 			{
+				// ^^ If (&joined->back() + 1 == &input.front())
 				*joined = { joined->data(), joined->size() + input.size() };
 				return true;
 			}
