@@ -17,7 +17,9 @@ public:
 	}
 
 	void run();
-	std::string print_results() const;
+	std::string print_brief() const;
+	std::string print_failures() const;
+	std::size_t count_failures() const;
 
 protected:
 	Fixture(std::string name)

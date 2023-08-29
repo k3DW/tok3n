@@ -31,10 +31,19 @@ std::string Runner::print_results() const
 	StringBuilder builder;
 	builder.format("Displaying all fixture results, {} total.\n\n", _fixtures.size());
 
+	std::vector<Fixture*> failed;
+
 	for (auto [name, fixture] : _fixtures)
 	{
-		builder.append("=================================\n\n");
-		builder.append(fixture->print_results());
+		builder.append(fixture->print_brief());
+		if (fixture->count_failures() != 0)
+			failed.push_back(fixture);
+	}
+
+	for (auto* fixture : failed)
+	{
+		builder.append("\n=================================\n\n");
+		builder.append(fixture->print_failures());
 	}
 
 	return std::move(builder).build();
