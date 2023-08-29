@@ -198,6 +198,7 @@
     <ClCompile Include="framework\Runner.cpp" />
     <ClCompile Include="framework\Test.cpp" />
     <ClCompile Include="framework\TestResult.cpp" />
+    <ClCompile Include="parsers_optimizations\JoinContiguous.cpp" />
     <ClCompile Include="operators_modifier\multi.cpp" />
     <ClCompile Include="operators_modifier\delimit_keep.cpp" />
     <ClCompile Include="operators_modifier\apply_into.cpp" />
