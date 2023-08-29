@@ -15,20 +15,14 @@ void Fixture::run()
 
 std::string Fixture::print_results() const
 {
-	std::vector<std::string> strings;
-	strings.push_back(std::format("Fixture \"{}\" - {} tests\n\n", _name, _tests.size()));
+	StringBuilder builder;
+	builder.format("Fixture \"{}\" - {} tests\n\n", _name, _tests.size());
 
 	for (auto& [_, test] : _tests)
 	{
-		strings.push_back(test->print_results());
-		strings.push_back("\n");
+		builder.append(test->print_results());
+		builder.append("\n");
 	}
 
-	const size_t total = std::reduce(strings.begin(), strings.end(), size_t{ 0 }, [](size_t ac, const std::string& str) { return ac + str.size(); });
-	std::string out;
-	out.reserve(total);
-
-	for (const std::string& str : strings)
-		out.insert(out.end(), str.begin(), str.end());
-	return out;
+	return std::move(builder).build();
 }

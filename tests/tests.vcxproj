@@ -192,6 +192,7 @@
     <ClInclude Include="pch.h" />
     <ClInclude Include="samples\sub_parsers.h" />
     <ClInclude Include="framework\underlying.h" />
+    <ClInclude Include="framework\StringBuilder.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="framework\Fixture.cpp" />
