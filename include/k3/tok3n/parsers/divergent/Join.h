@@ -10,29 +10,34 @@ namespace detail::executors
 	{
 	public:
 		template <class T>
-		constexpr Join(T&& t)
+		constexpr Join(const Result<T>& t)
 		{
-			valid = try_push(std::forward<T>(t));
+			if (this->try_join(*t) && joined == std::nullopt)
+			{
+				// If the contents are empty, make sure this result is still contiguous
+				joined = { t.remaining().data(), 0 };
+			}
 		}
 
-		constexpr std::optional<Input> joined() const
+		constexpr std::optional<Input> get_joined() const
 		{
-			if (not valid)
-				return std::nullopt;
-			else if (vec.empty())
-				return Input();
-			else
-				return Input(&vec.front().front(), &vec.back().back() + 1);
+			return joined;
 		}
 
 	private:
 		// This is the fundamental function of this class,
 		// where we check if the next string_view is adjacent in memory to the last one.
-		constexpr bool try_push(Input input)
+		constexpr bool try_join(Input input)
 		{
-			if (vec.empty() || (&vec.back().back() + 1 == &input.front()))
+			if (!joined)
 			{
-				vec.push_back(input);
+				joined = input;
+				return true;
+			}
+			else if (joined->data() + joined->size() == input.data())
+			{
+				// ^^ If (&joined->back() + 1 == &input.front())
+				*joined = { joined->data(), joined->size() + input.size() };
 				return true;
 			}
 			else
@@ -40,44 +45,43 @@ namespace detail::executors
 		}
 
 		template <class T>
-		constexpr bool try_push(const std::vector<T>& ts)
+		constexpr bool try_join(const std::vector<T>& ts)
 		{
 			for (auto& t : ts)
 			{
-				if (not try_push(t))
+				if (not this->try_join(t))
 					return false;
 			}
 			return true;
 		}
 
 		template <class T, std::size_t N>
-		constexpr bool try_push(const std::array<T, N>& arr)
+		constexpr bool try_join(const std::array<T, N>& arr)
 		{
 			for (auto& t : arr)
 			{
-				if (not try_push(t))
+				if (not this->try_join(t))
 					return false;
 			}
 			return true;
 		}
 
 		template <class T>
-		constexpr bool try_push(const std::optional<T>& opt)
+		constexpr bool try_join(const std::optional<T>& opt)
 		{
-			return (not opt.has_value()) || try_push(*opt);
+			return (not opt.has_value()) || this->try_join(*opt);
 		}
 
 		template <class T, class... Ts>
-		constexpr bool try_push(const std::tuple<T, Ts...>& tup)
+		constexpr bool try_join(const std::tuple<T, Ts...>& tup)
 		{
 			return[this, &tup]<std::size_t... Is>(std::index_sequence<Is...>) -> bool
 			{
-				return (... && try_push(std::get<Is>(tup)));
+				return (... && this->try_join(std::get<Is>(tup)));
 			}(std::index_sequence_for<T, Ts...>{});
 		}
 
-		std::vector<Input> vec;
-		bool valid;
+		std::optional<Input> joined;
 	};
 
 }
@@ -96,9 +100,9 @@ struct Join
 		if (result.has_value())
 		{
 			using Executor = detail::executors::Join;
-			std::optional<Input> joined = Executor(*result).joined();
+			std::optional<Input> joined = Executor(result).get_joined();
 			if (joined)
-				return { success, std::move(*joined), result.remaining()};
+				return { success, *joined, result.remaining() };
 		}
 		return { failure, input };
 	}
