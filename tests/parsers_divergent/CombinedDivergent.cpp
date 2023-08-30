@@ -1,108 +1,90 @@
 #include "pch.h"
 
-#if 0
-using L1 = Literal<"abc">;
-constexpr L1 l1;
-using L2 = Literal<"??">;
-constexpr L2 l2;
+FIXTURE("Combined divergent");
 
-static void Join_Delimit()
+TEST("Combined divergent", "Join<Delimit>")
 {
-	constexpr auto d = delimit(l1, l2);
-	constexpr auto j = d % join;
+	using D = Delimit<ABC, QQ, Const<false>>;
+	using J = Join<D>;
 
-	assert
-		, parse(d, "abc").success({ "abc" }, "")
-		, parse(d, "abc??abc??a").success({ "abc", "abc" }, "??a")
-		, parse(d, "abc??abc??abc").success({ "abc", "abc", "abc" }, "")
-		, parse(j, "abc").success("abc", "")
-		, parse(j, "abc??abc??a").only_lookahead("??a")
-		, parse(j, "abc??abc??abc").only_lookahead("")
-		;
+	using vec_type = std::vector<std::string_view>;
+
+	ASSERT_PARSE_SUCCESS(D, "abc", vec_type({ "abc" }), "");
+	ASSERT_PARSE_SUCCESS(D, "abc??abc??a", vec_type({ "abc", "abc" }), "??a");
+	ASSERT_PARSE_SUCCESS(D, "abc??abc??abc", vec_type({ "abc", "abc", "abc" }), "");
+	ASSERT_PARSE_SUCCESS(J, "abc", "abc", "");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J, "abc??abc??a", "??a");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J, "abc??abc??abc", "");
 }
 
-static void Ignore_Sequence()
+TEST("Combined divergent", "Sequence<Ignore>")
 {
-	constexpr auto p = l1 >> ignore(l2) >> l1;
+	using P = Sequence<ABC, Ignore<QQ>, ABC>;
 
-	assert
-		, parse(p, "abc??abc??").success({ "abc", "abc" }, "??")
-		, parse(p, "abcabc??").failure()
-		;
+	ASSERT_PARSE_SUCCESS(P, "abc??abc??", std::tuple("abc", "abc"), "??");
+	ASSERT_PARSE_FAILURE(P, "abcabc??");
 }
 
-static void Join_Ignore()
+TEST("Combined divergent", "Join<Ignore>")
 {
-	constexpr auto q = OneChar<"?">{};
+	using Q = OneChar<"?">;
 
-	constexpr auto s1 = l1 >> ignore(l2);
-	constexpr auto s2 = l1 >> ignore(l2) >> l1;
-	constexpr auto s3 = l1 >> l2 >> l1;
-	constexpr auto s4 = l1 >> q >> q >> l1;
-	constexpr auto j1 = s1 % join;
-	constexpr auto j2 = s2 % join;
-	constexpr auto j3 = s3 % join;
-	constexpr auto j4 = s4 % join;
+	using S1 = Sequence<ABC, Ignore<QQ>>;
+	using S2 = Sequence<ABC, Ignore<QQ>, ABC>;
+	using S3 = Sequence<ABC, QQ, ABC>;
+	using S4 = Sequence<ABC, Q, Q, ABC>;
+	using J1 = Join<S1>;
+	using J2 = Join<S2>;
+	using J3 = Join<S3>;
+	using J4 = Join<S4>;
 
-	assert
-		, parse(s1, "abc??abc").success("abc", "abc")
-		, parse(s1, "abc??abc??a").success("abc", "abc??a")
-		, parse(j1, "abc??abc").success("abc", "abc")
-		, parse(j1, "abc??abc??a").success("abc", "abc??a")
+	ASSERT_PARSE_SUCCESS(S1, "abc??abc", "abc", "abc");
+	ASSERT_PARSE_SUCCESS(S1, "abc??abc??a", "abc", "abc??a");
+	ASSERT_PARSE_SUCCESS(J1, "abc??abc", "abc", "abc");
+	ASSERT_PARSE_SUCCESS(J1, "abc??abc??a", "abc", "abc??a");
 
-		, parse(s2, "abc??abc").success({ "abc", "abc" }, "")
-		, parse(s2, "abc??abc??a").success({ "abc", "abc" }, "??a")
-		, parse(j2, "abc??abc").only_lookahead("")
-		, parse(j2, "abc??abc??a").only_lookahead("??a")
+	ASSERT_PARSE_SUCCESS(S2, "abc??abc", std::tuple("abc", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S2, "abc??abc??a", std::tuple("abc", "abc"), "??a");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc??a", "??a");
 
-		, parse(s3, "abc??abc").success("abc??abc", "")
-		, parse(s3, "abc??abc??a").success("abc??abc", "??a")
-		, parse(j3, "abc??abc").success("abc??abc", "")
-		, parse(j3, "abc??abc??a").success("abc??abc", "??a")
+	ASSERT_PARSE_SUCCESS(S3, "abc??abc", std::tuple("abc", "??", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S3, "abc??abc??a", std::tuple("abc", "??", "abc"), "??a");
+	ASSERT_PARSE_SUCCESS(J3, "abc??abc", "abc??abc", "");
+	ASSERT_PARSE_SUCCESS(J3, "abc??abc??a", "abc??abc", "??a");
 
-		, parse(s4, "abc??abc").success({ "abc", "?", "?", "abc" }, "")
-		, parse(s4, "abc??abc??a").success({ "abc", "?", "?", "abc" }, "??a")
-		, parse(j4, "abc??abc").success("abc??abc", "")
-		, parse(j4, "abc??abc??a").success("abc??abc", "??a")
-		;
+	ASSERT_PARSE_SUCCESS(S4, "abc??abc", std::tuple("abc", "?", "?", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S4, "abc??abc??a", std::tuple("abc", "?", "?", "abc"), "??a");
+	ASSERT_PARSE_SUCCESS(J4, "abc??abc", "abc??abc", "");
+	ASSERT_PARSE_SUCCESS(J4, "abc??abc??a", "abc??abc", "??a");
 }
 
-static void Join_Transform()
+TEST("Combined divergent", "Join<Transform>")
 {
-	constexpr auto f = fn<[](auto&& v) -> std::string_view { return (v.size() % 2 == 0) ? "a" : "b"; }>;
+	constexpr auto f = [](auto&& v) -> std::string_view { return (v.size() % 2 == 0) ? "a" : "b"; };
 
-	constexpr auto t1 = l1 % f;
-	constexpr auto t2 = (l1 % f) >> l2;
-	constexpr auto t3 = *((+l1 % f) >> l2);
-	constexpr auto j1 = t1 % join;
-	constexpr auto j2 = t2 % join;
-	constexpr auto j3 = t3 % join;
+	using T1 = Transform<ABC, Const<f>>;
+	using T2 = Sequence<Transform<ABC, Const<f>>, QQ>;
+	using T3 = ZeroOrMore<Sequence<Transform<OneOrMore<ABC>, Const<f>>, QQ>>;
+	using J1 = Join<T1>;
+	using J2 = Join<T2>;
+	using J3 = Join<T3>;
 
-	assert
-		, parse(t1, "abcabc").success("b", "abc")
-		, parse(t1, "abc").success("b", "")
-		, parse(t1, "").failure()
-		, parse(j1, "abcabc").success("b", "abc")
-		, parse(j1, "abc").success("b", "")
-		, parse(j1, "").failure()
+	ASSERT_PARSE_SUCCESS(T1, "abcabc", "b", "abc");
+	ASSERT_PARSE_SUCCESS(T1, "abc", "b", "");
+	ASSERT_PARSE_FAILURE(T1, "");
+	ASSERT_PARSE_SUCCESS(J1, "abcabc", "b", "abc");
+	ASSERT_PARSE_SUCCESS(J1, "abc", "b", "");
+	ASSERT_PARSE_FAILURE(J1, "");
 
-		, parse(t2, "abc??abc").success({ "b", "??" }, "abc")
-		, parse(t2, "abc??").success({ "b", "??" }, "")
-		, parse(j2, "abc??abc").only_lookahead("abc")
-		, parse(j2, "abc??").only_lookahead("")
+	ASSERT_PARSE_SUCCESS(T2, "abc??abc", std::tuple("b", "??"), "abc");
+	ASSERT_PARSE_SUCCESS(T2, "abc??", std::tuple("b", "??"), "");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "abc");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??", "");
 
-		, parse(t3, "abcabc??abc??ab").success({ { "a", "??" }, { "b", "??" } }, "ab")
-		, parse(t3, "abc??abcabcabcabc??").success({ { "b", "??" }, { "a", "??" } }, "")
-		, parse(j3, "abcabc??abc??ab").only_lookahead("ab")
-		, parse(j3, "abc??abcabcabcabc??").only_lookahead("")
-		;
+	using vec_type = std::vector<std::tuple<std::string_view, std::string_view>>;
+	ASSERT_PARSE_SUCCESS(T3, "abcabc??abc??ab", vec_type({ { "a", "??" }, { "b", "??" } }), "ab");
+	ASSERT_PARSE_SUCCESS(T3, "abc??abcabcabcabc??", vec_type({ { "b", "??" }, { "a", "??" } }), "");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J3, "abcabc??abc??ab", "ab");
+	ASSERT_PARSE_LOOKAHEAD_ONLY(J3, "abc??abcabcabcabc??", "");
 }
-
-void combine_tests()
-{
-	Join_Delimit();
-	Ignore_Sequence();
-	Join_Ignore();
-	Join_Transform();
-}
-#endif
