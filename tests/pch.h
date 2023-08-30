@@ -4,6 +4,7 @@
 #include "framework/Error.h"
 #include "framework/Fixture.h"
 #include "framework/Runner.h"
+#include "framework/StringBuilder.h"
 #include "framework/Test.h"
 #include "framework/TestResult.h"
 #include "framework/underlying.h"
@@ -23,11 +24,13 @@
 #include "samples/repeat.h"
 
 #include <format>
+#include <map>
 #include <numeric>
 #include <string>
 #include <string_view>
 #include <source_location>
 #include <unordered_map>
+#include <vector>
 #include <k3/tok3n.h>
 
 #include <boost/preprocessor/seq/for_each.hpp>

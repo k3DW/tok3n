@@ -6,27 +6,23 @@ void Test::run()
 	_run();
 }
 
-std::string Test::print_results() const
+std::string Test::print_brief() const
 {
-	auto& [checks, errors] = _result;
+	return std::format("    Test \"{}\" - {} checks / {} errors.\n", _name, _result.checks, _result.errors.size());
+}
 
-	if (errors.empty())
-	{
-		return std::format(
-			"Test \"{}\"\n"
-			"  Passed! Checked {} conditions.\n"
-		, _name, checks);
-	}
-	else
-	{
-		auto& [message, location] = errors.back();
-		return std::format(
-			"Test \"{}\"\n"
-			"  Failed.\n"
-			"    File: {}\n"
-			"    Line: {}\n"
-			"    Message: {}\n"
-			"  {} total errors. Checked {} conditions.\n"
-		, _name, location.file_name(), location.line(), message, errors.size(), checks);
-	}
+std::string Test::print_errors() const
+{
+	auto& [message, location] = _result.errors.back();
+	return std::format(
+		"Test \"{}\" failed at\n"
+		"    File: {}\n"
+		"    Line: {}\n"
+		"    Message: {}\n"
+		, _name, location.file_name(), location.line(), message);
+}
+
+bool Test::failed() const
+{
+	return not _result.errors.empty();
 }

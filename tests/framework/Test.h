@@ -13,7 +13,9 @@ public:
 	}
 
 	void run();
-	std::string print_results() const;
+	std::string print_brief() const;
+	std::string print_errors() const;
+	bool failed() const;
 
 protected:
 	Test(std::string name)

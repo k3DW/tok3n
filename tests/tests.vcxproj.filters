@@ -83,6 +83,9 @@
     <ClInclude Include="framework\TestResult.h">
       <Filter>framework</Filter>
     </ClInclude>
+    <ClInclude Include="framework\StringBuilder.h">
+      <Filter>framework</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />

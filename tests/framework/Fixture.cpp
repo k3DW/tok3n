@@ -13,22 +13,41 @@ void Fixture::run()
 	}
 }
 
-std::string Fixture::print_results() const
+std::string Fixture::print_brief() const
 {
-	std::vector<std::string> strings;
-	strings.push_back(std::format("Fixture \"{}\" - {} tests\n\n", _name, _tests.size()));
+	return std::format("Fixture \"{}\" - {} tests / {} failures.\n", _name, _tests.size(), count_failures());
+}
 
-	for (auto& [_, test] : _tests)
+std::string Fixture::print_failures() const
+{
+	StringBuilder builder;
+	builder.format("Fixture \"{}\" - {} tests\n", _name, _tests.size());
+	
+	std::vector<Test*> failed;
+	
+	for (auto [name, test] : _tests)
 	{
-		strings.push_back(test->print_results());
-		strings.push_back("\n");
+		builder.append(test->print_brief());
+		if (test->failed())
+			failed.push_back(test);
 	}
 
-	const size_t total = std::reduce(strings.begin(), strings.end(), size_t{ 0 }, [](size_t ac, const std::string& str) { return ac + str.size(); });
-	std::string out;
-	out.reserve(total);
+	for (auto* test : failed)
+	{
+		builder.append("\n");
+		builder.append(test->print_errors());
+	}
 
-	for (const std::string& str : strings)
-		out.insert(out.end(), str.begin(), str.end());
-	return out;
+	return std::move(builder).build();
+}
+
+size_t Fixture::count_failures() const
+{
+	std::size_t total = 0;
+	for (auto& [name, test] : _tests)
+	{
+		if (test->failed())
+			++total;
+	}
+	return total;
 }

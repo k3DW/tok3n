@@ -1,7 +1,7 @@
 #pragma once
+#include <map>
 #include <string>
 #include <string_view>
-#include <unordered_map>
 
 class Test;
 class Fixture;
@@ -20,5 +20,5 @@ public:
 protected:
 	Runner() = default;
 
-	std::unordered_map<std::string_view, Fixture*> _fixtures;
+	std::map<std::string_view, Fixture*> _fixtures;
 };
