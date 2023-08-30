@@ -236,7 +236,7 @@
     <ClCompile Include="parsers_compound\Sequence.cpp" />
     <ClCompile Include="parsers_divergent\ApplyInto.cpp" />
     <ClCompile Include="parsers_divergent\ApplyTransform.cpp" />
-    <ClCompile Include="parsers_divergent\combine.cpp" />
+    <ClCompile Include="parsers_divergent\CombinedDivergent.cpp" />
     <ClCompile Include="parsers_divergent\Constant.cpp" />
     <ClCompile Include="parsers_divergent\Custom.cpp" />
     <ClCompile Include="parsers_divergent\Defaulted.cpp" />
