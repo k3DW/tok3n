@@ -173,7 +173,7 @@
     <ClCompile Include="parsers_divergent\ApplyTransform.cpp">
       <Filter>parsers_divergent</Filter>
     </ClCompile>
-    <ClCompile Include="parsers_divergent\combine.cpp">
+    <ClCompile Include="parsers_divergent\CombinedDivergent.cpp">
       <Filter>parsers_divergent</Filter>
     </ClCompile>
     <ClCompile Include="parsers_divergent\Constant.cpp">
