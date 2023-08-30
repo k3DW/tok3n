@@ -41,7 +41,10 @@ namespace detail::executors
 				return true;
 			}
 			else
+			{
+				joined = std::nullopt;
 				return false;
+			}
 		}
 
 		template <class T>
