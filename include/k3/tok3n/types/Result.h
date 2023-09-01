@@ -15,7 +15,10 @@ public:
 	constexpr Result(FailureTag, Input remaining)
 		: mResult(), mRemaining(remaining) {}
 
-	constexpr Result(SuccessTag, T t, Input remaining)
+	constexpr Result(SuccessTag, const T& t, Input remaining) requires std::constructible_from<T, const T&>
+		: mResult(t), mRemaining(remaining) {}
+
+	constexpr Result(SuccessTag, T&& t, Input remaining) requires std::constructible_from<T, T&&>
 		: mResult(std::move(t)), mRemaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }

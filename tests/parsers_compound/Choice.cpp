@@ -71,3 +71,27 @@ TEST("Choice", "Not constructible empty")
 {
 	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice);
 }
+
+
+
+TEST("Choice", "Move only")
+{
+	using T = MoveOnlyWrapper<std::string_view>;
+	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
+
+	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
+	ASSERT_PARSE_FAILURE(P, "abxyz");
+	ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
+	ASSERT_PARSE_SUCCESS(P, "zabcxyz", T("z"), "abcxyz");
+}
+
+TEST("Choice", "Copy only")
+{
+	using T = CopyOnlyWrapper<std::string_view>;
+	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
+
+	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
+	ASSERT_PARSE_FAILURE(P, "abxyz");
+	ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
+	ASSERT_PARSE_SUCCESS(P, "zabcxyz", T("z"), "abcxyz");
+}

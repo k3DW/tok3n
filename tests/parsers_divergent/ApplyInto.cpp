@@ -20,3 +20,25 @@ TEST("ApplyInto", "Parse all")
 	ASSERT_PARSE_FAILURE(Api2, ".");
 	ASSERT_PARSE_FAILURE(Api2, "abc");
 }
+
+TEST("ApplyInto", "Move only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = MoveOnlyWrapper<tuple>;
+	using P = ApplyInto<Sequence<OC3, ABC>, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}
+
+TEST("ApplyInto", "Copy only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = CopyOnlyWrapper<tuple>;
+	using P = ApplyInto<Sequence<OC3, ABC>, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}

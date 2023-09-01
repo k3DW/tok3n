@@ -22,6 +22,7 @@
 #include "samples/divergent.h"
 #include "samples/functions.h"
 #include "samples/repeat.h"
+#include "samples/wrappers.h"
 
 #include <format>
 #include <map>

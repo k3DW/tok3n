@@ -36,3 +36,23 @@ TEST("Transform", "Parse all")
 	ASSERT_PARSE_FAILURE(Tra4, " abc");
 	ASSERT_PARSE_FAILURE(Tra4, "");
 }
+
+TEST("Transform", "Move only")
+{
+	using T = MoveOnlyWrapper<std::string_view>;
+	using P = Transform<ABC, Const<T::make>>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}
+
+TEST("Transform", "Copy only")
+{
+	using T = CopyOnlyWrapper<std::string_view>;
+	using P = Transform<ABC, Const<T::make>>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}
