@@ -36,6 +36,11 @@ TEST("Result", "IsResult Result<int>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, int&);
+	ASSERT_NOT_CONCEPT(IsResult, R, int&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const int&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const int&&);
 }
 
 TEST("Result", "IsResult Result<std::pair>")
@@ -58,6 +63,11 @@ TEST("Result", "IsResult Result<std::pair>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::pair<int, double>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::pair<int, double>&&);
 }
 
 TEST("Result", "IsResult Result<std::string>")
@@ -80,6 +90,11 @@ TEST("Result", "IsResult Result<std::string>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, std::string&);
+	ASSERT_NOT_CONCEPT(IsResult, R, std::string&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::string&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::string&&);
 }
 
 TEST("Result", "IsResult Result<std::vector>")
@@ -102,6 +117,11 @@ TEST("Result", "IsResult Result<std::vector>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::vector<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::vector<int>&&);
 }
 
 TEST("Result", "IsResult Result<std::unique_ptr>")
@@ -124,6 +144,11 @@ TEST("Result", "IsResult Result<std::unique_ptr>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::unique_ptr<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const std::unique_ptr<int>&&);
 }
 
 TEST("Result", "IsResult Result<MoveOnlyWrapper>")
@@ -146,6 +171,11 @@ TEST("Result", "IsResult Result<MoveOnlyWrapper>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const MoveOnlyWrapper<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const MoveOnlyWrapper<int>&&);
 }
 
 TEST("Result", "IsResult Result<CopyOnlyWrapper>")
@@ -168,4 +198,9 @@ TEST("Result", "IsResult Result<CopyOnlyWrapper>")
 	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>);
 	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>);
 	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>);
+
+	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>&&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const CopyOnlyWrapper<int>&);
+	ASSERT_NOT_CONCEPT(IsResult, R, const CopyOnlyWrapper<int>&&);
 }
