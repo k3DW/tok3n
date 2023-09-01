@@ -1,0 +1,243 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="operators_modifier" />
+    <Filter Include="operators_regular" />
+    <Filter Include="parsers_adaptor" />
+    <Filter Include="parsers_basic" />
+    <Filter Include="parsers_compound" />
+    <Filter Include="parsers_divergent" />
+    <Filter Include="parsers_repeat" />
+    <Filter Include="framework">
+      <UniqueIdentifier>{c83f7b93-ae65-4adf-a404-0bb0e993c794}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="samples">
+      <UniqueIdentifier>{89d82a41-cd98-441d-9c63-9b9c1ece4c1e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="asserts">
+      <UniqueIdentifier>{04a30643-4eee-441c-b443-7531dfcd42fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parsers_optimizations">
+      <UniqueIdentifier>{41975ec8-355f-4ac5-ad99-52a84c5925be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility_tests">
+      <UniqueIdentifier>{cceee427-5b28-41ac-8ba5-5dceed8809b6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="framework\Assert.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\basic.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\compound.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\repeat.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\adaptor.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\sub_parsers.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\functions.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\classes.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\divergent.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\underlying.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Error.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Runner.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Concept.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Constructible.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Equality.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Operation.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="asserts\Parse.h">
+      <Filter>asserts</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Fixture.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\Test.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\TestResult.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="framework\StringBuilder.h">
+      <Filter>framework</Filter>
+    </ClInclude>
+    <ClInclude Include="samples\wrappers.h">
+      <Filter>samples</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="operators_modifier\apply_into.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\apply.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\complete.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\constant.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\defaulted.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\delimit.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\exactly.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\ignore.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\into.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\into_choice.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\join.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\fn.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\basic.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\choice.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\maybe.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\not.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\one_or_more.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\sequence.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_regular\zero_or_more.cpp">
+      <Filter>operators_regular</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_adaptor\Complete.cpp">
+      <Filter>parsers_adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_adaptor\Ignore.cpp">
+      <Filter>parsers_adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\Literal.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\NotChar.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_basic\OneChar.cpp">
+      <Filter>parsers_basic</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_compound\Choice.cpp">
+      <Filter>parsers_compound</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_compound\Sequence.cpp">
+      <Filter>parsers_compound</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\ApplyInto.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\ApplyTransform.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\CombinedDivergent.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Constant.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Custom.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Defaulted.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Into.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Join.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_divergent\Transform.cpp">
+      <Filter>parsers_divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Exactly.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Maybe.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\OneOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_repeat\Delimit.cpp">
+      <Filter>parsers_repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\delimit_keep.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="operators_modifier\multi.cpp">
+      <Filter>operators_modifier</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Fixture.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Runner.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\Test.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="framework\TestResult.cpp">
+      <Filter>framework</Filter>
+    </ClCompile>
+    <ClCompile Include="parsers_optimizations\JoinContiguous.cpp">
+      <Filter>parsers_optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="utility_tests\Result.cpp">
+      <Filter>utility_tests</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

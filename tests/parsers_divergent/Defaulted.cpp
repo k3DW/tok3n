@@ -1,38 +1,23 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Defaulted)
+FIXTURE("Defaulted");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Defaulted", "Requirements")
 {
-	assert
-		, is_parser<Def1>
-		, parser_type_of<Def1>.is_Defaulted
-		, ParserResultOf<Def1>::is<int>
-
-		, is_parser<Def2>
-		, parser_type_of<Def2>.is_Defaulted
-		, ParserResultOf<Def2>::is<Class3>
-		;
+	ASSERT_IS_PARSER(Def1, DefaultedType, int);
+	ASSERT_IS_PARSER(Def2, DefaultedType, Class3);
 }
 
-void parse_Join()
+TEST("Defaulted", "Parse all")
 {
-	assert
-		, parse<Def1>("abcabcabcab").success(0, "ab")
-		, parse<Def1>("").failure()
-		, parse<Def1>("ab").failure()
-		, parse<Def1>("abc").success(0, "")
+	ASSERT_PARSE_SUCCESS(Def1, "abcabcabcab", 0, "ab");
+	ASSERT_PARSE_FAILURE(Def1, "");
+	ASSERT_PARSE_FAILURE(Def1, "ab");
+	ASSERT_PARSE_SUCCESS(Def1, "abc", 0, "");
 
-		, parse<Def2>("abcabc").success(Class3{}, "abc")
-		, parse<Def2>("a??bcabc").success(Class3{}, "a??bcabc")
-		, parse<Def2>("").success(Class3{}, "")
-		, parse<Def2>("??abcabc").success(Class3{}, "abcabc")
-		, parse<Def2>(" ??abcabc").success(Class3{}, " ??abcabc")
-		;
+	ASSERT_PARSE_SUCCESS(Def2, "abcabc", Class3{}, "abc");
+	ASSERT_PARSE_SUCCESS(Def2, "a??bcabc", Class3{}, "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Def2, "", Class3{}, "");
+	ASSERT_PARSE_SUCCESS(Def2, "??abcabc", Class3{}, "abcabc");
+	ASSERT_PARSE_SUCCESS(Def2, " ??abcabc", Class3{}, " ??abcabc");
 }
-
-TOK3N_END_NAMESPACE_TESTS(divergent::Defaulted)
-#endif

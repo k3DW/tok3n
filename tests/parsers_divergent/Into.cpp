@@ -1,46 +1,48 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Into)
+FIXTURE("Into");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Into", "Requirements")
 {
-	assert
-		, is_parser<Int1>
-		, parser_type_of<Int1>.is_Into
-		, ParserResultOf<Int1>::is<Class1>
-
-		, is_parser<Int2>
-		, parser_type_of<Int2>.is_Into
-		, ParserResultOf<Int2>::is<Class2>
-
-		, is_parser<Int3>
-		, parser_type_of<Int3>.is_Into
-		, ParserResultOf<Int3>::is<Class2>
-		;
+	ASSERT_IS_PARSER(Int1, IntoType, Class1);
+	ASSERT_IS_PARSER(Int2, IntoType, Class2);
+	ASSERT_IS_PARSER(Int3, IntoType, Class2);
 }
 
-void parse_Into()
+TEST("Into", "Parse all")
 {
-	assert
-		, parse<Int1>(" ").success(Class1(0), "")
-		, parse<Int1>("a").failure()
-		, parse<Int1>(".").success(Class1(1), "")
-		, parse<Int1>("").failure()
+	ASSERT_PARSE_SUCCESS(Int1, " ", Class1(0), "");
+	ASSERT_PARSE_FAILURE(Int1, "a");
+	ASSERT_PARSE_SUCCESS(Int1, ".", Class1(1), "");
+	ASSERT_PARSE_FAILURE(Int1, "");
 
-		, parse<Int2>("abc.").success(Class2{ "abc", "." }, "")
-		, parse<Int2>("abc . ").success(Class2{ "abc", " " }, ". ")
-		, parse<Int2>("").failure()
-		, parse<Int2>("abc").failure()
+	ASSERT_PARSE_SUCCESS(Int2, "abc.", Class2("abc", "."), "");
+	ASSERT_PARSE_SUCCESS(Int2, "abc . ", Class2("abc", " "), ". ");
+	ASSERT_PARSE_FAILURE(Int2, "");
+	ASSERT_PARSE_FAILURE(Int2, "abc");
 
-		, parse<Int3>("abc.").success(Class2{ "abc", "." }, "")
-		, parse<Int3>("abc . ").success(Class2{ "abc", " " }, ". ")
-		, parse<Int3>("").failure()
-		, parse<Int3>("abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Int3, "abc.", Class2("abc", "."), "");
+	ASSERT_PARSE_SUCCESS(Int3, "abc . ", Class2("abc", " "), ". ");
+	ASSERT_PARSE_FAILURE(Int3, "");
+	ASSERT_PARSE_FAILURE(Int3, "abc");
 }
 
-TOK3N_END_NAMESPACE_TESTS(divergent::Into)
-#endif
+TEST("Into", "Move only")
+{
+	using T = MoveOnlyWrapper<std::string_view>;
+	using P = Into<ABC, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}
+
+TEST("Into", "Copy only")
+{
+	using T = CopyOnlyWrapper<std::string_view>;
+	using P = Into<ABC, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}

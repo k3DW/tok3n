@@ -1,67 +1,53 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Join)
+FIXTURE("Join");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Join", "Requirements")
 {
-	assert
-		, is_parser<Joi1>
-		, parser_type_of<Joi1>.is_Join
-		, ParserResultOf<Joi1>::is<std::string_view>
-		
-		, is_parser<Joi2>
-		, parser_type_of<Joi2>.is_Join
-		, ParserResultOf<Joi2>::is<std::string_view>
-		
-		, is_parser<Joi3>
-		, parser_type_of<Joi3>.is_Join
-		, ParserResultOf<Joi3>::is<std::string_view>
-		
-		, is_parser<Joi4>
-		, parser_type_of<Joi4>.is_Join
-		, ParserResultOf<Joi4>::is<std::string_view>
-		
-		, is_parser<Joi5>
-		, parser_type_of<Joi5>.is_Join
-		, ParserResultOf<Joi5>::is<std::string_view>
-		;
+	ASSERT_IS_PARSER(Joi1, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi2, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi3, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi4, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi5, JoinType, std::string_view);
 }
 
-void parse_Join()
+TEST("Join", "Parse all")
 {
-	assert
-		, parse<Joi1>("abcabc").success("abc", "abc")
-		, parse<Joi1>("Abcabc").failure()
-		, parse<Joi1>(" abcabc").failure()
+	ASSERT_PARSE_SUCCESS(Joi1, "abcabc", "abc", "abc");
+	ASSERT_PARSE_FAILURE(Joi1, "Abcabc");
+	ASSERT_PARSE_FAILURE(Joi1, " abcabc");
 
-		, parse<Joi2>("abcabcabcab").success("abcabcabc", "ab")
-		, parse<Joi2>("").failure()
-		, parse<Joi2>("ab").failure()
-		, parse<Joi2>("abc").success("abc", "")
+	ASSERT_PARSE_SUCCESS(Joi2, "abcabcabcab", "abcabcabc", "ab");
+	ASSERT_PARSE_FAILURE(Joi2, "");
+	ASSERT_PARSE_FAILURE(Joi2, "ab");
+	ASSERT_PARSE_SUCCESS(Joi2, "abc", "abc", "");
 
-		, parse<Joi3>("abcabc").success("abc", "abc")
-		, parse<Joi3>("a??bcabc").success("", "a??bcabc")
-		, parse<Joi3>("").success("", "")
-		, parse<Joi3>("??abcabc").success("??", "abcabc")
-		, parse<Joi3>(" ??abcabc").success("", " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Joi3, "abcabc", "abc", "abc");
+	ASSERT_PARSE_SUCCESS(Joi3, "a??bcabc", "", "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Joi3, "", "", "");
+	ASSERT_PARSE_SUCCESS(Joi3, "??abcabc", "??", "abcabc");
+	ASSERT_PARSE_SUCCESS(Joi3, " ??abcabc", "", " ??abcabc");
 
-		, parse<Joi4>("abc???????").success("abc??????", "?")
-		, parse<Joi4>("??abc???????").failure()
-		, parse<Joi4>("abc??abc???????").success("abc??", "abc???????")
-		, parse<Joi4>("abc ??abc???????").success("abc", " ??abc???????")
-		, parse<Joi4>("").failure()
+	ASSERT_PARSE_SUCCESS(Joi4, "abc???????", "abc??????", "?");
+	ASSERT_PARSE_FAILURE(Joi4, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Joi4, "abc??abc???????", "abc??", "abc???????");
+	ASSERT_PARSE_SUCCESS(Joi4, "abc ??abc???????", "abc", " ??abc???????");
+	ASSERT_PARSE_FAILURE(Joi4, "");
 
-		, parse<Joi5>("abcabcabcabc??").success("abcabcabcabc??", "")
-		, parse<Joi5>("abcabcabcabc").success("abcabcabcabc", "")
-		, parse<Joi5>("abcabcabcabc ??").success("abcabcabcabc", " ??")
-		, parse<Joi5>("abc").success("abc", "")
-		, parse<Joi5>(" abc").failure()
-		, parse<Joi5>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc??", "abcabcabcabc??", "");
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc", "abcabcabcabc", "");
+	ASSERT_PARSE_SUCCESS(Joi5, "abcabcabcabc ??", "abcabcabcabc", " ??");
+	ASSERT_PARSE_SUCCESS(Joi5, "abc", "abc", "");
+	ASSERT_PARSE_FAILURE(Joi5, " abc");
+	ASSERT_PARSE_FAILURE(Joi5, "");
 }
 
-TOK3N_END_NAMESPACE_TESTS(divergent::Join)
-#endif
+TEST("Join", "Contiguous empty strings")
+{
+	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
+	using J2 = Join<ZeroOrMore<Sequence<L1, OC2>>>;
+
+	using P = Join<Sequence<Literal<"**start**">, J1, J2, Literal<"__end__">>>;
+
+	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
+}

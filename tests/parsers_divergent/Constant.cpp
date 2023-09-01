@@ -1,59 +1,38 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::Constant)
+FIXTURE("Constant");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Constant", "Requirements")
 {
-	assert
-		, is_parser<Con1>
-		, parser_type_of<Con1>.is_Constant
-		, ParserResultOf<Con1>::is<int>
-
-		, is_parser<Con2>
-		, parser_type_of<Con2>.is_Constant
-		, ParserResultOf<Con2>::is<char>
-		
-		, is_parser<Con3>
-		, parser_type_of<Con3>.is_Constant
-		, ParserResultOf<Con3>::is<bool>
-		
-		, is_parser<Con4>
-		, parser_type_of<Con4>.is_Constant
-		, ParserResultOf<Con4>::is<std::nullptr_t>
-		;
+	ASSERT_IS_PARSER(Con1, ConstantType, int);
+	ASSERT_IS_PARSER(Con2, ConstantType, char);
+	ASSERT_IS_PARSER(Con3, ConstantType, bool);
+	ASSERT_IS_PARSER(Con4, ConstantType, std::nullptr_t);
 }
 
-void parse_Constant()
+TEST("Constant", "Parse all")
 {
-	assert
-		, parse<Con1>("abcabcabcab").success(1, "ab")
-		, parse<Con1>("").failure()
-		, parse<Con1>("ab").failure()
-		, parse<Con1>("abc").success(1, "")
+	ASSERT_PARSE_SUCCESS(Con1, "abcabcabcab", 1, "ab");
+	ASSERT_PARSE_FAILURE(Con1, "");
+	ASSERT_PARSE_FAILURE(Con1, "ab");
+	ASSERT_PARSE_SUCCESS(Con1, "abc", 1, "");
 		
-		, parse<Con2>("abcabc").success('t', "abc")
-		, parse<Con2>("a??bcabc").success('t', "a??bcabc")
-		, parse<Con2>("").success('t', "")
-		, parse<Con2>("??abcabc").success('t', "abcabc")
-		, parse<Con2>(" ??abcabc").success('t', " ??abcabc")
+	ASSERT_PARSE_SUCCESS(Con2, "abcabc", 't', "abc");
+	ASSERT_PARSE_SUCCESS(Con2, "a??bcabc", 't', "a??bcabc");
+	ASSERT_PARSE_SUCCESS(Con2, "", 't', "");
+	ASSERT_PARSE_SUCCESS(Con2, "??abcabc", 't', "abcabc");
+	ASSERT_PARSE_SUCCESS(Con2, " ??abcabc", 't', " ??abcabc");
 		
-		, parse<Con3>("abc???????").success(true, "?")
-		, parse<Con3>("??abc???????").failure()
-		, parse<Con3>("abc??abc???????").success(true, "abc???????")
-		, parse<Con3>("abc ??abc???????").success(true, " ??abc???????")
-		, parse<Con3>("").failure()
+	ASSERT_PARSE_SUCCESS(Con3, "abc???????", true, "?");
+	ASSERT_PARSE_FAILURE(Con3, "??abc???????");
+	ASSERT_PARSE_SUCCESS(Con3, "abc??abc???????", true, "abc???????");
+	ASSERT_PARSE_SUCCESS(Con3, "abc ??abc???????", true, " ??abc???????");
+	ASSERT_PARSE_FAILURE(Con3, "");
 		
-		, parse<Con4>("abcabcabcabc??").success(nullptr, "")
-		, parse<Con4>("abcabcabcabc").success(nullptr, "")
-		, parse<Con4>("abcabcabcabc ??").success(nullptr, " ??")
-		, parse<Con4>("abc").success(nullptr, "")
-		, parse<Con4>(" abc").failure()
-		, parse<Con4>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc??", nullptr, "");
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc", nullptr, "");
+	ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc ??", nullptr, " ??");
+	ASSERT_PARSE_SUCCESS(Con4, "abc", nullptr, "");
+	ASSERT_PARSE_FAILURE(Con4, " abc");
+	ASSERT_PARSE_FAILURE(Con4, "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(divergent::Constant)
-#endif

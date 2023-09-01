@@ -1,53 +1,42 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(compound::Sequence)
-
-using namespace samples::all;
-
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
-void requirements()
-{
-	assert
-		, is_parser<TwoWay>
-		, parser_type_of<TwoWay>.is_Sequence
-		, ParserResultOf<TwoWay>::is<std::tuple<std::string_view, std::string_view>>
+FIXTURE("Sequence");
 
-		, is_parser<ThreeWay>
-		, parser_type_of<ThreeWay>.is_Sequence
-		, ParserResultOf<ThreeWay>::is<std::tuple<std::string_view, std::string_view, std::string_view>>
-		;
+TEST("Sequence", "Requirements")
+{
+	ASSERT_IS_PARSER(TwoWay, SequenceType, std::tuple<std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(ThreeWay, SequenceType, std::tuple<std::string_view, std::string_view, std::string_view>);
+	ASSERT_IS_PARSER(Seq5, SequenceType, void);
 }
 
-void parse_twoway()
+TEST("Sequence", "Parse two-way Sequence")
 {
-	assert
-		, parse<TwoWay>("abc").failure()
-		, parse<TwoWay>("abcd").failure()
-		, parse<TwoWay>("abef").success({ "ab", "e" }, "f")
-		, parse<TwoWay>("ab ef").success({ "ab", " " }, "ef")
-		;
+	ASSERT_PARSE_FAILURE(TwoWay, "abc");
+	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
+	ASSERT_PARSE_SUCCESS(TwoWay, "abef", std::tuple("ab", "e"), "f");
+	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", std::tuple("ab", " "), "ef");
 }
 
-void parse_threeway()
+TEST("Sequence", "Parse three-way Sequence")
 {
-	assert
-		, parse<ThreeWay>("abcde").success({ "ab", "c", "d" }, "e")
-		, parse<ThreeWay>("abdc").success({ "ab", "d", "c" }, "")
-		, parse<ThreeWay>("abcz").failure()
-		;
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
+	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
+}
+
+TEST("Sequence", "Parse void result_type")
+{
+	ASSERT_PARSE_FAILURE(Seq5, "ab");
+	ASSERT_PARSE_FAILURE(Seq5, "abca");
+	ASSERT_PARSE_SUCCESS_VOID(Seq5, "abcabcabcdabcd", "dabcd");
 }
 
 
 
-using constructible = traits::compound::constructible<Sequence>;
-
-void not_constructible_empty()
+TEST("Sequence", "Not constructible empty")
 {
-	assert, not constructible::from<>;
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Sequence);
 }
-
-TOK3N_END_NAMESPACE_TESTS(compound::Sequence)
-#endif

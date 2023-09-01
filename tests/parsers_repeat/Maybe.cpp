@@ -1,70 +1,43 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(repeat::Maybe)
+FIXTURE("Maybe");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Maybe", "Requirements")
 {
-	assert
-		, is_parser<May1>
-		, parser_type_of<May1>.is_Maybe
-		, ParserResultOf<May1>::is<std::optional<std::string_view>>
-
-		, is_parser<May2>
-		, parser_type_of<May2>.is_Maybe
-		, ParserResultOf<May2>::is<std::optional<std::string_view>>
-
-		, is_parser<May3>
-		, parser_type_of<May3>.is_Maybe
-		, ParserResultOf<May3>::is<std::optional<std::string_view>>
-
-		, is_parser<May4>
-		, parser_type_of<May4>.is_Maybe
-		, ParserResultOf<May4>::is<std::optional<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(May1, MaybeType, std::optional<std::string_view>);
+	ASSERT_IS_PARSER(May2, MaybeType, std::optional<std::string_view>);
+	ASSERT_IS_PARSER(May3, MaybeType, std::optional<std::string_view>);
+	ASSERT_IS_PARSER(May4, MaybeType, std::optional<std::tuple<std::string_view, std::string_view>>);
 }
 
-void parse_Maybe_Literal()
+TEST("Maybe", "Parse Maybe<Literal>")
 {
-	assert
-		, parse<May1>("litera").success({}, "litera")
-		, parse<May1>("literal").success({ "literal" }, "")
-		, parse<May1>("literally").success({ "literal" }, "ly")
-		, parse<May1>("literallitera").success({ "literal" }, "litera")
-		, parse<May1>("literalliterallitera").success({ "literal" }, "literallitera")
-		, parse<May1>(" literalliterallitera").success({}, " literalliterallitera")
-		, parse<May1>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May1, "litera", std::nullopt, "litera");
+	ASSERT_PARSE_SUCCESS(May1, "literal", std::optional("literal"), "");
+	ASSERT_PARSE_SUCCESS(May1, "literally", std::optional("literal"), "ly");
+	ASSERT_PARSE_SUCCESS(May1, "literallitera", std::optional("literal"), "litera");
+	ASSERT_PARSE_SUCCESS(May1, "literalliterallitera", std::optional("literal"), "literallitera");
+	ASSERT_PARSE_SUCCESS(May1, " literalliterallitera", std::nullopt, " literalliterallitera");
+	ASSERT_PARSE_SUCCESS(May1, "", std::nullopt, "");
 }
-void parse_Maybe_OneChar()
+TEST("Maybe", "Parse Maybe<OneChar>")
 {
-	assert
-		, parse<May2>("abcdef").success({ "a" }, "bcdef")
-		, parse<May2>("fedcba").success({}, "fedcba")
-		, parse<May2>("cbabcccbjklmnop").success({ "c" }, "babcccbjklmnop")
-		, parse<May2>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May2, "abcdef", std::optional("a"), "bcdef");
+	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");
+	ASSERT_PARSE_SUCCESS(May2, "cbabcccbjklmnop", std::optional("c"), "babcccbjklmnop");
+	ASSERT_PARSE_SUCCESS(May2, "", std::nullopt, "");
 }
-void parse_Maybe_Choice()
+TEST("Maybe", "Parse Maybe<Choice>")
 {
-	assert
-		, parse<May3>("abliteralcbliteralcf").success({ "a" }, "bliteralcbliteralcf")
-		, parse<May3>("abliteralcblitralcf").success({ "a" }, "bliteralcblitralcf")
-		, parse<May3>("literalabacliteral").success({ "literal" }, "abacliteral")
-		, parse<May3>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May3, "abliteralcbliteralcf", std::optional("a"), "bliteralcbliteralcf");
+	ASSERT_PARSE_SUCCESS(May3, "abliteralcblitralcf", std::optional("a"), "bliteralcblitralcf");
+	ASSERT_PARSE_SUCCESS(May3, "literalabacliteral", std::optional("literal"), "abacliteral");
+	ASSERT_PARSE_SUCCESS(May3, "", std::nullopt, "");
 }
-void parse_Maybe_Sequence()
+TEST("Maybe", "Parse Maybe<Sequence>")
 {
-	assert
-		, parse<May4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"} }, "literalcliteralcliteralb")
-		, parse<May4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"} }, "literalcliteralcliteralbliteral")
-		, parse<May4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
-		, parse<May4>("").success({}, "")
-		;
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralb");
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, "aliteralaliteralcliteralbliteral", std::nullopt, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, "", std::nullopt, "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(repeat::Maybe)
-#endif

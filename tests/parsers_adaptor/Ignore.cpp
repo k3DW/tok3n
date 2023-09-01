@@ -1,67 +1,43 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(adaptor::Ignore)
+FIXTURE("Ignore");
 
-using namespace samples::all;
-
-void requirements()
+TEST("Ignore", "Requirements")
 {
-	assert
-		, is_parser<Ign1>
-		, parser_type_of<Ign1>.is_Ignore
-		, ParserResultOf<Ign1>::is<void>
-
-		, is_parser<Ign2>
-		, parser_type_of<Ign2>.is_Ignore
-		, ParserResultOf<Ign2>::is<void>
-
-		, is_parser<Ign3>
-		, parser_type_of<Ign3>.is_Ignore
-		, ParserResultOf<Ign3>::is<void>
-
-		, is_parser<Ign4>
-		, parser_type_of<Ign4>.is_Ignore
-		, ParserResultOf<Ign4>::is<void>
-
-		, is_parser<Ign5>
-		, parser_type_of<Ign5>.is_Ignore
-		, ParserResultOf<Ign5>::is<void>
-		;
+	ASSERT_IS_PARSER(Ign1, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign2, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign3, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign4, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign5, IgnoreType, void);
 }
 
-void parse_Ignore()
+TEST("Ignore", "Parse all")
 {
-	assert
-		, parse<Ign1>("abcabc").success("abc")
-		, parse<Ign1>("Abcabc").failure()
-		, parse<Ign1>(" abcabc").failure()
+	ASSERT_PARSE_SUCCESS_VOID(Ign1, "abcabc", "abc");
+	ASSERT_PARSE_FAILURE(Ign1, "Abcabc");
+	ASSERT_PARSE_FAILURE(Ign1, " abcabc");
 
-		, parse<Ign2>("abcabcabcab").success("ab")
-		, parse<Ign2>("").failure()
-		, parse<Ign2>("ab").failure()
-		, parse<Ign2>("abc").success("")
+	ASSERT_PARSE_SUCCESS_VOID(Ign2, "abcabcabcab", "ab");
+	ASSERT_PARSE_FAILURE(Ign2, "");
+	ASSERT_PARSE_FAILURE(Ign2, "ab");
+	ASSERT_PARSE_SUCCESS_VOID(Ign2, "abc", "");
 
-		, parse<Ign3>("abcabc").success("abc")
-		, parse<Ign3>("a??bcabc").success("a??bcabc")
-		, parse<Ign3>("").success("")
-		, parse<Ign3>("??abcabc").success("abcabc")
-		, parse<Ign3>(" ??abcabc").success(" ??abcabc")
+	ASSERT_PARSE_SUCCESS_VOID(Ign3, "abcabc", "abc");
+	ASSERT_PARSE_SUCCESS_VOID(Ign3, "a??bcabc", "a??bcabc");
+	ASSERT_PARSE_SUCCESS_VOID(Ign3, "", "");
+	ASSERT_PARSE_SUCCESS_VOID(Ign3, "??abcabc", "abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(Ign3, " ??abcabc", " ??abcabc");
 
-		, parse<Ign4>("abc???????").success("?")
-		, parse<Ign4>("??abc???????").failure()
-		, parse<Ign4>("abc??abc???????").success("abc???????")
-		, parse<Ign4>("abc ??abc???????").success(" ??abc???????")
-		, parse<Ign4>("").failure()
+	ASSERT_PARSE_SUCCESS_VOID(Ign4, "abc???????", "?");
+	ASSERT_PARSE_FAILURE(Ign4, "??abc???????");
+	ASSERT_PARSE_SUCCESS_VOID(Ign4, "abc??abc???????", "abc???????");
+	ASSERT_PARSE_SUCCESS_VOID(Ign4, "abc ??abc???????", " ??abc???????");
+	ASSERT_PARSE_FAILURE(Ign4, "");
 
-		, parse<Ign5>("abcabcabcabc??").success("")
-		, parse<Ign5>("abcabcabcabc").success("")
-		, parse<Ign5>("abcabcabcabc ??").success(" ??")
-		, parse<Ign5>("abc").success("")
-		, parse<Ign5>(" abc").failure()
-		, parse<Ign5>("").failure()
-		;
+	ASSERT_PARSE_SUCCESS_VOID(Ign5, "abcabcabcabc??", "");
+	ASSERT_PARSE_SUCCESS_VOID(Ign5, "abcabcabcabc", "");
+	ASSERT_PARSE_SUCCESS_VOID(Ign5, "abcabcabcabc ??", " ??");
+	ASSERT_PARSE_SUCCESS_VOID(Ign5, "abc", "");
+	ASSERT_PARSE_FAILURE(Ign5, " abc");
+	ASSERT_PARSE_FAILURE(Ign5, "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(adaptor::Ignore)
-#endif

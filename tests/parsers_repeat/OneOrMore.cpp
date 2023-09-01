@@ -1,70 +1,47 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(repeat::OneOrMore)
+FIXTURE("OneOrMore");
 
-using namespace samples::all;
-
-void requirements()
+TEST("OneOrMore", "Requirements")
 {
-	assert
-		, is_parser<Oom1>
-		, parser_type_of<Oom1>.is_OneOrMore
-		, ParserResultOf<Oom1>::is<std::vector<std::string_view>>
-
-		, is_parser<Oom2>
-		, parser_type_of<Oom2>.is_OneOrMore
-		, ParserResultOf<Oom2>::is<std::vector<std::string_view>>
-
-		, is_parser<Oom3>
-		, parser_type_of<Oom3>.is_OneOrMore
-		, ParserResultOf<Oom3>::is<std::vector<std::string_view>>
-
-		, is_parser<Oom4>
-		, parser_type_of<Oom4>.is_OneOrMore
-		, ParserResultOf<Oom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(Oom1, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom2, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom3, OneOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Oom4, OneOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>);
 }
 
-void parse_OneOrMore_Literal()
+TEST("OneOrMore", "Parse OneOrMore<Literal>")
 {
-	assert
-		, parse<Oom1>("litera").failure()
-		, parse<Oom1>("literal").success({ "literal" }, "")
-		, parse<Oom1>("literally").success({ "literal" }, "ly")
-		, parse<Oom1>("literallitera").success({ "literal" }, "litera")
-		, parse<Oom1>("literalliterallitera").success({ "literal", "literal" }, "litera")
-		, parse<Oom1>(" literalliterallitera").failure()
-		, parse<Oom1>("").failure()
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_FAILURE(Oom1, "litera");
+	ASSERT_PARSE_SUCCESS(Oom1, "literal", vec_type({ "literal" }), "");
+	ASSERT_PARSE_SUCCESS(Oom1, "literally", vec_type({ "literal" }), "ly");
+	ASSERT_PARSE_SUCCESS(Oom1, "literallitera", vec_type({ "literal" }), "litera");
+	ASSERT_PARSE_SUCCESS(Oom1, "literalliterallitera", vec_type({ "literal", "literal" }), "litera");
+	ASSERT_PARSE_FAILURE(Oom1, " literalliterallitera");
+	ASSERT_PARSE_FAILURE(Oom1, "");
 }
-void parse_OneOrMore_OneChar()
+TEST("OneOrMore", "Parse OneOrMore<OneChar>")
 {
-	assert
-		, parse<Oom2>("abcdef").success({ "a", "b", "c" }, "def")
-		, parse<Oom2>("fedcba").failure()
-		, parse<Oom2>("cbabcccbjklmnop").success({ "c", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
-		, parse<Oom2>("").failure()
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_SUCCESS(Oom2, "abcdef", vec_type({ "a", "b", "c" }), "def");
+	ASSERT_PARSE_FAILURE(Oom2, "fedcba");
+	ASSERT_PARSE_SUCCESS(Oom2, "cbabcccbjklmnop", vec_type({ "c", "b", "a", "b", "c", "c", "c", "b" }), "jklmnop");
+	ASSERT_PARSE_FAILURE(Oom2, "");
 }
-void parse_OneOrMore_Choice()
+TEST("OneOrMore", "Parse OneOrMore<Choice>")
 {
-	assert
-		, parse<Oom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
-		, parse<Oom3>("abliteralcblitralcf").success({ "a", "b", "literal", "c", "b" }, "litralcf")
-		, parse<Oom3>("literalabacliteral").success({ "literal", "a", "b", "a", "c", "literal" }, "")
-		, parse<Oom3>("").failure()
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_SUCCESS(Oom3, "abliteralcbliteralcf", vec_type({ "a", "b", "literal", "c", "b", "literal", "c" }), "f");
+	ASSERT_PARSE_SUCCESS(Oom3, "abliteralcblitralcf", vec_type({ "a", "b", "literal", "c", "b" }), "litralcf");
+	ASSERT_PARSE_SUCCESS(Oom3, "literalabacliteral", vec_type({ "literal", "a", "b", "a", "c", "literal" }), "");
+	ASSERT_PARSE_FAILURE(Oom3, "");
 }
-void parse_OneOrMore_Sequence()
+TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 {
-	assert
-		, parse<Oom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
-		, parse<Oom4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "literal")
-		, parse<Oom4>("aliteralaliteralcliteralbliteral").failure()
-		, parse<Oom4>("").failure()
-		;
+	using vec_type = std::vector<std::tuple<std::string_view, std::string_view>>;
+	ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralb", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "");
+	ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralbliteral", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "literal");
+	ASSERT_PARSE_FAILURE(Oom4, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_FAILURE(Oom4, "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(repeat::OneOrMore)
-#endif

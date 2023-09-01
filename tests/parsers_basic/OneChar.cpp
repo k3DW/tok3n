@@ -1,91 +1,60 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(basic::OneChar)
-
 using Single = OneChar<'a'>;
 using Multi  = OneChar<"abc">;
 
-void requirements()
-{
-	assert
-		, is_parser<Single>
-		, parser_type_of<Single>.is_OneChar
-		, ParserResultOf<Single>::is<std::string_view>
+FIXTURE("OneChar");
 
-		, is_parser<Multi>
-		, parser_type_of<Multi>.is_OneChar
-		, ParserResultOf<Multi>::is<std::string_view>
-		;
+TEST("OneChar", "Requirements")
+{
+	ASSERT_IS_PARSER(Single, OneCharType, std::string_view);
+	ASSERT_IS_PARSER(Multi, OneCharType, std::string_view);
 }
 
-void parse_single()
+TEST("OneChar", "Parse single char")
 {
-	assert
-		, parse<Single>("ab").success("a", "b")
-		, parse<Single>("ba").failure()
-		, parse<Single>("abc").success("a", "bc")
-		, parse<Single>("Ab").failure()
-		, parse<Single>("Abc").failure()
-		, parse<Single>(" abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
+	ASSERT_PARSE_FAILURE(Single, "ba");
+	ASSERT_PARSE_SUCCESS(Single, "abc", "a", "bc");
+	ASSERT_PARSE_FAILURE(Single, "Ab");
+	ASSERT_PARSE_FAILURE(Single, "Abc");
+	ASSERT_PARSE_FAILURE(Single, " abc");
 }
 
-void parse_multi()
+TEST("OneChar", "Parse multi char")
 {
-	assert
-		, parse<Multi>("abc").success("a", "bc")
-		, parse<Multi>("acb").success("a", "cb")
-		, parse<Multi>("bac").success("b", "ac")
-		, parse<Multi>("bca").success("b", "ca")
-		, parse<Multi>("cab").success("c", "ab")
-		, parse<Multi>("cba").success("c", "ba")
-		, parse<Multi>("ABC").failure()
-		, parse<Multi>("ACB").failure()
-		, parse<Multi>("BAC").failure()
-		, parse<Multi>("BCA").failure()
-		, parse<Multi>("CAB").failure()
-		, parse<Multi>("CBA").failure()
-		, parse<Multi>("dcba").failure()
-		, parse<Multi>(" cba").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
+	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
+	ASSERT_PARSE_SUCCESS(Multi, "bac", "b", "ac");
+	ASSERT_PARSE_SUCCESS(Multi, "bca", "b", "ca");
+	ASSERT_PARSE_SUCCESS(Multi, "cab", "c", "ab");
+	ASSERT_PARSE_SUCCESS(Multi, "cba", "c", "ba");
+	ASSERT_PARSE_FAILURE(Multi, "ABC");
+	ASSERT_PARSE_FAILURE(Multi, "ACB");
+	ASSERT_PARSE_FAILURE(Multi, "BAC");
+	ASSERT_PARSE_FAILURE(Multi, "BCA");
+	ASSERT_PARSE_FAILURE(Multi, "CAB");
+	ASSERT_PARSE_FAILURE(Multi, "CBA");
+	ASSERT_PARSE_FAILURE(Multi, "dcba");
+	ASSERT_PARSE_FAILURE(Multi, " cba");
 }
 
 
 
-using constructible = traits::basic::constructible<OneChar>;
-
-void constructible_from_ascii_only()
+TEST("OneChar", "Constructible from lexicographically sorted only")
 {
-	using all_ascii_chars = std::make_integer_sequence<int, 128>;
-	using all_non_ascii_chars = decltype([]<int... Is>(std::integer_sequence<int, Is...>) { return std::integer_sequence<int, (Is - 128)...>{}; }(all_ascii_chars{}));
-
-	assert
-		, constructible::from_all_chars<all_ascii_chars>
-		, not constructible::from_any_char<all_non_ascii_chars>
-		;
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(OneChar, "abc");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "acb");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "bac");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "bca");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "cab");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "cba");
 }
 
-void constructible_alphabetically_only()
+TEST("OneChar", "Parse empty")
 {
-	assert
-		, constructible::from<"abc">
-		, not constructible::from<"acb">
-		, not constructible::from<"bac">
-		, not constructible::from<"bca">
-		, not constructible::from<"cab">
-		, not constructible::from<"cba">
-		;
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(OneChar, "");
+	
+	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
+	ASSERT_PARSE_FAILURE(OneChar<"">, "");
 }
-
-void parse_empty()
-{
-	assert
-		, constructible::from<"">
-		, parse<OneChar<"">>("anything").failure()
-		, parse<OneChar<"">>("").failure()
-		;
-}
-
-TOK3N_END_NAMESPACE_TESTS(basic::OneChar)
-#endif

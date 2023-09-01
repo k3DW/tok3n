@@ -1,51 +1,30 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(basic::Literal)
-
 using L = Literal<"literal">;
 
-void requirements()
+FIXTURE("Literal");
+
+TEST("Literal", "Requirements")
 {
-	assert
-		, is_parser<L>
-		, parser_type_of<L>.is_Literal
-		, ParserResultOf<L>::is<std::string_view>
-		;
+	ASSERT_IS_PARSER(L, LiteralType, std::string_view);
 }
 
-void parse_single()
+TEST("Literal", "Parse 'literal'")
 {
-	assert
-		, parse<L>("literal").success("literal", "")
-		, parse<L>("literally").success("literal", "ly")
-		, parse<L>("litera").failure()
-		, parse<L>(" literal").failure()
-		, parse<L>("LITERAL").failure()
-		, parse<L>("LITERALLY").failure()
-		;
+	ASSERT_PARSE_SUCCESS(L, "literal", "literal", "");
+	ASSERT_PARSE_SUCCESS(L, "literally", "literal", "ly");
+	ASSERT_PARSE_FAILURE(L, "litera");
+	ASSERT_PARSE_FAILURE(L, " literal");
+	ASSERT_PARSE_FAILURE(L, "LITERAL");
+	ASSERT_PARSE_FAILURE(L, "LITERALLY");
 }
 
 
 
-using constructible = traits::basic::constructible<Literal>;
-
-void constructible_from_ascii_only()
+TEST("Literal", "Parse empty")
 {
-	assert
-		, constructible::from<"literal">
-		, not constructible::from<"lïterål">
-		;
-}
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(Literal, "");
 
-void parse_empty()
-{
-	assert
-		, constructible::from<"">
-		, parse<Literal<"">>("anything").success("", "anything")
-		, parse<Literal<"">>("").success("", "")
-		;
+	ASSERT_PARSE_SUCCESS(Literal<"">, "anything", "", "anything");
+	ASSERT_PARSE_SUCCESS(Literal<"">, "", "", "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(basic::Literal)
-#endif

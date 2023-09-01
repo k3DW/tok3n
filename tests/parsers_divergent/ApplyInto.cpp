@@ -1,37 +1,44 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(divergent::ApplyInto)
+FIXTURE("ApplyInto");
 
-using namespace samples::all;
-
-void requirements()
+TEST("ApplyInto", "Requirements")
 {
-	assert
-		, is_parser<Api1>
-		, parser_type_of<Api1>.is_ApplyInto
-		, ParserResultOf<Api1>::is<Class2>
-
-		, is_parser<Api2>
-		, parser_type_of<Api2>.is_ApplyInto
-		, ParserResultOf<Api2>::is<Class5>
-		;
+	ASSERT_IS_PARSER(Api1, ApplyIntoType, Class2);
+	ASSERT_IS_PARSER(Api2, ApplyIntoType, Class5);
 }
 
-void parse_ApplyInto()
+TEST("ApplyInto", "Parse all")
 {
-	assert
-		, parse<Api1>("abc.").success(Class2{ "abc", "." }, "")
-		, parse<Api1>("abc . ").success(Class2{ "abc", " " }, ". ")
-		, parse<Api1>("").failure()
-		, parse<Api1>("abc").failure()
+	ASSERT_PARSE_SUCCESS(Api1, "abc.", Class2("abc", "."), "");
+	ASSERT_PARSE_SUCCESS(Api1, "abc . ", Class2("abc", " "), ". ");
+	ASSERT_PARSE_FAILURE(Api1, "");
+	ASSERT_PARSE_FAILURE(Api1, "abc");
 
-		, parse<Api2>(".abc").success(Class5{ ".", "abc" }, "")
-		, parse<Api2>(" abc. ").success(Class5{ " ", "abc" }, ". ")
-		, parse<Api2>(".").failure()
-		, parse<Api2>("abc").failure()
-		;
+	ASSERT_PARSE_SUCCESS(Api2, ".abc", Class5(".", "abc"), "");
+	ASSERT_PARSE_SUCCESS(Api2, " abc. ", Class5(" ", "abc"), ". ");
+	ASSERT_PARSE_FAILURE(Api2, ".");
+	ASSERT_PARSE_FAILURE(Api2, "abc");
 }
 
-TOK3N_END_NAMESPACE_TESTS(divergent::ApplyInto)
-#endif
+TEST("ApplyInto", "Move only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = MoveOnlyWrapper<tuple>;
+	using P = ApplyInto<Sequence<OC3, ABC>, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}
+
+TEST("ApplyInto", "Copy only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = CopyOnlyWrapper<tuple>;
+	using P = ApplyInto<Sequence<OC3, ABC>, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}

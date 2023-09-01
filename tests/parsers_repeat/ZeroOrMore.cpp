@@ -1,70 +1,47 @@
 #include "pch.h"
 
-#ifdef TOK3N_TESTING
-TOK3N_BEGIN_NAMESPACE_TESTS(repeat::ZeroOrMore)
+FIXTURE("ZeroOrMore");
 
-using namespace samples::all;
-
-void requirements()
+TEST("ZeroOrMore", "Requirements")
 {
-	assert
-		, is_parser<Zom1>
-		, parser_type_of<Zom1>.is_ZeroOrMore
-		, ParserResultOf<Zom1>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom2>
-		, parser_type_of<Zom2>.is_ZeroOrMore
-		, ParserResultOf<Zom2>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom3>
-		, parser_type_of<Zom3>.is_ZeroOrMore
-		, ParserResultOf<Zom3>::is<std::vector<std::string_view>>
-
-		, is_parser<Zom4>
-		, parser_type_of<Zom4>.is_ZeroOrMore
-		, ParserResultOf<Zom4>::is<std::vector<std::tuple<std::string_view, std::string_view>>>
-		;
+	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom2, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom3, ZeroOrMoreType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>);
 }
 
-void parse_ZeroOrMore_Literal()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
 {
-	assert
-		, parse<Zom1>("litera").success({}, "litera")
-		, parse<Zom1>("literal").success({ "literal" }, "")
-		, parse<Zom1>("literally").success({ "literal" }, "ly")
-		, parse<Zom1>("literallitera").success({ "literal" }, "litera")
-		, parse<Zom1>("literalliterallitera").success({ "literal", "literal" }, "litera")
-		, parse<Zom1>(" literalliterallitera").success({}, " literalliterallitera")
-		, parse<Zom1>("").success({}, "")
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_SUCCESS(Zom1, "litera", vec_type{}, "litera");
+	ASSERT_PARSE_SUCCESS(Zom1, "literal", vec_type({ "literal" }), "");
+	ASSERT_PARSE_SUCCESS(Zom1, "literally", vec_type({ "literal" }), "ly");
+	ASSERT_PARSE_SUCCESS(Zom1, "literallitera", vec_type({ "literal" }), "litera");
+	ASSERT_PARSE_SUCCESS(Zom1, "literalliterallitera", vec_type({ "literal", "literal" }), "litera");
+	ASSERT_PARSE_SUCCESS(Zom1, " literalliterallitera", vec_type{}, " literalliterallitera");
+	ASSERT_PARSE_SUCCESS(Zom1, "", vec_type{}, "");
 }
-void parse_ZeroOrMore_OneChar()
+TEST("ZeroOrMore", "Parse ZeroOrMore<OneChar>")
 {
-	assert
-		, parse<Zom2>("abcdef").success({ "a", "b", "c" }, "def")
-		, parse<Zom2>("fedcba").success({}, "fedcba")
-		, parse<Zom2>("cbabcccbjklmnop").success({ "c", "b", "a", "b", "c", "c", "c", "b" }, "jklmnop")
-		, parse<Zom2>("").success({}, "")
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_SUCCESS(Zom2, "abcdef", vec_type({ "a", "b", "c" }), "def");
+	ASSERT_PARSE_SUCCESS(Zom2, "fedcba", vec_type{}, "fedcba");
+	ASSERT_PARSE_SUCCESS(Zom2, "cbabcccbjklmnop", vec_type({ "c", "b", "a", "b", "c", "c", "c", "b" }), "jklmnop");
+	ASSERT_PARSE_SUCCESS(Zom2, "", vec_type{}, "");
 }
-void parse_ZeroOrMore_Choice()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
 {
-	assert
-		, parse<Zom3>("abliteralcbliteralcf").success({ "a", "b", "literal", "c", "b", "literal", "c" }, "f")
-		, parse<Zom3>("abliteralcblitralcf").success({ "a", "b", "literal", "c", "b" }, "litralcf")
-		, parse<Zom3>("literalabacliteral").success({ "literal", "a", "b", "a", "c", "literal" }, "")
-		, parse<Zom3>("").success({}, "")
-		;
+	using vec_type = std::vector<std::string_view>;
+	ASSERT_PARSE_SUCCESS(Zom3, "abliteralcbliteralcf", vec_type({ "a", "b", "literal", "c", "b", "literal", "c" }), "f");
+	ASSERT_PARSE_SUCCESS(Zom3, "abliteralcblitralcf", vec_type({ "a", "b", "literal", "c", "b" }), "litralcf");
+	ASSERT_PARSE_SUCCESS(Zom3, "literalabacliteral", vec_type({ "literal", "a", "b", "a", "c", "literal" }), "");
+	ASSERT_PARSE_SUCCESS(Zom3, "", vec_type{}, "");
 }
-void parse_ZeroOrMore_Sequence()
+TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
 {
-	assert
-		, parse<Zom4>("literalaliteralcliteralcliteralb").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "")
-		, parse<Zom4>("literalaliteralcliteralcliteralbliteral").success({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }, "literal")
-		, parse<Zom4>("aliteralaliteralcliteralbliteral").success({}, "aliteralaliteralcliteralbliteral")
-		, parse<Zom4>("").success({}, "")
-		;
+	using vec_type = std::vector<std::tuple<std::string_view, std::string_view>>;
+	ASSERT_PARSE_SUCCESS(Zom4, "literalaliteralcliteralcliteralb", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "");
+	ASSERT_PARSE_SUCCESS(Zom4, "literalaliteralcliteralcliteralbliteral", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "literal");
+	ASSERT_PARSE_SUCCESS(Zom4, "aliteralaliteralcliteralbliteral", vec_type{}, "aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(Zom4, "", vec_type{}, "");
 }
-
-TOK3N_END_NAMESPACE_TESTS(repeat::ZeroOrMore)
-#endif
