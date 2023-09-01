@@ -6,23 +6,21 @@
 #include <ranges>
 #include <string_view>
 
-// Ideas mostly taken from CTRE
-
 namespace k3::tok3n {
 
-template <std::size_t N>
-struct StaticString
+template <class T, std::size_t N>
+struct StaticArray
 {
-	std::array<char, N + 1> data = {};
+	std::array<T, N + 1> data = {};
 
-	constexpr StaticString() = default;
+	constexpr StaticArray() = default;
 
-	constexpr StaticString(const char(&input)[N + 1]) noexcept
+	constexpr StaticArray(const T(&input)[N + 1]) noexcept
 	{
 		std::ranges::copy_n(input, N + 1, data.begin());
 	}
 
-	constexpr StaticString(char c) noexcept requires (N == 1)
+	constexpr StaticArray(T c) noexcept requires (N == 1)
 	{
 		data[0] = c;
 	}
@@ -32,7 +30,7 @@ struct StaticString
 		return std::string_view(data.data(), N);
 	}
 
-	constexpr bool contains(char c) const noexcept
+	constexpr bool contains(T c) const noexcept
 	{
 		return view().find(c) != std::string_view::npos;
 	}
@@ -43,17 +41,30 @@ struct StaticString
 	constexpr auto end()         { return data.end() - 1; }
 
 	consteval std::size_t size() const noexcept { return N; }
+	
+	using value_type = T;
 };
 
+template <class T, std::size_t N>
+StaticArray(const T(&)[N]) -> StaticArray<T, N - 1>;
+
+template <class T>
+StaticArray(T) -> StaticArray<T, 1>;
+
+
+
 template <std::size_t N>
-StaticString(const char(&)[N]) -> StaticString<N - 1>;
-
-StaticString(char) -> StaticString<1>;
-
-
+using StaticString = StaticArray<char, N>;
 
 template <std::size_t N>
-consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
+StaticArray(const char(&)[N]) -> StaticArray<char, N - 1>;
+
+StaticArray(char) -> StaticArray<char, 1>;
+
+
+
+template <class T, std::size_t N>
+consteval bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
 {
 	if constexpr (N <= 1)
 		return true;
@@ -66,7 +77,7 @@ consteval bool is_sorted_and_uniqued(const StaticString<N>& str)
 	}
 }
 
-template <StaticString str> // Must be a template parameter because the return type depends on it
+template <StaticArray str> // Must be a template parameter because the return type depends on it
 consteval auto sort_and_unique()
 {
 	if constexpr (is_sorted_and_uniqued(str))
@@ -84,7 +95,7 @@ consteval auto sort_and_unique()
 
 		constexpr auto N = std::ranges::count(histogram, true);
 
-		StaticString<N> out{};
+		StaticArray<typename decltype(str)::value_type, N> out{};
 		auto it = out.begin();
 		for (std::size_t i = 0; i != 128; ++i)
 		{
@@ -98,8 +109,8 @@ consteval auto sort_and_unique()
 
 
 
-template <std::size_t M, std::size_t N>
-constexpr bool operator==(const StaticString<M>& lhs, const StaticString<N>& rhs)
+template <class T, std::size_t M, std::size_t N >
+constexpr bool operator==(const StaticArray<T, M>& lhs, const StaticArray<T, N>& rhs)
 {
 	if constexpr (M != N)
 		return false;
@@ -107,10 +118,10 @@ constexpr bool operator==(const StaticString<M>& lhs, const StaticString<N>& rhs
 		return lhs.data == rhs.data;
 }
 
-template <std::size_t M, std::size_t N>
-constexpr StaticString<M + N> operator+(const StaticString<M>& lhs, const StaticString<N>& rhs)
+template <class T, std::size_t M, std::size_t N>
+constexpr StaticArray<T, M + N> operator+(const StaticArray<T, M>& lhs, const StaticArray<T, N>& rhs)
 {
-	StaticString<M + N> str;
+	StaticArray<T, M + N> str;
 	std::ranges::copy(lhs, str.begin());
 	std::ranges::copy(rhs, str.begin() + M);
 	return str;
