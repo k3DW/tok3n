@@ -20,6 +20,9 @@
     <Filter Include="parsers_optimizations">
       <UniqueIdentifier>{41975ec8-355f-4ac5-ad99-52a84c5925be}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility_tests">
+      <UniqueIdentifier>{cceee427-5b28-41ac-8ba5-5dceed8809b6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -229,6 +232,9 @@
     </ClCompile>
     <ClCompile Include="parsers_optimizations\JoinContiguous.cpp">
       <Filter>parsers_optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="utility_tests\Result.cpp">
+      <Filter>utility_tests</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

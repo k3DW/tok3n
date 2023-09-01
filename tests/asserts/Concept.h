@@ -3,8 +3,12 @@
 #include <k3/tok3n/concepts/Parser.h>
 
 #define ASSERT_CONCEPT(Concept, ...)                                             \
-	ASSERT(Concept<__VA_ARGS__>,                                                 \
+	ASSERT((Concept<__VA_ARGS__>),                                               \
 		"`" STR(__VA_ARGS__) "` does not satisfy the " STR(Concept) " concept.")
+
+#define ASSERT_NOT_CONCEPT(Concept, ...)                                                  \
+	ASSERT(not (Concept<__VA_ARGS__>),                                                    \
+		"`" STR(__VA_ARGS__) "` satisfies the " STR(Concept) " concept, but should not.")
 
 #define ASSERT_IS_PARSER(P, PARSER_TYPE, ...)                                                  \
 	ASSERT_CONCEPT(Parser, P);                                                                 \
