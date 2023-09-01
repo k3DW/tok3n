@@ -25,6 +25,8 @@ public:
 	constexpr T& value() { return _value; }
 	constexpr const T& value() const { return _value; }
 
+	friend constexpr bool operator==(const MoveOnlyWrapper&, const MoveOnlyWrapper&) = default;
+
 private:
 	T _value;
 };
@@ -52,6 +54,8 @@ public:
 
 	constexpr T& value() { return _value; }
 	constexpr const T& value() const { return _value; }
+
+	friend constexpr bool operator==(const CopyOnlyWrapper&, const CopyOnlyWrapper&) = default;
 
 private:
 	T _value;

@@ -23,3 +23,25 @@ TEST("ApplyTransform", "Parse all")
 	ASSERT_PARSE_FAILURE(Apt2, " abc");
 	ASSERT_PARSE_FAILURE(Apt2, "");
 }
+
+TEST("ApplyTransform", "Move only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = MoveOnlyWrapper<tuple>;
+	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}
+
+TEST("ApplyTransform", "Copy only")
+{
+	using tuple = std::tuple<std::string_view, std::string_view>;
+	using T = CopyOnlyWrapper<tuple>;
+	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
+
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_FAILURE(P, "ydcba");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+}

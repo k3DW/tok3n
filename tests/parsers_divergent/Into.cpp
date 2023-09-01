@@ -26,3 +26,23 @@ TEST("Into", "Parse all")
 	ASSERT_PARSE_FAILURE(Int3, "");
 	ASSERT_PARSE_FAILURE(Int3, "abc");
 }
+
+TEST("Into", "Move only")
+{
+	using T = MoveOnlyWrapper<std::string_view>;
+	using P = Into<ABC, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}
+
+TEST("Into", "Copy only")
+{
+	using T = CopyOnlyWrapper<std::string_view>;
+	using P = Into<ABC, T>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
+	ASSERT_PARSE_FAILURE(P, "dcba");
+	ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
+}
