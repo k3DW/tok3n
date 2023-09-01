@@ -193,6 +193,7 @@
     <ClInclude Include="samples\sub_parsers.h" />
     <ClInclude Include="framework\underlying.h" />
     <ClInclude Include="framework\StringBuilder.h" />
+    <ClInclude Include="samples\wrappers.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="framework\Fixture.cpp" />
