@@ -19,7 +19,7 @@ namespace IsResult::Void
 
 	template <class R, class T>
 	concept Constructible =
-		std::constructible_from<R>                    and
+		std::constructible_from<R>                     and
 		std::constructible_from<R, FailureTag, Input>  and
 		std::constructible_from<R, SuccessTag, Input>;
 
