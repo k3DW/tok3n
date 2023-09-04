@@ -25,14 +25,17 @@ struct StaticArray
 		data[0] = c;
 	}
 
-	constexpr std::string_view view() const noexcept
+	constexpr std::span<const T> span() const
 	{
-		return std::string_view(data.data(), N);
+		return { data.data(), N };
 	}
 
-	constexpr bool contains(T c) const noexcept
+	constexpr bool contains(const T& t) const
 	{
-		return view().find(c) != std::string_view::npos;
+		for (const auto& element : data)
+			if (element == t)
+				return true;
+		return false;
 	}
 
 	constexpr auto begin() const { return data.begin(); }
