@@ -17,7 +17,7 @@ namespace IsResult::Void
 			{ static_cast<R>(r).remaining() } -> std::same_as<Input>;
 		};
 
-	template <class R, class T>
+	template <class R>
 	concept Constructible =
 		std::constructible_from<R>                     and
 		std::constructible_from<R, FailureTag, Input>  and
@@ -28,7 +28,7 @@ namespace IsResult::Void
 template <class R, class T>
 concept IsResultVoid =
 	std::same_as<void, T>                     and
-	IsResult::Void::Constructible<R, T>       and
+	IsResult::Void::Constructible<R>          and
 	IsResult::Void::Functionality<R&>         and
 	IsResult::Void::Functionality<const R&>   and
 	IsResult::Void::Functionality<R&&>        and
