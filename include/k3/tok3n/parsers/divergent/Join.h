@@ -19,7 +19,7 @@ namespace detail::executors
 			}
 		}
 
-		constexpr std::optional<Input> get_joined() const
+		constexpr std::optional<Output> get_joined() const
 		{
 			return joined;
 		}
@@ -27,17 +27,17 @@ namespace detail::executors
 	private:
 		// This is the fundamental function of this class,
 		// where we check if the next string_view is adjacent in memory to the last one.
-		constexpr bool try_join(Input input)
+		constexpr bool try_join(Output output)
 		{
 			if (!joined)
 			{
-				joined = input;
+				joined = output;
 				return true;
 			}
-			else if (joined->data() + joined->size() == input.data())
+			else if (joined->data() + joined->size() == output.data())
 			{
-				// ^^ If (&joined->back() + 1 == &input.front())
-				*joined = { joined->data(), joined->size() + input.size() };
+				// ^^ If (&joined->back() + 1 == &output.front())
+				*joined = { joined->data(), joined->size() + output.size() };
 				return true;
 			}
 			else
@@ -84,7 +84,7 @@ namespace detail::executors
 			}(std::index_sequence_for<T, Ts...>{});
 		}
 
-		std::optional<Input> joined;
+		std::optional<Output> joined;
 	};
 
 }
@@ -93,7 +93,7 @@ template <Parser P>
 requires JoinConstructible<P>
 struct Join
 {
-	using result_type = Input;
+	using result_type = Output;
 
 	static constexpr ParserType type = JoinType;
 
@@ -103,7 +103,7 @@ struct Join
 		if (result.has_value())
 		{
 			using Executor = detail::executors::Join;
-			std::optional<Input> joined = Executor(result).get_joined();
+			std::optional<Output> joined = Executor(result).get_joined();
 			if (joined)
 				return { success, *joined, result.remaining() };
 		}

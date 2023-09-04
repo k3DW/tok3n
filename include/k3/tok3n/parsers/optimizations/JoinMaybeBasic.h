@@ -8,7 +8,7 @@ namespace k3::tok3n {
 template <template <StaticString> class Basic, StaticString str>
 struct Join<Maybe<Basic<str>>>
 {
-	using result_type = Input;
+	using result_type = Output;
 
 	static constexpr ParserType type = JoinType;
 
