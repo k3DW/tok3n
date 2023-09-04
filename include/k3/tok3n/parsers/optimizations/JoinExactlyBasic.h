@@ -24,7 +24,7 @@ struct Join<Exactly<Basic<str>, N>>
 			if (Traits::failure_condition(input))
 				return { failure, original_input };
 			result = { result.data(), result.size() + Traits::length };
-			input.remove_prefix(Traits::length);
+			input = input.subspan(Traits::length);
 		}
 
 		return { success, result, input };
@@ -40,7 +40,7 @@ struct Join<Exactly<Basic<str>, N>>
 		{
 			if (Traits::failure_condition(input))
 				return { failure, original_input };
-			input.remove_prefix(Traits::length);
+			input = input.subspan(Traits::length);
 		}
 
 		return { success, input };

@@ -20,12 +20,12 @@ struct Join<OneOrMore<Basic<str>>>
 			return { failure, input };
 
 		Output result = { input.data(), Traits::length };
-		input.remove_prefix(Traits::length);
+		input = input.subspan(Traits::length);
 
 		while (not Traits::failure_condition(input))
 		{
 			result = { result.data(), result.size() + Traits::length };
-			input.remove_prefix(Traits::length);
+			input = input.subspan(Traits::length);
 		}
 
 		return { success, result, input };
@@ -38,11 +38,11 @@ struct Join<OneOrMore<Basic<str>>>
 		if (Traits::failure_condition(input))
 			return { failure, input };
 
-		input.remove_prefix(Traits::length);
+		input = input.subspan(Traits::length);
 
 		while (not Traits::failure_condition(input))
 		{
-			input.remove_prefix(Traits::length);
+			input = input.subspan(Traits::length);
 		}
 
 		return { success, input };

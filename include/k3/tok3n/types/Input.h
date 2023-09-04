@@ -1,4 +1,6 @@
 #pragma once
+#include <algorithm>
+#include <span>
 #include <string_view>
 
 namespace k3::tok3n {
@@ -8,33 +10,38 @@ class Input
 public:
 	constexpr Input() = default;
 
-	constexpr Input(std::string_view value)
+	constexpr Input(std::span<const char> value)
 		: _value(value)
+	{}
+
+	constexpr Input(std::string_view value)
+		: _value(value.data(), value.size())
 	{}
 
 	template <std::size_t N>
 	constexpr Input(const char(&arr)[N])
-		: _value(arr)
+		: _value(arr, N - 1)
 	{}
 
 	constexpr Input(const char* data, std::size_t size)
 		: _value(data, size)
 	{}
 
-	constexpr auto data() const { return _value.data(); }
-	constexpr auto size() const { return _value.size(); }
-	constexpr auto empty() const { return _value.empty(); }
-	constexpr auto& front() const { return _value.front(); }
+	constexpr const char* data() const { return _value.data(); }
+	constexpr std::size_t size() const { return _value.size(); }
+	constexpr bool empty() const { return _value.empty(); }
+	constexpr const char& front() const { return _value.front(); }
 
-	template <class U>
-	constexpr auto starts_with(U u) const { return _value.starts_with(u); }
+	constexpr Input first(std::size_t count) const { return { _value.first(count) }; }
+	constexpr Input subspan(std::size_t offset, std::size_t count = std::dynamic_extent) const { return { _value.subspan(offset, count) }; }
 
-	constexpr void remove_prefix(std::size_t count) { _value.remove_prefix(count); }
-
-	friend constexpr bool operator==(const Input&, const Input&) = default;
+	friend constexpr bool operator==(const Input& lhs, const Input& rhs)
+	{
+		return std::ranges::equal(lhs._value, rhs._value);
+	}
 
 private:
-	std::string_view _value;
+	std::span<const char> _value;
 };
 
 } // namespace k3::tok3n
