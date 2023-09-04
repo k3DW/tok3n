@@ -11,7 +11,7 @@ struct BasicTraits<Literal<str>>
 
 	static constexpr bool failure_condition(Input input)
 	{
-		return not input.starts_with(str.view());
+		return (input.size() < length) || (Input(str.span()) != input.first(length));
 	}
 };
 
