@@ -10,7 +10,7 @@ struct BasicTraits<NotChar<str>>
 {
 	static constexpr std::size_t length = 1;
 
-	static constexpr bool failure_condition(Input input)
+	static constexpr bool failure_condition(Input<char> input)
 	{
 		return input.empty() || str.contains(input.front());
 	}

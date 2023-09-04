@@ -9,7 +9,7 @@ struct BasicTraits<Literal<str>>
 {
 	static constexpr std::size_t length = str.size();
 
-	static constexpr bool failure_condition(Input input)
+	static constexpr bool failure_condition(Input<char> input)
 	{
 		return (input.size() < length) || (Input(str.span()) != input.first(length));
 	}

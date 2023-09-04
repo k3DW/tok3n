@@ -11,7 +11,7 @@ struct Exactly
 
 	static constexpr ParserType type = ExactlyType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		const Input original_input = input;
 		result_type results;
@@ -31,7 +31,7 @@ struct Exactly
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		const Input original_input = input;
 

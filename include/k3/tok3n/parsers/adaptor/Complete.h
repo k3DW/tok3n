@@ -11,7 +11,7 @@ struct Complete
 
 	static constexpr ParserType type = CompleteType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (not result.has_value() or result.remaining() != "")
@@ -20,7 +20,7 @@ struct Complete
 			return result;
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		auto result = P::lookahead(input);
 		if (not result.has_value() or result.remaining() != "")

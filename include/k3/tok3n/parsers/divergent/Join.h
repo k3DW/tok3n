@@ -97,7 +97,7 @@ struct Join
 
 	static constexpr ParserType type = JoinType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -110,7 +110,7 @@ struct Join
 		return { failure, input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

@@ -14,14 +14,14 @@ namespace IsResult::Void
 		{
 			{ static_cast<R>(r).operator bool() } -> std::same_as<bool>;
 			{ static_cast<R>(r).has_value() } -> std::same_as<bool>;
-			{ static_cast<R>(r).remaining() } -> std::same_as<Input>;
+			{ static_cast<R>(r).remaining() } -> std::same_as<Input<char>>;
 		};
 
 	template <class R>
 	concept Constructible =
-		std::constructible_from<R>                     and
-		std::constructible_from<R, FailureTag, Input>  and
-		std::constructible_from<R, SuccessTag, Input>;
+		std::constructible_from<R>                           and
+		std::constructible_from<R, FailureTag, Input<char>>  and
+		std::constructible_from<R, SuccessTag, Input<char>>;
 
 }
 
@@ -48,10 +48,10 @@ namespace IsResult::NonVoid
 
 	template <class R, class T>
 	concept Constructible =
-		std::constructible_from<R>                                     and
-		std::constructible_from<R, FailureTag, Input>                  and
-			(std::constructible_from<R, SuccessTag, T&&, Input> or
-			 std::constructible_from<R, SuccessTag, const T&, Input>);
+		std::constructible_from<R>                                           and
+		std::constructible_from<R, FailureTag, Input<char>>                  and
+			(std::constructible_from<R, SuccessTag, T&&, Input<char>> or
+			 std::constructible_from<R, SuccessTag, const T&, Input<char>>);
 
 }
 

@@ -11,12 +11,12 @@ struct Ignore
 
 	static constexpr ParserType type = IgnoreType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		return P::lookahead(input);
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

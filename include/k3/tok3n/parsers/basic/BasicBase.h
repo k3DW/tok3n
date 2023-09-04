@@ -7,7 +7,7 @@ template <class P>
 struct BasicTraits
 {
 	// static constexpr std::size_t length;
-	// static constexpr bool failure_condition(Input);
+	// static constexpr bool failure_condition(Input<char>);
 };
 
 template <class P>
@@ -15,7 +15,7 @@ struct BasicBase
 {
 	using result_type = Output;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		using Traits = BasicTraits<P>;
 
@@ -25,7 +25,7 @@ struct BasicBase
 			return { success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		using Traits = BasicTraits<P>;
 

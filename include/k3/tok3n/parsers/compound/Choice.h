@@ -10,7 +10,7 @@ namespace detail::executors
 	template <class ResultType>
 	struct Choice
 	{
-		Input input;
+		Input<char> input;
 		Result<ResultType>& result;
 
 		template <Parser P>
@@ -34,7 +34,7 @@ struct Choice
 
 	static constexpr ParserType type = ChoiceType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type> parse(Input<char> input)
 	{
 		Result<result_type> result;
 
@@ -45,7 +45,7 @@ struct Choice
 		return result;
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void> lookahead(Input<char> input)
 	{
 		Result<void> result;
 
