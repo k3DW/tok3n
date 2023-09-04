@@ -5,12 +5,13 @@
 
 namespace k3::tok3n {
 
+template <class T>
 class Input
 {
 public:
 	constexpr Input() = default;
 
-	constexpr Input(std::span<const char> value)
+	constexpr Input(std::span<const T> value)
 		: _value(value)
 	{}
 
@@ -19,18 +20,18 @@ public:
 	{}
 
 	template <std::size_t N>
-	constexpr Input(const char(&arr)[N])
+	constexpr Input(const char(&arr)[N]) requires std::same_as<T, char>
 		: _value(arr, N - 1)
 	{}
 
-	constexpr Input(const char* data, std::size_t size)
+	constexpr Input(const T* data, std::size_t size)
 		: _value(data, size)
 	{}
 
-	constexpr const char* data() const { return _value.data(); }
+	constexpr const T* data() const { return _value.data(); }
 	constexpr std::size_t size() const { return _value.size(); }
 	constexpr bool empty() const { return _value.empty(); }
-	constexpr const char& front() const { return _value.front(); }
+	constexpr const T& front() const { return _value.front(); }
 
 	constexpr Input first(std::size_t count) const { return { _value.first(count) }; }
 	constexpr Input subspan(std::size_t offset, std::size_t count = std::dynamic_extent) const { return { _value.subspan(offset, count) }; }
@@ -41,7 +42,7 @@ public:
 	}
 
 private:
-	std::span<const char> _value;
+	std::span<const T> _value;
 };
 
 } // namespace k3::tok3n
