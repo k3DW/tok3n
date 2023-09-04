@@ -10,7 +10,7 @@ namespace detail::executors
 	{
 	public:
 		template <class T>
-		constexpr Join(const Result<T>& t)
+		constexpr Join(const Result<T, char>& t)
 		{
 			if (this->try_join(*t) && joined == std::nullopt)
 			{
@@ -97,7 +97,7 @@ struct Join
 
 	static constexpr ParserType type = JoinType;
 
-	static constexpr Result<result_type> parse(Input<char> input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -110,7 +110,7 @@ struct Join
 		return { failure, input };
 	}
 
-	static constexpr Result<void> lookahead(Input<char> input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

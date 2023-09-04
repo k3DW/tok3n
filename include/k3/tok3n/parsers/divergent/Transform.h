@@ -11,7 +11,7 @@ struct Transform
 
 	static constexpr ParserType type = TransformType;
 
-	static constexpr Result<result_type> parse(Input<char> input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -20,7 +20,7 @@ struct Transform
 			return { failure, input };
 	}
 
-	static constexpr Result<void> lookahead(Input<char> input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

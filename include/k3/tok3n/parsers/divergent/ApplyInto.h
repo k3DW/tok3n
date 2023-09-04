@@ -11,16 +11,16 @@ struct ApplyInto
 
 	static constexpr ParserType type = ApplyIntoType;
 
-	static constexpr Result<result_type> parse(Input<char> input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::make_from_tuple<result_type>(std::move(*result)), result.remaining()};
+			return { success, std::make_from_tuple<result_type>(std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}
 
-	static constexpr Result<void> lookahead(Input<char> input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

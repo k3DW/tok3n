@@ -12,7 +12,7 @@ struct Join<Exactly<Basic<str>, N>>
 
 	static constexpr ParserType type = JoinType;
 
-	static constexpr Result<result_type> parse(Input<char> input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 
@@ -30,7 +30,7 @@ struct Join<Exactly<Basic<str>, N>>
 		return { success, result, input };
 	}
 
-	static constexpr Result<void> lookahead(Input<char> input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 

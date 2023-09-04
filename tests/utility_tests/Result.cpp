@@ -4,7 +4,7 @@ FIXTURE("Result");
 
 TEST("Result", "IsResult Result<void>")
 {
-	using R = Result<void>;
+	using R = Result<void, char>;
 
 	ASSERT_CONCEPT    (IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -18,7 +18,7 @@ TEST("Result", "IsResult Result<void>")
 
 TEST("Result", "IsResult Result<int>")
 {
-	using R = Result<int>;
+	using R = Result<int, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_CONCEPT    (IsResult, R, int);
@@ -45,7 +45,7 @@ TEST("Result", "IsResult Result<int>")
 
 TEST("Result", "IsResult Result<std::pair>")
 {
-	using R = Result<std::pair<int, double>>;
+	using R = Result<std::pair<int, double>, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -72,7 +72,7 @@ TEST("Result", "IsResult Result<std::pair>")
 
 TEST("Result", "IsResult Result<std::string>")
 {
-	using R = Result<std::string>;
+	using R = Result<std::string, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -99,7 +99,7 @@ TEST("Result", "IsResult Result<std::string>")
 
 TEST("Result", "IsResult Result<std::vector>")
 {
-	using R = Result<std::vector<int>>;
+	using R = Result<std::vector<int>, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -126,7 +126,7 @@ TEST("Result", "IsResult Result<std::vector>")
 
 TEST("Result", "IsResult Result<std::unique_ptr>")
 {
-	using R = Result<std::unique_ptr<int>>;
+	using R = Result<std::unique_ptr<int>, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -153,7 +153,7 @@ TEST("Result", "IsResult Result<std::unique_ptr>")
 
 TEST("Result", "IsResult Result<MoveOnlyWrapper>")
 {
-	using R = Result<MoveOnlyWrapper<int>>;
+	using R = Result<MoveOnlyWrapper<int>, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);
@@ -180,7 +180,7 @@ TEST("Result", "IsResult Result<MoveOnlyWrapper>")
 
 TEST("Result", "IsResult Result<CopyOnlyWrapper>")
 {
-	using R = Result<CopyOnlyWrapper<int>>;
+	using R = Result<CopyOnlyWrapper<int>, char>;
 
 	ASSERT_NOT_CONCEPT(IsResult, R, void);
 	ASSERT_NOT_CONCEPT(IsResult, R, int);

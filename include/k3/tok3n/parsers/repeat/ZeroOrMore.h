@@ -11,7 +11,7 @@ struct ZeroOrMore
 
 	static constexpr ParserType type = ZeroOrMoreType;
 
-	static constexpr Result<result_type> parse(Input<char> input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		const Input original_input = input;
 		result_type results;
@@ -31,9 +31,9 @@ struct ZeroOrMore
 		return { success, std::move(results), input };
 	}
 	
-	static constexpr Result<void> lookahead(Input<char> input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
-		Result<void> result;
+		Result<void, char> result;
 
 		do
 		{
