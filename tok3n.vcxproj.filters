@@ -259,6 +259,9 @@
     <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinExactlyBasic.h">
       <Filter>tok3n\parsers\optimizations</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\Output.h">
+      <Filter>tok3n\types</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />

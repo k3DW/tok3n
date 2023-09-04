@@ -8,7 +8,7 @@ namespace k3::tok3n {
 template <template <StaticString> class Basic, StaticString str>
 struct Join<ZeroOrMore<Basic<str>>>
 {
-	using result_type = Input;
+	using result_type = Output;
 
 	static constexpr ParserType type = JoinType;
 
@@ -16,7 +16,7 @@ struct Join<ZeroOrMore<Basic<str>>>
 	{
 		using Traits = BasicTraits<Basic<str>>;
 
-		Input result = { input.data(), 0 };
+		Output result = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{

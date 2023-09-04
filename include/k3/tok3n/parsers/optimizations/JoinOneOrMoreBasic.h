@@ -8,7 +8,7 @@ namespace k3::tok3n {
 template <template <StaticString> class Basic, StaticString str>
 struct Join<OneOrMore<Basic<str>>>
 {
-	using result_type = Input;
+	using result_type = Output;
 
 	static constexpr ParserType type = JoinType;
 
@@ -19,7 +19,7 @@ struct Join<OneOrMore<Basic<str>>>
 		if (Traits::failure_condition(input))
 			return { failure, input };
 
-		Input result = { input.data(), Traits::length };
+		Output result = { input.data(), Traits::length };
 		input.remove_prefix(Traits::length);
 
 		while (not Traits::failure_condition(input))

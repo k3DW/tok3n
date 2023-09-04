@@ -21,11 +21,6 @@ public:
 		: _value(data, size)
 	{}
 
-	constexpr operator std::string_view() const
-	{
-		return _value;
-	}
-
 	constexpr auto data() const { return _value.data(); }
 	constexpr auto size() const { return _value.size(); }
 	constexpr auto empty() const { return _value.empty(); }

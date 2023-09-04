@@ -8,7 +8,7 @@ namespace k3::tok3n {
 template <template <StaticString> class Basic, StaticString str, IsConst<std::size_t> N>
 struct Join<Exactly<Basic<str>, N>>
 {
-	using result_type = Input;
+	using result_type = Output;
 
 	static constexpr ParserType type = JoinType;
 
@@ -17,7 +17,7 @@ struct Join<Exactly<Basic<str>, N>>
 		using Traits = BasicTraits<Basic<str>>;
 
 		const Input original_input = input;
-		Input result = { input.data(), 0 };
+		Output result = { input.data(), 0 };
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
