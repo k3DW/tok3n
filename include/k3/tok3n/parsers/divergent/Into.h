@@ -11,16 +11,16 @@ struct Into
 
 	static constexpr ParserType type = IntoType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, result_type(std::move(*result)), result.remaining()};
+			return { success, result_type(std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		return P::lookahead(input);
 	}

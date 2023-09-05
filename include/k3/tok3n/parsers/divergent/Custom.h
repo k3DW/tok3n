@@ -9,14 +9,14 @@ struct Custom
 	static constexpr ParserType type = CustomType;
 
 	template <std::same_as<CRTP> P = CRTP>
-	static constexpr Result<typename P::result_type> parse(Input input)
+	static constexpr Result<typename P::result_type, char> parse(Input<char> input)
 	{
 		static_assert(requires { { P::get_parser() } -> Parser; });
 		return decltype(P::get_parser())::parse(input);
 	}
 
 	template <std::same_as<CRTP> P = CRTP>
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		static_assert(requires { { P::get_parser() } -> Parser; });
 		return decltype(P::get_parser())::lookahead(input);

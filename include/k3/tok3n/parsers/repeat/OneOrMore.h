@@ -11,7 +11,7 @@ struct OneOrMore
 
 	static constexpr ParserType type = OneOrMoreType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		const Input original_input = input;
 		result_type results;
@@ -34,9 +34,9 @@ struct OneOrMore
 			return { failure, original_input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
-		Result<void> result;
+		Result<void, char> result;
 		bool successful = false;
 		
 		do

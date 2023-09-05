@@ -17,7 +17,7 @@ namespace detail::executors
 	{
 		using StoredResult = std::conditional_t<std::same_as<ResultType, void>, VoidResultTag, ResultType>;
 
-		Input input;
+		Input<char> input;
 		StoredResult full_result = {};
 
 		template <Parser P, std::size_t I, bool unwrapped>
@@ -68,7 +68,7 @@ struct Sequence
 	using result_type                = _trait::type;
 	static constexpr bool _unwrapped = _trait::unwrapped;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		// This might be a problem because it default initializes all members
 		using Executor = detail::executors::Sequence<result_type>;
@@ -88,7 +88,7 @@ struct Sequence
 			return { success, std::move(executor.full_result), executor.input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		using Executor = detail::executors::Sequence<void>;
 		Executor executor{ .input = input };

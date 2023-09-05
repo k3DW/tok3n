@@ -12,7 +12,7 @@ struct Join<ZeroOrMore<Basic<str>>>
 
 	static constexpr ParserType type = JoinType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 
@@ -27,7 +27,7 @@ struct Join<ZeroOrMore<Basic<str>>>
 		return { success, result, input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 

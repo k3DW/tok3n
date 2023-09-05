@@ -12,7 +12,7 @@ struct Join<Maybe<Basic<str>>>
 
 	static constexpr ParserType type = JoinType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 
@@ -22,7 +22,7 @@ struct Join<Maybe<Basic<str>>>
 		return { success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		using Traits = BasicTraits<Basic<str>>;
 

@@ -15,7 +15,7 @@ concept Parser =
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
-	requires (Input input)
+	requires (Input<char> input)
 	{
 		{ P::parse(input) } -> IsResult<typename P::result_type>;
 		{ P::lookahead(input) } -> IsResult<void>;

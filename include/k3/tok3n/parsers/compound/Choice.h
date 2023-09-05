@@ -10,8 +10,8 @@ namespace detail::executors
 	template <class ResultType>
 	struct Choice
 	{
-		Input input;
-		Result<ResultType>& result;
+		Input<char> input;
+		Result<ResultType, char>& result;
 
 		template <Parser P>
 		constexpr bool execute()
@@ -34,9 +34,9 @@ struct Choice
 
 	static constexpr ParserType type = ChoiceType;
 
-	static constexpr Result<result_type> parse(Input input)
+	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
-		Result<result_type> result;
+		Result<result_type, char> result;
 
 		using Executor = detail::executors::Choice<result_type>;
 		Executor executor{ input, result };
@@ -45,9 +45,9 @@ struct Choice
 		return result;
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
-		Result<void> result;
+		Result<void, char> result;
 
 		using Executor = detail::executors::Choice<void>;
 		Executor executor{ input, result };

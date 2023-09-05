@@ -14,7 +14,7 @@ struct Delimit
 
 	static constexpr ParserType type = DelimitType;
 
-	static constexpr Result<result_type> parse(Input input) requires (not KeepDelimiters::value)
+	static constexpr Result<result_type, char> parse(Input<char> input) requires (not KeepDelimiters::value)
 	{
 		result_type results;
 
@@ -37,7 +37,7 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<result_type> parse(Input input) requires (KeepDelimiters::value)
+	static constexpr Result<result_type, char> parse(Input<char> input) requires (KeepDelimiters::value)
 	{
 		result_type results;
 		auto& [values, delimiters] = results;
@@ -63,7 +63,7 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<void> lookahead(Input input)
+	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
 		auto result = P::lookahead(input);
 		if (not result.has_value())
