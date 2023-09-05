@@ -1,5 +1,19 @@
 #pragma once
 
+#include <format>
+#include <map>
+#include <numeric>
+#include <string>
+#include <string_view>
+#include <source_location>
+#include <unordered_map>
+#include <vector>
+
+#include <boost/preprocessor/seq/for_each.hpp>
+#include <boost/preprocessor/seq/for_each_product.hpp>
+
+#include <k3/tok3n.h>
+
 #include "framework/Assert.h"
 #include "framework/Error.h"
 #include "framework/Fixture.h"
@@ -15,6 +29,8 @@
 #include "asserts/Operation.h"
 #include "asserts/Parse.h"
 
+using namespace k3::tok3n;
+
 #include "samples/adaptor.h"
 #include "samples/basic.h"
 #include "samples/classes.h"
@@ -24,18 +40,6 @@
 #include "samples/repeat.h"
 #include "samples/wrappers.h"
 
-#include <format>
-#include <map>
-#include <numeric>
-#include <string>
-#include <string_view>
-#include <source_location>
-#include <unordered_map>
-#include <vector>
-#include <k3/tok3n.h>
-
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
 
 #define ASSERT_ALL_SAMPLES_IMPL(R, DATA, ELEM) \
 	DATA(ELEM)
@@ -83,4 +87,3 @@
 		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_ALL_SAMPLES_2_IMPL, (REPEAT_SAMPLES)(REPEAT_SAMPLES)))       \
 	} REQUIRE_SEMICOLON
 
-using namespace k3::tok3n;
