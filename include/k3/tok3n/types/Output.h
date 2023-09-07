@@ -20,7 +20,7 @@ public:
 	{}
 
 	constexpr Output(const char* data)
-		: _value(data)
+		: Output(std::string_view(data))
 	{}
 
 	constexpr Output(const char* data, std::size_t size)
@@ -39,7 +39,7 @@ public:
 	}
 
 private:
-	std::string_view _value;
+	std::span<const char> _value;
 };
 
 } // namespace k3::tok3n
