@@ -27,6 +27,8 @@ public:
 		: _value(data, size)
 	{}
 
+	constexpr operator std::string_view() const { return { _value.data(), _value.size() }; }
+
 	constexpr const char* data() const { return _value.data(); }
 	constexpr std::size_t size() const { return _value.size(); }
 	constexpr const char& front() const { return _value.front(); }
