@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\concepts\CharType.h" />
     <ClInclude Include="include\k3\tok3n\detail\all_same.h" />
     <ClInclude Include="include\k3\tok3n\detail\filter.h" />
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />

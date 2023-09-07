@@ -262,6 +262,9 @@
     <ClInclude Include="include\k3\tok3n\types\Output.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
+    <ClInclude Include="include\k3\tok3n\concepts\CharType.h">
+      <Filter>tok3n\concepts</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
