@@ -4,10 +4,10 @@ FIXTURE("Maybe");
 
 TEST("Maybe", "Requirements")
 {
-	ASSERT_IS_PARSER(May1, MaybeType, std::optional<std::string_view>);
-	ASSERT_IS_PARSER(May2, MaybeType, std::optional<std::string_view>);
-	ASSERT_IS_PARSER(May3, MaybeType, std::optional<std::string_view>);
-	ASSERT_IS_PARSER(May4, MaybeType, std::optional<std::tuple<std::string_view, std::string_view>>);
+	ASSERT_IS_PARSER(May1, MaybeType, std::optional<Output>);
+	ASSERT_IS_PARSER(May2, MaybeType, std::optional<Output>);
+	ASSERT_IS_PARSER(May3, MaybeType, std::optional<Output>);
+	ASSERT_IS_PARSER(May4, MaybeType, std::optional<std::tuple<Output, Output>>);
 }
 
 TEST("Maybe", "Parse Maybe<Literal>")

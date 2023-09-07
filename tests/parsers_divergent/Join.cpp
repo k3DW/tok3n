@@ -4,11 +4,11 @@ FIXTURE("Join");
 
 TEST("Join", "Requirements")
 {
-	ASSERT_IS_PARSER(Joi1, JoinType, std::string_view);
-	ASSERT_IS_PARSER(Joi2, JoinType, std::string_view);
-	ASSERT_IS_PARSER(Joi3, JoinType, std::string_view);
-	ASSERT_IS_PARSER(Joi4, JoinType, std::string_view);
-	ASSERT_IS_PARSER(Joi5, JoinType, std::string_view);
+	ASSERT_IS_PARSER(Joi1, JoinType, Output);
+	ASSERT_IS_PARSER(Joi2, JoinType, Output);
+	ASSERT_IS_PARSER(Joi3, JoinType, Output);
+	ASSERT_IS_PARSER(Joi4, JoinType, Output);
+	ASSERT_IS_PARSER(Joi5, JoinType, Output);
 }
 
 TEST("Join", "Parse all")

@@ -29,7 +29,7 @@ TEST("Into", "Parse all")
 
 TEST("Into", "Move only")
 {
-	using T = MoveOnlyWrapper<std::string_view>;
+	using T = MoveOnlyWrapper<Output>;
 	using P = Into<ABC, T>;
 
 	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
@@ -39,7 +39,7 @@ TEST("Into", "Move only")
 
 TEST("Into", "Copy only")
 {
-	using T = CopyOnlyWrapper<std::string_view>;
+	using T = CopyOnlyWrapper<Output>;
 	using P = Into<ABC, T>;
 
 	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");

@@ -6,7 +6,7 @@ class Class1
 public:
 	explicit constexpr Class1(int value) : value(value) {}
 
-	explicit constexpr Class1(std::string_view sv)
+	explicit constexpr Class1(Output sv)
 	{
 		if (sv.size() == 1)
 		{
@@ -30,10 +30,10 @@ private:
 class Class2
 {
 public:
-	explicit constexpr Class2(std::string_view sv1, std::string_view sv2)
+	explicit constexpr Class2(Output sv1, Output sv2)
 		: sv1(sv1), sv2(sv2) {}
 
-	explicit constexpr Class2(const std::tuple<std::string_view, std::string_view>& tup)
+	explicit constexpr Class2(const std::tuple<Output, Output>& tup)
 	{
 		std::tie(sv1, sv2) = tup;
 	}
@@ -41,8 +41,8 @@ public:
 	friend constexpr bool operator==(const Class2&, const Class2&) = default;
 
 private:
-	std::string_view sv1;
-	std::string_view sv2;
+	Output sv1;
+	Output sv2;
 };
 
 class Class3
@@ -54,7 +54,7 @@ public:
 class Class4
 {
 public:
-	explicit constexpr Class4(const std::tuple<std::string_view, std::string_view>& tup)
+	explicit constexpr Class4(const std::tuple<Output, Output>& tup)
 	{
 		std::tie(sv1, sv2) = tup;
 	}
@@ -62,21 +62,21 @@ public:
 	explicit constexpr operator Class2() const { return Class2{ sv1, sv2 }; }
 
 private:
-	std::string_view sv1;
-	std::string_view sv2;
+	Output sv1;
+	Output sv2;
 };
 
 class Class5
 {
 public:
-	explicit constexpr Class5(std::string_view sv1, std::string_view sv2)
+	explicit constexpr Class5(Output sv1, Output sv2)
 		: sv1(sv1), sv2(sv2) {}
 
 	friend constexpr bool operator==(const Class5&, const Class5&) = default;
 
 private:
-	std::string_view sv1;
-	std::string_view sv2;
+	Output sv1;
+	Output sv2;
 };
 
 struct Sink

@@ -4,15 +4,15 @@ FIXTURE("ZeroOrMore");
 
 TEST("ZeroOrMore", "Requirements")
 {
-	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Zom2, ZeroOrMoreType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Zom3, ZeroOrMoreType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<std::string_view, std::string_view>>);
+	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<Output>);
+	ASSERT_IS_PARSER(Zom2, ZeroOrMoreType, std::vector<Output>);
+	ASSERT_IS_PARSER(Zom3, ZeroOrMoreType, std::vector<Output>);
+	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<Output, Output>>);
 }
 
 TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
 {
-	using vec_type = std::vector<std::string_view>;
+	using vec_type = std::vector<Output>;
 	ASSERT_PARSE_SUCCESS(Zom1, "litera", vec_type{}, "litera");
 	ASSERT_PARSE_SUCCESS(Zom1, "literal", vec_type({ "literal" }), "");
 	ASSERT_PARSE_SUCCESS(Zom1, "literally", vec_type({ "literal" }), "ly");
@@ -23,7 +23,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
 }
 TEST("ZeroOrMore", "Parse ZeroOrMore<OneChar>")
 {
-	using vec_type = std::vector<std::string_view>;
+	using vec_type = std::vector<Output>;
 	ASSERT_PARSE_SUCCESS(Zom2, "abcdef", vec_type({ "a", "b", "c" }), "def");
 	ASSERT_PARSE_SUCCESS(Zom2, "fedcba", vec_type{}, "fedcba");
 	ASSERT_PARSE_SUCCESS(Zom2, "cbabcccbjklmnop", vec_type({ "c", "b", "a", "b", "c", "c", "c", "b" }), "jklmnop");
@@ -31,7 +31,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<OneChar>")
 }
 TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
 {
-	using vec_type = std::vector<std::string_view>;
+	using vec_type = std::vector<Output>;
 	ASSERT_PARSE_SUCCESS(Zom3, "abliteralcbliteralcf", vec_type({ "a", "b", "literal", "c", "b", "literal", "c" }), "f");
 	ASSERT_PARSE_SUCCESS(Zom3, "abliteralcblitralcf", vec_type({ "a", "b", "literal", "c", "b" }), "litralcf");
 	ASSERT_PARSE_SUCCESS(Zom3, "literalabacliteral", vec_type({ "literal", "a", "b", "a", "c", "literal" }), "");
@@ -39,7 +39,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
 }
 TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
 {
-	using vec_type = std::vector<std::tuple<std::string_view, std::string_view>>;
+	using vec_type = std::vector<std::tuple<Output, Output>>;
 	ASSERT_PARSE_SUCCESS(Zom4, "literalaliteralcliteralcliteralb", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "");
 	ASSERT_PARSE_SUCCESS(Zom4, "literalaliteralcliteralcliteralbliteral", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "literal");
 	ASSERT_PARSE_SUCCESS(Zom4, "aliteralaliteralcliteralbliteral", vec_type{}, "aliteralaliteralcliteralbliteral");

@@ -47,7 +47,7 @@ TEST("join modifier", "idempotent")
 			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, join,                      \
 				                                    P{},  join);                     \
 		}                                                                            \
-		else if constexpr (std::same_as<typename PP::result_type, std::string_view>) \
+		else if constexpr (std::same_as<typename PP::result_type, Output>)           \
 		{                                                                            \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},                       \
 				                           join, (P{}),  P{});                       \

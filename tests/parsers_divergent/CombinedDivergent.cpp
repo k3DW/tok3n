@@ -7,7 +7,7 @@ TEST("Combined divergent", "Join<Delimit>")
 	using D = Delimit<ABC, QQ, Const<false>>;
 	using J = Join<D>;
 
-	using vec_type = std::vector<std::string_view>;
+	using vec_type = std::vector<Output>;
 
 	ASSERT_PARSE_SUCCESS(D, "abc", vec_type({ "abc" }), "");
 	ASSERT_PARSE_SUCCESS(D, "abc??abc??a", vec_type({ "abc", "abc" }), "??a");
@@ -61,7 +61,7 @@ TEST("Combined divergent", "Join<Ignore>")
 
 TEST("Combined divergent", "Join<Transform>")
 {
-	constexpr auto f = [](auto&& v) -> std::string_view { return (v.size() % 2 == 0) ? "a" : "b"; };
+	constexpr auto f = [](auto&& v) -> Output { return (v.size() % 2 == 0) ? "a" : "b"; };
 
 	using T1 = Transform<ABC, Const<f>>;
 	using T2 = Sequence<Transform<ABC, Const<f>>, QQ>;
@@ -82,7 +82,7 @@ TEST("Combined divergent", "Join<Transform>")
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "abc");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??", "");
 
-	using vec_type = std::vector<std::tuple<std::string_view, std::string_view>>;
+	using vec_type = std::vector<std::tuple<Output, Output>>;
 	ASSERT_PARSE_SUCCESS(T3, "abcabc??abc??ab", vec_type({ { "a", "??" }, { "b", "??" } }), "ab");
 	ASSERT_PARSE_SUCCESS(T3, "abc??abcabcabcabc??", vec_type({ { "b", "??" }, { "a", "??" } }), "");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J3, "abcabc??abc??ab", "ab");

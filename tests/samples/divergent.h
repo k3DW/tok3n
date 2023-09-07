@@ -42,7 +42,7 @@ struct Cus1 : Custom<Cus1>
 		return _25{} % fn<transform>;
 	}
 
-	static constexpr std::size_t transform(const std::tuple<std::vector<std::string_view>, std::optional<std::string_view>>& tup)
+	static constexpr std::size_t transform(const std::tuple<std::vector<Output>, std::optional<Output>>& tup)
 	{
 		const auto& [vec, opt] = tup;
 		return 3 * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);

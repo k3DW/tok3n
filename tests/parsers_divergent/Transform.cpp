@@ -39,7 +39,7 @@ TEST("Transform", "Parse all")
 
 TEST("Transform", "Move only")
 {
-	using T = MoveOnlyWrapper<std::string_view>;
+	using T = MoveOnlyWrapper<Output>;
 	using P = Transform<ABC, Const<T::make>>;
 
 	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
@@ -49,7 +49,7 @@ TEST("Transform", "Move only")
 
 TEST("Transform", "Copy only")
 {
-	using T = CopyOnlyWrapper<std::string_view>;
+	using T = CopyOnlyWrapper<Output>;
 	using P = Transform<ABC, Const<T::make>>;
 
 	ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
