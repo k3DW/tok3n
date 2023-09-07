@@ -4,10 +4,10 @@ FIXTURE("Exactly");
 
 TEST("Exactly", "Requirements")
 {
-	ASSERT_IS_PARSER(Exa1, ExactlyType, std::array<Output, 3>);
-	ASSERT_IS_PARSER(Exa2, ExactlyType, std::array<Output, 5>);
-	ASSERT_IS_PARSER(Exa3, ExactlyType, std::array<Output, 4>);
-	ASSERT_IS_PARSER(Exa4, ExactlyType, std::array<std::tuple<Output, Output>, 2>);
+	ASSERT_IS_PARSER(Exa1, ExactlyType, std::array<Output<char>, 3>);
+	ASSERT_IS_PARSER(Exa2, ExactlyType, std::array<Output<char>, 5>);
+	ASSERT_IS_PARSER(Exa3, ExactlyType, std::array<Output<char>, 4>);
+	ASSERT_IS_PARSER(Exa4, ExactlyType, std::array<std::tuple<Output<char>, Output<char>>, 2>);
 }
 
 TEST("Exactly", "Constructibility")
@@ -23,7 +23,7 @@ TEST("Exactly", "Constructibility")
 
 TEST("Exactly", "Parse Exactly<Literal>")
 {
-	using array_type = std::array<Output, 3>;
+	using array_type = std::array<Output<char>, 3>;
 	ASSERT_PARSE_FAILURE(Exa1, "litera");
 	ASSERT_PARSE_FAILURE(Exa1, "literal");
 	ASSERT_PARSE_FAILURE(Exa1, "literalliteral");
@@ -35,7 +35,7 @@ TEST("Exactly", "Parse Exactly<Literal>")
 }
 TEST("Exactly", "Parse Exactly<OneChar>")
 {
-	using array_type = std::array<Output, 5>;
+	using array_type = std::array<Output<char>, 5>;
 	ASSERT_PARSE_SUCCESS(Exa2, "abcbaa", array_type({ "a", "b", "c", "b", "a" }), "a");
 	ASSERT_PARSE_FAILURE(Exa2, "fedcba");
 	ASSERT_PARSE_SUCCESS(Exa2, "cbabcccbjklmnop", array_type({ "c", "b", "a", "b", "c" }), "ccbjklmnop");
@@ -43,7 +43,7 @@ TEST("Exactly", "Parse Exactly<OneChar>")
 }
 TEST("Exactly", "Parse Exactly<Choice>")
 {
-	using array_type = std::array<Output, 4>;
+	using array_type = std::array<Output<char>, 4>;
 	ASSERT_PARSE_SUCCESS(Exa3, "abliteralcbliteralcf", array_type({ "a", "b", "literal", "c" }), "bliteralcf");
 	ASSERT_PARSE_SUCCESS(Exa3, "abliteralcblitralcf", array_type({ "a", "b", "literal", "c" }), "blitralcf");
 	ASSERT_PARSE_SUCCESS(Exa3, "literalabacliteral", array_type({ "literal", "a", "b", "a" }), "cliteral");
@@ -51,7 +51,7 @@ TEST("Exactly", "Parse Exactly<Choice>")
 }
 TEST("Exactly", "Parse Exactly<Sequence>")
 {
-	using array_type = std::array<std::tuple<Output, Output>, 2>;
+	using array_type = std::array<std::tuple<Output<char>, Output<char>>, 2>;
 	ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralb", array_type({ {"literal", "a"}, {"literal", "c"} }), "literalcliteralb");
 	ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralbliteral", array_type({ {"literal", "a"}, {"literal", "c"} }), "literalcliteralbliteral");
 	ASSERT_PARSE_FAILURE(Exa4, "aliteralaliteralcliteralbliteral");

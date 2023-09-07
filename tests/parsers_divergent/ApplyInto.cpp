@@ -23,7 +23,7 @@ TEST("ApplyInto", "Parse all")
 
 TEST("ApplyInto", "Move only")
 {
-	using tuple = std::tuple<Output, Output>;
+	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = MoveOnlyWrapper<tuple>;
 	using P = ApplyInto<Sequence<OC3, ABC>, T>;
 
@@ -34,7 +34,7 @@ TEST("ApplyInto", "Move only")
 
 TEST("ApplyInto", "Copy only")
 {
-	using tuple = std::tuple<Output, Output>;
+	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = CopyOnlyWrapper<tuple>;
 	using P = ApplyInto<Sequence<OC3, ABC>, T>;
 

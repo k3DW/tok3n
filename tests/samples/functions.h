@@ -1,12 +1,12 @@
 #pragma once
 #include <k3/tok3n.h>
 
-constexpr std::size_t func1(std::vector<Output>&& vec)
+constexpr std::size_t func1(std::vector<Output<char>>&& vec)
 {
 	return vec.size();
 }
 
-constexpr auto func2 = [](const std::optional<Output>& opt) -> std::vector<char>
+constexpr auto func2 = [](const std::optional<Output<char>>& opt) -> std::vector<char>
 {
 	if (not opt.has_value())
 		return {};
@@ -19,7 +19,7 @@ constexpr auto func2 = [](const std::optional<Output>& opt) -> std::vector<char>
 
 constexpr struct func3_t
 {
-	constexpr bool operator()(std::tuple<Output, std::vector<Output>>&& tup) const
+	constexpr bool operator()(std::tuple<Output<char>, std::vector<Output<char>>>&& tup) const
 	{
 		auto&& [sv, vec] = std::move(tup);
 		return vec.size() % 2 == 0;
@@ -28,7 +28,7 @@ constexpr struct func3_t
 
 constexpr struct func3_apply_t
 {
-	constexpr bool operator()(Output, std::vector<Output>&& vec) const
+	constexpr bool operator()(Output<char>, std::vector<Output<char>>&& vec) const
 	{
 		return vec.size() % 2 == 0;
 	}
@@ -41,7 +41,7 @@ struct func4
 
 	int multiply_by;
 
-	constexpr std::size_t operator()(const std::tuple<std::vector<Output>, std::optional<Output>>& tup) const
+	constexpr std::size_t operator()(const std::tuple<std::vector<Output<char>>, std::optional<Output<char>>>& tup) const
 	{
 		const auto& [vec, opt] = tup;
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
@@ -55,7 +55,7 @@ struct func4_apply
 
 	int multiply_by;
 
-	constexpr std::size_t operator()(const std::vector<Output>& vec, const std::optional<Output>& opt) const
+	constexpr std::size_t operator()(const std::vector<Output<char>>& vec, const std::optional<Output<char>>& opt) const
 	{
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
 	}

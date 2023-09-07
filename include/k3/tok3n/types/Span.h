@@ -62,6 +62,7 @@ private:
 template <class T>
 using Input = Span<T, InputSpanTag>;
 
-using Output = Span<char, OutputSpanTag>;
+template <class T>
+using Output = Span<T, OutputSpanTag>;
 
 } // namespace k3::tok3n

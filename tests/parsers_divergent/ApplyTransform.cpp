@@ -26,7 +26,7 @@ TEST("ApplyTransform", "Parse all")
 
 TEST("ApplyTransform", "Move only")
 {
-	using tuple = std::tuple<Output, Output>;
+	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = MoveOnlyWrapper<tuple>;
 	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
 
@@ -37,7 +37,7 @@ TEST("ApplyTransform", "Move only")
 
 TEST("ApplyTransform", "Copy only")
 {
-	using tuple = std::tuple<Output, Output>;
+	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = CopyOnlyWrapper<tuple>;
 	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
 

@@ -7,8 +7,8 @@ FIXTURE("NotChar");
 
 TEST("NotChar", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, NotCharType, Output);
-	ASSERT_IS_PARSER(Multi, NotCharType, Output);
+	ASSERT_IS_PARSER(Single, NotCharType, Output<char>);
+	ASSERT_IS_PARSER(Multi, NotCharType, Output<char>);
 }
 
 TEST("NotChar", "Parse single char")

@@ -17,18 +17,18 @@ using Joi_Exa_L   = Join<Exactly<Literal<"123">, Index<2>>>;
 
 TEST("JoinContiguous", "Requirements")
 {
-    ASSERT_IS_PARSER(Joi_Oom_OC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Oom_NC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Oom_L, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Zom_OC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Zom_NC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Zom_L, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_May_OC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_May_NC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_May_L, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Exa_OC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Exa_NC, JoinType, Output);
-    ASSERT_IS_PARSER(Joi_Exa_L, JoinType, Output);
+    ASSERT_IS_PARSER(Joi_Oom_OC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Oom_NC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Oom_L, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_L, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_OC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_NC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_L, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_L, JoinType, Output<char>);
 }
 
 TEST("JoinContiguous", "OneOrMore<OneChar>")

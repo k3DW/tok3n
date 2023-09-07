@@ -36,8 +36,8 @@ namespace
 	[&]<Parser PP>(PP) {                                                                                                            \
 		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (P{}));                                                                     \
 		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Sink>);                                                                \
-		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output>, (P{}));                                                                   \
-		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Output>);                                                              \
+		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<char>>, (P{}));                                                             \
+		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Output<char>>);                                                        \
 		if constexpr (std::same_as<typename PP::result_type, void>)                                                                 \
 		{                                                                                                                           \
 			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (PP{}, sink_parser),                                                \
@@ -50,17 +50,17 @@ namespace
 				                           into_choice<Sink>, (P{}, sink_parser),                                                   \
 												(Choice<Into<P, Sink>, Into<SinkParser, Sink>>{}));                                 \
 		}                                                                                                                           \
-		if constexpr (std::constructible_from<Output, typename PP::result_type>)                                                    \
+		if constexpr (std::constructible_from<Output<char>, typename PP::result_type>)                                              \
 		{                                                                                                                           \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Output>, (PP{}, empty_literal_parser),                                       \
-												(Choice<Into<PP, Output>, Into<EmptyLiteralParser, Output>>{}),                     \
-				                           into_choice<Output>, (P{}, empty_literal_parser),                                        \
-												(Choice<Into<P, Output>, Into<EmptyLiteralParser, Output>>{}));                     \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Output<char>>, (PP{}, empty_literal_parser),                                 \
+												(Choice<Into<PP, Output<char>>, Into<EmptyLiteralParser, Output<char>>>{}),         \
+				                           into_choice<Output<char>>, (P{}, empty_literal_parser),                                  \
+												(Choice<Into<P, Output<char>>, Into<EmptyLiteralParser, Output<char>>>{}));         \
 		}                                                                                                                           \
 		else                                                                                                                        \
 		{                                                                                                                           \
-			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output>, (PP{}, empty_literal_parser),                                     \
-				                             into_choice<Output>, (P{}, empty_literal_parser));                                     \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<char>>, (PP{}, empty_literal_parser),                               \
+				                             into_choice<Output<char>>, (P{}, empty_literal_parser));                               \
 		}                                                                                                                           \
 	}(P{});
 

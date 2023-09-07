@@ -4,13 +4,13 @@ FIXTURE("Complete");
 
 TEST("Complete", "Requirements")
 {
-	ASSERT_IS_PARSER(Com1, CompleteType, Output);
-	ASSERT_IS_PARSER(Com2, CompleteType, Output);
-	ASSERT_IS_PARSER(Com3, CompleteType, Output);
-	ASSERT_IS_PARSER(Com4, CompleteType, std::tuple<Output, Output>);
-	ASSERT_IS_PARSER(Com5, CompleteType, std::optional<std::tuple<Output, Output>>);
-	ASSERT_IS_PARSER(Com6, CompleteType, std::vector<std::tuple<Output, Output>>);
-	ASSERT_IS_PARSER(Com7, CompleteType, std::vector<std::tuple<Output, Output>>);
+	ASSERT_IS_PARSER(Com1, CompleteType, Output<char>);
+	ASSERT_IS_PARSER(Com2, CompleteType, Output<char>);
+	ASSERT_IS_PARSER(Com3, CompleteType, Output<char>);
+	ASSERT_IS_PARSER(Com4, CompleteType, std::tuple<Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(Com5, CompleteType, std::optional<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com6, CompleteType, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com7, CompleteType, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
 TEST("Complete", "Complete<Literal>")

@@ -10,10 +10,10 @@ FIXTURE("Choice");
 
 TEST("Choice", "Requirements")
 {
-	ASSERT_IS_PARSER(TwoWay1, ChoiceType, Output);
-	ASSERT_IS_PARSER(TwoWay2, ChoiceType, Output);
-	ASSERT_IS_PARSER(ThreeWay1, ChoiceType, Output);
-	ASSERT_IS_PARSER(ThreeWay2, ChoiceType, Output);
+	ASSERT_IS_PARSER(TwoWay1, ChoiceType, Output<char>);
+	ASSERT_IS_PARSER(TwoWay2, ChoiceType, Output<char>);
+	ASSERT_IS_PARSER(ThreeWay1, ChoiceType, Output<char>);
+	ASSERT_IS_PARSER(ThreeWay2, ChoiceType, Output<char>);
 	ASSERT_IS_PARSER(Cho5, ChoiceType, void);
 }
 
@@ -76,7 +76,7 @@ TEST("Choice", "Not constructible empty")
 
 TEST("Choice", "Move only")
 {
-	using T = MoveOnlyWrapper<Output>;
+	using T = MoveOnlyWrapper<Output<char>>;
 	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
@@ -87,7 +87,7 @@ TEST("Choice", "Move only")
 
 TEST("Choice", "Copy only")
 {
-	using T = CopyOnlyWrapper<Output>;
+	using T = CopyOnlyWrapper<Output<char>>;
 	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
