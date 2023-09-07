@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/types/Input.h>
+#include <k3/tok3n/types/Span.h>
 #include <k3/tok3n/types/Tags.h>
 #include <concepts>
 

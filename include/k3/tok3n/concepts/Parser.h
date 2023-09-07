@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/types/ParserType.h>
-#include <k3/tok3n/types/Input.h>
+#include <k3/tok3n/types/Span.h>
 #include <k3/tok3n/detail/implicitly_default_constructible.h>
 #include <k3/tok3n/concepts/IsResult.h>
 #include <type_traits>
