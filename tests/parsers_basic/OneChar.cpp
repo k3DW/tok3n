@@ -7,8 +7,8 @@ FIXTURE("OneChar");
 
 TEST("OneChar", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, OneCharType, std::string_view);
-	ASSERT_IS_PARSER(Multi, OneCharType, std::string_view);
+	ASSERT_IS_PARSER(Single, OneCharType, Output<char>);
+	ASSERT_IS_PARSER(Multi, OneCharType, Output<char>);
 }
 
 TEST("OneChar", "Parse single char")

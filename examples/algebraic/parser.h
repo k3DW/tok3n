@@ -82,17 +82,17 @@ struct powterm::result_type
 
 consteval auto factor::get_parser()
 {
-	return (ws >> powterm{}) % delimit(ws >> "^"_one);
+	return (ws >> powterm{}) % delimit(ws >> "^"_one % into<std::string_view>);
 }
 
 consteval auto term::get_parser()
 {
-	return (ws >> factor{}) % delimit_keep(ws >> "*/"_one);
+	return (ws >> factor{}) % delimit_keep(ws >> "*/"_one % into<std::string_view>);
 }
 
 consteval auto expr::get_parser()
 {
-	return (ws >> term{}) % delimit_keep(ws >> "+-"_one);
+	return (ws >> term{}) % delimit_keep(ws >> "+-"_one % into<std::string_view>);
 }
 
 consteval auto powterm::get_parser()

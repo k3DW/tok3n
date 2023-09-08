@@ -2,7 +2,7 @@
 
 namespace
 {
-	using vec_type = std::vector<std::string_view>;
+	using vec_type = std::vector<Output<char>>;
 }
 
 FIXTURE("Delimit regular");
@@ -10,26 +10,26 @@ FIXTURE("Delimit keep");
 
 TEST("Delimit regular", "Requirements")
 {
-	ASSERT_IS_PARSER(Del1, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del2, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del3, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del4, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del5, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del6, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del7, DelimitType, std::vector<std::string_view>);
-	ASSERT_IS_PARSER(Del8, DelimitType, std::vector<std::string_view>);
+	ASSERT_IS_PARSER(Del1, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del2, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del3, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del4, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del5, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del6, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del7, DelimitType, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Del8, DelimitType, std::vector<Output<char>>);
 }
 
 TEST("Delimit keep", "Requirements")
 {
-	ASSERT_IS_PARSER(Dek1, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek2, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek3, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek4, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek5, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek6, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek7, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
-	ASSERT_IS_PARSER(Dek8, DelimitType, std::pair<std::vector<std::string_view>, std::vector<std::string_view>>);
+	ASSERT_IS_PARSER(Dek1, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek2, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek3, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek4, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek5, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek6, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek7, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Dek8, DelimitType, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
 }
 
 TEST("Delimit regular", "Parse all")

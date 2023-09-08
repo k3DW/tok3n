@@ -6,7 +6,7 @@ FIXTURE("Literal");
 
 TEST("Literal", "Requirements")
 {
-	ASSERT_IS_PARSER(L, LiteralType, std::string_view);
+	ASSERT_IS_PARSER(L, LiteralType, Output<char>);
 }
 
 TEST("Literal", "Parse 'literal'")

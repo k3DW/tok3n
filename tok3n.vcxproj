@@ -171,6 +171,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="include\k3\tok3n\concepts\CharType.h" />
     <ClInclude Include="include\k3\tok3n\detail\all_same.h" />
     <ClInclude Include="include\k3\tok3n\detail\filter.h" />
     <ClInclude Include="include\k3\tok3n\detail\invoke_type.h" />
@@ -241,10 +242,9 @@
     <ClInclude Include="include\k3\tok3n\types.h" />
     <ClInclude Include="include\k3\tok3n\types\IntegralConstants.h" />
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h" />
-    <ClInclude Include="include\k3\tok3n\types\Output.h" />
     <ClInclude Include="include\k3\tok3n\types\Result.h" />
     <ClInclude Include="include\k3\tok3n.h" />
-    <ClInclude Include="include\k3\tok3n\types\Input.h" />
+    <ClInclude Include="include\k3\tok3n\types\Span.h" />
     <ClInclude Include="include\k3\tok3n\types\ParserType.h" />
     <ClInclude Include="include\k3\tok3n\types\Tags.h" />
     <ClInclude Include="include\k3\tok3n\types\StaticString.h" />

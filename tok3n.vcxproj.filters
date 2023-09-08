@@ -163,7 +163,7 @@
     <ClInclude Include="include\k3\tok3n\types.h">
       <Filter>tok3n</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\Input.h">
+    <ClInclude Include="include\k3\tok3n\types\Span.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h">
@@ -259,8 +259,8 @@
     <ClInclude Include="include\k3\tok3n\parsers\optimizations\JoinExactlyBasic.h">
       <Filter>tok3n\parsers\optimizations</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\Output.h">
-      <Filter>tok3n\types</Filter>
+    <ClInclude Include="include\k3\tok3n\concepts\CharType.h">
+      <Filter>tok3n\concepts</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -13,7 +13,7 @@ struct BasicTraits
 template <class P>
 struct BasicBase
 {
-	using result_type = Output;
+	using result_type = Output<char>;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

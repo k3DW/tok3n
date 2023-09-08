@@ -1,0 +1,68 @@
+#pragma once
+#include <algorithm>
+#include <span>
+#include <string_view>
+#include <k3/tok3n/concepts/CharType.h>
+#include <k3/tok3n/types/Tags.h>
+
+namespace k3::tok3n {
+
+template <class T, class Tag>
+class Span
+{
+public:
+	constexpr Span() = default;
+
+	constexpr Span(std::span<const T> value)
+		: _value(value)
+	{}
+
+	constexpr Span(const T* data, std::size_t size)
+		: _value(data, size)
+	{}
+
+	constexpr Span(std::basic_string_view<T> value) requires CharType<T>
+		: _value(value.data(), value.size())
+	{}
+	
+	constexpr Span(const T* data) requires CharType<T>
+		: Span(std::basic_string_view<T>(data))
+	{}
+
+	template <std::size_t N>
+	constexpr Span(const T(&arr)[N]) requires CharType<T>
+		: _value(arr, N - 1)
+	{}
+
+	constexpr operator std::basic_string_view<T>() const requires CharType<T>
+	{
+		return { _value.data(), _value.size() };
+	}
+
+	constexpr const T* data() const { return _value.data(); }
+	constexpr std::size_t size() const { return _value.size(); }
+	constexpr bool empty() const { return _value.empty(); }
+
+	constexpr const T& front() const { return _value.front(); }
+	constexpr auto begin() const { return _value.begin(); }
+	constexpr auto end() const { return _value.end(); }
+
+	constexpr Span first(std::size_t count) const { return { _value.first(count) }; }
+	constexpr Span subspan(std::size_t offset, std::size_t count = std::dynamic_extent) const { return { _value.subspan(offset, count) }; }
+
+	friend constexpr bool operator==(const Span& lhs, const Span& rhs)
+	{
+		return std::ranges::equal(lhs._value, rhs._value);
+	}
+
+private:
+	std::span<const T> _value;
+};
+
+template <class T>
+using Input = Span<T, InputSpanTag>;
+
+template <class T>
+using Output = Span<T, OutputSpanTag>;
+
+} // namespace k3::tok3n
