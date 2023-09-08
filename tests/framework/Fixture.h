@@ -35,7 +35,8 @@ private:
 
 
 
-template <k3::tok3n::StaticString>
+template <k3::tok3n::StaticArray name>
+requires std::same_as<char, typename decltype(name)::value_type>
 class FixtureImpl {};
 
 #define FIXTURE(NAME)                                \

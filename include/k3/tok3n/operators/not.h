@@ -4,16 +4,16 @@
 
 namespace k3::tok3n {
 
-template <StaticString str>
-consteval auto operator!(OneChar<str>)
+template <StaticArray arr>
+consteval auto operator!(OneChar<arr>)
 {
-	return NotChar<str>{};
+	return NotChar<arr>{};
 }
 
-template <StaticString str>
-consteval auto operator!(NotChar<str>)
+template <StaticArray arr>
+consteval auto operator!(NotChar<arr>)
 {
-	return OneChar<str>{};
+	return OneChar<arr>{};
 }
 
 template <Parser P>

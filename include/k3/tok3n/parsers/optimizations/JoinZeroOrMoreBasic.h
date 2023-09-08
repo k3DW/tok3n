@@ -5,8 +5,8 @@
 
 namespace k3::tok3n {
 
-template <template <StaticString> class Basic, StaticString str>
-struct Join<ZeroOrMore<Basic<str>>>
+template <template <StaticArray> class Basic, StaticArray arr>
+struct Join<ZeroOrMore<Basic<arr>>>
 {
 	using result_type = Output<char>;
 
@@ -14,7 +14,7 @@ struct Join<ZeroOrMore<Basic<str>>>
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
-		using Traits = BasicTraits<Basic<str>>;
+		using Traits = BasicTraits<Basic<arr>>;
 
 		Output<char> result = { input.data(), 0 };
 
@@ -29,7 +29,7 @@ struct Join<ZeroOrMore<Basic<str>>>
 
 	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
-		using Traits = BasicTraits<Basic<str>>;
+		using Traits = BasicTraits<Basic<arr>>;
 
 		while (not Traits::failure_condition(input))
 		{

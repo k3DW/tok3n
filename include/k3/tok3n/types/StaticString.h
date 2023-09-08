@@ -46,6 +46,9 @@ struct StaticArray
 	consteval std::size_t size() const noexcept { return N; }
 	
 	using value_type = T;
+
+	template <std::size_t M>
+	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
 };
 
 template <class T, std::size_t N>
@@ -56,13 +59,8 @@ StaticArray(T) -> StaticArray<T, 1>;
 
 
 
-template <std::size_t N>
-using StaticString = StaticArray<char, N>;
-
-template <std::size_t N>
-StaticArray(const char(&)[N]) -> StaticArray<char, N - 1>;
-
-StaticArray(char) -> StaticArray<char, 1>;
+template <StaticArray lhs, StaticArray rhs>
+concept LikeStaticArrays = std::same_as<typename decltype(lhs)::value_type, typename decltype(rhs)::value_type>;
 
 
 
@@ -98,7 +96,7 @@ consteval auto sort_and_unique()
 
 		constexpr auto N = std::ranges::count(histogram, true);
 
-		StaticArray<typename decltype(str)::value_type, N> out{};
+		auto out = str.create_empty_with_size<N>;
 		auto it = out.begin();
 		for (std::size_t i = 0; i != 128; ++i)
 		{

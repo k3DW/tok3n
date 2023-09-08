@@ -5,8 +5,8 @@
 
 namespace k3::tok3n {
 
-template <template <StaticString> class Basic, StaticString str>
-struct Join<Maybe<Basic<str>>>
+template <template <StaticArray> class Basic, StaticArray arr>
+struct Join<Maybe<Basic<arr>>>
 {
 	using result_type = Output<char>;
 
@@ -14,7 +14,7 @@ struct Join<Maybe<Basic<str>>>
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{
-		using Traits = BasicTraits<Basic<str>>;
+		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
 			return { success, { input.data(), 0 }, input };
@@ -24,7 +24,7 @@ struct Join<Maybe<Basic<str>>>
 
 	static constexpr Result<void, char> lookahead(Input<char> input)
 	{
-		using Traits = BasicTraits<Basic<str>>;
+		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
 			return { success, input };

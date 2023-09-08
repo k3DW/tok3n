@@ -68,10 +68,11 @@ TEST("sequence operator", "void result_type")
 
 namespace {
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 constexpr auto combine_strings = []
 {
-	StaticString<lhs.size() + rhs.size()> str;
+	auto str = lhs.create_empty_with_size<lhs.size() + rhs.size()>;
 	auto it = str.begin();
 	for (char c : lhs)
 		*it++ = c;
