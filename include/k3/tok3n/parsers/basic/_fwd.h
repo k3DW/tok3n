@@ -4,23 +4,23 @@
 
 namespace k3::tok3n {
 
-template <StaticString str>
-concept OneCharConstructible = is_sorted_and_uniqued(str);
+template <StaticArray arr>
+concept OneCharConstructible = is_sorted_and_uniqued(arr);
 
-template <StaticString str>
-concept NotCharConstructible = is_sorted_and_uniqued(str);
+template <StaticArray arr>
+concept NotCharConstructible = is_sorted_and_uniqued(arr);
 
 
 
-template <StaticString str>
-requires OneCharConstructible<str>
+template <StaticArray arr>
+requires OneCharConstructible<arr>
 struct OneChar;
 
-template <StaticString str>
-requires NotCharConstructible<str>
+template <StaticArray arr>
+requires NotCharConstructible<arr>
 struct NotChar;
 
-template <StaticString str>
+template <StaticArray arr>
 struct Literal;
 
 } // namespace k3::tok3n

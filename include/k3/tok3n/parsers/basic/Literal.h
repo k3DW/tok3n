@@ -4,19 +4,19 @@
 
 namespace k3::tok3n {
 
-template <StaticString str>
-struct BasicTraits<Literal<str>>
+template <StaticArray arr>
+struct BasicTraits<Literal<arr>>
 {
-	static constexpr std::size_t length = str.size();
+	static constexpr std::size_t length = arr.size();
 
 	static constexpr bool failure_condition(Input<char> input)
 	{
-		return (input.size() < length) || (Input(str.span()) != input.first(length));
+		return (input.size() < length) || (Input(arr.span()) != input.first(length));
 	}
 };
 
-template <StaticString str>
-struct Literal : BasicBase<Literal<str>>
+template <StaticArray arr>
+struct Literal : BasicBase<Literal<arr>>
 {
 	static constexpr ParserType type = LiteralType;
 };
