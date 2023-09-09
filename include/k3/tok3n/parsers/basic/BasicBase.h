@@ -6,16 +6,19 @@ namespace k3::tok3n {
 template <class P>
 struct BasicTraits
 {
+	// using value_type;
 	// static constexpr std::size_t length;
-	// static constexpr bool failure_condition(Input<char>);
+	// static constexpr bool failure_condition(Input<value_type>);
 };
 
 template <class P>
 struct BasicBase
 {
-	using result_type = Output<char>;
+	using value_type = typename BasicTraits<P>::value_type;
+	
+	using result_type = Output<value_type>;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<P>;
 
@@ -25,7 +28,7 @@ struct BasicBase
 			return { success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		using Traits = BasicTraits<P>;
 
