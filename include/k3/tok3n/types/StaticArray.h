@@ -65,7 +65,7 @@ concept LikeStaticArrays = std::same_as<typename decltype(lhs)::value_type, type
 
 
 template <class T, std::size_t N>
-consteval bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
+constexpr bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
 {
 	if constexpr (N <= 1)
 		return true;
@@ -86,24 +86,23 @@ consteval auto sort_and_unique()
 
 	else
 	{
-		constexpr auto histogram = []
+		constexpr auto sorted = []
 		{
-			std::array<bool, 128> arr{}; // Histogram
-			for (char c : str)
-				arr[static_cast<std::size_t>(c)] = true;
-			return arr;
+			auto copy = str;
+			std::ranges::sort(copy);
+			return copy;
 		}();
 
-		constexpr auto N = std::ranges::count(histogram, true);
-
-		auto out = str.create_empty_with_size<N>;
-		auto it = out.begin();
-		for (std::size_t i = 0; i != 128; ++i)
+		constexpr auto pair = []
 		{
-			if (histogram[i])
-				*it++ = static_cast<char>(i);
-		}
+			auto copy = sorted;
+			auto subrange = std::ranges::unique(copy);
+			auto new_size = subrange.begin() - copy.begin();
+			return std::make_pair(std::move(copy), new_size);
+		}();
 
+		auto out = str.create_empty_with_size<pair.second>;
+		std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
 		return out;
 	}
 }
