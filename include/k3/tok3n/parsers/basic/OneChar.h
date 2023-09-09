@@ -4,21 +4,21 @@
 
 namespace k3::tok3n {
 
-template <StaticString str>
-requires OneCharConstructible<str>
-struct BasicTraits<OneChar<str>>
+template <StaticArray arr>
+requires OneCharConstructible<arr>
+struct BasicTraits<OneChar<arr>>
 {
 	static constexpr std::size_t length = 1;
 
 	static constexpr bool failure_condition(Input<char> input)
 	{
-		return input.empty() || not str.contains(input.front());
+		return input.empty() || not arr.contains(input.front());
 	}
 };
 
-template <StaticString str>
-requires OneCharConstructible<str>
-struct OneChar : BasicBase<OneChar<str>>
+template <StaticArray arr>
+requires OneCharConstructible<arr>
+struct OneChar : BasicBase<OneChar<arr>>
 {
 	static constexpr ParserType type = OneCharType;
 };

@@ -5,5 +5,5 @@
 #include <k3/tok3n/types/ParserType.h>
 #include <k3/tok3n/types/Result.h>
 #include <k3/tok3n/types/Span.h>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 #include <k3/tok3n/types/Tags.h>

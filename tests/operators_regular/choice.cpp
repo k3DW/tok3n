@@ -113,7 +113,8 @@ constexpr bool operator&(OpType lhs, OpType rhs)
 	return 0 != (static_cast<int>(lhs) & static_cast<int>(rhs));
 }
 
-template <StaticString lhs, StaticString rhs, OpType type>
+template <StaticArray lhs, StaticArray rhs, OpType type>
+requires LikeStaticArrays<lhs, rhs>
 constexpr auto set_operation_impl(auto func)
 {
 	auto do_if = [&func](char val, OpType test_type)
@@ -149,7 +150,8 @@ constexpr auto set_operation_impl(auto func)
 	}
 }
 
-template <StaticString lhs, StaticString rhs, OpType type>
+template <StaticArray lhs, StaticArray rhs, OpType type>
+requires LikeStaticArrays<lhs, rhs>
 constexpr auto set_operation_general()
 {
 	constexpr std::size_t length = []()
@@ -159,25 +161,25 @@ constexpr auto set_operation_general()
 		return count;
 	}();
 
-	StaticString<length> str;
+	auto str = lhs.create_empty_with_size<length>;
 	set_operation_impl<lhs, rhs, type>([it = str.begin()](char val) mutable { *it++ = val; });
 	return str;
 }
 
-template <StaticString lhs, StaticString rhs>
-requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
 constexpr auto set_union_string = set_operation_general<lhs, rhs, OpType::set_union>();
 
-template <StaticString lhs, StaticString rhs>
-requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
 constexpr auto set_intersection_string = set_operation_general<lhs, rhs, OpType::set_intersection>();
 
-template <StaticString lhs, StaticString rhs>
-requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
 constexpr auto set_difference_left_string = set_operation_general<lhs, rhs, OpType::set_difference_left>();
 
-template <StaticString lhs, StaticString rhs>
-requires (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
 constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 
 template <Parser... LHS, Parser RHS>

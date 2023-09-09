@@ -6,42 +6,42 @@
 
 namespace k3::tok3n {
 
-template <StaticString str>
-constexpr auto one = OneChar<sort_and_unique<str>()>{};
+template <StaticArray arr>
+constexpr auto one = OneChar<sort_and_unique<arr>()>{};
 
-template <StaticString str>
-constexpr auto not_ = NotChar<sort_and_unique<str>()>{};
+template <StaticArray arr>
+constexpr auto not_ = NotChar<sort_and_unique<arr>()>{};
 
-template <StaticString str>
-constexpr auto lit = Literal<str>{};
+template <StaticArray arr>
+constexpr auto lit = Literal<arr>{};
 
-template <StaticString str>
-constexpr auto ign = Ignore<Literal<str>>{};
+template <StaticArray arr>
+constexpr auto ign = Ignore<Literal<arr>>{};
 
 
 
-template <StaticString str>
+template <StaticArray arr>
 consteval auto operator"" _one()
 {
-	return one<str>;
+	return one<arr>;
 }
 
-template <StaticString str>
+template <StaticArray arr>
 consteval auto operator"" _not()
 {
-	return not_<str>;
+	return not_<arr>;
 }
 
-template <StaticString str>
+template <StaticArray arr>
 consteval auto operator"" _lit()
 {
-	return lit<str>;
+	return lit<arr>;
 }
 
-template <StaticString str>
+template <StaticArray arr>
 consteval auto operator"" _ign()
 {
-	return ign<str>;
+	return ign<arr>;
 }
 
 } // namespace k3::tok3n

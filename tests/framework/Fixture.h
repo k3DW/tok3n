@@ -2,7 +2,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 
 class Test;
 
@@ -35,7 +35,8 @@ private:
 
 
 
-template <k3::tok3n::StaticString>
+template <k3::tok3n::StaticArray name>
+requires std::same_as<char, typename decltype(name)::value_type>
 class FixtureImpl {};
 
 #define FIXTURE(NAME)                                \

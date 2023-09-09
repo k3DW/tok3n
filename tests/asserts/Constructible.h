@@ -1,12 +1,12 @@
 #pragma once
 #include "framework/Assert.h"
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 
 template <template <class...> class ParserFamily, class... Args>
 concept constructible_from = requires { typename ParserFamily<Args...>; };
 
-template <template <k3::tok3n::StaticString> class ParserFamily, k3::tok3n::StaticString str>
-concept basic_constructible_from = requires { typename ParserFamily<str>; };
+template <template <k3::tok3n::StaticArray> class ParserFamily, k3::tok3n::StaticArray arr>
+concept basic_constructible_from = requires { typename ParserFamily<arr>; };
 
 #define ASSERT_PARSER_CONSTRUCTIBLE(FAMILY, ...)                                          \
 	ASSERT((constructible_from<FAMILY __VA_OPT__(,) __VA_ARGS__>),                        \

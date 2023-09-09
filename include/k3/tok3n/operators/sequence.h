@@ -4,7 +4,8 @@
 
 namespace k3::tok3n::operators_impl {
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 consteval auto sequence(Literal<lhs>, Literal<rhs>) { return Literal<lhs + rhs>{}; } // "ab" >> "cd" == "abcd"
 
 template <Parser... P1s, Parser... P2s>

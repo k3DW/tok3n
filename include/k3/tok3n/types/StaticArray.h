@@ -11,13 +11,13 @@ namespace k3::tok3n {
 template <class T, std::size_t N>
 struct StaticArray
 {
-	std::array<T, N + 1> data = {};
+	std::array<T, N> data = {};
 
 	constexpr StaticArray() = default;
 
-	constexpr StaticArray(const T(&input)[N + 1]) noexcept
+	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
 	{
-		std::ranges::copy_n(input, N + 1, data.begin());
+		std::ranges::copy_n(input, N, data.begin());
 	}
 
 	constexpr StaticArray(T c) noexcept requires (N == 1)
@@ -40,15 +40,18 @@ struct StaticArray
 
 	constexpr auto begin() const { return data.begin(); }
 	constexpr auto begin()       { return data.begin(); }
-	constexpr auto end()   const { return data.end() - 1; }
-	constexpr auto end()         { return data.end() - 1; }
+	constexpr auto end()   const { return data.end(); }
+	constexpr auto end()         { return data.end(); }
 
 	consteval std::size_t size() const noexcept { return N; }
 	
 	using value_type = T;
+
+	template <std::size_t M>
+	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
 };
 
-template <class T, std::size_t N>
+template <CharType T, std::size_t N>
 StaticArray(const T(&)[N]) -> StaticArray<T, N - 1>;
 
 template <class T>
@@ -56,18 +59,13 @@ StaticArray(T) -> StaticArray<T, 1>;
 
 
 
-template <std::size_t N>
-using StaticString = StaticArray<char, N>;
-
-template <std::size_t N>
-StaticArray(const char(&)[N]) -> StaticArray<char, N - 1>;
-
-StaticArray(char) -> StaticArray<char, 1>;
+template <StaticArray lhs, StaticArray rhs>
+concept LikeStaticArrays = std::same_as<typename decltype(lhs)::value_type, typename decltype(rhs)::value_type>;
 
 
 
 template <class T, std::size_t N>
-consteval bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
+constexpr bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
 {
 	if constexpr (N <= 1)
 		return true;
@@ -88,31 +86,30 @@ consteval auto sort_and_unique()
 
 	else
 	{
-		constexpr auto histogram = []
+		constexpr auto sorted = []
 		{
-			std::array<bool, 128> arr{}; // Histogram
-			for (char c : str)
-				arr[static_cast<std::size_t>(c)] = true;
-			return arr;
+			auto copy = str;
+			std::ranges::sort(copy);
+			return copy;
 		}();
 
-		constexpr auto N = std::ranges::count(histogram, true);
-
-		StaticArray<typename decltype(str)::value_type, N> out{};
-		auto it = out.begin();
-		for (std::size_t i = 0; i != 128; ++i)
+		constexpr auto pair = []
 		{
-			if (histogram[i])
-				*it++ = static_cast<char>(i);
-		}
+			auto copy = sorted;
+			auto subrange = std::ranges::unique(copy);
+			auto new_size = subrange.begin() - copy.begin();
+			return std::make_pair(std::move(copy), new_size);
+		}();
 
+		auto out = str.create_empty_with_size<pair.second>;
+		std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
 		return out;
 	}
 }
 
 
 
-template <class T, std::size_t M, std::size_t N >
+template <class T, std::size_t M, std::size_t N>
 constexpr bool operator==(const StaticArray<T, M>& lhs, const StaticArray<T, N>& rhs)
 {
 	if constexpr (M != N)

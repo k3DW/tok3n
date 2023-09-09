@@ -5,7 +5,8 @@
 
 namespace k3::tok3n::operators_impl {
 
-template <const auto& op, StaticString str1, StaticString str2>
+template <const auto& op, StaticArray str1, StaticArray str2>
+requires LikeStaticArrays<str1, str2>
 consteval auto merged_with()
 {
 	constexpr auto size = []
@@ -16,54 +17,58 @@ consteval auto merged_with()
 		return s.size();
 	};
 
-	StaticString<size()> str;
+	auto str = str1.create_empty_with_size<size()>;
 	op(str1, str2, str.begin());
 	return str;
 }
 
-template <StaticString str>
-consteval auto choice(OneChar<str>, OneChar<str>) // (P | P) == P
+template <StaticArray arr>
+consteval auto choice(OneChar<arr>, OneChar<arr>) // (P | P) == P
 {
-	return OneChar<str>{};
+	return OneChar<arr>{};
 }
 
-template <StaticString str>
-consteval auto choice(NotChar<str>, NotChar<str>) // (P | P) == P
+template <StaticArray arr>
+consteval auto choice(NotChar<arr>, NotChar<arr>) // (P | P) == P
 {
-	return NotChar<str>{};
+	return NotChar<arr>{};
 }
 
-template <StaticString str>
-consteval auto choice(OneChar<str>, NotChar<str>) // Every char
+template <StaticArray arr>
+consteval auto choice(OneChar<arr>, NotChar<arr>) // Anything
 {
-	return NotChar<"">{};
+	return NotChar<arr.create_empty_with_size<0>>{};
 }
 
-template <StaticString str>
-consteval auto choice(NotChar<str>, OneChar<str>) // Every char
+template <StaticArray arr>
+consteval auto choice(NotChar<arr>, OneChar<arr>) // Anything
 {
-	return NotChar<"">{};
+	return NotChar<arr.create_empty_with_size<0>>{};
 }
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 consteval auto choice(OneChar<lhs>, OneChar<rhs>) //  "ab" |  "bc" == "abc"    <- set_union
 {
 	return OneChar<merged_with<std::ranges::set_union, lhs, rhs>()>{};
 }
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 consteval auto choice(NotChar<lhs>, NotChar<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
 {
 	return NotChar<merged_with<std::ranges::set_intersection, lhs, rhs>()>{};
 }
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 consteval auto choice(OneChar<lhs>, NotChar<rhs>) //  "ab" | !"bc" == "c"      <- set_difference
 {
 	return NotChar<merged_with<std::ranges::set_difference, rhs, lhs>()>{};
 }
 
-template <StaticString lhs, StaticString rhs>
+template <StaticArray lhs, StaticArray rhs>
+requires LikeStaticArrays<lhs, rhs>
 consteval auto choice(NotChar<lhs>, OneChar<rhs>) // !"ab" |  "bc" == "a"      <- set_difference
 {
 	return NotChar<merged_with<std::ranges::set_difference, lhs, rhs>()>{};

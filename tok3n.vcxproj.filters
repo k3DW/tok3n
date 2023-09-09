@@ -175,7 +175,7 @@
     <ClInclude Include="include\k3\tok3n\types\Result.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\StaticString.h">
+    <ClInclude Include="include\k3\tok3n\types\StaticArray.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\Tags.h">

@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <string_view>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 #include "framework/TestResult.h"
 
 class Test
@@ -32,7 +32,9 @@ private:
 
 
 
-template <k3::tok3n::StaticString, k3::tok3n::StaticString>
+template <k3::tok3n::StaticArray fixture_name, k3::tok3n::StaticArray name>
+requires std::same_as<char, typename decltype(fixture_name)::value_type>
+	 and std::same_as<char, typename decltype(name)::value_type>
 class TestImpl {};
 
 #define TEST(FIXTURE_NAME, NAME)                                             \
