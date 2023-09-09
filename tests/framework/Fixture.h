@@ -2,7 +2,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 
 class Test;
 

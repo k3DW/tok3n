@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/concepts/Parser.h>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 
 struct underlying
 {

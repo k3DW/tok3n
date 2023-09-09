@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include <string_view>
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 #include "framework/TestResult.h"
 
 class Test

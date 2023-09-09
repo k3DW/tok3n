@@ -1,6 +1,6 @@
 #pragma once
 #include "framework/Assert.h"
-#include <k3/tok3n/types/StaticString.h>
+#include <k3/tok3n/types/StaticArray.h>
 
 template <template <class...> class ParserFamily, class... Args>
 concept constructible_from = requires { typename ParserFamily<Args...>; };
