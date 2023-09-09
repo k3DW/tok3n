@@ -11,13 +11,13 @@ namespace k3::tok3n {
 template <class T, std::size_t N>
 struct StaticArray
 {
-	std::array<T, N + 1> data = {};
+	std::array<T, N> data = {};
 
 	constexpr StaticArray() = default;
 
-	constexpr StaticArray(const T(&input)[N + 1]) noexcept
+	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
 	{
-		std::ranges::copy_n(input, N + 1, data.begin());
+		std::ranges::copy_n(input, N, data.begin());
 	}
 
 	constexpr StaticArray(T c) noexcept requires (N == 1)
@@ -40,8 +40,8 @@ struct StaticArray
 
 	constexpr auto begin() const { return data.begin(); }
 	constexpr auto begin()       { return data.begin(); }
-	constexpr auto end()   const { return data.end() - 1; }
-	constexpr auto end()         { return data.end() - 1; }
+	constexpr auto end()   const { return data.end(); }
+	constexpr auto end()         { return data.end(); }
 
 	consteval std::size_t size() const noexcept { return N; }
 	
@@ -51,7 +51,7 @@ struct StaticArray
 	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
 };
 
-template <class T, std::size_t N>
+template <CharType T, std::size_t N>
 StaticArray(const T(&)[N]) -> StaticArray<T, N - 1>;
 
 template <class T>
