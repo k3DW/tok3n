@@ -109,7 +109,7 @@ consteval auto sort_and_unique()
 
 
 
-template <class T, std::size_t M, std::size_t N >
+template <class T, std::size_t M, std::size_t N>
 constexpr bool operator==(const StaticArray<T, M>& lhs, const StaticArray<T, N>& rhs)
 {
 	if constexpr (M != N)
