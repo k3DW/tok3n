@@ -17,16 +17,18 @@ public:
 		: _value(value)
 	{}
 
-	constexpr Span(const T* data, std::size_t size)
-		: _value(data, size)
+	template <class... Args>
+	requires std::constructible_from<std::span<const T>, Args...>
+	constexpr Span(Args&&... args)
+		: _value(std::forward<Args>(args)...)
 	{}
 
 	constexpr Span(std::basic_string_view<T> value) requires CharType<T>
-		: _value(value.data(), value.size())
+		: _value(value)
 	{}
 	
 	constexpr Span(const T* data) requires CharType<T>
-		: Span(std::basic_string_view<T>(data))
+		: _value(std::basic_string_view<T>(data))
 	{}
 
 	template <std::size_t N>
