@@ -211,9 +211,6 @@
     <ClInclude Include="include\k3\tok3n\detail\head.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\detail\list_cast.h">
-      <Filter>tok3n\detail</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\detail\filter.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
