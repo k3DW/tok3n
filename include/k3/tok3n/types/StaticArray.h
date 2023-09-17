@@ -15,6 +15,12 @@ struct StaticArray
 
 	constexpr StaticArray() = default;
 
+	template <class... Ts>
+	requires (sizeof...(Ts) == N - 1) and (... and std::convertible_to<Ts, T>)
+	constexpr StaticArray(T t, Ts... ts)
+		: data(t, ts...)
+	{}
+
 	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
 	{
 		std::ranges::copy_n(input, N, data.begin());
@@ -50,6 +56,10 @@ struct StaticArray
 	template <std::size_t M>
 	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
 };
+
+template <class T, class... Ts>
+requires (... and std::convertible_to<Ts, T>)
+StaticArray(T, Ts...) -> StaticArray<T, sizeof...(Ts) + 1>;
 
 template <CharType T, std::size_t N>
 StaticArray(const T(&)[N]) -> StaticArray<T, N - 1>;
