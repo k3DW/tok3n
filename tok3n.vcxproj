@@ -188,7 +188,6 @@
     <ClInclude Include="include\k3\tok3n\detail\filtered_sequence.h" />
     <ClInclude Include="include\k3\tok3n\detail\head.h" />
     <ClInclude Include="include\k3\tok3n\detail\is_not_type.h" />
-    <ClInclude Include="include\k3\tok3n\detail\list_cast.h" />
     <ClInclude Include="include\k3\tok3n\detail\unwrap_if_single.h" />
     <ClInclude Include="include\k3\tok3n\modifiers.h" />
     <ClInclude Include="include\k3\tok3n\modifiers\apply.h" />
