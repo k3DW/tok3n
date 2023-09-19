@@ -3,11 +3,6 @@
   <ItemGroup>
     <Filter Include="operators_modifier" />
     <Filter Include="operators_regular" />
-    <Filter Include="parsers_adaptor" />
-    <Filter Include="parsers_basic" />
-    <Filter Include="parsers_compound" />
-    <Filter Include="parsers_divergent" />
-    <Filter Include="parsers_repeat" />
     <Filter Include="framework">
       <UniqueIdentifier>{c83f7b93-ae65-4adf-a404-0bb0e993c794}</UniqueIdentifier>
     </Filter>
@@ -17,11 +12,35 @@
     <Filter Include="asserts">
       <UniqueIdentifier>{04a30643-4eee-441c-b443-7531dfcd42fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="parsers_optimizations">
-      <UniqueIdentifier>{41975ec8-355f-4ac5-ad99-52a84c5925be}</UniqueIdentifier>
-    </Filter>
     <Filter Include="utility_tests">
       <UniqueIdentifier>{cceee427-5b28-41ac-8ba5-5dceed8809b6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3">
+      <UniqueIdentifier>{65cfecc2-40f4-4423-9edd-bdeeb6a92442}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n">
+      <UniqueIdentifier>{b86a905f-b74f-44c7-9514-7460165cf456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers">
+      <UniqueIdentifier>{ad09422b-e4ae-4ce6-bcce-69d537a24a92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\basic">
+      <UniqueIdentifier>{d66381e7-cc25-44e9-9372-1c51a2a19d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\adaptor">
+      <UniqueIdentifier>{5bb0e728-d5c5-4aa5-b69a-396a1e2f250f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\compound">
+      <UniqueIdentifier>{c7db7994-3762-4c18-a090-d9e01df8cb24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\divergent">
+      <UniqueIdentifier>{aef2ea41-de9a-41a5-a9d2-40aaea83bfee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\optimizations">
+      <UniqueIdentifier>{e7f02064-1cca-4418-a620-7197e0005b7e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\parsers\repeat">
+      <UniqueIdentifier>{3189c619-fb2b-480e-96cb-7528df5847df}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -152,69 +171,6 @@
     <ClCompile Include="operators_regular\zero_or_more.cpp">
       <Filter>operators_regular</Filter>
     </ClCompile>
-    <ClCompile Include="parsers_adaptor\Complete.cpp">
-      <Filter>parsers_adaptor</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_adaptor\Ignore.cpp">
-      <Filter>parsers_adaptor</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_basic\Literal.cpp">
-      <Filter>parsers_basic</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_basic\NotChar.cpp">
-      <Filter>parsers_basic</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_basic\OneChar.cpp">
-      <Filter>parsers_basic</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_compound\Choice.cpp">
-      <Filter>parsers_compound</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_compound\Sequence.cpp">
-      <Filter>parsers_compound</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\ApplyInto.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\ApplyTransform.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\CombinedDivergent.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Constant.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Custom.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Defaulted.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Into.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Join.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_divergent\Transform.cpp">
-      <Filter>parsers_divergent</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\Exactly.cpp">
-      <Filter>parsers_repeat</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\Maybe.cpp">
-      <Filter>parsers_repeat</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\OneOrMore.cpp">
-      <Filter>parsers_repeat</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\ZeroOrMore.cpp">
-      <Filter>parsers_repeat</Filter>
-    </ClCompile>
-    <ClCompile Include="parsers_repeat\Delimit.cpp">
-      <Filter>parsers_repeat</Filter>
-    </ClCompile>
     <ClCompile Include="operators_modifier\delimit_keep.cpp">
       <Filter>operators_modifier</Filter>
     </ClCompile>
@@ -233,11 +189,74 @@
     <ClCompile Include="framework\TestResult.cpp">
       <Filter>framework</Filter>
     </ClCompile>
-    <ClCompile Include="parsers_optimizations\JoinContiguous.cpp">
-      <Filter>parsers_optimizations</Filter>
-    </ClCompile>
     <ClCompile Include="utility_tests\Result.cpp">
       <Filter>utility_tests</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\basic\Literal.cpp">
+      <Filter>k3\tok3n\parsers\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\basic\NotChar.cpp">
+      <Filter>k3\tok3n\parsers\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\basic\OneChar.cpp">
+      <Filter>k3\tok3n\parsers\basic</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\adaptor\Complete.cpp">
+      <Filter>k3\tok3n\parsers\adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\adaptor\Ignore.cpp">
+      <Filter>k3\tok3n\parsers\adaptor</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\compound\Choice.cpp">
+      <Filter>k3\tok3n\parsers\compound</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\compound\Sequence.cpp">
+      <Filter>k3\tok3n\parsers\compound</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\ApplyInto.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\ApplyTransform.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\CombinedDivergent.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Constant.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Custom.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Defaulted.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Into.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Join.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\divergent\Transform.cpp">
+      <Filter>k3\tok3n\parsers\divergent</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinContiguous.cpp">
+      <Filter>k3\tok3n\parsers\optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\repeat\Delimit.cpp">
+      <Filter>k3\tok3n\parsers\repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\repeat\Exactly.cpp">
+      <Filter>k3\tok3n\parsers\repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\repeat\Maybe.cpp">
+      <Filter>k3\tok3n\parsers\repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\repeat\OneOrMore.cpp">
+      <Filter>k3\tok3n\parsers\repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\repeat\ZeroOrMore.cpp">
+      <Filter>k3\tok3n\parsers\repeat</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
