@@ -204,7 +204,7 @@
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinMaybeBasic.cpp" />
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.cpp" />
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.cpp" />
-    <ClCompile Include="utility_tests\Result.cpp" />
+    <ClCompile Include="k3\tok3n\types\Result.cpp" />
     <ClCompile Include="k3\tok3n\modifiers\multi.cpp" />
     <ClCompile Include="k3\tok3n\modifiers\delimit_keep.cpp" />
     <ClCompile Include="k3\tok3n\modifiers\apply_into.cpp" />

@@ -10,9 +10,6 @@
     <Filter Include="asserts">
       <UniqueIdentifier>{04a30643-4eee-441c-b443-7531dfcd42fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="utility_tests">
-      <UniqueIdentifier>{cceee427-5b28-41ac-8ba5-5dceed8809b6}</UniqueIdentifier>
-    </Filter>
     <Filter Include="k3">
       <UniqueIdentifier>{65cfecc2-40f4-4423-9edd-bdeeb6a92442}</UniqueIdentifier>
     </Filter>
@@ -45,6 +42,9 @@
     </Filter>
     <Filter Include="k3\tok3n\parsers\repeat">
       <UniqueIdentifier>{3189c619-fb2b-480e-96cb-7528df5847df}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\types">
+      <UniqueIdentifier>{81208e9a-627a-4ef8-97ab-e17daf40e2a7}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -129,9 +129,6 @@
     </ClCompile>
     <ClCompile Include="framework\TestResult.cpp">
       <Filter>framework</Filter>
-    </ClCompile>
-    <ClCompile Include="utility_tests\Result.cpp">
-      <Filter>utility_tests</Filter>
     </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\basic\Literal.cpp">
       <Filter>k3\tok3n\parsers\basic</Filter>
@@ -267,6 +264,9 @@
     </ClCompile>
     <ClCompile Include="k3\tok3n\modifiers\multi.cpp">
       <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\types\Result.cpp">
+      <Filter>k3\tok3n\types</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
