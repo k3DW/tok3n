@@ -240,9 +240,6 @@
     <ClCompile Include="k3\tok3n\parsers\divergent\Transform.cpp">
       <Filter>k3\tok3n\parsers\divergent</Filter>
     </ClCompile>
-    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinContiguous.cpp">
-      <Filter>k3\tok3n\parsers\optimizations</Filter>
-    </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\repeat\Delimit.cpp">
       <Filter>k3\tok3n\parsers\repeat</Filter>
     </ClCompile>
@@ -257,6 +254,18 @@
     </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\repeat\ZeroOrMore.cpp">
       <Filter>k3\tok3n\parsers\repeat</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinExactlyBasic.cpp">
+      <Filter>k3\tok3n\parsers\optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinMaybeBasic.cpp">
+      <Filter>k3\tok3n\parsers\optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.cpp">
+      <Filter>k3\tok3n\parsers\optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.cpp">
+      <Filter>k3\tok3n\parsers\optimizations</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
