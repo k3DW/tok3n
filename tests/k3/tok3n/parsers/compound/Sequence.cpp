@@ -40,3 +40,13 @@ TEST("Sequence", "Not constructible empty")
 {
 	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Sequence);
 }
+
+
+
+TEST("Sequence", "Sequence<Ignore>")
+{
+	using P = Sequence<ABC, Ignore<QQ>, ABC>;
+
+	ASSERT_PARSE_SUCCESS(P, "abc??abc??", std::tuple("abc", "abc"), "??");
+	ASSERT_PARSE_FAILURE(P, "abcabc??");
+}

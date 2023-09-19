@@ -241,7 +241,6 @@
     <ClCompile Include="k3\tok3n\parsers\compound\Sequence.cpp" />
     <ClCompile Include="k3\tok3n\parsers\divergent\ApplyInto.cpp" />
     <ClCompile Include="k3\tok3n\parsers\divergent\ApplyTransform.cpp" />
-    <ClCompile Include="k3\tok3n\parsers\divergent\CombinedDivergent.cpp" />
     <ClCompile Include="k3\tok3n\parsers\divergent\Constant.cpp" />
     <ClCompile Include="k3\tok3n\parsers\divergent\Custom.cpp" />
     <ClCompile Include="k3\tok3n\parsers\divergent\Defaulted.cpp" />

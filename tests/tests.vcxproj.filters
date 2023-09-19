@@ -219,9 +219,6 @@
     <ClCompile Include="k3\tok3n\parsers\divergent\ApplyTransform.cpp">
       <Filter>k3\tok3n\parsers\divergent</Filter>
     </ClCompile>
-    <ClCompile Include="k3\tok3n\parsers\divergent\CombinedDivergent.cpp">
-      <Filter>k3\tok3n\parsers\divergent</Filter>
-    </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\divergent\Constant.cpp">
       <Filter>k3\tok3n\parsers\divergent</Filter>
     </ClCompile>
