@@ -205,32 +205,32 @@
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.cpp" />
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.cpp" />
     <ClCompile Include="utility_tests\Result.cpp" />
-    <ClCompile Include="operators_modifier\multi.cpp" />
-    <ClCompile Include="operators_modifier\delimit_keep.cpp" />
-    <ClCompile Include="operators_modifier\apply_into.cpp" />
-    <ClCompile Include="operators_modifier\apply.cpp" />
-    <ClCompile Include="operators_modifier\complete.cpp" />
-    <ClCompile Include="operators_modifier\constant.cpp" />
-    <ClCompile Include="operators_modifier\defaulted.cpp" />
-    <ClCompile Include="operators_modifier\delimit.cpp" />
-    <ClCompile Include="operators_modifier\exactly.cpp" />
-    <ClCompile Include="operators_modifier\ignore.cpp" />
-    <ClCompile Include="operators_modifier\into.cpp" />
-    <ClCompile Include="operators_modifier\into_choice.cpp" />
-    <ClCompile Include="operators_modifier\join.cpp" />
-    <ClCompile Include="operators_modifier\fn.cpp" />
-    <ClCompile Include="operators_regular\basic.cpp" />
-    <ClCompile Include="operators_regular\choice.cpp" />
-    <ClCompile Include="operators_regular\maybe.cpp" />
-    <ClCompile Include="operators_regular\not.cpp" />
-    <ClCompile Include="operators_regular\one_or_more.cpp" />
-    <ClCompile Include="operators_regular\sequence.cpp">
+    <ClCompile Include="k3\tok3n\modifiers\multi.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\delimit_keep.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\apply_into.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\apply.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\complete.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\constant.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\defaulted.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\delimit.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\exactly.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\ignore.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\into.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\into_choice.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\join.cpp" />
+    <ClCompile Include="k3\tok3n\modifiers\fn.cpp" />
+    <ClCompile Include="k3\tok3n\operators\basic.cpp" />
+    <ClCompile Include="k3\tok3n\operators\choice.cpp" />
+    <ClCompile Include="k3\tok3n\operators\maybe.cpp" />
+    <ClCompile Include="k3\tok3n\operators\not.cpp" />
+    <ClCompile Include="k3\tok3n\operators\one_or_more.cpp" />
+    <ClCompile Include="k3\tok3n\operators\sequence.cpp">
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
       <AdditionalOptions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">/bigobj %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
-    <ClCompile Include="operators_regular\zero_or_more.cpp" />
+    <ClCompile Include="k3\tok3n\operators\zero_or_more.cpp" />
     <ClCompile Include="k3\tok3n\parsers\adaptor\Complete.cpp" />
     <ClCompile Include="k3\tok3n\parsers\repeat\Delimit.cpp" />
     <ClCompile Include="k3\tok3n\parsers\adaptor\Ignore.cpp" />

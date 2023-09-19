@@ -1,8 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="operators_modifier" />
-    <Filter Include="operators_regular" />
     <Filter Include="framework">
       <UniqueIdentifier>{c83f7b93-ae65-4adf-a404-0bb0e993c794}</UniqueIdentifier>
     </Filter>
@@ -20,6 +18,12 @@
     </Filter>
     <Filter Include="k3\tok3n">
       <UniqueIdentifier>{b86a905f-b74f-44c7-9514-7460165cf456}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\operators">
+      <UniqueIdentifier>{ba718574-35af-425c-825d-e7c25bbe6e0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="k3\tok3n\modifiers">
+      <UniqueIdentifier>{578da705-8b57-4e95-9930-4dfa61757406}</UniqueIdentifier>
     </Filter>
     <Filter Include="k3\tok3n\parsers">
       <UniqueIdentifier>{ad09422b-e4ae-4ce6-bcce-69d537a24a92}</UniqueIdentifier>
@@ -114,69 +118,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
-    <ClCompile Include="operators_modifier\apply_into.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\apply.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\complete.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\constant.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\defaulted.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\delimit.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\exactly.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\ignore.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\into.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\into_choice.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\join.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\fn.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\basic.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\choice.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\maybe.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\not.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\one_or_more.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\sequence.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_regular\zero_or_more.cpp">
-      <Filter>operators_regular</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\delimit_keep.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
-    <ClCompile Include="operators_modifier\multi.cpp">
-      <Filter>operators_modifier</Filter>
-    </ClCompile>
     <ClCompile Include="framework\Fixture.cpp">
       <Filter>framework</Filter>
     </ClCompile>
@@ -263,6 +204,69 @@
     </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.cpp">
       <Filter>k3\tok3n\parsers\optimizations</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\basic.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\choice.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\maybe.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\not.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\one_or_more.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\sequence.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\operators\zero_or_more.cpp">
+      <Filter>k3\tok3n\operators</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\apply.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\apply_into.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\complete.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\constant.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\defaulted.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\delimit.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\delimit_keep.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\exactly.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\fn.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\ignore.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\into.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\into_choice.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\join.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
+    </ClCompile>
+    <ClCompile Include="k3\tok3n\modifiers\multi.cpp">
+      <Filter>k3\tok3n\modifiers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
