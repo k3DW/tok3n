@@ -181,6 +181,7 @@
     <ClInclude Include="framework\Test.h" />
     <ClInclude Include="framework\Runner.h" />
     <ClInclude Include="framework\TestResult.h" />
+    <ClInclude Include="samples\macros.h" />
     <ClInclude Include="samples\adaptor.h" />
     <ClInclude Include="samples\classes.h" />
     <ClInclude Include="samples\divergent.h" />

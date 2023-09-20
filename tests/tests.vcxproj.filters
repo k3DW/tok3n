@@ -115,6 +115,9 @@
     <ClInclude Include="samples\wrappers.h">
       <Filter>samples</Filter>
     </ClInclude>
+    <ClInclude Include="samples\macros.h">
+      <Filter>samples</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
