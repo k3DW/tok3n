@@ -12,7 +12,7 @@ TEST("not operator", "!AnyOf")
 	ASSERT_PARSER_VALUES_EQ(!!oc3, oc3);
 }
 
-TEST("not operator", "!NotChar")
+TEST("not operator", "!NoneOf")
 {
 	ASSERT_PARSER_VALUES_EQ(!nc1, oc1);
 	ASSERT_PARSER_VALUES_EQ(!nc2, oc2);
@@ -29,10 +29,10 @@ TEST("not operator", "!NotChar")
 		if constexpr (PP::type == AnyOfType)                                    \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
-			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NotChar<underlying::string<PP>>{}, \
-					                    !P{},  NotChar<underlying::string<P>>{}); \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying::string<PP>>{}, \
+					                    !P{},  NoneOf<underlying::string<P>>{}); \
 		}                                                                         \
-		else if constexpr (PP::type == NotCharType)                               \
+		else if constexpr (PP::type == NoneOfType)                               \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
 			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying::string<PP>>{}, \

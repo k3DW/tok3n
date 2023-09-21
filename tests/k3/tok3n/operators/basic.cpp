@@ -31,7 +31,7 @@ TEST("basic operators", "UDL _not")
 	ASSERT_PARSER_VALUES_EQ("xyz"_not, nc3);
 	ASSERT_PARSER_VALUES_EQ("cd"_not, nc4);
 	ASSERT_PARSER_VALUES_EQ("z"_not, nc5);
-	ASSERT_PARSER_VALUES_EQ(""_not, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_not, NoneOf<"">{});
 }
 
 TEST("basic operators", "not_<>")
@@ -41,7 +41,7 @@ TEST("basic operators", "not_<>")
 	ASSERT_PARSER_VALUES_EQ(not_<"xyz">, nc3);
 	ASSERT_PARSER_VALUES_EQ(not_<"cd">, nc4);
 	ASSERT_PARSER_VALUES_EQ(not_<"z">, nc5);
-	ASSERT_PARSER_VALUES_EQ(not_<"">, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(not_<"">, NoneOf<"">{});
 }
 
 TEST("basic operators", "UDL _lit")
@@ -91,19 +91,19 @@ TEST("basic operators", "ign<>")
 TEST("basic operators", "Non sorted_and_uniqued")
 {
 	ASSERT_PARSER_VALUES_EQ("212312323321212311"_one, AnyOf<"123">{});
-	ASSERT_PARSER_VALUES_EQ("212312323321212311"_not, NotChar<"123">{});
+	ASSERT_PARSER_VALUES_EQ("212312323321212311"_not, NoneOf<"123">{});
 	ASSERT_PARSER_VALUES_EQ("123abc"_one, AnyOf<"123abc">{});
-	ASSERT_PARSER_VALUES_EQ("123abc"_not, NotChar<"123abc">{});
+	ASSERT_PARSER_VALUES_EQ("123abc"_not, NoneOf<"123abc">{});
 	ASSERT_PARSER_VALUES_EQ("abc123"_one, AnyOf<"123abc">{});
-	ASSERT_PARSER_VALUES_EQ("abc123"_not, NotChar<"123abc">{});
+	ASSERT_PARSER_VALUES_EQ("abc123"_not, NoneOf<"123abc">{});
 	ASSERT_PARSER_VALUES_EQ("a1b2c3"_one, AnyOf<"123abc">{});
-	ASSERT_PARSER_VALUES_EQ("a1b2c3"_not, NotChar<"123abc">{});
+	ASSERT_PARSER_VALUES_EQ("a1b2c3"_not, NoneOf<"123abc">{});
 	ASSERT_PARSER_VALUES_EQ("Aa"_one, AnyOf<"Aa">{});
-	ASSERT_PARSER_VALUES_EQ("Aa"_not, NotChar<"Aa">{});
+	ASSERT_PARSER_VALUES_EQ("Aa"_not, NoneOf<"Aa">{});
 	ASSERT_PARSER_VALUES_EQ("aA"_one, AnyOf<"Aa">{});
-	ASSERT_PARSER_VALUES_EQ("aA"_not, NotChar<"Aa">{});
+	ASSERT_PARSER_VALUES_EQ("aA"_not, NoneOf<"Aa">{});
 	ASSERT_PARSER_VALUES_EQ("A"_one, AnyOf<"A">{});
-	ASSERT_PARSER_VALUES_EQ("A"_not, NotChar<"A">{});
+	ASSERT_PARSER_VALUES_EQ("A"_not, NoneOf<"A">{});
 	ASSERT_PARSER_VALUES_EQ(""_one, AnyOf<"">{});
-	ASSERT_PARSER_VALUES_EQ(""_not, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_not, NoneOf<"">{});
 }

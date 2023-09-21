@@ -112,7 +112,7 @@
     <ClInclude Include="include\k3\tok3n\parsers\basic\Literal.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h">
+    <ClInclude Include="include\k3\tok3n\parsers\basic\NoneOf.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h">

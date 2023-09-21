@@ -1,17 +1,17 @@
 #include "pch.h"
 
-using Single = NotChar<'a'>;
-using Multi  = NotChar<"abc">;
+using Single = NoneOf<'a'>;
+using Multi  = NoneOf<"abc">;
 
-FIXTURE("NotChar");
+FIXTURE("NoneOf");
 
-TEST("NotChar", "Requirements")
+TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, NotCharType, Output<char>);
-	ASSERT_IS_PARSER(Multi, NotCharType, Output<char>);
+	ASSERT_IS_PARSER(Single, NoneOfType, Output<char>);
+	ASSERT_IS_PARSER(Multi, NoneOfType, Output<char>);
 }
 
-TEST("NotChar", "Parse single char")
+TEST("NoneOf", "Parse single char")
 {
 	ASSERT_PARSE_FAILURE(Single, "ab");
 	ASSERT_PARSE_SUCCESS(Single, "ba", "b", "a");
@@ -21,7 +21,7 @@ TEST("NotChar", "Parse single char")
 	ASSERT_PARSE_SUCCESS(Single, " abc", " ", "abc");
 }
 
-TEST("NotChar", "Parse multi char")
+TEST("NoneOf", "Parse multi char")
 {
 	ASSERT_PARSE_FAILURE(Multi, "abc");
 	ASSERT_PARSE_FAILURE(Multi, "acb");
@@ -42,20 +42,20 @@ TEST("NotChar", "Parse multi char")
 
 
 
-TEST("NotChar", "Constructible from lexicographically sorted only")
+TEST("NoneOf", "Constructible from lexicographically sorted only")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NotChar, "abc");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "acb");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "bac");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "bca");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "cab");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NotChar, "cba");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, "abc");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "acb");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "bac");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "bca");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "cab");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "cba");
 }
 
-TEST("NotChar", "Parse empty")
+TEST("NoneOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NotChar, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, "");
 
-	ASSERT_PARSE_SUCCESS(NotChar<"">, "anything", "a", "nything");
-	ASSERT_PARSE_FAILURE(NotChar<"">, "");
+	ASSERT_PARSE_SUCCESS(NoneOf<"">, "anything", "a", "nything");
+	ASSERT_PARSE_FAILURE(NoneOf<"">, "");
 }

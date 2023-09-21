@@ -3,7 +3,7 @@
 FIXTURE("JoinOneOrMoreBasic");
 
 using Joi_Oom_OC = Join<OneOrMore<AnyOf<"123">>>;
-using Joi_Oom_NC = Join<OneOrMore<NotChar<"123">>>;
+using Joi_Oom_NC = Join<OneOrMore<NoneOf<"123">>>;
 using Joi_Oom_L  = Join<OneOrMore<Literal<"123">>>;
 
 TEST("JoinOneOrMoreBasic", "Requirements")
@@ -22,7 +22,7 @@ TEST("JoinOneOrMoreBasic", "OneOrMore<AnyOf>")
     ASSERT_PARSE_FAILURE(Joi_Oom_OC, "012341321");
 }
 
-TEST("JoinOneOrMoreBasic", "OneOrMore<NotChar>")
+TEST("JoinOneOrMoreBasic", "OneOrMore<NoneOf>")
 {
     ASSERT_PARSE_FAILURE(Joi_Oom_NC, "12321321");
     ASSERT_PARSE_FAILURE(Joi_Oom_NC, "1232 1321");

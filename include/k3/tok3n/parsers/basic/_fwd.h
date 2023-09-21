@@ -8,7 +8,7 @@ template <StaticArray arr>
 concept AnyOfConstructible = is_sorted_and_uniqued(arr);
 
 template <StaticArray arr>
-concept NotCharConstructible = is_sorted_and_uniqued(arr);
+concept NoneOfConstructible = is_sorted_and_uniqued(arr);
 
 
 
@@ -17,8 +17,8 @@ requires AnyOfConstructible<arr>
 struct AnyOf;
 
 template <StaticArray arr>
-requires NotCharConstructible<arr>
-struct NotChar;
+requires NoneOfConstructible<arr>
+struct NoneOf;
 
 template <StaticArray arr>
 struct Literal;

@@ -3,7 +3,7 @@
 FIXTURE("JoinMaybeBasic");
 
 using Joi_May_OC = Join<Maybe<AnyOf<"123">>>;
-using Joi_May_NC = Join<Maybe<NotChar<"123">>>;
+using Joi_May_NC = Join<Maybe<NoneOf<"123">>>;
 using Joi_May_L  = Join<Maybe<Literal<"123">>>;
 
 TEST("JoinMaybeBasic", "Requirements")
@@ -22,7 +22,7 @@ TEST("JoinMaybeBasic", "Maybe<AnyOf>")
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "012341321", "", "012341321");
 }
 
-TEST("JoinMaybeBasic", "Maybe<NotChar>")
+TEST("JoinMaybeBasic", "Maybe<NoneOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "12321321", "", "12321321");
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "1232 1321", "", "1232 1321");

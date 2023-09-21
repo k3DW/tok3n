@@ -136,7 +136,7 @@
     <ClCompile Include="k3\tok3n\parsers\basic\Literal.cpp">
       <Filter>k3\tok3n\parsers\basic</Filter>
     </ClCompile>
-    <ClCompile Include="k3\tok3n\parsers\basic\NotChar.cpp">
+    <ClCompile Include="k3\tok3n\parsers\basic\NoneOf.cpp">
       <Filter>k3\tok3n\parsers\basic</Filter>
     </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\basic\AnyOf.cpp">
