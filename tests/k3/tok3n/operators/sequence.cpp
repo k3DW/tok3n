@@ -83,14 +83,14 @@ constexpr auto combine_strings = []
 }();
 
 template <Parser... LHS, Parser RHS>
-requires (not IsParser<RHS, SequenceType>)
+requires (not IsParser<RHS, SequenceFamily>)
 consteval auto sequence_combined_left(Sequence<LHS...>, RHS)
 {
 	return Sequence<LHS..., RHS>{};
 }
 
 template <Parser LHS, Parser... RHS>
-requires (not IsParser<LHS, SequenceType>)
+requires (not IsParser<LHS, SequenceFamily>)
 consteval auto sequence_combined_right(LHS, Sequence<RHS...>)
 {
 	return Sequence<LHS, RHS...>{};
@@ -109,23 +109,23 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 #define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                          \
 	[&]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                       \
 		DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                 \
-		if constexpr (LLHS::type == AllOfType and RRHS::type == AllOfType)                            \
+		if constexpr (LLHS::type == AllOfFamily and RRHS::type == AllOfFamily)                        \
 		{                                                                                             \
 			constexpr auto str = combine_strings<underlying::string<LLHS>, underlying::string<RRHS>>; \
 			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                               \
 					                    LHS{}  >> RHS{},  AllOf<str>{});                              \
 		}                                                                                             \
-		else if constexpr (LLHS::type == SequenceType and RRHS::type != SequenceType)                 \
+		else if constexpr (LLHS::type == SequenceFamily and RRHS::type != SequenceFamily)             \
 		{                                                                                             \
 			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),     \
 					                    LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));     \
 		}                                                                                             \
-		else if constexpr (LLHS::type != SequenceType and RRHS::type == SequenceType)                 \
+		else if constexpr (LLHS::type != SequenceFamily and RRHS::type == SequenceFamily)             \
 		{                                                                                             \
 			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}),    \
 					                    LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{}));    \
 		}                                                                                             \
-		else if constexpr (LLHS::type == SequenceType and RRHS::type == SequenceType)                 \
+		else if constexpr (LLHS::type == SequenceFamily and RRHS::type == SequenceFamily)                 \
 		{                                                                                             \
 			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),     \
 					                    LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));     \

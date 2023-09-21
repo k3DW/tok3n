@@ -4,10 +4,10 @@ FIXTURE("OneOrMore");
 
 TEST("OneOrMore", "Requirements")
 {
-	ASSERT_IS_PARSER(Oom1, OneOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom2, OneOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom3, OneOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom4, OneOrMoreType, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Oom1, OneOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom2, OneOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom3, OneOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom4, OneOrMoreFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
 TEST("OneOrMore", "Parse OneOrMore<AllOf>")

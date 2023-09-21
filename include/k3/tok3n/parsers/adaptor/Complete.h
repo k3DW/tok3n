@@ -9,7 +9,7 @@ struct Complete
 {
 	using result_type = typename P::result_type;
 
-	static constexpr ParserFamily type = CompleteType;
+	static constexpr ParserFamily type = CompleteFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

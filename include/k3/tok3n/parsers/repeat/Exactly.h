@@ -9,7 +9,7 @@ struct Exactly
 {
 	using result_type = std::array<typename P::result_type, N::value>;
 
-	static constexpr ParserFamily type = ExactlyType;
+	static constexpr ParserFamily type = ExactlyFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

@@ -61,17 +61,17 @@ TEST("maybe operator", "~ZeroOrMore")
 		else                                                                             \
 		{                                                                                \
 			DEP_ASSERT_UNARY_OPERABLE(~, PP{}, P{});                                     \
-			if constexpr (PP::type == MaybeType)                                         \
+			if constexpr (PP::type == MaybeFamily)                                       \
 			{                                                                            \
 				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                 \
 					                        ~P{},  P{});                                 \
 			}                                                                            \
-			else if constexpr (PP::type == OneOrMoreType)                                \
+			else if constexpr (PP::type == OneOrMoreFamily)                              \
 			{                                                                            \
 				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, ZeroOrMore<underlying::parser<PP>>{}, \
 				                            ~P{},  ZeroOrMore<underlying::parser<P>>{}); \
 			}                                                                            \
-			else if constexpr (PP::type == ZeroOrMoreType)                               \
+			else if constexpr (PP::type == ZeroOrMoreFamily)                             \
 			{                                                                            \
 				DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                 \
 				                            ~P{},  P{});                                 \

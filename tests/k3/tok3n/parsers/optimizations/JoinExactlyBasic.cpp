@@ -8,9 +8,9 @@ using Joi_Exa_L   = Join<Exactly<AllOf<"123">, Index<2>>>;
 
 TEST("JoinExactlyBasic", "Requirements")
 {
-    ASSERT_IS_PARSER(Joi_Exa_OC, JoinType, Output<char>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, JoinType, Output<char>);
-    ASSERT_IS_PARSER(Joi_Exa_L, JoinType, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_L, JoinFamily, Output<char>);
 }
 
 TEST("JoinExactlyBasic", "Exactly<AnyOf, 2>")

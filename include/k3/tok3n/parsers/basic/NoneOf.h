@@ -22,7 +22,7 @@ template <StaticArray arr>
 requires NoneOfConstructible<arr>
 struct NoneOf : BasicBase<NoneOf<arr>>
 {
-	static constexpr ParserFamily type = NoneOfType;
+	static constexpr ParserFamily type = NoneOfFamily;
 };
 
 } // namespace k3::tok3n

@@ -32,7 +32,7 @@ struct Choice
 {
 	using result_type = typename detail::head<Ps...>::result_type;
 
-	static constexpr ParserFamily type = ChoiceType;
+	static constexpr ParserFamily type = ChoiceFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

@@ -6,7 +6,7 @@ namespace k3::tok3n {
 template <class CRTP>
 struct Custom
 {
-	static constexpr ParserFamily type = CustomType;
+	static constexpr ParserFamily type = CustomFamily;
 
 	template <std::same_as<CRTP> P = CRTP>
 	static constexpr Result<typename P::result_type, char> parse(Input<char> input)

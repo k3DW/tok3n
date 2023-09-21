@@ -9,7 +9,7 @@ struct Maybe
 {
 	using result_type = std::optional<typename P::result_type>;
 
-	static constexpr ParserFamily type = MaybeType;
+	static constexpr ParserFamily type = MaybeFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

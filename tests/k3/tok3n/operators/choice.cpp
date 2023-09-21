@@ -183,14 +183,14 @@ requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sor
 constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 
 template <Parser... LHS, Parser RHS>
-requires (not IsParser<RHS, ChoiceType>)
+requires (not IsParser<RHS, ChoiceFamily>)
 consteval auto choice_combined_left(Choice<LHS...>, RHS)
 {
 	return Choice<LHS..., RHS>{};
 }
 
 template <Parser LHS, Parser... RHS>
-requires (not IsParser<LHS, ChoiceType>)
+requires (not IsParser<LHS, ChoiceFamily>)
 consteval auto choice_combined_right(LHS, Choice<RHS...>)
 {
 	return Choice<LHS, RHS...>{};
@@ -220,41 +220,41 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
 					                        LHS{}  | RHS{},  LHS{});                                                  \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfType and RRHS::type == AnyOfType)                                   \
+			else if constexpr (LLHS::type == AnyOfFamily and RRHS::type == AnyOfFamily)                               \
 			{                                                                                                         \
 				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                            \
 					                        LHS{}  | RHS{},  AnyOf<str>{});                                           \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfType and RRHS::type == NoneOfType)                                 \
+			else if constexpr (LLHS::type == NoneOfFamily and RRHS::type == NoneOfFamily)                             \
 			{                                                                                                         \
 				constexpr auto str = set_intersection_string<underlying::string<LLHS>, underlying::string<RRHS>>;     \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfType and RRHS::type == AnyOfType)                                  \
+			else if constexpr (LLHS::type == NoneOfFamily and RRHS::type == AnyOfFamily)                              \
 			{                                                                                                         \
 				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfType and RRHS::type == NoneOfType)                                  \
+			else if constexpr (LLHS::type == AnyOfFamily and RRHS::type == NoneOfFamily)                              \
 			{                                                                                                         \
 				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == ChoiceType and RRHS::type != ChoiceType)                                 \
+			else if constexpr (LLHS::type == ChoiceFamily and RRHS::type != ChoiceFamily)                             \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_left(LLHS{}, RRHS{}),                    \
 					                        LHS{}  | RHS{},  choice_combined_left(LHS{},  RHS{}));                    \
 			}                                                                                                         \
-			else if constexpr (LLHS::type != ChoiceType and RRHS::type == ChoiceType)                                 \
+			else if constexpr (LLHS::type != ChoiceFamily and RRHS::type == ChoiceFamily)                             \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_right(LLHS{}, RRHS{}),                   \
 					                        LHS{}  | RHS{},  choice_combined_right(LHS{},  RHS{}));                   \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == ChoiceType and RRHS::type == ChoiceType)                                 \
+			else if constexpr (LLHS::type == ChoiceFamily and RRHS::type == ChoiceFamily)                             \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_both(LLHS{}, RRHS{}),                    \
 					                        LHS{}  | RHS{},  choice_combined_both(LHS{},  RHS{}));                    \

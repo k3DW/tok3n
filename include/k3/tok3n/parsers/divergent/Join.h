@@ -95,7 +95,7 @@ struct Join
 {
 	using result_type = Output<char>;
 
-	static constexpr ParserFamily type = JoinType;
+	static constexpr ParserFamily type = JoinFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

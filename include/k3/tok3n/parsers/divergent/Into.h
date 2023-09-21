@@ -9,7 +9,7 @@ struct Into
 {
 	using result_type = T;
 
-	static constexpr ParserFamily type = IntoType;
+	static constexpr ParserFamily type = IntoFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

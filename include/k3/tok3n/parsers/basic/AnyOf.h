@@ -22,7 +22,7 @@ template <StaticArray arr>
 requires AnyOfConstructible<arr>
 struct AnyOf : BasicBase<AnyOf<arr>>
 {
-	static constexpr ParserFamily type = AnyOfType;
+	static constexpr ParserFamily type = AnyOfFamily;
 };
 
 } // namespace k3::tok3n

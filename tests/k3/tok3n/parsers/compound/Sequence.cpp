@@ -7,9 +7,9 @@ FIXTURE("Sequence");
 
 TEST("Sequence", "Requirements")
 {
-	ASSERT_IS_PARSER(TwoWay, SequenceType, std::tuple<Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(ThreeWay, SequenceType, std::tuple<Output<char>, Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(Seq5, SequenceType, void);
+	ASSERT_IS_PARSER(TwoWay, SequenceFamily, std::tuple<Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(ThreeWay, SequenceFamily, std::tuple<Output<char>, Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(Seq5, SequenceFamily, void);
 }
 
 TEST("Sequence", "Parse two-way Sequence")
