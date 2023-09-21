@@ -6,7 +6,7 @@ FIXTURE("AllOf");
 
 TEST("AllOf", "Requirements")
 {
-	ASSERT_IS_PARSER(L, AllOfType, Output<char>);
+	ASSERT_IS_PARSER(L, AllOfFamily, Output<char>);
 }
 
 TEST("AllOf", "Parse 'literal'")

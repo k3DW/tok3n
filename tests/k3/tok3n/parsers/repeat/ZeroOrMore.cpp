@@ -4,10 +4,10 @@ FIXTURE("ZeroOrMore");
 
 TEST("ZeroOrMore", "Requirements")
 {
-	ASSERT_IS_PARSER(Zom1, ZeroOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom2, ZeroOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom3, ZeroOrMoreType, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Zom1, ZeroOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom2, ZeroOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom3, ZeroOrMoreFamily, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom4, ZeroOrMoreFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
 TEST("ZeroOrMore", "Parse ZeroOrMore<AllOf>")

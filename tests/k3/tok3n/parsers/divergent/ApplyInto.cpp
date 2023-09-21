@@ -4,8 +4,8 @@ FIXTURE("ApplyInto");
 
 TEST("ApplyInto", "Requirements")
 {
-	ASSERT_IS_PARSER(Api1, ApplyIntoType, Class2);
-	ASSERT_IS_PARSER(Api2, ApplyIntoType, Class5);
+	ASSERT_IS_PARSER(Api1, ApplyIntoFamily, Class2);
+	ASSERT_IS_PARSER(Api2, ApplyIntoFamily, Class5);
 }
 
 TEST("ApplyInto", "Parse all")

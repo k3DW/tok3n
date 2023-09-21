@@ -10,11 +10,11 @@ FIXTURE("Choice");
 
 TEST("Choice", "Requirements")
 {
-	ASSERT_IS_PARSER(TwoWay1, ChoiceType, Output<char>);
-	ASSERT_IS_PARSER(TwoWay2, ChoiceType, Output<char>);
-	ASSERT_IS_PARSER(ThreeWay1, ChoiceType, Output<char>);
-	ASSERT_IS_PARSER(ThreeWay2, ChoiceType, Output<char>);
-	ASSERT_IS_PARSER(Cho5, ChoiceType, void);
+	ASSERT_IS_PARSER(TwoWay1, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(TwoWay2, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(ThreeWay1, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(ThreeWay2, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(Cho5, ChoiceFamily, void);
 }
 
 TEST("Choice", "Parse two-way Choice")

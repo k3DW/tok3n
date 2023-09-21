@@ -4,10 +4,10 @@ FIXTURE("Maybe");
 
 TEST("Maybe", "Requirements")
 {
-	ASSERT_IS_PARSER(May1, MaybeType, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May2, MaybeType, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May3, MaybeType, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May4, MaybeType, std::optional<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(May1, MaybeFamily, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May2, MaybeFamily, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May3, MaybeFamily, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May4, MaybeFamily, std::optional<std::tuple<Output<char>, Output<char>>>);
 }
 
 TEST("Maybe", "Parse Maybe<AllOf>")

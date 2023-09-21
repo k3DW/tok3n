@@ -9,7 +9,7 @@ struct Transform
 {
 	using result_type = decltype(std::invoke(FunctionValue::value, std::declval<typename P::result_type>()));
 
-	static constexpr ParserType type = TransformType;
+	static constexpr ParserFamily family = TransformFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

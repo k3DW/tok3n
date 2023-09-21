@@ -9,7 +9,7 @@ struct ApplyInto
 {
 	using result_type = T;
 
-	static constexpr ParserType type = ApplyIntoType;
+	static constexpr ParserFamily family = ApplyIntoFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

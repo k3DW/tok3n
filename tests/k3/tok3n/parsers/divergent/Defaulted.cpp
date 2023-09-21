@@ -4,8 +4,8 @@ FIXTURE("Defaulted");
 
 TEST("Defaulted", "Requirements")
 {
-	ASSERT_IS_PARSER(Def1, DefaultedType, int);
-	ASSERT_IS_PARSER(Def2, DefaultedType, Class3);
+	ASSERT_IS_PARSER(Def1, DefaultedFamily, int);
+	ASSERT_IS_PARSER(Def2, DefaultedFamily, Class3);
 }
 
 TEST("Defaulted", "Parse all")

@@ -8,10 +8,10 @@ namespace detail
 	struct DoNotCareAboutResultTag {};
 }
 
-template <class P, ParserType type, class R = detail::DoNotCareAboutResultTag>
+template <class P, ParserFamily family, class R = detail::DoNotCareAboutResultTag>
 concept IsParser =
 	Parser<P> and
-	P::type == type and
+	P::family == family and
 	(std::same_as<R, detail::DoNotCareAboutResultTag> or std::same_as<typename P::result_type, R>);
 
 } // namespace k3::tok3n

@@ -46,7 +46,7 @@ TEST("complete modifier", "idempotent")
 
 #define COMPLETE_MODIFIER_ASSERTER(P)                                             \
 	[&]<Parser PP>(PP) {                                                          \
-		if constexpr (PP::type == CompleteType)                                   \
+		if constexpr (PP::family == CompleteFamily)                               \
 		{                                                                         \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
 				                           complete, (P{}),  P{});                \

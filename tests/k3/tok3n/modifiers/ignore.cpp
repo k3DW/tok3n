@@ -38,7 +38,7 @@ TEST("ignore modifier", "idempotent")
 
 #define IGNORE_MODIFIER_ASSERTER(P)                                           \
 	[&]<Parser PP>(PP) {                                                      \
-		if constexpr (PP::type == IgnoreType)                                 \
+		if constexpr (PP::family == IgnoreFamily)                             \
 		{                                                                     \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
 				                           ignore, (P{}),  P{});              \

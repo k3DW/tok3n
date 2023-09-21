@@ -12,7 +12,7 @@ struct Delimit
 		std::vector<typename P::result_type>
 	>;
 
-	static constexpr ParserType type = DelimitType;
+	static constexpr ParserFamily family = DelimitFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input) requires (not KeepDelimiters::value)
 	{

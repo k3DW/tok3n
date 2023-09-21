@@ -10,7 +10,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 {
 	using result_type = Output<char>;
 
-	static constexpr ParserType type = JoinType;
+	static constexpr ParserFamily family = JoinFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

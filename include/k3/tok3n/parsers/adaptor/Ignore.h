@@ -9,7 +9,7 @@ struct Ignore
 {
 	using result_type = void;
 
-	static constexpr ParserType type = IgnoreType;
+	static constexpr ParserFamily family = IgnoreFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

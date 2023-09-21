@@ -7,8 +7,8 @@ FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, NoneOfType, Output<char>);
-	ASSERT_IS_PARSER(Multi, NoneOfType, Output<char>);
+	ASSERT_IS_PARSER(Single, NoneOfFamily, Output<char>);
+	ASSERT_IS_PARSER(Multi, NoneOfFamily, Output<char>);
 }
 
 TEST("NoneOf", "Parse single char")

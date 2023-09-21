@@ -4,11 +4,11 @@ FIXTURE("Ignore");
 
 TEST("Ignore", "Requirements")
 {
-	ASSERT_IS_PARSER(Ign1, IgnoreType, void);
-	ASSERT_IS_PARSER(Ign2, IgnoreType, void);
-	ASSERT_IS_PARSER(Ign3, IgnoreType, void);
-	ASSERT_IS_PARSER(Ign4, IgnoreType, void);
-	ASSERT_IS_PARSER(Ign5, IgnoreType, void);
+	ASSERT_IS_PARSER(Ign1, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign2, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign3, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign4, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign5, IgnoreFamily, void);
 }
 
 TEST("Ignore", "Parse all")
