@@ -45,7 +45,7 @@ TEST("Join", "Parse all")
 TEST("Join", "Contiguous empty strings")
 {
 	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
-	using J2 = Join<ZeroOrMore<Sequence<L1, OC2>>>;
+	using J2 = Join<ZeroOrMore<Sequence<All1, Any2>>>;
 
 	using P = Join<Sequence<AllOf<"**start**">, J1, J2, AllOf<"__end__">>>;
 

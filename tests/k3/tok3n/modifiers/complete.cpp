@@ -4,24 +4,24 @@ FIXTURE("complete modifier");
 
 TEST("complete modifier", "prefix")
 {
-	ASSERT_PARSER_VALUES_EQ(com1, complete(l1));
-	ASSERT_PARSER_VALUES_EQ(com2, complete(oc1));
-	ASSERT_PARSER_VALUES_EQ(com3, complete(l1 | oc1));
-	ASSERT_PARSER_VALUES_EQ(com4, complete(l1 >> oc1));
-	ASSERT_PARSER_VALUES_EQ(com5, complete(~(l1 >> oc1)));
-	ASSERT_PARSER_VALUES_EQ(com6, complete(+(l1 >> oc1)));
-	ASSERT_PARSER_VALUES_EQ(com7, complete(*(l1 >> oc1)));
+	ASSERT_PARSER_VALUES_EQ(com1, complete(all1));
+	ASSERT_PARSER_VALUES_EQ(com2, complete(any1));
+	ASSERT_PARSER_VALUES_EQ(com3, complete(all1 | any1));
+	ASSERT_PARSER_VALUES_EQ(com4, complete(all1 >> any1));
+	ASSERT_PARSER_VALUES_EQ(com5, complete(~(all1 >> any1)));
+	ASSERT_PARSER_VALUES_EQ(com6, complete(+(all1 >> any1)));
+	ASSERT_PARSER_VALUES_EQ(com7, complete(*(all1 >> any1)));
 }
 
 TEST("complete modifier", "infix")
 {
-	ASSERT_PARSER_VALUES_EQ(com1, l1 % complete);
-	ASSERT_PARSER_VALUES_EQ(com2, oc1 % complete);
-	ASSERT_PARSER_VALUES_EQ(com3, (l1 | oc1) % complete);
-	ASSERT_PARSER_VALUES_EQ(com4, (l1 >> oc1) % complete);
-	ASSERT_PARSER_VALUES_EQ(com5, ~(l1 >> oc1) % complete);
-	ASSERT_PARSER_VALUES_EQ(com6, +(l1 >> oc1) % complete);
-	ASSERT_PARSER_VALUES_EQ(com7, *(l1 >> oc1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com1, all1 % complete);
+	ASSERT_PARSER_VALUES_EQ(com2, any1 % complete);
+	ASSERT_PARSER_VALUES_EQ(com3, (all1 | any1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com4, (all1 >> any1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com5, ~(all1 >> any1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com6, +(all1 >> any1) % complete);
+	ASSERT_PARSER_VALUES_EQ(com7, *(all1 >> any1) % complete);
 }
 
 TEST("complete modifier", "idempotent")

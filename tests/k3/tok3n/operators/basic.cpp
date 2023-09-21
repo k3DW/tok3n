@@ -4,10 +4,10 @@ FIXTURE("basic operators");
 
 TEST("basic operators", "UDL _any")
 {
-	ASSERT_PARSER_VALUES_EQ("abc"_any, oc1);
-	ASSERT_PARSER_VALUES_EQ("bcd"_any, oc2);
-	ASSERT_PARSER_VALUES_EQ("xyz"_any, oc3);
-	ASSERT_PARSER_VALUES_EQ("cd"_any, oc4);
+	ASSERT_PARSER_VALUES_EQ("abc"_any, any1);
+	ASSERT_PARSER_VALUES_EQ("bcd"_any, any2);
+	ASSERT_PARSER_VALUES_EQ("xyz"_any, any3);
+	ASSERT_PARSER_VALUES_EQ("cd"_any, any4);
 	ASSERT_PARSER_VALUES_EQ(","_any, comma);
 	ASSERT_PARSER_VALUES_EQ(" ."_any, spacedot);
 	ASSERT_PARSER_VALUES_EQ(""_any, AnyOf<"">{});
@@ -15,10 +15,10 @@ TEST("basic operators", "UDL _any")
 
 TEST("basic operators", "any<>")
 {
-	ASSERT_PARSER_VALUES_EQ(any<"abc">, oc1);
-	ASSERT_PARSER_VALUES_EQ(any<"bcd">, oc2);
-	ASSERT_PARSER_VALUES_EQ(any<"xyz">, oc3);
-	ASSERT_PARSER_VALUES_EQ(any<"cd">, oc4);
+	ASSERT_PARSER_VALUES_EQ(any<"abc">, any1);
+	ASSERT_PARSER_VALUES_EQ(any<"bcd">, any2);
+	ASSERT_PARSER_VALUES_EQ(any<"xyz">, any3);
+	ASSERT_PARSER_VALUES_EQ(any<"cd">, any4);
 	ASSERT_PARSER_VALUES_EQ(any<",">, comma);
 	ASSERT_PARSER_VALUES_EQ(any<" .">, spacedot);
 	ASSERT_PARSER_VALUES_EQ(any<"">, AnyOf<"">{});
@@ -26,30 +26,30 @@ TEST("basic operators", "any<>")
 
 TEST("basic operators", "UDL _none")
 {
-	ASSERT_PARSER_VALUES_EQ("abc"_none, nc1);
-	ASSERT_PARSER_VALUES_EQ("bcd"_none, nc2);
-	ASSERT_PARSER_VALUES_EQ("xyz"_none, nc3);
-	ASSERT_PARSER_VALUES_EQ("cd"_none, nc4);
-	ASSERT_PARSER_VALUES_EQ("z"_none, nc5);
+	ASSERT_PARSER_VALUES_EQ("abc"_none, none1);
+	ASSERT_PARSER_VALUES_EQ("bcd"_none, none2);
+	ASSERT_PARSER_VALUES_EQ("xyz"_none, none3);
+	ASSERT_PARSER_VALUES_EQ("cd"_none, none4);
+	ASSERT_PARSER_VALUES_EQ("z"_none, none5);
 	ASSERT_PARSER_VALUES_EQ(""_none, NoneOf<"">{});
 }
 
 TEST("basic operators", "none<>")
 {
-	ASSERT_PARSER_VALUES_EQ(none<"abc">, nc1);
-	ASSERT_PARSER_VALUES_EQ(none<"bcd">, nc2);
-	ASSERT_PARSER_VALUES_EQ(none<"xyz">, nc3);
-	ASSERT_PARSER_VALUES_EQ(none<"cd">, nc4);
-	ASSERT_PARSER_VALUES_EQ(none<"z">, nc5);
+	ASSERT_PARSER_VALUES_EQ(none<"abc">, none1);
+	ASSERT_PARSER_VALUES_EQ(none<"bcd">, none2);
+	ASSERT_PARSER_VALUES_EQ(none<"xyz">, none3);
+	ASSERT_PARSER_VALUES_EQ(none<"cd">, none4);
+	ASSERT_PARSER_VALUES_EQ(none<"z">, none5);
 	ASSERT_PARSER_VALUES_EQ(none<"">, NoneOf<"">{});
 }
 
 TEST("basic operators", "UDL _all")
 {
-	ASSERT_PARSER_VALUES_EQ("literal"_all, l1);
-	ASSERT_PARSER_VALUES_EQ("ly"_all, l2);
-	ASSERT_PARSER_VALUES_EQ("test"_all, l3);
-	ASSERT_PARSER_VALUES_EQ("ab"_all, l4);
+	ASSERT_PARSER_VALUES_EQ("literal"_all, all1);
+	ASSERT_PARSER_VALUES_EQ("ly"_all, all2);
+	ASSERT_PARSER_VALUES_EQ("test"_all, all3);
+	ASSERT_PARSER_VALUES_EQ("ab"_all, all4);
 	ASSERT_PARSER_VALUES_EQ("??"_all, qq);
 	ASSERT_PARSER_VALUES_EQ("abc"_all, abc);
 	ASSERT_PARSER_VALUES_EQ(""_all, AllOf<"">{});
@@ -57,10 +57,10 @@ TEST("basic operators", "UDL _all")
 
 TEST("basic operators", "all<>")
 {
-	ASSERT_PARSER_VALUES_EQ(all<"literal">, l1);
-	ASSERT_PARSER_VALUES_EQ(all<"ly">, l2);
-	ASSERT_PARSER_VALUES_EQ(all<"test">, l3);
-	ASSERT_PARSER_VALUES_EQ(all<"ab">, l4);
+	ASSERT_PARSER_VALUES_EQ(all<"literal">, all1);
+	ASSERT_PARSER_VALUES_EQ(all<"ly">, all2);
+	ASSERT_PARSER_VALUES_EQ(all<"test">, all3);
+	ASSERT_PARSER_VALUES_EQ(all<"ab">, all4);
 	ASSERT_PARSER_VALUES_EQ(all<"??">, qq);
 	ASSERT_PARSER_VALUES_EQ(all<"abc">, abc);
 	ASSERT_PARSER_VALUES_EQ(all<"">, AllOf<"">{});
@@ -68,10 +68,10 @@ TEST("basic operators", "all<>")
 
 TEST("basic operators", "UDL _ign")
 {
-	ASSERT_PARSER_VALUES_EQ("literal"_ign, Ignore<L1>{});
-	ASSERT_PARSER_VALUES_EQ("ly"_ign, Ignore<L2>{});
-	ASSERT_PARSER_VALUES_EQ("test"_ign, Ignore<L3>{});
-	ASSERT_PARSER_VALUES_EQ("ab"_ign, Ignore<L4>{});
+	ASSERT_PARSER_VALUES_EQ("literal"_ign, Ignore<All1>{});
+	ASSERT_PARSER_VALUES_EQ("ly"_ign, Ignore<All2>{});
+	ASSERT_PARSER_VALUES_EQ("test"_ign, Ignore<All3>{});
+	ASSERT_PARSER_VALUES_EQ("ab"_ign, Ignore<All4>{});
 	ASSERT_PARSER_VALUES_EQ("??"_ign, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ("abc"_ign, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(""_ign, Ignore<AllOf<"">>{});
@@ -79,10 +79,10 @@ TEST("basic operators", "UDL _ign")
 
 TEST("basic operators", "ign<>")
 {
-	ASSERT_PARSER_VALUES_EQ(ign<"literal">, Ignore<L1>{});
-	ASSERT_PARSER_VALUES_EQ(ign<"ly">, Ignore<L2>{});
-	ASSERT_PARSER_VALUES_EQ(ign<"test">, Ignore<L3>{});
-	ASSERT_PARSER_VALUES_EQ(ign<"ab">, Ignore<L4>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"literal">, Ignore<All1>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"ly">, Ignore<All2>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"test">, Ignore<All3>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"ab">, Ignore<All4>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"??">, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"abc">, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"">, Ignore<AllOf<"">>{});
