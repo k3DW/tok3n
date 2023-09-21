@@ -1,41 +1,41 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/OneChar.h>
-#include <k3/tok3n/parsers/basic/NotChar.h>
-#include <k3/tok3n/parsers/basic/Literal.h>
+#include <k3/tok3n/parsers/basic/AnyOf.h>
+#include <k3/tok3n/parsers/basic/NoneOf.h>
+#include <k3/tok3n/parsers/basic/AllOf.h>
 #include <k3/tok3n/parsers/adaptor/Ignore.h>
 
 namespace k3::tok3n {
 
 template <StaticArray arr>
-constexpr auto one = OneChar<sort_and_unique<arr>()>{};
+constexpr auto any = AnyOf<sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto not_ = NotChar<sort_and_unique<arr>()>{};
+constexpr auto none = NoneOf<sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto lit = Literal<arr>{};
+constexpr auto all = AllOf<arr>{};
 
 template <StaticArray arr>
-constexpr auto ign = Ignore<Literal<arr>>{};
+constexpr auto ign = Ignore<AllOf<arr>>{};
 
 
 
 template <StaticArray arr>
-consteval auto operator"" _one()
+consteval auto operator"" _any()
 {
-	return one<arr>;
+	return any<arr>;
 }
 
 template <StaticArray arr>
-consteval auto operator"" _not()
+consteval auto operator"" _none()
 {
-	return not_<arr>;
+	return none<arr>;
 }
 
 template <StaticArray arr>
-consteval auto operator"" _lit()
+consteval auto operator"" _all()
 {
-	return lit<arr>;
+	return all<arr>;
 }
 
 template <StaticArray arr>
@@ -48,14 +48,14 @@ consteval auto operator"" _ign()
 
 namespace k3::tok3n::operators {
 
-using ::k3::tok3n::one;
-using ::k3::tok3n::not_;
-using ::k3::tok3n::lit;
+using ::k3::tok3n::any;
+using ::k3::tok3n::none;
+using ::k3::tok3n::all;
 using ::k3::tok3n::ign;
 
-using ::k3::tok3n::operator""_one;
-using ::k3::tok3n::operator""_not;
-using ::k3::tok3n::operator""_lit;
+using ::k3::tok3n::operator""_any;
+using ::k3::tok3n::operator""_none;
+using ::k3::tok3n::operator""_all;
 using ::k3::tok3n::operator""_ign;
 
 } // namespace k3::tok3n::operators

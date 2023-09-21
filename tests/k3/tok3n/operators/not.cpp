@@ -2,41 +2,41 @@
 
 FIXTURE("not operator");
 
-TEST("not operator", "!OneChar")
+TEST("not operator", "!AnyOf")
 {
-	ASSERT_PARSER_VALUES_EQ(!oc1, nc1);
-	ASSERT_PARSER_VALUES_EQ(!oc2, nc2);
-	ASSERT_PARSER_VALUES_EQ(!oc3, nc3);
-	ASSERT_PARSER_VALUES_EQ(!!oc1, oc1);
-	ASSERT_PARSER_VALUES_EQ(!!oc2, oc2);
-	ASSERT_PARSER_VALUES_EQ(!!oc3, oc3);
+	ASSERT_PARSER_VALUES_EQ(!any1, none1);
+	ASSERT_PARSER_VALUES_EQ(!any2, none2);
+	ASSERT_PARSER_VALUES_EQ(!any3, none3);
+	ASSERT_PARSER_VALUES_EQ(!!any1, any1);
+	ASSERT_PARSER_VALUES_EQ(!!any2, any2);
+	ASSERT_PARSER_VALUES_EQ(!!any3, any3);
 }
 
-TEST("not operator", "!NotChar")
+TEST("not operator", "!NoneOf")
 {
-	ASSERT_PARSER_VALUES_EQ(!nc1, oc1);
-	ASSERT_PARSER_VALUES_EQ(!nc2, oc2);
-	ASSERT_PARSER_VALUES_EQ(!nc3, oc3);
-	ASSERT_PARSER_VALUES_EQ(!!nc1, nc1);
-	ASSERT_PARSER_VALUES_EQ(!!nc2, nc2);
-	ASSERT_PARSER_VALUES_EQ(!!nc3, nc3);
+	ASSERT_PARSER_VALUES_EQ(!none1, any1);
+	ASSERT_PARSER_VALUES_EQ(!none2, any2);
+	ASSERT_PARSER_VALUES_EQ(!none3, any3);
+	ASSERT_PARSER_VALUES_EQ(!!none1, none1);
+	ASSERT_PARSER_VALUES_EQ(!!none2, none2);
+	ASSERT_PARSER_VALUES_EQ(!!none3, none3);
 }
 
 
 
 #define NOT_OPERATOR_ASSERTER(P)                                                  \
 	[&]<Parser PP>(PP) {                                                          \
-		if constexpr (PP::type == OneCharType)                                    \
+		if constexpr (PP::type == AnyOfType)                                      \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
-			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NotChar<underlying::string<PP>>{}, \
-					                    !P{},  NotChar<underlying::string<P>>{}); \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying::string<PP>>{},  \
+					                    !P{},  NoneOf<underlying::string<P>>{});  \
 		}                                                                         \
-		else if constexpr (PP::type == NotCharType)                               \
+		else if constexpr (PP::type == NoneOfType)                                \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
-			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, OneChar<underlying::string<PP>>{}, \
-					                    !P{},  OneChar<underlying::string<P>>{}); \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying::string<PP>>{},   \
+					                    !P{},  AnyOf<underlying::string<P>>{});   \
 		}                                                                         \
 		else                                                                      \
 		{                                                                         \

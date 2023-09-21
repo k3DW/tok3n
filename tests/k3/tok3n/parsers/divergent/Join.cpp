@@ -45,9 +45,9 @@ TEST("Join", "Parse all")
 TEST("Join", "Contiguous empty strings")
 {
 	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
-	using J2 = Join<ZeroOrMore<Sequence<L1, OC2>>>;
+	using J2 = Join<ZeroOrMore<Sequence<All1, Any2>>>;
 
-	using P = Join<Sequence<Literal<"**start**">, J1, J2, Literal<"__end__">>>;
+	using P = Join<Sequence<AllOf<"**start**">, J1, J2, AllOf<"__end__">>>;
 
 	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
 }
@@ -71,7 +71,7 @@ TEST("Join", "Join<Delimit>")
 
 TEST("Join", "Join<Ignore>")
 {
-	using Q = OneChar<"?">;
+	using Q = AnyOf<"?">;
 
 	using S1 = Sequence<ABC, Ignore<QQ>>;
 	using S2 = Sequence<ABC, Ignore<QQ>, ABC>;

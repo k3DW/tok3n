@@ -1,19 +1,19 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/OneChar.h>
-#include <k3/tok3n/parsers/basic/NotChar.h>
+#include <k3/tok3n/parsers/basic/AnyOf.h>
+#include <k3/tok3n/parsers/basic/NoneOf.h>
 
 namespace k3::tok3n {
 
 template <StaticArray arr>
-consteval auto operator!(OneChar<arr>)
+consteval auto operator!(AnyOf<arr>)
 {
-	return NotChar<arr>{};
+	return NoneOf<arr>{};
 }
 
 template <StaticArray arr>
-consteval auto operator!(NotChar<arr>)
+consteval auto operator!(NoneOf<arr>)
 {
-	return OneChar<arr>{};
+	return AnyOf<arr>{};
 }
 
 template <Parser P>

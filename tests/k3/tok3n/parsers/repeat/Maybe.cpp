@@ -10,7 +10,7 @@ TEST("Maybe", "Requirements")
 	ASSERT_IS_PARSER(May4, MaybeType, std::optional<std::tuple<Output<char>, Output<char>>>);
 }
 
-TEST("Maybe", "Parse Maybe<Literal>")
+TEST("Maybe", "Parse Maybe<AllOf>")
 {
 	ASSERT_PARSE_SUCCESS(May1, "litera", std::nullopt, "litera");
 	ASSERT_PARSE_SUCCESS(May1, "literal", std::optional("literal"), "");
@@ -20,7 +20,7 @@ TEST("Maybe", "Parse Maybe<Literal>")
 	ASSERT_PARSE_SUCCESS(May1, " literalliterallitera", std::nullopt, " literalliterallitera");
 	ASSERT_PARSE_SUCCESS(May1, "", std::nullopt, "");
 }
-TEST("Maybe", "Parse Maybe<OneChar>")
+TEST("Maybe", "Parse Maybe<AnyOf>")
 {
 	ASSERT_PARSE_SUCCESS(May2, "abcdef", std::optional("a"), "bcdef");
 	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");

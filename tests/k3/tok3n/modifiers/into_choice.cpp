@@ -25,11 +25,11 @@ TEST("into_choice modifier", "infix")
 
 namespace
 {
-	constexpr auto sink_parser = ""_lit % constant < Sink{} > ;
+	constexpr auto sink_parser = ""_all % constant < Sink{} > ;
 	using SinkParser = std::remove_cvref_t<decltype(sink_parser)>;
 
-	constexpr auto empty_literal_parser = ""_lit;
-	using EmptyLiteralParser = std::remove_cvref_t<decltype(empty_literal_parser)>;
+	constexpr auto empty_literal_parser = ""_all;
+	using EmptyAllOfParser = std::remove_cvref_t<decltype(empty_literal_parser)>;
 }
 
 #define INTO_CHOICE_MODIFIER_ASSERTER(P)                                                                                            \
@@ -53,9 +53,9 @@ namespace
 		if constexpr (std::constructible_from<Output<char>, typename PP::result_type>)                                              \
 		{                                                                                                                           \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Output<char>>, (PP{}, empty_literal_parser),                                 \
-												(Choice<Into<PP, Output<char>>, Into<EmptyLiteralParser, Output<char>>>{}),         \
+												(Choice<Into<PP, Output<char>>, Into<EmptyAllOfParser, Output<char>>>{}),         \
 				                           into_choice<Output<char>>, (P{}, empty_literal_parser),                                  \
-												(Choice<Into<P, Output<char>>, Into<EmptyLiteralParser, Output<char>>>{}));         \
+												(Choice<Into<P, Output<char>>, Into<EmptyAllOfParser, Output<char>>>{}));         \
 		}                                                                                                                           \
 		else                                                                                                                        \
 		{                                                                                                                           \

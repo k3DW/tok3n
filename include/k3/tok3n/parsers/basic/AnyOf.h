@@ -5,8 +5,8 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-requires NotCharConstructible<arr>
-struct BasicTraits<NotChar<arr>>
+requires AnyOfConstructible<arr>
+struct BasicTraits<AnyOf<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
 
@@ -14,15 +14,15 @@ struct BasicTraits<NotChar<arr>>
 
 	static constexpr bool failure_condition(Input<value_type> input)
 	{
-		return input.empty() || arr.contains(input.front());
+		return input.empty() || not arr.contains(input.front());
 	}
 };
 
 template <StaticArray arr>
-requires NotCharConstructible<arr>
-struct NotChar : BasicBase<NotChar<arr>>
+requires AnyOfConstructible<arr>
+struct AnyOf : BasicBase<AnyOf<arr>>
 {
-	static constexpr ParserType type = NotCharType;
+	static constexpr ParserType type = AnyOfType;
 };
 
 } // namespace k3::tok3n

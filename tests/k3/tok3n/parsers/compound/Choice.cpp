@@ -63,8 +63,8 @@ TEST("Choice", "Parse void result_type")
 
 TEST("Choice", "Constructible only from parsers with the same result_type")
 {
-	ASSERT_PARSER_CONSTRUCTIBLE(Choice, OC1, OC3, NC2, NC1, L2);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice, OC1, Sequence<OC2, OC3>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Choice, Any1, Any3, Non2, Non1, All2);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice, Any1, Sequence<Any2, Any3>);
 }
 
 TEST("Choice", "Not constructible empty")
@@ -77,7 +77,7 @@ TEST("Choice", "Not constructible empty")
 TEST("Choice", "Move only")
 {
 	using T = MoveOnlyWrapper<Output<char>>;
-	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
+	using P = Choice<Into<Any3, T>, Into<ABC, T>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 	ASSERT_PARSE_FAILURE(P, "abxyz");
@@ -88,7 +88,7 @@ TEST("Choice", "Move only")
 TEST("Choice", "Copy only")
 {
 	using T = CopyOnlyWrapper<Output<char>>;
-	using P = Choice<Into<OC3, T>, Into<ABC, T>>;
+	using P = Choice<Into<Any3, T>, Into<ABC, T>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 	ASSERT_PARSE_FAILURE(P, "abxyz");

@@ -2,9 +2,9 @@
 
 FIXTURE("JoinMaybeBasic");
 
-using Joi_May_OC = Join<Maybe<OneChar<"123">>>;
-using Joi_May_NC = Join<Maybe<NotChar<"123">>>;
-using Joi_May_L  = Join<Maybe<Literal<"123">>>;
+using Joi_May_OC = Join<Maybe<AnyOf<"123">>>;
+using Joi_May_NC = Join<Maybe<NoneOf<"123">>>;
+using Joi_May_L  = Join<Maybe<AllOf<"123">>>;
 
 TEST("JoinMaybeBasic", "Requirements")
 {
@@ -13,7 +13,7 @@ TEST("JoinMaybeBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_May_L, JoinType, Output<char>);
 }
 
-TEST("JoinMaybeBasic", "Maybe<OneChar>")
+TEST("JoinMaybeBasic", "Maybe<AnyOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "12321321", "1", "2321321");
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "1232 1321", "1", "232 1321");
@@ -22,7 +22,7 @@ TEST("JoinMaybeBasic", "Maybe<OneChar>")
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "012341321", "", "012341321");
 }
 
-TEST("JoinMaybeBasic", "Maybe<NotChar>")
+TEST("JoinMaybeBasic", "Maybe<NoneOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "12321321", "", "12321321");
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "1232 1321", "", "1232 1321");
@@ -31,7 +31,7 @@ TEST("JoinMaybeBasic", "Maybe<NotChar>")
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "012341321", "0", "12341321");
 }
 
-TEST("JoinMaybeBasic", "Maybe<Literal>")
+TEST("JoinMaybeBasic", "Maybe<AllOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_May_L, "12312321321", "123", "12321321");

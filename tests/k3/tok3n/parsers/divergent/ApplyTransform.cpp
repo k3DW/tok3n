@@ -28,7 +28,7 @@ TEST("ApplyTransform", "Move only")
 {
 	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = MoveOnlyWrapper<tuple>;
-	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
+	using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 	ASSERT_PARSE_FAILURE(P, "ydcba");
@@ -39,7 +39,7 @@ TEST("ApplyTransform", "Copy only")
 {
 	using tuple = std::tuple<Output<char>, Output<char>>;
 	using T = CopyOnlyWrapper<tuple>;
-	using P = ApplyTransform<Sequence<OC3, ABC>, Const<T::make>>;
+	using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 
 	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 	ASSERT_PARSE_FAILURE(P, "ydcba");

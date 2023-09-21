@@ -4,10 +4,10 @@
 
 inline namespace sub
 {
-	using _11 = L1;
-	using _12 = OC1;
-	using _13 = Choice<L1, OC1>;
-	using _14 = Sequence<L1, OC1>;
+	using _11 = All1;
+	using _12 = Any1;
+	using _13 = Choice<All1, Any1>;
+	using _14 = Sequence<All1, Any1>;
 
 	using _21 = ABC;
 	using _22 = OneOrMore<ABC>;

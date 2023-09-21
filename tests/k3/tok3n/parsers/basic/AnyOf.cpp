@@ -1,17 +1,17 @@
 #include "pch.h"
 
-using Single = OneChar<'a'>;
-using Multi  = OneChar<"abc">;
+using Single = AnyOf<'a'>;
+using Multi  = AnyOf<"abc">;
 
-FIXTURE("OneChar");
+FIXTURE("AnyOf");
 
-TEST("OneChar", "Requirements")
+TEST("AnyOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, OneCharType, Output<char>);
-	ASSERT_IS_PARSER(Multi, OneCharType, Output<char>);
+	ASSERT_IS_PARSER(Single, AnyOfType, Output<char>);
+	ASSERT_IS_PARSER(Multi, AnyOfType, Output<char>);
 }
 
-TEST("OneChar", "Parse single char")
+TEST("AnyOf", "Parse single char")
 {
 	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
 	ASSERT_PARSE_FAILURE(Single, "ba");
@@ -21,7 +21,7 @@ TEST("OneChar", "Parse single char")
 	ASSERT_PARSE_FAILURE(Single, " abc");
 }
 
-TEST("OneChar", "Parse multi char")
+TEST("AnyOf", "Parse multi char")
 {
 	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
 	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
@@ -41,20 +41,20 @@ TEST("OneChar", "Parse multi char")
 
 
 
-TEST("OneChar", "Constructible from lexicographically sorted only")
+TEST("AnyOf", "Constructible from lexicographically sorted only")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(OneChar, "abc");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "acb");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "bac");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "bca");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "cab");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(OneChar, "cba");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, "abc");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "acb");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "bac");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "bca");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "cab");
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "cba");
 }
 
-TEST("OneChar", "Parse empty")
+TEST("AnyOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(OneChar, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, "");
 	
-	ASSERT_PARSE_FAILURE(OneChar<"">, "anything");
-	ASSERT_PARSE_FAILURE(OneChar<"">, "");
+	ASSERT_PARSE_FAILURE(AnyOf<"">, "anything");
+	ASSERT_PARSE_FAILURE(AnyOf<"">, "");
 }

@@ -2,52 +2,52 @@
 
 FIXTURE("choice operator");
 
-TEST("choice operator", "OneChar | OneChar")
+TEST("choice operator", "AnyOf | AnyOf")
 {
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, oc2 | oc1);
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, oc3 | oc1);
-	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, oc3 | oc2);
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, OneChar<"abcd">{});
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, OneChar<"abcxyz">{});
-	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, OneChar<"bcdxyz">{});
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc1, oc1);
-	ASSERT_PARSER_VALUES_EQ(oc2 | oc2, oc2);
-	ASSERT_PARSER_VALUES_EQ(oc3 | oc3, oc3);
+	ASSERT_PARSER_VALUES_EQ(any1 | any2, any2 | any1);
+	ASSERT_PARSER_VALUES_EQ(any1 | any3, any3 | any1);
+	ASSERT_PARSER_VALUES_EQ(any2 | any3, any3 | any2);
+	ASSERT_PARSER_VALUES_EQ(any1 | any2, AnyOf<"abcd">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any3, AnyOf<"abcxyz">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | any3, AnyOf<"bcdxyz">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any1, any1);
+	ASSERT_PARSER_VALUES_EQ(any2 | any2, any2);
+	ASSERT_PARSER_VALUES_EQ(any3 | any3, any3);
 }
 
-TEST("choice operator", "NotChar | NotChar")
+TEST("choice operator", "NoneOf | NoneOf")
 {
-	ASSERT_PARSER_VALUES_EQ(nc1 | nc2, nc2 | nc1);
-	ASSERT_PARSER_VALUES_EQ(nc1 | nc3, nc3 | nc1);
-	ASSERT_PARSER_VALUES_EQ(nc2 | nc3, nc3 | nc2);
-	ASSERT_PARSER_VALUES_EQ(nc1 | nc2, NotChar<"bc">{});
-	ASSERT_PARSER_VALUES_EQ(nc1 | nc3, NotChar<"">{});
-	ASSERT_PARSER_VALUES_EQ(nc2 | nc3, NotChar<"">{});
-	ASSERT_PARSER_VALUES_EQ(nc1 | nc1, nc1);
-	ASSERT_PARSER_VALUES_EQ(nc2 | nc2, nc2);
-	ASSERT_PARSER_VALUES_EQ(nc3 | nc3, nc3);
+	ASSERT_PARSER_VALUES_EQ(none1 | none2, none2 | none1);
+	ASSERT_PARSER_VALUES_EQ(none1 | none3, none3 | none1);
+	ASSERT_PARSER_VALUES_EQ(none2 | none3, none3 | none2);
+	ASSERT_PARSER_VALUES_EQ(none1 | none2, NoneOf<"bc">{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none3, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(none2 | none3, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none1, none1);
+	ASSERT_PARSER_VALUES_EQ(none2 | none2, none2);
+	ASSERT_PARSER_VALUES_EQ(none3 | none3, none3);
 }
 
-TEST("choice operator", "OneChar | NotChar, and NotChar | OneChar")
+TEST("choice operator", "AnyOf | NoneOf, and NoneOf | AnyOf")
 {
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc1, nc1 | oc1);
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc2, nc2 | oc1);
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc3, nc3 | oc1);
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc1, nc1 | oc2);
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc2, nc2 | oc2);
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc3, nc3 | oc2);
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc1, nc1 | oc3);
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc2, nc2 | oc3);
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc3, nc3 | oc3);
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc1, NotChar<"">{});
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc2, NotChar<"d">{});
-	ASSERT_PARSER_VALUES_EQ(oc1 | nc3, NotChar<"xyz">{});
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc1, NotChar<"a">{});
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc2, NotChar<"">{});
-	ASSERT_PARSER_VALUES_EQ(oc2 | nc3, NotChar<"xyz">{});
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc1, NotChar<"abc">{});
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc2, NotChar<"bcd">{});
-	ASSERT_PARSER_VALUES_EQ(oc3 | nc3, NotChar<"">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none1, none1 | any1);
+	ASSERT_PARSER_VALUES_EQ(any1 | none2, none2 | any1);
+	ASSERT_PARSER_VALUES_EQ(any1 | none3, none3 | any1);
+	ASSERT_PARSER_VALUES_EQ(any2 | none1, none1 | any2);
+	ASSERT_PARSER_VALUES_EQ(any2 | none2, none2 | any2);
+	ASSERT_PARSER_VALUES_EQ(any2 | none3, none3 | any2);
+	ASSERT_PARSER_VALUES_EQ(any3 | none1, none1 | any3);
+	ASSERT_PARSER_VALUES_EQ(any3 | none2, none2 | any3);
+	ASSERT_PARSER_VALUES_EQ(any3 | none3, none3 | any3);
+	ASSERT_PARSER_VALUES_EQ(any1 | none1, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none2, NoneOf<"d">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none3, NoneOf<"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none1, NoneOf<"a">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none2, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none3, NoneOf<"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none1, NoneOf<"abc">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none2, NoneOf<"bcd">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none3, NoneOf<"">{});
 }
 
 
@@ -58,31 +58,31 @@ TEST("choice operator", "Choice | Choice")
 	ASSERT_PARSER_VALUES_EQ(cho2 | cho2, cho2);
 	ASSERT_PARSER_VALUES_EQ(cho3 | cho3, cho3);
 	ASSERT_PARSER_VALUES_EQ(cho4 | cho4, cho4);
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho2, (Choice<L4, NC4, NC4, L4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho1, (Choice<NC4, L4, L4, NC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho3, (Choice<L4, NC4, L4, OC4, NC5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho1, (Choice<L4, OC4, NC5, L4, NC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho4, (Choice<L4, NC4, NC5, L4, OC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho1, (Choice<NC5, L4, OC4, L4, NC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho3, (Choice<NC4, L4, L4, OC4, NC5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho2, (Choice<L4, OC4, NC5, NC4, L4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho4, (Choice<NC4, L4, NC5, L4, OC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho2, (Choice<NC5, L4, OC4, NC4, L4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho4, (Choice<L4, OC4, NC5, NC5, L4, OC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho3, (Choice<NC5, L4, OC4, L4, OC4, NC5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho2, (Choice<All4, Non4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho1, (Choice<Non4, All4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho3, (Choice<All4, Non4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho1, (Choice<All4, Any4, Non5, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho4, (Choice<All4, Non4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho1, (Choice<Non5, All4, Any4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho3, (Choice<Non4, All4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho2, (Choice<All4, Any4, Non5, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho4, (Choice<Non4, All4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho2, (Choice<Non5, All4, Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho4, (Choice<All4, Any4, Non5, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho3, (Choice<Non5, All4, Any4, All4, Any4, Non5>{}));
 	ASSERT_PARSER_VALUES_EQ(cho5 | cho5, cho5);
 }
 
 TEST("choice operator", "Choice | {anything}, and {anything} | Choice")
 {
-	ASSERT_PARSER_VALUES_EQ(cho1 | oc1, (Choice<L4, NC4, OC1>{}));
-	ASSERT_PARSER_VALUES_EQ(oc1 | cho1, (Choice<OC1, L4, NC4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | oc4, (Choice<NC4, L4, OC4>{}));
-	ASSERT_PARSER_VALUES_EQ(oc4 | cho2, (Choice<OC4, NC4, L4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | oc3, (Choice<L4, OC4, NC5, OC3>{}));
-	ASSERT_PARSER_VALUES_EQ(oc3 | cho3, (Choice<OC3, L4, OC4, NC5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | oc2, (Choice<NC5, L4, OC4, OC2>{}));
-	ASSERT_PARSER_VALUES_EQ(oc2 | cho4, (Choice<OC2, NC5, L4, OC4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | any1, (Choice<All4, Non4, Any1>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 | cho1, (Choice<Any1, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | any4, (Choice<Non4, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(any4 | cho2, (Choice<Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | any3, (Choice<All4, Any4, Non5, Any3>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 | cho3, (Choice<Any3, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | any2, (Choice<Non5, All4, Any4, Any2>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 | cho4, (Choice<Any2, Non5, All4, Any4>{}));
 }
 
 TEST("choice operator", "void result_type")
@@ -220,29 +220,29 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
 					                        LHS{}  | RHS{},  LHS{});                                                  \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == OneCharType and RRHS::type == OneCharType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == AnyOfType)                                   \
 			{                                                                                                         \
 				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, OneChar<str>{},                                          \
-					                        LHS{}  | RHS{},  OneChar<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                            \
+					                        LHS{}  | RHS{},  AnyOf<str>{});                                           \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NotCharType and RRHS::type == NotCharType)                               \
+			else if constexpr (LLHS::type == NoneOfType and RRHS::type == NoneOfType)                                 \
 			{                                                                                                         \
 				constexpr auto str = set_intersection_string<underlying::string<LLHS>, underlying::string<RRHS>>;     \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
-					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NotCharType and RRHS::type == OneCharType)                               \
+			else if constexpr (LLHS::type == NoneOfType and RRHS::type == AnyOfType)                                  \
 			{                                                                                                         \
 				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
-					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == OneCharType and RRHS::type == NotCharType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == NoneOfType)                                  \
 			{                                                                                                         \
 				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
-					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
 			else if constexpr (LLHS::type == ChoiceType and RRHS::type != ChoiceType)                                 \
 			{                                                                                                         \

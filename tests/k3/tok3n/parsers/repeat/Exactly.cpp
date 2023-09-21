@@ -12,16 +12,16 @@ TEST("Exactly", "Requirements")
 
 TEST("Exactly", "Constructibility")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Index<0>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, OC1, Index<1>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, OC1, Index<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Index<0>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, Index<1>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, Index<2>);
 
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<0>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<1>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<0>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<1>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<2>);
 }
 
-TEST("Exactly", "Parse Exactly<Literal>")
+TEST("Exactly", "Parse Exactly<AllOf>")
 {
 	using array_type = std::array<Output<char>, 3>;
 	ASSERT_PARSE_FAILURE(Exa1, "litera");
@@ -33,7 +33,7 @@ TEST("Exactly", "Parse Exactly<Literal>")
 	ASSERT_PARSE_SUCCESS(Exa1, "literalliteralliterallyliteral", array_type({ "literal", "literal", "literal" }), "lyliteral");
 	ASSERT_PARSE_FAILURE(Exa1, "");
 }
-TEST("Exactly", "Parse Exactly<OneChar>")
+TEST("Exactly", "Parse Exactly<AnyOf>")
 {
 	using array_type = std::array<Output<char>, 5>;
 	ASSERT_PARSE_SUCCESS(Exa2, "abcbaa", array_type({ "a", "b", "c", "b", "a" }), "a");

@@ -1,6 +1,6 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/OneChar.h>
-#include <k3/tok3n/parsers/basic/NotChar.h>
+#include <k3/tok3n/parsers/basic/AnyOf.h>
+#include <k3/tok3n/parsers/basic/NoneOf.h>
 #include <k3/tok3n/parsers/compound/Choice.h>
 
 namespace k3::tok3n::operators_impl {
@@ -23,55 +23,55 @@ consteval auto merged_with()
 }
 
 template <StaticArray arr>
-consteval auto choice(OneChar<arr>, OneChar<arr>) // (P | P) == P
+consteval auto choice(AnyOf<arr>, AnyOf<arr>) // (P | P) == P
 {
-	return OneChar<arr>{};
+	return AnyOf<arr>{};
 }
 
 template <StaticArray arr>
-consteval auto choice(NotChar<arr>, NotChar<arr>) // (P | P) == P
+consteval auto choice(NoneOf<arr>, NoneOf<arr>) // (P | P) == P
 {
-	return NotChar<arr>{};
+	return NoneOf<arr>{};
 }
 
 template <StaticArray arr>
-consteval auto choice(OneChar<arr>, NotChar<arr>) // Anything
+consteval auto choice(AnyOf<arr>, NoneOf<arr>) // Anything
 {
-	return NotChar<arr.create_empty_with_size<0>>{};
+	return NoneOf<arr.create_empty_with_size<0>>{};
 }
 
 template <StaticArray arr>
-consteval auto choice(NotChar<arr>, OneChar<arr>) // Anything
+consteval auto choice(NoneOf<arr>, AnyOf<arr>) // Anything
 {
-	return NotChar<arr.create_empty_with_size<0>>{};
+	return NoneOf<arr.create_empty_with_size<0>>{};
 }
 
 template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
-consteval auto choice(OneChar<lhs>, OneChar<rhs>) //  "ab" |  "bc" == "abc"    <- set_union
+consteval auto choice(AnyOf<lhs>, AnyOf<rhs>) //  "ab" |  "bc" == "abc"    <- set_union
 {
-	return OneChar<merged_with<std::ranges::set_union, lhs, rhs>()>{};
+	return AnyOf<merged_with<std::ranges::set_union, lhs, rhs>()>{};
 }
 
 template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
-consteval auto choice(NotChar<lhs>, NotChar<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
+consteval auto choice(NoneOf<lhs>, NoneOf<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
 {
-	return NotChar<merged_with<std::ranges::set_intersection, lhs, rhs>()>{};
+	return NoneOf<merged_with<std::ranges::set_intersection, lhs, rhs>()>{};
 }
 
 template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
-consteval auto choice(OneChar<lhs>, NotChar<rhs>) //  "ab" | !"bc" == "c"      <- set_difference
+consteval auto choice(AnyOf<lhs>, NoneOf<rhs>) //  "ab" | !"bc" == "c"      <- set_difference
 {
-	return NotChar<merged_with<std::ranges::set_difference, rhs, lhs>()>{};
+	return NoneOf<merged_with<std::ranges::set_difference, rhs, lhs>()>{};
 }
 
 template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
-consteval auto choice(NotChar<lhs>, OneChar<rhs>) // !"ab" |  "bc" == "a"      <- set_difference
+consteval auto choice(NoneOf<lhs>, AnyOf<rhs>) // !"ab" |  "bc" == "a"      <- set_difference
 {
-	return NotChar<merged_with<std::ranges::set_difference, lhs, rhs>()>{};
+	return NoneOf<merged_with<std::ranges::set_difference, lhs, rhs>()>{};
 }
 
 template <Parser... P1s, Parser... P2s>

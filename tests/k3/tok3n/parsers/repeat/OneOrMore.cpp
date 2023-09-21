@@ -10,7 +10,7 @@ TEST("OneOrMore", "Requirements")
 	ASSERT_IS_PARSER(Oom4, OneOrMoreType, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
-TEST("OneOrMore", "Parse OneOrMore<Literal>")
+TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 {
 	using vec_type = std::vector<Output<char>>;
 	ASSERT_PARSE_FAILURE(Oom1, "litera");
@@ -21,7 +21,7 @@ TEST("OneOrMore", "Parse OneOrMore<Literal>")
 	ASSERT_PARSE_FAILURE(Oom1, " literalliterallitera");
 	ASSERT_PARSE_FAILURE(Oom1, "");
 }
-TEST("OneOrMore", "Parse OneOrMore<OneChar>")
+TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 {
 	using vec_type = std::vector<Output<char>>;
 	ASSERT_PARSE_SUCCESS(Oom2, "abcdef", vec_type({ "a", "b", "c" }), "def");
