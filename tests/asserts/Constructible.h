@@ -2,11 +2,11 @@
 #include "framework/Assert.h"
 #include <k3/tok3n/types/StaticArray.h>
 
-template <template <class...> class ParserFamily, class... Args>
-concept constructible_from = requires { typename ParserFamily<Args...>; };
+template <template <class...> class Family, class... Args>
+concept constructible_from = requires { typename Family<Args...>; };
 
-template <template <k3::tok3n::StaticArray> class ParserFamily, k3::tok3n::StaticArray arr>
-concept basic_constructible_from = requires { typename ParserFamily<arr>; };
+template <template <k3::tok3n::StaticArray> class Family, k3::tok3n::StaticArray arr>
+concept basic_constructible_from = requires { typename Family<arr>; };
 
 #define ASSERT_PARSER_CONSTRUCTIBLE(FAMILY, ...)                                          \
 	ASSERT((constructible_from<FAMILY __VA_OPT__(,) __VA_ARGS__>),                        \
