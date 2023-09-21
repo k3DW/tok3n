@@ -5,8 +5,8 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-requires OneCharConstructible<arr>
-struct BasicTraits<OneChar<arr>>
+requires AnyOfConstructible<arr>
+struct BasicTraits<AnyOf<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
 
@@ -19,10 +19,10 @@ struct BasicTraits<OneChar<arr>>
 };
 
 template <StaticArray arr>
-requires OneCharConstructible<arr>
-struct OneChar : BasicBase<OneChar<arr>>
+requires AnyOfConstructible<arr>
+struct AnyOf : BasicBase<AnyOf<arr>>
 {
-	static constexpr ParserType type = OneCharType;
+	static constexpr ParserType type = AnyOfType;
 };
 
 } // namespace k3::tok3n

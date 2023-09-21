@@ -220,7 +220,7 @@
     <ClInclude Include="include\k3\tok3n\detail\unwrap_if_single.h">
       <Filter>tok3n\detail</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h">
+    <ClInclude Include="include\k3\tok3n\parsers\basic\AnyOf.h">
       <Filter>tok3n\parsers\basic</Filter>
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\parsers\basic\BasicBase.h">

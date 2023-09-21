@@ -139,7 +139,7 @@
     <ClCompile Include="k3\tok3n\parsers\basic\NotChar.cpp">
       <Filter>k3\tok3n\parsers\basic</Filter>
     </ClCompile>
-    <ClCompile Include="k3\tok3n\parsers\basic\OneChar.cpp">
+    <ClCompile Include="k3\tok3n\parsers\basic\AnyOf.cpp">
       <Filter>k3\tok3n\parsers\basic</Filter>
     </ClCompile>
     <ClCompile Include="k3\tok3n\parsers\adaptor\Complete.cpp">

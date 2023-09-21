@@ -20,7 +20,7 @@ TEST("Maybe", "Parse Maybe<Literal>")
 	ASSERT_PARSE_SUCCESS(May1, " literalliterallitera", std::nullopt, " literalliterallitera");
 	ASSERT_PARSE_SUCCESS(May1, "", std::nullopt, "");
 }
-TEST("Maybe", "Parse Maybe<OneChar>")
+TEST("Maybe", "Parse Maybe<AnyOf>")
 {
 	ASSERT_PARSE_SUCCESS(May2, "abcdef", std::optional("a"), "bcdef");
 	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");

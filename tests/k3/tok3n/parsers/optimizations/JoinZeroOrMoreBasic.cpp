@@ -2,7 +2,7 @@
 
 FIXTURE("JoinZeroOrMoreBasic");
 
-using Joi_Zom_OC = Join<ZeroOrMore<OneChar<"123">>>;
+using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<"123">>>;
 using Joi_Zom_NC = Join<ZeroOrMore<NotChar<"123">>>;
 using Joi_Zom_L  = Join<ZeroOrMore<Literal<"123">>>;
 
@@ -13,7 +13,7 @@ TEST("JoinZeroOrMoreBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_Zom_L, JoinType, Output<char>);
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<OneChar>")
+TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "12321321", "12321321", "");
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "1232 1321", "1232", " 1321");

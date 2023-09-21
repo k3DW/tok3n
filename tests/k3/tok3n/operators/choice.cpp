@@ -2,14 +2,14 @@
 
 FIXTURE("choice operator");
 
-TEST("choice operator", "OneChar | OneChar")
+TEST("choice operator", "AnyOf | AnyOf")
 {
 	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, oc2 | oc1);
 	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, oc3 | oc1);
 	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, oc3 | oc2);
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, OneChar<"abcd">{});
-	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, OneChar<"abcxyz">{});
-	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, OneChar<"bcdxyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc2, AnyOf<"abcd">{});
+	ASSERT_PARSER_VALUES_EQ(oc1 | oc3, AnyOf<"abcxyz">{});
+	ASSERT_PARSER_VALUES_EQ(oc2 | oc3, AnyOf<"bcdxyz">{});
 	ASSERT_PARSER_VALUES_EQ(oc1 | oc1, oc1);
 	ASSERT_PARSER_VALUES_EQ(oc2 | oc2, oc2);
 	ASSERT_PARSER_VALUES_EQ(oc3 | oc3, oc3);
@@ -28,7 +28,7 @@ TEST("choice operator", "NotChar | NotChar")
 	ASSERT_PARSER_VALUES_EQ(nc3 | nc3, nc3);
 }
 
-TEST("choice operator", "OneChar | NotChar, and NotChar | OneChar")
+TEST("choice operator", "AnyOf | NotChar, and NotChar | AnyOf")
 {
 	ASSERT_PARSER_VALUES_EQ(oc1 | nc1, nc1 | oc1);
 	ASSERT_PARSER_VALUES_EQ(oc1 | nc2, nc2 | oc1);
@@ -220,11 +220,11 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
 					                        LHS{}  | RHS{},  LHS{});                                                  \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == OneCharType and RRHS::type == OneCharType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == AnyOfType)                               \
 			{                                                                                                         \
 				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, OneChar<str>{},                                          \
-					                        LHS{}  | RHS{},  OneChar<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                          \
+					                        LHS{}  | RHS{},  AnyOf<str>{});                                         \
 			}                                                                                                         \
 			else if constexpr (LLHS::type == NotCharType and RRHS::type == NotCharType)                               \
 			{                                                                                                         \
@@ -232,13 +232,13 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
 					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NotCharType and RRHS::type == OneCharType)                               \
+			else if constexpr (LLHS::type == NotCharType and RRHS::type == AnyOfType)                               \
 			{                                                                                                         \
 				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \
 					                        LHS{}  | RHS{},  NotChar<str>{});                                         \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == OneCharType and RRHS::type == NotCharType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == NotCharType)                               \
 			{                                                                                                         \
 				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NotChar<str>{},                                          \

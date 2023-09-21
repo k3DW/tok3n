@@ -21,7 +21,7 @@ TEST("OneOrMore", "Parse OneOrMore<Literal>")
 	ASSERT_PARSE_FAILURE(Oom1, " literalliterallitera");
 	ASSERT_PARSE_FAILURE(Oom1, "");
 }
-TEST("OneOrMore", "Parse OneOrMore<OneChar>")
+TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 {
 	using vec_type = std::vector<Output<char>>;
 	ASSERT_PARSE_SUCCESS(Oom2, "abcdef", vec_type({ "a", "b", "c" }), "def");

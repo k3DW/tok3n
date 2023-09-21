@@ -33,7 +33,7 @@ TEST("Exactly", "Parse Exactly<Literal>")
 	ASSERT_PARSE_SUCCESS(Exa1, "literalliteralliterallyliteral", array_type({ "literal", "literal", "literal" }), "lyliteral");
 	ASSERT_PARSE_FAILURE(Exa1, "");
 }
-TEST("Exactly", "Parse Exactly<OneChar>")
+TEST("Exactly", "Parse Exactly<AnyOf>")
 {
 	using array_type = std::array<Output<char>, 5>;
 	ASSERT_PARSE_SUCCESS(Exa2, "abcbaa", array_type({ "a", "b", "c", "b", "a" }), "a");

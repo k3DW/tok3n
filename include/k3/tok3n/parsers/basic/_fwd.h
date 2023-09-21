@@ -5,7 +5,7 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-concept OneCharConstructible = is_sorted_and_uniqued(arr);
+concept AnyOfConstructible = is_sorted_and_uniqued(arr);
 
 template <StaticArray arr>
 concept NotCharConstructible = is_sorted_and_uniqued(arr);
@@ -13,8 +13,8 @@ concept NotCharConstructible = is_sorted_and_uniqued(arr);
 
 
 template <StaticArray arr>
-requires OneCharConstructible<arr>
-struct OneChar;
+requires AnyOfConstructible<arr>
+struct AnyOf;
 
 template <StaticArray arr>
 requires NotCharConstructible<arr>

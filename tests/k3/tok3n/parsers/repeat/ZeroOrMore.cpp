@@ -21,7 +21,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
 	ASSERT_PARSE_SUCCESS(Zom1, " literalliterallitera", vec_type{}, " literalliterallitera");
 	ASSERT_PARSE_SUCCESS(Zom1, "", vec_type{}, "");
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<OneChar>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<AnyOf>")
 {
 	using vec_type = std::vector<Output<char>>;
 	ASSERT_PARSE_SUCCESS(Zom2, "abcdef", vec_type({ "a", "b", "c" }), "def");

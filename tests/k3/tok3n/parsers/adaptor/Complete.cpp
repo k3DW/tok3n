@@ -23,7 +23,7 @@ TEST("Complete", "Complete<Literal>")
 	ASSERT_PARSE_FAILURE(Com1, " literalliterallitera");
 	ASSERT_PARSE_FAILURE(Com1, "");
 }
-TEST("Complete", "Complete<OneChar>")
+TEST("Complete", "Complete<AnyOf>")
 {
 	ASSERT_PARSE_SUCCESS(Com2, "a", "a", "");
 	ASSERT_PARSE_SUCCESS(Com2, "b", "b", "");

@@ -71,7 +71,7 @@ TEST("Join", "Join<Delimit>")
 
 TEST("Join", "Join<Ignore>")
 {
-	using Q = OneChar<"?">;
+	using Q = AnyOf<"?">;
 
 	using S1 = Sequence<ABC, Ignore<QQ>>;
 	using S2 = Sequence<ABC, Ignore<QQ>, ABC>;

@@ -2,7 +2,7 @@
 
 FIXTURE("JoinExactlyBasic");
 
-using Joi_Exa_OC  = Join<Exactly<OneChar<"123">, Index<2>>>;
+using Joi_Exa_OC  = Join<Exactly<AnyOf<"123">, Index<2>>>;
 using Joi_Exa_NC  = Join<Exactly<NotChar<"123">, Index<2>>>;
 using Joi_Exa_L   = Join<Exactly<Literal<"123">, Index<2>>>;
 
@@ -13,7 +13,7 @@ TEST("JoinExactlyBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_Exa_L, JoinType, Output<char>);
 }
 
-TEST("JoinExactlyBasic", "Exactly<OneChar, 2>")
+TEST("JoinExactlyBasic", "Exactly<AnyOf, 2>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Exa_OC, "12321321", "12", "321321");
     ASSERT_PARSE_SUCCESS(Joi_Exa_OC, "1232 1321", "12", "32 1321");

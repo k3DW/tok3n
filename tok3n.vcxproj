@@ -222,7 +222,7 @@
     <ClInclude Include="include\k3\tok3n\parsers\adaptor\Ignore.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\Literal.h" />
     <ClInclude Include="include\k3\tok3n\parsers\basic\NotChar.h" />
-    <ClInclude Include="include\k3\tok3n\parsers\basic\OneChar.h" />
+    <ClInclude Include="include\k3\tok3n\parsers\basic\AnyOf.h" />
     <ClInclude Include="include\k3\tok3n\parsers\compound\Choice.h" />
     <ClInclude Include="include\k3\tok3n\parsers\compound\Sequence.h" />
     <ClInclude Include="include\k3\tok3n\parsers\divergent\ApplyInto.h" />

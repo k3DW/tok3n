@@ -6,7 +6,7 @@ enum class ParserType
 {
 	None,
 
-	OneChar,
+	AnyOf,
 	NotChar,
 	Literal,
 	Choice,
@@ -30,7 +30,7 @@ enum class ParserType
 	END
 };
 
-constexpr ParserType OneCharType        = ParserType::OneChar;
+constexpr ParserType AnyOfType        = ParserType::AnyOf;
 constexpr ParserType NotCharType        = ParserType::NotChar;
 constexpr ParserType LiteralType        = ParserType::Literal;
 constexpr ParserType ChoiceType         = ParserType::Choice;
