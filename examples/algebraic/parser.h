@@ -22,8 +22,8 @@ ws	::= [{' '|'\t'|'\n'|'\r'}];
 
 */
 
-constexpr auto ws = *"\t\n\r "_one % ignore;
-constexpr auto dgt = "0123456789"_one;
+constexpr auto ws = *"\t\n\r "_any % ignore;
+constexpr auto dgt = "0123456789"_any;
 
 struct number : Custom<number>
 {
@@ -38,7 +38,7 @@ struct number : Custom<number>
 	{
 		constexpr auto integer = +dgt % join;
 		constexpr auto fraction = join("."_ign >> +dgt);
-		constexpr auto exponent = join(ignore("Ee"_one) >> ~"-"_lit >> +dgt);
+		constexpr auto exponent = join(ignore("Ee"_any) >> ~"-"_all >> +dgt);
 
 		return apply_into<result_type>(integer >> ~fraction >> ~exponent);
 	}
@@ -82,17 +82,17 @@ struct powterm::result_type
 
 consteval auto factor::get_parser()
 {
-	return (ws >> powterm{}) % delimit(ws >> "^"_one % into<std::string_view>);
+	return (ws >> powterm{}) % delimit(ws >> "^"_any % into<std::string_view>);
 }
 
 consteval auto term::get_parser()
 {
-	return (ws >> factor{}) % delimit_keep(ws >> "*/"_one % into<std::string_view>);
+	return (ws >> factor{}) % delimit_keep(ws >> "*/"_any % into<std::string_view>);
 }
 
 consteval auto expr::get_parser()
 {
-	return (ws >> term{}) % delimit_keep(ws >> "+-"_one % into<std::string_view>);
+	return (ws >> term{}) % delimit_keep(ws >> "+-"_any % into<std::string_view>);
 }
 
 consteval auto powterm::get_parser()

@@ -21,19 +21,19 @@ constexpr auto ign = Ignore<AllOf<arr>>{};
 
 
 template <StaticArray arr>
-consteval auto operator"" _one()
+consteval auto operator"" _any()
 {
 	return one<arr>;
 }
 
 template <StaticArray arr>
-consteval auto operator"" _not()
+consteval auto operator"" _none()
 {
 	return not_<arr>;
 }
 
 template <StaticArray arr>
-consteval auto operator"" _lit()
+consteval auto operator"" _all()
 {
 	return lit<arr>;
 }
@@ -53,9 +53,9 @@ using ::k3::tok3n::not_;
 using ::k3::tok3n::lit;
 using ::k3::tok3n::ign;
 
-using ::k3::tok3n::operator""_one;
-using ::k3::tok3n::operator""_not;
-using ::k3::tok3n::operator""_lit;
+using ::k3::tok3n::operator""_any;
+using ::k3::tok3n::operator""_none;
+using ::k3::tok3n::operator""_all;
 using ::k3::tok3n::operator""_ign;
 
 } // namespace k3::tok3n::operators
