@@ -220,29 +220,29 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
 					                        LHS{}  | RHS{},  LHS{});                                                  \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfType and RRHS::type == AnyOfType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == AnyOfType)                                   \
 			{                                                                                                         \
 				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                          \
-					                        LHS{}  | RHS{},  AnyOf<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                            \
+					                        LHS{}  | RHS{},  AnyOf<str>{});                                           \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfType and RRHS::type == NoneOfType)                               \
+			else if constexpr (LLHS::type == NoneOfType and RRHS::type == NoneOfType)                                 \
 			{                                                                                                         \
 				constexpr auto str = set_intersection_string<underlying::string<LLHS>, underlying::string<RRHS>>;     \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                          \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfType and RRHS::type == AnyOfType)                               \
+			else if constexpr (LLHS::type == NoneOfType and RRHS::type == AnyOfType)                                  \
 			{                                                                                                         \
 				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                          \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfType and RRHS::type == NoneOfType)                               \
+			else if constexpr (LLHS::type == AnyOfType and RRHS::type == NoneOfType)                                  \
 			{                                                                                                         \
 				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                          \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                                         \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
+					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
 			else if constexpr (LLHS::type == ChoiceType and RRHS::type != ChoiceType)                                 \
 			{                                                                                                         \

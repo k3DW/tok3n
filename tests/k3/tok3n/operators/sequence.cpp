@@ -109,11 +109,11 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 #define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                          \
 	[&]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                       \
 		DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                 \
-		if constexpr (LLHS::type == AllOfType and RRHS::type == AllOfType)                        \
+		if constexpr (LLHS::type == AllOfType and RRHS::type == AllOfType)                            \
 		{                                                                                             \
 			constexpr auto str = combine_strings<underlying::string<LLHS>, underlying::string<RRHS>>; \
-			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                             \
-					                    LHS{}  >> RHS{},  AllOf<str>{});                            \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                               \
+					                    LHS{}  >> RHS{},  AllOf<str>{});                              \
 		}                                                                                             \
 		else if constexpr (LLHS::type == SequenceType and RRHS::type != SequenceType)                 \
 		{                                                                                             \

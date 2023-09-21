@@ -30,9 +30,9 @@ enum class ParserType
 	END
 };
 
-constexpr ParserType AnyOfType        = ParserType::AnyOf;
-constexpr ParserType NoneOfType        = ParserType::NoneOf;
-constexpr ParserType AllOfType        = ParserType::AllOf;
+constexpr ParserType AnyOfType          = ParserType::AnyOf;
+constexpr ParserType NoneOfType         = ParserType::NoneOf;
+constexpr ParserType AllOfType          = ParserType::AllOf;
 constexpr ParserType ChoiceType         = ParserType::Choice;
 constexpr ParserType SequenceType       = ParserType::Sequence;
 constexpr ParserType MaybeType          = ParserType::Maybe;

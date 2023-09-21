@@ -26,17 +26,17 @@ TEST("not operator", "!NoneOf")
 
 #define NOT_OPERATOR_ASSERTER(P)                                                  \
 	[&]<Parser PP>(PP) {                                                          \
-		if constexpr (PP::type == AnyOfType)                                    \
+		if constexpr (PP::type == AnyOfType)                                      \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
-			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying::string<PP>>{}, \
-					                    !P{},  NoneOf<underlying::string<P>>{}); \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying::string<PP>>{},  \
+					                    !P{},  NoneOf<underlying::string<P>>{});  \
 		}                                                                         \
-		else if constexpr (PP::type == NoneOfType)                               \
+		else if constexpr (PP::type == NoneOfType)                                \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
-			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying::string<PP>>{}, \
-					                    !P{},  AnyOf<underlying::string<P>>{}); \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying::string<PP>>{},   \
+					                    !P{},  AnyOf<underlying::string<P>>{});   \
 		}                                                                         \
 		else                                                                      \
 		{                                                                         \
