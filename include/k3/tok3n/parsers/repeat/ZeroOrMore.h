@@ -9,7 +9,7 @@ struct ZeroOrMore
 {
 	using result_type = std::vector<typename P::result_type>;
 
-	static constexpr ParserFamily type = ZeroOrMoreFamily;
+	static constexpr ParserFamily family = ZeroOrMoreFamily;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

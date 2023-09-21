@@ -9,9 +9,9 @@ namespace k3::tok3n {
 
 template <class P>
 concept Parser =
-	requires { typename std::integral_constant<ParserFamily, P::type>; } &&
-	static_cast<int>(P::type) > static_cast<int>(ParserFamily::None) &&
-	static_cast<int>(P::type) < static_cast<int>(ParserFamily::END) &&
+	requires { typename std::integral_constant<ParserFamily, P::family>; } &&
+	static_cast<int>(P::family) > static_cast<int>(ParserFamily::None) &&
+	static_cast<int>(P::family) < static_cast<int>(ParserFamily::END) &&
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&

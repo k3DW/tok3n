@@ -26,13 +26,13 @@ TEST("not operator", "!NoneOf")
 
 #define NOT_OPERATOR_ASSERTER(P)                                                  \
 	[&]<Parser PP>(PP) {                                                          \
-		if constexpr (PP::type == AnyOfFamily)                                    \
+		if constexpr (PP::family == AnyOfFamily)                                  \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
 			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying::string<PP>>{},  \
 					                    !P{},  NoneOf<underlying::string<P>>{});  \
 		}                                                                         \
-		else if constexpr (PP::type == NoneOfFamily)                              \
+		else if constexpr (PP::family == NoneOfFamily)                            \
 		{                                                                         \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                              \
 			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying::string<PP>>{},   \

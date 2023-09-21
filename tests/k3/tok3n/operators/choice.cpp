@@ -220,41 +220,41 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, LLHS{},                                                  \
 					                        LHS{}  | RHS{},  LHS{});                                                  \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfFamily and RRHS::type == AnyOfFamily)                               \
+			else if constexpr (LLHS::family == AnyOfFamily and RRHS::family == AnyOfFamily)                           \
 			{                                                                                                         \
 				constexpr auto str = set_union_string<underlying::string<LLHS>, underlying::string<RRHS>>;            \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                            \
 					                        LHS{}  | RHS{},  AnyOf<str>{});                                           \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfFamily and RRHS::type == NoneOfFamily)                             \
+			else if constexpr (LLHS::family == NoneOfFamily and RRHS::family == NoneOfFamily)                         \
 			{                                                                                                         \
 				constexpr auto str = set_intersection_string<underlying::string<LLHS>, underlying::string<RRHS>>;     \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == NoneOfFamily and RRHS::type == AnyOfFamily)                              \
+			else if constexpr (LLHS::family == NoneOfFamily and RRHS::family == AnyOfFamily)                          \
 			{                                                                                                         \
 				constexpr auto str = set_difference_left_string<underlying::string<LLHS>, underlying::string<RRHS>>;  \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == AnyOfFamily and RRHS::type == NoneOfFamily)                              \
+			else if constexpr (LLHS::family == AnyOfFamily and RRHS::family == NoneOfFamily)                          \
 			{                                                                                                         \
 				constexpr auto str = set_difference_right_string<underlying::string<LLHS>, underlying::string<RRHS>>; \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                                           \
 					                        LHS{}  | RHS{},  NoneOf<str>{});                                          \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == ChoiceFamily and RRHS::type != ChoiceFamily)                             \
+			else if constexpr (LLHS::family == ChoiceFamily and RRHS::family != ChoiceFamily)                         \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_left(LLHS{}, RRHS{}),                    \
 					                        LHS{}  | RHS{},  choice_combined_left(LHS{},  RHS{}));                    \
 			}                                                                                                         \
-			else if constexpr (LLHS::type != ChoiceFamily and RRHS::type == ChoiceFamily)                             \
+			else if constexpr (LLHS::family != ChoiceFamily and RRHS::family == ChoiceFamily)                         \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_right(LLHS{}, RRHS{}),                   \
 					                        LHS{}  | RHS{},  choice_combined_right(LHS{},  RHS{}));                   \
 			}                                                                                                         \
-			else if constexpr (LLHS::type == ChoiceFamily and RRHS::type == ChoiceFamily)                             \
+			else if constexpr (LLHS::family == ChoiceFamily and RRHS::family == ChoiceFamily)                         \
 			{                                                                                                         \
 				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, choice_combined_both(LLHS{}, RRHS{}),                    \
 					                        LHS{}  | RHS{},  choice_combined_both(LHS{},  RHS{}));                    \

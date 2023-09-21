@@ -12,8 +12,8 @@
 
 #define ASSERT_IS_PARSER(P, PARSER_TYPE, ...)                                                  \
 	ASSERT_CONCEPT(Parser, P);                                                                 \
-	ASSERT(P::type == PARSER_TYPE,                                                             \
-		"`" STR(P) "::type` does not equal " STR(PARSER_TYPE));                                \
+	ASSERT(P::family == PARSER_TYPE,                                                           \
+		"`" STR(P) "::family` does not equal " STR(PARSER_TYPE));                              \
 	ASSERT((std::same_as<typename P::result_type, __VA_ARGS__>),                               \
 		"`" STR(P) "::result_type` is not " STR(__VA_ARGS__));                                 \
 	ASSERT((IsParser<P, PARSER_TYPE, __VA_ARGS__>),                                            \
