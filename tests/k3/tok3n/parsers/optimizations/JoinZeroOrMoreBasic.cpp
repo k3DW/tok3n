@@ -4,7 +4,7 @@ FIXTURE("JoinZeroOrMoreBasic");
 
 using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<"123">>>;
 using Joi_Zom_NC = Join<ZeroOrMore<NoneOf<"123">>>;
-using Joi_Zom_L  = Join<ZeroOrMore<Literal<"123">>>;
+using Joi_Zom_L  = Join<ZeroOrMore<AllOf<"123">>>;
 
 TEST("JoinZeroOrMoreBasic", "Requirements")
 {
@@ -31,7 +31,7 @@ TEST("JoinZeroOrMoreBasic", "ZeroOrMore<NoneOf>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, "012341321", "0", "12341321");
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<Literal>")
+TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AllOf>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12312321321", "123123", "21321");

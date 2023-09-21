@@ -13,7 +13,7 @@ TEST("Complete", "Requirements")
 	ASSERT_IS_PARSER(Com7, CompleteType, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
-TEST("Complete", "Complete<Literal>")
+TEST("Complete", "Complete<AllOf>")
 {
 	ASSERT_PARSE_FAILURE(Com1, "litera");
 	ASSERT_PARSE_SUCCESS(Com1, "literal", "literal", "");

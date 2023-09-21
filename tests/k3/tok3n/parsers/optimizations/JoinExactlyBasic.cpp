@@ -4,7 +4,7 @@ FIXTURE("JoinExactlyBasic");
 
 using Joi_Exa_OC  = Join<Exactly<AnyOf<"123">, Index<2>>>;
 using Joi_Exa_NC  = Join<Exactly<NoneOf<"123">, Index<2>>>;
-using Joi_Exa_L   = Join<Exactly<Literal<"123">, Index<2>>>;
+using Joi_Exa_L   = Join<Exactly<AllOf<"123">, Index<2>>>;
 
 TEST("JoinExactlyBasic", "Requirements")
 {
@@ -35,7 +35,7 @@ TEST("JoinExactlyBasic", "Exactly<NoneOf, 2>")
     ASSERT_PARSE_FAILURE(Joi_Exa_NC, "1012341321");
 }
 
-TEST("JoinExactlyBasic", "Exactly<Literal, 2>")
+TEST("JoinExactlyBasic", "Exactly<AllOf, 2>")
 {
     ASSERT_PARSE_FAILURE(Joi_Exa_L, "12321321");
     ASSERT_PARSE_SUCCESS(Joi_Exa_L, "12312321321", "123123", "21321");

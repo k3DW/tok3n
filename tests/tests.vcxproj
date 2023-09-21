@@ -235,7 +235,7 @@
     <ClCompile Include="k3\tok3n\parsers\adaptor\Complete.cpp" />
     <ClCompile Include="k3\tok3n\parsers\repeat\Delimit.cpp" />
     <ClCompile Include="k3\tok3n\parsers\adaptor\Ignore.cpp" />
-    <ClCompile Include="k3\tok3n\parsers\basic\Literal.cpp" />
+    <ClCompile Include="k3\tok3n\parsers\basic\AllOf.cpp" />
     <ClCompile Include="k3\tok3n\parsers\basic\NoneOf.cpp" />
     <ClCompile Include="k3\tok3n\parsers\basic\AnyOf.cpp" />
     <ClCompile Include="k3\tok3n\parsers\compound\Choice.cpp" />

@@ -21,7 +21,7 @@ TEST("Exactly", "Constructibility")
 	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, OC1, Const<2>);
 }
 
-TEST("Exactly", "Parse Exactly<Literal>")
+TEST("Exactly", "Parse Exactly<AllOf>")
 {
 	using array_type = std::array<Output<char>, 3>;
 	ASSERT_PARSE_FAILURE(Exa1, "litera");

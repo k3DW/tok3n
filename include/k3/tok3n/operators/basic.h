@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n/parsers/basic/AnyOf.h>
 #include <k3/tok3n/parsers/basic/NoneOf.h>
-#include <k3/tok3n/parsers/basic/Literal.h>
+#include <k3/tok3n/parsers/basic/AllOf.h>
 #include <k3/tok3n/parsers/adaptor/Ignore.h>
 
 namespace k3::tok3n {
@@ -13,10 +13,10 @@ template <StaticArray arr>
 constexpr auto not_ = NoneOf<sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto lit = Literal<arr>{};
+constexpr auto lit = AllOf<arr>{};
 
 template <StaticArray arr>
-constexpr auto ign = Ignore<Literal<arr>>{};
+constexpr auto ign = Ignore<AllOf<arr>>{};
 
 
 

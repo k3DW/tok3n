@@ -5,7 +5,7 @@
 
 #include <k3/tok3n/parsers/basic/AnyOf.h>
 #include <k3/tok3n/parsers/basic/NoneOf.h>
-#include <k3/tok3n/parsers/basic/Literal.h>
+#include <k3/tok3n/parsers/basic/AllOf.h>
 
 #include <k3/tok3n/parsers/compound/Choice.h>
 #include <k3/tok3n/parsers/compound/Sequence.h>

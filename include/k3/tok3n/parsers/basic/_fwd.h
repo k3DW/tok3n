@@ -21,6 +21,6 @@ requires NoneOfConstructible<arr>
 struct NoneOf;
 
 template <StaticArray arr>
-struct Literal;
+struct AllOf;
 
 } // namespace k3::tok3n

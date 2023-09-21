@@ -2,17 +2,17 @@
 
 FIXTURE("sequence operator");
 
-TEST("sequence operator", "Literal >> Literal")
+TEST("sequence operator", "AllOf >> AllOf")
 {
-	ASSERT_PARSER_VALUES_EQ(l1 >> l1, Literal<"literalliteral">{});
-	ASSERT_PARSER_VALUES_EQ(l1 >> l2, Literal<"literally">{});
-	ASSERT_PARSER_VALUES_EQ(l1 >> l3, Literal<"literaltest">{});
-	ASSERT_PARSER_VALUES_EQ(l2 >> l1, Literal<"lyliteral">{});
-	ASSERT_PARSER_VALUES_EQ(l2 >> l2, Literal<"lyly">{});
-	ASSERT_PARSER_VALUES_EQ(l2 >> l3, Literal<"lytest">{});
-	ASSERT_PARSER_VALUES_EQ(l3 >> l1, Literal<"testliteral">{});
-	ASSERT_PARSER_VALUES_EQ(l3 >> l2, Literal<"testly">{});
-	ASSERT_PARSER_VALUES_EQ(l3 >> l3, Literal<"testtest">{});
+	ASSERT_PARSER_VALUES_EQ(l1 >> l1, AllOf<"literalliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l1 >> l2, AllOf<"literally">{});
+	ASSERT_PARSER_VALUES_EQ(l1 >> l3, AllOf<"literaltest">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l1, AllOf<"lyliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l2, AllOf<"lyly">{});
+	ASSERT_PARSER_VALUES_EQ(l2 >> l3, AllOf<"lytest">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l1, AllOf<"testliteral">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l2, AllOf<"testly">{});
+	ASSERT_PARSER_VALUES_EQ(l3 >> l3, AllOf<"testtest">{});
 }
 
 
@@ -109,11 +109,11 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 #define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                          \
 	[&]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                       \
 		DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                 \
-		if constexpr (LLHS::type == LiteralType and RRHS::type == LiteralType)                        \
+		if constexpr (LLHS::type == AllOfType and RRHS::type == AllOfType)                        \
 		{                                                                                             \
 			constexpr auto str = combine_strings<underlying::string<LLHS>, underlying::string<RRHS>>; \
-			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, Literal<str>{},                             \
-					                    LHS{}  >> RHS{},  Literal<str>{});                            \
+			DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                             \
+					                    LHS{}  >> RHS{},  AllOf<str>{});                            \
 		}                                                                                             \
 		else if constexpr (LLHS::type == SequenceType and RRHS::type != SequenceType)                 \
 		{                                                                                             \

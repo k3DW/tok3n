@@ -52,7 +52,7 @@ TEST("basic operators", "UDL _lit")
 	ASSERT_PARSER_VALUES_EQ("ab"_lit, l4);
 	ASSERT_PARSER_VALUES_EQ("??"_lit, qq);
 	ASSERT_PARSER_VALUES_EQ("abc"_lit, abc);
-	ASSERT_PARSER_VALUES_EQ(""_lit, Literal<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_lit, AllOf<"">{});
 }
 
 TEST("basic operators", "lit<>")
@@ -63,7 +63,7 @@ TEST("basic operators", "lit<>")
 	ASSERT_PARSER_VALUES_EQ(lit<"ab">, l4);
 	ASSERT_PARSER_VALUES_EQ(lit<"??">, qq);
 	ASSERT_PARSER_VALUES_EQ(lit<"abc">, abc);
-	ASSERT_PARSER_VALUES_EQ(lit<"">, Literal<"">{});
+	ASSERT_PARSER_VALUES_EQ(lit<"">, AllOf<"">{});
 }
 
 TEST("basic operators", "UDL _ign")
@@ -74,7 +74,7 @@ TEST("basic operators", "UDL _ign")
 	ASSERT_PARSER_VALUES_EQ("ab"_ign, Ignore<L4>{});
 	ASSERT_PARSER_VALUES_EQ("??"_ign, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ("abc"_ign, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(""_ign, Ignore<Literal<"">>{});
+	ASSERT_PARSER_VALUES_EQ(""_ign, Ignore<AllOf<"">>{});
 }
 
 TEST("basic operators", "ign<>")
@@ -85,7 +85,7 @@ TEST("basic operators", "ign<>")
 	ASSERT_PARSER_VALUES_EQ(ign<"ab">, Ignore<L4>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"??">, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"abc">, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(ign<"">, Ignore<Literal<"">>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"">, Ignore<AllOf<"">>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")

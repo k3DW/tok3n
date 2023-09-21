@@ -10,7 +10,7 @@ TEST("ZeroOrMore", "Requirements")
 	ASSERT_IS_PARSER(Zom4, ZeroOrMoreType, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
-TEST("ZeroOrMore", "Parse ZeroOrMore<Literal>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<AllOf>")
 {
 	using vec_type = std::vector<Output<char>>;
 	ASSERT_PARSE_SUCCESS(Zom1, "litera", vec_type{}, "litera");

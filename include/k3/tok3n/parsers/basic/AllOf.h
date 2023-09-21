@@ -5,7 +5,7 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-struct BasicTraits<Literal<arr>>
+struct BasicTraits<AllOf<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
 
@@ -18,9 +18,9 @@ struct BasicTraits<Literal<arr>>
 };
 
 template <StaticArray arr>
-struct Literal : BasicBase<Literal<arr>>
+struct AllOf : BasicBase<AllOf<arr>>
 {
-	static constexpr ParserType type = LiteralType;
+	static constexpr ParserType type = AllOfType;
 };
 
 } // namespace k3::tok3n
