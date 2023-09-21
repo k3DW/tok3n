@@ -9,7 +9,7 @@ struct Defaulted
 {
 	using result_type = T;
 
-	static constexpr ParserType type = DefaultedType;
+	static constexpr ParserFamily type = DefaultedType;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

@@ -9,7 +9,7 @@ struct OneOrMore
 {
 	using result_type = std::vector<typename P::result_type>;
 
-	static constexpr ParserType type = OneOrMoreType;
+	static constexpr ParserFamily type = OneOrMoreType;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

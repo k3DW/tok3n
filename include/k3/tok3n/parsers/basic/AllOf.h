@@ -20,7 +20,7 @@ struct BasicTraits<AllOf<arr>>
 template <StaticArray arr>
 struct AllOf : BasicBase<AllOf<arr>>
 {
-	static constexpr ParserType type = AllOfType;
+	static constexpr ParserFamily type = AllOfType;
 };
 
 } // namespace k3::tok3n

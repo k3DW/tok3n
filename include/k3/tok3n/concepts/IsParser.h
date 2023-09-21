@@ -8,7 +8,7 @@ namespace detail
 	struct DoNotCareAboutResultTag {};
 }
 
-template <class P, ParserType type, class R = detail::DoNotCareAboutResultTag>
+template <class P, ParserFamily type, class R = detail::DoNotCareAboutResultTag>
 concept IsParser =
 	Parser<P> and
 	P::type == type and

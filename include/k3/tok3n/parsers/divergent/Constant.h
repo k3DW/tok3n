@@ -8,7 +8,7 @@ struct Constant
 {
 	using result_type = typename Value::value_type;
 
-	static constexpr ParserType type = ConstantType;
+	static constexpr ParserFamily type = ConstantType;
 
 	static constexpr Result<result_type, char> parse(Input<char> input)
 	{

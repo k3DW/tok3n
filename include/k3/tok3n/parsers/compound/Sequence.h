@@ -63,7 +63,7 @@ struct Sequence
 {
 	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
-	static constexpr ParserType type = SequenceType;
+	static constexpr ParserFamily type = SequenceType;
 
 	using result_type                = _trait::type;
 	static constexpr bool _unwrapped = _trait::unwrapped;

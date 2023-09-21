@@ -169,9 +169,6 @@
     <ClInclude Include="include\k3\tok3n\types\ModifierBase.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
-    <ClInclude Include="include\k3\tok3n\types\ParserType.h">
-      <Filter>tok3n\types</Filter>
-    </ClInclude>
     <ClInclude Include="include\k3\tok3n\types\Result.h">
       <Filter>tok3n\types</Filter>
     </ClInclude>
@@ -258,6 +255,9 @@
     </ClInclude>
     <ClInclude Include="include\k3\tok3n\concepts\CharType.h">
       <Filter>tok3n\concepts</Filter>
+    </ClInclude>
+    <ClInclude Include="include\k3\tok3n\types\ParserFamily.h">
+      <Filter>tok3n\types</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
