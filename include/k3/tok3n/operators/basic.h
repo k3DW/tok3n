@@ -7,13 +7,13 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-constexpr auto one = AnyOf<sort_and_unique<arr>()>{};
+constexpr auto any = AnyOf<sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto not_ = NoneOf<sort_and_unique<arr>()>{};
+constexpr auto none = NoneOf<sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto lit = AllOf<arr>{};
+constexpr auto all = AllOf<arr>{};
 
 template <StaticArray arr>
 constexpr auto ign = Ignore<AllOf<arr>>{};
@@ -23,19 +23,19 @@ constexpr auto ign = Ignore<AllOf<arr>>{};
 template <StaticArray arr>
 consteval auto operator"" _any()
 {
-	return one<arr>;
+	return any<arr>;
 }
 
 template <StaticArray arr>
 consteval auto operator"" _none()
 {
-	return not_<arr>;
+	return none<arr>;
 }
 
 template <StaticArray arr>
 consteval auto operator"" _all()
 {
-	return lit<arr>;
+	return all<arr>;
 }
 
 template <StaticArray arr>
@@ -48,9 +48,9 @@ consteval auto operator"" _ign()
 
 namespace k3::tok3n::operators {
 
-using ::k3::tok3n::one;
-using ::k3::tok3n::not_;
-using ::k3::tok3n::lit;
+using ::k3::tok3n::any;
+using ::k3::tok3n::none;
+using ::k3::tok3n::all;
 using ::k3::tok3n::ign;
 
 using ::k3::tok3n::operator""_any;
