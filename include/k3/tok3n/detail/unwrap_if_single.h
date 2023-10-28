@@ -11,7 +11,7 @@ struct unwrap_if_single_trait
 	using type = Type;
 };
 
-constexpr auto unwrap_if_single_impl =
+inline constexpr auto unwrap_if_single_impl =
 	[]<template <class...> class List, class... Ts>
 		(List<Ts...>) consteval
 	{

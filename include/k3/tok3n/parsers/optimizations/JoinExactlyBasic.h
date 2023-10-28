@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/basic/_fwd.h>
+#include <k3/tok3n/parsers/basic/BasicBase.h>
 #include <k3/tok3n/parsers/divergent/_fwd.h>
 #include <k3/tok3n/parsers/repeat/_fwd.h>
 

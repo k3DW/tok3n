@@ -30,25 +30,25 @@ enum class ParserFamily
 	END
 };
 
-constexpr ParserFamily AnyOfFamily          = ParserFamily::AnyOf;
-constexpr ParserFamily NoneOfFamily         = ParserFamily::NoneOf;
-constexpr ParserFamily AllOfFamily          = ParserFamily::AllOf;
-constexpr ParserFamily ChoiceFamily         = ParserFamily::Choice;
-constexpr ParserFamily SequenceFamily       = ParserFamily::Sequence;
-constexpr ParserFamily MaybeFamily          = ParserFamily::Maybe;
-constexpr ParserFamily ExactlyFamily        = ParserFamily::Exactly;
-constexpr ParserFamily OneOrMoreFamily      = ParserFamily::OneOrMore;
-constexpr ParserFamily ZeroOrMoreFamily     = ParserFamily::ZeroOrMore;
-constexpr ParserFamily DelimitFamily        = ParserFamily::Delimit;
-constexpr ParserFamily IgnoreFamily         = ParserFamily::Ignore;
-constexpr ParserFamily CompleteFamily       = ParserFamily::Complete;
-constexpr ParserFamily JoinFamily           = ParserFamily::Join;
-constexpr ParserFamily TransformFamily      = ParserFamily::Transform;
-constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
-constexpr ParserFamily IntoFamily           = ParserFamily::Into;
-constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;
-constexpr ParserFamily ConstantFamily       = ParserFamily::Constant;
-constexpr ParserFamily DefaultedFamily      = ParserFamily::Defaulted;
-constexpr ParserFamily CustomFamily         = ParserFamily::Custom;
+inline constexpr ParserFamily AnyOfFamily          = ParserFamily::AnyOf;
+inline constexpr ParserFamily NoneOfFamily         = ParserFamily::NoneOf;
+inline constexpr ParserFamily AllOfFamily          = ParserFamily::AllOf;
+inline constexpr ParserFamily ChoiceFamily         = ParserFamily::Choice;
+inline constexpr ParserFamily SequenceFamily       = ParserFamily::Sequence;
+inline constexpr ParserFamily MaybeFamily          = ParserFamily::Maybe;
+inline constexpr ParserFamily ExactlyFamily        = ParserFamily::Exactly;
+inline constexpr ParserFamily OneOrMoreFamily      = ParserFamily::OneOrMore;
+inline constexpr ParserFamily ZeroOrMoreFamily     = ParserFamily::ZeroOrMore;
+inline constexpr ParserFamily DelimitFamily        = ParserFamily::Delimit;
+inline constexpr ParserFamily IgnoreFamily         = ParserFamily::Ignore;
+inline constexpr ParserFamily CompleteFamily       = ParserFamily::Complete;
+inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
+inline constexpr ParserFamily TransformFamily      = ParserFamily::Transform;
+inline constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
+inline constexpr ParserFamily IntoFamily           = ParserFamily::Into;
+inline constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;
+inline constexpr ParserFamily ConstantFamily       = ParserFamily::Constant;
+inline constexpr ParserFamily DefaultedFamily      = ParserFamily::Defaulted;
+inline constexpr ParserFamily CustomFamily         = ParserFamily::Custom;
 
 } // namespace k3::tok3n

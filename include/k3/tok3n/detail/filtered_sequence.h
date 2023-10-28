@@ -4,7 +4,7 @@
 
 namespace k3::tok3n::detail {
 
-constexpr auto filtered_sequence_impl =
+inline constexpr auto filtered_sequence_impl =
 	[]<class Self, type_predicate Pred, std::size_t Next, std::size_t... Is, class Head, class... Tail>
 		(Self self, Pred, std::integral_constant<std::size_t, Next>, std::index_sequence<Is...>, std::type_identity<Head>, std::type_identity<Tail>... tail) consteval
 	{
