@@ -1,9 +1,5 @@
-#include <iostream>
-#include "pch.h"
+#include <k3/tok3n.h>
 
 int main()
 {
-	auto& runner = Runner::get();
-	runner.run();
-	std::cout << runner.print_results();
 }
