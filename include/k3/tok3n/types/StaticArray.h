@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <ranges>
 #include <string_view>
+#include <k3/tok3n/concepts/CharType.h>
 
 namespace k3::tok3n {
 
