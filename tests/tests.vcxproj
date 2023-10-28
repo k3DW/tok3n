@@ -189,6 +189,7 @@
     <ClInclude Include="samples\wrappers.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="pch.cpp" />
     <ClCompile Include="framework\Fixture.cpp" />
     <ClCompile Include="framework\Runner.cpp" />
     <ClCompile Include="framework\Test.cpp" />
@@ -244,7 +245,6 @@
     <ClCompile Include="k3\tok3n\parsers\repeat\Maybe.cpp" />
     <ClCompile Include="k3\tok3n\parsers\repeat\OneOrMore.cpp" />
     <ClCompile Include="k3\tok3n\parsers\repeat\ZeroOrMore.cpp" />
-    <ClCompile Include="pch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\tok3n.vcxproj">
