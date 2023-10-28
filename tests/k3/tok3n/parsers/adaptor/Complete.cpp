@@ -46,8 +46,8 @@ TEST("Complete", "Complete<Sequence>")
 {
 	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralb");
 	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com4, "literala", std::tuple("literal", "a"), "");
-	ASSERT_PARSE_SUCCESS(Com4, "literalb", std::tuple("literal", "b"), "");
+	ASSERT_PARSE_SUCCESS(Com4, "literala", std::make_tuple("literal", "a"), "");
+	ASSERT_PARSE_SUCCESS(Com4, "literalb", std::make_tuple("literal", "b"), "");
 	ASSERT_PARSE_FAILURE(Com4, "literald");
 	ASSERT_PARSE_FAILURE(Com4, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_FAILURE(Com4, "");
@@ -56,8 +56,8 @@ TEST("Complete", "Complete<Maybe>")
 {
 	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralb");
 	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com5, "literala", std::optional(std::tuple("literal", "a")), "");
-	ASSERT_PARSE_SUCCESS(Com5, "literalb", std::optional(std::tuple("literal", "b")), "");
+	ASSERT_PARSE_SUCCESS(Com5, "literala", std::optional(std::make_tuple("literal", "a")), "");
+	ASSERT_PARSE_SUCCESS(Com5, "literalb", std::optional(std::make_tuple("literal", "b")), "");
 	ASSERT_PARSE_FAILURE(Com5, "literald");
 	ASSERT_PARSE_FAILURE(Com5, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_SUCCESS(Com5, "", std::nullopt, "");

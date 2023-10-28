@@ -87,18 +87,18 @@ TEST("Join", "Join<Ignore>")
 	ASSERT_PARSE_SUCCESS(J1, "abc??abc", "abc", "abc");
 	ASSERT_PARSE_SUCCESS(J1, "abc??abc??a", "abc", "abc??a");
 
-	ASSERT_PARSE_SUCCESS(S2, "abc??abc", std::tuple("abc", "abc"), "");
-	ASSERT_PARSE_SUCCESS(S2, "abc??abc??a", std::tuple("abc", "abc"), "??a");
+	ASSERT_PARSE_SUCCESS(S2, "abc??abc", std::make_tuple("abc", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S2, "abc??abc??a", std::make_tuple("abc", "abc"), "??a");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc??a", "??a");
 
-	ASSERT_PARSE_SUCCESS(S3, "abc??abc", std::tuple("abc", "??", "abc"), "");
-	ASSERT_PARSE_SUCCESS(S3, "abc??abc??a", std::tuple("abc", "??", "abc"), "??a");
+	ASSERT_PARSE_SUCCESS(S3, "abc??abc", std::make_tuple("abc", "??", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S3, "abc??abc??a", std::make_tuple("abc", "??", "abc"), "??a");
 	ASSERT_PARSE_SUCCESS(J3, "abc??abc", "abc??abc", "");
 	ASSERT_PARSE_SUCCESS(J3, "abc??abc??a", "abc??abc", "??a");
 
-	ASSERT_PARSE_SUCCESS(S4, "abc??abc", std::tuple("abc", "?", "?", "abc"), "");
-	ASSERT_PARSE_SUCCESS(S4, "abc??abc??a", std::tuple("abc", "?", "?", "abc"), "??a");
+	ASSERT_PARSE_SUCCESS(S4, "abc??abc", std::make_tuple("abc", "?", "?", "abc"), "");
+	ASSERT_PARSE_SUCCESS(S4, "abc??abc??a", std::make_tuple("abc", "?", "?", "abc"), "??a");
 	ASSERT_PARSE_SUCCESS(J4, "abc??abc", "abc??abc", "");
 	ASSERT_PARSE_SUCCESS(J4, "abc??abc??a", "abc??abc", "??a");
 }
@@ -121,8 +121,8 @@ TEST("Join", "Join<Transform>")
 	ASSERT_PARSE_SUCCESS(J1, "abc", "b", "");
 	ASSERT_PARSE_FAILURE(J1, "");
 
-	ASSERT_PARSE_SUCCESS(T2, "abc??abc", std::tuple("b", "??"), "abc");
-	ASSERT_PARSE_SUCCESS(T2, "abc??", std::tuple("b", "??"), "");
+	ASSERT_PARSE_SUCCESS(T2, "abc??abc", std::make_tuple("b", "??"), "abc");
+	ASSERT_PARSE_SUCCESS(T2, "abc??", std::make_tuple("b", "??"), "");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "abc");
 	ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??", "");
 

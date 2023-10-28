@@ -36,8 +36,8 @@ TEST("Maybe", "Parse Maybe<Choice>")
 }
 TEST("Maybe", "Parse Maybe<Sequence>")
 {
-	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralb");
-	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", std::optional(std::make_tuple("literal", "a")), "literalcliteralcliteralb");
+	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::make_tuple("literal", "a")), "literalcliteralcliteralbliteral");
 	ASSERT_PARSE_SUCCESS(May4, "aliteralaliteralcliteralbliteral", std::nullopt, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_SUCCESS(May4, "", std::nullopt, "");
 }

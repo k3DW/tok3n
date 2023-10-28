@@ -27,9 +27,9 @@ TEST("ApplyInto", "Move only")
 	using T = MoveOnlyWrapper<tuple>;
 	using P = ApplyInto<Sequence<Any3, ABC>, T>;
 
-	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::make_tuple("x", "abc")), "d");
 	ASSERT_PARSE_FAILURE(P, "ydcba");
-	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::make_tuple("z", "abc")), "abcd");
 }
 
 TEST("ApplyInto", "Copy only")
@@ -38,7 +38,7 @@ TEST("ApplyInto", "Copy only")
 	using T = CopyOnlyWrapper<tuple>;
 	using P = ApplyInto<Sequence<Any3, ABC>, T>;
 
-	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+	ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::make_tuple("x", "abc")), "d");
 	ASSERT_PARSE_FAILURE(P, "ydcba");
-	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+	ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::make_tuple("z", "abc")), "abcd");
 }

@@ -16,14 +16,14 @@ TEST("Sequence", "Parse two-way Sequence")
 {
 	ASSERT_PARSE_FAILURE(TwoWay, "abc");
 	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
-	ASSERT_PARSE_SUCCESS(TwoWay, "abef", std::tuple("ab", "e"), "f");
-	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", std::tuple("ab", " "), "ef");
+	ASSERT_PARSE_SUCCESS(TwoWay, "abef", std::make_tuple("ab", "e"), "f");
+	ASSERT_PARSE_SUCCESS(TwoWay, "ab ef", std::make_tuple("ab", " "), "ef");
 }
 
 TEST("Sequence", "Parse three-way Sequence")
 {
-	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
-	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::make_tuple("ab", "c", "d"), "e");
+	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::make_tuple("ab", "d", "c"), "");
 	ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
 }
 
@@ -47,6 +47,6 @@ TEST("Sequence", "Sequence<Ignore>")
 {
 	using P = Sequence<ABC, Ignore<QQ>, ABC>;
 
-	ASSERT_PARSE_SUCCESS(P, "abc??abc??", std::tuple("abc", "abc"), "??");
+	ASSERT_PARSE_SUCCESS(P, "abc??abc??", std::make_tuple("abc", "abc"), "??");
 	ASSERT_PARSE_FAILURE(P, "abcabc??");
 }
