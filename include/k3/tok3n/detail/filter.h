@@ -6,7 +6,7 @@
 
 namespace k3::tok3n::detail {
 
-constexpr auto filter_impl =
+inline constexpr auto filter_impl =
 	[]<class Self, template <class...> class List, type_predicate Pred, class... Done, class Head, class... Tail>
 		(Self self, Pred, List<Done...>, std::type_identity<Head>, std::type_identity<Tail>... tail) consteval
 	{

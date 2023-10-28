@@ -3,7 +3,7 @@
 
 namespace k3::tok3n::detail {
 
-constexpr auto head_impl =
+inline constexpr auto head_impl =
 	[]<class T, class... Ts>
 		(T, Ts...) consteval
 	-> T

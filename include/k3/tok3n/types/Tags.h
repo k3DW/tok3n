@@ -2,8 +2,8 @@
 
 namespace k3::tok3n {
 
-constexpr struct FailureTag final {} failure;
-constexpr struct SuccessTag final {} success;
+inline constexpr struct FailureTag final {} failure;
+inline constexpr struct SuccessTag final {} success;
 
 struct InputSpanTag final {};
 struct OutputSpanTag final {};
