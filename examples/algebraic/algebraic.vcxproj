@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -96,7 +96,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -115,7 +117,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -134,7 +138,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -153,7 +159,9 @@
       <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>

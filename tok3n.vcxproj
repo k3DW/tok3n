@@ -71,20 +71,20 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <OutDir>$(SolutionDir).bin\$(Platform)\$(Configuration)\$(ProjectName)\</OutDir>
-    <IntDir>$(SolutionDir).bin\Intermediates\$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <OutDir>$(SolutionDir).bin\$(Platform)-$(Configuration)\$(ProjectName)\</OutDir>
+    <IntDir>$(OutDir).intermediates\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -98,9 +98,10 @@
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
       <TranslateIncludes>true</TranslateIncludes>
-      <ModuleOutputFile>$(IntDir)%(RelativeDir)</ModuleOutputFile>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -121,9 +122,10 @@
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
       <TranslateIncludes>true</TranslateIncludes>
-      <ModuleOutputFile>$(IntDir)%(RelativeDir)</ModuleOutputFile>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -144,9 +146,10 @@
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
       <TranslateIncludes>true</TranslateIncludes>
-      <ModuleOutputFile>$(IntDir)%(RelativeDir)</ModuleOutputFile>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -167,9 +170,10 @@
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
+      <ObjectFileName>$(OutDir).obj\%(RelativeDir)</ObjectFileName>
       <TranslateIncludes>true</TranslateIncludes>
-      <ModuleOutputFile>$(IntDir)%(RelativeDir)</ModuleOutputFile>
+      <ModuleOutputFile>$(OutDir).mod\%(RelativeDir)</ModuleOutputFile>
+      <ModuleDependenciesFile>$(OutDir).mod\%(RelativeDir)</ModuleDependenciesFile>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -179,87 +183,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="include\k3\tok3n\concepts\CharType.h" />
-    <ClCompile Include="include\k3\tok3n\detail\all_same.h" />
-    <ClCompile Include="include\k3\tok3n\detail\filter.h" />
-    <ClCompile Include="include\k3\tok3n\detail\invoke_type.h" />
-    <ClCompile Include="include\k3\tok3n\detail\type_predicate.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\basic\BasicBase.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\delimit_keep.h" />
-    <ClCompile Include="include\k3\tok3n\detail\has_tuple_size.h" />
-    <ClCompile Include="include\k3\tok3n\concepts.h" />
-    <ClCompile Include="include\k3\tok3n\detail\implicitly_default_constructible.h" />
-    <ClCompile Include="include\k3\tok3n\concepts\IsParser.h" />
-    <ClCompile Include="include\k3\tok3n\concepts\IsResult.h" />
-    <ClCompile Include="include\k3\tok3n\concepts\Modifier.h" />
-    <ClCompile Include="include\k3\tok3n\concepts\Parser.h" />
-    <ClCompile Include="include\k3\tok3n\detail\filtered_sequence.h" />
-    <ClCompile Include="include\k3\tok3n\detail\head.h" />
-    <ClCompile Include="include\k3\tok3n\detail\is_not_type.h" />
-    <ClCompile Include="include\k3\tok3n\detail\unwrap_if_single.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\apply.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\apply_into.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\complete.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\constant.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\defaulted.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\delimit.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\exactly.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\fn.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\ignore.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\into.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\into_choice.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\join.h" />
-    <ClCompile Include="include\k3\tok3n\operators.h" />
-    <ClCompile Include="include\k3\tok3n\operators\basic.h" />
-    <ClCompile Include="include\k3\tok3n\operators\choice.h" />
-    <ClCompile Include="include\k3\tok3n\operators\maybe.h" />
-    <ClCompile Include="include\k3\tok3n\operators\modifier.h" />
-    <ClCompile Include="include\k3\tok3n\operators\not.h" />
-    <ClCompile Include="include\k3\tok3n\operators\one_or_more.h" />
-    <ClCompile Include="include\k3\tok3n\operators\sequence.h" />
-    <ClCompile Include="include\k3\tok3n\operators\zero_or_more.h" />
-    <ClCompile Include="include\k3\tok3n\parsers.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\adaptor\Complete.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\compound\_fwd.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\_fwd.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\optimizations\JoinExactlyBasic.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\optimizations\JoinMaybeBasic.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\optimizations\JoinOneOrMoreBasic.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\Delimit.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\adaptor\Ignore.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\basic\AllOf.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\basic\NoneOf.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\basic\AnyOf.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\compound\Choice.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\compound\Sequence.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\ApplyInto.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\ApplyTransform.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Constant.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Custom.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Defaulted.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Into.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Join.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\divergent\Transform.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\Exactly.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\_fwd.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\Maybe.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\OneOrMore.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\repeat\ZeroOrMore.h" />
-    <ClCompile Include="include\k3\tok3n\types.h" />
-    <ClCompile Include="include\k3\tok3n\types\IntegralConstants.h" />
-    <ClCompile Include="include\k3\tok3n\types\ModifierBase.h" />
-    <ClCompile Include="include\k3\tok3n\types\Result.h" />
     <ClCompile Include="include\k3\tok3n.h" />
-    <ClCompile Include="include\k3\tok3n\types\Span.h" />
-    <ClCompile Include="include\k3\tok3n\types\ParserFamily.h" />
-    <ClCompile Include="include\k3\tok3n\types\Tags.h" />
-    <ClCompile Include="include\k3\tok3n\types\StaticArray.h" />
-    <ClCompile Include="include\k3\tok3n\modifiers\multi.h" />
-    <ClCompile Include="include\k3\tok3n\detail\type_list.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\basic\_fwd.h" />
-    <ClCompile Include="include\k3\tok3n\concepts\IsConst.h" />
-    <ClCompile Include="include\k3\tok3n\parsers\optimizations\JoinZeroOrMoreBasic.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
