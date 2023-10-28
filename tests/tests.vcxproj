@@ -165,11 +165,6 @@
   <ItemGroup>
     <ClCompile Include="pch.cpp" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\tok3n.vcxproj">
-      <Project>{9cb93fce-939f-4476-ad03-6baf2faa196b}</Project>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
