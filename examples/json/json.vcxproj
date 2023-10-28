@@ -93,7 +93,6 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -112,7 +111,6 @@
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -131,7 +129,6 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -150,7 +147,6 @@
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp20</LanguageStandard>
-      <AdditionalIncludeDirectories>$(ProjectDir);$(SolutionDir)include</AdditionalIncludeDirectories>
       <TreatWarningAsError>true</TreatWarningAsError>
       <UseStandardPreprocessor>true</UseStandardPreprocessor>
       <ObjectFileName>$(IntDir)%(RelativeDir)</ObjectFileName>
@@ -164,6 +160,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="json.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\tok3n.vcxproj">
+      <Project>{9cb93fce-939f-4476-ad03-6baf2faa196b}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
