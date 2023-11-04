@@ -1,2 +1,5 @@
-.bin
-.vs
+/.bin/
+/.vs/
+/build/
+/_build/
+/__build/
