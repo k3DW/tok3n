@@ -45,11 +45,11 @@ if (tok3n_SETUP_IDE)
     file(GLOB_RECURSE list_of_files
         LIST_DIRECTORIES false
         "include/*.h"
-        "src/main.cpp"
     )
 
     add_executable(tok3n
         ${list_of_files}
+        "src/main.cpp"
     )
 
     target_include_directories(tok3n PUBLIC include)
