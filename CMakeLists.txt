@@ -33,11 +33,12 @@ endif()
 file(GLOB_RECURSE list_of_files
      LIST_DIRECTORIES false
      "include/*.h"
+     "src/main.cpp"
 )
 
 add_executable(tok3n
-    "main.cpp"
-    ${list_of_files})
+    ${list_of_files}
+)
 
 target_include_directories(tok3n PUBLIC include)
 
