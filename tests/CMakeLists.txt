@@ -23,11 +23,12 @@ target_compile_options(tests PUBLIC
     >
 )
 
-target_precompile_headers(tests PRIVATE pch.h)
-
 target_include_directories(tests PUBLIC .)
-target_include_directories(tests PUBLIC ../include)
-target_include_directories(tests PUBLIC ../external/boostorg/preprocessor/include)
+
+target_link_libraries(tests PUBLIC k3::tok3n)
+target_link_libraries(tests PUBLIC Boost::preprocessor)
+
+target_precompile_headers(tests PRIVATE pch.h)
 
 
 

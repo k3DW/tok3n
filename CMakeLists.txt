@@ -4,15 +4,13 @@ project (k3_tok3n
          VERSION 0
          LANGUAGES CXX)
 
-
-#set(CMAKE_CXX_STANDARD 20)
-#set(CMAKE_CXX_STANDARD_REQUIRED ON)
-
 add_library(k3_tok3n INTERFACE)
-set_target_properties(k3_tok3n PROPERTIES CXX_STANDARD 20)
-target_compile_features(k3_tok3n INTERFACE cxx_std_20)
+add_library(k3::tok3n ALIAS k3_tok3n)
 
 target_include_directories(k3_tok3n INTERFACE include)
+
+set_target_properties(k3_tok3n PROPERTIES CXX_STANDARD 20)
+target_compile_features(k3_tok3n INTERFACE cxx_std_20)
 
 option (tok3n_BUILD_TESTS "Build tests" OFF)
 option (tok3n_SETUP_IDE "Organize the projects for IDEs" ON)
@@ -24,6 +22,7 @@ option (tok3n_SETUP_IDE "Organize the projects for IDEs" ON)
 #--------------------------------------------
 if (tok3n_BUILD_TESTS)
     add_subdirectory(tests)
+    add_subdirectory(external/boostorg/preprocessor)
 endif()
 
 
