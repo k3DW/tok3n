@@ -14,7 +14,7 @@ target_compile_features(k3_tok3n INTERFACE cxx_std_20)
 
 option (tok3n_BUILD_TESTS "Build tests" OFF)
 option (tok3n_BUILD_EXAMPLES "Build examples" OFF)
-option (tok3n_SETUP_IDE "Organize the projects for IDEs" ON)
+option (tok3n_SETUP_IDE "Organize the projects for IDEs" OFF)
 
 
 
@@ -61,9 +61,11 @@ if (tok3n_SETUP_IDE)
             CXX_EXTENSIONS NO
     )
 
+    source_group("" FILES "src/main.cpp")
+
     foreach(_source IN ITEMS ${list_of_files})
         get_filename_component(_source_path "${_source}" PATH)
-        file(RELATIVE_PATH _source_path_rel "${CMAKE_CURRENT_LIST_DIR}/include" "${_source_path}")
+        file(RELATIVE_PATH _source_path_rel "${CMAKE_CURRENT_LIST_DIR}/include/k3" "${_source_path}")
         string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
         source_group("${_group_path}" FILES "${_source}")
     endforeach()
