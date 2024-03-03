@@ -7,11 +7,12 @@ template <Parser P, class T>
 requires IntoConstructible<P, T>
 struct Into
 {
+	using value_type = typename P::value_type;
 	using result_type = T;
 
 	static constexpr ParserFamily family = IntoFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -20,7 +21,7 @@ struct Into
 			return { failure, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		return P::lookahead(input);
 	}

@@ -15,7 +15,6 @@ template <class P>
 struct BasicBase
 {
 	using value_type = typename BasicTraits<P>::value_type;
-	
 	using result_type = Output<value_type>;
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)

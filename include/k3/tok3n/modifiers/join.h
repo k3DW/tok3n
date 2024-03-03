@@ -10,7 +10,7 @@ struct join final : ModifierBase
 	requires JoinConstructible<P>
 	consteval auto operator()(P) const
 	{
-		if constexpr (std::same_as<Output<char>, typename P::result_type>)
+		if constexpr (std::same_as<Output<typename P::value_type>, typename P::result_type>)
 			return P{};
 		else
 			return Join<P>{};

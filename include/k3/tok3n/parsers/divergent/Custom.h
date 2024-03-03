@@ -3,22 +3,26 @@
 
 namespace k3::tok3n {
 
-template <class CRTP>
+template <class CRTP, class ValueType>
 struct Custom
 {
+	using value_type = ValueType;
+
 	static constexpr ParserFamily family = CustomFamily;
 
 	template <std::same_as<CRTP> P = CRTP>
-	static constexpr Result<typename P::result_type, char> parse(Input<char> input)
+	static constexpr Result<typename P::result_type, typename P::value_type> parse(Input<typename P::value_type> input)
 	{
-		static_assert(requires { { P::get_parser() } -> Parser; });
+		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
+		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
 		return decltype(P::get_parser())::parse(input);
 	}
 
 	template <std::same_as<CRTP> P = CRTP>
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, typename P::value_type> lookahead(Input<typename P::value_type> input)
 	{
-		static_assert(requires { { P::get_parser() } -> Parser; });
+		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
+		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
 		return decltype(P::get_parser())::lookahead(input);
 	}
 };

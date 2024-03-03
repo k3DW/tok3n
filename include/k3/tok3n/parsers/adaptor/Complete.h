@@ -7,11 +7,12 @@ namespace k3::tok3n {
 template <Parser P>
 struct Complete
 {
+	using value_type = typename P::value_type;
 	using result_type = typename P::result_type;
 
 	static constexpr ParserFamily family = CompleteFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (not result.has_value() or result.remaining() != "")
@@ -20,7 +21,7 @@ struct Complete
 			return result;
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		auto result = P::lookahead(input);
 		if (not result.has_value() or result.remaining() != "")

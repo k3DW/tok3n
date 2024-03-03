@@ -16,23 +16,13 @@ concept Parser =
 	static_cast<int>(P::family) < static_cast<int>(ParserFamily::END) &&
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
+	requires { typename P::value_type; } &&
 	requires { typename P::result_type; } &&
-	(
-		requires (Input<char> input)
-		{
-			{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, char>;
-			{ P::lookahead(input) } -> k3::tok3n::IsResult<void, char>;
-		}
-		||
-		(
-			requires { typename P::value_type; } &&
-			requires (Input<typename P::value_type> input)
-			{
-				{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, typename P::value_type>;
-				{ P::lookahead(input) } -> k3::tok3n::IsResult<void, typename P::value_type>;
-			}
-		)
-	);
+	requires (Input<typename P::value_type> input)
+	{
+		{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, typename P::value_type>;
+		{ P::lookahead(input) } -> k3::tok3n::IsResult<void, typename P::value_type>;
+	};
 
 }
 
@@ -40,5 +30,8 @@ template <class P>
 concept Parser =
 	(std::is_class_v<P> && detail::Parser<P>) ||
 	(std::is_reference_v<P> && detail::Parser<std::remove_reference_t<P>>);
+
+template <class P1, class P2>
+concept ParserCompatibleWith = std::same_as<typename P1::value_type, typename P2::value_type>;
 
 } // namespace k3::tok3n

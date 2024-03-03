@@ -6,11 +6,12 @@ namespace k3::tok3n {
 namespace detail::executors
 {
 
+	template <class ValueType>
 	class Join
 	{
 	public:
 		template <class T>
-		constexpr Join(const Result<T, char>& t)
+		constexpr Join(const Result<T, ValueType>& t)
 		{
 			if (this->try_join(*t) && joined == std::nullopt)
 			{
@@ -19,7 +20,7 @@ namespace detail::executors
 			}
 		}
 
-		constexpr std::optional<Output<char>> get_joined() const
+		constexpr std::optional<Output<ValueType>> get_joined() const
 		{
 			return joined;
 		}
@@ -27,7 +28,7 @@ namespace detail::executors
 	private:
 		// This is the fundamental function of this class,
 		// where we check if the next string_view is adjacent in memory to the last one.
-		constexpr bool try_join(Output<char> output)
+		constexpr bool try_join(Output<ValueType> output)
 		{
 			if (!joined)
 			{
@@ -84,7 +85,7 @@ namespace detail::executors
 			}(std::index_sequence_for<T, Ts...>{});
 		}
 
-		std::optional<Output<char>> joined;
+		std::optional<Output<ValueType>> joined;
 	};
 
 }
@@ -93,24 +94,25 @@ template <Parser P>
 requires JoinConstructible<P>
 struct Join
 {
-	using result_type = Output<char>;
+	using value_type = typename P::value_type;
+	using result_type = Output<value_type>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			using Executor = detail::executors::Join;
-			std::optional<Output<char>> joined = Executor(result).get_joined();
+			using Executor = detail::executors::Join<value_type>;
+			std::optional<Output<value_type>> joined = Executor(result).get_joined();
 			if (joined)
 				return { success, *joined, result.remaining() };
 		}
 		return { failure, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		return P::lookahead(input);
 	}

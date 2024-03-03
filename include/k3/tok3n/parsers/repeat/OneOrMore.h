@@ -7,11 +7,12 @@ template <Parser P>
 requires OneOrMoreConstructible<P>
 struct OneOrMore
 {
+	using value_type = typename P::value_type;
 	using result_type = std::vector<typename P::result_type>;
 
 	static constexpr ParserFamily family = OneOrMoreFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		const Input original_input = input;
 		result_type results;
@@ -34,9 +35,9 @@ struct OneOrMore
 			return { failure, original_input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		Result<void, char> result;
+		Result<void, value_type> result;
 		bool successful = false;
 		
 		do

@@ -7,6 +7,7 @@ template <Parser P, Parser D, IsConst<bool> KeepDelimiters>
 requires DelimitConstructible<P, D, KeepDelimiters>
 struct Delimit
 {
+	using value_type = typename P::value_type;
 	using result_type = std::conditional_t<KeepDelimiters::value,
 		std::pair<std::vector<typename P::result_type>, std::vector<typename D::result_type>>,
 		std::vector<typename P::result_type>
@@ -14,7 +15,7 @@ struct Delimit
 
 	static constexpr ParserFamily family = DelimitFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input) requires (not KeepDelimiters::value)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input) requires (not KeepDelimiters::value)
 	{
 		result_type results;
 
@@ -37,7 +38,7 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<result_type, char> parse(Input<char> input) requires (KeepDelimiters::value)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input) requires (KeepDelimiters::value)
 	{
 		result_type results;
 		auto& [values, delimiters] = results;
@@ -63,7 +64,7 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		auto result = P::lookahead(input);
 		if (not result.has_value())

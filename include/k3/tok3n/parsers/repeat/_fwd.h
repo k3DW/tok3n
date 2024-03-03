@@ -31,6 +31,7 @@ template <class P, class D, class KeepDelimiters>
 concept DelimitConstructible =
 	Parser<P> and
 	Parser<D> and
+	ParserCompatibleWith<P, D> and
 	IsConst<KeepDelimiters, bool> and
 	not std::same_as<typename P::result_type, void> and
 	((not KeepDelimiters::value) or (KeepDelimiters::value and not std::same_as<typename D::result_type, void>));
