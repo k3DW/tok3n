@@ -15,10 +15,21 @@ concept Parser =
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
 	requires { typename P::result_type; } &&
-	requires (Input<char> input)
-	{
-		{ P::parse(input) } -> IsResult<typename P::result_type>;
-		{ P::lookahead(input) } -> IsResult<void>;
-	};
+	(
+		requires (Input<char> input)
+		{
+			{ P::parse(input) } -> IsResult<typename P::result_type, char>;
+			{ P::lookahead(input) } -> IsResult<void, char>;
+		}
+		||
+		(
+			requires { typename P::value_type; } &&
+			requires (Input<typename P::value_type> input)
+			{
+				{ P::parse(input) } -> IsResult<typename P::result_type, typename P::value_type>;
+				{ P::lookahead(input) } -> IsResult<void, typename P::value_type>;
+			}
+		)
+	);
 
 } // namespace k3::tok3n
