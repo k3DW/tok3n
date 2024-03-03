@@ -7,6 +7,8 @@
 
 namespace k3::tok3n {
 
+namespace detail {
+	
 template <class P>
 concept Parser =
 	requires { typename std::integral_constant<ParserFamily, P::family>; } &&
@@ -18,18 +20,25 @@ concept Parser =
 	(
 		requires (Input<char> input)
 		{
-			{ P::parse(input) } -> IsResult<typename P::result_type, char>;
-			{ P::lookahead(input) } -> IsResult<void, char>;
+			{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, char>;
+			{ P::lookahead(input) } -> k3::tok3n::IsResult<void, char>;
 		}
 		||
 		(
 			requires { typename P::value_type; } &&
 			requires (Input<typename P::value_type> input)
 			{
-				{ P::parse(input) } -> IsResult<typename P::result_type, typename P::value_type>;
-				{ P::lookahead(input) } -> IsResult<void, typename P::value_type>;
+				{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, typename P::value_type>;
+				{ P::lookahead(input) } -> k3::tok3n::IsResult<void, typename P::value_type>;
 			}
 		)
 	);
+
+}
+
+template <class P>
+concept Parser =
+	(std::is_class_v<P> && detail::Parser<P>) ||
+	(std::is_reference_v<P> && detail::Parser<std::remove_reference_t<P>>);
 
 } // namespace k3::tok3n
