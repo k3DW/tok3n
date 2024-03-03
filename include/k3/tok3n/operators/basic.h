@@ -7,10 +7,10 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-constexpr auto any = AnyOf<sort_and_unique<arr>()>{};
+constexpr auto any = AnyOf<detail::sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
-constexpr auto none = NoneOf<sort_and_unique<arr>()>{};
+constexpr auto none = NoneOf<detail::sort_and_unique<arr>()>{};
 
 template <StaticArray arr>
 constexpr auto all = AllOf<arr>{};

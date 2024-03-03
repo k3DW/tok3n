@@ -5,10 +5,10 @@
 namespace k3::tok3n {
 
 template <StaticArray arr>
-concept AnyOfConstructible = is_sorted_and_uniqued(arr);
+concept AnyOfConstructible = detail::SortedAndUniqued<arr>;
 
 template <StaticArray arr>
-concept NoneOfConstructible = is_sorted_and_uniqued(arr);
+concept NoneOfConstructible = detail::SortedAndUniqued<arr>;
 
 
 

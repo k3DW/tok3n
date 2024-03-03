@@ -150,8 +150,11 @@ constexpr auto set_operation_impl(auto func)
 	}
 }
 
+template <StaticArray lhs, StaticArray rhs>
+concept usable_in_set_operations = LikeStaticArrays<lhs, rhs> and detail::SortedAndUniqued<lhs> and detail::SortedAndUniqued<rhs>;
+
 template <StaticArray lhs, StaticArray rhs, OpType type>
-requires LikeStaticArrays<lhs, rhs>
+requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_operation_general()
 {
 	constexpr std::size_t length = []()
@@ -167,19 +170,19 @@ constexpr auto set_operation_general()
 }
 
 template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_union_string = set_operation_general<lhs, rhs, OpType::set_union>();
 
 template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_intersection_string = set_operation_general<lhs, rhs, OpType::set_intersection>();
 
 template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_difference_left_string = set_operation_general<lhs, rhs, OpType::set_difference_left>();
 
 template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs> and (is_sorted_and_uniqued(lhs)) and (is_sorted_and_uniqued(rhs))
+requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 
 template <Parser... LHS, Parser RHS>

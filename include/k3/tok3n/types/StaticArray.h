@@ -75,47 +75,52 @@ concept LikeStaticArrays = std::same_as<typename decltype(lhs)::value_type, type
 
 
 
-template <class T, std::size_t N>
-constexpr bool is_sorted_and_uniqued(const StaticArray<T, N>& str)
-{
-	if constexpr (N <= 1)
-		return true;
-	else
+namespace detail {
+
+	template <class T>
+	constexpr bool is_sorted_and_uniqued(const T* arr, std::size_t N)
 	{
-		for (std::size_t i = 0; i < N - 1; ++i)
-			if (str.data[i] >= str.data[i + 1])
+		if (N == 0)
+			return true;
+
+		for (std::size_t i = 0; i != N - 1; ++i)
+			if (arr[i + 1] < arr[i])
 				return false;
 		return true;
 	}
-}
 
-template <StaticArray str> // Must be a template parameter because the return type depends on it
-consteval auto sort_and_unique()
-{
-	if constexpr (is_sorted_and_uniqued(str))
-		return str;
+	template <StaticArray arr>
+	concept SortedAndUniqued = is_sorted_and_uniqued(arr.data.data(), arr.size());
 
-	else
+	template <StaticArray str> // Must be a template parameter because the return type depends on it
+	consteval auto sort_and_unique()
 	{
-		constexpr auto sorted = []
-		{
-			auto copy = str;
-			std::ranges::sort(copy);
-			return copy;
-		}();
+		if constexpr (SortedAndUniqued<str>)
+			return str;
 
-		constexpr auto pair = []
+		else
 		{
-			auto copy = sorted;
-			auto subrange = std::ranges::unique(copy);
-			auto new_size = subrange.begin() - copy.begin();
-			return std::make_pair(std::move(copy), new_size);
-		}();
+			constexpr auto sorted = []
+			{
+				auto copy = str;
+				std::ranges::sort(copy);
+				return copy;
+			}();
 
-		auto out = str.create_empty_with_size<pair.second>;
-		std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
-		return out;
+			constexpr auto pair = []
+			{
+				auto copy = sorted;
+				auto subrange = std::ranges::unique(copy);
+				auto new_size = subrange.begin() - copy.begin();
+				return std::make_pair(std::move(copy), new_size);
+			}();
+
+			auto out = str.create_empty_with_size<pair.second>;
+			std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
+			return out;
+		}
 	}
+
 }
 
 
