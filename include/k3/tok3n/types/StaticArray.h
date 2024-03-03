@@ -84,7 +84,7 @@ namespace detail {
 			return true;
 
 		for (std::size_t i = 0; i != N - 1; ++i)
-			if (arr[i + 1] < arr[i])
+			if (arr[i + 1] <= arr[i])
 				return false;
 		return true;
 	}
