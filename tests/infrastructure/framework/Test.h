@@ -2,7 +2,7 @@
 #include <string>
 #include <string_view>
 #include <k3/tok3n/types/StaticArray.h>
-#include "framework/TestResult.h"
+#include "infrastructure/framework/TestResult.h"
 
 class Test
 {
@@ -37,7 +37,7 @@ requires std::same_as<char, typename decltype(fixture_name)::value_type>
 	 and std::same_as<char, typename decltype(name)::value_type>
 class TestImpl {};
 
-#define TEST(FIXTURE_NAME, NAME)                                             \
+#define TEST_(FIXTURE_NAME, NAME)                                            \
 	template <>                                                              \
 	class TestImpl<FIXTURE_NAME, NAME> : public Test                         \
 	{                                                                        \
@@ -52,3 +52,5 @@ class TestImpl {};
 		= Runner::get().add(FIXTURE_NAME, []() -> auto&                      \
 		{ static TestImpl<FIXTURE_NAME, NAME> t; return t; }());             \
 	void TestImpl<FIXTURE_NAME, NAME>::_run()
+
+#define TEST(FIXTURE_NAME, NAME) TEST_(ASSEMBLY " " FIXTURE_NAME, NAME)

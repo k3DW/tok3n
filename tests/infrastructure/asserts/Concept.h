@@ -1,5 +1,5 @@
 #pragma once
-#include "framework/Assert.h"
+#include "infrastructure/framework/Assert.h"
 #include <k3/tok3n/concepts/Parser.h>
 
 #define ASSERT_CONCEPT(Concept, ...)                                             \
