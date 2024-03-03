@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "char-samples/char-samples.h"
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;

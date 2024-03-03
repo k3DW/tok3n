@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n.h>
-#include "samples/basic.h"
-#include "samples/sub_parsers.h"
+#include "char-samples/basic.h"
+#include "char-samples/sub_parsers.h"
 
 using Ign1 = Ignore<_21>; constexpr Ign1 ign1;
 using Ign2 = Ignore<_22>; constexpr Ign2 ign2;

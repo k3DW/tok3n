@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "char-samples/char-samples.h"
 
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;

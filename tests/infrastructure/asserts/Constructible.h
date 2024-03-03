@@ -1,5 +1,5 @@
 #pragma once
-#include "framework/Assert.h"
+#include "infrastructure/framework/Assert.h"
 #include <k3/tok3n/types/StaticArray.h>
 
 template <template <class...> class Family, class... Args>

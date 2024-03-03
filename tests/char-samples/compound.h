@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n.h>
-#include "samples/adaptor.h"
-#include "samples/basic.h"
+#include "char-samples/adaptor.h"
+#include "char-samples/basic.h"
 
 using Cho1 = Choice<All4, Non4>;       constexpr Cho1 cho1;
 using Cho2 = Choice<Non4, All4>;       constexpr Cho2 cho2;

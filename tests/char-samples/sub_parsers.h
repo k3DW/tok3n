@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n.h>
-#include "samples/basic.h"
+#include "char-samples/basic.h"
 
 inline namespace sub
 {

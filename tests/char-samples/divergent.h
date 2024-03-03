@@ -1,8 +1,8 @@
 #pragma once
 #include <k3/tok3n.h>
-#include "samples/basic.h"
-#include "samples/classes.h"
-#include "samples/functions.h"
+#include "char-samples/basic.h"
+#include "char-samples/classes.h"
+#include "char-samples/functions.h"
 
 using Joi1 = Join<_21>; constexpr Joi1 joi1;
 using Joi2 = Join<_22>; constexpr Joi2 joi2;

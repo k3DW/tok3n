@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "char-samples/char-samples.h"
 
 using L = AllOf<"literal">;
 

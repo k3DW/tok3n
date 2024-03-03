@@ -14,29 +14,17 @@
 
 #include <k3/tok3n.h>
 
-#include "framework/Assert.h"
-#include "framework/Error.h"
-#include "framework/Fixture.h"
-#include "framework/Runner.h"
-#include "framework/StringBuilder.h"
-#include "framework/Test.h"
-#include "framework/TestResult.h"
-#include "framework/underlying.h"
+#include "infrastructure/framework/Assert.h"
+#include "infrastructure/framework/Error.h"
+#include "infrastructure/framework/Fixture.h"
+#include "infrastructure/framework/Runner.h"
+#include "infrastructure/framework/StringBuilder.h"
+#include "infrastructure/framework/Test.h"
+#include "infrastructure/framework/TestResult.h"
+#include "infrastructure/framework/underlying.h"
 
-#include "asserts/Concept.h"
-#include "asserts/Constructible.h"
-#include "asserts/Equality.h"
-#include "asserts/Operation.h"
-#include "asserts/Parse.h"
-
-using namespace k3::tok3n;
-
-#include "samples/adaptor.h"
-#include "samples/basic.h"
-#include "samples/classes.h"
-#include "samples/compound.h"
-#include "samples/divergent.h"
-#include "samples/functions.h"
-#include "samples/macros.h"
-#include "samples/repeat.h"
-#include "samples/wrappers.h"
+#include "infrastructure/asserts/Concept.h"
+#include "infrastructure/asserts/Constructible.h"
+#include "infrastructure/asserts/Equality.h"
+#include "infrastructure/asserts/Operation.h"
+#include "infrastructure/asserts/Parse.h"

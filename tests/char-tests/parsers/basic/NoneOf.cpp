@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "char-samples/char-samples.h"
 
 using Single = NoneOf<'a'>;
 using Multi  = NoneOf<"abc">;

@@ -1,7 +1,7 @@
 #pragma once
 #include <k3/tok3n.h>
-#include "samples/basic.h"
-#include "samples/sub_parsers.h"
+#include "char-samples/basic.h"
+#include "char-samples/sub_parsers.h"
 
 using May1 = Maybe<_11>; constexpr May1 may1;
 using May2 = Maybe<_12>; constexpr May2 may2;
