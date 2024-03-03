@@ -10,6 +10,5 @@ using namespace k3::tok3n;
 #include "char-samples/functions.h"
 #include "char-samples/macros.h"
 #include "char-samples/repeat.h"
-#include "char-samples/wrappers.h"
 
 #define ASSEMBLY "char"
