@@ -17,6 +17,16 @@ TEST("basic operators", "any<>")
 	ASSERT_PARSER_VALUES_EQ(any<(StaticArray<S, 0>{})>, nothing<S>);
 }
 
+TEST("basic operators", "any_of<>")
+{
+	ASSERT_PARSER_VALUES_EQ((any_of<A, B, C>), any1);
+	ASSERT_PARSER_VALUES_EQ((any_of<B, C, D>), any2);
+	ASSERT_PARSER_VALUES_EQ((any_of<X, Y, Z>), any3);
+	ASSERT_PARSER_VALUES_EQ((any_of<C, D>), any4);
+	ASSERT_PARSER_VALUES_EQ((any_of<Com>), comma);
+	ASSERT_PARSER_VALUES_EQ((any_of<Space, Dot>), spacedot);
+}
+
 TEST("basic operators", "none<>")
 {
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(A, B, C)>, none1);
@@ -28,6 +38,15 @@ TEST("basic operators", "none<>")
 	ASSERT_PARSER_VALUES_EQ(none<(StaticArray<S, 0>{})>, anything<S>);
 }
 
+TEST("basic operators", "none_of<>")
+{
+	ASSERT_PARSER_VALUES_EQ((none_of<A, B, C>), none1);
+	ASSERT_PARSER_VALUES_EQ((none_of<B, C, D>), none2);
+	ASSERT_PARSER_VALUES_EQ((none_of<X, Y, Z>), none3);
+	ASSERT_PARSER_VALUES_EQ((none_of<C, D>), none4);
+	ASSERT_PARSER_VALUES_EQ((none_of<Z>), none5);
+}
+
 TEST("basic operators", "all<>")
 {
 	ASSERT_PARSER_VALUES_EQ(all<StaticArray(X, Y, Z)>, all1);
@@ -37,6 +56,15 @@ TEST("basic operators", "all<>")
 	ASSERT_PARSER_VALUES_EQ(all<StaticArray(A, B, C)>, abc);
 	ASSERT_PARSER_VALUES_EQ(all<(StaticArray<S, 0>{})>, AllOf<(StaticArray<S, 0>{})>{});
 	ASSERT_PARSER_VALUES_EQ(all<(StaticArray<S, 0>{})>, eps<S>);
+}
+
+TEST("basic operators", "all_of<>")
+{
+	ASSERT_PARSER_VALUES_EQ((all_of<X, Y, Z>), all1);
+	ASSERT_PARSER_VALUES_EQ((all_of<Y, Z>), all2);
+	ASSERT_PARSER_VALUES_EQ((all_of<A, B>), all3);
+	ASSERT_PARSER_VALUES_EQ((all_of<Question, Question>), qq);
+	ASSERT_PARSER_VALUES_EQ((all_of<A, B, C>), abc);
 }
 
 TEST("basic operators", "ign<>")

@@ -1,6 +1,8 @@
 #pragma once
 #include <k3/tok3n.h>
 
+inline namespace op_equals_assembly {
+
 struct S
 {
     int x;
@@ -50,6 +52,8 @@ consteval auto e(Ts... ts)
 {
     return std::array<S, sizeof...(Ts)>{ ts... };
 }
+
+} // inline namespace op_equals_assembly
 
 using namespace k3::tok3n;
 

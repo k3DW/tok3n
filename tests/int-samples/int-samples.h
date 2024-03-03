@@ -1,6 +1,8 @@
 #pragma once
 #include <k3/tok3n.h>
 
+inline namespace int_assembly {
+
 namespace E
 {
     constexpr int A = -1002;
@@ -22,6 +24,8 @@ consteval auto e(Ts... ts)
 {
     return std::array<int, sizeof...(Ts)>{ ts... };
 }
+
+} // inline namespace int_assembly
 
 using namespace k3::tok3n;
 
