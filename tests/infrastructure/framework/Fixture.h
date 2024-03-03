@@ -39,7 +39,7 @@ template <k3::tok3n::StaticArray name>
 requires std::same_as<char, typename decltype(name)::value_type>
 class FixtureImpl {};
 
-#define FIXTURE(NAME)                                \
+#define FIXTURE_(NAME)                               \
 	template <>                                      \
 	class FixtureImpl<NAME> : public Fixture         \
 	{                                                \
@@ -50,3 +50,5 @@ class FixtureImpl {};
 	const Fixture& FixtureImpl<NAME>::_self          \
 		= Runner::get().add([]() -> auto&            \
 		{ static FixtureImpl<NAME> f; return f; }())
+
+#define FIXTURE(NAME) FIXTURE_(ASSEMBLY " " NAME)
