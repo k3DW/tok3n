@@ -68,7 +68,7 @@ concept IsResultNonVoid =
 
 namespace k3::tok3n {
 
-template <class R, class T, class U = char> // Todo: remove default parameter U
+template <class R, class T, class U>
 concept IsResult =
 	not std::is_reference_v<T>
 	and (detail::IsResultVoid<R, T, U> or detail::IsResultNonVoid<R, T, U>);
