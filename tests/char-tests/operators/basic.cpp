@@ -12,6 +12,7 @@ TEST("basic operators", "UDL _any")
 	ASSERT_PARSER_VALUES_EQ(","_any, comma);
 	ASSERT_PARSER_VALUES_EQ(" ."_any, spacedot);
 	ASSERT_PARSER_VALUES_EQ(""_any, AnyOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_any, nothing<char>);
 }
 
 TEST("basic operators", "any<>")
@@ -23,6 +24,7 @@ TEST("basic operators", "any<>")
 	ASSERT_PARSER_VALUES_EQ(any<",">, comma);
 	ASSERT_PARSER_VALUES_EQ(any<" .">, spacedot);
 	ASSERT_PARSER_VALUES_EQ(any<"">, AnyOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(any<"">, nothing<char>);
 }
 
 TEST("basic operators", "UDL _none")
@@ -33,6 +35,7 @@ TEST("basic operators", "UDL _none")
 	ASSERT_PARSER_VALUES_EQ("cd"_none, none4);
 	ASSERT_PARSER_VALUES_EQ("z"_none, none5);
 	ASSERT_PARSER_VALUES_EQ(""_none, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_none, anything<char>);
 }
 
 TEST("basic operators", "none<>")
@@ -43,6 +46,7 @@ TEST("basic operators", "none<>")
 	ASSERT_PARSER_VALUES_EQ(none<"cd">, none4);
 	ASSERT_PARSER_VALUES_EQ(none<"z">, none5);
 	ASSERT_PARSER_VALUES_EQ(none<"">, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(none<"">, anything<char>);
 }
 
 TEST("basic operators", "UDL _all")
@@ -54,6 +58,7 @@ TEST("basic operators", "UDL _all")
 	ASSERT_PARSER_VALUES_EQ("??"_all, qq);
 	ASSERT_PARSER_VALUES_EQ("abc"_all, abc);
 	ASSERT_PARSER_VALUES_EQ(""_all, AllOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_all, eps<char>);
 }
 
 TEST("basic operators", "all<>")
@@ -65,6 +70,7 @@ TEST("basic operators", "all<>")
 	ASSERT_PARSER_VALUES_EQ(all<"??">, qq);
 	ASSERT_PARSER_VALUES_EQ(all<"abc">, abc);
 	ASSERT_PARSER_VALUES_EQ(all<"">, AllOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(all<"">, eps<char>);
 }
 
 TEST("basic operators", "UDL _ign")
@@ -76,6 +82,7 @@ TEST("basic operators", "UDL _ign")
 	ASSERT_PARSER_VALUES_EQ("??"_ign, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ("abc"_ign, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(""_ign, Ignore<AllOf<"">>{});
+	ASSERT_PARSER_VALUES_EQ(""_ign, Ignore<std::remove_const_t<decltype(eps<char>)>>{});
 }
 
 TEST("basic operators", "ign<>")
@@ -87,6 +94,7 @@ TEST("basic operators", "ign<>")
 	ASSERT_PARSER_VALUES_EQ(ign<"??">, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"abc">, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(ign<"">, Ignore<AllOf<"">>{});
+	ASSERT_PARSER_VALUES_EQ(ign<"">, Ignore<std::remove_const_t<decltype(eps<char>)>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")
@@ -107,4 +115,6 @@ TEST("basic operators", "Non sorted_and_uniqued")
 	ASSERT_PARSER_VALUES_EQ("A"_none, NoneOf<"A">{});
 	ASSERT_PARSER_VALUES_EQ(""_any, AnyOf<"">{});
 	ASSERT_PARSER_VALUES_EQ(""_none, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(""_any, nothing<char>);
+	ASSERT_PARSER_VALUES_EQ(""_none, anything<char>);
 }
