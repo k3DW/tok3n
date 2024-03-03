@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n.h>
 
 using Any1 = AnyOf<"abc">; constexpr Any1 any1;
 using Any2 = AnyOf<"bcd">; constexpr Any2 any2;

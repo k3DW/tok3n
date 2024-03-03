@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n.h>
 
 constexpr std::size_t func1(std::vector<Output<char>>&& vec)
 {

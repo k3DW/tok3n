@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n.h>
 
 class Class1
 {
