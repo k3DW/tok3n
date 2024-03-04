@@ -26,10 +26,10 @@ TEST("into_choice modifier", "infix")
 
 namespace
 {
-	constexpr auto sink_parser = ""_all % constant < Sink{} > ;
+	constexpr auto sink_parser = eps<wchar_t> % constant<Sink{}>;
 	using SinkParser = std::remove_cvref_t<decltype(sink_parser)>;
 
-	constexpr auto empty_literal_parser = ""_all;
+	constexpr auto empty_literal_parser = eps<wchar_t>;
 	using EmptyAllOfParser = std::remove_cvref_t<decltype(empty_literal_parser)>;
 }
 

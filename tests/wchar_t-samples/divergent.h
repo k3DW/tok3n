@@ -34,6 +34,7 @@ using Def2 = Defaulted<_23, Class3>; constexpr Def2 def2;
 
 struct Cus1 : Custom<Cus1>
 {
+	using value_type = wchar_t;
 	using result_type = std::size_t;
 
 	static consteval auto get_parser()

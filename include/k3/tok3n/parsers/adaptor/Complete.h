@@ -15,7 +15,7 @@ struct Complete
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
-		if (not result.has_value() or result.remaining() != "")
+		if (not result.has_value() or result.remaining() != Input<value_type>{})
 			return { failure, input };
 		else
 			return result;
@@ -24,7 +24,7 @@ struct Complete
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		auto result = P::lookahead(input);
-		if (not result.has_value() or result.remaining() != "")
+		if (not result.has_value() or result.remaining() != Input<value_type>{})
 			return { failure, input };
 		else
 			return result;
