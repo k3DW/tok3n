@@ -11,7 +11,7 @@ consteval auto merged_with()
 {
 	constexpr auto size = []
 	{
-		std::string s;
+		std::vector<typename decltype(str1)::value_type> s;
 		s.reserve(str1.size() + str2.size());
 		op(str1, str2, std::back_inserter(s));
 		return s.size();

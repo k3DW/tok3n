@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "char-samples/char-samples.h"
+#include "wchar_t-samples/wchar_t-samples.h"
 
 FIXTURE("into_choice modifier");
 
@@ -26,10 +26,10 @@ TEST("into_choice modifier", "infix")
 
 namespace
 {
-	constexpr auto sink_parser = eps<char> % constant<Sink{}>;
+	constexpr auto sink_parser = eps<wchar_t> % constant<Sink{}>;
 	using SinkParser = std::remove_cvref_t<decltype(sink_parser)>;
 
-	constexpr auto empty_literal_parser = eps<char>;
+	constexpr auto empty_literal_parser = eps<wchar_t>;
 	using EmptyAllOfParser = std::remove_cvref_t<decltype(empty_literal_parser)>;
 }
 
@@ -37,8 +37,8 @@ namespace
 	[&]<Parser PP>(PP) {                                                                                                            \
 		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (P{}));                                                                     \
 		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Sink>);                                                                \
-		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<char>>, (P{}));                                                             \
-		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Output<char>>);                                                        \
+		ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<wchar_t>>, (P{}));                                                          \
+		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, into_choice<Output<wchar_t>>);                                                     \
 		if constexpr (std::same_as<typename PP::result_type, void>)                                                                 \
 		{                                                                                                                           \
 			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Sink>, (PP{}, sink_parser),                                                \
@@ -51,17 +51,17 @@ namespace
 				                           into_choice<Sink>, (P{}, sink_parser),                                                   \
 												(Choice<Into<P, Sink>, Into<SinkParser, Sink>>{}));                                 \
 		}                                                                                                                           \
-		if constexpr (std::constructible_from<Output<char>, typename PP::result_type>)                                              \
+		if constexpr (std::constructible_from<Output<wchar_t>, typename PP::result_type>)                                           \
 		{                                                                                                                           \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Output<char>>, (PP{}, empty_literal_parser),                                 \
-												(Choice<Into<PP, Output<char>>, Into<EmptyAllOfParser, Output<char>>>{}),         \
-				                           into_choice<Output<char>>, (P{}, empty_literal_parser),                                  \
-												(Choice<Into<P, Output<char>>, Into<EmptyAllOfParser, Output<char>>>{}));         \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(into_choice<Output<wchar_t>>, (PP{}, empty_literal_parser),                              \
+												(Choice<Into<PP, Output<wchar_t>>, Into<EmptyAllOfParser, Output<wchar_t>>>{}),     \
+				                           into_choice<Output<wchar_t>>, (P{}, empty_literal_parser),                               \
+												(Choice<Into<P, Output<wchar_t>>, Into<EmptyAllOfParser, Output<wchar_t>>>{}));     \
 		}                                                                                                                           \
 		else                                                                                                                        \
 		{                                                                                                                           \
-			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<char>>, (PP{}, empty_literal_parser),                               \
-				                             into_choice<Output<char>>, (P{}, empty_literal_parser));                               \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(into_choice<Output<wchar_t>>, (PP{}, empty_literal_parser),                            \
+				                             into_choice<Output<wchar_t>>, (P{}, empty_literal_parser));                            \
 		}                                                                                                                           \
 	}(P{});
 

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "char-samples/char-samples.h"
+#include "wchar_t-samples/wchar_t-samples.h"
 
 FIXTURE("choice operator");
 
@@ -8,9 +8,9 @@ TEST("choice operator", "AnyOf | AnyOf")
 	ASSERT_PARSER_VALUES_EQ(any1 | any2, any2 | any1);
 	ASSERT_PARSER_VALUES_EQ(any1 | any3, any3 | any1);
 	ASSERT_PARSER_VALUES_EQ(any2 | any3, any3 | any2);
-	ASSERT_PARSER_VALUES_EQ(any1 | any2, AnyOf<"abcd">{});
-	ASSERT_PARSER_VALUES_EQ(any1 | any3, AnyOf<"abcxyz">{});
-	ASSERT_PARSER_VALUES_EQ(any2 | any3, AnyOf<"bcdxyz">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any2, AnyOf<L"abcd">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any3, AnyOf<L"abcxyz">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | any3, AnyOf<L"bcdxyz">{});
 	ASSERT_PARSER_VALUES_EQ(any1 | any1, any1);
 	ASSERT_PARSER_VALUES_EQ(any2 | any2, any2);
 	ASSERT_PARSER_VALUES_EQ(any3 | any3, any3);
@@ -21,9 +21,9 @@ TEST("choice operator", "NoneOf | NoneOf")
 	ASSERT_PARSER_VALUES_EQ(none1 | none2, none2 | none1);
 	ASSERT_PARSER_VALUES_EQ(none1 | none3, none3 | none1);
 	ASSERT_PARSER_VALUES_EQ(none2 | none3, none3 | none2);
-	ASSERT_PARSER_VALUES_EQ(none1 | none2, NoneOf<"bc">{});
-	ASSERT_PARSER_VALUES_EQ(none1 | none3, NoneOf<"">{});
-	ASSERT_PARSER_VALUES_EQ(none2 | none3, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none2, NoneOf<L"bc">{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none3, NoneOf<L"">{});
+	ASSERT_PARSER_VALUES_EQ(none2 | none3, NoneOf<L"">{});
 	ASSERT_PARSER_VALUES_EQ(none1 | none1, none1);
 	ASSERT_PARSER_VALUES_EQ(none2 | none2, none2);
 	ASSERT_PARSER_VALUES_EQ(none3 | none3, none3);
@@ -40,15 +40,15 @@ TEST("choice operator", "AnyOf | NoneOf, and NoneOf | AnyOf")
 	ASSERT_PARSER_VALUES_EQ(any3 | none1, none1 | any3);
 	ASSERT_PARSER_VALUES_EQ(any3 | none2, none2 | any3);
 	ASSERT_PARSER_VALUES_EQ(any3 | none3, none3 | any3);
-	ASSERT_PARSER_VALUES_EQ(any1 | none1, NoneOf<"">{});
-	ASSERT_PARSER_VALUES_EQ(any1 | none2, NoneOf<"d">{});
-	ASSERT_PARSER_VALUES_EQ(any1 | none3, NoneOf<"xyz">{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none1, NoneOf<"a">{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none2, NoneOf<"">{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none3, NoneOf<"xyz">{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none1, NoneOf<"abc">{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none2, NoneOf<"bcd">{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none3, NoneOf<"">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none1, NoneOf<L"">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none2, NoneOf<L"d">{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none3, NoneOf<L"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none1, NoneOf<L"a">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none2, NoneOf<L"">{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none3, NoneOf<L"xyz">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none1, NoneOf<L"abc">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none2, NoneOf<L"bcd">{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none3, NoneOf<L"">{});
 }
 
 

@@ -1,19 +1,19 @@
 #include "pch.h"
-#include "char-samples/char-samples.h"
+#include "wchar_t-samples/wchar_t-samples.h"
 
 FIXTURE("sequence operator");
 
 TEST("sequence operator", "AllOf >> AllOf")
 {
-	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<"literalliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<"literally">{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<"literaltest">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<"lyliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<"lyly">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<"lytest">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<"testliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<"testly">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<"testtest">{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<L"literalliteral">{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<L"literally">{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<L"literaltest">{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<L"lyliteral">{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<L"lyly">{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<L"lytest">{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<L"testliteral">{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<L"testly">{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<L"testtest">{});
 }
 
 
