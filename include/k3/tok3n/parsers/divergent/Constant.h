@@ -6,11 +6,12 @@ namespace k3::tok3n {
 template <Parser P, IsConst Value>
 struct Constant
 {
+	using value_type = typename P::value_type;
 	using result_type = typename Value::value_type;
 
 	static constexpr ParserFamily family = ConstantFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -19,7 +20,7 @@ struct Constant
 			return { failure, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		return P::lookahead(input);
 	}

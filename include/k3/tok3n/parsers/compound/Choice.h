@@ -7,11 +7,11 @@ namespace k3::tok3n {
 namespace detail::executors
 {
 
-	template <class ResultType>
+	template <class ResultType, class ValueType>
 	struct Choice
 	{
-		Input<char> input;
-		Result<ResultType, char>& result;
+		Input<ValueType> input;
+		Result<ResultType, ValueType>& result;
 
 		template <Parser P>
 		constexpr bool execute()
@@ -30,26 +30,27 @@ template <Parser... Ps>
 requires ChoiceConstructible<Ps...>
 struct Choice
 {
+	using value_type = typename detail::head<Ps...>::value_type;
 	using result_type = typename detail::head<Ps...>::result_type;
 
 	static constexpr ParserFamily family = ChoiceFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
-		Result<result_type, char> result;
+		Result<result_type, value_type> result;
 
-		using Executor = detail::executors::Choice<result_type>;
+		using Executor = detail::executors::Choice<result_type, value_type>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 
 		return result;
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		Result<void, char> result;
+		Result<void, value_type> result;
 
-		using Executor = detail::executors::Choice<void>;
+		using Executor = detail::executors::Choice<void, value_type>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 

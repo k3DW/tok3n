@@ -9,15 +9,16 @@ namespace k3::tok3n {
 template <template <StaticArray> class Basic, StaticArray arr>
 struct Join<ZeroOrMore<Basic<arr>>>
 {
-	using result_type = Output<char>;
+	using value_type = typename Basic<arr>::value_type;
+	using result_type = Output<value_type>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 
-		Output<char> result = { input.data(), 0 };
+		Output<value_type> result = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{
@@ -28,7 +29,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 		return { success, result, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

@@ -12,12 +12,12 @@ namespace detail::executors
 
 	struct VoidResultTag {};
 
-	template <class ResultType>
+	template <class ResultType, class ValueType>
 	struct Sequence
 	{
 		using StoredResult = std::conditional_t<std::same_as<ResultType, void>, VoidResultTag, ResultType>;
 
-		Input<char> input;
+		Input<ValueType> input;
 		StoredResult full_result = {};
 
 		template <Parser P, std::size_t I, bool unwrapped>
@@ -61,6 +61,8 @@ template <Parser... Ps>
 requires SequenceConstructible<Ps...>
 struct Sequence
 {
+	using value_type = typename detail::head<Ps...>::value_type;
+
 	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
 
 	static constexpr ParserFamily family = SequenceFamily;
@@ -68,10 +70,10 @@ struct Sequence
 	using result_type                = _trait::type;
 	static constexpr bool _unwrapped = _trait::unwrapped;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_type>;
+		using Executor = detail::executors::Sequence<result_type, value_type>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
@@ -88,9 +90,9 @@ struct Sequence
 			return { success, std::move(executor.full_result), executor.input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		using Executor = detail::executors::Sequence<void>;
+		using Executor = detail::executors::Sequence<void, value_type>;
 		Executor executor{ .input = input };
 
 		bool successful = (... && executor.execute<Ps, -1, _unwrapped>());

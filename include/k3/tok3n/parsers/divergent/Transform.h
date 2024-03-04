@@ -7,11 +7,12 @@ template <Parser P, IsConst FunctionValue>
 requires TransformConstructible<P, FunctionValue>
 struct Transform
 {
+	using value_type = typename P::value_type;
 	using result_type = decltype(std::invoke(FunctionValue::value, std::declval<typename P::result_type>()));
 
 	static constexpr ParserFamily family = TransformFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -20,7 +21,7 @@ struct Transform
 			return { failure, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		return P::lookahead(input);
 	}

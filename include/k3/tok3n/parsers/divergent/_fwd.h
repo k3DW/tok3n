@@ -87,7 +87,7 @@ template <Parser P, class T>
 requires DefaultedConstructible<P, T>
 struct Defaulted;
 
-template <class CRTP>
+template <class CRTP, class ValueType = char>
 struct Custom;
 
 } // namespace k3::tok3n

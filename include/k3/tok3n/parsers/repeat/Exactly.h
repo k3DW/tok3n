@@ -7,11 +7,12 @@ template <Parser P, IsConst<std::size_t> N>
 requires ExactlyConstructible<P, N>
 struct Exactly
 {
+	using value_type = typename P::value_type;
 	using result_type = std::array<typename P::result_type, N::value>;
 
 	static constexpr ParserFamily family = ExactlyFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		const Input original_input = input;
 		result_type results;
@@ -31,7 +32,7 @@ struct Exactly
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		const Input original_input = input;
 

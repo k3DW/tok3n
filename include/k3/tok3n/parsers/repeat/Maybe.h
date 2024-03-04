@@ -7,11 +7,12 @@ template <Parser P>
 requires MaybeConstructible<P>
 struct Maybe
 {
+	using value_type = typename P::value_type;
 	using result_type = std::optional<typename P::result_type>;
 
 	static constexpr ParserFamily family = MaybeFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -20,7 +21,7 @@ struct Maybe
 			return { success, result_type{ std::nullopt }, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		auto result = P::lookahead(input);
 		if (result.has_value())

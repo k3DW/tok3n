@@ -9,16 +9,17 @@ namespace k3::tok3n {
 template <template <StaticArray> class Basic, StaticArray arr, IsConst<std::size_t> N>
 struct Join<Exactly<Basic<arr>, N>>
 {
-	using result_type = Output<char>;
+	using value_type = typename Basic<arr>::value_type;
+	using result_type = Output<value_type>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, char> parse(Input<char> input)
+	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 
 		const Input original_input = input;
-		Output<char> result = { input.data(), 0 };
+		Output<value_type> result = { input.data(), 0 };
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
@@ -31,7 +32,7 @@ struct Join<Exactly<Basic<arr>, N>>
 		return { success, result, input };
 	}
 
-	static constexpr Result<void, char> lookahead(Input<char> input)
+	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

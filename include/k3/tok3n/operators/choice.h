@@ -75,6 +75,7 @@ consteval auto choice(NoneOf<lhs>, AnyOf<rhs>) // !"ab" |  "bc" == "a"      <- s
 }
 
 template <Parser... P1s, Parser... P2s>
+requires ParserCompatibleWith<Choice<P1s...>, Choice<P2s...>>
 consteval auto choice(Choice<P1s...>, Choice<P2s...>) // (P1 | P2) | (P3 | P4) == (P1 | P2 | P3 | P4)
 {
 	return Choice<P1s..., P2s...>{};
@@ -86,19 +87,19 @@ consteval auto choice(Choice<Ps...>, Choice<Ps...>) // (P | P) == P
 	return Choice<Ps...>{};
 }
 
-template <Parser... P1s, Parser P2>
+template <Parser P2, ParserCompatibleWith<P2>... P1s>
 consteval auto choice(Choice<P1s...>, P2) // (P1 | P2) | P3 == (P1 | P2 | P3)
 {
 	return Choice<P1s..., P2>{};
 }
 
-template <Parser P1, Parser... P2s>
+template <Parser P1, ParserCompatibleWith<P1>... P2s>
 consteval auto choice(P1, Choice<P2s...>) // P1 | (P2 | P3) == (P1 | P2 | P3)
 {
 	return Choice<P1, P2s...>{};
 }
 
-template <Parser P1, Parser P2>
+template <Parser P1, ParserCompatibleWith<P1> P2>
 consteval auto choice(P1, P2) // default
 {
 	return Choice<P1, P2>{};
@@ -114,7 +115,7 @@ consteval auto choice(P, P) // (P | P) == P
 
 namespace k3::tok3n {
 
-template <Parser P1, Parser P2>
+template <Parser P1, ParserCompatibleWith<P1> P2>
 requires std::same_as<typename P1::result_type, typename P2::result_type>
 consteval auto operator|(P1, P2)
 {
