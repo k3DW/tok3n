@@ -3,6 +3,8 @@
 
 using namespace k3::tok3n;
 
+inline namespace char_assembly {
+
 #include "char-samples/adaptor.h"
 #include "char-samples/basic.h"
 #include "char-samples/classes.h"
@@ -11,5 +13,7 @@ using namespace k3::tok3n;
 #include "char-samples/functions.h"
 #include "char-samples/macros.h"
 #include "char-samples/repeat.h"
+
+} // inline namespace char_assembly
 
 #define ASSEMBLY "char"
