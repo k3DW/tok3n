@@ -12,7 +12,7 @@ TEST("AnyOf", "Requirements")
 	ASSERT_IS_PARSER(Multi, AnyOfFamily, Output<wchar_t>);
 }
 
-TEST("AnyOf", "Parse single char")
+TEST("AnyOf", "Parse single")
 {
 	ASSERT_PARSE_SUCCESS(Single, L"ab", L"a", L"b");
 	ASSERT_PARSE_FAILURE(Single, L"ba");
@@ -22,7 +22,7 @@ TEST("AnyOf", "Parse single char")
 	ASSERT_PARSE_FAILURE(Single, L" abc");
 }
 
-TEST("AnyOf", "Parse multi char")
+TEST("AnyOf", "Parse multi")
 {
 	ASSERT_PARSE_SUCCESS(Multi, L"abc", L"a", L"bc");
 	ASSERT_PARSE_SUCCESS(Multi, L"acb", L"a", L"cb");
