@@ -13,7 +13,7 @@ struct BasicTraits<AllOf<arr>>
 
 	static constexpr bool failure_condition(Input<value_type> input)
 	{
-		return (input.size() < length) || (Input(arr.span()) != input.first(length));
+		return (input.size() < length) || (Input<value_type>(arr.span()) != input.first(length));
 	}
 };
 

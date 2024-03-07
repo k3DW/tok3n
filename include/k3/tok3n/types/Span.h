@@ -67,6 +67,23 @@ private:
 	std::span<const T> _value;
 };
 
+template <class T, class U, class Tag>
+requires requires (T t, U u) { { t == u } -> std::convertible_to<bool>; }
+constexpr bool operator==(const Span<T, Tag>& lhs, const Span<U, Tag>& rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
+
+	auto it1 = lhs.begin();
+	auto it2 = rhs.begin();
+	for (std::size_t i = 0; i != lhs.size(); ++i, ++it1, ++it2)
+	{
+		if (not (*it1 == *it2))
+			return false;
+	}
+	return true;
+}
+
 template <class T>
 using Input = Span<T, InputSpanTag>;
 
