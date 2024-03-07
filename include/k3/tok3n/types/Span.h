@@ -3,7 +3,9 @@
 #include <span>
 #include <string_view>
 #include <k3/tok3n/concepts/CharType.h>
+#include <k3/tok3n/concepts/EqualityComparableWith.h>
 #include <k3/tok3n/types/Tags.h>
+
 
 namespace k3::tok3n {
 
@@ -68,7 +70,7 @@ private:
 };
 
 template <class T, class U, class Tag>
-requires requires (T t, U u) { { t == u } -> std::convertible_to<bool>; }
+requires EqualityComparableWith<T, U>
 constexpr bool operator==(const Span<T, Tag>& lhs, const Span<U, Tag>& rhs)
 {
 	if (lhs.size() != rhs.size())
