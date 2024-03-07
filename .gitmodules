@@ -1,3 +1,6 @@
 [submodule "external/boostorg/preprocessor"]
 	path = external/boostorg/preprocessor
 	url = git@github.com:boostorg/preprocessor.git
+[submodule "external/googletest"]
+	path = external/googletest
+	url = https://github.com/google/googletest.git

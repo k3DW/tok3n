@@ -15,7 +15,16 @@ target_compile_features(k3_tok3n INTERFACE cxx_std_20)
 option (tok3n_BUILD_TESTS "Build tests" OFF)
 option (tok3n_BUILD_EXAMPLES "Build examples" OFF)
 option (tok3n_SETUP_IDE "Organize the projects for IDEs" OFF)
+option (tok3n_DEV_TESTS "Testing frameworks" ON)
 
+
+#--------------------------------------------
+#   Tests
+#--------------------------------------------
+if (tok3n_DEV_TESTS)
+    add_subdirectory(dev-tests)
+    add_subdirectory(external/googletest)
+endif()
 
 
 #--------------------------------------------
