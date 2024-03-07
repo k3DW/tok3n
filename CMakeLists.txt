@@ -23,6 +23,7 @@ option (tok3n_DEV_TESTS "Testing frameworks" ON)
 #--------------------------------------------
 if (tok3n_DEV_TESTS)
     add_subdirectory(dev-tests)
+    add_subdirectory(external/boost)
     add_subdirectory(external/Catch2)
     add_subdirectory(external/doctest)
     add_subdirectory(external/googletest)
