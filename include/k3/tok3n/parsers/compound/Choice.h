@@ -37,9 +37,15 @@ struct Choice
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
-		Result<result_type, value_type> result;
+		return parse<value_type>(input);
+	}
 
-		using Executor = detail::executors::Choice<result_type, value_type>;
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
+		Result<result_type, V> result;
+
+		using Executor = detail::executors::Choice<result_type, V>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 
@@ -48,9 +54,15 @@ struct Choice
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		Result<void, value_type> result;
+		return lookahead<value_type>(input);
+	}
 
-		using Executor = detail::executors::Choice<void, value_type>;
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
+	{
+		Result<void, V> result;
+
+		using Executor = detail::executors::Choice<void, V>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 

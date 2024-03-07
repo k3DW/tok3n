@@ -14,6 +14,12 @@ struct Defaulted
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
+		return parse<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
 		auto result = P::parse(input);
 		if (result.has_value())
 			return { success, T{}, result.remaining() };
@@ -22,6 +28,12 @@ struct Defaulted
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	{
+		return lookahead<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		return P::lookahead(input);
 	}

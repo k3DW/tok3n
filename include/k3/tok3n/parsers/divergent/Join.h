@@ -101,11 +101,17 @@ struct Join
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
+		return parse<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			using Executor = detail::executors::Join<value_type>;
-			std::optional<Output<value_type>> joined = Executor(result).get_joined();
+			using Executor = detail::executors::Join<V>;
+			std::optional<Output<V>> joined = Executor(result).get_joined();
 			if (joined)
 				return { success, *joined, result.remaining() };
 		}
@@ -113,6 +119,12 @@ struct Join
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	{
+		return lookahead<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		return P::lookahead(input);
 	}

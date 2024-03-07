@@ -11,7 +11,8 @@ struct BasicTraits<AllOf<arr>>
 
 	static constexpr std::size_t length = arr.size();
 
-	static constexpr bool failure_condition(Input<value_type> input)
+	template <std::convertible_to<value_type> V>
+	static constexpr bool failure_condition(Input<V> input)
 	{
 		return (input.size() < length) || (Input(arr.span()) != input.first(length));
 	}

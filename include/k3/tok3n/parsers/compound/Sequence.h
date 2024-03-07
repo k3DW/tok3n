@@ -72,8 +72,14 @@ struct Sequence
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
+		return parse<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_type, value_type>;
+		using Executor = detail::executors::Sequence<result_type, V>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
@@ -92,7 +98,13 @@ struct Sequence
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		using Executor = detail::executors::Sequence<void, value_type>;
+		return lookahead<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
+	{
+		using Executor = detail::executors::Sequence<void, V>;
 		Executor executor{ .input = input };
 
 		bool successful = (... && executor.execute<Ps, -1, _unwrapped>());

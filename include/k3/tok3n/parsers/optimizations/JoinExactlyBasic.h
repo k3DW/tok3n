@@ -16,10 +16,16 @@ struct Join<Exactly<Basic<arr>, N>>
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
+		return parse<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
 		using Traits = BasicTraits<Basic<arr>>;
 
 		const Input original_input = input;
-		Output<value_type> result = { input.data(), 0 };
+		Output<V> result = { input.data(), 0 };
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
@@ -33,6 +39,12 @@ struct Join<Exactly<Basic<arr>, N>>
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	{
+		return lookahead<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

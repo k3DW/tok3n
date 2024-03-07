@@ -14,6 +14,12 @@ struct ZeroOrMore
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
+		return parse<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<result_type, V> parse(Input<V> input)
+	{
 		const Input original_input = input;
 		result_type results;
 
@@ -34,7 +40,13 @@ struct ZeroOrMore
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		Result<void, value_type> result;
+		return lookahead<value_type>(input);
+	}
+
+	template <std::convertible_to<value_type> V>
+	static constexpr Result<void, V> lookahead(Input<V> input)
+	{
+		Result<void, V> result;
 
 		do
 		{
