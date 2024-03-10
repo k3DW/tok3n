@@ -1,3 +1,4 @@
+add_subdirectory(Boost.Core_lwtest)
 add_subdirectory(Boost.Test)
 add_subdirectory(Catch2)
 add_subdirectory(doctest)
