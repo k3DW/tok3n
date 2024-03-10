@@ -38,20 +38,28 @@ namespace std
 
 }
 
+#if 0
 TEST_CASE("ISO8601")
 {
-    SECTION("parse result")
-    {
-        std::string_view input = "bad";
-		auto result = parser.parse(input);
+    std::string_view input = "2024-01-01";
+	auto result = parser.parse(input);
 
-        INFO(std::format("Input could not be parsed.\nInput = \"{}\"\n"
-            "Parser = {}", input, k3::tok3n::pretty(parser).view()));
-
-		REQUIRE(result.has_value());
-		CHECK(*result == std::tuple("2024", "01", "01"));
-    }
+	REQUIRE(result.has_value());
+	CHECK(*result == std::tuple("2024", "01", "01"));
 }
+#else
+TEST_CASE("ISO8601")
+{
+    std::string_view input = "bad";
+    auto result = parser.parse(input);
+
+    INFO(std::format("Input could not be parsed.\nInput = \"{}\"\n"
+        "Parser = {}", input, k3::tok3n::pretty(parser).view()));
+
+    REQUIRE(result.has_value());
+    CHECK(*result == std::tuple("2024", "01", "01"));
+}
+#endif
 
 int main( int argc, char* argv[] )
 {
