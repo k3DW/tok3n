@@ -13,3 +13,9 @@
 [submodule "external/boost"]
 	path = external/boost
 	url = https://github.com/boostorg/boost.git
+[submodule "external/snitch"]
+	path = external/snitch
+	url = git@github.com:snitch-org/snitch.git
+[submodule "external/ut"]
+	path = external/ut
+	url = git@github.com:boost-ext/ut.git

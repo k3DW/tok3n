@@ -27,6 +27,8 @@ if (tok3n_DEV_TESTS)
     add_subdirectory(external/Catch2)
     add_subdirectory(external/doctest)
     add_subdirectory(external/googletest)
+    add_subdirectory(external/snitch)
+    add_subdirectory(external/ut)
 endif()
 
 
