@@ -1,5 +1,6 @@
 #pragma once
 #include <algorithm>
+#include <ostream>
 #include <span>
 #include <string_view>
 #include <k3/tok3n/concepts/CharType.h>
@@ -57,6 +58,24 @@ public:
 	friend constexpr bool operator==(const Span& lhs, const Span<U, Tag>& rhs)
 	{
 		return std::ranges::equal(lhs._value, rhs._value);
+	}
+
+	template <class U>
+	friend std::basic_ostream<U>& operator<<(std::basic_ostream<U>& os, Span span)
+	{
+		if constexpr (CharType<T>)
+			return os << U{ '"' } << span.operator std::basic_string_view<T>() << U{ '"' };
+		else
+		{
+			os << U{ '[' };
+			auto it = span.begin();
+			const auto end = span.end();
+			if (it != end)
+				os << *it++;
+			while (it != end)
+				os << U{ ',' } << U{ ' ' } << *it++;
+			return os << U{ ']' };
+		}
 	}
 
 private:
