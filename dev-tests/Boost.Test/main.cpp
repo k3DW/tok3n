@@ -1,43 +1,56 @@
-#define BOOST_TEST_MODULE MyTest
-//#define BOOST_TEST_NO_MAIN 
+#define BOOST_TEST_MODULE TestModule
+//#define BOOST_TEST_NO_MAIN
 #include <boost/test/included/unit_test.hpp>
 
 #include <k3/tok3n.h>
-#include <iostream>
+#include <format>
 
-auto pp = k3::tok3n::any<"123"> >> k3::tok3n::any<"abc">;
+using namespace k3::tok3n;
 
-namespace k3::tok3n
+auto digit = "0123456789"_any_of;
+auto year = exactly<4>(digit) % join;
+auto month = exactly<2>(digit) % join;
+auto day = digit % exactly<2> % join;
+
+// ISO-8601 YYYY-MM-DD
+auto parser = year >> "-"_ign >>
+			  month >> "-"_ign >> day;
+
+//namespace std
+//{
+//
+//    template <class... Ts>
+//    std::ostream& operator<<(std::ostream& os, const std::tuple<Ts...> tup)
+//    {
+//        os << "[";
+//        if constexpr (sizeof...(Ts) >= 1)
+//            os << std::get<0>(tup);
+//        [&] <std::size_t... Is>(std::index_sequence<Is...>)
+//        {
+//            ((os << ", " << std::get<Is + 1>(tup)), ...);
+//        }(std::make_index_sequence<sizeof...(Ts) - 1>{});
+//        return os << "]";
+//    }
+//
+//}
+
+//BOOST_AUTO_TEST_CASE(ISO8601)
+//{
+//    auto result = parser.parse("bad");
+//
+//    BOOST_REQUIRE(result.has_value());
+//    BOOST_CHECK((*result == std::tuple("2024", "01", "01")));
+//}
+
+BOOST_AUTO_TEST_CASE(ISO8601)
 {
-    std::ostream& operator<<(std::ostream& os, ParserFamily family)
-    {
-        return os << "ParserFamily(" << (int)family << ")";
-    }
-}
-
-namespace std
-{
-
-    template <class... Ts>
-    ostream& operator<<(ostream& os, const tuple<Ts...> tup)
-    {
-        os << "[";
-        if constexpr (sizeof...(Ts) >= 1)
-            os << get<0>(tup);
-        [&]<size_t... Is>(index_sequence<Is...>)
-        {
-            ((os << ", " << get<Is + 1>(tup)), ...);
-        }(make_index_sequence<sizeof...(Ts) - 1>{});
-        return os << "]";
-    }
-
-}
-
-BOOST_AUTO_TEST_CASE(first_test)
-{
-  BOOST_TEST(pp.family == k3::tok3n::ParserFamily::Sequence);
-  BOOST_TEST(pp.parse("1a").has_value());
-  BOOST_TEST(*pp.parse("1a") == std::tuple("1", "a"));
+    std::string_view input = "bad";
+    auto result = parser.parse(input);
+    
+    BOOST_REQUIRE_MESSAGE(result.has_value(),
+        std::format("\nInput could not be parsed.\nInput = \"{}\"\n"
+        "Parser = {}", input, k3::tok3n::pretty(parser).view()));
+    BOOST_CHECK((*result == std::tuple("2024", "01", "01")));
 }
 
 // int main(int argc, char* argv[])
