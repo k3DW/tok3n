@@ -24,4 +24,12 @@ struct AllOf : BasicBase<AllOf<arr>>
 	static constexpr ParserFamily family = AllOfFamily;
 };
 
+template <StaticArray arr>
+requires std::same_as<char, typename decltype(arr)::value_type>
+constexpr auto pretty(AllOf<arr>)
+{
+	static_assert(std::same_as<char, typename decltype(arr)::value_type>, "Non-char parsers cannot be prettied at the moment.");
+	return StaticArray("AllOf<\"") + arr + StaticArray("\">");
+}
+
 } // namespace k3::tok3n

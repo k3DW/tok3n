@@ -26,4 +26,11 @@ struct NoneOf : BasicBase<NoneOf<arr>>
 	static constexpr ParserFamily family = NoneOfFamily;
 };
 
+template <StaticArray arr>
+constexpr auto pretty(NoneOf<arr>)
+{
+	static_assert(std::same_as<char, typename decltype(arr)::value_type>, "Non-char parsers cannot be prettied at the moment.");
+	return StaticArray("NoneOf<\"") + arr + StaticArray("\">");
+}
+
 } // namespace k3::tok3n

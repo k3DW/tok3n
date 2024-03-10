@@ -116,4 +116,24 @@ struct Sequence
 	}
 };
 
+template <Parser... Ps>
+requires SequenceConstructible<Ps...>
+constexpr auto pretty(Sequence<Ps...>)
+{
+	constexpr auto impl = []<Parser P, std::size_t I>(P, Index<I>)
+	{
+		if constexpr (I == sizeof...(Ps) - 1)
+			return pretty(P{}) + StaticArray("\n");
+		else
+			return pretty(P{}) + StaticArray(",\n    ");
+	};
+
+	return StaticArray("Sequence<\n    ")
+		+ []<std::size_t... Is>(std::index_sequence<Is...>)
+			{
+				return (... + impl(Ps{}, Index<Is>{}));
+			}(std::index_sequence_for<Ps...>{})
+		+ StaticArray(">");
+}
+
 } // namespace k3::tok3n

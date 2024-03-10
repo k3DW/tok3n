@@ -35,4 +35,10 @@ struct Ignore
 	}
 };
 
+template <Parser P>
+constexpr auto pretty(Ignore<P>)
+{
+	return StaticArray("Ignore<") + pretty(P{}) + StaticArray(">");
+}
+
 } // namespace k3::tok3n

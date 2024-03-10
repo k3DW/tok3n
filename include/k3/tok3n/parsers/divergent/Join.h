@@ -130,4 +130,11 @@ struct Join
 	}
 };
 
+template <Parser P>
+requires JoinConstructible<P>
+constexpr auto pretty(Join<P>)
+{
+	return StaticArray("Join<") + pretty(P{}) + StaticArray(">");
+}
+
 } // namespace k3::tok3n

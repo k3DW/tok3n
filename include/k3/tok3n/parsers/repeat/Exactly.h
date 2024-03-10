@@ -61,4 +61,13 @@ struct Exactly
 	}
 };
 
+
+template <Parser P, IsConst<std::size_t> N>
+requires ExactlyConstructible<P, N>
+constexpr auto pretty(Exactly<P, N>)
+{
+	static_assert(N::value < 10);
+	return StaticArray("Exactly<") + pretty(P{}) + StaticArray(",") + StaticArray((char)(N::value + '0')) + StaticArray(">");
+}
+
 } // namespace k3::tok3n

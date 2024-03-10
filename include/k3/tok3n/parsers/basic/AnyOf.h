@@ -26,4 +26,12 @@ struct AnyOf : BasicBase<AnyOf<arr>>
 	static constexpr ParserFamily family = AnyOfFamily;
 };
 
+template <StaticArray arr>
+requires std::same_as<char, typename decltype(arr)::value_type>
+constexpr auto pretty(AnyOf<arr>)
+{
+	static_assert(std::same_as<char, typename decltype(arr)::value_type>, "Non-char parsers cannot be prettied at the moment.");
+	return StaticArray("AnyOf<\"") + arr + StaticArray("\">");
+}
+
 } // namespace k3::tok3n
