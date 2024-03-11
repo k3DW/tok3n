@@ -37,6 +37,11 @@ struct StaticArray
 		return { data.data(), N };
 	}
 
+	constexpr std::basic_string_view<T> view() const requires CharType<T>
+    {
+        return { data.data(), N };
+    }
+
 	constexpr bool contains(const T& t) const
 	{
 		for (const auto& element : data)
