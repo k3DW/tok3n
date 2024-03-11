@@ -116,7 +116,6 @@ consteval auto choice(P, P) // (P | P) == P
 namespace k3::tok3n {
 
 template <Parser P1, ParserCompatibleWith<P1> P2>
-requires std::same_as<typename P1::result_type, typename P2::result_type>
 consteval auto operator|(P1, P2)
 {
 	return operators_impl::choice(P1{}, P2{});

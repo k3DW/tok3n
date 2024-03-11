@@ -91,7 +91,6 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires JoinConstructible<P>
 struct Join
 {
 	using value_type = typename P::value_type;
@@ -103,6 +102,9 @@ struct Join
 
 	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
+		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
+			"Join's child parser should have a joinable result for the given value type.");
+
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
@@ -116,6 +118,8 @@ struct Join
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
+		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
+			"Join's child parser should have a joinable result for the given value type.");
 		return P::lookahead(input);
 	}
 };

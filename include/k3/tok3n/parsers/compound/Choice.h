@@ -39,6 +39,9 @@ struct Choice
 
 	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
+		static_assert(detail::all_same<typename Ps::template result_for<value_type>...>,
+			"Result type of the Choice child parsers must be the same for the given value type.");
+
 		Result<result_for<value_type>, value_type> result;
 
 		using Executor = detail::executors::Choice<result_for<value_type>, value_type>;
@@ -50,6 +53,9 @@ struct Choice
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
+		static_assert(detail::all_same<typename Ps::template result_for<value_type>...>,
+			"Result type of the Choice child parsers must be the same for the given value type.");
+
 		Result<void, value_type> result;
 
 		using Executor = detail::executors::Choice<void, value_type>;

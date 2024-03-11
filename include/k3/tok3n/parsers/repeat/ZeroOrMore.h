@@ -4,7 +4,6 @@
 namespace k3::tok3n {
 
 template <Parser P>
-requires ZeroOrMoreConstructible<P>
 struct ZeroOrMore
 {
 	using value_type = typename P::value_type;
@@ -16,6 +15,9 @@ struct ZeroOrMore
 
 	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"ZeroOrMore's child parser's result for the given value cannot be void.");
+
 		const Input original_input = input;
 		result_for<value_type> results;
 
@@ -36,6 +38,9 @@ struct ZeroOrMore
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"ZeroOrMore's child parser's result for the given value cannot be void.");
+
 		Result<void, value_type> result;
 
 		do

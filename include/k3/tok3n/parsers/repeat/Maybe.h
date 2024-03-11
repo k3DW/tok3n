@@ -4,7 +4,6 @@
 namespace k3::tok3n {
 
 template <Parser P>
-requires MaybeConstructible<P>
 struct Maybe
 {
 	using value_type = typename P::value_type;
@@ -16,6 +15,9 @@ struct Maybe
 
 	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Maybe's child parser's result for the given value cannot be void.");
+
 		auto result = P::parse(input);
 		if (result.has_value())
 			return { success, std::move(*result), result.remaining() };
@@ -25,6 +27,9 @@ struct Maybe
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Maybe's child parser's result for the given value cannot be void.");
+
 		auto result = P::lookahead(input);
 		if (result.has_value())
 			return { success, result.remaining() };
