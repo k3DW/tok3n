@@ -1,6 +1,7 @@
 #pragma once
 
 #include <k3/tok3n/concepts/CharType.h>
+#include <k3/tok3n/concepts/EqualityComparableWith.h>
 #include <k3/tok3n/concepts/IsConst.h>
 #include <k3/tok3n/concepts/IsParser.h>
 #include <k3/tok3n/concepts/IsResult.h>
