@@ -31,7 +31,4 @@ concept Parser =
 	(std::is_class_v<P> && detail::Parser<P>) ||
 	(std::is_reference_v<P> && detail::Parser<std::remove_reference_t<P>>);
 
-template <class P1, class P2>
-concept ParserCompatibleWith = std::same_as<typename P1::value_type, typename P2::value_type>;
-
 } // namespace k3::tok3n
