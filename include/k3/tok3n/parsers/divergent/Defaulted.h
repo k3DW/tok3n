@@ -3,8 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, class T>
-requires DefaultedConstructible<P, T>
+template <Parser P, DefaultConstructible T>
 struct Defaulted
 {
 	using value_type = typename P::value_type;

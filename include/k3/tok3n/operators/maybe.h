@@ -22,7 +22,6 @@ consteval auto maybe(P) { return Maybe<P>{}; } // default
 namespace k3::tok3n {
 
 template <Parser P>
-requires MaybeConstructible<P>
 consteval auto operator~(P)
 {
 	return operators_impl::maybe(P{});

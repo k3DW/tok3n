@@ -8,7 +8,6 @@ template <class T>
 struct into final : ModifierBase
 {
 	template <Parser P>
-	requires IntoConstructible<P, T>
 	consteval auto operator()(P) const
 	{
 		return Into<P, T>{};

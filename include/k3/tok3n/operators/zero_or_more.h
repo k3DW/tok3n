@@ -22,7 +22,6 @@ consteval auto zero_or_more(P) { return ZeroOrMore<P>{}; } // default
 namespace k3::tok3n {
 
 template <Parser P>
-requires ZeroOrMoreConstructible<P>
 consteval auto operator*(P)
 {
 	return operators_impl::zero_or_more(P{});
