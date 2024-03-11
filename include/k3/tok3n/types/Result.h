@@ -13,32 +13,32 @@ public:
 	constexpr Result() = default;
 
 	constexpr Result(FailureTag, Input<U> remaining)
-		: mResult(), mRemaining(remaining) {}
+		: _result(), _remaining(remaining) {}
 
 	constexpr Result(SuccessTag, const T& t, Input<U> remaining) requires std::constructible_from<T, const T&>
-		: mResult(t), mRemaining(remaining) {}
+		: _result(t), _remaining(remaining) {}
 
 	constexpr Result(SuccessTag, T&& t, Input<U> remaining) requires std::constructible_from<T, T&&>
-		: mResult(std::move(t)), mRemaining(remaining) {}
+		: _result(std::move(t)), _remaining(remaining) {}
 
-	constexpr explicit operator bool() const noexcept { return mResult.operator bool(); }
-	constexpr bool has_value() const noexcept         { return mResult.has_value(); }
+	constexpr explicit operator bool() const noexcept { return _result.operator bool(); }
+	constexpr bool has_value() const noexcept         { return _result.has_value(); }
 
-	constexpr T&        value() &       { return mResult.value(); }
-	constexpr const T&  value() const&  { return mResult.value(); }
-	constexpr T&&       value() &&      { return std::move(mResult).value(); }
-	constexpr const T&& value() const&& { return std::move(mResult).value(); }
+	constexpr T&        value() &       { return _result.value(); }
+	constexpr const T&  value() const&  { return _result.value(); }
+	constexpr T&&       value() &&      { return std::move(_result).value(); }
+	constexpr const T&& value() const&& { return std::move(_result).value(); }
 
-	constexpr T&        operator*() &       { return *mResult; }
-	constexpr const T&  operator*() const&  { return *mResult; }
-	constexpr T&&       operator*() &&      { return *std::move(mResult); }
-	constexpr const T&& operator*() const&& { return *std::move(mResult); }
+	constexpr T&        operator*() &       { return *_result; }
+	constexpr const T&  operator*() const&  { return *_result; }
+	constexpr T&&       operator*() &&      { return *std::move(_result); }
+	constexpr const T&& operator*() const&& { return *std::move(_result); }
 
-	constexpr Input<U> remaining() const noexcept { return mRemaining; }
+	constexpr Input<U> remaining() const noexcept { return _remaining; }
 
 private:
-	std::optional<T> mResult;
-	Input<U> mRemaining;
+	std::optional<T> _result;
+	Input<U> _remaining;
 };
 
 template <class U>
@@ -48,19 +48,19 @@ public:
 	constexpr Result() = default;
 
 	constexpr Result(FailureTag, Input<U> remaining)
-		: mSuccessful(false), mRemaining(remaining) {}
+		: _successful(false), _remaining(remaining) {}
 
 	constexpr Result(SuccessTag, Input<U> remaining)
-		: mSuccessful(true), mRemaining(remaining) {}
+		: _successful(true), _remaining(remaining) {}
 
-	constexpr explicit operator bool() const noexcept { return mSuccessful; }
-	constexpr bool has_value() const noexcept         { return mSuccessful; }
+	constexpr explicit operator bool() const noexcept { return _successful; }
+	constexpr bool has_value() const noexcept         { return _successful; }
 
-	constexpr Input<U> remaining() const noexcept { return mRemaining; }
+	constexpr Input<U> remaining() const noexcept { return _remaining; }
 
 private:
-	bool mSuccessful;
-	Input<U> mRemaining;
+	bool _successful;
+	Input<U> _remaining;
 };
 
 } // namespace k3::tok3n
