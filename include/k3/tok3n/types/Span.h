@@ -17,6 +17,12 @@ public:
 		: _value(value)
 	{}
 
+	template <std::ranges::contiguous_range R>
+	requires std::same_as<T, std::ranges::range_value_t<R>>
+	constexpr Span(R&& r)
+		: _value(std::forward<R>(r))
+	{}
+
 	template <class... Args>
 	requires std::constructible_from<std::span<const T>, Args...>
 	constexpr Span(Args&&... args)
