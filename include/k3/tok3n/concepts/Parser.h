@@ -8,6 +8,9 @@
 namespace k3::tok3n {
 
 namespace detail {
+
+template <template <class> class A>
+struct HasTemplateAlias {};
 	
 template <class P>
 concept Parser =
@@ -17,12 +20,7 @@ concept Parser =
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
 	requires { typename P::value_type; } &&
-	requires { typename P::result_type; } &&
-	requires (Input<typename P::value_type> input)
-	{
-		{ P::parse(input) } -> k3::tok3n::IsResult<typename P::result_type, typename P::value_type>;
-		{ P::lookahead(input) } -> k3::tok3n::IsResult<void, typename P::value_type>;
-	};
+	requires { HasTemplateAlias<P::template result_for>{}; };
 
 }
 
