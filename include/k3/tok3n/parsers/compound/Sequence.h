@@ -63,28 +63,30 @@ struct Sequence
 {
 	using value_type = typename detail::head<Ps...>::value_type;
 
-	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::result_type...>>;
+	template <EqualityComparableWith<value_type> V>
+	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::template result_for<V>...>>;
+	template <EqualityComparableWith<value_type> V>
+	using result_for = typename _trait<V>::type;
+	template <EqualityComparableWith<value_type> V>
+	static constexpr bool _unwrapped = _trait<V>::unwrapped;
 
 	static constexpr ParserFamily family = SequenceFamily;
 
-	using result_type                = _trait::type;
-	static constexpr bool _unwrapped = _trait::unwrapped;
-
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_type, value_type>;
+		using Executor = detail::executors::Sequence<result_for<value_type>, value_type>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
-			return (... && executor.execute<Ps, Is, _unwrapped>());
-		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::result_type...>{});
+			return (... && executor.execute<Ps, Is, _unwrapped<value_type>>());
+		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::template result_for<value_type>...>{});
 
 		if (not successful)
 			return { failure, input };
 
-		if constexpr (std::same_as<result_type, void>)
+		if constexpr (std::same_as<result_for<value_type>, void>)
 			return { success, executor.input };
 		else
 			return { success, std::move(executor.full_result), executor.input };
@@ -95,7 +97,7 @@ struct Sequence
 		using Executor = detail::executors::Sequence<void, value_type>;
 		Executor executor{ .input = input };
 
-		bool successful = (... && executor.execute<Ps, -1, _unwrapped>());
+		bool successful = (... && executor.execute<Ps, -1, _unwrapped<value_type>>());
 
 		if (successful)
 			return { success, executor.input };

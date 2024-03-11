@@ -15,9 +15,11 @@ template <class P>
 struct BasicBase
 {
 	using value_type = typename BasicTraits<P>::value_type;
-	using result_type = Output<value_type>;
+	
+	template <EqualityComparableWith<value_type> V>
+    using result_for = Output<V>;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<P>;
 

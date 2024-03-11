@@ -8,14 +8,16 @@ requires ExactlyConstructible<P, N>
 struct Exactly
 {
 	using value_type = typename P::value_type;
-	using result_type = std::array<typename P::result_type, N::value>;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = std::array<typename P::template result_for<V>, N::value>;
 
 	static constexpr ParserFamily family = ExactlyFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		const Input original_input = input;
-		result_type results;
+		result_for<value_type> results;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{

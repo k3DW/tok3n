@@ -31,15 +31,17 @@ requires ChoiceConstructible<Ps...>
 struct Choice
 {
 	using value_type = typename detail::head<Ps...>::value_type;
-	using result_type = typename detail::head<Ps...>::result_type;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = typename detail::head<Ps...>::template result_for<V>;
 
 	static constexpr ParserFamily family = ChoiceFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		Result<result_type, value_type> result;
+		Result<result_for<value_type>, value_type> result;
 
-		using Executor = detail::executors::Choice<result_type, value_type>;
+		using Executor = detail::executors::Choice<result_for<value_type>, value_type>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 

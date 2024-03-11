@@ -10,11 +10,13 @@ template <template <StaticArray> class Basic, StaticArray arr, IsConst<std::size
 struct Join<Exactly<Basic<arr>, N>>
 {
 	using value_type = typename Basic<arr>::value_type;
-	using result_type = Output<value_type>;
+	
+	template <EqualityComparableWith<value_type> V>
+	using result_for = Output<V>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

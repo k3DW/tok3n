@@ -8,16 +8,18 @@ requires DelimitConstructible<P, D, KeepDelimiters>
 struct Delimit
 {
 	using value_type = typename P::value_type;
-	using result_type = std::conditional_t<KeepDelimiters::value,
-		std::pair<std::vector<typename P::result_type>, std::vector<typename D::result_type>>,
-		std::vector<typename P::result_type>
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = std::conditional_t<KeepDelimiters::value,
+		std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>,
+		std::vector<typename P::template result_for<V>>
 	>;
 
 	static constexpr ParserFamily family = DelimitFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input) requires (not KeepDelimiters::value)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (not KeepDelimiters::value)
 	{
-		result_type results;
+		result_for<value_type> results;
 
 		auto result = P::parse(input);
 		if (not result.has_value())
@@ -38,9 +40,9 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input) requires (KeepDelimiters::value)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (KeepDelimiters::value)
 	{
-		result_type results;
+		result_for<value_type> results;
 		auto& [values, delimiters] = results;
 
 		auto result = P::parse(input);

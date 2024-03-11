@@ -8,15 +8,17 @@ requires ApplyIntoConstructible<P, T>
 struct ApplyInto
 {
 	using value_type = typename P::value_type;
-	using result_type = T;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = T;
 
 	static constexpr ParserFamily family = ApplyIntoFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::make_from_tuple<result_type>(std::move(*result)), result.remaining() };
+			return { success, std::make_from_tuple<result_for<value_type>>(std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}

@@ -8,14 +8,16 @@ requires OneOrMoreConstructible<P>
 struct OneOrMore
 {
 	using value_type = typename P::value_type;
-	using result_type = std::vector<typename P::result_type>;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = std::vector<typename P::template result_for<V>>;
 
 	static constexpr ParserFamily family = OneOrMoreFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		const Input original_input = input;
-		result_type results;
+		result_for<value_type> results;
 
 		while (true)
 		{

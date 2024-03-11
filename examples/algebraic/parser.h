@@ -113,6 +113,4 @@ struct input : Custom<input>
 {
 	static constexpr auto parser = complete(ws >> expr{} >> ws);
 	static consteval auto get_parser() { return parser; }
-
-	using result_type = decltype(parser)::result_type;
 };
