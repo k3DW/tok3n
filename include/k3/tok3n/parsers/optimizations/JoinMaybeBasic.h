@@ -16,12 +16,6 @@ struct Join<Maybe<Basic<arr>>>
 
 	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
@@ -31,12 +25,6 @@ struct Join<Maybe<Basic<arr>>>
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
-	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

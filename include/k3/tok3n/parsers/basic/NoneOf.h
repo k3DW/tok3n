@@ -12,8 +12,7 @@ struct BasicTraits<NoneOf<arr>>
 
 	static constexpr std::size_t length = 1;
 
-	template <std::convertible_to<value_type> V>
-	static constexpr bool failure_condition(Input<V> input)
+	static constexpr bool failure_condition(Input<value_type> input)
 	{
 		return input.empty() || arr.contains(input.front());
 	}

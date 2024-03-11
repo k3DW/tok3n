@@ -58,18 +58,13 @@ public:
 	constexpr Span first(std::size_t count) const { return { _value.first(count) }; }
 	constexpr Span subspan(std::size_t offset, std::size_t count = std::dynamic_extent) const { return { _value.subspan(offset, count) }; }
 
-	template <class U>
-	requires requires (T t, U u) { { t == u } -> std::convertible_to<bool>; }
-	friend constexpr bool operator==(const Span& lhs, const Span<U, Tag>& rhs)
+	friend constexpr bool operator==(const Span& lhs, const Span& rhs)
 	{
 		return std::ranges::equal(lhs._value, rhs._value);
 	}
 
 private:
 	std::span<const T> _value;
-
-	template <class U, class Uag>
-	friend class Span;
 };
 
 template <class T>
