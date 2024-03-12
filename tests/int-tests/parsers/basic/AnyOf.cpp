@@ -9,8 +9,8 @@ FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, AnyOfFamily, Output<int>);
-	ASSERT_IS_PARSER(Multi, AnyOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Single, int, AnyOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Multi, int, AnyOfFamily, Output<int>);
 }
 
 TEST("AnyOf", "Parse single")

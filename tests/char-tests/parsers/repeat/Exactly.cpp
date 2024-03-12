@@ -5,10 +5,10 @@ FIXTURE("Exactly");
 
 TEST("Exactly", "Requirements")
 {
-	ASSERT_IS_PARSER(Exa1, ExactlyFamily, std::array<Output<char>, 3>);
-	ASSERT_IS_PARSER(Exa2, ExactlyFamily, std::array<Output<char>, 5>);
-	ASSERT_IS_PARSER(Exa3, ExactlyFamily, std::array<Output<char>, 4>);
-	ASSERT_IS_PARSER(Exa4, ExactlyFamily, std::array<std::tuple<Output<char>, Output<char>>, 2>);
+	ASSERT_IS_PARSER(Exa1, char, ExactlyFamily, std::array<Output<char>, 3>);
+	ASSERT_IS_PARSER(Exa2, char, ExactlyFamily, std::array<Output<char>, 5>);
+	ASSERT_IS_PARSER(Exa3, char, ExactlyFamily, std::array<Output<char>, 4>);
+	ASSERT_IS_PARSER(Exa4, char, ExactlyFamily, std::array<std::tuple<Output<char>, Output<char>>, 2>);
 }
 
 TEST("Exactly", "Constructibility")

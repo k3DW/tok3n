@@ -9,8 +9,8 @@ FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, NoneOfFamily, Output<int>);
-	ASSERT_IS_PARSER(Multi, NoneOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Single, int, NoneOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Multi, int, NoneOfFamily, Output<int>);
 }
 
 TEST("NoneOf", "Parse single")

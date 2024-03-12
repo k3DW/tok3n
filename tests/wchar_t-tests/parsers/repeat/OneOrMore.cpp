@@ -5,10 +5,10 @@ FIXTURE("OneOrMore");
 
 TEST("OneOrMore", "Requirements")
 {
-	ASSERT_IS_PARSER(Oom1, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom2, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom3, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom4, OneOrMoreFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Oom1, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom2, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom3, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom4, wchar_t, OneOrMoreFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
 }
 
 TEST("OneOrMore", "Parse OneOrMore<AllOf>")

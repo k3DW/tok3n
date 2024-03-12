@@ -5,8 +5,8 @@ FIXTURE("ApplyTransform");
 
 TEST("ApplyTransform", "Requirements")
 {
-	ASSERT_IS_PARSER(Apt1, ApplyTransformFamily, bool);
-	ASSERT_IS_PARSER(Apt2, ApplyTransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Apt1, char, ApplyTransformFamily, bool);
+	ASSERT_IS_PARSER(Apt2, char, ApplyTransformFamily, std::size_t);
 }
 
 TEST("ApplyTransform", "Parse all")

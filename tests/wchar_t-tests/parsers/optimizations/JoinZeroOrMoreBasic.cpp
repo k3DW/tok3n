@@ -9,9 +9,9 @@ using Joi_Zom_L  = Join<ZeroOrMore<AllOf<L"123">>>;
 
 TEST("JoinZeroOrMoreBasic", "Requirements")
 {
-    ASSERT_IS_PARSER(Joi_Zom_OC, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_L, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, JoinFamily, Output<wchar_t>);
 }
 
 TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")

@@ -5,13 +5,13 @@ FIXTURE("Complete");
 
 TEST("Complete", "Requirements")
 {
-	ASSERT_IS_PARSER(Com1, CompleteFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com2, CompleteFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com3, CompleteFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com4, CompleteFamily, std::tuple<Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(Com5, CompleteFamily, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
-	ASSERT_IS_PARSER(Com6, CompleteFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
-	ASSERT_IS_PARSER(Com7, CompleteFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Com1, wchar_t, CompleteFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Com2, wchar_t, CompleteFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Com3, wchar_t, CompleteFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Com4, wchar_t, CompleteFamily, std::tuple<Output<wchar_t>, Output<wchar_t>>);
+	ASSERT_IS_PARSER(Com5, wchar_t, CompleteFamily, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Com6, wchar_t, CompleteFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Com7, wchar_t, CompleteFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
 }
 
 TEST("Complete", "Complete<AllOf>")

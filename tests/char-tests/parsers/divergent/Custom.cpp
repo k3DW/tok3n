@@ -5,7 +5,7 @@ FIXTURE("Custom");
 
 TEST("Custom", "Requirements")
 {
-	ASSERT_IS_PARSER(Cus1, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus1, char, CustomFamily, std::size_t);
 }
 
 TEST("Custom", "Parse all")

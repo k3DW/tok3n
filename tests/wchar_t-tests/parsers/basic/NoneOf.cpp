@@ -8,8 +8,8 @@ FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, NoneOfFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Multi, NoneOfFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Single, wchar_t, NoneOfFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Multi, wchar_t, NoneOfFamily, Output<wchar_t>);
 }
 
 TEST("NoneOf", "Parse single")
