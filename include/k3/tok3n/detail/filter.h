@@ -5,6 +5,20 @@
 
 namespace k3::tok3n::detail {
 
+template <class... Ts>
+struct list {};
+
+template <class List, template <class...> class Other>
+struct change_list;
+
+template <template <class...> class List, class... Ts, template <class...> class Other>
+struct change_list<List<Ts...>, Other>
+{
+	using type = Other<Ts...>;
+};
+
+
+
 template <type_predicate Pred, class ListOfDone, class Head, class... Tail>
 struct filter_impl {};
 
@@ -26,7 +40,7 @@ struct filter_impl<Pred, List<Done...>, Head, Tail...>
 	>;
 };
 
-template <type_predicate Pred, template <class...> class List, class... Ts>
-using filter = typename filter_impl<Pred, List<>, Ts...>::type;
+template <type_predicate Pred, class... Ts>
+using filter = typename filter_impl<Pred, list<>, Ts...>::type;
 
 } // namespace k3::tok3n::detail
