@@ -65,21 +65,21 @@ TEST("Complete", "Complete<Maybe>")
 }
 TEST("Complete", "Complete<OneOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", Com6::result_type({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", Com6::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com6, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com6, "literala", Com6::result_type({ { "literal", "a" } }), "");
-	ASSERT_PARSE_SUCCESS(Com6, "literalb", Com6::result_type({ { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literala", Com6::result_for<char>({ { "literal", "a" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literalb", Com6::result_for<char>({ { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com6, "literald");
 	ASSERT_PARSE_FAILURE(Com6, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_FAILURE(Com6, "");
 }
 TEST("Complete", "Complete<ZeroOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", Com7::result_type({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", Com7::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com7, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, "literala", Com7::result_type({ { "literal", "a" } }), "");
-	ASSERT_PARSE_SUCCESS(Com7, "literalb", Com7::result_type({ { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literala", Com7::result_for<char>({ { "literal", "a" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literalb", Com7::result_for<char>({ { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com7, "literald");
 	ASSERT_PARSE_FAILURE(Com7, "aliteralaliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, "", Com7::result_type{}, "");
+	ASSERT_PARSE_SUCCESS(Com7, "", Com7::result_for<char>{}, "");
 }
