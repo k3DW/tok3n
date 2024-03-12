@@ -104,6 +104,9 @@ constexpr auto tokenizer = *single_token % complete;
 
 
 
+template <class P, class V>
+concept HasResultFor = requires { typename P::template result_for<V>; };
+
 
 int main()
 {
@@ -121,17 +124,29 @@ int main()
             ++it;
     }
 
+    constexpr auto front = fn<[]<class T, class Tag>(k3::tok3n::Span<T, Tag> span) { return span.front(); }>;
 
+    auto name = (front(all_of<TokenKind::identifier>) >> *front(all_of<TokenKind::double_colon, TokenKind::identifier>));
 
-    auto name = (all_of<TokenKind::identifier> >> *all_of<TokenKind::double_colon, TokenKind::identifier>)
-		% apply<[](Token tok, const std::vector<Token>& tokens)
-		{
+    constexpr auto name_fn = [](Token tok, const std::vector<Token>& tokens)
+        {
             std::string str;
             str.append(tok.sv);
             for (auto& token : tokens)
                 str.append(token.sv);
             return str;
-		}>;
+        };
+
+    //using ASDF = decltype(name)::result_for<Token>;
+    //using XX = ASDF::xx;
+
+    static_assert(std::same_as<decltype(name)::result_for<Token>, std::tuple<Token, std::vector<Token>>>);
+
+    auto x = name % apply<name_fn>;
+
+    //static_assert(!k3::tok3n::IsApplyable<k3::tok3n::Const<name>, int>);
+
+    //static_assert(!HasResultFor<decltype(x), TokenKind>);
 
 
     //auto ppp = name | k3::tok3n::anything<TokenKind>;
