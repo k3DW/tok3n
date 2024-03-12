@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
+  
+  <Type Name="k3::tok3n::Span&lt;*&gt;">
+    <DisplayString>{_value}</DisplayString>
+    <Expand>
+        <ExpandedItem>_value</ExpandedItem>
+    </Expand>
+  </Type>
+
+  <Type Name="k3::tok3n::Result&lt;void,*&gt;" Priority="High">
+    <DisplayString Condition="_successful">success</DisplayString>
+    <DisplayString Condition="!_successful">failure</DisplayString>
+    <Expand>
+        <Item Name="[remaining]">_remaining</Item>  
+    </Expand>
+  </Type>
+
+  <Type Name="k3::tok3n::Result&lt;*&gt;" Priority="Medium">
+    <DisplayString Condition="_result._Has_value">success</DisplayString>
+    <DisplayString Condition="!_result._Has_value">failure</DisplayString>
+    <Expand>
+        <Item Name="[result]" Condition="_result._Has_value">_result._Value</Item>  
+        <Item Name="[remaining]">_remaining</Item>  
+    </Expand>
+  </Type>
+
+</AutoVisualizer>

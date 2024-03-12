@@ -4,7 +4,9 @@ project (k3_tok3n
          VERSION 0
          LANGUAGES CXX)
 
-add_library(k3_tok3n INTERFACE)
+add_library(k3_tok3n INTERFACE
+    "$<$<CXX_COMPILER_ID:MSVC>:tools/tok3n.natvis>"
+)
 add_library(k3::tok3n ALIAS k3_tok3n)
 
 target_include_directories(k3_tok3n INTERFACE include)
