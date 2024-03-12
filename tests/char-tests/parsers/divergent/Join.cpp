@@ -5,11 +5,11 @@ FIXTURE("Join");
 
 TEST("Join", "Requirements")
 {
-	ASSERT_IS_PARSER(Joi1, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi2, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi3, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi4, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi5, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi1, char, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi2, char, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi3, char, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi4, char, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi5, char, JoinFamily, Output<char>);
 }
 
 TEST("Join", "Parse all")
