@@ -5,8 +5,8 @@ FIXTURE("join modifier");
 
 TEST("join modifier", "prefix")
 {
-	ASSERT_PARSER_VALUES_NE(joi1, join(abc));
-	ASSERT_PARSER_VALUES_EQ(abc, join(abc));
+	ASSERT_PARSER_VALUES_EQ(joi1, join(abc));
+	ASSERT_PARSER_VALUES_NE(abc, join(abc));
 	ASSERT_PARSER_VALUES_EQ(joi2, join(+abc));
 	ASSERT_PARSER_VALUES_EQ(joi3, join(~(abc | qq)));
 	ASSERT_PARSER_VALUES_EQ(joi4, join(abc >> *qq));
@@ -15,8 +15,8 @@ TEST("join modifier", "prefix")
 
 TEST("join modifier", "infix")
 {
-	ASSERT_PARSER_VALUES_NE(joi1, abc % join);
-	ASSERT_PARSER_VALUES_EQ(abc, abc % join);
+	ASSERT_PARSER_VALUES_EQ(joi1, abc % join);
+	ASSERT_PARSER_VALUES_NE(abc, abc % join);
 	ASSERT_PARSER_VALUES_EQ(joi2, +abc % join);
 	ASSERT_PARSER_VALUES_EQ(joi3, ~(abc | qq) % join);
 	ASSERT_PARSER_VALUES_EQ(joi4, (abc >> *qq) % join);

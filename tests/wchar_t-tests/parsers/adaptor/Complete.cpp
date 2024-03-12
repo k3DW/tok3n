@@ -65,21 +65,21 @@ TEST("Complete", "Complete<Maybe>")
 }
 TEST("Complete", "Complete<OneOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com6, L"literalaliteralcliteralcliteralb", Com6::result_type({ { L"literal", L"a" }, { L"literal", L"c" }, { L"literal", L"c" }, { L"literal", L"b" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com6, L"literalaliteralcliteralcliteralb", Com6::result_for<wchar_t>({ { L"literal", L"a" }, { L"literal", L"c" }, { L"literal", L"c" }, { L"literal", L"b" } }), L"");
 	ASSERT_PARSE_FAILURE(Com6, L"literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com6, L"literala", Com6::result_type({ { L"literal", L"a" } }), L"");
-	ASSERT_PARSE_SUCCESS(Com6, L"literalb", Com6::result_type({ { L"literal", L"b" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com6, L"literala", Com6::result_for<wchar_t>({ { L"literal", L"a" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com6, L"literalb", Com6::result_for<wchar_t>({ { L"literal", L"b" } }), L"");
 	ASSERT_PARSE_FAILURE(Com6, L"literald");
 	ASSERT_PARSE_FAILURE(Com6, L"aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_FAILURE(Com6, L"");
 }
 TEST("Complete", "Complete<ZeroOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com7, L"literalaliteralcliteralcliteralb", Com7::result_type({ { L"literal", L"a" }, { L"literal", L"c" }, { L"literal", L"c" }, { L"literal", L"b" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com7, L"literalaliteralcliteralcliteralb", Com7::result_for<wchar_t>({ { L"literal", L"a" }, { L"literal", L"c" }, { L"literal", L"c" }, { L"literal", L"b" } }), L"");
 	ASSERT_PARSE_FAILURE(Com7, L"literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, L"literala", Com7::result_type({ { L"literal", L"a" } }), L"");
-	ASSERT_PARSE_SUCCESS(Com7, L"literalb", Com7::result_type({ { L"literal", L"b" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com7, L"literala", Com7::result_for<wchar_t>({ { L"literal", L"a" } }), L"");
+	ASSERT_PARSE_SUCCESS(Com7, L"literalb", Com7::result_for<wchar_t>({ { L"literal", L"b" } }), L"");
 	ASSERT_PARSE_FAILURE(Com7, L"literald");
 	ASSERT_PARSE_FAILURE(Com7, L"aliteralaliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, L"", Com7::result_type{}, L"");
+	ASSERT_PARSE_SUCCESS(Com7, L"", Com7::result_for<wchar_t>{}, L"");
 }
