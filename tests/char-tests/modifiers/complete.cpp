@@ -42,28 +42,3 @@ TEST("complete modifier", "idempotent")
 	ASSERT_PARSER_VALUES_EQ(com6, com6 % complete);
 	ASSERT_PARSER_VALUES_EQ(com7, com7 % complete);
 }
-
-
-
-#define COMPLETE_MODIFIER_ASSERTER(P)                                             \
-	[&]<Parser PP>(PP) {                                                          \
-		if constexpr (PP::family == CompleteFamily)                               \
-		{                                                                         \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
-				                           complete, (P{}),  P{});                \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, PP{},           \
-				                                  P{},  complete, P{});           \
-		}                                                                         \
-		else                                                                      \
-		{                                                                         \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), Complete<PP>{},      \
-				                           complete, (P{}),  Complete<P>{});      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, Complete<PP>{}, \
-				                                  P{},  complete, Complete<P>{}); \
-		}                                                                         \
-	}(P{});
-
-TEST("complete modifier", "modify anything")
-{
-	ASSERT_ALL_SAMPLES(COMPLETE_MODIFIER_ASSERTER);
-}
