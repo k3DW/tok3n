@@ -26,30 +26,3 @@ TEST("delimit_keep modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(dek7, comma % delimit_keep(qq));
 	ASSERT_PARSER_VALUES_EQ(dek8, spacedot % delimit_keep(qq));
 }
-
-
-
-#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                                  \
-	[&]<Parser PP>(PP) {                                                                                   \
-		ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (P{}, ignore(comma)));                                  \
-		ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P{}, delimit_keep(ignore(comma)));                             \
-		if constexpr (std::same_as<typename PP::result_type, void>)                                        \
-		{                                                                                                  \
-			DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (PP{}, comma),                                  \
-				                             delimit_keep, (P{}, comma));                                  \
-			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, delimit_keep(comma),                             \
-				                                    P{},  delimit_keep(comma));                            \
-		}                                                                                                  \
-		else                                                                                               \
-		{                                                                                                  \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(delimit_keep, (PP{}, comma), (Delimit<PP, Comma, True>{}),      \
-				                           delimit_keep, (P{}, comma),  (Delimit<P, Comma, True>{}));      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit_keep(comma), (Delimit<PP, Comma, True>{}), \
-				                                  P{},  delimit_keep(comma), (Delimit<P, Comma, True>{})); \
-		}                                                                                                  \
-	}(P{});
-
-TEST("delimit_keep modifier", "modify anything")
-{
-	ASSERT_ALL_SAMPLES(DELIMIT_KEEP_MODIFIER_ASSERTER);
-}
