@@ -16,6 +16,12 @@ auto day = digit % exactly<2> % join;
 auto parser = year >> "-"_ign >>
 			  month >> "-"_ign >> day;
 
+using Digit  = decltype(digit);
+using Year   = decltype(year);
+using Month  = decltype(month);
+using Day    = decltype(day);
+using ISODate = decltype(parser);
+
 //namespace std
 //{
 //
@@ -42,16 +48,32 @@ auto parser = year >> "-"_ign >>
 //    BOOST_CHECK((*result == std::tuple("2024", "01", "01")));
 //}
 
-BOOST_AUTO_TEST_CASE(ISO8601)
+
+#define ASSERT_PARSE_SUCCESS(P, INPUT, RESULT) \
+  static_assert(P::parse(INPUT).has_value());  \
+  BOOST_REQUIRE(P::parse(INPUT).has_value());  \
+  static_assert(*P::parse(INPUT) == (RESULT)); \
+  BOOST_CHECK((*P::parse(INPUT) == (RESULT)))
+
+
+
+BOOST_AUTO_TEST_CASE(ISO8601_parsing)
 {
-    std::string_view input = "bad";
-    auto result = parser.parse(input);
-    
-    BOOST_REQUIRE_MESSAGE(result.has_value(),
-        std::format("\nInput could not be parsed.\nInput = \"{}\"\n"
-        "Parser = {}", input, k3::tok3n::pretty(parser).view()));
-    BOOST_CHECK((*result == std::tuple("2024", "01", "01")));
+    ASSERT_PARSE_SUCCESS(ISODate, "bad", std::tuple("b", "a", "d"));
+
+    //ASSERT_PARSE_SUCCESS(ISODate, "2024-01-01", std::tuple("2024", "01", "01"));
 }
+
+//BOOST_AUTO_TEST_CASE(ISO8601)
+//{
+//    std::string_view input = "bad";
+//    auto result = parser.parse(input);
+//    
+//    BOOST_REQUIRE_MESSAGE(result.has_value(),
+//        std::format("\nInput could not be parsed.\nInput = \"{}\"\n"
+//        "Parser = {}", input, k3::tok3n::pretty(parser).view()));
+//    BOOST_CHECK((*result == std::tuple("2024", "01", "01")));
+//}
 
 // int main(int argc, char* argv[])
 // {

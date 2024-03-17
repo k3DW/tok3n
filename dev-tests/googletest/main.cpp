@@ -11,6 +11,12 @@ auto day = digit % exactly<2> % join;
 
 auto parser = year >> "-"_ign >> month >> "-"_ign >> day;
 
+using Digit  = decltype(digit);
+using Year   = decltype(year);
+using Month  = decltype(month);
+using Day    = decltype(day);
+using ISODate = decltype(parser);
+
 //TEST(ISO8601, parse_result)
 //{
 //	auto result = parser.parse("2024-01-01");
@@ -19,20 +25,36 @@ auto parser = year >> "-"_ign >> month >> "-"_ign >> day;
 //	EXPECT_EQ(*result, std::tuple("2024", "01", "01"));
 //}
 
-TEST(ISO8601, parse_result)
-{
-	std::string_view input = "2024-01-01";
-	auto result = parser.parse(input);
+//using k3::tok3n::ParserFor;
+using k3::tok3n::Output;
 
-	ASSERT_TRUE(result.has_value())
-		<< std::format("Input could not be parsed.\nInput = \"{}\"\n"
-		"Parser = {}", input, k3::tok3n::pretty(parser).view());
-	EXPECT_EQ(*result, std::tuple("2024", "01", "01"));
+
+#define ASSERT_PARSE_SUCCESS(P, INPUT, RESULT) \
+  static_assert(P::parse(INPUT).has_value());  \
+  ASSERT_TRUE(P::parse(INPUT).has_value());    \
+  static_assert(*P::parse(INPUT) == (RESULT)); \
+  EXPECT_EQ(*P::parse(INPUT), (RESULT))
+
+TEST(ISO8601, properties)
+{
+	static_assert(std::same_as<Month, Day>);
+	static_assert(!std::same_as<Year, Day>);
+	
+	//static_assert(ParserFor<ISODate, char>);
+	//static_assert(std::same_as<ISODate::result_for<char>,
+	//              std::tuple<Output<char>, Output<char>, Output<char>>>);
+	
+	static_assert(ISODate::parse("2024-01-01").has_value());
+	static_assert(*ISODate::parse("2024-01-01")
+		== std::tuple("2024", "01", "01"));
+	static_assert(!ISODate::parse("bad").has_value());
 }
 
-TEST(ISO8601, combinator_result)
+TEST(ISO8601, full_date)
 {
-	//static_assert(std::same_as<decltype(month), decltype(year)>);
+	//ASSERT_PARSE_SUCCESS(ISODate, "bad", std::tuple("b", "a", "d"));
+
+	ASSERT_PARSE_SUCCESS(ISODate, "2024-01-01", std::tuple("2024", "01", "01"));
 }
 
 int main(int argc, char **argv)

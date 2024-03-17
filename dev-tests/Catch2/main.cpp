@@ -1,3 +1,5 @@
+
+// #define CATCH_CONFIG_RUNTIME_STATIC_REQUIRE
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/catch_session.hpp>
 #include <k3/tok3n.h>
@@ -13,30 +15,39 @@ auto day = digit % exactly<2> % join;
 
 auto parser = year >> "-"_ign >> month >> "-"_ign >> day;
 
-template <k3::tok3n::Parser P>
-requires requires { k3::tok3n::pretty(P{}); }
-std::ostream& operator<<(std::ostream& os, P)
-{
-    return os << k3::tok3n::pretty(P{}).view();
-}
+using Digit   = decltype(digit);
+using Year    = decltype(year);
+using Month   = decltype(month);
+using Day     = decltype(day);
+using ISODate = decltype(parser);
 
-namespace std
-{
+using k3::tok3n::Parser;
+using k3::tok3n::ParserFamily;
 
-    template <class... Ts>
-    ostream& operator<<(ostream& os, const tuple<Ts...> tup)
-    {
-        os << "[";
-        if constexpr (sizeof...(Ts) >= 1)
-            os << get<0>(tup);
-        [&]<size_t... Is>(index_sequence<Is...>)
-        {
-            ((os << ", " << get<Is + 1>(tup)), ...);
-        }(make_index_sequence<sizeof...(Ts) - 1>{});
-        return os << "]";
-    }
-
-}
+//template <k3::tok3n::Parser P>
+//requires requires { k3::tok3n::pretty(P{}); }
+//std::ostream& operator<<(std::ostream& os, P)
+//{
+//    return os << k3::tok3n::pretty(P{}).view();
+//}
+//
+//namespace std
+//{
+//
+//    template <class... Ts>
+//    ostream& operator<<(ostream& os, const tuple<Ts...> tup)
+//    {
+//        os << "[";
+//        if constexpr (sizeof...(Ts) >= 1)
+//            os << get<0>(tup);
+//        [&]<size_t... Is>(index_sequence<Is...>)
+//        {
+//            ((os << ", " << get<Is + 1>(tup)), ...);
+//        }(make_index_sequence<sizeof...(Ts) - 1>{});
+//        return os << "]";
+//    }
+//
+//}
 
 #if 0
 TEST_CASE("ISO8601")
@@ -47,7 +58,7 @@ TEST_CASE("ISO8601")
 	REQUIRE(result.has_value());
 	CHECK(*result == std::tuple("2024", "01", "01"));
 }
-#else
+//#else
 TEST_CASE("ISO8601")
 {
     std::string_view input = "bad";
@@ -60,6 +71,42 @@ TEST_CASE("ISO8601")
     CHECK(*result == std::tuple("2024", "01", "01"));
 }
 #endif
+
+//#define ASSERT_PARSE_SUCCESS(P, INPUT, RESULT) \
+//  STATIC_REQUIRE(P::parse(INPUT).has_value()); \
+//  STATIC_CHECK(*P::parse(INPUT) == (RESULT))
+
+#define ASSERT_PARSE_SUCCESS(P, INPUT, RESULT)    \
+  [](auto)                                        \
+  {                                               \
+    STATIC_REQUIRE(P::parse(INPUT).has_value());  \
+    if constexpr (P::parse(INPUT).has_value())    \
+    {                                             \
+      STATIC_CHECK(*P::parse(INPUT) == (RESULT)); \
+    }                                             \
+    else                                          \
+    {                                             \
+      CHECK(*P::parse(INPUT) == (RESULT));        \
+    }                                             \
+  }(int{})
+
+//TEST_CASE("ISO8601 properties")
+//{
+//    STATIC_REQUIRE(Parser<ISODate>);
+//    STATIC_REQUIRE(ISODate::family == ParserFamily::Sequence);
+//    //STATIC_REQUIRE(ParserFor<ISODate, char>);
+//}
+
+TEST_CASE("ISO8601 parsing")
+{
+    //STATIC_REQUIRE(ISODate::parse("2024-01-01").has_value());
+    //STATIC_CHECK(*ISODate::parse("2024-01-01") == std::tuple("2024", "01", "01"));
+
+
+    ASSERT_PARSE_SUCCESS(ISODate, "bad", std::tuple("b", "a", "d"));
+
+    //ASSERT_PARSE_SUCCESS(ISODate, "2024-01-01", std::tuple("2024", "01", "01"));
+}
 
 int main( int argc, char* argv[] )
 {
