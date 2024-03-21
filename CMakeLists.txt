@@ -37,7 +37,9 @@ endif()
 #--------------------------------------------
 if (tok3n_BUILD_TESTS)
     add_subdirectory(tests)
-    add_subdirectory(external/boostorg/preprocessor)
+    if (NOT tok3n_DEV_TESTS)
+        add_subdirectory(external/boostorg/preprocessor)
+    endif()
 endif()
 
 

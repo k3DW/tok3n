@@ -122,7 +122,56 @@ TEST_CASE("ISO8601 parsing")
     //CONSTEXPR_CHECK(*ISODate::parse("2024-01-01") == std::tuple("2024", "01", "01"));
 
 
-    ASSERT_PARSE_SUCCESS(ISODate, "bad", std::tuple("b", "a", "d"));
+    //ASSERT_PARSE_SUCCESS(ISODate, "bad", std::tuple("b", "a", "d"));
 
     //ASSERT_PARSE_SUCCESS(ISODate, "2024-01-01", std::tuple("2024", "01", "02"));
 }
+
+
+
+template <class L, class R>
+concept can_sequence = requires { L{} >> R{}; };
+
+auto sequence_tester = []<Parser L, Parser R>(L, R)
+{
+    if (std::same_as<typename L::value_type, typename R::value_type>)
+    {
+        INFO("`L >> R` did not compile.\nL = {}\nR = {}");
+        CONSTEXPR_CHECK(can_sequence<L, R>);
+    }
+    else
+    {
+        INFO("`L >> R` compiled but it shouldn't.\nL = {}\nR = {}");
+        CONSTEXPR_CHECK(!can_sequence<L, R>);
+    }
+};
+
+
+
+template <class... Ts>
+struct type_list{};
+
+
+
+template <Parser... Ps>
+void pairwise_test(type_list<Ps...>)
+{
+    constexpr auto impl = []<Parser R>(R)
+    {
+        (..., sequence_tester(Ps{}, R{}));
+    };
+    (..., impl(Ps{}));
+}
+
+
+
+TEST_CASE("Combinable with sequence")
+{
+    using P1 = decltype("123"_any_of);
+    using P2 = decltype("456"_all_of);
+    using P3 = decltype(L"123"_any_of);
+    using P4 = decltype(L"456"_all_of);
+    using List = type_list<P1, P2, P3, P4>;
+    pairwise_test(List{});
+}
+
