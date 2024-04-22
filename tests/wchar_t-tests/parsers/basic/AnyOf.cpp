@@ -8,8 +8,8 @@ FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, AnyOfFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Multi, AnyOfFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Single, wchar_t, AnyOfFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Multi, wchar_t, AnyOfFamily, Output<wchar_t>);
 }
 
 TEST("AnyOf", "Parse single")

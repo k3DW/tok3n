@@ -3,27 +3,25 @@
 
 namespace k3::tok3n {
 
-template <Parser P, Parser D, IsConst<bool> KeepDelimiters>
-requires DelimitConstructible<P, D, KeepDelimiters>
+template <Parser P, ParserCompatibleWith<P> D, IsConst<bool> KeepDelimiters>
 struct Delimit
 {
 	using value_type = typename P::value_type;
-	using result_type = std::conditional_t<KeepDelimiters::value,
-		std::pair<std::vector<typename P::result_type>, std::vector<typename D::result_type>>,
-		std::vector<typename P::result_type>
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = std::conditional_t<KeepDelimiters::value,
+		std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>,
+		std::vector<typename P::template result_for<V>>
 	>;
 
 	static constexpr ParserFamily family = DelimitFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (not KeepDelimiters::value)
 	{
-		return parse<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input) requires (not KeepDelimiters::value)
-	{
-		result_type results;
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Delimit's child parser's result for the given value cannot be void.");
+			
+		result_for<value_type> results;
 
 		auto result = P::parse(input);
 		if (not result.has_value())
@@ -44,10 +42,14 @@ struct Delimit
 		return { success, std::move(results), input };
 	}
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input) requires (KeepDelimiters::value)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (KeepDelimiters::value)
 	{
-		result_type results;
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Delimit's child parser's result for the given value cannot be void.");
+		static_assert(not std::same_as<typename D::template result_for<value_type>, void>,
+			"Delimit(keep)'s delimiter parser's result for the given value cannot be void.");
+
+		result_for<value_type> results;
 		auto& [values, delimiters] = results;
 
 		auto result = P::parse(input);
@@ -73,12 +75,11 @@ struct Delimit
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Delimit's child parser's result for the given value cannot be void.");
+		static_assert(not KeepDelimiters::value or not std::same_as<typename D::template result_for<value_type>, void>,
+			"Delimit(keep)'s delimiter parser's result for the given value cannot be void.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
 		auto result = P::lookahead(input);
 		if (not result.has_value())
 			return { failure, input };

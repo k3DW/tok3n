@@ -5,13 +5,13 @@ FIXTURE("Complete");
 
 TEST("Complete", "Requirements")
 {
-	ASSERT_IS_PARSER(Com1, CompleteFamily, Output<char>);
-	ASSERT_IS_PARSER(Com2, CompleteFamily, Output<char>);
-	ASSERT_IS_PARSER(Com3, CompleteFamily, Output<char>);
-	ASSERT_IS_PARSER(Com4, CompleteFamily, std::tuple<Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(Com5, CompleteFamily, std::optional<std::tuple<Output<char>, Output<char>>>);
-	ASSERT_IS_PARSER(Com6, CompleteFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
-	ASSERT_IS_PARSER(Com7, CompleteFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com1, char, CompleteFamily, Output<char>);
+	ASSERT_IS_PARSER(Com2, char, CompleteFamily, Output<char>);
+	ASSERT_IS_PARSER(Com3, char, CompleteFamily, Output<char>);
+	ASSERT_IS_PARSER(Com4, char, CompleteFamily, std::tuple<Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(Com5, char, CompleteFamily, std::optional<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com6, char, CompleteFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com7, char, CompleteFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
 }
 
 TEST("Complete", "Complete<AllOf>")
@@ -65,21 +65,21 @@ TEST("Complete", "Complete<Maybe>")
 }
 TEST("Complete", "Complete<OneOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", Com6::result_type({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", Com6::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com6, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com6, "literala", Com6::result_type({ { "literal", "a" } }), "");
-	ASSERT_PARSE_SUCCESS(Com6, "literalb", Com6::result_type({ { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literala", Com6::result_for<char>({ { "literal", "a" } }), "");
+	ASSERT_PARSE_SUCCESS(Com6, "literalb", Com6::result_for<char>({ { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com6, "literald");
 	ASSERT_PARSE_FAILURE(Com6, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_FAILURE(Com6, "");
 }
 TEST("Complete", "Complete<ZeroOrMore>")
 {
-	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", Com7::result_type({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", Com7::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com7, "literalaliteralcliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, "literala", Com7::result_type({ { "literal", "a" } }), "");
-	ASSERT_PARSE_SUCCESS(Com7, "literalb", Com7::result_type({ { "literal", "b" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literala", Com7::result_for<char>({ { "literal", "a" } }), "");
+	ASSERT_PARSE_SUCCESS(Com7, "literalb", Com7::result_for<char>({ { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com7, "literald");
 	ASSERT_PARSE_FAILURE(Com7, "aliteralaliteralcliteralbliteral");
-	ASSERT_PARSE_SUCCESS(Com7, "", Com7::result_type{}, "");
+	ASSERT_PARSE_SUCCESS(Com7, "", Com7::result_for<char>{}, "");
 }

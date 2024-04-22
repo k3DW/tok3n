@@ -7,10 +7,9 @@ namespace k3::tok3n::modifiers {
 struct join final : ModifierBase
 {
 	template <Parser P>
-	requires JoinConstructible<P>
 	consteval auto operator()(P) const
 	{
-		if constexpr (std::same_as<Output<typename P::value_type>, typename P::result_type>)
+		if constexpr (P::family == JoinFamily)
 			return P{};
 		else
 			return Join<P>{};

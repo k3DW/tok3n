@@ -4,37 +4,35 @@
 namespace k3::tok3n {
 
 template <Parser P, class T>
-requires IntoConstructible<P, T>
 struct Into
 {
 	using value_type = typename P::value_type;
-	using result_type = T;
+	
+	template <EqualityComparableWith<value_type> V>
+	using result_for = T;
 
 	static constexpr ParserFamily family = IntoFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Into's child parser's result type for the given value cannot be void.");
+		static_assert(requires { T(std::declval<typename P::template result_for<value_type>>()); },
+			"Into's \"into type\" must be constructible from the child parser's result type for the given value.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, result_type(std::move(*result)), result.remaining() };
+			return { success, result_for<value_type>(std::move(*result)), result.remaining() };
 		else
 			return { failure, input };
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"Into's child parser's result type for the given value cannot be void.");
+		static_assert(requires { T(std::declval<typename P::template result_for<value_type>>()); },
+			"Into's \"into type\" must be constructible from the child parser's result type for the given value.");
 		return P::lookahead(input);
 	}
 };

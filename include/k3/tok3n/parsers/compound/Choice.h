@@ -31,21 +31,20 @@ requires ChoiceConstructible<Ps...>
 struct Choice
 {
 	using value_type = typename detail::head<Ps...>::value_type;
-	using result_type = typename detail::head<Ps...>::result_type;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = typename detail::head<Ps...>::template result_for<V>;
 
 	static constexpr ParserFamily family = ChoiceFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(detail::all_same<typename Ps::template result_for<value_type>...>,
+			"Result type of the Choice child parsers must be the same for the given value type.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
-		Result<result_type, V> result;
+		Result<result_for<value_type>, value_type> result;
 
-		using Executor = detail::executors::Choice<result_type, V>;
+		using Executor = detail::executors::Choice<result_for<value_type>, value_type>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 
@@ -54,15 +53,12 @@ struct Choice
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
+		static_assert(detail::all_same<typename Ps::template result_for<value_type>...>,
+			"Result type of the Choice child parsers must be the same for the given value type.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
-		Result<void, V> result;
+		Result<void, value_type> result;
 
-		using Executor = detail::executors::Choice<void, V>;
+		using Executor = detail::executors::Choice<void, value_type>;
 		Executor executor{ input, result };
 		(... || executor.execute<Ps>());
 

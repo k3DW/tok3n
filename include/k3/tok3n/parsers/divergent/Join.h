@@ -91,27 +91,25 @@ namespace detail::executors
 }
 
 template <Parser P>
-requires JoinConstructible<P>
 struct Join
 {
 	using value_type = typename P::value_type;
-	using result_type = Output<value_type>;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = Output<V>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
+			"Join's child parser should have a joinable result for the given value type.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			using Executor = detail::executors::Join<V>;
-			std::optional<Output<V>> joined = Executor(result).get_joined();
+			using Executor = detail::executors::Join<value_type>;
+			std::optional<Output<value_type>> joined = Executor(result).get_joined();
 			if (joined)
 				return { success, *joined, result.remaining() };
 		}
@@ -120,12 +118,8 @@ struct Join
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
+		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
+			"Join's child parser should have a joinable result for the given value type.");
 		return P::lookahead(input);
 	}
 };

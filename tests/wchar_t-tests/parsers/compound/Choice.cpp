@@ -11,11 +11,11 @@ FIXTURE("Choice");
 
 TEST("Choice", "Requirements")
 {
-	ASSERT_IS_PARSER(TwoWay1, ChoiceFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(TwoWay2, ChoiceFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(ThreeWay1, ChoiceFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(ThreeWay2, ChoiceFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Cho5, ChoiceFamily, void);
+	ASSERT_IS_PARSER(TwoWay1, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(TwoWay2, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(ThreeWay1, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(ThreeWay2, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Cho5, wchar_t, ChoiceFamily, void);
 }
 
 TEST("Choice", "Parse two-way Choice")
@@ -62,10 +62,10 @@ TEST("Choice", "Parse void result_type")
 
 
 
-TEST("Choice", "Constructible only from parsers with the same result_type")
+TEST("Choice", "Constructible not only from parsers with the same result_type")
 {
 	ASSERT_PARSER_CONSTRUCTIBLE(Choice, Any1, Any3, Non2, Non1, All2);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice, Any1, Sequence<Any2, Any3>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Choice, Any1, Sequence<Any2, Any3>);
 }
 
 TEST("Choice", "Not constructible empty")

@@ -8,9 +8,9 @@ FIXTURE("Sequence");
 
 TEST("Sequence", "Requirements")
 {
-	ASSERT_IS_PARSER(TwoWay, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(ThreeWay, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(Seq5, SequenceFamily, void);
+	ASSERT_IS_PARSER(TwoWay, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>>);
+	ASSERT_IS_PARSER(ThreeWay, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>, Output<wchar_t>>);
+	ASSERT_IS_PARSER(Seq5, wchar_t, SequenceFamily, void);
 }
 
 TEST("Sequence", "Parse two-way Sequence")

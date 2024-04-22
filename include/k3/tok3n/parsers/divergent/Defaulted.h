@@ -3,22 +3,17 @@
 
 namespace k3::tok3n {
 
-template <Parser P, class T>
-requires DefaultedConstructible<P, T>
+template <Parser P, DefaultConstructible T>
 struct Defaulted
 {
 	using value_type = typename P::value_type;
-	using result_type = T;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = T;
 
 	static constexpr ParserFamily family = DefaultedFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
-	{
-		return parse<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
 		if (result.has_value())
@@ -28,12 +23,6 @@ struct Defaulted
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
-	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		return P::lookahead(input);
 	}

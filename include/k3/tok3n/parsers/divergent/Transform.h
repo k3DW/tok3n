@@ -4,22 +4,20 @@
 namespace k3::tok3n {
 
 template <Parser P, IsConst FunctionValue>
-requires TransformConstructible<P, FunctionValue>
 struct Transform
 {
 	using value_type = typename P::value_type;
-	using result_type = decltype(std::invoke(FunctionValue::value, std::declval<typename P::result_type>()));
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = decltype(std::invoke(FunctionValue::value, std::declval<typename P::template result_for<V>>()));
 
 	static constexpr ParserFamily family = TransformFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(requires { std::invoke(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
+			"Transform's function must be callable with its child parser's result for the given value type.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		auto result = P::parse(input);
 		if (result.has_value())
 			return { success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
@@ -29,12 +27,8 @@ struct Transform
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
+		static_assert(requires { std::invoke(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
+			"Transform's function must be callable with its child parser's result for the given value type.");
 		return P::lookahead(input);
 	}
 };

@@ -5,10 +5,10 @@ FIXTURE("Transform");
 
 TEST("Transform", "Requirements")
 {
-	ASSERT_IS_PARSER(Tra1, TransformFamily, std::size_t);
-	ASSERT_IS_PARSER(Tra2, TransformFamily, std::vector<char>);
-	ASSERT_IS_PARSER(Tra3, TransformFamily, bool);
-	ASSERT_IS_PARSER(Tra4, TransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Tra1, char, TransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Tra2, char, TransformFamily, std::vector<char>);
+	ASSERT_IS_PARSER(Tra3, char, TransformFamily, bool);
+	ASSERT_IS_PARSER(Tra4, char, TransformFamily, std::size_t);
 }
 
 TEST("Transform", "Parse all")

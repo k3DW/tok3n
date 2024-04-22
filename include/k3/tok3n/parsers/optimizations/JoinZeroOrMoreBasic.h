@@ -10,21 +10,17 @@ template <template <StaticArray> class Basic, StaticArray arr>
 struct Join<ZeroOrMore<Basic<arr>>>
 {
 	using value_type = typename Basic<arr>::value_type;
-	using result_type = Output<value_type>;
+	
+	template <EqualityComparableWith<value_type> V>
+	using result_for = Output<V>;
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
-	{
-		return parse<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 
-		Output<V> result = { input.data(), 0 };
+		Output<value_type> result = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{
@@ -36,12 +32,6 @@ struct Join<ZeroOrMore<Basic<arr>>>
 	}
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
-	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
 	{
 		using Traits = BasicTraits<Basic<arr>>;
 

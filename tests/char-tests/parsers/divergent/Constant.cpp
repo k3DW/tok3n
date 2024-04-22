@@ -5,10 +5,10 @@ FIXTURE("Constant");
 
 TEST("Constant", "Requirements")
 {
-	ASSERT_IS_PARSER(Con1, ConstantFamily, int);
-	ASSERT_IS_PARSER(Con2, ConstantFamily, char);
-	ASSERT_IS_PARSER(Con3, ConstantFamily, bool);
-	ASSERT_IS_PARSER(Con4, ConstantFamily, std::nullptr_t);
+	ASSERT_IS_PARSER(Con1, char, ConstantFamily, int);
+	ASSERT_IS_PARSER(Con2, char, ConstantFamily, char);
+	ASSERT_IS_PARSER(Con3, char, ConstantFamily, bool);
+	ASSERT_IS_PARSER(Con4, char, ConstantFamily, std::nullptr_t);
 }
 
 TEST("Constant", "Parse all")

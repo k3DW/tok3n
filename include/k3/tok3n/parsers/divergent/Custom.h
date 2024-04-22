@@ -3,38 +3,48 @@
 
 namespace k3::tok3n {
 
+namespace detail {
+
+	template <class P, class V>
+	struct CustomParserResultType
+	{
+		static_assert(ParserFor<decltype(P::get_parser()), V>, "P::get_parser() must be a parser for V.");
+		using type = typename decltype(P::get_parser())::template result_for<V>;
+	};
+
+	template <class P, class V>
+	requires requires { typename P::result_type; }
+	struct CustomParserResultType<P, V>
+	{
+		using type = typename P::result_type;
+	};
+
+} // namespace detail
+
 template <class CRTP, class ValueType>
 struct Custom
 {
 	using value_type = ValueType;
 
+	template <class V, std::same_as<CRTP> P = CRTP>
+	requires EqualityComparableWith<typename P::value_type, V>
+	using result_for = typename detail::CustomParserResultType<P, V>::type;
+
 	static constexpr ParserFamily family = CustomFamily;
 
 	template <std::same_as<CRTP> P = CRTP>
-	static constexpr Result<typename P::result_type, typename P::value_type> parse(Input<typename P::value_type> input)
-	{
-		return parse<P, typename P::value_type>(input);
-	}
-
-	template <std::same_as<CRTP> P = CRTP, std::convertible_to<typename P::value_type> V>
-	static constexpr Result<typename P::result_type, V> parse(Input<V> input)
+	static constexpr Result<typename P::template result_for<typename P::value_type>, typename P::value_type> parse(Input<typename P::value_type> input)
 	{
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
-		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>, "Custom parser requires the same `value_type`");
+		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
 		return decltype(P::get_parser())::parse(input);
 	}
 
 	template <std::same_as<CRTP> P = CRTP>
 	static constexpr Result<void, typename P::value_type> lookahead(Input<typename P::value_type> input)
 	{
-		return lookahead<P, typename P::value_type>(input);
-	}
-
-	template <std::same_as<CRTP> P = CRTP, std::convertible_to<typename P::value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
-		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>, "Custom parser requires the same `value_type`");
+		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
 		return decltype(P::get_parser())::lookahead(input);
 	}
 };

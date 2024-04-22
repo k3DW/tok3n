@@ -8,20 +8,16 @@ template <Parser P>
 struct Complete
 {
 	using value_type = typename P::value_type;
-	using result_type = typename P::result_type;
+	
+	template <EqualityComparableWith<value_type> V>
+	using result_for = typename P::template result_for<V>;
 
 	static constexpr ParserFamily family = CompleteFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
-	{
-		return parse<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
 		auto result = P::parse(input);
-		if (not result.has_value() or result.remaining() != Input<V>{})
+		if (not result.has_value() or result.remaining() != Input<value_type>{})
 			return { failure, input };
 		else
 			return result;
@@ -29,14 +25,8 @@ struct Complete
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
 		auto result = P::lookahead(input);
-		if (not result.has_value() or result.remaining() != Input<V>{})
+		if (not result.has_value() or result.remaining() != Input<value_type>{})
 			return { failure, input };
 		else
 			return result;

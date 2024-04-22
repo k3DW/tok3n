@@ -4,24 +4,22 @@
 namespace k3::tok3n {
 
 template <Parser P>
-requires ZeroOrMoreConstructible<P>
 struct ZeroOrMore
 {
 	using value_type = typename P::value_type;
-	using result_type = std::vector<typename P::result_type>;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = std::vector<typename P::template result_for<V>>;
 
 	static constexpr ParserFamily family = ZeroOrMoreFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"ZeroOrMore's child parser's result for the given value cannot be void.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		const Input original_input = input;
-		result_type results;
+		result_for<value_type> results;
 
 		while (true)
 		{
@@ -40,13 +38,10 @@ struct ZeroOrMore
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
+		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
+			"ZeroOrMore's child parser's result for the given value cannot be void.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
-		Result<void, V> result;
+		Result<void, value_type> result;
 
 		do
 		{

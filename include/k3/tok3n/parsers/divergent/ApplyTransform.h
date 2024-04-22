@@ -4,22 +4,22 @@
 namespace k3::tok3n {
 
 template <Parser P, IsConst FunctionValue>
-requires ApplyTransformConstructible<P, FunctionValue>
 struct ApplyTransform
 {
 	using value_type = typename P::value_type;
-	using result_type = decltype(std::apply(FunctionValue::value, std::declval<typename P::result_type>()));;
+
+	template <EqualityComparableWith<value_type> V>
+	using result_for = decltype(std::apply(FunctionValue::value, std::declval<typename P::template result_for<V>>()));;
 
 	static constexpr ParserFamily family = ApplyTransformFamily;
 
-	static constexpr Result<result_type, value_type> parse(Input<value_type> input)
+	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
 	{
-		return parse<value_type>(input);
-	}
+		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
+			"ApplyTransform's child parser's result type for the given value must have tuple_size.");
+		static_assert(requires { std::apply(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
+			"ApplyTransform's function must be apply-able with its child parser's result for the given value type.");
 
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<result_type, V> parse(Input<V> input)
-	{
 		auto result = P::parse(input);
 		if (result.has_value())
 			return { success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
@@ -29,12 +29,10 @@ struct ApplyTransform
 
 	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
 	{
-		return lookahead<value_type>(input);
-	}
-
-	template <std::convertible_to<value_type> V>
-	static constexpr Result<void, V> lookahead(Input<V> input)
-	{
+		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
+			"ApplyTransform's child parser's result type for the given value must have tuple_size.");
+		static_assert(requires { std::apply(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
+			"ApplyTransform's function must be apply-able with its child parser's result for the given value type.");
 		return P::lookahead(input);
 	}
 };

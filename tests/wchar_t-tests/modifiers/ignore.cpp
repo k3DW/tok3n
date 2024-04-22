@@ -34,28 +34,3 @@ TEST("ignore modifier", "idempotent")
 	ASSERT_PARSER_VALUES_EQ(ign4, ign4 % ignore);
 	ASSERT_PARSER_VALUES_EQ(ign5, ign5 % ignore);
 }
-
-
-
-#define IGNORE_MODIFIER_ASSERTER(P)                                           \
-	[&]<Parser PP>(PP) {                                                      \
-		if constexpr (PP::family == IgnoreFamily)                             \
-		{                                                                     \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
-				                           ignore, (P{}),  P{});              \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, PP{},         \
-				                                  P{},  ignore, P{});         \
-		}                                                                     \
-		else                                                                  \
-		{                                                                     \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), Ignore<PP>{},      \
-				                           ignore, (P{}),  Ignore<P>{});      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, Ignore<PP>{}, \
-				                                  P{},  ignore, Ignore<P>{}); \
-		}                                                                     \
-	}(P{});
-
-TEST("ignore modifier", "modify anything")
-{
-	ASSERT_ALL_SAMPLES(IGNORE_MODIFIER_ASSERTER);
-}

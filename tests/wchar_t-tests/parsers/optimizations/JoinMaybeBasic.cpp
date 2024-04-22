@@ -9,9 +9,9 @@ using Joi_May_L  = Join<Maybe<AllOf<L"123">>>;
 
 TEST("JoinMaybeBasic", "Requirements")
 {
-    ASSERT_IS_PARSER(Joi_May_OC, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_NC, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_L, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_L, wchar_t, JoinFamily, Output<wchar_t>);
 }
 
 TEST("JoinMaybeBasic", "Maybe<AnyOf>")

@@ -5,9 +5,9 @@ FIXTURE("Into");
 
 TEST("Into", "Requirements")
 {
-	ASSERT_IS_PARSER(Int1, IntoFamily, Class1);
-	ASSERT_IS_PARSER(Int2, IntoFamily, Class2);
-	ASSERT_IS_PARSER(Int3, IntoFamily, Class2);
+	ASSERT_IS_PARSER(Int1, wchar_t, IntoFamily, Class1);
+	ASSERT_IS_PARSER(Int2, wchar_t, IntoFamily, Class2);
+	ASSERT_IS_PARSER(Int3, wchar_t, IntoFamily, Class2);
 }
 
 TEST("Into", "Parse all")

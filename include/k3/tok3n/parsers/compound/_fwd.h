@@ -9,14 +9,13 @@ template <class... Ps>
 concept ChoiceConstructible =
 	(Parser<Ps> and ...) and
 	(sizeof...(Ps) >= 2) and
-	detail::all_same<typename Ps::value_type...> and
-	detail::all_same<typename Ps::result_type...>;
+	detail::all_same<typename Ps::value_type...>;
 
 template <class... Ps>
 concept SequenceConstructible =
 	(Parser<Ps> and ...) and
-	detail::all_same<typename Ps::value_type...> and
-	(sizeof...(Ps) >= 2);
+	(sizeof...(Ps) >= 2) and
+	detail::all_same<typename Ps::value_type...>;
 
 
 
