@@ -12,6 +12,8 @@ template <class T, class Tag>
 class Span
 {
 public:
+	using value_type = T;
+
 	constexpr Span() = default;
 
 	constexpr Span(std::span<const T> value)
@@ -49,6 +51,8 @@ template <CharType T, class Tag>
 class Span<T, Tag>
 {
 public:
+	using value_type = T;
+
 	constexpr Span() = default;
 
 	constexpr Span(std::span<const T> value)
@@ -102,10 +106,43 @@ private:
 
 namespace detail {
 
+struct InputSpanTag final {};
+struct OutputSpanTag final {};
+
+} // namespace detail
+
+template <class T>
+class Input : public Span<T, detail::InputSpanTag>
+{
+public:
+	using Span<T, detail::InputSpanTag>::Span;
+};
+
+template <std::ranges::contiguous_range R>
+Input(R&&) -> Input<std::ranges::range_value_t<R>>;
+template <CharType T>
+Input(const T*) -> Input<T>;
+
+template <class T>
+class Output : public Span<T, detail::OutputSpanTag>
+{
+public:
+	using Span<T, detail::OutputSpanTag>::Span;
+};
+
+template <std::ranges::contiguous_range R>
+Output(R&&) -> Output<std::ranges::range_value_t<R>>;
+template <CharType T>
+Output(const T*) -> Output<T>;
+
+namespace detail {
+
 template <class S>
 static constexpr bool is_span_v = false;
-template <class T, class Tag>
-static constexpr bool is_span_v<Span<T, Tag>> = true;
+template <class T>
+static constexpr bool is_span_v<Input<T>> = true;
+template <class T>
+static constexpr bool is_span_v<Output<T>> = true;
 template <class S>
 static constexpr bool is_span_v<const S> = is_span_v<S>;
 template <class S>
@@ -115,9 +152,9 @@ static constexpr bool is_span_v<S&&> = is_span_v<S>;
 
 } // namespace detail
 
-template <class T, class Tag, class U>
+template <class T, class U>
 requires EqualityComparableWith<T, U>
-constexpr bool operator==(const Span<T, Tag>& lhs, const Span<U, Tag>& rhs)
+constexpr bool operator==(const Input<T>& lhs, const Input<U>& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return false;
@@ -132,9 +169,9 @@ constexpr bool operator==(const Span<T, Tag>& lhs, const Span<U, Tag>& rhs)
 	return true;
 }
 
-template <class T, class Tag, class RHS>
+template <class T, class RHS>
 requires (not detail::is_span_v<RHS>)
-constexpr bool operator==(const Span<T, Tag>& lhs, RHS&& rhs)
+constexpr bool operator==(const Input<T>& lhs, RHS&& rhs)
 {
 	if constexpr (CharType<T> and std::is_bounded_array_v<std::remove_cvref_t<RHS>>)
 	{
@@ -146,7 +183,7 @@ constexpr bool operator==(const Span<T, Tag>& lhs, RHS&& rhs)
 	}
 	else if constexpr (std::ranges::contiguous_range<RHS> && std::same_as<T, std::ranges::range_value_t<RHS>>)
 	{
-		return lhs == Span<T, Tag>(std::forward<RHS>(rhs));
+		return lhs == Input<T>(std::forward<RHS>(rhs));
 	}
 	else
 	{
@@ -155,10 +192,47 @@ constexpr bool operator==(const Span<T, Tag>& lhs, RHS&& rhs)
 	}
 }
 
-template <class T>
-using Input = Span<T, InputSpanTag>;
+template <class T, class U>
+requires EqualityComparableWith<T, U>
+constexpr bool operator==(const Output<T>& lhs, const Output<U>& rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
 
-template <class T>
-using Output = Span<T, OutputSpanTag>;
+	auto it1 = lhs.begin();
+	auto it2 = rhs.begin();
+	for (std::size_t i = 0; i != lhs.size(); ++i, ++it1, ++it2)
+	{
+		if (not (*it1 == *it2))
+			return false;
+	}
+	return true;
+}
+
+template <class T, class RHS>
+requires (not detail::is_span_v<RHS>)
+constexpr bool operator==(const Output<T>& lhs, RHS&& rhs)
+{
+	if constexpr (CharType<T> and std::is_bounded_array_v<std::remove_cvref_t<RHS>>)
+	{
+		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
+	}
+	else if constexpr (CharType<T> and std::is_pointer_v<std::remove_cvref_t<RHS>>)
+	{
+		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
+	}
+	else if constexpr (std::ranges::contiguous_range<RHS> && std::same_as<T, std::ranges::range_value_t<RHS>>)
+	{
+		return lhs == Output<T>(std::forward<RHS>(rhs));
+	}
+	else
+	{
+		static_assert(std::same_as<void, T>, "operator==() not available for Span and this right-hand type");
+		return false;
+	}
+}
+
+template <class T, class V>
+concept InputConstructibleFor = EqualityComparableWith<typename decltype(Input{ std::declval<T>() })::value_type, V>;
 
 } // namespace k3::tok3n
