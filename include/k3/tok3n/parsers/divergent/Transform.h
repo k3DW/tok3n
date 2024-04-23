@@ -13,23 +13,23 @@ struct Transform
 
 	static constexpr ParserFamily family = TransformFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(requires { std::invoke(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
-			"Transform's function must be callable with its child parser's result for the given value type.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
+			return Result<result_for<V>, V>{ success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
 		else
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(requires { std::invoke(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
-			"Transform's function must be callable with its child parser's result for the given value type.");
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 

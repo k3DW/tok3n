@@ -16,24 +16,32 @@ struct Join<Maybe<Basic<arr>>>
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return { success, { input.data(), 0 }, input };
+			return Result<result_for<V>, V>{ success, { input.data(), 0 }, input };
 
-		return { success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
+		return Result<result_for<V>, V>{ success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
-
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return { success, input };
+			return Result<void, V>{ success, input };
 
-		return { success, { input.data() + Traits::length, input.size() - Traits::length } };
+		return Result<void, V>{ success, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 };
 

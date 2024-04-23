@@ -6,8 +6,7 @@
 
 namespace k3::tok3n {
 
-namespace detail
-{
+namespace detail {
 
 	template <class T> constexpr bool is_joinable_v            = false;
 	template <class U> constexpr bool is_joinable_v<Output<U>> = true;
@@ -21,7 +20,39 @@ namespace detail
 	template <class T>                constexpr bool is_joinable_v<std::optional<T>>  = is_joinable_v<T>;
 	template <class... Ts>            constexpr bool is_joinable_v<std::tuple<Ts...>> = (... && is_joinable_v<Ts>);
 
-}
+} // namespace detail
+
+
+
+namespace detail {
+
+template <class T>
+struct Construct
+{
+	template <class... Ts>
+	constexpr T operator()(Ts&&... ts)
+	requires requires { T(std::forward<Ts>(ts)...); }
+	{
+		return T(std::forward<Ts>(ts)...);
+	}
+};
+
+template <class F, class Tup>
+struct ApplyTrait {};
+
+template <class F, template <class...> class List, class... Ts>
+requires detail::has_tuple_size<List<Ts...>> and std::invocable<F, Ts...>
+struct ApplyTrait<F, List<Ts...>> : std::invoke_result<F, Ts...> {};
+
+template <class F, class Tup>
+using ApplyResult = typename ApplyTrait<F, Tup>::type;
+
+template <class F, class Tup>
+concept IsApplyable = requires { typename ApplyTrait<F, Tup>::type; };
+
+} // namespace detail
+
+
 
 template <Parser P>
 struct Join;

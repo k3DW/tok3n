@@ -100,27 +100,27 @@ struct Join
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
-			"Join's child parser should have a joinable result for the given value type.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
-			using Executor = detail::executors::Join<value_type>;
-			std::optional<Output<value_type>> joined = Executor(result).get_joined();
+			using Executor = detail::executors::Join<V>;
+			std::optional<Output<V>> joined = Executor(result).get_joined();
 			if (joined)
-				return { success, *joined, result.remaining() };
+				return Result<result_for<V>, V>{ success, std::move(*joined), result.remaining() };
 		}
-		return { failure, input };
+		return Result<result_for<V>, V>{ failure, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(detail::is_joinable_v<typename P::template result_for<value_type>>,
-			"Join's child parser should have a joinable result for the given value type.");
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 
