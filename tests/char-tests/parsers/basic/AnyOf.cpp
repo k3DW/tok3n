@@ -8,11 +8,20 @@ FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
+	ASSERT_PARSER_VALUE_TYPE(Single, char);
+	ASSERT_PARSER_VALUE_TYPE(Multi, char);
+
 	ASSERT_IS_PARSER(Single, char, AnyOfFamily, Output<char>);
 	ASSERT_IS_PARSER(Multi, char, AnyOfFamily, Output<char>);
+
+	ASSERT_IS_PARSER(Single, wchar_t, AnyOfFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Multi, wchar_t, AnyOfFamily, Output<wchar_t>);
+
+	ASSERT_IS_PARSER(Single, int, AnyOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Multi, int, AnyOfFamily, Output<int>);
 }
 
-TEST("AnyOf", "Parse single char")
+TEST("AnyOf", "Parse single")
 {
 	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
 	ASSERT_PARSE_FAILURE(Single, "ba");
@@ -20,9 +29,23 @@ TEST("AnyOf", "Parse single char")
 	ASSERT_PARSE_FAILURE(Single, "Ab");
 	ASSERT_PARSE_FAILURE(Single, "Abc");
 	ASSERT_PARSE_FAILURE(Single, " abc");
+
+	ASSERT_PARSE_SUCCESS(Single, L"ab", L"a", L"b");
+	ASSERT_PARSE_FAILURE(Single, L"ba");
+	ASSERT_PARSE_SUCCESS(Single, L"abc", L"a", L"bc");
+	ASSERT_PARSE_FAILURE(Single, L"Ab");
+	ASSERT_PARSE_FAILURE(Single, L"Abc");
+	ASSERT_PARSE_FAILURE(Single, L" abc");
+
+	ASSERT_PARSE_SUCCESS(Single, e<int>("ab"), e<int>("a"), e<int>("b"));
+	ASSERT_PARSE_FAILURE(Single, e<int>("ba"));
+	ASSERT_PARSE_SUCCESS(Single, e<int>("abc"), e<int>("a"), e<int>("bc"));
+	ASSERT_PARSE_FAILURE(Single, e<int>("Ab"));
+	ASSERT_PARSE_FAILURE(Single, e<int>("Abc"));
+	ASSERT_PARSE_FAILURE(Single, e<int>(" abc"));
 }
 
-TEST("AnyOf", "Parse multi char")
+TEST("AnyOf", "Parse multi")
 {
 	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
 	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
@@ -38,6 +61,36 @@ TEST("AnyOf", "Parse multi char")
 	ASSERT_PARSE_FAILURE(Multi, "CBA");
 	ASSERT_PARSE_FAILURE(Multi, "dcba");
 	ASSERT_PARSE_FAILURE(Multi, " cba");
+
+	ASSERT_PARSE_SUCCESS(Multi, L"abc", L"a", L"bc");
+	ASSERT_PARSE_SUCCESS(Multi, L"acb", L"a", L"cb");
+	ASSERT_PARSE_SUCCESS(Multi, L"bac", L"b", L"ac");
+	ASSERT_PARSE_SUCCESS(Multi, L"bca", L"b", L"ca");
+	ASSERT_PARSE_SUCCESS(Multi, L"cab", L"c", L"ab");
+	ASSERT_PARSE_SUCCESS(Multi, L"cba", L"c", L"ba");
+	ASSERT_PARSE_FAILURE(Multi, L"ABC");
+	ASSERT_PARSE_FAILURE(Multi, L"ACB");
+	ASSERT_PARSE_FAILURE(Multi, L"BAC");
+	ASSERT_PARSE_FAILURE(Multi, L"BCA");
+	ASSERT_PARSE_FAILURE(Multi, L"CAB");
+	ASSERT_PARSE_FAILURE(Multi, L"CBA");
+	ASSERT_PARSE_FAILURE(Multi, L"dcba");
+	ASSERT_PARSE_FAILURE(Multi, L" cba");
+
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("abc"), e<int>("a"), e<int>("bc"));
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("acb"), e<int>("a"), e<int>("cb"));
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("bac"), e<int>("b"), e<int>("ac"));
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("bca"), e<int>("b"), e<int>("ca"));
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("cab"), e<int>("c"), e<int>("ab"));
+	ASSERT_PARSE_SUCCESS(Multi, e<int>("cba"), e<int>("c"), e<int>("ba"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("ABC"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("ACB"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("BAC"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("BCA"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("CAB"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("CBA"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>("dcba"));
+	ASSERT_PARSE_FAILURE(Multi, e<int>(" cba"));
 }
 
 
@@ -55,7 +108,13 @@ TEST("AnyOf", "Constructible from lexicographically sorted only")
 TEST("AnyOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, "");
-	
+
 	ASSERT_PARSE_FAILURE(AnyOf<"">, "anything");
 	ASSERT_PARSE_FAILURE(AnyOf<"">, "");
+
+	ASSERT_PARSE_FAILURE(AnyOf<L"">, L"anything");
+	ASSERT_PARSE_FAILURE(AnyOf<L"">, L"");
+
+	ASSERT_PARSE_FAILURE(AnyOf<"">, e<int>("anything"));
+	ASSERT_PARSE_FAILURE(AnyOf<"">, e<int>());
 }
