@@ -5,15 +5,6 @@ using namespace k3::tok3n;
 
 inline namespace wchar_t_assembly {
 
-#include "wchar_t-samples/adaptor.h"
-#include "wchar_t-samples/basic.h"
-#include "wchar_t-samples/classes.h"
-#include "wchar_t-samples/compound.h"
-#include "wchar_t-samples/divergent.h"
-#include "wchar_t-samples/functions.h"
-#include "wchar_t-samples/macros.h"
-#include "wchar_t-samples/repeat.h"
-
 template <class T, class... Ts>
 requires (... and std::convertible_to<T, Ts>)
 consteval auto e(Ts... ts)
@@ -30,6 +21,15 @@ consteval auto e(const U(&us)[N])
         arr[i] = us[i];
     return arr;
 }
+
+#include "wchar_t-samples/adaptor.h"
+#include "wchar_t-samples/basic.h"
+#include "wchar_t-samples/classes.h"
+#include "wchar_t-samples/compound.h"
+#include "wchar_t-samples/divergent.h"
+#include "wchar_t-samples/functions.h"
+#include "wchar_t-samples/macros.h"
+#include "wchar_t-samples/repeat.h"
 
 } // inline namespace wchar_t_assembly
 

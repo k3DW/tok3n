@@ -19,6 +19,13 @@
 	ASSERT((std::same_as<typename P::template result_for<V>, __VA_ARGS__>),            \
 		"`" STR(P) "::result_for<" STR(V) ">` is not " STR(__VA_ARGS__))
 
+#define ASSERT_IS_NOT_PARSER(P, V, PARSER_TYPE)                                   \
+	ASSERT_CONCEPT(Parser, P);                                                    \
+	ASSERT(P::family == PARSER_TYPE,                                              \
+		"`" STR(P) "::family` does not equal " STR(PARSER_TYPE));                 \
+	ASSERT(not (ParserFor<P, V>),                                                 \
+		"`ParserFor<" STR(P) ", " STR(V) ">` is satisfied but it should not be");
+
 #define ASSERT_PARSER_VALUE_TYPE(P, V)                         \
 	ASSERT((std::same_as<typename P::value_type, V>),          \
 		"`" STR(P) "::result_for<" STR(V) ">` is not " STR(V))

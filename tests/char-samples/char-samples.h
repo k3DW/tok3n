@@ -5,15 +5,6 @@ using namespace k3::tok3n;
 
 inline namespace char_assembly {
 
-#include "char-samples/adaptor.h"
-#include "char-samples/basic.h"
-#include "char-samples/classes.h"
-#include "char-samples/compound.h"
-#include "char-samples/divergent.h"
-#include "char-samples/functions.h"
-#include "char-samples/macros.h"
-#include "char-samples/repeat.h"
-
 template <class T, class... Ts>
 requires (... and std::convertible_to<T, Ts>)
 consteval auto e(Ts... ts)
@@ -30,6 +21,15 @@ consteval auto e(const U(&us)[N])
         arr[i] = us[i];
     return arr;
 }
+
+#include "char-samples/adaptor.h"
+#include "char-samples/basic.h"
+#include "char-samples/classes.h"
+#include "char-samples/compound.h"
+#include "char-samples/divergent.h"
+#include "char-samples/functions.h"
+#include "char-samples/macros.h"
+#include "char-samples/repeat.h"
 
 } // inline namespace char_assembly
 
