@@ -1,29 +1,17 @@
 #pragma once
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
-#include <k3/tok3n/detail/filtered_sequence.h>
 #include <k3/tok3n/detail/head.h>
 #include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 
 namespace k3::tok3n {
 
-namespace detail::executors
+namespace detail
 {
 
-	template <class ResultType>
-	struct SequenceExecutorData
-	{
-		ResultType full_result = {};
-	};
-
-	template <>
-	struct SequenceExecutorData<void>
-	{
-	};
-
 	template <class ResultType, class ValueType>
-	struct Sequence : SequenceExecutorData<ResultType>
+	struct SequenceExecutor : ExecutorData<ResultType>
 	{
 		Input<ValueType> input;
 
@@ -63,7 +51,7 @@ namespace detail::executors
 		}
 	};
 
-}
+} // namespace detail
 
 template <Parser... Ps>
 requires SequenceConstructible<Ps...>
@@ -72,11 +60,12 @@ struct Sequence
 	using value_type = typename detail::head<Ps...>::value_type;
 
 	template <EqualityComparableWith<value_type> V>
-	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, typename Ps::template result_for<V>...>>;
+	using _filtered = detail::filter_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
+
 	template <EqualityComparableWith<value_type> V>
-	static constexpr bool _unwrapped = _trait<V>::unwrapped;
+	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
 	template <EqualityComparableWith<value_type> V>
-	using result_for = typename std::conditional_t<_unwrapped<V>,
+	using result_for = typename std::conditional_t<_trait<V>::unwrapped,
 		_trait<V>,
 		detail::change_list<typename _trait<V>::type, std::tuple>
 	>::type;
@@ -90,13 +79,13 @@ struct Sequence
 		using V = typename decltype(input)::value_type;
 
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_for<V>, V>;
+		using Executor = detail::SequenceExecutor<result_for<V>, V>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
-			return (... && executor.execute<Ps, Is, _unwrapped<V>>());
-		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::template result_for<V>...>{});
+			return (... && executor.execute<Ps, Is, _trait<V>::unwrapped>());
+		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
 			return Result<result_for<V>, V>{ failure, input };
@@ -113,10 +102,10 @@ struct Sequence
 		Input input{ std::forward<R>(r) };
 		using V = typename decltype(input)::value_type;
 
-		using Executor = detail::executors::Sequence<void, V>;
+		using Executor = detail::SequenceExecutor<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... && executor.execute<Ps, -1, _unwrapped<V>>());
+		bool successful = (... && executor.execute<Ps, -1, _trait<V>::unwrapped>());
 
 		if (successful)
 			return Result<void, V>{ success, executor.input };

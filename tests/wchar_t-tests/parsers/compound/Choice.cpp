@@ -218,3 +218,39 @@ TEST("Choice", "Copy only")
 		ASSERT_PARSE_SUCCESS(P, e<int>("zabcxyz"), T(e<int>("z")), e<int>("abcxyz"));
 	}
 }
+
+TEST("Choice", "Result type")
+{
+	using C1 = Constant<SpaceDot, Const<0>>;
+	using C2 = Constant<SpaceDot, Const<1>>;
+
+	using P1 = Choice<ABC, QQ, SpaceDot>;
+	ASSERT_IS_PARSER(P1, char, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(P1, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(P1, int, ChoiceFamily, Output<int>);
+
+	using P2 = Choice<ABC, C1, QQ>;
+	ASSERT_IS_PARSER(P2, char, ChoiceFamily, std::variant<Output<char>, int>);
+	ASSERT_IS_PARSER(P2, wchar_t, ChoiceFamily, std::variant<Output<wchar_t>, int>);
+	ASSERT_IS_PARSER(P2, int, ChoiceFamily, std::variant<Output<int>, int>);
+
+	using P3 = Choice<ABC, QQ, C1>;
+	ASSERT_IS_PARSER(P3, char, ChoiceFamily, std::variant<Output<char>, int>);
+	ASSERT_IS_PARSER(P3, wchar_t, ChoiceFamily, std::variant<Output<wchar_t>, int>);
+	ASSERT_IS_PARSER(P3, int, ChoiceFamily, std::variant<Output<int>, int>);
+
+	using P4 = Choice<C1, ABC, QQ>;
+	ASSERT_IS_PARSER(P4, char, ChoiceFamily, std::variant<int, Output<char>>);
+	ASSERT_IS_PARSER(P4, wchar_t, ChoiceFamily, std::variant<int, Output<wchar_t>>);
+	ASSERT_IS_PARSER(P4, int, ChoiceFamily, std::variant<int, Output<int>>);
+
+	using P5 = Choice<C1, ABC, QQ, C2>;
+	ASSERT_IS_PARSER(P5, char, ChoiceFamily, std::variant<int, Output<char>>);
+	ASSERT_IS_PARSER(P5, wchar_t, ChoiceFamily, std::variant<int, Output<wchar_t>>);
+	ASSERT_IS_PARSER(P5, int, ChoiceFamily, std::variant<int, Output<int>>);
+
+	using P6 = Choice<C1, ABC, C2, QQ>;
+	ASSERT_IS_PARSER(P6, char, ChoiceFamily, std::variant<int, Output<char>>);
+	ASSERT_IS_PARSER(P6, wchar_t, ChoiceFamily, std::variant<int, Output<wchar_t>>);
+	ASSERT_IS_PARSER(P6, int, ChoiceFamily, std::variant<int, Output<int>>);
+}
