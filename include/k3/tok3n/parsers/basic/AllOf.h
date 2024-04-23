@@ -11,9 +11,10 @@ struct BasicTraits<AllOf<arr>>
 
 	static constexpr std::size_t length = arr.size();
 
-	static constexpr bool failure_condition(Input<value_type> input)
+	template <EqualityComparableWith<value_type> V>
+	static constexpr bool failure_condition(Input<V> input)
 	{
-		return (input.size() < length) || (Input<value_type>(arr.span()) != input.first(length));
+		return (input.size() < length) || (Input<value_type>(arr.span()) != Input<V>(input.first(length)));
 	}
 };
 

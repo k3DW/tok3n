@@ -12,7 +12,8 @@ struct BasicTraits<NoneOf<arr>>
 
 	static constexpr std::size_t length = 1;
 
-	static constexpr bool failure_condition(Input<value_type> input)
+	template <EqualityComparableWith<value_type> V>
+	static constexpr bool failure_condition(Input<V> input)
 	{
 		return input.empty() || arr.contains(input.front());
 	}
