@@ -2,6 +2,7 @@
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
 #include <k3/tok3n/detail/filtered_sequence.h>
+#include <k3/tok3n/detail/head.h>
 #include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 
@@ -10,15 +11,21 @@ namespace k3::tok3n {
 namespace detail::executors
 {
 
-	struct VoidResultTag {};
+	template <class ResultType>
+	struct SequenceExecutorData
+	{
+		ResultType full_result = {};
+	};
+
+	template <>
+	struct SequenceExecutorData<void>
+	{
+	};
 
 	template <class ResultType, class ValueType>
-	struct Sequence
+	struct Sequence : SequenceExecutorData<ResultType>
 	{
-		using StoredResult = std::conditional_t<std::same_as<ResultType, void>, VoidResultTag, ResultType>;
-
 		Input<ValueType> input;
-		StoredResult full_result = {};
 
 		template <Parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute()
@@ -41,17 +48,18 @@ namespace detail::executors
 		constexpr bool execute_element()
 		{
 			auto result = P::parse(input);
-			if (result.has_value())
-			{
-				input = result.remaining();
-				if constexpr (unwrapped)
-					full_result = std::move(*result);
-				else
-					std::get<I>(full_result) = std::move(*result);
-				return true;
-			}
-			else
+			if (not result.has_value())
 				return false;
+
+			input = result.remaining();
+			if constexpr (not std::same_as<void, ResultType>)
+			{
+				if constexpr (not unwrapped)
+					std::get<I>(this->full_result) = std::move(*result);
+				else
+					this->full_result = std::move(*result);
+			}
+			return true;
 		}
 	};
 
@@ -64,11 +72,14 @@ struct Sequence
 	using value_type = typename detail::head<Ps...>::value_type;
 
 	template <EqualityComparableWith<value_type> V>
-	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, std::tuple, typename Ps::template result_for<V>...>>;
-	template <EqualityComparableWith<value_type> V>
-	using result_for = typename _trait<V>::type;
+	using _trait = detail::unwrap_if_single<detail::filter<detail::is_not_type<void>, typename Ps::template result_for<V>...>>;
 	template <EqualityComparableWith<value_type> V>
 	static constexpr bool _unwrapped = _trait<V>::unwrapped;
+	template <EqualityComparableWith<value_type> V>
+	using result_for = typename std::conditional_t<_unwrapped<V>,
+		_trait<V>,
+		detail::change_list<typename _trait<V>::type, std::tuple>
+	>::type;
 
 	static constexpr ParserFamily family = SequenceFamily;
 
