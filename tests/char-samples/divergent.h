@@ -39,11 +39,28 @@ struct Cus1 : Custom<Cus1>
 		return _25{} % fn<transform>;
 	}
 
-	static constexpr std::size_t transform(const std::tuple<std::vector<Output<char>>, std::optional<Output<char>>>& tup)
+	static constexpr std::size_t transform_impl(const std::tuple<std::vector<Output<char>>, std::optional<Output<char>>>& tup)
 	{
 		const auto& [vec, opt] = tup;
 		return 3 * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
 	}
+
+	static constexpr std::size_t transform_impl(const std::tuple<std::vector<Output<wchar_t>>, std::optional<Output<wchar_t>>>& tup)
+	{
+		const auto& [vec, opt] = tup;
+		return 3 * vec.size() * (not opt ? 1 : *opt == L"abc" ? 2 : 3);
+	}
+
+	static constexpr std::size_t transform_impl(const std::tuple<std::vector<Output<int>>, std::optional<Output<int>>>& tup)
+	{
+		const auto& [vec, opt] = tup;
+		return 3 * vec.size() * (not opt ? 1 : *opt == e<int>("abc") ? 2 : 3);
+	}
+
+	static constexpr auto transform = []<class T>(const std::tuple<std::vector<Output<T>>, std::optional<Output<T>>>&tup)
+	{
+		return transform_impl(tup);
+	};
 };
 constexpr Cus1 cus1;
 

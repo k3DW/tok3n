@@ -16,11 +16,15 @@ struct Join<ZeroOrMore<Basic<arr>>>
 
 	static constexpr ParserFamily family = JoinFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		using Traits = BasicTraits<Basic<arr>>;
 
-		Output<value_type> result = { input.data(), 0 };
+		Output<V> result = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{
@@ -28,11 +32,15 @@ struct Join<ZeroOrMore<Basic<arr>>>
 			input = input.subspan(Traits::length);
 		}
 
-		return { success, result, input };
+		return Result<result_for<V>, V>{ success, result, input };
 	}
-
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		using Traits = BasicTraits<Basic<arr>>;
 
 		while (not Traits::failure_condition(input))
@@ -40,7 +48,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 			input = input.subspan(Traits::length);
 		}
 
-		return { success, input };
+		return Result<void, V>{ success, input };
 	}
 };
 

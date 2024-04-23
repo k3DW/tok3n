@@ -8,18 +8,23 @@ struct OneOrMore
 {
 	using value_type = typename P::value_type;
 
+	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr bool parsable_range = not std::same_as<typename P::template result_for<V>, void>;
+
 	template <EqualityComparableWith<value_type> V>
 	using result_for = std::vector<typename P::template result_for<V>>;
 
 	static constexpr ParserFamily family = OneOrMoreFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	requires parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"OneOrMore's child parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		const Input original_input = input;
-		result_for<value_type> results;
+		result_for<V> results;
 
 		while (true)
 		{
@@ -34,17 +39,18 @@ struct OneOrMore
 		}
 
 		if (results.size() != 0)
-			return { success, std::move(results), input };
+			return Result<result_for<V>, V>{ success, std::move(results), input };
 		else
-			return { failure, original_input };
+			return Result<result_for<V>, V>{ failure, original_input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"OneOrMore's child parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
-		Result<void, value_type> result;
+		Result<void, V> result;
 		bool successful = false;
 		
 		do
@@ -55,9 +61,9 @@ struct OneOrMore
 		} while (result.has_value());
 
 		if (successful)
-			return { success, input };
+			return Result<void, V>{ success, input };
 		else
-			return { failure, input };
+			return Result<void, V>{ failure, input };
 	}
 };
 

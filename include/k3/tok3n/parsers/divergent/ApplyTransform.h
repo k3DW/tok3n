@@ -8,32 +8,32 @@ struct ApplyTransform
 {
 	using value_type = typename P::value_type;
 
+	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr bool parsable_range = detail::IsApplyable<typename FunctionValue::value_type, typename P::template result_for<V>>;
+
 	template <EqualityComparableWith<value_type> V>
-	using result_for = decltype(std::apply(FunctionValue::value, std::declval<typename P::template result_for<V>>()));;
+	using result_for = detail::ApplyResult<typename FunctionValue::value_type, typename P::template result_for<V>>;
 
 	static constexpr ParserFamily family = ApplyTransformFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	requires parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
-			"ApplyTransform's child parser's result type for the given value must have tuple_size.");
-		static_assert(requires { std::apply(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
-			"ApplyTransform's function must be apply-able with its child parser's result for the given value type.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
+			return Result<result_for<V>, V>{ success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
 		else
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
-			"ApplyTransform's child parser's result type for the given value must have tuple_size.");
-		static_assert(requires { std::apply(FunctionValue::value, std::declval<typename P::template result_for<value_type>>()); },
-			"ApplyTransform's function must be apply-able with its child parser's result for the given value type.");
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 

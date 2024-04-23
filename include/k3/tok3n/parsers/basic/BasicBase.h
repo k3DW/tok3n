@@ -19,24 +19,30 @@ struct BasicBase
 	template <EqualityComparableWith<value_type> V>
     using result_for = Output<V>;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
-		using Traits = BasicTraits<P>;
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
+		using Traits = BasicTraits<P>;
 		if (Traits::failure_condition(input))
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 		else
-			return { success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
+			return Result<result_for<V>, V>{ success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		using Traits = BasicTraits<P>;
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
+		using Traits = BasicTraits<P>;
 		if (Traits::failure_condition(input))
-			return { failure, input };
+			return Result<void, V>{ failure, input };
 		else
-			return { success, { input.data() + Traits::length, input.size() - Traits::length } };
+			return Result<void, V>{ success, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 };
 

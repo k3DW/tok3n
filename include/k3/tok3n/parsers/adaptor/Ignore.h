@@ -14,14 +14,16 @@ struct Ignore
 
 	static constexpr ParserFamily family = IgnoreFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 

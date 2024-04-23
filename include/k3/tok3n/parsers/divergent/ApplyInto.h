@@ -8,32 +8,34 @@ struct ApplyInto
 {
 	using value_type = typename P::value_type;
 
+	static constexpr auto construct = []<class... Args>(Args&&... args) { return T(std::forward<Args>(args)...); };
+
+	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr bool parsable_range = detail::IsApplyable<decltype(construct), typename P::template result_for<V>>;
+
 	template <EqualityComparableWith<value_type> V>
 	using result_for = T;
 
 	static constexpr ParserFamily family = ApplyIntoFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	requires parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
-			"ApplyInto's child parser's result type for the given value must have tuple_size.");
-		static_assert(requires { std::make_from_tuple<T>(std::declval<typename P::template result_for<value_type>>()); },
-			"ApplyInto's \"into type\" must be constructible from tuple from the child parser's result type for the given value.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::make_from_tuple<result_for<value_type>>(std::move(*result)), result.remaining() };
+			return Result<result_for<V>, V>{ success, std::apply(construct, std::move(*result)), result.remaining() };
 		else
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(detail::has_tuple_size<typename P::template result_for<value_type>>,
-			"ApplyInto's child parser's result type for the given value must have tuple_size.");
-		static_assert(requires { std::make_from_tuple<T>(std::declval<typename P::template result_for<value_type>>()); },
-			"ApplyInto's \"into type\" must be constructible from tuple from the child parser's result type for the given value.");
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 

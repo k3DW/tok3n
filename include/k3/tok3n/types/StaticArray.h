@@ -42,10 +42,11 @@ struct StaticArray
         return { data.data(), N };
     }
 
-	constexpr bool contains(const T& t) const
+	template <class U>
+	constexpr bool contains(U&& u) const
 	{
 		for (const auto& element : data)
-			if (element == t)
+			if (element == u)
 				return true;
 		return false;
 	}

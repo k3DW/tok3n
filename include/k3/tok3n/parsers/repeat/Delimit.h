@@ -8,6 +8,11 @@ struct Delimit
 {
 	using value_type = typename P::value_type;
 
+	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr bool parsable_range =
+		not std::same_as<typename P::template result_for<V>, void>
+		and (not std::same_as<typename D::template result_for<V>, void> or not KeepDelimiters::value);
+
 	template <EqualityComparableWith<value_type> V>
 	using result_for = std::conditional_t<KeepDelimiters::value,
 		std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>,
@@ -16,16 +21,18 @@ struct Delimit
 
 	static constexpr ParserFamily family = DelimitFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (not KeepDelimiters::value)
+	template <InputConstructibleFor<value_type> R>
+	requires (not KeepDelimiters::value) and parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"Delimit's child parser's result for the given value cannot be void.");
-			
-		result_for<value_type> results;
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
+		result_for<V> results;
 
 		auto result = P::parse(input);
 		if (not result.has_value())
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 
 		while (result)
 		{
@@ -39,22 +46,22 @@ struct Delimit
 			result = P::parse(delimit_result.remaining());
 		}
 
-		return { success, std::move(results), input };
+		return Result<result_for<V>, V>{ success, std::move(results), input };
 	}
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input) requires (KeepDelimiters::value)
+	template <InputConstructibleFor<value_type> R>
+	requires (KeepDelimiters::value) and parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"Delimit's child parser's result for the given value cannot be void.");
-		static_assert(not std::same_as<typename D::template result_for<value_type>, void>,
-			"Delimit(keep)'s delimiter parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
-		result_for<value_type> results;
+		result_for<V> results;
 		auto& [values, delimiters] = results;
 
 		auto result = P::parse(input);
 		if (not result.has_value())
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 
 		while (result)
 		{
@@ -70,19 +77,18 @@ struct Delimit
 				delimiters.emplace_back(std::move(*delimit_result));
 		}
 
-		return { success, std::move(results), input };
+		return Result<result_for<V>, V>{ success, std::move(results), input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"Delimit's child parser's result for the given value cannot be void.");
-		static_assert(not KeepDelimiters::value or not std::same_as<typename D::template result_for<value_type>, void>,
-			"Delimit(keep)'s delimiter parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::lookahead(input);
 		if (not result.has_value())
-			return { failure, input };
+			return Result<void, V>{ failure, input };
 
 		while (result)
 		{
@@ -95,7 +101,7 @@ struct Delimit
 			result = P::lookahead(delimit_result.remaining());
 		}
 
-		return { success, input };
+		return Result<void, V>{ success, input };
 	}
 };
 

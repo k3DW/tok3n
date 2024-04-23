@@ -27,4 +27,22 @@ template <Parser... Ps>
 requires SequenceConstructible<Ps...>
 struct Sequence;
 
+
+
+namespace detail
+{
+
+	template <class ResultType>
+	struct ExecutorData
+	{
+		ResultType full_result = {};
+	};
+
+	template <>
+	struct ExecutorData<void>
+	{
+	};
+
+} // namespace detail
+
 } // namespace k3::tok3n

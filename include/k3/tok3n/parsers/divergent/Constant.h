@@ -13,18 +13,23 @@ struct Constant
 
 	static constexpr ParserFamily family = ConstantFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, Value::value, result.remaining() };
+			return Result<result_for<V>, V>{ success, Value::value, result.remaining() };
 		else
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		return P::lookahead(input);
+		return P::lookahead(std::forward<R>(r));
 	}
 };
 

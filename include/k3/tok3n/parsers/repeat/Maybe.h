@@ -8,33 +8,39 @@ struct Maybe
 {
 	using value_type = typename P::value_type;
 
+	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr bool parsable_range = not std::same_as<typename P::template result_for<V>, void>;
+
 	template <EqualityComparableWith<value_type> V>
 	using result_for = std::optional<typename P::template result_for<V>>;
 
 	static constexpr ParserFamily family = MaybeFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	requires parsable_range<R>
+	static constexpr auto parse(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"Maybe's child parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
 		if (result.has_value())
-			return { success, std::move(*result), result.remaining() };
+			return Result<result_for<V>, V>{ success, std::move(*result), result.remaining() };
 		else
-			return { success, result_for<value_type>{ std::nullopt }, input };
+			return Result<result_for<V>, V>{ success, result_for<V>{ std::nullopt }, input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		static_assert(not std::same_as<typename P::template result_for<value_type>, void>,
-			"Maybe's child parser's result for the given value cannot be void.");
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
 
 		auto result = P::lookahead(input);
 		if (result.has_value())
-			return { success, result.remaining() };
+			return Result<void, V>{ success, result.remaining() };
 		else
-			return { success, input };
+			return Result<void, V>{ success, input };
 	}
 };
 
