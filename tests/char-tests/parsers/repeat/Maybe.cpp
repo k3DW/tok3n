@@ -5,10 +5,25 @@ FIXTURE("Maybe");
 
 TEST("Maybe", "Requirements")
 {
+	ASSERT_PARSER_VALUE_TYPE(May1, char);
+	ASSERT_PARSER_VALUE_TYPE(May2, char);
+	ASSERT_PARSER_VALUE_TYPE(May3, char);
+	ASSERT_PARSER_VALUE_TYPE(May4, char);
+
 	ASSERT_IS_PARSER(May1, char, MaybeFamily, std::optional<Output<char>>);
 	ASSERT_IS_PARSER(May2, char, MaybeFamily, std::optional<Output<char>>);
 	ASSERT_IS_PARSER(May3, char, MaybeFamily, std::optional<Output<char>>);
 	ASSERT_IS_PARSER(May4, char, MaybeFamily, std::optional<std::tuple<Output<char>, Output<char>>>);
+
+	ASSERT_IS_PARSER(May1, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May2, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May3, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May4, wchar_t, MaybeFamily, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+
+	ASSERT_IS_PARSER(May1, int, MaybeFamily, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May2, int, MaybeFamily, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May3, int, MaybeFamily, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May4, int, MaybeFamily, std::optional<std::tuple<Output<int>, Output<int>>>);
 }
 
 TEST("Maybe", "Parse Maybe<AllOf>")
@@ -20,6 +35,22 @@ TEST("Maybe", "Parse Maybe<AllOf>")
 	ASSERT_PARSE_SUCCESS(May1, "literalliterallitera", std::optional("literal"), "literallitera");
 	ASSERT_PARSE_SUCCESS(May1, " literalliterallitera", std::nullopt, " literalliterallitera");
 	ASSERT_PARSE_SUCCESS(May1, "", std::nullopt, "");
+
+	ASSERT_PARSE_SUCCESS(May1, L"litera", std::nullopt, L"litera");
+	ASSERT_PARSE_SUCCESS(May1, L"literal", std::optional(L"literal"), L"");
+	ASSERT_PARSE_SUCCESS(May1, L"literally", std::optional(L"literal"), L"ly");
+	ASSERT_PARSE_SUCCESS(May1, L"literallitera", std::optional(L"literal"), L"litera");
+	ASSERT_PARSE_SUCCESS(May1, L"literalliterallitera", std::optional(L"literal"), L"literallitera");
+	ASSERT_PARSE_SUCCESS(May1, L" literalliterallitera", std::nullopt, L" literalliterallitera");
+	ASSERT_PARSE_SUCCESS(May1, L"", std::nullopt, L"");
+
+	ASSERT_PARSE_SUCCESS(May1, e<int>("litera"), std::nullopt, e<int>("litera"));
+	ASSERT_PARSE_SUCCESS(May1, e<int>("literal"), std::optional(e<int>("literal")), e<int>(""));
+	ASSERT_PARSE_SUCCESS(May1, e<int>("literally"), std::optional(e<int>("literal")), e<int>("ly"));
+	ASSERT_PARSE_SUCCESS(May1, e<int>("literallitera"), std::optional(e<int>("literal")), e<int>("litera"));
+	ASSERT_PARSE_SUCCESS(May1, e<int>("literalliterallitera"), std::optional(e<int>("literal")), e<int>("literallitera"));
+	ASSERT_PARSE_SUCCESS(May1, e<int>(" literalliterallitera"), std::nullopt, e<int>(" literalliterallitera"));
+	ASSERT_PARSE_SUCCESS(May1, e<int>(""), std::nullopt, e<int>(""));
 }
 TEST("Maybe", "Parse Maybe<AnyOf>")
 {
@@ -27,6 +58,16 @@ TEST("Maybe", "Parse Maybe<AnyOf>")
 	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");
 	ASSERT_PARSE_SUCCESS(May2, "cbabcccbjklmnop", std::optional("c"), "babcccbjklmnop");
 	ASSERT_PARSE_SUCCESS(May2, "", std::nullopt, "");
+
+	ASSERT_PARSE_SUCCESS(May2, L"abcdef", std::optional(L"a"), L"bcdef");
+	ASSERT_PARSE_SUCCESS(May2, L"fedcba", std::nullopt, L"fedcba");
+	ASSERT_PARSE_SUCCESS(May2, L"cbabcccbjklmnop", std::optional(L"c"), L"babcccbjklmnop");
+	ASSERT_PARSE_SUCCESS(May2, L"", std::nullopt, L"");
+
+	ASSERT_PARSE_SUCCESS(May2, e<int>("abcdef"), std::optional(e<int>("a")), e<int>("bcdef"));
+	ASSERT_PARSE_SUCCESS(May2, e<int>("fedcba"), std::nullopt, e<int>("fedcba"));
+	ASSERT_PARSE_SUCCESS(May2, e<int>("cbabcccbjklmnop"), std::optional(e<int>("c")), e<int>("babcccbjklmnop"));
+	ASSERT_PARSE_SUCCESS(May2, e<int>(""), std::nullopt, e<int>(""));
 }
 TEST("Maybe", "Parse Maybe<Choice>")
 {
@@ -34,6 +75,16 @@ TEST("Maybe", "Parse Maybe<Choice>")
 	ASSERT_PARSE_SUCCESS(May3, "abliteralcblitralcf", std::optional("a"), "bliteralcblitralcf");
 	ASSERT_PARSE_SUCCESS(May3, "literalabacliteral", std::optional("literal"), "abacliteral");
 	ASSERT_PARSE_SUCCESS(May3, "", std::nullopt, "");
+
+	ASSERT_PARSE_SUCCESS(May3, L"abliteralcbliteralcf", std::optional(L"a"), L"bliteralcbliteralcf");
+	ASSERT_PARSE_SUCCESS(May3, L"abliteralcblitralcf", std::optional(L"a"), L"bliteralcblitralcf");
+	ASSERT_PARSE_SUCCESS(May3, L"literalabacliteral", std::optional(L"literal"), L"abacliteral");
+	ASSERT_PARSE_SUCCESS(May3, L"", std::nullopt, L"");
+
+	ASSERT_PARSE_SUCCESS(May3, e<int>("abliteralcbliteralcf"), std::optional(e<int>("a")), e<int>("bliteralcbliteralcf"));
+	ASSERT_PARSE_SUCCESS(May3, e<int>("abliteralcblitralcf"), std::optional(e<int>("a")), e<int>("bliteralcblitralcf"));
+	ASSERT_PARSE_SUCCESS(May3, e<int>("literalabacliteral"), std::optional(e<int>("literal")), e<int>("abacliteral"));
+	ASSERT_PARSE_SUCCESS(May3, e<int>(""), std::nullopt, e<int>(""));
 }
 TEST("Maybe", "Parse Maybe<Sequence>")
 {
@@ -41,4 +92,14 @@ TEST("Maybe", "Parse Maybe<Sequence>")
 	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralbliteral");
 	ASSERT_PARSE_SUCCESS(May4, "aliteralaliteralcliteralbliteral", std::nullopt, "aliteralaliteralcliteralbliteral");
 	ASSERT_PARSE_SUCCESS(May4, "", std::nullopt, "");
+
+	ASSERT_PARSE_SUCCESS(May4, L"literalaliteralcliteralcliteralb", std::optional(std::tuple(L"literal", L"a")), L"literalcliteralcliteralb");
+	ASSERT_PARSE_SUCCESS(May4, L"literalaliteralcliteralcliteralbliteral", std::optional(std::tuple(L"literal", L"a")), L"literalcliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, L"aliteralaliteralcliteralbliteral", std::nullopt, L"aliteralaliteralcliteralbliteral");
+	ASSERT_PARSE_SUCCESS(May4, L"", std::nullopt, L"");
+
+	ASSERT_PARSE_SUCCESS(May4, e<int>("literalaliteralcliteralcliteralb"), std::optional(std::tuple(e<int>("literal"), e<int>("a"))), e<int>("literalcliteralcliteralb"));
+	ASSERT_PARSE_SUCCESS(May4, e<int>("literalaliteralcliteralcliteralbliteral"), std::optional(std::tuple(e<int>("literal"), e<int>("a"))), e<int>("literalcliteralcliteralbliteral"));
+	ASSERT_PARSE_SUCCESS(May4, e<int>("aliteralaliteralcliteralbliteral"), std::nullopt, e<int>("aliteralaliteralcliteralbliteral"));
+	ASSERT_PARSE_SUCCESS(May4, e<int>(""), std::nullopt, e<int>(""));
 }
