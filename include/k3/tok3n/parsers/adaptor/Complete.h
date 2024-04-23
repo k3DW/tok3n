@@ -14,20 +14,28 @@ struct Complete
 
 	static constexpr ParserFamily family = CompleteFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		auto result = P::parse(input);
-		if (not result.has_value() or result.remaining() != Input<value_type>{})
-			return { failure, input };
+		if (not result.has_value() or not result.remaining().empty())
+			return Result<result_for<V>, V>{ failure, input };
 		else
 			return result;
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		auto result = P::lookahead(input);
-		if (not result.has_value() or result.remaining() != Input<value_type>{})
-			return { failure, input };
+		if (not result.has_value() or not result.remaining().empty())
+			return Result<void, V>{ failure, input };
 		else
 			return result;
 	}
