@@ -20,3 +20,10 @@ TEST("fn modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(tra4, (+abc >> ~(abc | qq)) % fn<func4(3)>);
 	ASSERT_PARSER_VALUES_NE(tra4, (+abc >> ~(abc | qq)) % fn<func4(2)>);
 }
+
+TEST("fn modifier", "non consteval")
+{
+	constexpr auto sink = [](auto&&) {};
+	(fn<sink>(any1)).parse("abc");
+	(any1 % fn<sink>).parse("abc");
+}

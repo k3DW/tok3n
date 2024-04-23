@@ -26,3 +26,9 @@ TEST("delimit modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(del7, comma % delimit(qq));
 	ASSERT_PARSER_VALUES_EQ(del8, spacedot % delimit(qq));
 }
+
+TEST("delimit modifier", "non consteval")
+{
+	(delimit(any1, any2)).parse(L"abc");
+	(any1 % delimit(any2)).parse(L"abc");
+}

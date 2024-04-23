@@ -34,3 +34,9 @@ TEST("ignore modifier", "idempotent")
 	ASSERT_PARSER_VALUES_EQ(ign4, ign4 % ignore);
 	ASSERT_PARSER_VALUES_EQ(ign5, ign5 % ignore);
 }
+
+TEST("ignore modifier", "non consteval")
+{
+	(ignore(any1)).parse(L"abc");
+	(any1 % ignore).parse(L"abc");
+}

@@ -14,3 +14,9 @@ TEST("into modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(int1, spacedot % into<Class1>);
 	ASSERT_PARSER_VALUES_EQ(int2, (abc >> spacedot) % into<Class2>);
 }
+
+TEST("into modifier", "non consteval")
+{
+	(into<Sink>(any1)).parse("abc");
+	(any1 % into<Sink>).parse("abc");
+}

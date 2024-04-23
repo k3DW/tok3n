@@ -26,3 +26,9 @@ TEST("delimit_keep modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(dek7, comma % delimit_keep(qq));
 	ASSERT_PARSER_VALUES_EQ(dek8, spacedot % delimit_keep(qq));
 }
+
+TEST("delimit_keep modifier", "non consteval")
+{
+	(delimit_keep(any1, any2)).parse("abc");
+	(any1 % delimit_keep(any2)).parse("abc");
+}

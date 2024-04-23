@@ -22,3 +22,8 @@ TEST("not operator", "!NoneOf")
 	ASSERT_PARSER_VALUES_EQ(!!none2, none2);
 	ASSERT_PARSER_VALUES_EQ(!!none3, none3);
 }
+
+TEST("not operator", "non consteval")
+{
+	(!any1).parse(L"abc");
+}
