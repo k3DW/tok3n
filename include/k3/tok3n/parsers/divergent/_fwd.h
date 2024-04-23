@@ -26,17 +26,6 @@ namespace detail {
 
 namespace detail {
 
-template <class T>
-struct Construct
-{
-	template <class... Ts>
-	constexpr T operator()(Ts&&... ts)
-	requires requires { T(std::forward<Ts>(ts)...); }
-	{
-		return T(std::forward<Ts>(ts)...);
-	}
-};
-
 template <class F, class Tup>
 struct ApplyTrait {};
 
