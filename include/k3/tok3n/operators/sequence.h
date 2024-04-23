@@ -26,7 +26,7 @@ consteval auto sequence(P1, P2) { return Sequence<P1, P2>{}; } // default
 namespace k3::tok3n {
 
 template <Parser P1, ParserCompatibleWith<P1> P2>
-consteval auto operator>>(P1, P2)
+constexpr auto operator>>(P1, P2)
 {
 	return operators_impl::sequence(P1{}, P2{});
 }

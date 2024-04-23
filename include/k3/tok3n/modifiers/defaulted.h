@@ -9,7 +9,7 @@ requires std::is_default_constructible_v<T>
 struct defaulted final : ModifierBase
 {
 	template <Parser P>
-	consteval auto operator()(P) const
+	constexpr auto operator()(P) const
 	{
 		return Defaulted<P, T>{};
 	}

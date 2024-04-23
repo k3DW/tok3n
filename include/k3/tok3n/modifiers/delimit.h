@@ -7,7 +7,7 @@ namespace k3::tok3n::modifiers {
 struct delimit final : ModifierBase
 {
 	template <Parser P, ParserCompatibleWith<P> D>
-	consteval auto operator()(P, D) const
+	constexpr auto operator()(P, D) const
 	{
 		return Delimit<P, D, False>{};
 	}
@@ -16,14 +16,14 @@ struct delimit final : ModifierBase
 	struct inner final : ModifierBase
 	{
 		template <ParserCompatibleWith<D> P>
-		consteval auto operator()(P) const
+		constexpr auto operator()(P) const
 		{
 			return Delimit<P, D, False>{};
 		}
 	};
 
 	template <Parser D>
-	consteval auto operator()(D) const
+	constexpr auto operator()(D) const
 	{
 		return inner<D>{};
 	}

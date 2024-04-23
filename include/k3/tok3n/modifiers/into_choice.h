@@ -10,7 +10,7 @@ struct into_choice final : ModifierBase
 {
 	template <Parser... Ps>
 	requires (ChoiceConstructible<Into<Ps, T>...>)
-	consteval auto operator()(Ps...) const
+	constexpr auto operator()(Ps...) const
 	{
 		return Choice<Into<Ps, T>...>{};
 	}
