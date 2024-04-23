@@ -83,37 +83,45 @@ struct Sequence
 
 	static constexpr ParserFamily family = SequenceFamily;
 
-	static constexpr Result<result_for<value_type>, value_type> parse(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto parse(R&& r)
 	{
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
 		// This might be a problem because it default initializes all members
-		using Executor = detail::executors::Sequence<result_for<value_type>, value_type>;
+		using Executor = detail::executors::Sequence<result_for<V>, V>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
-			return (... && executor.execute<Ps, Is, _unwrapped<value_type>>());
-		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::template result_for<value_type>...>{});
+			return (... && executor.execute<Ps, Is, _unwrapped<V>>());
+		}(detail::filtered_sequence<detail::is_not_type<void>, typename Ps::template result_for<V>...>{});
 
 		if (not successful)
-			return { failure, input };
+			return Result<result_for<V>, V>{ failure, input };
 
-		if constexpr (std::same_as<result_for<value_type>, void>)
-			return { success, executor.input };
+		if constexpr (std::same_as<result_for<V>, void>)
+			return Result<result_for<V>, V>{ success, executor.input };
 		else
-			return { success, std::move(executor.full_result), executor.input };
+			return Result<result_for<V>, V>{ success, std::move(executor.full_result), executor.input };
 	}
 
-	static constexpr Result<void, value_type> lookahead(Input<value_type> input)
+	template <InputConstructibleFor<value_type> R>
+	static constexpr auto lookahead(R&& r)
 	{
-		using Executor = detail::executors::Sequence<void, value_type>;
+		Input input{ std::forward<R>(r) };
+		using V = typename decltype(input)::value_type;
+
+		using Executor = detail::executors::Sequence<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... && executor.execute<Ps, -1, _unwrapped<value_type>>());
+		bool successful = (... && executor.execute<Ps, -1, _unwrapped<V>>());
 
 		if (successful)
-			return { success, executor.input };
+			return Result<void, V>{ success, executor.input };
 		else
-			return { failure, input };
+			return Result<void, V>{ failure, input };
 	}
 };
 
