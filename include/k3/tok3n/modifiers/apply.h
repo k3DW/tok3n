@@ -8,7 +8,7 @@ template <auto function>
 struct apply final : ModifierBase
 {
 	template <Parser P>
-	consteval auto operator()(P) const
+	constexpr auto operator()(P) const
 	{
 		return ApplyTransform<P, Const<function>>{};
 	}

@@ -42,3 +42,9 @@ TEST("complete modifier", "idempotent")
 	ASSERT_PARSER_VALUES_EQ(com6, com6 % complete);
 	ASSERT_PARSER_VALUES_EQ(com7, com7 % complete);
 }
+
+TEST("complete modifier", "non consteval")
+{
+	(complete(any1)).parse(L"abc");
+	(any1 % complete).parse(L"abc");
+}

@@ -99,11 +99,11 @@ consteval auto powterm::get_parser()
 {
 	constexpr auto bracketed = "("_ign >> ws >> expr{} >> ws >> ")"_ign;
 	constexpr auto negated = "-"_ign >> ws >> expr{};
-	return into_choice<result_type>
-		(
-			bracketed % into<result_type::bracketed_expr>,
-			negated % into<result_type::negated_expr>,
-			number{}
+	return into<result_type>
+	(
+		bracketed % into<result_type::bracketed_expr> |
+		negated % into<result_type::negated_expr> |
+		number{}
 	);
 }
 

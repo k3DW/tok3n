@@ -9,7 +9,7 @@ requires (N != 0)
 struct exactly final : ModifierBase
 {
 	template <Parser P>
-	consteval auto operator()(P) const
+	constexpr auto operator()(P) const
 	{
 		return Exactly<P, Index<N>>{};
 	}

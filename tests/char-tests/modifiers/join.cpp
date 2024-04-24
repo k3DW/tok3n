@@ -36,3 +36,9 @@ TEST("join modifier", "idempotent")
 	ASSERT_PARSER_VALUES_EQ(joi4, joi4 % join);
 	ASSERT_PARSER_VALUES_EQ(joi5, joi5 % join);
 }
+
+TEST("join modifier", "non consteval")
+{
+	(join(any1)).parse("abc");
+	(any1 % join).parse("abc");
+}

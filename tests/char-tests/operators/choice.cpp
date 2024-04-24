@@ -92,6 +92,11 @@ TEST("choice operator", "void result_type")
 	ASSERT_PARSER_VALUES_NE(ign2 | ign1, cho5);
 }
 
+TEST("choice operator", "non consteval")
+{
+	(any1 | any2).parse("abc");
+}
+
 
 
 namespace {

@@ -16,3 +16,10 @@ TEST("apply modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(apt2, (+abc >> ~(abc | qq)) % apply<func4_apply(3)>);
 	ASSERT_PARSER_VALUES_NE(apt2, (+abc >> ~(abc | qq)) % apply<func4_apply(2)>);
 }
+
+TEST("apply modifier", "non consteval")
+{
+	constexpr auto sink = [](auto&&...) {};
+	(apply<sink>(any1 >> any2)).parse(L"abc");
+	((any1 >> any2) % apply<sink>).parse(L"abc");
+}

@@ -18,3 +18,9 @@ TEST("constant modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(con3, (abc >> *qq) % constant<true>);
 	ASSERT_PARSER_VALUES_EQ(con4, (+abc >> ~(abc | qq)) % constant<nullptr>);
 }
+
+TEST("constant modifier", "non consteval")
+{
+	(constant<0>(any1)).parse(L"abc");
+	(any1 % constant<0>).parse(L"abc");
+}

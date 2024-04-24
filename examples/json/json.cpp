@@ -85,14 +85,14 @@ consteval auto JsonArray::get_parser()
 
 consteval auto JsonValue::get_parser()
 {
-    constexpr auto value_parser = into_choice<result_type>
+    constexpr auto value_parser = into<result_type>
     (
-        string,
-        number,
-        JsonObject{},
-        JsonArray{},
-        "true"_all  % constant<true>,
-        "false"_all % constant<false>,
+        string |
+        number |
+        JsonObject{} |
+        JsonArray{} |
+        "true"_all  % constant<true> |
+        "false"_all % constant<false> |
         "null"_all  % constant<nullptr>
     );
 

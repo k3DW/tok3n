@@ -65,6 +65,11 @@ TEST("sequence operator", "void result_type")
 	ASSERT_PARSER_VALUES_NE(ign2 >> ign1, seq5);
 }
 
+TEST("sequence operator", "non consteval")
+{
+	(any1 >> any2).parse(L"abc");
+}
+
 
 
 namespace {

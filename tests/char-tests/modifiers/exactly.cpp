@@ -18,3 +18,9 @@ TEST("exactly modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(exa3, (all1 | any1) % exactly<4>);
 	ASSERT_PARSER_VALUES_EQ(exa4, (all1 >> any1) % exactly<2>);
 }
+
+TEST("exactly modifier", "non consteval")
+{
+	(exactly<2>(any1)).parse("abc");
+	(any1 % exactly<2>).parse("abc");
+}

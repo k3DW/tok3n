@@ -7,7 +7,7 @@ namespace k3::tok3n::modifiers {
 struct complete final : ModifierBase
 {
 	template <Parser P>
-	consteval auto operator()(P) const
+	constexpr auto operator()(P) const
 	{
 		if constexpr (P::family == CompleteFamily)
 			return P{};

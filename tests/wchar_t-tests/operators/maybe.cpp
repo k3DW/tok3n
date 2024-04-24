@@ -50,3 +50,8 @@ TEST("maybe operator", "~ZeroOrMore")
 	ASSERT_PARSER_VALUES_EQ(~~zom4, zom4);
 	ASSERT_PARSER_VALUES_EQ(~~~zom4, zom4);
 }
+
+TEST("maybe operator", "non consteval")
+{
+	(~any1).parse(L"abc");
+}

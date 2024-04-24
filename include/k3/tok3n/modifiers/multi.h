@@ -10,7 +10,7 @@ struct multi final : ModifierBase
 {
 	template <Parser P>
 	requires requires { { (P{} % ... % Ms{}) } -> Parser; }
-	consteval auto operator()(P) const
+	constexpr auto operator()(P) const
 	{
 		return (P{} % ... % Ms{});
 	}

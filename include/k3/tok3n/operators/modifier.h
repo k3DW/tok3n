@@ -14,35 +14,34 @@ template <std::size_t N> inline constexpr auto exactly      = modifiers::exactly
 template <auto function> inline constexpr auto fn           = modifiers::fn<function>{};
                          inline constexpr auto ignore       = modifiers::ignore{};
 template <class T>       inline constexpr auto into         = modifiers::into<T>{};
-template <class T>       inline constexpr auto into_choice  = modifiers::into_choice<T>{};
                          inline constexpr auto join         = modifiers::join{};
 
-consteval auto operator%(Parser auto p, Modifier auto modifier)
+constexpr auto operator%(Parser auto p, Modifier auto modifier)
 requires requires { modifier(p); }
 {
 	return modifier(p);
 }
 
 template <Modifier LHS, Modifier RHS>
-consteval auto operator%(LHS, RHS)
+constexpr auto operator%(LHS, RHS)
 {
 	return modifiers::multi<LHS, RHS>{};
 }
 
 template <Modifier... LHS, Modifier RHS>
-consteval auto operator%(modifiers::multi<LHS...>, RHS)
+constexpr auto operator%(modifiers::multi<LHS...>, RHS)
 {
 	return modifiers::multi<LHS..., RHS>{};
 }
 
 template <Modifier LHS, Modifier... RHS>
-consteval auto operator%(LHS, modifiers::multi<RHS...>)
+constexpr auto operator%(LHS, modifiers::multi<RHS...>)
 {
 	return modifiers::multi<LHS, RHS...>{};
 }
 
 template <Modifier... LHS, Modifier... RHS>
-consteval auto operator%(modifiers::multi<LHS...>, modifiers::multi<RHS...>)
+constexpr auto operator%(modifiers::multi<LHS...>, modifiers::multi<RHS...>)
 {
 	return modifiers::multi<LHS..., RHS...>{};
 }
@@ -62,7 +61,6 @@ using ::k3::tok3n::exactly;
 using ::k3::tok3n::fn;
 using ::k3::tok3n::ignore;
 using ::k3::tok3n::into;
-using ::k3::tok3n::into_choice;
 using ::k3::tok3n::join;
 using ::k3::tok3n::operator%;
 
