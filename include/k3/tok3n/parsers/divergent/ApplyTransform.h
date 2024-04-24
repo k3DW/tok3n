@@ -24,10 +24,16 @@ struct ApplyTransform
 		using V = typename decltype(input)::value_type;
 
 		auto result = P::parse(input);
-		if (result.has_value())
-			return Result<result_for<V>, V>{ success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
-		else
+		if (not result.has_value())
 			return Result<result_for<V>, V>{ failure, input };
+			
+		if constexpr (std::same_as<result_for<V>, void>)
+		{
+			std::apply(FunctionValue::value, std::move(*result));
+			return Result<result_for<V>, V>{ success, result.remaining() };
+		}
+		else
+			return Result<result_for<V>, V>{ success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
 	}
 
 	template <InputConstructibleFor<value_type> R>
