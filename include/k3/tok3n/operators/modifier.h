@@ -14,7 +14,6 @@ template <std::size_t N> inline constexpr auto exactly      = modifiers::exactly
 template <auto function> inline constexpr auto fn           = modifiers::fn<function>{};
                          inline constexpr auto ignore       = modifiers::ignore{};
 template <class T>       inline constexpr auto into         = modifiers::into<T>{};
-template <class T>       inline constexpr auto into_choice  = modifiers::into_choice<T>{};
                          inline constexpr auto join         = modifiers::join{};
 
 constexpr auto operator%(Parser auto p, Modifier auto modifier)
@@ -62,7 +61,6 @@ using ::k3::tok3n::exactly;
 using ::k3::tok3n::fn;
 using ::k3::tok3n::ignore;
 using ::k3::tok3n::into;
-using ::k3::tok3n::into_choice;
 using ::k3::tok3n::join;
 using ::k3::tok3n::operator%;
 
