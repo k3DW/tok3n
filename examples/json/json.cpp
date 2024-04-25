@@ -21,11 +21,11 @@ constexpr auto number = []
 	constexpr auto digit = "0123456789"_any;
 
 	constexpr auto natural_number = "0"_all | join("123456789"_any >> *digit);
-	constexpr auto integer = (~"-"_all >> natural_number) % join;
+	constexpr auto integer = (("-"_all | eps) >> natural_number) % join;
 
 	constexpr auto fraction = ("."_ign >> +digit) % join;
 
-	constexpr auto exponent = (ignore("Ee"_any) >> ~"-+"_any >> +digit) % join;
+	constexpr auto exponent = (ignore("Ee"_any) >> ("-+"_any | eps) >> +digit) % join;
 
 	return (integer >> ~fraction >> ~exponent) % apply_into<number_type>;
 }();
@@ -72,14 +72,14 @@ consteval auto JsonObject::get_parser()
 {
     constexpr auto pair = (whitespace >> string >> whitespace >> ":"_ign >> JsonValue{}) % apply_into<result_type::value_type>;
     constexpr auto object = pair % delimit(","_all);
-    constexpr auto the_parser = "{"_ign >> (object | (whitespace % defaulted<result_type>)) >> "}"_ign;
+    constexpr auto the_parser = "{"_ign >> (object | whitespace) >> "}"_ign;
     return the_parser;
 }
 
 consteval auto JsonArray::get_parser()
 {
     constexpr auto values = JsonValue{} % delimit(","_all);
-    constexpr auto the_parser = "["_ign >> (values | (whitespace % defaulted<result_type>)) >> "]"_ign;
+    constexpr auto the_parser = "["_ign >> (values | whitespace) >> "]"_ign;
     return the_parser;
 }
 

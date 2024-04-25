@@ -30,7 +30,11 @@ namespace detail::executors
 		// where we check if the next string_view is adjacent in memory to the last one.
 		constexpr bool try_join(Output<ValueType> output)
 		{
-			if (!joined)
+			if (output.empty())
+			{
+				return true;
+			}
+			else if (!joined)
 			{
 				joined = output;
 				return true;
