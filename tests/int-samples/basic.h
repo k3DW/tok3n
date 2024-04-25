@@ -15,6 +15,9 @@ using All1 = AllOf<StaticArray(E::X, E::Y, E::Z)>; constexpr All1 all1;
 using All2 = AllOf<StaticArray(E::Y, E::Z)>;       constexpr All2 all2;
 using All3 = AllOf<StaticArray(E::A, E::B)>;       constexpr All3 all3;
 
+using Eps1 = Epsilon<int>;  constexpr Eps1 eps1;
+using Ant1 = Anything<int>; constexpr Ant1 ant1;
+
 using QQ       = AllOf<StaticArray(E::Question, E::Question)>; constexpr QQ       qq;
 using ABC      = AllOf<StaticArray(E::A, E::B, E::C)>;         constexpr ABC      abc;
 using Comma    = AnyOf<StaticArray(E::Com)>;                   constexpr Comma    comma;
@@ -24,4 +27,5 @@ using SpaceDot = AnyOf<StaticArray(E::Space, E::Dot)>;         constexpr SpaceDo
 	(Any1) (Any2) (Any3) (Any4)        \
 	(Non1) (Non2) (Non3) (Non4) (Non5) \
 	(All1) (All2) (All3)               \
+	(Eps1) (Ant1)                      \
 	(QQ) (ABC) (Comma) (SpaceDot)
