@@ -23,4 +23,10 @@ struct NoneOf;
 template <StaticArray arr>
 struct AllOf;
 
+template <class ValueType>
+struct Anything;
+
+template <class ValueType>
+struct Epsilon;
+
 } // namespace k3::tok3n
