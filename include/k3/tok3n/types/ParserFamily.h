@@ -9,6 +9,8 @@ enum class ParserFamily
 	AnyOf,
 	NoneOf,
 	AllOf,
+	Anything,
+	Epsilon,
 	Choice,
 	Sequence,
 	Maybe,
@@ -33,6 +35,8 @@ enum class ParserFamily
 inline constexpr ParserFamily AnyOfFamily          = ParserFamily::AnyOf;
 inline constexpr ParserFamily NoneOfFamily         = ParserFamily::NoneOf;
 inline constexpr ParserFamily AllOfFamily          = ParserFamily::AllOf;
+inline constexpr ParserFamily AnythingFamily       = ParserFamily::Anything;
+inline constexpr ParserFamily EpsilonFamily        = ParserFamily::Epsilon;
 inline constexpr ParserFamily ChoiceFamily         = ParserFamily::Choice;
 inline constexpr ParserFamily SequenceFamily       = ParserFamily::Sequence;
 inline constexpr ParserFamily MaybeFamily          = ParserFamily::Maybe;

@@ -16,6 +16,9 @@ using All2 = AllOf<L"ly">;      constexpr All2 all2;
 using All3 = AllOf<L"test">;    constexpr All3 all3;
 using All4 = AllOf<L"ab">;      constexpr All4 all4;
 
+using Eps1 = Epsilon<wchar_t>;  constexpr Eps1 eps1;
+using Ant1 = Anything<wchar_t>; constexpr Ant1 ant1;
+
 using QQ       = AllOf<L"??">;  constexpr QQ       qq;
 using ABC      = AllOf<L"abc">; constexpr ABC      abc;
 using Comma    = AnyOf<L",">;   constexpr Comma    comma;
@@ -25,4 +28,5 @@ using SpaceDot = AnyOf<L" .">;  constexpr SpaceDot spacedot;
 	(Any1) (Any2) (Any3) (Any4)        \
 	(Non1) (Non2) (Non3) (Non4) (Non5) \
 	(All1) (All2) (All3) (All4)        \
+	(Eps1) (Ant1)                      \
 	(QQ) (ABC) (Comma) (SpaceDot)

@@ -25,6 +25,6 @@ TEST("AllOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, e());
 
-	ASSERT_PARSE_SUCCESS(decltype(eps<int>), e(A, B, C), e(), e(A, B, C));
-	ASSERT_PARSE_SUCCESS(decltype(eps<int>), e(), e(), e());
+	ASSERT_PARSE_SUCCESS(AllOf<(StaticArray<int, 0>{})>, e(A, B, C), e(), e(A, B, C));
+	ASSERT_PARSE_SUCCESS(AllOf<(StaticArray<int, 0>{})>, e(), e(), e());
 }

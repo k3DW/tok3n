@@ -331,3 +331,28 @@ TEST("Join", "Join<Transform>")
 	}
 }
 
+TEST("Join", "Join<Sequence<Choice<non-eps,eps>, anything>>")
+{
+	auto seq = (L"+-"_any | eps) >> L"abc"_all;
+	using Seq = decltype(seq);
+	ASSERT_IS_PARSER(Seq, char, SequenceFamily, std::tuple<Output<char>,Output<char>>);
+	ASSERT_IS_PARSER(Seq, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>,Output<wchar_t>>);
+	ASSERT_IS_PARSER(Seq, int, SequenceFamily, std::tuple<Output<int>,Output<int>>);
+
+	using P = Join<Seq>;
+
+	ASSERT_PARSE_SUCCESS(P, "+abcd", "+abc", "d");
+	ASSERT_PARSE_SUCCESS(P, "-abcd", "-abc", "d");
+	ASSERT_PARSE_SUCCESS(P, "abcd", "abc", "d");
+	ASSERT_PARSE_FAILURE(P, " abcd");
+	
+	ASSERT_PARSE_SUCCESS(P, L"+abcd", L"+abc", L"d");
+	ASSERT_PARSE_SUCCESS(P, L"-abcd", L"-abc", L"d");
+	ASSERT_PARSE_SUCCESS(P, L"abcd", L"abc", L"d");
+	ASSERT_PARSE_FAILURE(P, L" abcd");
+	
+	ASSERT_PARSE_SUCCESS(P, e<int>("+abcd"), e<int>("+abc"), e<int>("d"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("-abcd"), e<int>("-abc"), e<int>("d"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), e<int>("abc"), e<int>("d"));
+	ASSERT_PARSE_FAILURE(P, e<int>(" abcd"));
+}

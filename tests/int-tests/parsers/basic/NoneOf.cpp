@@ -53,6 +53,6 @@ TEST("NoneOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, L"");
 
-	ASSERT_PARSE_SUCCESS(decltype(anything<int>), e(A, B, C), e(A), e(B, C));
-	ASSERT_PARSE_FAILURE(decltype(anything<int>), e());
+	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<int, 0>{})>, e(A, B, C), e(A), e(B, C));
+	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<int, 0>{})>, e());
 }

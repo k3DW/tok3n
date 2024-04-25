@@ -32,17 +32,6 @@ constexpr auto ign = Ignore<AllOf<arr>>{};
 
 
 
-template <class T>
-constexpr auto anything = NoneOf<StaticArray<T, 0>{}>{};
-
-template <class T>
-constexpr auto nothing = AnyOf<StaticArray<T, 0>{}>{};
-
-template <class T>
-constexpr auto eps = AllOf<StaticArray<T, 0>{}>{};
-
-
-
 template <StaticArray arr>
 consteval auto operator"" _any()
 {
