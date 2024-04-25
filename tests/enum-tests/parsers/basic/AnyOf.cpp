@@ -53,6 +53,6 @@ TEST("AnyOf", "Parse")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, L"");
 	
-	ASSERT_PARSE_FAILURE(decltype(nothing<E>), e(A, B, C));
-	ASSERT_PARSE_FAILURE(decltype(nothing<E>), e());
+	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<E, 0>{})>, e(A, B, C));
+	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<E, 0>{})>, e());
 }

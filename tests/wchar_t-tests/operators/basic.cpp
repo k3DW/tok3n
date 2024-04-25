@@ -12,7 +12,6 @@ TEST("basic operators", "UDL _any")
 	ASSERT_PARSER_VALUES_EQ(L","_any, comma);
 	ASSERT_PARSER_VALUES_EQ(L" ."_any, spacedot);
 	ASSERT_PARSER_VALUES_EQ(L""_any, AnyOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_any, nothing<wchar_t>);
 }
 
 TEST("basic operators", "UDL _any_of")
@@ -24,7 +23,6 @@ TEST("basic operators", "UDL _any_of")
 	ASSERT_PARSER_VALUES_EQ(L","_any_of, comma);
 	ASSERT_PARSER_VALUES_EQ(L" ."_any_of, spacedot);
 	ASSERT_PARSER_VALUES_EQ(L""_any_of, AnyOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_any_of, nothing<wchar_t>);
 }
 
 TEST("basic operators", "any<>")
@@ -36,7 +34,6 @@ TEST("basic operators", "any<>")
 	ASSERT_PARSER_VALUES_EQ(any<L",">, comma);
 	ASSERT_PARSER_VALUES_EQ(any<L" .">, spacedot);
 	ASSERT_PARSER_VALUES_EQ(any<L"">, AnyOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(any<L"">, nothing<wchar_t>);
 }
 
 TEST("basic operators", "any_of<>")
@@ -57,7 +54,6 @@ TEST("basic operators", "UDL _none")
 	ASSERT_PARSER_VALUES_EQ(L"cd"_none, none4);
 	ASSERT_PARSER_VALUES_EQ(L"z"_none, none5);
 	ASSERT_PARSER_VALUES_EQ(L""_none, NoneOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_none, anything<wchar_t>);
 }
 
 TEST("basic operators", "UDL _none_of")
@@ -68,7 +64,6 @@ TEST("basic operators", "UDL _none_of")
 	ASSERT_PARSER_VALUES_EQ(L"cd"_none_of, none4);
 	ASSERT_PARSER_VALUES_EQ(L"z"_none_of, none5);
 	ASSERT_PARSER_VALUES_EQ(L""_none_of, NoneOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_none_of, anything<wchar_t>);
 }
 
 TEST("basic operators", "none<>")
@@ -79,7 +74,6 @@ TEST("basic operators", "none<>")
 	ASSERT_PARSER_VALUES_EQ(none<L"cd">, none4);
 	ASSERT_PARSER_VALUES_EQ(none<L"z">, none5);
 	ASSERT_PARSER_VALUES_EQ(none<L"">, NoneOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(none<L"">, anything<wchar_t>);
 }
 
 TEST("basic operators", "none_of<>")
@@ -100,7 +94,6 @@ TEST("basic operators", "UDL _all")
 	ASSERT_PARSER_VALUES_EQ(L"??"_all, qq);
 	ASSERT_PARSER_VALUES_EQ(L"abc"_all, abc);
 	ASSERT_PARSER_VALUES_EQ(L""_all, AllOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_all, eps<wchar_t>);
 }
 
 TEST("basic operators", "UDL _all_of")
@@ -112,7 +105,6 @@ TEST("basic operators", "UDL _all_of")
 	ASSERT_PARSER_VALUES_EQ(L"??"_all_of, qq);
 	ASSERT_PARSER_VALUES_EQ(L"abc"_all_of, abc);
 	ASSERT_PARSER_VALUES_EQ(L""_all_of, AllOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_all_of, eps<wchar_t>);
 }
 
 TEST("basic operators", "all<>")
@@ -124,7 +116,6 @@ TEST("basic operators", "all<>")
 	ASSERT_PARSER_VALUES_EQ(all<L"??">, qq);
 	ASSERT_PARSER_VALUES_EQ(all<L"abc">, abc);
 	ASSERT_PARSER_VALUES_EQ(all<L"">, AllOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(all<L"">, eps<wchar_t>);
 }
 
 TEST("basic operators", "all_of<>")
@@ -146,7 +137,6 @@ TEST("basic operators", "UDL _ign")
 	ASSERT_PARSER_VALUES_EQ(L"??"_ign, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(L"abc"_ign, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(L""_ign, Ignore<AllOf<L"">>{});
-	ASSERT_PARSER_VALUES_EQ(L""_ign, Ignore<std::remove_const_t<decltype(eps<wchar_t>)>>{});
 }
 
 TEST("basic operators", "ign<>")
@@ -158,7 +148,6 @@ TEST("basic operators", "ign<>")
 	ASSERT_PARSER_VALUES_EQ(ign<L"??">, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<L"abc">, Ignore<ABC>{});
 	ASSERT_PARSER_VALUES_EQ(ign<L"">, Ignore<AllOf<L"">>{});
-	ASSERT_PARSER_VALUES_EQ(ign<L"">, Ignore<std::remove_const_t<decltype(eps<wchar_t>)>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")
@@ -179,8 +168,6 @@ TEST("basic operators", "Non sorted_and_uniqued")
 	ASSERT_PARSER_VALUES_EQ(L"A"_none, NoneOf<L"A">{});
 	ASSERT_PARSER_VALUES_EQ(L""_any, AnyOf<L"">{});
 	ASSERT_PARSER_VALUES_EQ(L""_none, NoneOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_any, nothing<wchar_t>);
-	ASSERT_PARSER_VALUES_EQ(L""_none, anything<wchar_t>);
 
 	ASSERT_PARSER_VALUES_EQ(L"212312323321212311"_any_of, AnyOf<L"123">{});
 	ASSERT_PARSER_VALUES_EQ(L"212312323321212311"_none_of, NoneOf<L"123">{});
@@ -198,6 +185,4 @@ TEST("basic operators", "Non sorted_and_uniqued")
 	ASSERT_PARSER_VALUES_EQ(L"A"_none_of, NoneOf<L"A">{});
 	ASSERT_PARSER_VALUES_EQ(L""_any_of, AnyOf<L"">{});
 	ASSERT_PARSER_VALUES_EQ(L""_none_of, NoneOf<L"">{});
-	ASSERT_PARSER_VALUES_EQ(L""_any_of, nothing<wchar_t>);
-	ASSERT_PARSER_VALUES_EQ(L""_none_of, anything<wchar_t>);
 }
