@@ -2,6 +2,7 @@
 
 #include <k3/tok3n/operators/basic.h>
 #include <k3/tok3n/operators/choice.h>
+#include <k3/tok3n/operators/epsilon.h>
 #include <k3/tok3n/operators/maybe.h>
 #include <k3/tok3n/operators/modifier.h>
 #include <k3/tok3n/operators/not.h>
