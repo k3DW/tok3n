@@ -16,10 +16,15 @@ template <class T, CharType U, std::size_t N>
 requires std::convertible_to<T, U>
 consteval auto e(const U(&us)[N])
 {
-    std::array<T, N - 1> arr;
-    for (std::size_t i = 0; i != N - 1; ++i)
-        arr[i] = us[i];
-    return arr;
+    if constexpr (N - 1 == 0)
+        return std::array<T, 0>{};
+    else
+    {
+        std::array<T, N - 1> arr;
+        for (std::size_t i = 0; i != N - 1; ++i)
+            arr[i] = us[i];
+        return arr;
+    }
 }
 
 #include "wchar_t-samples/adaptor.h"
