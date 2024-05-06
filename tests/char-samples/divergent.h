@@ -64,6 +64,17 @@ struct Cus1 : Custom<Cus1>
 };
 constexpr Cus1 cus1;
 
+struct Cus2 : Custom<Cus2>
+{
+	using result_type = std::size_t;
+
+	static consteval auto get_parser()
+	{
+		return _12{} % constant<(int)0>;
+	}
+};
+constexpr Cus2 cus2;
+
 #define DIVERGENT_SAMPLES              \
 	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
 	(Tra1) (Tra2) (Tra3) (Tra4)        \
@@ -72,4 +83,4 @@ constexpr Cus1 cus1;
 	(Api1) (Api2)                      \
 	(Con1) (Con2) (Con3) (Con4)        \
 	(Def1) (Def2)                      \
-	(Cus1)
+	(Cus1) (Cus2)
