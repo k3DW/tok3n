@@ -6,15 +6,19 @@ FIXTURE("Custom");
 TEST("Custom", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Cus1, char);
+	ASSERT_PARSER_VALUE_TYPE(Cus2, char);
 
 	ASSERT_IS_PARSER(Cus1, char, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus2, char, CustomFamily, std::size_t);
 
 	ASSERT_IS_PARSER(Cus1, wchar_t, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus2, wchar_t, CustomFamily, std::size_t);
 
 	ASSERT_IS_PARSER(Cus1, int, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus2, int, CustomFamily, std::size_t);
 }
 
-TEST("Custom", "Parse all")
+TEST("Custom", "Parse Cus1")
 {
 	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc??", 36, "");
 	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc", 12, "");
@@ -36,4 +40,25 @@ TEST("Custom", "Parse all")
 	ASSERT_PARSE_SUCCESS(Cus1, e<int>("abc"), 3, e<int>(""));
 	ASSERT_PARSE_FAILURE(Cus1, e<int>(" abc"));
 	ASSERT_PARSE_FAILURE(Cus1, e<int>(""));
+}
+
+TEST("Custom", "Parse Cus2")
+{
+	ASSERT_PARSE_SUCCESS(Cus2, "abc", (std::size_t)0, "bc");
+	ASSERT_PARSE_SUCCESS(Cus2, "bca", (std::size_t)0, "ca");
+	ASSERT_PARSE_SUCCESS(Cus2, "cab", (std::size_t)0, "ab");
+	ASSERT_PARSE_FAILURE(Cus2, "xyz");
+	ASSERT_PARSE_FAILURE(Cus2, "");
+
+	ASSERT_PARSE_SUCCESS(Cus2, L"abc", (std::size_t)0, L"bc");
+	ASSERT_PARSE_SUCCESS(Cus2, L"bca", (std::size_t)0, L"ca");
+	ASSERT_PARSE_SUCCESS(Cus2, L"cab", (std::size_t)0, L"ab");
+	ASSERT_PARSE_FAILURE(Cus2, L"xyz");
+	ASSERT_PARSE_FAILURE(Cus2, L"");
+
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("abc"), (std::size_t)0, e<int>("bc"));
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("bca"), (std::size_t)0, e<int>("ca"));
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("cab"), (std::size_t)0, e<int>("ab"));
+	ASSERT_PARSE_FAILURE(Cus2, e<int>("xyz"));
+	ASSERT_PARSE_FAILURE(Cus2, e<int>(""));
 }
