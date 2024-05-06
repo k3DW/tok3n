@@ -40,7 +40,18 @@ struct Custom
 
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
 		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
-		return decltype(P::get_parser())::parse(input);
+
+		using ActualType = typename decltype(P::get_parser())::template result_for<V>;
+		using ExpectedType = typename P::template result_for<V>;
+		if constexpr (std::same_as<ExpectedType, ActualType>)
+		{
+			return decltype(P::get_parser())::parse(input);
+		}
+		else
+		{
+			static_assert(std::constructible_from<ExpectedType, ActualType&&>);
+			return Result<ExpectedType, V>{ decltype(P::get_parser())::parse(input) };
+		}
 	}
 
 	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP>

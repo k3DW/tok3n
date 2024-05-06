@@ -21,6 +21,14 @@ public:
 	constexpr Result(SuccessTag, T&& t, Input<U> remaining) requires std::constructible_from<T, T&&>
 		: _result(std::move(t)), _remaining(remaining) {}
 
+	template <class T2>
+	constexpr Result(const Result<T2, U>& other)
+		: _result(other._result), _remaining(other._remaining) {}
+
+	template <class T2>
+	constexpr Result(Result<T2, U>&& other)
+		: _result(std::move(other)._result), _remaining(other._remaining) {}
+
 	constexpr explicit operator bool() const noexcept { return _result.operator bool(); }
 	constexpr bool has_value() const noexcept         { return _result.has_value(); }
 
@@ -39,6 +47,10 @@ public:
 private:
 	std::optional<T> _result;
 	Input<U> _remaining;
+
+	template <class T2, class U2>
+	requires (not std::is_reference_v<T2>)
+	friend class Result;
 };
 
 template <class U>
