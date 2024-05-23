@@ -6,6 +6,8 @@ namespace k3::tok3n::modifiers {
 
 struct ignore final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::ignore;
+
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{

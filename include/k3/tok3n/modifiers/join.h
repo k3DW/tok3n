@@ -6,6 +6,8 @@ namespace k3::tok3n::modifiers {
 
 struct join final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::join;
+
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
