@@ -6,6 +6,8 @@ namespace k3::tok3n::modifiers {
 
 struct delimit_keep final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::delimit_keep;
+
 	template <Parser P, ParserCompatibleWith<P> D>
 	constexpr auto operator()(P, D) const
 	{
@@ -15,6 +17,8 @@ struct delimit_keep final : ModifierBase
 	template <Parser D>
 	struct inner final : ModifierBase
 	{
+		static constexpr auto family = ModifierFamily::delimit_keep;
+
 		template <ParserCompatibleWith<D> P>
 		constexpr auto operator()(P) const
 		{

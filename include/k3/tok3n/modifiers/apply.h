@@ -7,6 +7,8 @@ namespace k3::tok3n::modifiers {
 template <auto function>
 struct apply final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::apply;
+
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{

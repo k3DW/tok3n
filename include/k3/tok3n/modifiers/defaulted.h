@@ -8,6 +8,8 @@ template <class T>
 requires std::is_default_constructible_v<T>
 struct defaulted final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::defaulted;
+
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{

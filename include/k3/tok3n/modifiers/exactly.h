@@ -8,6 +8,8 @@ template <std::size_t N>
 requires (N != 0)
 struct exactly final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::exactly;
+
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{

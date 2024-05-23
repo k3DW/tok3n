@@ -8,6 +8,8 @@ namespace k3::tok3n::modifiers {
 template <Modifier... Ms>
 struct multi final : ModifierBase
 {
+	static constexpr auto family = ModifierFamily::multi;
+
 	template <Parser P>
 	requires requires { { (P{} % ... % Ms{}) } -> Parser; }
 	constexpr auto operator()(P) const
