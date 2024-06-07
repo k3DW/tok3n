@@ -6,10 +6,10 @@
 class StringBuilder
 {
 public:
-	constexpr StringBuilder() = default;
+	StringBuilder() = default;
 
 	template <class... Ts>
-	constexpr void append(Ts&&... ts)
+	void append(Ts&&... ts)
 	{
 		(append_impl(std::forward<Ts>(ts)), ...);
 	}
@@ -34,7 +34,7 @@ public:
 
 private:
 	template <class T>
-	constexpr void append_impl(T&& t)
+	void append_impl(T&& t)
 	{
 		if constexpr (std::integral<std::remove_cvref_t<T>>)
 			pieces.emplace_back(std::to_string(t));
