@@ -41,10 +41,10 @@ struct SetOperation
 	{
 		using enum SetOperationType;
 
-		auto do_if = [&]<class T>(T&& t, bool cond)
+		auto do_if = [&]<class U>(U&& u, bool cond)
 		{
 			if (cond)
-				*it++ = std::forward<T>(t);
+				*it++ = std::forward<U>(u);
 		};
 
 		auto lhs_it = lhs.begin();
