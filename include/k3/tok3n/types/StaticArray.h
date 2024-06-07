@@ -61,7 +61,7 @@ struct StaticArray
 	using value_type = T;
 
 	template <std::size_t M>
-	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
+	static constexpr auto create_empty_with_size() { return StaticArray<T, M>{}; }
 };
 
 template <class T, class... Ts>
@@ -121,7 +121,7 @@ namespace detail {
 				return std::make_pair(std::move(copy), new_size);
 			}();
 
-			auto out = str.create_empty_with_size<pair.second>;
+			auto out = str.template create_empty_with_size<pair.second>();
 			std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
 			return out;
 		}

@@ -170,7 +170,7 @@ constexpr auto set_operation_general()
 		return count;
 	}();
 
-	auto str = lhs.create_empty_with_size<length>;
+	auto str = lhs.template create_empty_with_size<length>();
 	set_operation_impl<lhs, rhs, type>([it = str.begin()](auto val) mutable { *it++ = val; });
 	return str;
 }

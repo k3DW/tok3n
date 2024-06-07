@@ -78,7 +78,7 @@ template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
 constexpr auto combine_strings = []
 {
-	auto str = lhs.create_empty_with_size<lhs.size() + rhs.size()>;
+	auto str = lhs.template create_empty_with_size<lhs.size() + rhs.size()>();
 	auto it = str.begin();
 	for (auto c : lhs)
 		*it++ = c;

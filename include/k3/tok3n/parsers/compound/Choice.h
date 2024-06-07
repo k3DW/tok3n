@@ -44,7 +44,7 @@ namespace detail
 			if constexpr (not std::same_as<void, ResultType>)
 			{
 				if constexpr (not unwrapped)
-					this->full_result.emplace<I>(std::move(*result));
+					this->full_result.template emplace<I>(std::move(*result));
 				else if constexpr (std::is_move_assignable_v<ResultType>)
 					this->full_result = std::move(*result);
 				else
@@ -86,7 +86,7 @@ struct Choice
 
 		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
 		{
-			return (... || executor.execute<Ps, Is, _trait<V>::unwrapped>());
+			return (... || executor.template execute<Ps, Is, _trait<V>::unwrapped>());
 		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
@@ -107,7 +107,7 @@ struct Choice
 		using Executor = detail::ChoiceExecutor<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... || executor.execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
+		bool successful = (... || executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
 
 		if (successful)
 			return Result<void, V>{ success, executor.input };
