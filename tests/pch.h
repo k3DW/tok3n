@@ -1,6 +1,7 @@
 #pragma once
 
 #include <map>
+#include <memory>
 #include <numeric>
 #include <string>
 #include <string_view>
