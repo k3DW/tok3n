@@ -1,5 +1,4 @@
 #pragma once
-#include <format>
 #include <string>
 #include <string_view>
 #include <vector>
@@ -9,16 +8,10 @@ class StringBuilder
 public:
 	constexpr StringBuilder() = default;
 
-	template <class T>
-	constexpr void append(T&& t)
+	template <class... Ts>
+	constexpr void append(Ts&&... ts)
 	{
-		pieces.emplace_back(std::forward<T>(t));
-	}
-
-	template <class... Args>
-	constexpr void format(const std::format_string<Args...> fmt, Args&&... args)
-	{
-		pieces.emplace_back(std::format(fmt, std::forward<Args>(args)...));
+		(append_impl(std::forward<Ts>(ts)), ...);
 	}
 
 	std::string build() &&
@@ -40,5 +33,14 @@ public:
 	}
 
 private:
+	template <class T>
+	constexpr void append_impl(T&& t)
+	{
+		if constexpr (std::integral<std::remove_cvref_t<T>>)
+			pieces.emplace_back(std::to_string(t));
+		else
+			pieces.emplace_back(std::forward<T>(t));
+	}
+
 	std::vector<std::string> pieces;
 };

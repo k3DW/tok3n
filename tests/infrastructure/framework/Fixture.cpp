@@ -15,13 +15,15 @@ void Fixture::run()
 
 std::string Fixture::print_brief() const
 {
-	return std::format("Fixture \"{}\" - {} tests / {} failures.\n", _name, _tests.size(), count_failures());
+	StringBuilder builder;
+	builder.append("Fixture \"", _name, "\" - ", _tests.size(), " tests / ", count_failures(), " failures.\n");
+	return std::move(builder).build();
 }
 
 std::string Fixture::print_failures() const
 {
 	StringBuilder builder;
-	builder.format("Fixture \"{}\" - {} tests\n", _name, _tests.size());
+	builder.append("Fixture \"", _name, "\" - ", _tests.size(), " tests\n");
 	
 	std::vector<Test*> failed;
 	

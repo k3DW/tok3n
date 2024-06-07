@@ -1,6 +1,5 @@
 #pragma once
 
-#include <format>
 #include <map>
 #include <numeric>
 #include <string>
