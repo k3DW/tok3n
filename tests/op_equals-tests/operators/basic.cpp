@@ -76,6 +76,16 @@ TEST("basic operators", "ign<>")
 
 TEST("basic operators", "Non sorted_and_uniqued")
 {
+#if defined(__GNUC__) || defined(__clang__)
+	ASSERT_PARSER_VALUES_EQ(any<StaticArray(B, A, C, A, C, B, A, A, B, C, C, A)>, AnyOf<StaticArray(A, C)>{});
+	ASSERT_PARSER_VALUES_EQ(none<StaticArray(B, A, C, A, C, B, A, A, B, C, C, A)>, NoneOf<StaticArray(A, C)>{});
+	ASSERT_PARSER_VALUES_EQ(any<StaticArray(X, Y, Z, A, B, C)>, AnyOf<StaticArray(B, C, X, Y, Z)>{});
+	ASSERT_PARSER_VALUES_EQ(none<StaticArray(X, Y, Z, A, B, C)>, NoneOf<StaticArray(B, C, X, Y, Z)>{});
+	ASSERT_PARSER_VALUES_EQ(any<StaticArray(A, B, C, X, Y, Z)>, AnyOf<StaticArray(B, C, X, Y, Z)>{});
+	ASSERT_PARSER_VALUES_EQ(none<StaticArray(A, B, C, X, Y, Z)>, NoneOf<StaticArray(B, C, X, Y, Z)>{});
+	ASSERT_PARSER_VALUES_EQ(any<StaticArray(A, X, B, Y, C, Z)>, AnyOf<StaticArray(B, C, X, Y, Z)>{});
+	ASSERT_PARSER_VALUES_EQ(none<StaticArray(A, X, B, Y, C, Z)>, NoneOf<StaticArray(B, C, X, Y, Z)>{});
+#elif defined(_MSC_VER)
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(B, A, C, A, C, B, A, A, B, C, C, A)>, AnyOf<StaticArray(B, C)>{});
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(B, A, C, A, C, B, A, A, B, C, C, A)>, NoneOf<StaticArray(B, C)>{});
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(X, Y, Z, A, B, C)>, AnyOf<StaticArray(A, C, X, Y, Z)>{});
@@ -84,4 +94,7 @@ TEST("basic operators", "Non sorted_and_uniqued")
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(A, B, C, X, Y, Z)>, NoneOf<StaticArray(A, C, X, Y, Z)>{});
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(A, X, B, Y, C, Z)>, AnyOf<StaticArray(A, C, X, Y, Z)>{});
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(A, X, B, Y, C, Z)>, NoneOf<StaticArray(A, C, X, Y, Z)>{});
+#else
+#error
+#endif
 }
