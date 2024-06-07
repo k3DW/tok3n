@@ -19,7 +19,7 @@ struct StaticArray
 	template <class... Ts>
 	requires (sizeof...(Ts) == N - 1) and (... and std::convertible_to<Ts, T>)
 	constexpr StaticArray(T t, Ts... ts)
-		: data(t, ts...)
+		: data{{t, static_cast<Ts>(ts)...}}
 	{}
 
 	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
