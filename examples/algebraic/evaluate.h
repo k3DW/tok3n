@@ -97,6 +97,20 @@ double evaluate(const powterm::result_type::negated_expr& val)
 	return -evaluate(val.data);
 }
 
+template <std::same_as<double> T>
+void from_chars(const std::string& str, T& value)
+{
+	if constexpr (requires { std::from_chars(str.data(), str.data() + str.size(), value); })
+	{
+		if (std::from_chars(str.data(), str.data() + str.size(), value).ec != std::errc{})
+			throw std::invalid_argument("Invalid argument");
+	}
+	else
+	{
+		value = std::stod(str);
+	}
+}
+
 double evaluate(const number::result_type& val)
 {
 	auto real = std::string(val.integer);
@@ -107,8 +121,7 @@ double evaluate(const number::result_type& val)
 	}
 
 	double value;
-	if (std::from_chars(real.data(), real.data() + real.size(), value).ec != std::errc{})
-		throw;
+	from_chars(real, value);
 
 	if (not val.exponent)
 		return value;
