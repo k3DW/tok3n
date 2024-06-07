@@ -14,6 +14,10 @@ target_include_directories(k3_tok3n INTERFACE include)
 set_target_properties(k3_tok3n PROPERTIES CXX_STANDARD 20)
 target_compile_features(k3_tok3n INTERFACE cxx_std_20)
 
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+endif()
+
 option (tok3n_BUILD_TESTS "Build tests" OFF)
 option (tok3n_BUILD_EXAMPLES "Build examples" OFF)
 option (tok3n_SETUP_IDE "Organize the projects for IDEs" OFF)
