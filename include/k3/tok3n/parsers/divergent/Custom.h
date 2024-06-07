@@ -24,6 +24,8 @@ namespace detail {
 template <class CRTP, class ValueType>
 struct Custom
 {
+	using _base = Custom<CRTP, ValueType>;
+
 	using value_type = ValueType;
 
 	template <class V, std::same_as<CRTP> P = CRTP>
@@ -32,37 +34,20 @@ struct Custom
 
 	static constexpr ParserFamily family = CustomFamily;
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP>
-	static constexpr auto parse(R&& r)
+	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr Result<typename P::template result_for<V>, V> parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
-
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
 		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
-
-		using ActualType = typename decltype(P::get_parser())::template result_for<V>;
-		using ExpectedType = typename P::template result_for<V>;
-		if constexpr (std::same_as<ExpectedType, ActualType>)
-		{
-			return decltype(P::get_parser())::parse(input);
-		}
-		else
-		{
-			static_assert(std::constructible_from<ExpectedType, ActualType&&>);
-			return Result<ExpectedType, V>{ decltype(P::get_parser())::parse(input) };
-		}
+		return decltype(P::get_parser())::parse(std::forward<R>(r));
 	}
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP>
-	static constexpr auto lookahead(R&& r)
+	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	static constexpr Result<void, V> lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
-
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
 		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
-		return decltype(P::get_parser())::lookahead(input);
+		return decltype(P::get_parser())::lookahead(std::forward<R>(r));
 	}
 };
 
