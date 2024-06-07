@@ -19,7 +19,7 @@ struct filter_with_index_impl<Pred, List<Done...>, std::index_sequence<Is...>, N
 
 	using sequence = std::conditional_t<Pred::template predicate<Head>::value,
 		std::index_sequence<Is..., Next>,
-		std::index_sequence<Is..., -1>
+		std::index_sequence<Is..., static_cast<std::size_t>(-1)>
 	>;
 };
 
@@ -28,7 +28,7 @@ struct filter_with_index_impl<Pred, List<Done...>, std::index_sequence<Is...>, N
 {
 	using trait = std::conditional_t<Pred::template predicate<Head>::value,
 		filter_with_index_impl<Pred, List<Done..., Head>, std::index_sequence<Is..., Next>, Next + 1, Tail...>,
-		filter_with_index_impl<Pred, List<Done...>, std::index_sequence<Is..., -1>, Next, Tail...>
+		filter_with_index_impl<Pred, List<Done...>, std::index_sequence<Is..., static_cast<std::size_t>(-1)>, Next, Tail...>
 	>;
 
 	using type = typename trait::type;
@@ -44,8 +44,8 @@ template <class ListOfDone, class Seq, class T>
 struct index_lookup
 {
 	// Placeholders
-	using type = std::integral_constant<std::size_t, -2>;
-	static constexpr std::size_t value = (std::size_t)(-2);
+	using type = std::integral_constant<std::size_t, static_cast<std::size_t>(-2)>;
+	static constexpr std::size_t value = static_cast<std::size_t>(-2);
 };
 
 template <template <class...> class List, class Head, class... Tail, std::size_t I, std::size_t... Is, class T>
@@ -76,7 +76,7 @@ struct filter_deduplicate_with_index_impl<Pred, List<Done...>, std::index_sequen
 			std::index_sequence<Is..., index_lookup<List<Done...>, std::index_sequence<Is...>, Head>::value>,
 			std::index_sequence<Is..., Next>
 		>,
-		std::index_sequence<Is..., -1>
+		std::index_sequence<Is..., static_cast<std::size_t>(-1)>
 	>;
 };
 
@@ -88,7 +88,7 @@ struct filter_deduplicate_with_index_impl<Pred, List<Done...>, std::index_sequen
 			filter_deduplicate_with_index_impl<Pred, List<Done...>, std::index_sequence<Is..., index_lookup<List<Done...>, std::index_sequence<Is...>, Head>::value>, Next, Tail...>,
 			filter_deduplicate_with_index_impl<Pred, List<Done..., Head>, std::index_sequence<Is..., Next>, Next + 1, Tail...>
 		>,
-		filter_deduplicate_with_index_impl<Pred, List<Done...>, std::index_sequence<Is..., -1>, Next, Tail...>
+		filter_deduplicate_with_index_impl<Pred, List<Done...>, std::index_sequence<Is..., static_cast<std::size_t>(-1)>, Next, Tail...>
 	>;
 
 	using type = typename trait::type;

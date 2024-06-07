@@ -107,7 +107,7 @@ struct Choice
 		using Executor = detail::ChoiceExecutor<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... || executor.execute<Ps, -1, _trait<V>::unwrapped>());
+		bool successful = (... || executor.execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
 
 		if (successful)
 			return Result<void, V>{ success, executor.input };
