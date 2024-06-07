@@ -89,14 +89,14 @@ constexpr auto combine_strings = []
 }();
 
 template <Parser... LHS, Parser RHS>
-requires (not IsParser<RHS, SequenceFamily>)
+requires (RHS::family != SequenceFamily)
 consteval auto sequence_combined_left(Sequence<LHS...>, RHS)
 {
 	return Sequence<LHS..., RHS>{};
 }
 
 template <Parser LHS, Parser... RHS>
-requires (not IsParser<LHS, SequenceFamily>)
+requires (LHS::family != SequenceFamily)
 consteval auto sequence_combined_right(LHS, Sequence<RHS...>)
 {
 	return Sequence<LHS, RHS...>{};

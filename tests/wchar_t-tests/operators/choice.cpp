@@ -192,14 +192,14 @@ requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 
 template <Parser... LHS, Parser RHS>
-requires (not IsParser<RHS, ChoiceFamily>)
+requires (RHS::family != ChoiceFamily)
 consteval auto choice_combined_left(Choice<LHS...>, RHS)
 {
 	return Choice<LHS..., RHS>{};
 }
 
 template <Parser LHS, Parser... RHS>
-requires (not IsParser<LHS, ChoiceFamily>)
+requires (LHS::family != ChoiceFamily)
 consteval auto choice_combined_right(LHS, Choice<RHS...>)
 {
 	return Choice<LHS, RHS...>{};
