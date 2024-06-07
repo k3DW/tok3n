@@ -26,7 +26,7 @@ protected:
 		: _name(std::move(name))
 	{}
 
-	virtual ~Fixture() = 0 {}
+	virtual ~Fixture() {}
 
 private:
 	std::string _name;

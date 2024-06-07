@@ -64,7 +64,7 @@ struct JsonArray : Custom<JsonArray>
 
 struct JsonValue::result_type
 {
-	using variant_type = std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, nullptr_t>;
+	using variant_type = std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, std::nullptr_t>;
 	variant_type variant;
 };
 

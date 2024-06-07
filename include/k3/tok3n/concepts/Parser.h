@@ -9,7 +9,7 @@ namespace k3::tok3n {
 
 namespace detail {
 
-template <template <class> class A>
+template <template <class...> class A>
 struct HasTemplateAlias {};
 	
 template <class P>

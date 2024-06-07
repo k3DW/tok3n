@@ -41,10 +41,10 @@ struct SetOperation
 	{
 		using enum SetOperationType;
 
-		auto do_if = [&]<class T>(T&& t, bool cond)
+		auto do_if = [&]<class U>(U&& u, bool cond)
 		{
 			if (cond)
-				*it++ = std::forward<T>(t);
+				*it++ = std::forward<U>(u);
 		};
 
 		auto lhs_it = lhs.begin();
@@ -86,7 +86,7 @@ consteval auto merged_with()
 		return size;
 	};
 
-	auto str = str1.create_empty_with_size<size()>;
+	auto str = str1.template create_empty_with_size<size()>();
 	Op{}(str1, str2, str.begin());
 	return str;
 }
@@ -106,13 +106,13 @@ consteval auto choice(NoneOf<arr>, NoneOf<arr>) // (P | P) == P
 template <StaticArray arr>
 consteval auto choice(AnyOf<arr>, NoneOf<arr>) // Anything
 {
-	return NoneOf<arr.create_empty_with_size<0>>{};
+	return NoneOf<arr.template create_empty_with_size<0>()>{};
 }
 
 template <StaticArray arr>
 consteval auto choice(NoneOf<arr>, AnyOf<arr>) // Anything
 {
-	return NoneOf<arr.create_empty_with_size<0>>{};
+	return NoneOf<arr.template create_empty_with_size<0>()>{};
 }
 
 template <StaticArray lhs, StaticArray rhs>

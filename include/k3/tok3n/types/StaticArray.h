@@ -19,7 +19,7 @@ struct StaticArray
 	template <class... Ts>
 	requires (sizeof...(Ts) == N - 1) and (... and std::convertible_to<Ts, T>)
 	constexpr StaticArray(T t, Ts... ts)
-		: data(t, ts...)
+		: data{{t, static_cast<Ts>(ts)...}}
 	{}
 
 	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
@@ -61,7 +61,7 @@ struct StaticArray
 	using value_type = T;
 
 	template <std::size_t M>
-	static constexpr auto create_empty_with_size = StaticArray<T, M>{};
+	static constexpr auto create_empty_with_size() { return StaticArray<T, M>{}; }
 };
 
 template <class T, class... Ts>
@@ -113,15 +113,14 @@ namespace detail {
 				return copy;
 			}();
 
-			constexpr auto pair = []
+			constexpr auto pair = [copy = sorted]() mutable
 			{
-				auto copy = sorted;
 				auto subrange = std::ranges::unique(copy);
 				auto new_size = subrange.begin() - copy.begin();
 				return std::make_pair(std::move(copy), new_size);
 			}();
 
-			auto out = str.create_empty_with_size<pair.second>;
+			auto out = str.template create_empty_with_size<pair.second>();
 			std::ranges::copy_n(pair.first.begin(), pair.second, out.begin());
 			return out;
 		}

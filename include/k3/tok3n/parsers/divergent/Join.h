@@ -39,7 +39,14 @@ namespace detail::executors
 				joined = output;
 				return true;
 			}
-			else if (joined->data() + joined->size() == output.data())
+			else if (
+#if defined(__GNUC__) || defined(__clang__)
+				(
+					not std::is_constant_evaluated() or
+					__builtin_constant_p(output.data() - joined->data())
+				) and
+#endif
+				joined->size() == output.data() - joined->data())
 			{
 				// ^^ If (&joined->back() + 1 == &output.front())
 				*joined = { joined->data(), joined->size() + output.size() };

@@ -78,7 +78,7 @@ template <StaticArray lhs, StaticArray rhs>
 requires LikeStaticArrays<lhs, rhs>
 constexpr auto combine_strings = []
 {
-	auto str = lhs.create_empty_with_size<lhs.size() + rhs.size()>;
+	auto str = lhs.template create_empty_with_size<lhs.size() + rhs.size()>();
 	auto it = str.begin();
 	for (auto c : lhs)
 		*it++ = c;
@@ -89,14 +89,14 @@ constexpr auto combine_strings = []
 }();
 
 template <Parser... LHS, Parser RHS>
-requires (not IsParser<RHS, SequenceFamily>)
+requires (RHS::family != SequenceFamily)
 consteval auto sequence_combined_left(Sequence<LHS...>, RHS)
 {
 	return Sequence<LHS..., RHS>{};
 }
 
 template <Parser LHS, Parser... RHS>
-requires (not IsParser<LHS, SequenceFamily>)
+requires (LHS::family != SequenceFamily)
 consteval auto sequence_combined_right(LHS, Sequence<RHS...>)
 {
 	return Sequence<LHS, RHS...>{};

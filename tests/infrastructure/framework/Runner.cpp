@@ -29,7 +29,7 @@ void Runner::run()
 std::string Runner::print_results() const
 {
 	StringBuilder builder;
-	builder.format("Displaying all fixture results, {} total.\n\n", _fixtures.size());
+	builder.append("Displaying all fixture results, ", _fixtures.size(), " total.\n\n");
 
 	std::vector<Fixture*> failed;
 

@@ -38,9 +38,7 @@ public:
 		: sv1(sv1), sv2(sv2) {}
 
 	explicit constexpr Class2(const std::tuple<Output<char>, Output<char>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	explicit constexpr Class2(Output<wchar_t> sv1, Output<wchar_t> sv2)
 		: sv1(sv1), sv2(sv2) {}
@@ -50,9 +48,7 @@ public:
 		: sv1(sv1), sv2(sv2) {}
 
 	explicit constexpr Class2(const std::tuple<Output<wchar_t>, Output<wchar_t>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	explicit constexpr Class2(Output<int> sv1, Output<int> sv2)
 		: sv1(sv1), sv2(sv2) {}
@@ -62,9 +58,7 @@ public:
 		: sv1(sv1), sv2(sv2) {}
 
 	explicit constexpr Class2(const std::tuple<Output<int>, Output<int>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	friend constexpr bool operator==(const Class2&, const Class2&) = default;
 
@@ -88,19 +82,13 @@ class Class4
 {
 public:
 	explicit constexpr Class4(const std::tuple<Output<char>, Output<char>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	explicit constexpr Class4(const std::tuple<Output<wchar_t>, Output<wchar_t>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	explicit constexpr Class4(const std::tuple<Output<int>, Output<int>>& tup)
-	{
-		std::tie(sv1, sv2) = tup;
-	}
+		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
 	explicit constexpr operator Class2() const { return Class2{ sv1, sv2 }; }
 

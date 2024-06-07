@@ -10,7 +10,7 @@ public:
 		: _value(std::forward<Args>(args)...)
 	{}
 
-	static constexpr auto make = []<class... Args>(Args&&... args) -> MoveOnlyWrapper
+	static constexpr auto make = []<class... Args>(Args&&... args)
 	{
 		return MoveOnlyWrapper(std::forward<Args>(args)...);
 	};
@@ -40,7 +40,7 @@ public:
 		: _value(std::forward<Args>(args)...)
 	{}
 
-	static constexpr auto make = []<class... Args>(Args&&... args) -> CopyOnlyWrapper
+	static constexpr auto make = []<class... Args>(Args&&... args)
 	{
 		return CopyOnlyWrapper(std::forward<Args>(args)...);
 	};
