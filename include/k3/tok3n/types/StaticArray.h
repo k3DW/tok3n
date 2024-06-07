@@ -113,9 +113,8 @@ namespace detail {
 				return copy;
 			}();
 
-			constexpr auto pair = []
+			constexpr auto pair = [copy = sorted]() mutable
 			{
-				auto copy = sorted;
 				auto subrange = std::ranges::unique(copy);
 				auto new_size = subrange.begin() - copy.begin();
 				return std::make_pair(std::move(copy), new_size);
