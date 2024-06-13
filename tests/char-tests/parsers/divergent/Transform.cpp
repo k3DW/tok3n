@@ -1,21 +1,32 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("Transform");
 
 TEST("Transform", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Tra1, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra2, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra3, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra4, char);
+	ASSERT_PARSER_VALUE_TYPE(Tra1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra4, value_type);
 
+#if defined(VALUE_TYPE_CHAR)
 	ASSERT_IS_PARSER(Tra1, char, TransformFamily, std::size_t);
+#elif defined(VALUE_TYPE_WCHAR_T)
+	ASSERT_IS_NOT_PARSER(Tra1, char, TransformFamily);
+#else
+#error
+#endif
 	ASSERT_IS_PARSER(Tra2, char, TransformFamily, std::vector<char>);
 	ASSERT_IS_PARSER(Tra3, char, TransformFamily, bool);
 	ASSERT_IS_PARSER(Tra4, char, TransformFamily, std::size_t);
 
+#if defined(VALUE_TYPE_CHAR)
 	ASSERT_IS_NOT_PARSER(Tra1, wchar_t, TransformFamily);
+#elif defined(VALUE_TYPE_WCHAR_T)
+	ASSERT_IS_PARSER(Tra1, wchar_t, TransformFamily, std::size_t);
+#else
+#error
+#endif
 	ASSERT_IS_PARSER(Tra2, wchar_t, TransformFamily, std::vector<wchar_t>);
 	ASSERT_IS_PARSER(Tra3, wchar_t, TransformFamily, bool);
 	ASSERT_IS_PARSER(Tra4, wchar_t, TransformFamily, std::size_t);
@@ -28,10 +39,10 @@ TEST("Transform", "Requirements")
 
 TEST("Transform", "Parse all")
 {
-	ASSERT_PARSE_SUCCESS(Tra1, "abcabcabcab", 3, "ab");
-	ASSERT_PARSE_FAILURE(Tra1, "");
-	ASSERT_PARSE_FAILURE(Tra1, "ab");
-	ASSERT_PARSE_SUCCESS(Tra1, "abc", 1, "");
+	ASSERT_PARSE_SUCCESS(Tra1, TT("abcabcabcab"), 3, TT("ab"));
+	ASSERT_PARSE_FAILURE(Tra1, TT(""));
+	ASSERT_PARSE_FAILURE(Tra1, TT("ab"));
+	ASSERT_PARSE_SUCCESS(Tra1, TT("abc"), 1, TT(""));
 		
 	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", std::vector<char>({ 'a', 'b', 'c' }), "abc");
 	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", std::vector<char>{}, "a??bcabc");

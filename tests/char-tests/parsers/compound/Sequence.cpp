@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
@@ -8,9 +7,9 @@ FIXTURE("Sequence");
 
 TEST("Sequence", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(TwoWay, char);
-	ASSERT_PARSER_VALUE_TYPE(ThreeWay, char);
-	ASSERT_PARSER_VALUE_TYPE(Seq5, char);
+	ASSERT_PARSER_VALUE_TYPE(TwoWay, value_type);
+	ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Seq5, value_type);
 
 	ASSERT_IS_PARSER(TwoWay, char, SequenceFamily, std::tuple<Output<char>, Output<char>>);
 	ASSERT_IS_PARSER(ThreeWay, char, SequenceFamily, std::tuple<Output<char>, Output<char>, Output<char>>);

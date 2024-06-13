@@ -1,13 +1,12 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
-using L = AllOf<"literal">;
+using L = AllOf<TT("literal")>;
 
 FIXTURE("AllOf");
 
 TEST("AllOf", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(L, char);
+	ASSERT_PARSER_VALUE_TYPE(L, value_type);
 	ASSERT_IS_PARSER(L, char, AllOfFamily, Output<char>);
 	ASSERT_IS_PARSER(L, wchar_t, AllOfFamily, Output<wchar_t>);
 	ASSERT_IS_PARSER(L, int, AllOfFamily, Output<int>);
@@ -41,7 +40,7 @@ TEST("AllOf", "Parse 'literal'")
 
 TEST("AllOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, TT(""));
 
 	ASSERT_PARSE_SUCCESS(AllOf<"">, "anything", "", "anything");
 	ASSERT_PARSE_SUCCESS(AllOf<"">, "", "", "");

@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("exactly modifier");
 
@@ -21,6 +20,6 @@ TEST("exactly modifier", "infix")
 
 TEST("exactly modifier", "non consteval")
 {
-	(exactly<2>(any1)).parse("abc");
-	(any1 % exactly<2>).parse("abc");
+	(exactly<2>(any1)).parse(TT("abc"));
+	(any1 % exactly<2>).parse(TT("abc"));
 }

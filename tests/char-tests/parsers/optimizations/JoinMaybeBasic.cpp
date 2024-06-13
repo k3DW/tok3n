@@ -1,17 +1,16 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("JoinMaybeBasic");
 
-using Joi_May_OC = Join<Maybe<AnyOf<"123">>>;
-using Joi_May_NC = Join<Maybe<NoneOf<"123">>>;
-using Joi_May_L  = Join<Maybe<AllOf<"123">>>;
+using Joi_May_OC = Join<Maybe<AnyOf<TT("123")>>>;
+using Joi_May_NC = Join<Maybe<NoneOf<TT("123")>>>;
+using Joi_May_L  = Join<Maybe<AllOf<TT("123")>>>;
 
 TEST("JoinMaybeBasic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_OC, char);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, char);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_L, char);
+    ASSERT_PARSER_VALUE_TYPE(Joi_May_OC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_May_L, value_type);
 
     ASSERT_IS_PARSER(Joi_May_OC, char, JoinFamily, Output<char>);
     ASSERT_IS_PARSER(Joi_May_NC, char, JoinFamily, Output<char>);

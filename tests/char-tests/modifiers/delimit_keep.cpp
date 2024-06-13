@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("delimit_keep modifier");
 
@@ -29,6 +28,6 @@ TEST("delimit_keep modifier", "infix")
 
 TEST("delimit_keep modifier", "non consteval")
 {
-	(delimit_keep(any1, any2)).parse("abc");
-	(any1 % delimit_keep(any2)).parse("abc");
+	(delimit_keep(any1, any2)).parse(TT("abc"));
+	(any1 % delimit_keep(any2)).parse(TT("abc"));
 }

@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("zero_or_more operator");
 
@@ -53,5 +52,5 @@ TEST("zero_or_more operator", "*ZeroOrMore")
 
 TEST("zero_or_more operator", "non consteval")
 {
-	(*any1).parse("abc");
+	(*any1).parse(TT("abc"));
 }

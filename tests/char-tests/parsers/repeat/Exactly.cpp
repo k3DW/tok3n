@@ -1,14 +1,13 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("Exactly");
 
 TEST("Exactly", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Exa1, char);
-	ASSERT_PARSER_VALUE_TYPE(Exa2, char);
-	ASSERT_PARSER_VALUE_TYPE(Exa3, char);
-	ASSERT_PARSER_VALUE_TYPE(Exa4, char);
+	ASSERT_PARSER_VALUE_TYPE(Exa1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Exa2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Exa3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Exa4, value_type);
 
 	ASSERT_IS_PARSER(Exa1, char, ExactlyFamily, std::array<Output<char>, 3>);
 	ASSERT_IS_PARSER(Exa2, char, ExactlyFamily, std::array<Output<char>, 5>);

@@ -1,13 +1,12 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("Into");
 
 TEST("Into", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Int1, char);
-	ASSERT_PARSER_VALUE_TYPE(Int2, char);
-	ASSERT_PARSER_VALUE_TYPE(Int3, char);
+	ASSERT_PARSER_VALUE_TYPE(Int1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Int2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Int3, value_type);
 
 	ASSERT_IS_PARSER(Int1, char, IntoFamily, Class1);
 	ASSERT_IS_PARSER(Int2, char, IntoFamily, Class2);

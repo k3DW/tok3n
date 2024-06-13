@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("apply_into modifier");
 
@@ -17,6 +16,6 @@ TEST("apply_into modifier", "infix")
 
 TEST("apply_into modifier", "non consteval")
 {
-	(apply_into<Sink>(any1 >> any2)).parse("abc");
-	((any1 >> any2) % apply_into<Sink>).parse("abc");
+	(apply_into<Sink>(any1 >> any2)).parse(TT("abc"));
+	((any1 >> any2) % apply_into<Sink>).parse(TT("abc"));
 }

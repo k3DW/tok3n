@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("not operator");
 
@@ -25,5 +24,5 @@ TEST("not operator", "!NoneOf")
 
 TEST("not operator", "non consteval")
 {
-	(!any1).parse("abc");
+	(!any1).parse(TT("abc"));
 }

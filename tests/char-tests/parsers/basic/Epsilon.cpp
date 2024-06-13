@@ -1,11 +1,10 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("Epsilon");
 
 TEST("Epsilon", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Eps1, char);
+	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
 	ASSERT_IS_PARSER(Eps1, char, EpsilonFamily, void);
 	ASSERT_IS_PARSER(Eps1, wchar_t, EpsilonFamily, void);
@@ -41,7 +40,7 @@ TEST("Epsilon", "Parse")
 
 TEST("Epsilon", "Choice<P, Epsilon>")
 {
-	auto parser = "+-"_any_of | eps;
+	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);
 
 	ASSERT_IS_PARSER(P, char, ChoiceFamily, Output<char>);

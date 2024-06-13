@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("maybe operator");
 
@@ -53,5 +52,5 @@ TEST("maybe operator", "~ZeroOrMore")
 
 TEST("maybe operator", "non consteval")
 {
-	(~any1).parse("abc");
+	(~any1).parse(TT("abc"));
 }

@@ -1,14 +1,13 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("OneOrMore");
 
 TEST("OneOrMore", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Oom1, char);
-	ASSERT_PARSER_VALUE_TYPE(Oom2, char);
-	ASSERT_PARSER_VALUE_TYPE(Oom3, char);
-	ASSERT_PARSER_VALUE_TYPE(Oom4, char);
+	ASSERT_PARSER_VALUE_TYPE(Oom1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Oom2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Oom3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Oom4, value_type);
 
 	ASSERT_IS_PARSER(Oom1, char, OneOrMoreFamily, std::vector<Output<char>>);
 	ASSERT_IS_PARSER(Oom2, char, OneOrMoreFamily, std::vector<Output<char>>);

@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
 FIXTURE("defaulted modifier");
 
@@ -17,6 +16,6 @@ TEST("defaulted modifier", "infix")
 
 TEST("defaulted modifier", "non consteval")
 {
-	(defaulted<int>(any1)).parse("abc");
-	(any1 % defaulted<int>).parse("abc");
+	(defaulted<int>(any1)).parse(TT("abc"));
+	(any1 % defaulted<int>).parse(TT("abc"));
 }

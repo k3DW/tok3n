@@ -1,15 +1,14 @@
-#include "pch.h"
-#include "char-samples/char-samples.h"
+#include "samples.h"
 
-using Single = AnyOf<'a'>;
-using Multi  = AnyOf<"abc">;
+using Single = AnyOf<TT('a')>;
+using Multi  = AnyOf<TT("abc")>;
 
 FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Single, char);
-	ASSERT_PARSER_VALUE_TYPE(Multi, char);
+	ASSERT_PARSER_VALUE_TYPE(Single, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
 
 	ASSERT_IS_PARSER(Single, char, AnyOfFamily, Output<char>);
 	ASSERT_IS_PARSER(Multi, char, AnyOfFamily, Output<char>);
@@ -97,17 +96,17 @@ TEST("AnyOf", "Parse multi")
 
 TEST("AnyOf", "Constructible from lexicographically sorted only")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, "abc");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "acb");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "bac");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "bca");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "cab");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, "cba");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, TT("abc"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("acb"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("bac"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("bca"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("cab"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("cba"));
 }
 
 TEST("AnyOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, TT(""));
 
 	ASSERT_PARSE_FAILURE(AnyOf<"">, "anything");
 	ASSERT_PARSE_FAILURE(AnyOf<"">, "");
