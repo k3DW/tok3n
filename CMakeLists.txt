@@ -4,6 +4,10 @@ project (k3_tok3n
          VERSION 0
          LANGUAGES CXX)
 
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+
+include(tools/tok3n_configure.cmake)
+
 add_library(k3_tok3n INTERFACE
     "$<$<CXX_COMPILER_ID:MSVC>:tools/tok3n.natvis>"
 )
@@ -11,8 +15,7 @@ add_library(k3::tok3n ALIAS k3_tok3n)
 
 target_include_directories(k3_tok3n INTERFACE include)
 
-set_target_properties(k3_tok3n PROPERTIES CXX_STANDARD 20)
-target_compile_features(k3_tok3n INTERFACE cxx_std_20)
+tok3n_configure_target(k3_tok3n INTERFACE)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
@@ -53,27 +56,16 @@ if (tok3n_SETUP_IDE)
         "include/*.h"
     )
 
+    tok3n_configure_ide("${list_of_files}")
+    source_group("" FILES "src/main.cpp")
+
     add_executable(tok3n
         ${list_of_files}
         "src/main.cpp"
     )
+    
+    tok3n_configure_target(tok3n PUBLIC)
 
     target_include_directories(tok3n PUBLIC include)
-
-    set_target_properties(tok3n
-        PROPERTIES
-            CXX_STANDARD 20
-            CXX_STANDARD_REQUIRED YES
-            CXX_EXTENSIONS NO
-    )
-
-    source_group("" FILES "src/main.cpp")
-
-    foreach(_source IN ITEMS ${list_of_files})
-        get_filename_component(_source_path "${_source}" PATH)
-        file(RELATIVE_PATH _source_path_rel "${CMAKE_CURRENT_LIST_DIR}/include/k3" "${_source_path}")
-        string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
-        source_group("${_group_path}" FILES "${_source}")
-    endforeach()
 
 endif()

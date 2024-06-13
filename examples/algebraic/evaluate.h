@@ -2,6 +2,7 @@
 #include "parser.h"
 #include <cmath>
 #include <charconv>
+#include <string>
 
 double evaluate(const expr::result_type& val);
 double evaluate(const term::result_type& val);
