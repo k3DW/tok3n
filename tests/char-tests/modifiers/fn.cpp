@@ -24,6 +24,6 @@ TEST("fn modifier", "infix")
 TEST("fn modifier", "non consteval")
 {
 	constexpr auto sink = [](auto&&) {};
-	(fn<sink>(any1)).parse("abc");
-	(any1 % fn<sink>).parse("abc");
+	(fn<sink>(any1)).parse(TT("abc"));
+	(any1 % fn<sink>).parse(TT("abc"));
 }

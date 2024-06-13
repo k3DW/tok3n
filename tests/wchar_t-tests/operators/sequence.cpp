@@ -5,15 +5,15 @@ FIXTURE("sequence operator");
 
 TEST("sequence operator", "AllOf >> AllOf")
 {
-	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<L"literalliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<L"literally">{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<L"literaltest">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<L"lyliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<L"lyly">{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<L"lytest">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<L"testliteral">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<L"testly">{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<L"testtest">{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<TT("literalliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<TT("literally")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<TT("literaltest")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<TT("lyliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<TT("lyly")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<TT("lytest")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<TT("testliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<TT("testly")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<TT("testtest")>{});
 }
 
 
@@ -67,7 +67,7 @@ TEST("sequence operator", "void result_type")
 
 TEST("sequence operator", "non consteval")
 {
-	(any1 >> any2).parse(L"abc");
+	(any1 >> any2).parse(TT("abc"));
 }
 
 

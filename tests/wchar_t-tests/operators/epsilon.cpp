@@ -12,14 +12,14 @@ concept choice_operable = requires { lhs | rhs; };
 
 TEST("epsilon operator", ".of<>")
 {
-	ASSERT_PARSER_VALUES_EQ(eps.of<wchar_t>, Epsilon<wchar_t>{});
+	ASSERT_PARSER_VALUES_EQ(eps.of<value_type>, Epsilon<value_type>{});
 }
 
 TEST("epsilon operator", "P | eps")
 {
-	ASSERT_PARSER_VALUES_EQ(any1 | eps, (Choice<Any1, Epsilon<wchar_t>>{}));
-	ASSERT_PARSER_VALUES_EQ(any2 | eps, (Choice<Any2, Epsilon<wchar_t>>{}));
-	ASSERT_PARSER_VALUES_EQ(any3 | eps, (Choice<Any3, Epsilon<wchar_t>>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 | eps, (Choice<Any1, Epsilon<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 | eps, (Choice<Any2, Epsilon<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 | eps, (Choice<Any3, Epsilon<value_type>>{}));
 }
 
 TEST("epsilon operator", "eps | P")

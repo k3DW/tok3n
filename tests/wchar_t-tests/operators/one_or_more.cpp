@@ -53,5 +53,5 @@ TEST("one_or_more operator", "+ZeroOrMore")
 
 TEST("one_or_more operator", "non consteval")
 {
-	(+any1).parse(L"abc");
+	(+any1).parse(TT("abc"));
 }

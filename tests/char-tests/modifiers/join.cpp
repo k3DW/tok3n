@@ -39,6 +39,6 @@ TEST("join modifier", "idempotent")
 
 TEST("join modifier", "non consteval")
 {
-	(join(any1)).parse("abc");
-	(any1 % join).parse("abc");
+	(join(any1)).parse(TT("abc"));
+	(any1 % join).parse(TT("abc"));
 }

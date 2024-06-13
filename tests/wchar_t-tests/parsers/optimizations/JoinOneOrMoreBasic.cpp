@@ -3,15 +3,15 @@
 
 FIXTURE("JoinOneOrMoreBasic");
 
-using Joi_Oom_OC = Join<OneOrMore<AnyOf<L"123">>>;
-using Joi_Oom_NC = Join<OneOrMore<NoneOf<L"123">>>;
-using Joi_Oom_L  = Join<OneOrMore<AllOf<L"123">>>;
+using Joi_Oom_OC = Join<OneOrMore<AnyOf<TT("123")>>>;
+using Joi_Oom_NC = Join<OneOrMore<NoneOf<TT("123")>>>;
+using Joi_Oom_L  = Join<OneOrMore<AllOf<TT("123")>>>;
 
 TEST("JoinOneOrMoreBasic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_OC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_NC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_L, wchar_t);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_OC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_NC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_L, value_type);
 
     ASSERT_IS_PARSER(Joi_Oom_OC, char, JoinFamily, Output<char>);
     ASSERT_IS_PARSER(Joi_Oom_NC, char, JoinFamily, Output<char>);

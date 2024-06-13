@@ -1,13 +1,13 @@
 #include "pch.h"
 #include "wchar_t-tests/samples.h"
 
-using L = AllOf<L"literal">;
+using L = AllOf<TT("literal")>;
 
 FIXTURE("AllOf");
 
 TEST("AllOf", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(L, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(L, value_type);
 	ASSERT_IS_PARSER(L, char, AllOfFamily, Output<char>);
 	ASSERT_IS_PARSER(L, wchar_t, AllOfFamily, Output<wchar_t>);
 	ASSERT_IS_PARSER(L, int, AllOfFamily, Output<int>);
@@ -41,7 +41,7 @@ TEST("AllOf", "Parse 'literal'")
 
 TEST("AllOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, L"");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, TT(""));
 
 	ASSERT_PARSE_SUCCESS(AllOf<"">, "anything", "", "anything");
 	ASSERT_PARSE_SUCCESS(AllOf<"">, "", "", "");

@@ -5,10 +5,10 @@ FIXTURE("Transform");
 
 TEST("Transform", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Tra1, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra2, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra3, char);
-	ASSERT_PARSER_VALUE_TYPE(Tra4, char);
+	ASSERT_PARSER_VALUE_TYPE(Tra1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Tra4, value_type);
 
 	ASSERT_IS_PARSER(Tra1, char, TransformFamily, std::size_t);
 	ASSERT_IS_PARSER(Tra2, char, TransformFamily, std::vector<char>);
@@ -28,10 +28,10 @@ TEST("Transform", "Requirements")
 
 TEST("Transform", "Parse all")
 {
-	ASSERT_PARSE_SUCCESS(Tra1, "abcabcabcab", 3, "ab");
-	ASSERT_PARSE_FAILURE(Tra1, "");
-	ASSERT_PARSE_FAILURE(Tra1, "ab");
-	ASSERT_PARSE_SUCCESS(Tra1, "abc", 1, "");
+	ASSERT_PARSE_SUCCESS(Tra1, TT("abcabcabcab"), 3, TT("ab"));
+	ASSERT_PARSE_FAILURE(Tra1, TT(""));
+	ASSERT_PARSE_FAILURE(Tra1, TT("ab"));
+	ASSERT_PARSE_SUCCESS(Tra1, TT("abc"), 1, TT(""));
 		
 	ASSERT_PARSE_SUCCESS(Tra2, "abcabc", std::vector<char>({ 'a', 'b', 'c' }), "abc");
 	ASSERT_PARSE_SUCCESS(Tra2, "a??bcabc", std::vector<char>{}, "a??bcabc");

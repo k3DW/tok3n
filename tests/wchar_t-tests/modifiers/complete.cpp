@@ -45,6 +45,6 @@ TEST("complete modifier", "idempotent")
 
 TEST("complete modifier", "non consteval")
 {
-	(complete(any1)).parse(L"abc");
-	(any1 % complete).parse(L"abc");
+	(complete(any1)).parse(TT("abc"));
+	(any1 % complete).parse(TT("abc"));
 }

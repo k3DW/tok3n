@@ -5,8 +5,8 @@ FIXTURE("ApplyInto");
 
 TEST("ApplyInto", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Api1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Api2, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Api1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Api2, value_type);
 
 	ASSERT_IS_PARSER(Api1, char, ApplyIntoFamily, Class2);
 	ASSERT_IS_PARSER(Api2, char, ApplyIntoFamily, Class5);

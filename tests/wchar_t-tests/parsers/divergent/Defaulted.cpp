@@ -5,8 +5,8 @@ FIXTURE("Defaulted");
 
 TEST("Defaulted", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Def1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Def2, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
 
 	ASSERT_IS_PARSER(Def1, char, DefaultedFamily, int);
 	ASSERT_IS_PARSER(Def2, char, DefaultedFamily, Class3);

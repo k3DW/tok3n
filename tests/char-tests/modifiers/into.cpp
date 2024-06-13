@@ -17,6 +17,6 @@ TEST("into modifier", "infix")
 
 TEST("into modifier", "non consteval")
 {
-	(into<Sink>(any1)).parse("abc");
-	(any1 % into<Sink>).parse("abc");
+	(into<Sink>(any1)).parse(TT("abc"));
+	(any1 % into<Sink>).parse(TT("abc"));
 }

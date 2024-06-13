@@ -29,6 +29,6 @@ TEST("delimit modifier", "infix")
 
 TEST("delimit modifier", "non consteval")
 {
-	(delimit(any1, any2)).parse("abc");
-	(any1 % delimit(any2)).parse("abc");
+	(delimit(any1, any2)).parse(TT("abc"));
+	(any1 % delimit(any2)).parse(TT("abc"));
 }

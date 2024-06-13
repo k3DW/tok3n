@@ -5,13 +5,13 @@ FIXTURE("Complete");
 
 TEST("Complete", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Com1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com2, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com3, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com4, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com5, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com6, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Com7, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Com1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com4, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com5, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com6, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Com7, value_type);
 
 	ASSERT_IS_PARSER(Com1, char, CompleteFamily, Output<char>);
 	ASSERT_IS_PARSER(Com2, char, CompleteFamily, Output<char>);

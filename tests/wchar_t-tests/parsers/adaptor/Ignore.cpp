@@ -5,11 +5,11 @@ FIXTURE("Ignore");
 
 TEST("Ignore", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Ign1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Ign2, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Ign3, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Ign4, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Ign5, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Ign1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Ign2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Ign3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Ign4, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Ign5, value_type);
 
 	ASSERT_IS_PARSER(Ign1, char, IgnoreFamily, void);
 	ASSERT_IS_PARSER(Ign2, char, IgnoreFamily, void);

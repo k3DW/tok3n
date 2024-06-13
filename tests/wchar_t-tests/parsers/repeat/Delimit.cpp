@@ -12,14 +12,14 @@ FIXTURE("Delimit keep");
 
 TEST("Delimit regular", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Del1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del2, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del3, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del4, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del5, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del6, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del7, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Del8, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Del1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del4, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del5, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del6, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del7, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Del8, value_type);
 
 	ASSERT_IS_PARSER(Del1, char, DelimitFamily, std::vector<Output<char>>);
 	ASSERT_IS_PARSER(Del2, char, DelimitFamily, std::vector<Output<char>>);
@@ -51,14 +51,14 @@ TEST("Delimit regular", "Requirements")
 
 TEST("Delimit keep", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Dek1, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek2, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek3, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek4, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek5, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek6, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek7, wchar_t);
-	ASSERT_PARSER_VALUE_TYPE(Dek8, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Dek1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek4, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek5, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek6, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek7, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Dek8, value_type);
 
 	ASSERT_IS_PARSER(Dek1, char, DelimitFamily, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);
 	ASSERT_IS_PARSER(Dek2, char, DelimitFamily, std::pair<std::vector<Output<char>>, std::vector<Output<char>>>);

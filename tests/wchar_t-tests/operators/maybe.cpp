@@ -53,5 +53,5 @@ TEST("maybe operator", "~ZeroOrMore")
 
 TEST("maybe operator", "non consteval")
 {
-	(~any1).parse(L"abc");
+	(~any1).parse(TT("abc"));
 }

@@ -29,6 +29,6 @@ TEST("delimit_keep modifier", "infix")
 
 TEST("delimit_keep modifier", "non consteval")
 {
-	(delimit_keep(any1, any2)).parse(L"abc");
-	(any1 % delimit_keep(any2)).parse(L"abc");
+	(delimit_keep(any1, any2)).parse(TT("abc"));
+	(any1 % delimit_keep(any2)).parse(TT("abc"));
 }

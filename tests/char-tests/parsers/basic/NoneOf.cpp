@@ -1,15 +1,15 @@
 #include "pch.h"
 #include "char-tests/samples.h"
 
-using Single = NoneOf<'a'>;
-using Multi  = NoneOf<"abc">;
+using Single = NoneOf<TT('a')>;
+using Multi  = NoneOf<TT("abc")>;
 
 FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Single, char);
-	ASSERT_PARSER_VALUE_TYPE(Multi, char);
+	ASSERT_PARSER_VALUE_TYPE(Single, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
 
 	ASSERT_IS_PARSER(Single, char, NoneOfFamily, Output<char>);
 	ASSERT_IS_PARSER(Multi, char, NoneOfFamily, Output<char>);
@@ -100,17 +100,17 @@ TEST("NoneOf", "Parse multi")
 
 TEST("NoneOf", "Constructible from lexicographically sorted only")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, "abc");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "acb");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "bac");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "bca");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "cab");
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, "cba");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, TT("abc"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, TT("acb"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, TT("bac"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, TT("bca"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, TT("cab"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, TT("cba"));
 }
 
 TEST("NoneOf", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, "");
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, TT(""));
 
 	ASSERT_PARSE_SUCCESS(NoneOf<"">, "anything", "a", "nything");
 	ASSERT_PARSE_FAILURE(NoneOf<"">, "");

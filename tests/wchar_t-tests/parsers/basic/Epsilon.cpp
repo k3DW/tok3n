@@ -5,7 +5,7 @@ FIXTURE("Epsilon");
 
 TEST("Epsilon", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Eps1, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
 	ASSERT_IS_PARSER(Eps1, char, EpsilonFamily, void);
 	ASSERT_IS_PARSER(Eps1, wchar_t, EpsilonFamily, void);
@@ -38,9 +38,10 @@ TEST("Epsilon", "Parse")
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e<int>(" abc"), e<int>(" abc"));
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e<int>(""), e<int>(""));
 }
+
 TEST("Epsilon", "Choice<P, Epsilon>")
 {
-	auto parser = L"+-"_any_of | eps;
+	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);
 
 	ASSERT_IS_PARSER(P, char, ChoiceFamily, Output<char>);
@@ -64,4 +65,3 @@ TEST("Epsilon", "Choice<P, Epsilon>")
 	ASSERT_PARSE_SUCCESS(P, e<int>("--abc"), e<int>("-"), e<int>("-abc"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("abc"), e<int>(""), e<int>("abc"));
 }
-

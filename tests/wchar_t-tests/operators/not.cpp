@@ -25,5 +25,5 @@ TEST("not operator", "!NoneOf")
 
 TEST("not operator", "non consteval")
 {
-	(!any1).parse(L"abc");
+	(!any1).parse(TT("abc"));
 }

@@ -37,6 +37,6 @@ TEST("ignore modifier", "idempotent")
 
 TEST("ignore modifier", "non consteval")
 {
-	(ignore(any1)).parse(L"abc");
-	(any1 % ignore).parse(L"abc");
+	(ignore(any1)).parse(TT("abc"));
+	(any1 % ignore).parse(TT("abc"));
 }

@@ -5,10 +5,10 @@ FIXTURE("Maybe");
 
 TEST("Maybe", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(May1, char);
-	ASSERT_PARSER_VALUE_TYPE(May2, char);
-	ASSERT_PARSER_VALUE_TYPE(May3, char);
-	ASSERT_PARSER_VALUE_TYPE(May4, char);
+	ASSERT_PARSER_VALUE_TYPE(May1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(May2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(May3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(May4, value_type);
 
 	ASSERT_IS_PARSER(May1, char, MaybeFamily, std::optional<Output<char>>);
 	ASSERT_IS_PARSER(May2, char, MaybeFamily, std::optional<Output<char>>);

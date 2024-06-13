@@ -5,7 +5,7 @@ FIXTURE("Anything");
 
 TEST("Anything", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Ant1, wchar_t);
+	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
 	ASSERT_IS_PARSER(Ant1, char, AnythingFamily, Output<char>);
 	ASSERT_IS_PARSER(Ant1, wchar_t, AnythingFamily, Output<wchar_t>);

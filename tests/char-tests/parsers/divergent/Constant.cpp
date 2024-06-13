@@ -5,10 +5,10 @@ FIXTURE("Constant");
 
 TEST("Constant", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Con1, char);
-	ASSERT_PARSER_VALUE_TYPE(Con2, char);
-	ASSERT_PARSER_VALUE_TYPE(Con3, char);
-	ASSERT_PARSER_VALUE_TYPE(Con4, char);
+	ASSERT_PARSER_VALUE_TYPE(Con1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Con2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Con3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Con4, value_type);
 
 	ASSERT_IS_PARSER(Con1, char, ConstantFamily, int);
 	ASSERT_IS_PARSER(Con2, char, ConstantFamily, char);

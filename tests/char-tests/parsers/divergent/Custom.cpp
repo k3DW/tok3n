@@ -5,8 +5,8 @@ FIXTURE("Custom");
 
 TEST("Custom", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Cus1, char);
-	ASSERT_PARSER_VALUE_TYPE(Cus2, char);
+	ASSERT_PARSER_VALUE_TYPE(Cus1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Cus2, value_type);
 
 	ASSERT_IS_PARSER(Cus1, char, CustomFamily, std::size_t);
 	ASSERT_IS_PARSER(Cus2, char, CustomFamily, std::size_t);

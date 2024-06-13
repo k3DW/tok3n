@@ -21,6 +21,6 @@ TEST("constant modifier", "infix")
 
 TEST("constant modifier", "non consteval")
 {
-	(constant<0>(any1)).parse("abc");
-	(any1 % constant<0>).parse("abc");
+	(constant<0>(any1)).parse(TT("abc"));
+	(any1 % constant<0>).parse(TT("abc"));
 }

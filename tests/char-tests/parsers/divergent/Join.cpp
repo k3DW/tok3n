@@ -5,11 +5,11 @@ FIXTURE("Join");
 
 TEST("Join", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Joi1, char);
-	ASSERT_PARSER_VALUE_TYPE(Joi2, char);
-	ASSERT_PARSER_VALUE_TYPE(Joi3, char);
-	ASSERT_PARSER_VALUE_TYPE(Joi4, char);
-	ASSERT_PARSER_VALUE_TYPE(Joi5, char);
+	ASSERT_PARSER_VALUE_TYPE(Joi1, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Joi2, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Joi3, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Joi4, value_type);
+	ASSERT_PARSER_VALUE_TYPE(Joi5, value_type);
 
 	ASSERT_IS_PARSER(Joi1, char, JoinFamily, Output<char>);
 	ASSERT_IS_PARSER(Joi2, char, JoinFamily, Output<char>);
@@ -122,7 +122,7 @@ TEST("Join", "Contiguous empty strings")
 	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
 	using J2 = Join<ZeroOrMore<Sequence<All1, Any2>>>;
 
-	using P = Join<Sequence<AllOf<"**start**">, J1, J2, AllOf<"__end__">>>;
+	using P = Join<Sequence<AllOf<TT("**start**")>, J1, J2, AllOf<TT("__end__")>>>;
 	
 	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
 
@@ -171,7 +171,7 @@ TEST("Join", "Join<Delimit>")
 
 TEST("Join", "Join<Ignore>")
 {
-	using Q = AnyOf<"?">;
+	using Q = AnyOf<TT("?")>;
 
 	using S1 = Sequence<ABC, Ignore<QQ>>;
 	using S2 = Sequence<ABC, Ignore<QQ>, ABC>;
@@ -333,7 +333,7 @@ TEST("Join", "Join<Transform>")
 
 TEST("Join", "Join<Sequence<Choice<non-eps,eps>, anything>>")
 {
-	auto seq = ("+-"_any | eps) >> "abc"_all;
+	auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
 	using Seq = decltype(seq);
 	ASSERT_IS_PARSER(Seq, char, SequenceFamily, std::tuple<Output<char>,Output<char>>);
 	ASSERT_IS_PARSER(Seq, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>,Output<wchar_t>>);

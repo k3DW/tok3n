@@ -3,15 +3,15 @@
 
 FIXTURE("JoinZeroOrMoreBasic");
 
-using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<L"123">>>;
-using Joi_Zom_NC = Join<ZeroOrMore<NoneOf<L"123">>>;
-using Joi_Zom_L  = Join<ZeroOrMore<AllOf<L"123">>>;
+using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<TT("123")>>>;
+using Joi_Zom_NC = Join<ZeroOrMore<NoneOf<TT("123")>>>;
+using Joi_Zom_L  = Join<ZeroOrMore<AllOf<TT("123")>>>;
 
 TEST("JoinZeroOrMoreBasic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_OC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_NC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_L, wchar_t);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_OC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_NC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Zom_L, value_type);
 
     ASSERT_IS_PARSER(Joi_Zom_OC, char, JoinFamily, Output<char>);
     ASSERT_IS_PARSER(Joi_Zom_NC, char, JoinFamily, Output<char>);

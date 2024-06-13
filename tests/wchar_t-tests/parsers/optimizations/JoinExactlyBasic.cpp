@@ -3,15 +3,15 @@
 
 FIXTURE("JoinExactlyBasic");
 
-using Joi_Exa_OC = Join<Exactly<AnyOf<L"123">, Index<2>>>;
-using Joi_Exa_NC = Join<Exactly<NoneOf<L"123">, Index<2>>>;
-using Joi_Exa_L = Join<Exactly<AllOf<L"123">, Index<2>>>;
+using Joi_Exa_OC = Join<Exactly<AnyOf<TT("123")>, Index<2>>>;
+using Joi_Exa_NC = Join<Exactly<NoneOf<TT("123")>, Index<2>>>;
+using Joi_Exa_L  = Join<Exactly<AllOf<TT("123")>, Index<2>>>;
 
 TEST("JoinExactlyBasic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_OC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_NC, wchar_t);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_L, wchar_t);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_OC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_NC, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_L, value_type);
 
     ASSERT_IS_PARSER(Joi_Exa_OC, char, JoinFamily, Output<char>);
     ASSERT_IS_PARSER(Joi_Exa_NC, char, JoinFamily, Output<char>);
