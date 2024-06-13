@@ -1,7 +1,5 @@
 #include "pch.h"
-#include "enum-samples/enum-samples.h"
-
-using enum E;
+#include "enum-tests/samples.h"
 
 FIXTURE("Epsilon");
 

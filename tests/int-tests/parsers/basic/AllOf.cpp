@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "int-samples/int-samples.h"
+#include "int-tests/samples.h"
 
-using namespace E;
 using L = AllOf<StaticArray(X, Y, Z)>;
 
 FIXTURE("AllOf");

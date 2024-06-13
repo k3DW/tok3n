@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "enum-samples/enum-samples.h"
+#include "enum-tests/samples.h"
 
-using enum E;
 using Single = NoneOf<StaticArray(A)>;
 using Multi  = NoneOf<StaticArray(A, B, C)>;
 

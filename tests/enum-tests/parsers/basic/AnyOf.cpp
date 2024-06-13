@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "enum-samples/enum-samples.h"
+#include "enum-tests/samples.h"
 
-using enum E;
 using Single = AnyOf<StaticArray(A)>;
 using Multi  = AnyOf<StaticArray(A, B, C)>;
 

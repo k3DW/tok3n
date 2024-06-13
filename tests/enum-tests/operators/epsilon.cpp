@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "enum-samples/enum-samples.h"
+#include "enum-tests/samples.h"
 
 FIXTURE("epsilon operator");
 

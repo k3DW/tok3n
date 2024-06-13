@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "int-samples/int-samples.h"
+#include "int-tests/samples.h"
 
 FIXTURE("epsilon operator");
 

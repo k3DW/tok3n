@@ -1,7 +1,5 @@
 #include "pch.h"
-#include "int-samples/int-samples.h"
-
-using namespace E;
+#include "int-tests/samples.h"
 
 FIXTURE("Anything");
 

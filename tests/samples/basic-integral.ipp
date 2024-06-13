@@ -1,5 +1,3 @@
-#pragma once
-
 using Any1 = AnyOf<StaticArray(E::A, E::B, E::C)>; constexpr Any1 any1;
 using Any2 = AnyOf<StaticArray(E::B, E::C, E::D)>; constexpr Any2 any2;
 using Any3 = AnyOf<StaticArray(E::X, E::Y, E::Z)>; constexpr Any3 any3;
@@ -15,8 +13,8 @@ using All1 = AllOf<StaticArray(E::X, E::Y, E::Z)>; constexpr All1 all1;
 using All2 = AllOf<StaticArray(E::Y, E::Z)>;       constexpr All2 all2;
 using All3 = AllOf<StaticArray(E::A, E::B)>;       constexpr All3 all3;
 
-using Eps1 = Epsilon<int>;  constexpr Eps1 eps1;
-using Ant1 = Anything<int>; constexpr Ant1 ant1;
+using Eps1 = Epsilon<::value_type>;  constexpr Eps1 eps1;
+using Ant1 = Anything<::value_type>; constexpr Ant1 ant1;
 
 using QQ       = AllOf<StaticArray(E::Question, E::Question)>; constexpr QQ       qq;
 using ABC      = AllOf<StaticArray(E::A, E::B, E::C)>;         constexpr ABC      abc;

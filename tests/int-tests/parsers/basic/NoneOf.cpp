@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "int-samples/int-samples.h"
+#include "int-tests/samples.h"
 
-using namespace E;
 using Single = NoneOf<StaticArray(A)>;
 using Multi  = NoneOf<StaticArray(A, B, C)>;
 
