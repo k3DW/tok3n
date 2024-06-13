@@ -5,9 +5,9 @@ FIXTURE("Anything");
 
 TEST("Anything", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Ant1, int);
+	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
-	ASSERT_IS_PARSER(Ant1, int, AnythingFamily, Output<int>);
+	ASSERT_IS_PARSER(Ant1, value_type, AnythingFamily, Output<value_type>);
 }
 
 TEST("Anything", "Parse")

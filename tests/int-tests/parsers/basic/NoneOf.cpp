@@ -8,8 +8,8 @@ FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, int, NoneOfFamily, Output<int>);
-	ASSERT_IS_PARSER(Multi, int, NoneOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Single, value_type, NoneOfFamily, Output<value_type>);
+	ASSERT_IS_PARSER(Multi, value_type, NoneOfFamily, Output<value_type>);
 }
 
 TEST("NoneOf", "Parse single")
@@ -52,6 +52,6 @@ TEST("NoneOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, L"");
 
-	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<int, 0>{})>, e(A, B, C), e(A), e(B, C));
-	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<int, 0>{})>, e());
+	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<value_type, 0>{})>, e(A, B, C), e(A), e(B, C));
+	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<value_type, 0>{})>, e());
 }

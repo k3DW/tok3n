@@ -5,9 +5,9 @@ FIXTURE("Epsilon");
 
 TEST("Epsilon", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Eps1, int);
+	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
-	ASSERT_IS_PARSER(Eps1, int, EpsilonFamily, void);
+	ASSERT_IS_PARSER(Eps1, value_type, EpsilonFamily, void);
 }
 
 TEST("Epsilon", "Parse")

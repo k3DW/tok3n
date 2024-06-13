@@ -11,7 +11,7 @@ TEST("basic operators", "any<>")
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(E::C, E::D)>, any4);
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(E::Com)>, comma);
 	ASSERT_PARSER_VALUES_EQ(any<StaticArray(E::Space, E::Dot)>, spacedot);
-	ASSERT_PARSER_VALUES_EQ(any<(StaticArray<E, 0>{})>, AnyOf<(StaticArray<E, 0>{})>{});
+	ASSERT_PARSER_VALUES_EQ(any<(StaticArray<value_type, 0>{})>, AnyOf<(StaticArray<value_type, 0>{})>{});
 }
 
 TEST("basic operators", "any_of<>")
@@ -31,7 +31,7 @@ TEST("basic operators", "none<>")
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(E::X, E::Y, E::Z)>, none3);
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(E::C, E::D)>, none4);
 	ASSERT_PARSER_VALUES_EQ(none<StaticArray(E::Z)>, none5);
-	ASSERT_PARSER_VALUES_EQ(none<(StaticArray<E, 0>{})>, NoneOf<(StaticArray<E, 0>{})>{});
+	ASSERT_PARSER_VALUES_EQ(none<(StaticArray<value_type, 0>{})>, NoneOf<(StaticArray<value_type, 0>{})>{});
 }
 
 TEST("basic operators", "none_of<>")
@@ -50,7 +50,7 @@ TEST("basic operators", "all<>")
 	ASSERT_PARSER_VALUES_EQ(all<StaticArray(E::A, E::B)>, all3);
 	ASSERT_PARSER_VALUES_EQ(all<StaticArray(E::Question, E::Question)>, qq);
 	ASSERT_PARSER_VALUES_EQ(all<StaticArray(E::A, E::B, E::C)>, abc);
-	ASSERT_PARSER_VALUES_EQ(all<(StaticArray<E, 0>{})>, AllOf<(StaticArray<E, 0>{})>{});
+	ASSERT_PARSER_VALUES_EQ(all<(StaticArray<value_type, 0>{})>, AllOf<(StaticArray<value_type, 0>{})>{});
 }
 
 TEST("basic operators", "all_of<>")
@@ -69,7 +69,7 @@ TEST("basic operators", "ign<>")
 	ASSERT_PARSER_VALUES_EQ(ign<StaticArray(E::A, E::B)>, Ignore<All3>{});
 	ASSERT_PARSER_VALUES_EQ(ign<StaticArray(E::Question, E::Question)>, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<StaticArray(E::A, E::B, E::C)>, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(ign<(StaticArray<E, 0>{})>, Ignore<AllOf<(StaticArray<E, 0>{})>>{});
+	ASSERT_PARSER_VALUES_EQ(ign<(StaticArray<value_type, 0>{})>, Ignore<AllOf<(StaticArray<value_type, 0>{})>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")

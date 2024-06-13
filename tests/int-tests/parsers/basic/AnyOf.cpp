@@ -8,8 +8,8 @@ FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, int, AnyOfFamily, Output<int>);
-	ASSERT_IS_PARSER(Multi, int, AnyOfFamily, Output<int>);
+	ASSERT_IS_PARSER(Single, value_type, AnyOfFamily, Output<value_type>);
+	ASSERT_IS_PARSER(Multi, value_type, AnyOfFamily, Output<value_type>);
 }
 
 TEST("AnyOf", "Parse single")
@@ -52,6 +52,6 @@ TEST("AnyOf", "Parse")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, L"");
 	
-	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<int, 0>{})>, e(A, B, C));
-	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<int, 0>{})>, e());
+	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<value_type, 0>{})>, e(A, B, C));
+	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<value_type, 0>{})>, e());
 }
