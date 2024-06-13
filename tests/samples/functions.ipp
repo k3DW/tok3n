@@ -1,11 +1,9 @@
-#pragma once
-
-constexpr std::size_t func1(std::vector<Output<wchar_t>>&& vec)
+constexpr std::size_t func1(std::vector<Output<::value_type>>&& vec)
 {
 	return vec.size();
 }
 
-constexpr auto func2 = []<class T>(const std::optional<Output<T>>&opt) -> std::vector<T>
+constexpr auto func2 = []<class T>(const std::optional<Output<T>>& opt) -> std::vector<T>
 {
 	if (not opt.has_value())
 		return {};

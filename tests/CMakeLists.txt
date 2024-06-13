@@ -3,8 +3,7 @@ add_subdirectory(framework)
 file(GLOB_RECURSE tests_files
      LIST_DIRECTORIES false
      "asserts/*.h"
-     "char-samples/*.h"
-     "char-samples/*.cpp"
+     "samples/*.ipp"
      "char-tests/*.h"
      "char-tests/*.cpp"
      "enum-samples/*.h"
@@ -23,8 +22,6 @@ file(GLOB_RECURSE tests_files
      "structural-samples/*.cpp"
      "structural-tests/*.h"
      "structural-tests/*.cpp"
-     "wchar_t-samples/*.h"
-     "wchar_t-samples/*.cpp"
      "wchar_t-tests/*.h"
      "wchar_t-tests/*.cpp"
      "asserts.h"

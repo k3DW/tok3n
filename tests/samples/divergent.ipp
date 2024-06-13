@@ -1,8 +1,3 @@
-#pragma once
-#include "char-samples/basic.h"
-#include "char-samples/classes.h"
-#include "char-samples/functions.h"
-
 using Joi1 = Join<_21>; constexpr Joi1 joi1;
 using Joi2 = Join<_22>; constexpr Joi2 joi2;
 using Joi3 = Join<_23>; constexpr Joi3 joi3;
@@ -34,6 +29,8 @@ using Def2 = Defaulted<_23, Class3>; constexpr Def2 def2;
 
 struct Cus1 : Custom<Cus1>
 {
+	using value_type = ::value_type;
+
 	static consteval auto get_parser()
 	{
 		return _25{} % fn<transform>;
@@ -64,7 +61,7 @@ struct Cus1 : Custom<Cus1>
 };
 constexpr Cus1 cus1;
 
-struct Cus2 : Custom<Cus2>
+struct Cus2 : Custom<Cus2, ::value_type>
 {
 	using result_type = std::size_t;
 

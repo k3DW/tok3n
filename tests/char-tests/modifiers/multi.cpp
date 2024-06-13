@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "char-samples/char-samples.h"
+#include "char-tests/samples.h"
 
 FIXTURE("multi operator");
 

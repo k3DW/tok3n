@@ -1,7 +1,3 @@
-#pragma once
-#include "wchar_t-samples/adaptor.h"
-#include "wchar_t-samples/basic.h"
-
 using Cho1 = Choice<All4, Non4>;       constexpr Cho1 cho1;
 using Cho2 = Choice<Non4, All4>;       constexpr Cho2 cho2;
 using Cho3 = Choice<All4, Any4, Non5>; constexpr Cho3 cho3;

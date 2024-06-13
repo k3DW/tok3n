@@ -1,5 +1,3 @@
-#pragma once
-
 #define ASSERT_ALL_SAMPLES_IMPL(R, DATA, ELEM) \
 	DATA(ELEM)
 

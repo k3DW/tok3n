@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "wchar_t-samples/wchar_t-samples.h"
+#include "wchar_t-tests/samples.h"
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
