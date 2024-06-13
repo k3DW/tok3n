@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "structural-tests/samples.h"
+#include "object-tests/samples.h"
 
 FIXTURE("not operator");
 

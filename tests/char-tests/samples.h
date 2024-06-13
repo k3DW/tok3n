@@ -22,7 +22,7 @@
     using value_type = wchar_t;
 
 #else
-#error Must defined exactly one VALUE_TYPE_XYZ macro.
+#error Must define exactly one VALUE_TYPE_XYZ macro.
 #endif
 
 using namespace k3::tok3n;
