@@ -1,7 +1,11 @@
 #include "samples.h"
 
 using Single = AnyOf<StaticArray(A)>;
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+using Multi  = AnyOf<StaticArray(A, C)>;
+#else
 using Multi  = AnyOf<StaticArray(A, B, C)>;
+#endif
 
 FIXTURE("AnyOf");
 
@@ -14,7 +18,11 @@ TEST("AnyOf", "Requirements")
 TEST("AnyOf", "Parse single")
 {
 	ASSERT_PARSE_SUCCESS(Single, e(A, B), e(A), e(B));
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+	ASSERT_PARSE_SUCCESS(Single, e(B, A), e(B), e(A));
+#else
 	ASSERT_PARSE_FAILURE(Single, e(B, A));
+#endif
 	ASSERT_PARSE_SUCCESS(Single, e(A, B, C), e(A), e(B, C));
 	ASSERT_PARSE_FAILURE(Single, e(Space, A));
 }
@@ -39,7 +47,14 @@ TEST("AnyOf", "Parse multi")
 
 TEST("AnyOf", "Constructible from lexicographically sorted only")
 {
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, StaticArray(A, C));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(C, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, B, C));
+#else
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, StaticArray(A, B, C));
+#endif
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, C, B));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(B, A, C));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(B, C, A));

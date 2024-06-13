@@ -1,31 +1,27 @@
 #include "samples.h"
 
 using Single = NoneOf<StaticArray(A)>;
-#if defined(VALUE_TYPE_STRUCTURAL)
-using Multi  = NoneOf<StaticArray(A, B, C)>;
-#elif defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 using Multi  = NoneOf<StaticArray(A, C)>;
 #else
-#error
+using Multi  = NoneOf<StaticArray(A, B, C)>;
 #endif
 
 FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, S, NoneOfFamily, Output<S>);
-	ASSERT_IS_PARSER(Multi, S, NoneOfFamily, Output<S>);
+	ASSERT_IS_PARSER(Single, value_type, NoneOfFamily, Output<value_type>);
+	ASSERT_IS_PARSER(Multi, value_type, NoneOfFamily, Output<value_type>);
 }
 
 TEST("NoneOf", "Parse single")
 {
 	ASSERT_PARSE_FAILURE(Single, e(A, B));
-#if defined(VALUE_TYPE_STRUCTURAL)
-	ASSERT_PARSE_SUCCESS(Single, e(B, A), e(B), e(A));
-#elif defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 	ASSERT_PARSE_FAILURE(Single, e(B, A));
 #else
-#error
+	ASSERT_PARSE_SUCCESS(Single, e(B, A), e(B), e(A));
 #endif
 	ASSERT_PARSE_FAILURE(Single, e(A, B, C));
 	ASSERT_PARSE_SUCCESS(Single, e(Space, A), e(Space), e(A));
@@ -51,15 +47,13 @@ TEST("NoneOf", "Parse multi")
 
 TEST("NoneOf", "Constructible from lexicographically sorted only")
 {
-#if defined(VALUE_TYPE_STRUCTURAL)
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, StaticArray(A, B, C));
-#elif defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
+#if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, StaticArray(A, C));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(C, A));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, B));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, B, C));
 #else
-#error
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, StaticArray(A, B, C));
 #endif
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, C, B));
 	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(B, A, C));
@@ -72,6 +66,6 @@ TEST("NoneOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, L"");
 
-	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<S, 0>{})>, e(A, B, C), e(A), e(B, C));
-	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<S, 0>{})>, e());
+	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<value_type, 0>{})>, e(A, B, C), e(A), e(B, C));
+	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<value_type, 0>{})>, e());
 }

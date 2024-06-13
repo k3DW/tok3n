@@ -17,5 +17,4 @@ macro(tok3n_configure_test_target target value_type_pp_definition)
 endmacro()
 
 add_subdirectory(char-tests)
-add_subdirectory(integral-tests)
-add_subdirectory(object-tests)
+add_subdirectory(non-char-tests)
