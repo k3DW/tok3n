@@ -1,4 +1,4 @@
-#include "object-tests/samples.h"
+#include "samples.h"
 
 using L = AllOf<StaticArray(X, Y, Z)>;
 

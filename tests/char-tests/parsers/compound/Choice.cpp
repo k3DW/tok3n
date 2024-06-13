@@ -1,4 +1,4 @@
-#include "char-tests/samples.h"
+#include "samples.h"
 
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;

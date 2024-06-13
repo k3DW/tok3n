@@ -1,4 +1,4 @@
-#include "integral-tests/samples.h"
+#include "samples.h"
 
 FIXTURE("basic operators");
 

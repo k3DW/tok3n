@@ -1,4 +1,4 @@
-#include "object-tests/samples.h"
+#include "samples.h"
 
 FIXTURE("not operator");
 

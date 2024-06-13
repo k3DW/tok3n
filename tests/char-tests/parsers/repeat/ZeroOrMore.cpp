@@ -1,4 +1,4 @@
-#include "char-tests/samples.h"
+#include "samples.h"
 
 FIXTURE("ZeroOrMore");
 

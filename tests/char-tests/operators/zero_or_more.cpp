@@ -1,4 +1,4 @@
-#include "char-tests/samples.h"
+#include "samples.h"
 
 FIXTURE("zero_or_more operator");
 

@@ -1,4 +1,4 @@
-#include "char-tests/samples.h"
+#include "samples.h"
 
 using Single = AnyOf<TT('a')>;
 using Multi  = AnyOf<TT("abc")>;

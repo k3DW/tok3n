@@ -1,4 +1,4 @@
-#include "integral-tests/samples.h"
+#include "samples.h"
 
 using Single = NoneOf<StaticArray(A)>;
 using Multi  = NoneOf<StaticArray(A, B, C)>;

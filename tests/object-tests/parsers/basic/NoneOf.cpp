@@ -1,4 +1,4 @@
-#include "object-tests/samples.h"
+#include "samples.h"
 
 using Single = NoneOf<StaticArray(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL)

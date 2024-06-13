@@ -1,5 +1,5 @@
 #pragma once
-#include "pch.h"
+#include "common.h"
 
 #if defined(VALUE_TYPE_CHAR)
 

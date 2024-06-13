@@ -1,6 +1,6 @@
 #pragma once
 #include "framework/Assert.h"
-#include "asserts/Concept.h"
+#include "common/asserts/Concept.h"
 
 template <auto lhs, auto rhs>
 concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remove_cvref_t<decltype(rhs)>>;

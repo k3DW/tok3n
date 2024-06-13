@@ -1,7 +1,7 @@
 #pragma once
 #include "framework/Assert.h"
-#include "asserts/Concept.h"
-#include "asserts/Equality.h"
+#include "common/asserts/Concept.h"
+#include "common/asserts/Equality.h"
 #include <k3/tok3n/concepts/Parser.h>
 
 template <auto f, auto... args>

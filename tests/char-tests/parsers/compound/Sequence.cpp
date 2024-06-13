@@ -1,4 +1,4 @@
-#include "char-tests/samples.h"
+#include "samples.h"
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
