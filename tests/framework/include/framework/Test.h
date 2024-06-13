@@ -2,7 +2,7 @@
 #include <string>
 #include <string_view>
 #include <k3/tok3n/types/StaticArray.h>
-#include "infrastructure/framework/TestResult.h"
+#include "framework/TestResult.h"
 
 class Test
 {

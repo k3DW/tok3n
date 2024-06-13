@@ -1,6 +1,6 @@
 #pragma once
-#include "infrastructure/framework/Assert.h"
-#include "infrastructure/asserts/Concept.h"
+#include "framework/Assert.h"
+#include "asserts/Concept.h"
 
 #define ASSERT_PARSE_IMPL_PARSE_VALID_(P, INPUT)                                             \
 	ASSERT((P::parse(INPUT)).has_value(),                                                    \

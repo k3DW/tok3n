@@ -1,5 +1,5 @@
 #pragma once
-#include "infrastructure/framework/Error.h"
+#include "framework/Error.h"
 
 struct TestResult
 {

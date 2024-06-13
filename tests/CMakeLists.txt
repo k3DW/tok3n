@@ -1,8 +1,37 @@
+add_subdirectory(framework)
 
 file(GLOB_RECURSE tests_files
      LIST_DIRECTORIES false
-     "*.h"
-     "*.cpp"
+     "asserts/*.h"
+     "char-samples/*.h"
+     "char-samples/*.cpp"
+     "char-tests/*.h"
+     "char-tests/*.cpp"
+     "enum-samples/*.h"
+     "enum-samples/*.cpp"
+     "enum-tests/*.h"
+     "enum-tests/*.cpp"
+     "int-samples/*.h"
+     "int-samples/*.cpp"
+     "int-tests/*.h"
+     "int-tests/*.cpp"
+     "op_equals-samples/*.h"
+     "op_equals-samples/*.cpp"
+     "op_equals-tests/*.h"
+     "op_equals-tests/*.cpp"
+     "structural-samples/*.h"
+     "structural-samples/*.cpp"
+     "structural-tests/*.h"
+     "structural-tests/*.cpp"
+     "wchar_t-samples/*.h"
+     "wchar_t-samples/*.cpp"
+     "wchar_t-tests/*.h"
+     "wchar_t-tests/*.cpp"
+     "asserts.h"
+     "pch.cpp"
+     "pch.h"
+     "underlying.h"
+     "wrappers.h"
 )
 
 add_executable(tests
@@ -26,6 +55,7 @@ target_compile_options(tests PUBLIC
 target_include_directories(tests PUBLIC .)
 
 target_link_libraries(tests PUBLIC k3::tok3n)
+target_link_libraries(tests PUBLIC framework)
 target_link_libraries(tests PUBLIC Boost::preprocessor)
 
 target_precompile_headers(tests PRIVATE pch.h)

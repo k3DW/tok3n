@@ -1,4 +1,4 @@
-#include "pch.h"
+#include "framework.h"
 
 TestResultContext::TestResultContext(TestResult& result)
 	: _old_result(_current_result)
