@@ -25,14 +25,7 @@ using namespace k3::tok3n;
 #include "samples/basic-integral.ipp"
 #include "samples/sub_parsers.ipp"
 
-#include "samples/classes.ipp"
-#include "samples/functions.ipp"
 #include "samples/macros-integral.ipp"
-
-#include "samples/adaptor.ipp"
-#include "samples/compound.ipp"
-#include "samples/divergent.ipp"
-#include "samples/repeat.ipp"
 
 using enum E;
 

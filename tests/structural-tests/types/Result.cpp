@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "structural-samples/structural-samples.h"
+#include "structural-tests/samples.h"
 
 FIXTURE("Result");
 

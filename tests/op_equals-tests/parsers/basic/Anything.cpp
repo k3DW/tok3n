@@ -1,7 +1,5 @@
 #include "pch.h"
-#include "op_equals-samples/op_equals-samples.h"
-
-using namespace SS;
+#include "op_equals-tests/samples.h"
 
 FIXTURE("Anything");
 

@@ -1,7 +1,5 @@
 #include "pch.h"
-#include "structural-samples/structural-samples.h"
-
-using namespace SS;
+#include "structural-tests/samples.h"
 
 FIXTURE("Anything");
 

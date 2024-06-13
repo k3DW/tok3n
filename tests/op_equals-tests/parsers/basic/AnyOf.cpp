@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "op_equals-samples/op_equals-samples.h"
+#include "op_equals-tests/samples.h"
 
-using namespace SS;
 using Single = AnyOf<StaticArray(A)>;
 using Multi  = AnyOf<StaticArray(A, C)>;
 

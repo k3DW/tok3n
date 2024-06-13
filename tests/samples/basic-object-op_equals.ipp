@@ -1,14 +1,12 @@
-#pragma once
-
-using Any1 = AnyOf<StaticArray(SS::A, SS::B, SS::C)>; constexpr Any1 any1;
-using Any2 = AnyOf<StaticArray(SS::B, SS::C, SS::D)>; constexpr Any2 any2;
+using Any1 = AnyOf<StaticArray(SS::A, SS::C)>;        constexpr Any1 any1;
+using Any2 = AnyOf<StaticArray(SS::B, SS::D)>;        constexpr Any2 any2;
 using Any3 = AnyOf<StaticArray(SS::X, SS::Y, SS::Z)>; constexpr Any3 any3;
-using Any4 = AnyOf<StaticArray(SS::C, SS::D)>;        constexpr Any4 any4;
+using Any4 = AnyOf<StaticArray(SS::B, SS::C)>;        constexpr Any4 any4;
 
-using Non1 = NoneOf<StaticArray(SS::A, SS::B, SS::C)>; constexpr Non1 none1;
-using Non2 = NoneOf<StaticArray(SS::B, SS::C, SS::D)>; constexpr Non2 none2;
+using Non1 = NoneOf<StaticArray(SS::A, SS::C)>;        constexpr Non1 none1;
+using Non2 = NoneOf<StaticArray(SS::B, SS::D)>;        constexpr Non2 none2;
 using Non3 = NoneOf<StaticArray(SS::X, SS::Y, SS::Z)>; constexpr Non3 none3;
-using Non4 = NoneOf<StaticArray(SS::C, SS::D)>;        constexpr Non4 none4;
+using Non4 = NoneOf<StaticArray(SS::B, SS::C)>;        constexpr Non4 none4;
 using Non5 = NoneOf<StaticArray(SS::Z)>;               constexpr Non5 none5;
 
 using All1 = AllOf<StaticArray(SS::X, SS::Y, SS::Z)>; constexpr All1 all1;

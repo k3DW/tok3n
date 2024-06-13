@@ -1,7 +1,6 @@
 #include "pch.h"
-#include "structural-samples/structural-samples.h"
+#include "structural-tests/samples.h"
 
-using namespace SS;
 using L = AllOf<StaticArray(X, Y, Z)>;
 
 FIXTURE("AllOf");

@@ -1,5 +1,5 @@
 #include "pch.h"
-#include "op_equals-samples/op_equals-samples.h"
+#include "op_equals-tests/samples.h"
 
 FIXTURE("not operator");
 
