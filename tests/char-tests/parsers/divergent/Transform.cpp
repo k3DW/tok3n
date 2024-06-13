@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "char-tests/samples.h"
 
 FIXTURE("Transform");
@@ -10,12 +9,24 @@ TEST("Transform", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Tra3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Tra4, value_type);
 
+#if defined(VALUE_TYPE_CHAR)
 	ASSERT_IS_PARSER(Tra1, char, TransformFamily, std::size_t);
+#elif defined(VALUE_TYPE_WCHAR_T)
+	ASSERT_IS_NOT_PARSER(Tra1, char, TransformFamily);
+#else
+#error
+#endif
 	ASSERT_IS_PARSER(Tra2, char, TransformFamily, std::vector<char>);
 	ASSERT_IS_PARSER(Tra3, char, TransformFamily, bool);
 	ASSERT_IS_PARSER(Tra4, char, TransformFamily, std::size_t);
 
+#if defined(VALUE_TYPE_CHAR)
 	ASSERT_IS_NOT_PARSER(Tra1, wchar_t, TransformFamily);
+#elif defined(VALUE_TYPE_WCHAR_T)
+	ASSERT_IS_PARSER(Tra1, wchar_t, TransformFamily, std::size_t);
+#else
+#error
+#endif
 	ASSERT_IS_PARSER(Tra2, wchar_t, TransformFamily, std::vector<wchar_t>);
 	ASSERT_IS_PARSER(Tra3, wchar_t, TransformFamily, bool);
 	ASSERT_IS_PARSER(Tra4, wchar_t, TransformFamily, std::size_t);

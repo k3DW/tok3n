@@ -1,4 +1,3 @@
-#include "pch.h"
 #include "char-tests/samples.h"
 
 using TwoWay = Seq1;
