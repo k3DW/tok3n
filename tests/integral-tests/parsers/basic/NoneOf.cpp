@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "enum-tests/samples.h"
+#include "integral-tests/samples.h"
 
 using Single = NoneOf<StaticArray(A)>;
 using Multi  = NoneOf<StaticArray(A, B, C)>;

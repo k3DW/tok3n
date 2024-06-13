@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "enum-tests/samples.h"
+#include "integral-tests/samples.h"
 
 using Single = AnyOf<StaticArray(A)>;
 using Multi  = AnyOf<StaticArray(A, B, C)>;

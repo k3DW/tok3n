@@ -1,5 +1,6 @@
 add_subdirectory(framework)
 add_subdirectory(char-tests)
+add_subdirectory(integral-tests)
 
 
 
@@ -7,10 +8,6 @@ file(GLOB_RECURSE tests_files
      LIST_DIRECTORIES false
      "asserts/*.h"
      "samples/*.ipp"
-     "enum-tests/*.h"
-     "enum-tests/*.cpp"
-     "int-tests/*.h"
-     "int-tests/*.cpp"
      "op_equals-tests/*.h"
      "op_equals-tests/*.cpp"
      "structural-tests/*.h"

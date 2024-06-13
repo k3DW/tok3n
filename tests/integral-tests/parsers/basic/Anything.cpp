@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "int-tests/samples.h"
+#include "integral-tests/samples.h"
 
 FIXTURE("Anything");
 

@@ -1,5 +1,4 @@
-#include "pch.h"
-#include "enum-tests/samples.h"
+#include "integral-tests/samples.h"
 
 FIXTURE("Result");
 
