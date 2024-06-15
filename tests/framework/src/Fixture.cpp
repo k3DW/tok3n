@@ -17,7 +17,7 @@ int Fixture::run(std::ostream& os, const std::optional<std::string_view> test_na
 		{
 			failures += (test->run(os) == EXIT_SUCCESS) ? 0 : 1;
 		}
-		os << print_brief();
+		print_brief(os);
 		os << "\n";
 		return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
 	}
@@ -32,17 +32,17 @@ int Fixture::run(std::ostream& os, const std::optional<std::string_view> test_na
 
 		os << "Running fixture " << std::quoted(_name) << "\n";
 		const auto out = it->second->run(os);
-		os << print_brief();
+		print_brief(os);
 		os << "\n";
 		return out;
 	}
 }
 
-std::string Fixture::print_brief() const
+void Fixture::print_brief(std::ostream& os) const
 {
-	StringBuilder builder;
-	builder.append("Fixture \"", _name, "\" - ", _tests.size(), " tests / ", count_failures(), " failures.\n");
-	return std::move(builder).build();
+	os
+		<< "Fixture " << std::quoted(_name) << " - "
+		<< _tests.size() << " tests / " << count_failures() << " failures.\n";
 }
 
 void Fixture::print_errors(std::ostream& os) const
@@ -51,7 +51,7 @@ void Fixture::print_errors(std::ostream& os) const
 	for (auto [_, test] : _tests)
 	{
 		if (test->failed())
-			os << test->print_errors();
+			test->print_errors(os);
 	}
 	os << "\n";
 }

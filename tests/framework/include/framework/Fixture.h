@@ -20,7 +20,7 @@ public:
 
 	int run(std::ostream& os, std::optional<std::string_view> test_name = std::nullopt);
 
-	std::string print_brief() const;
+	void print_brief(std::ostream& os) const;
 	void print_errors(std::ostream& os) const;
 	std::size_t count_failures() const;
 

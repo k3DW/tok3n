@@ -15,8 +15,8 @@ public:
 
 	int run(std::ostream& os);
 
-	std::string print_brief() const;
-	std::string print_errors() const;
+	void print_brief(std::ostream& os) const;
+	void print_errors(std::ostream& os) const;
 	bool failed() const;
 
 protected:
