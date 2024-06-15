@@ -1,4 +1,5 @@
 #pragma once
+#include <iosfwd>
 #include <string>
 #include <string_view>
 #include <k3/tok3n/types/StaticArray.h>
@@ -12,7 +13,8 @@ public:
 		return _name;
 	}
 
-	void run();
+	int run(std::ostream& os);
+
 	std::string print_brief() const;
 	std::string print_errors() const;
 	bool failed() const;

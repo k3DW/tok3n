@@ -1,9 +1,13 @@
 #include "framework.h"
+#include <iostream>
 
-void Test::run()
+int Test::run(std::ostream& os)
 {
 	TestResultContext test_context(_result);
 	_run();
+
+	os << print_brief();
+	return failed() ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
 std::string Test::print_brief() const

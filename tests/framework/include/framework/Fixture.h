@@ -1,4 +1,6 @@
 #pragma once
+#include <iosfwd>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -16,10 +18,13 @@ public:
 		return _name;
 	}
 
-	void run();
+	int run(std::ostream& os, std::optional<std::string_view> test_name = std::nullopt);
+
 	std::string print_brief() const;
-	std::string print_failures() const;
+	void print_errors(std::ostream& os) const;
 	std::size_t count_failures() const;
+
+	void list(std::ostream& os) const;
 
 protected:
 	Fixture(std::string name)
