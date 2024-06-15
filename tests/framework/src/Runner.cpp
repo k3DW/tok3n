@@ -1,6 +1,7 @@
 #include "framework.h"
 #include <iomanip>
 #include <iostream>
+#include <fstream>
 
 Runner& Runner::get()
 {
@@ -34,6 +35,7 @@ int Runner::exec(const int argc, const char* const argv[])
 		std::cout <<
 			"`<no-args>` => Same as `run`"
 			"`list` => List all tests\n"
+			"`list` \"<file>\" => List all tests and output to the file\n"
 			"`run` => Run all tests\n"
 			"`run \"<fixture>\" => Run all tests in the given fixture\n"
 			"`run \"<fixture>\" \"<test>\" => Run the given test\n"
@@ -111,14 +113,28 @@ RUN_ALL_TESTS:
 	}
 	else if (args[1] == "list")
 	{
-		if (args.size() != 2)
+		if (args.size() > 3)
 		{
-			std::cout << "Error: `list` command takes no additional arguments. Use --help for more info.\n";
+			std::cout << "Error: Too many arguments to `list` command. Use --help for more info.\n";
 			return EXIT_FAILURE;
 		}
+
+		std::optional<std::ofstream> file = std::nullopt;
+		if (args.size() == 3)
+		{
+			file.emplace();
+			file->open(args[2].data());
+			if (!file->is_open())
+			{
+				std::cout << "Error: Could not open file - " << args[2] << "\n";
+				return EXIT_FAILURE;
+			}
+		}
+
+		std::ostream& stream = (file.has_value()) ? *file : std::cout;
 		for (auto [name, fixture] : _fixtures)
 		{
-			fixture->list(std::cout);
+			fixture->list(stream);
 		}
 		return EXIT_SUCCESS;
 	}
