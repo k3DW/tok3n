@@ -19,7 +19,6 @@
     constexpr int Space = 10000;
     constexpr int Dot = 100000;
 
-    #define ASSEMBLY "int"
     using value_type = int;
 
 #elif defined(VALUE_TYPE_ENUM)
@@ -49,7 +48,6 @@
         return static_cast<under>(lhs) < static_cast<under>(rhs);
     }
 
-    #define ASSEMBLY "enum"
     using value_type = E;
 
     using enum E;
@@ -69,7 +67,6 @@
         friend constexpr auto operator<=>(const S& lhs, const S& rhs) = default;
     };
 
-    #define ASSEMBLY "structural"
     #define ANY_VALUE_TYPE_STRUCTURAL
     using value_type = S;
     constexpr auto cmp = std::less<>{};
@@ -95,7 +92,6 @@
         }
     };
 
-    #define ASSEMBLY "structural_op_equals"
     #define ANY_VALUE_TYPE_STRUCTURAL
     using value_type = S;
     constexpr auto cmp = std::equal_to<>{};

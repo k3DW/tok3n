@@ -7,7 +7,6 @@
     #error Can only define one VALUE_TYPE_XYZ macro.
     #endif
 
-    #define ASSEMBLY "char"
     #define TT(x) x
     using value_type = char;
 
@@ -17,7 +16,6 @@
     #error Can only define one VALUE_TYPE_XYZ macro.
     #endif
 
-    #define ASSEMBLY "wchar_t"
     #define TT(x) L ## x
     using value_type = wchar_t;
 

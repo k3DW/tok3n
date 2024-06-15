@@ -56,4 +56,4 @@ class FixtureImpl {};
 		= Runner::get().add([]() -> auto&            \
 		{ static FixtureImpl<NAME> f; return f; }())
 
-#define FIXTURE(NAME) FIXTURE_(ASSEMBLY " " NAME)
+#define FIXTURE(NAME) FIXTURE_(NAME)

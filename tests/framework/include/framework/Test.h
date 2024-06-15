@@ -55,4 +55,4 @@ class TestImpl {};
 		{ static TestImpl<FIXTURE_NAME, NAME> t; return t; }());             \
 	void TestImpl<FIXTURE_NAME, NAME>::_run()
 
-#define TEST(FIXTURE_NAME, NAME) TEST_(ASSEMBLY " " FIXTURE_NAME, NAME)
+#define TEST(FIXTURE_NAME, NAME) TEST_(FIXTURE_NAME, NAME)
