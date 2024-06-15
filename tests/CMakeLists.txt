@@ -20,14 +20,13 @@ endmacro()
 
 macro(tok3n_discover_tests target)
 
-    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}_list_of_tests.txt")
+    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}_add_tests.cmake")
 
-    add_custom_target("${target}_run" ALL)
-    add_dependencies("${target}_run" "${target}")
+    add_custom_target("${target}_add_tests" ALL)
+    add_dependencies("${target}_add_tests" "${target}")
 
     add_custom_command(
-        TARGET "${target}_run" POST_BUILD
-        TARGET "${target}" POST_BUILD
+        TARGET "${target}_add_tests" POST_BUILD
         COMMAND ${target} list "${generated_file}"
         COMMAND "${CMAKE_COMMAND}"
             -D "TEST_TARGET=${target}"

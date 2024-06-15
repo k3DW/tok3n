@@ -5,21 +5,16 @@
 
 set(CTEST_FILE "${TEST_DIRECTORY}/CTestTestfile.cmake")
 
-file(READ "${CTEST_FILE}" file_contents)
-string(REGEX REPLACE "([\r\n]+)[^#].+[\n\r]+" "\\1" file_contents "${file_contents}")
-file(WRITE "${CTEST_FILE}" "${file_contents}")
+file(READ "${CTEST_FILE}" ctest_file_contents)
+string(FIND "${ctest_file_contents}" "${LIST_OF_TESTS_FILE}" found_position)
+if(found_position EQUAL -1)
+    file(APPEND "${CTEST_FILE}" "include(${LIST_OF_TESTS_FILE})\n")
+endif()
 
-file(STRINGS "${LIST_OF_TESTS_FILE}" LIST_OF_TESTS)
-
-foreach(TEST_NAME IN ITEMS ${LIST_OF_TESTS})
-    string(REGEX MATCH "^(\".*\") - (\".*\")$" _ "${TEST_NAME}")
-    file(APPEND "${CTEST_FILE}"
-        "add_test("
-        "[=[\"${CMAKE_MATCH_1} - ${CMAKE_MATCH_2}\"]=] "
-        "${TEST_DIRECTORY}/${TEST_TARGET}${CMAKE_EXECUTABLE_SUFFIX} "
-        "\"run\" "
-        "${CMAKE_MATCH_1} "
-        "${CMAKE_MATCH_2}"
-        ")\n"
-    )
-endforeach()
+file(READ "${LIST_OF_TESTS_FILE}" list_of_tests_contents)
+string(REGEX REPLACE
+    "(\"[^\r\n]*\") - (\"[^\r\n]*\")([\r\n]+)"
+    "add_test([=[\"\\1 - \\2\"]=] ${TEST_DIRECTORY}/${TEST_TARGET}${CMAKE_EXECUTABLE_SUFFIX} \"run\" \\1 \\2)\\3"
+    list_of_tests_contents "${list_of_tests_contents}"
+)
+file(WRITE "${LIST_OF_TESTS_FILE}" "${list_of_tests_contents}")
