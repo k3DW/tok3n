@@ -1,4 +1,5 @@
 #pragma once
+#include <iosfwd>
 #include <string>
 #include <string_view>
 #include <k3/tok3n/types/StaticArray.h>
@@ -12,9 +13,10 @@ public:
 		return _name;
 	}
 
-	void run();
-	std::string print_brief() const;
-	std::string print_errors() const;
+	int run(std::ostream& os);
+
+	void print_brief(std::ostream& os) const;
+	void print_errors(std::ostream& os) const;
 	bool failed() const;
 
 protected:
@@ -53,4 +55,4 @@ class TestImpl {};
 		{ static TestImpl<FIXTURE_NAME, NAME> t; return t; }());             \
 	void TestImpl<FIXTURE_NAME, NAME>::_run()
 
-#define TEST(FIXTURE_NAME, NAME) TEST_(ASSEMBLY " " FIXTURE_NAME, NAME)
+#define TEST(FIXTURE_NAME, NAME) TEST_(FIXTURE_NAME, NAME)

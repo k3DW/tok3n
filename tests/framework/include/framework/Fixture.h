@@ -1,4 +1,6 @@
 #pragma once
+#include <iosfwd>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
@@ -16,10 +18,13 @@ public:
 		return _name;
 	}
 
-	void run();
-	std::string print_brief() const;
-	std::string print_failures() const;
+	int run(std::ostream& os, std::optional<std::string_view> test_name = std::nullopt);
+
+	void print_brief(std::ostream& os) const;
+	void print_errors(std::ostream& os) const;
 	std::size_t count_failures() const;
+
+	void list(std::ostream& os) const;
 
 protected:
 	Fixture(std::string name)
@@ -51,4 +56,4 @@ class FixtureImpl {};
 		= Runner::get().add([]() -> auto&            \
 		{ static FixtureImpl<NAME> f; return f; }())
 
-#define FIXTURE(NAME) FIXTURE_(ASSEMBLY " " NAME)
+#define FIXTURE(NAME) FIXTURE_(NAME)

@@ -1,46 +1,59 @@
 #include "framework.h"
+#include <iomanip>
+#include <iostream>
 
 void Fixture::add_test(Test& test)
 {
 	_tests.emplace(test.name(), &test);
 }
 
-void Fixture::run()
+int Fixture::run(std::ostream& os, const std::optional<std::string_view> test_name)
 {
-	for (auto& [_, test] : _tests)
+	if (!test_name.has_value())
 	{
-		test->run();
+		os << "Running fixture " << std::quoted(_name) << "\n";
+		int failures = 0;
+		for (auto [_, test] : _tests)
+		{
+			failures += (test->run(os) == EXIT_SUCCESS) ? 0 : 1;
+		}
+		print_brief(os);
+		os << "\n";
+		return failures == 0 ? EXIT_SUCCESS : EXIT_FAILURE;
+	}
+	else
+	{
+		const auto it = _tests.find(*test_name);
+		if (it == _tests.end())
+		{
+			os << "Error: Fixture " << std::quoted(_name) << " does not contain test " << std::quoted(*test_name) << "\n";
+			return EXIT_FAILURE;
+		}
+
+		os << "Running fixture " << std::quoted(_name) << "\n";
+		const auto out = it->second->run(os);
+		print_brief(os);
+		os << "\n";
+		return out;
 	}
 }
 
-std::string Fixture::print_brief() const
+void Fixture::print_brief(std::ostream& os) const
 {
-	StringBuilder builder;
-	builder.append("Fixture \"", _name, "\" - ", _tests.size(), " tests / ", count_failures(), " failures.\n");
-	return std::move(builder).build();
+	os
+		<< "Fixture " << std::quoted(_name) << " - "
+		<< _tests.size() << " tests / " << count_failures() << " failures.\n";
 }
 
-std::string Fixture::print_failures() const
+void Fixture::print_errors(std::ostream& os) const
 {
-	StringBuilder builder;
-	builder.append("Fixture \"", _name, "\" - ", _tests.size(), " tests\n");
-	
-	std::vector<Test*> failed;
-	
-	for (auto [name, test] : _tests)
+	os << "Fixture " << std::quoted(_name) << "\n";
+	for (auto [_, test] : _tests)
 	{
-		builder.append(test->print_brief());
 		if (test->failed())
-			failed.push_back(test);
+			test->print_errors(os);
 	}
-
-	for (auto* test : failed)
-	{
-		builder.append("\n");
-		builder.append(test->print_errors());
-	}
-
-	return std::move(builder).build();
+	os << "\n";
 }
 
 size_t Fixture::count_failures() const
@@ -52,4 +65,17 @@ size_t Fixture::count_failures() const
 			++total;
 	}
 	return total;
+}
+
+void Fixture::list(std::ostream& os) const
+{
+	for (auto [test_name, _] : _tests)
+	{
+		os
+			<< std::quoted(_name)
+			<< " - "
+			<< std::quoted(test_name)
+			<< "\n"
+		;
+	}
 }

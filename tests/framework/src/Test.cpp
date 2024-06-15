@@ -1,27 +1,30 @@
 #include "framework.h"
+#include <iomanip>
+#include <iostream>
 
-void Test::run()
+int Test::run(std::ostream& os)
 {
 	TestResultContext test_context(_result);
 	_run();
+
+	print_brief(os);
+	return failed() ? EXIT_FAILURE : EXIT_SUCCESS;
 }
 
-std::string Test::print_brief() const
+void Test::print_brief(std::ostream& os) const
 {
-	StringBuilder builder;
-	builder.append("    Test \"", _name, "\" - ", _result.checks, " checks / ", _result.errors.size(), " errors.\n");
-	return std::move(builder).build();
+	os
+		<< "    Test " << std::quoted(_name) << " - "
+		<< _result.checks << " checks / " << _result.errors.size() << " errors.\n";
 }
 
-std::string Test::print_errors() const
+void Test::print_errors(std::ostream& os) const
 {
 	auto& [message, location] = _result.errors.back();
-	StringBuilder builder;
-	builder.append("Test \"", _name, "\" failed at\n");
-	builder.append("    File: ", location.file_name(), "\n");
-	builder.append("    Line: ", location.line(), "\n");
-	builder.append("    Message: ", message, "\n");
-	return std::move(builder).build();
+	os << "Test " << std::quoted(_name) << " failed at\n";
+	os << "    File: " << location.file_name() << "\n";
+	os << "    Line: " << location.line() << "\n";
+	os << "    Message: " << message << "\n";
 }
 
 bool Test::failed() const

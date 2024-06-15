@@ -1,5 +1,6 @@
 #pragma once
 #include <map>
+#include <optional>
 #include <string>
 #include <string_view>
 
@@ -11,13 +12,12 @@ class Runner
 public:
 	static Runner& get();
 
-	void run();
-	std::string print_results() const;
+	int exec(int argc, const char* const argv[]);
 
 	Fixture& add(Fixture& fixture);
 	Test& add(std::string_view fixture_name, Test& test);
 
-protected:
+private:
 	Runner() = default;
 
 	std::map<std::string_view, Fixture*> _fixtures;

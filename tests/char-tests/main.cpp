@@ -1,9 +1,8 @@
 #include "samples.h"
 #include <iostream>
 
-int main()
+int main(int argc, const char* argv[])
 {
 	auto& runner = Runner::get();
-	runner.run();
-	std::cout << runner.print_results();
+	return runner.exec(argc, argv);
 }
