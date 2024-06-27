@@ -4,7 +4,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include <k3/tok3n/types/StaticArray.h>
+#include "framework/Hash.h"
 
 class Test;
 
@@ -40,20 +40,19 @@ private:
 
 
 
-template <k3::tok3n::StaticArray name>
-requires std::same_as<char, typename decltype(name)::value_type>
+template <std::size_t hash>
 class FixtureImpl {};
 
-#define FIXTURE_(NAME)                               \
-	template <>                                      \
-	class FixtureImpl<NAME> : public Fixture         \
-	{                                                \
-	private:                                         \
-		FixtureImpl() : Fixture(NAME) {}             \
-		static const Fixture& _self;                 \
-	};                                               \
-	const Fixture& FixtureImpl<NAME>::_self          \
-		= Runner::get().add([]() -> auto&            \
-		{ static FixtureImpl<NAME> f; return f; }())
+#define FIXTURE_(NAME)                                          \
+	template <>                                                 \
+	class FixtureImpl<test_hash(NAME)> : public Fixture         \
+	{                                                           \
+	private:                                                    \
+		FixtureImpl() : Fixture(NAME) {}                        \
+		static const Fixture& _self;                            \
+	};                                                          \
+	const Fixture& FixtureImpl<test_hash(NAME)>::_self          \
+		= Runner::get().add([]() -> auto&                       \
+		{ static FixtureImpl<test_hash(NAME)> f; return f; }())
 
 #define FIXTURE(NAME) FIXTURE_(NAME)
