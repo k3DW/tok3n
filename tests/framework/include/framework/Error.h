@@ -4,6 +4,21 @@
 
 struct Error
 {
-	std::string_view Message;
-	std::source_location Location;
+	enum class Time
+	{
+		compile_time,
+		run_time,
+	};
+	enum class Fatality
+	{
+		non_fatal,
+		fatal,
+	};
+	
+	Time time;
+	Fatality fatality;
+	std::string_view message;
+	std::source_location location;
 };
+
+void print(std::ostream& os, const Error& error);

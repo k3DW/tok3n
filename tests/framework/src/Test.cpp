@@ -20,7 +20,7 @@ void Test::print_brief(std::ostream& os) const
 
 void Test::print_errors(std::ostream& os) const
 {
-	auto& [message, location] = _result.errors.back();
+	auto& [_1, _2, message, location] = _result.errors.back();
 	os << "Test " << std::quoted(_name) << " failed at\n";
 	os << "    File: " << location.file_name() << "\n";
 	os << "    Line: " << location.line() << "\n";

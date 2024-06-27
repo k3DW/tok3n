@@ -13,7 +13,7 @@ TestResultContext::~TestResultContext()
 
 void TestResultContext::add_error(std::string_view message, std::source_location location)
 {
-	_current_result->errors.emplace_back(message, std::move(location));
+	_current_result->errors.emplace_back(Error::Time::run_time, Error::Fatality::fatal, message, std::move(location));
 }
 
 bool TestResultContext::check(bool condition)
