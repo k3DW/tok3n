@@ -2,6 +2,7 @@
 #include <iosfwd>
 #include <string>
 #include <string_view>
+#include "framework/Hash.h"
 
 struct TestResult;
 

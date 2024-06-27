@@ -1,6 +1,7 @@
 #pragma once
-#include "framework/Error.h"
 #include <iosfwd>
+
+struct Error;
 
 struct TestResult
 {
