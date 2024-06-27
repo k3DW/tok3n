@@ -2,7 +2,7 @@
 #include <iosfwd>
 #include <string>
 #include <string_view>
-#include <k3/tok3n/types/StaticArray.h>
+#include "framework/Hash.h"
 #include "framework/TestResult.h"
 
 class Test
@@ -34,25 +34,24 @@ private:
 
 
 
-template <k3::tok3n::StaticArray fixture_name, k3::tok3n::StaticArray name>
-requires std::same_as<char, typename decltype(fixture_name)::value_type>
-	 and std::same_as<char, typename decltype(name)::value_type>
+template <std::size_t hash>
 class TestImpl {};
 
-#define TEST_(FIXTURE_NAME, NAME)                                            \
-	template <>                                                              \
-	class TestImpl<FIXTURE_NAME, NAME> : public Test                         \
-	{                                                                        \
-	private:                                                                 \
-		static_assert(std::is_base_of_v<Fixture, FixtureImpl<FIXTURE_NAME>>, \
-			"Fixture \"" FIXTURE_NAME "\" has not been declared.");          \
-		TestImpl() : Test(NAME) {}                                           \
-		static const Test& _self;                                            \
-		void _run() override;                                                \
-	};                                                                       \
-	const Test& TestImpl<FIXTURE_NAME, NAME>::_self                          \
-		= Runner::get().add(FIXTURE_NAME, []() -> auto&                      \
-		{ static TestImpl<FIXTURE_NAME, NAME> t; return t; }());             \
-	void TestImpl<FIXTURE_NAME, NAME>::_run()
+#define TEST_(FIXTURE_NAME, NAME)                                             \
+	template <>                                                               \
+	class TestImpl<test_hash(FIXTURE_NAME, NAME)> : public Test               \
+	{                                                                         \
+	private:                                                                  \
+		static_assert(                                                        \
+			std::is_base_of_v<Fixture, FixtureImpl<test_hash(FIXTURE_NAME)>>, \
+			"Fixture \"" FIXTURE_NAME "\" has not been declared.");           \
+		TestImpl() : Test(NAME) {}                                            \
+		static const Test& _self;                                             \
+		void _run() override;                                                 \
+	};                                                                        \
+	const Test& TestImpl<test_hash(FIXTURE_NAME, NAME)>::_self                \
+		= Runner::get().add(FIXTURE_NAME, []() -> auto&                       \
+		{ static TestImpl<test_hash(FIXTURE_NAME, NAME)> t; return t; }());   \
+	void TestImpl<test_hash(FIXTURE_NAME, NAME)>::_run()
 
 #define TEST(FIXTURE_NAME, NAME) TEST_(FIXTURE_NAME, NAME)
