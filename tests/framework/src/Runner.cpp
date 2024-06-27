@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <iostream>
 #include <fstream>
+#include <optional>
 
 Runner& Runner::get()
 {
@@ -33,7 +34,7 @@ int Runner::exec(const int argc, const char* const argv[])
 	if (args[1] == "--help")
 	{
 		std::cout <<
-			"`<no-args>` => Same as `run`"
+			"`<no-args>` => Same as `run`\n"
 			"`list` => List all tests\n"
 			"`list` \"<file>\" => List all tests and output to the file\n"
 			"`run` => Run all tests\n"
@@ -52,13 +53,20 @@ int Runner::exec(const int argc, const char* const argv[])
 		else if (args.size() == 2)
 		{
 RUN_ALL_TESTS:
-			int failures = 0;
+			std::vector<FixtureResult> passes;
+			std::vector<FixtureResult> failures;
+			std::size_t total_test_failures = 0;
 			for (auto [_, fixture] : _fixtures)
 			{
-				failures += (fixture->run(std::cout) == EXIT_SUCCESS) ? 0 : 1;
+				FixtureResult result = fixture->run(std::cout);
+				total_test_failures += result.failures.size();
+				if (result.failures.empty())
+					passes.push_back(std::move(result));
+				else
+					failures.push_back(std::move(result));
 			}
 
-			if (failures == 0)
+			if (failures.empty())
 			{
 				std::cout
 					<< "================================\n\n"
@@ -69,13 +77,10 @@ RUN_ALL_TESTS:
 			{
 				std::cout
 					<< "================================\n\n"
-					<< failures << " tests failed.\n\n";
-				for (auto [_, fixture] : _fixtures)
+					<< total_test_failures << " tests failed.\n\n";
+				for (const FixtureResult& result : failures)
 				{
-					if (fixture->count_failures() != 0)
-					{
-						fixture->print_errors(std::cout);
-					}
+					result.print_errors(std::cout);
 				}
 				return EXIT_FAILURE;
 			}
@@ -90,11 +95,11 @@ RUN_ALL_TESTS:
 			}
 
 			Fixture* const fixture = it->second;
-			const int code = (args.size() == 3)
+			const FixtureResult result = (args.size() == 3)
 				? fixture->run(std::cout)
 				: fixture->run(std::cout, args[3]);
 
-			if (code == EXIT_SUCCESS)
+			if (result.failures.empty())
 			{
 				std::cout
 					<< "================================\n\n"
@@ -105,8 +110,8 @@ RUN_ALL_TESTS:
 			{
 				std::cout
 					<< "================================\n\n"
-					<< fixture->count_failures() << " tests failed.\n\n";
-				fixture->print_errors(std::cout);
+					<< result.failures.size() << " tests failed.\n\n";
+				result.print_errors(std::cout);
 				return EXIT_FAILURE;
 			}
 		}

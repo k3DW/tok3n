@@ -1,11 +1,11 @@
 #pragma once
 #include <iosfwd>
-#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
 #include "framework/Hash.h"
 
+struct FixtureResult;
 class Test;
 
 class Fixture
@@ -18,11 +18,8 @@ public:
 		return _name;
 	}
 
-	int run(std::ostream& os, std::optional<std::string_view> test_name = std::nullopt);
-
-	void print_brief(std::ostream& os) const;
-	void print_errors(std::ostream& os) const;
-	std::size_t count_failures() const;
+	FixtureResult run(std::ostream& os) const;
+	FixtureResult run(std::ostream& os, std::string_view test_name) const;
 
 	void list(std::ostream& os) const;
 
@@ -43,9 +40,9 @@ private:
 template <std::size_t hash>
 class FixtureImpl {};
 
-#define FIXTURE_(NAME)                                          \
+#define FIXTURE(NAME)                                           \
 	template <>                                                 \
-	class FixtureImpl<test_hash(NAME)> : public Fixture         \
+	class FixtureImpl<test_hash(NAME)> : private Fixture        \
 	{                                                           \
 	private:                                                    \
 		FixtureImpl() : Fixture(NAME) {}                        \
@@ -54,5 +51,3 @@ class FixtureImpl {};
 	const Fixture& FixtureImpl<test_hash(NAME)>::_self          \
 		= Runner::get().add([]() -> auto&                       \
 		{ static FixtureImpl<test_hash(NAME)> f; return f; }())
-
-#define FIXTURE(NAME) FIXTURE_(NAME)
