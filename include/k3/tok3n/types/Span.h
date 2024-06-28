@@ -4,11 +4,10 @@
 #include <string_view>
 #include <k3/tok3n/concepts/CharType.h>
 #include <k3/tok3n/concepts/EqualityComparableWith.h>
-#include <k3/tok3n/types/Tags.h>
 
 namespace k3::tok3n {
 
-template <class T, class Tag>
+template <class T>
 class Span
 {
 public:
@@ -47,8 +46,8 @@ private:
 	std::span<const T> _value;
 };
 
-template <CharType T, class Tag>
-class Span<T, Tag>
+template <CharType T>
+class Span<T>
 {
 public:
 	using value_type = T;
@@ -104,18 +103,65 @@ private:
 	std::span<const T> _value;
 };
 
-namespace detail {
+struct SpanEqualTo
+{
+	using is_transparent = void;
 
-struct InputSpanTag final {};
-struct OutputSpanTag final {};
+	template <class T, class U>
+	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, const Span<U>& rhs)
+	{
+		static_assert(EqualityComparableWith<T, U>);
 
-} // namespace detail
+		if (lhs.size() != rhs.size())
+			return false;
+
+		auto it1 = lhs.begin();
+		auto it2 = rhs.begin();
+		for (std::size_t i = 0; i != lhs.size(); ++i, ++it1, ++it2)
+		{
+			if (not (*it1 == *it2))
+				return false;
+		}
+		return true;
+	}
+
+	template <class T, class RHS>
+	requires (not requires { typename RHS::value_type; } or not std::derived_from<std::remove_cvref_t<RHS>, Span<typename RHS::value_type>>)
+	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, RHS&& rhs)
+	{
+		if constexpr (std::is_bounded_array_v<std::remove_cvref_t<RHS>> or std::is_pointer_v<std::remove_cvref_t<RHS>>)
+		{
+			return lhs.operator std::basic_string_view<T>() == std::basic_string_view<T>(std::forward<RHS>(rhs));
+		}
+		else if constexpr (std::ranges::contiguous_range<RHS> and std::same_as<T, std::ranges::range_value_t<RHS>>)
+		{
+			return operator()(lhs, Span<T>(std::forward<RHS>(rhs)));
+		}
+		else
+		{
+			static_assert(std::same_as<void, T>, "operator==() not available for Span and this right-hand type");
+			return false;
+		}
+	}
+};
+
+template <class T, class RHS>
+[[nodiscard]] constexpr bool operator==(const Span<T>& lhs, RHS&& rhs)
+{
+	return SpanEqualTo{}(lhs, std::forward<RHS>(rhs));
+}
+
+template <class T, class RHS>
+[[nodiscard]] constexpr bool operator!=(const Span<T>& lhs, RHS&& rhs)
+{
+	return not SpanEqualTo{}(lhs, std::forward<RHS>(rhs));
+}
 
 template <class T>
-class Input : public Span<T, detail::InputSpanTag>
+class Input : public Span<T>
 {
 public:
-	using Span<T, detail::InputSpanTag>::Span;
+	using Span<T>::Span;
 };
 
 template <std::ranges::contiguous_range R>
@@ -124,10 +170,10 @@ template <CharType T>
 Input(const T*) -> Input<T>;
 
 template <class T>
-class Output : public Span<T, detail::OutputSpanTag>
+class Output : public Span<T>
 {
 public:
-	using Span<T, detail::OutputSpanTag>::Span;
+	using Span<T>::Span;
 };
 
 template <std::ranges::contiguous_range R>
@@ -135,104 +181,10 @@ Output(R&&) -> Output<std::ranges::range_value_t<R>>;
 template <CharType T>
 Output(const T*) -> Output<T>;
 
-namespace detail {
-
-template <class S>
-static constexpr bool is_span_v = false;
-template <class T>
-static constexpr bool is_span_v<Input<T>> = true;
-template <class T>
-static constexpr bool is_span_v<Output<T>> = true;
-template <class S>
-static constexpr bool is_span_v<const S> = is_span_v<S>;
-template <class S>
-static constexpr bool is_span_v<S&> = is_span_v<S>;
-template <class S>
-static constexpr bool is_span_v<S&&> = is_span_v<S>;
-
-} // namespace detail
-
-template <class T, class U>
-requires EqualityComparableWith<T, U>
-constexpr bool operator==(const Input<T>& lhs, const Input<U>& rhs)
-{
-	if (lhs.size() != rhs.size())
-		return false;
-
-	auto it1 = lhs.begin();
-	auto it2 = rhs.begin();
-	for (std::size_t i = 0; i != lhs.size(); ++i, ++it1, ++it2)
-	{
-		if (not (*it1 == *it2))
-			return false;
-	}
-	return true;
-}
-
-template <class T, class RHS>
-requires (not detail::is_span_v<RHS>)
-constexpr bool operator==(const Input<T>& lhs, RHS&& rhs)
-{
-	if constexpr (CharType<T> and std::is_bounded_array_v<std::remove_cvref_t<RHS>>)
-	{
-		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
-	}
-	else if constexpr (CharType<T> and std::is_pointer_v<std::remove_cvref_t<RHS>>)
-	{
-		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
-	}
-	else if constexpr (std::ranges::contiguous_range<RHS> && std::same_as<T, std::ranges::range_value_t<RHS>>)
-	{
-		return lhs == Input<T>(std::forward<RHS>(rhs));
-	}
-	else
-	{
-		static_assert(std::same_as<void, T>, "operator==() not available for Span and this right-hand type");
-		return false;
-	}
-}
-
-template <class T, class U>
-requires EqualityComparableWith<T, U>
-constexpr bool operator==(const Output<T>& lhs, const Output<U>& rhs)
-{
-	if (lhs.size() != rhs.size())
-		return false;
-
-	auto it1 = lhs.begin();
-	auto it2 = rhs.begin();
-	for (std::size_t i = 0; i != lhs.size(); ++i, ++it1, ++it2)
-	{
-		if (not (*it1 == *it2))
-			return false;
-	}
-	return true;
-}
-
-template <class T, class RHS>
-requires (not detail::is_span_v<RHS>)
-constexpr bool operator==(const Output<T>& lhs, RHS&& rhs)
-{
-	if constexpr (CharType<T> and std::is_bounded_array_v<std::remove_cvref_t<RHS>>)
-	{
-		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
-	}
-	else if constexpr (CharType<T> and std::is_pointer_v<std::remove_cvref_t<RHS>>)
-	{
-		return std::basic_string_view<T>(lhs) == std::basic_string_view<T>(std::forward<RHS>(rhs));
-	}
-	else if constexpr (std::ranges::contiguous_range<RHS> && std::same_as<T, std::ranges::range_value_t<RHS>>)
-	{
-		return lhs == Output<T>(std::forward<RHS>(rhs));
-	}
-	else
-	{
-		static_assert(std::same_as<void, T>, "operator==() not available for Span and this right-hand type");
-		return false;
-	}
-}
-
 template <class T, class V>
 concept InputConstructibleFor = EqualityComparableWith<typename decltype(Input{ std::declval<T>() })::value_type, V>;
 
 } // namespace k3::tok3n
+
+template <class T>
+struct std::equal_to<k3::tok3n::Span<T>> : k3::tok3n::SpanEqualTo {};
