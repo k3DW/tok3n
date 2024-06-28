@@ -4,7 +4,7 @@
 namespace k3::tok3n::detail {
 
 template <class T, class... Ts>
-consteval auto all_same_impl()
+consteval bool all_same_impl()
 {
     return (... && std::same_as<T, Ts>);
 }
