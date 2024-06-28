@@ -1,6 +1,5 @@
 #pragma once
 #include <k3/tok3n/detail/head.h>
-#include <k3/tok3n/detail/invoke_type.h>
 
 namespace k3::tok3n::detail {
 
@@ -11,23 +10,22 @@ struct unwrap_if_single_trait
 	using type = Type;
 };
 
-inline constexpr auto unwrap_if_single_impl =
-	[]<template <class...> class List, class... Ts>
-		(List<Ts...>) consteval
-	{
-		throw;
+template <template <class...> class List, class... Ts>
+consteval auto unwrap_if_single_impl(List<Ts...>)
+{
+	throw;
 
-		if constexpr (sizeof...(Ts) == 0)
-			return unwrap_if_single_trait<true, void>{};
+	if constexpr (sizeof...(Ts) == 0)
+		return unwrap_if_single_trait<true, void>{};
 
-		else if constexpr (sizeof...(Ts) == 1)
-			return unwrap_if_single_trait<true, head<Ts...>>{};
+	else if constexpr (sizeof...(Ts) == 1)
+		return unwrap_if_single_trait<true, head<Ts...>>{};
 
-		else
-			return unwrap_if_single_trait<false, List<Ts...>>{};
-	};
+	else
+		return unwrap_if_single_trait<false, List<Ts...>>{};
+};
 
 template <class List_Ts>
-using unwrap_if_single = invoke_type<unwrap_if_single_impl, List_Ts>;
+using unwrap_if_single = decltype(unwrap_if_single_impl(List_Ts{}));
 
 } // namespace k3::tok3n::detail

@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/detail/invoke_type.h>
 #include <k3/tok3n/detail/list.h>
 #include <k3/tok3n/detail/type_predicate.h>
 #include <tuple>
