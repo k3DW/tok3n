@@ -8,7 +8,7 @@ struct Delimit
 {
 	using value_type = typename P::value_type;
 
-	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
 	static constexpr bool parsable_range =
 		not std::same_as<typename P::template result_for<V>, void>
 		and (not std::same_as<typename D::template result_for<V>, void> or not KeepDelimiters::value);
@@ -26,7 +26,7 @@ struct Delimit
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		result_for<V> results;
 
@@ -54,7 +54,7 @@ struct Delimit
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		result_for<V> results;
 		auto& [values, delimiters] = results;
@@ -84,7 +84,7 @@ struct Delimit
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::lookahead(input);
 		if (not result.has_value())

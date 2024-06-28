@@ -8,7 +8,7 @@ struct ApplyTransform
 {
 	using value_type = typename P::value_type;
 
-	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
 	static constexpr bool parsable_range = detail::IsApplyable<typename FunctionValue::value_type, typename P::template result_for<V>>;
 
 	template <EqualityComparableWith<value_type> V>
@@ -21,7 +21,7 @@ struct ApplyTransform
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::parse(input);
 		if (not result.has_value())

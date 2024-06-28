@@ -20,7 +20,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 
@@ -39,7 +39,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 

@@ -18,7 +18,7 @@ struct Complete
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::parse(input);
 		if (not result.has_value() or not result.remaining().empty())
@@ -31,7 +31,7 @@ struct Complete
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::lookahead(input);
 		if (not result.has_value() or not result.remaining().empty())

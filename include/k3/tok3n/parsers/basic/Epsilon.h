@@ -18,7 +18,7 @@ struct Epsilon
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
         return Result<void, V>{ success, input };
 	}
 
@@ -26,7 +26,7 @@ struct Epsilon
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
         return Result<void, V>{ success, input };
 	}
 };

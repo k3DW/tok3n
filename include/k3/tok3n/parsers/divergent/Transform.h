@@ -17,7 +17,7 @@ struct Transform
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::parse(input);
 		if (not result.has_value())

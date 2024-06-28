@@ -79,7 +79,7 @@ struct Choice
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		using Executor = detail::ChoiceExecutor<result_for<V>, V>;
 		Executor executor{ .input = input };
@@ -102,7 +102,7 @@ struct Choice
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		using Executor = detail::ChoiceExecutor<void, V>;
 		Executor executor{ .input = input };

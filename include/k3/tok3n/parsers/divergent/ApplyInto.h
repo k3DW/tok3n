@@ -11,7 +11,7 @@ struct ApplyInto
 
 	static constexpr auto construct = []<class... Args>(Args&&... args) { return T(std::forward<Args>(args)...); };
 
-	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
 	static constexpr bool parsable_range = detail::IsApplyable<decltype(construct), typename P::template result_for<V>>;
 
 	template <EqualityComparableWith<value_type> V>
@@ -24,7 +24,7 @@ struct ApplyInto
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		auto result = P::parse(input);
 		if (result.has_value())

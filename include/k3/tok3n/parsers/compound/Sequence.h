@@ -76,7 +76,7 @@ struct Sequence
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		// This might be a problem because it default initializes all members
 		using Executor = detail::SequenceExecutor<result_for<V>, V>;
@@ -100,7 +100,7 @@ struct Sequence
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		using Executor = detail::SequenceExecutor<void, V>;
 		Executor executor{ .input = input };

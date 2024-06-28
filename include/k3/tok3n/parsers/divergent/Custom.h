@@ -34,7 +34,7 @@ struct Custom
 
 	static constexpr ParserFamily family = CustomFamily;
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = InputValueType<R>>
 	static constexpr Result<typename P::template result_for<V>, V> parse(R&& r)
 	{
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");
@@ -42,7 +42,7 @@ struct Custom
 		return decltype(P::get_parser())::parse(std::forward<R>(r));
 	}
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = InputValueType<R>>
 	static constexpr Result<void, V> lookahead(R&& r)
 	{
 		static_assert(requires { { P::get_parser() } -> Parser; }, "Custom parser requires a `get_parser()` function");

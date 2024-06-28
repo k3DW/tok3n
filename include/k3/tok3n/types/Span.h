@@ -181,8 +181,11 @@ Output(R&&) -> Output<std::ranges::range_value_t<R>>;
 template <CharType T>
 Output(const T*) -> Output<T>;
 
+template <class T>
+using InputValueType = typename decltype(Input{ std::declval<T>() })::value_type;
+
 template <class T, class V>
-concept InputConstructibleFor = EqualityComparableWith<typename decltype(Input{ std::declval<T>() })::value_type, V>;
+concept InputConstructibleFor = EqualityComparableWith<InputValueType<T>, V>;
 
 } // namespace k3::tok3n
 

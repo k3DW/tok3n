@@ -9,7 +9,7 @@ struct Exactly
 {
 	using value_type = typename P::value_type;
 
-	template <InputConstructibleFor<value_type> R, class V = typename decltype(Input{ std::declval<R>() })::value_type>
+	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
 	static constexpr bool parsable_range = not std::same_as<typename P::template result_for<V>, void>;
 
 	template <EqualityComparableWith<value_type> V>
@@ -22,7 +22,7 @@ struct Exactly
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		const Input original_input = input;
 		result_for<V> results;
@@ -46,7 +46,7 @@ struct Exactly
 	static constexpr auto lookahead(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
-		using V = typename decltype(input)::value_type;
+		using V = InputValueType<R>;
 
 		const Input original_input = input;
 
