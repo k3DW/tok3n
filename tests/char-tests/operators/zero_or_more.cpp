@@ -54,3 +54,35 @@ TEST("zero_or_more operator", "non consteval")
 {
 	(*any1).parse(TT("abc"));
 }
+
+
+
+#define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                      \
+	[]<Parser PP>(PP) {                                                        \
+		DEP_ASSERT_UNARY_OPERABLE(*, PP{}, P{});                               \
+		if constexpr (PP::family == MaybeFamily)                               \
+		{                                                                      \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
+										*P{},  ZeroOrMore<underlying_t<P>>{}); \
+		}                                                                      \
+		else if constexpr (PP::family == OneOrMoreFamily)                      \
+		{                                                                      \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
+										*P{},  ZeroOrMore<underlying_t<P>>{}); \
+		}                                                                      \
+		else if constexpr (PP::family == ZeroOrMoreFamily)                     \
+		{                                                                      \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, PP{},                           \
+										*P{},  P{});                           \
+		}                                                                      \
+		else                                                                   \
+		{                                                                      \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<PP>{},               \
+										*P{},  ZeroOrMore<P>{});               \
+		}                                                                      \
+	}(P{});
+
+TEST("zero_or_more operator", "*{anything}")
+{
+	ASSERT_ALL_SAMPLES(ZERO_OR_MORE_OPERATOR_ASSERTER);
+}
