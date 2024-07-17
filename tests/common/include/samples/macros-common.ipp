@@ -14,7 +14,14 @@
 #define ASSERT_SAMPLES_2_IMPL_(r, product) \
 	(ASSERT_SAMPLES_2_EXPAND_ product)
 
-#define ASSERT_SAMPLES_2(ASSERTER, SAMPLES_LHS, SAMPLES_RHS)                                                 \
-	{                                                                                                        \
-		IDENTITY(BOOST_PP_SEQ_FOR_EACH_PRODUCT(ASSERTER ASSERT_SAMPLES_2_IMPL_, (SAMPLES_LHS)(SAMPLES_RHS))) \
+#define ASSERT_SAMPLES_2_IDENTITY_(...) __VA_ARGS__
+
+#define ASSERT_SAMPLES_2(ASSERTER, SAMPLES_LHS, SAMPLES_RHS) \
+	{                                                        \
+		ASSERT_SAMPLES_2_IDENTITY_(                          \
+			BOOST_PP_SEQ_FOR_EACH_PRODUCT(                   \
+				ASSERTER ASSERT_SAMPLES_2_IMPL_,             \
+				(SAMPLES_LHS)(SAMPLES_RHS)                   \
+			)                                                \
+		)                                                    \
 	} REQUIRE_SEMICOLON
