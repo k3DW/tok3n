@@ -23,3 +23,18 @@ TEST("exactly modifier", "non consteval")
 	(exactly<2>(any1)).parse(TT("abc"));
 	(any1 % exactly<2>).parse(TT("abc"));
 }
+
+
+
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                       \
+	[]<Parser PP>(PP) {                                                                    \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, Index<2>>{}),      \
+				                       exactly<2>, (P{}),  (Exactly<P, Index<2>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, Index<2>>{}), \
+				                              P{},  exactly<2>, (Exactly<P, Index<2>>{})); \
+	}(P{});
+
+TEST("exactly modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(EXACTLY_MODIFIER_ASSERTER);
+}

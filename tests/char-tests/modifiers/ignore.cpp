@@ -39,3 +39,28 @@ TEST("ignore modifier", "non consteval")
 	(ignore(any1)).parse(TT("abc"));
 	(any1 % ignore).parse(TT("abc"));
 }
+
+
+
+#define IGNORE_MODIFIER_ASSERTER(P)                                           \
+	[]<Parser PP>(PP) {                                                       \
+		if constexpr (PP::family == IgnoreFamily)                             \
+		{                                                                     \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
+				                           ignore, (P{}),  P{});              \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, PP{},         \
+				                                  P{},  ignore, P{});         \
+		}                                                                     \
+		else                                                                  \
+		{                                                                     \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), Ignore<PP>{},      \
+				                           ignore, (P{}),  Ignore<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, Ignore<PP>{}, \
+				                                  P{},  ignore, Ignore<P>{}); \
+		}                                                                     \
+	}(P{});
+
+TEST("ignore modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(IGNORE_MODIFIER_ASSERTER);
+}

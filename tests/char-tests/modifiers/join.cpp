@@ -41,3 +41,28 @@ TEST("join modifier", "non consteval")
 	(join(any1)).parse(TT("abc"));
 	(any1 % join).parse(TT("abc"));
 }
+
+
+
+#define JOIN_MODIFIER_ASSERTER(P)                                         \
+	[]<Parser PP>(PP) {                                                   \
+		if constexpr (PP::family == JoinFamily)                           \
+		{                                                                 \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},            \
+				                           join, (P{}),  P{});            \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, PP{},       \
+				                                  P{},  join, P{});       \
+		}                                                                 \
+		else                                                              \
+		{                                                                 \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), Join<PP>{},      \
+				                           join, (P{}),  Join<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, Join<PP>{}, \
+				                                  P{},  join, Join<P>{}); \
+		}                                                                 \
+	}(P{});
+
+TEST("join modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(JOIN_MODIFIER_ASSERTER);
+}

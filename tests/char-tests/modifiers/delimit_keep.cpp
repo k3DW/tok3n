@@ -31,3 +31,45 @@ TEST("delimit_keep modifier", "non consteval")
 	(delimit_keep(any1, any2)).parse(TT("abc"));
 	(any1 % delimit_keep(any2)).parse(TT("abc"));
 }
+
+
+
+#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                              \
+	[]<Parser PP>(PP) {                                                                                \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(delimit_keep, (PP{}, comma), (Delimit<PP, Comma, True>{}),      \
+			                           delimit_keep, (P{}, comma),  (Delimit<P, Comma, True>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit_keep(comma), (Delimit<PP, Comma, True>{}), \
+			                                  P{},  delimit_keep(comma), (Delimit<P, Comma, True>{})); \
+	}(P{});
+
+#define DELIMIT_KEEP_MODIFIER_ASSERTER_2(P, D)                                                         \
+	[]<Parser PP, Parser DD>(PP, DD) {                                                                 \
+		if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>)              \
+		{                                                                                              \
+			DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (PP{}, DD{}),                               \
+				                             delimit_keep, (P{},  D{}));                               \
+			DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, delimit_keep(DD{}),                          \
+				                                    P{},  delimit_keep(D{}));                          \
+		}                                                                                              \
+		else                                                                                           \
+		{                                                                                              \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(delimit_keep, (PP{}, DD{}), (Delimit<PP, DD, True>{}),      \
+									       delimit_keep, (P{},  D{}),  (Delimit<P, D, True>{}));       \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit_keep(DD{}), (Delimit<PP, DD, True>{}), \
+												  P{},  delimit_keep(D{}),  (Delimit<P, D, True>{}));  \
+		}                                                                                              \
+	}(P{}, D{});
+
+#define DELIMIT_KEEP_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
+	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+
+TEST("delimit_keep modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(DELIMIT_KEEP_MODIFIER_ASSERTER);
+
+	ASSERT_SAMPLES_2(
+		DELIMIT_KEEP_MODIFIER_ASSERTER_2,
+		DELIMIT_KEEP_SAMPLES_LIST_DIFFERENT_VALUE_TYPES,
+		DELIMIT_KEEP_SAMPLES_LIST_DIFFERENT_VALUE_TYPES
+	);
+}

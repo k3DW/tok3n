@@ -26,3 +26,18 @@ TEST("fn modifier", "non consteval")
 	(fn<sink>(any1)).parse(TT("abc"));
 	(any1 % fn<sink>).parse(TT("abc"));
 }
+
+
+
+#define FN_MODIFIER_ASSERTER(P)                                                                         \
+	[]<Parser PP>(PP) {                                                                                 \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(fn<sink_func>, (PP{}), (Transform<PP, Const<sink_func>>{}),      \
+			                           fn<sink_func>, (P{}),  (Transform<P, Const<sink_func>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, fn<sink_func>, (Transform<PP, Const<sink_func>>{}), \
+			                                  P{},  fn<sink_func>, (Transform<P, Const<sink_func>>{})); \
+	}(P{});
+
+TEST("fn modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(FN_MODIFIER_ASSERTER);
+}

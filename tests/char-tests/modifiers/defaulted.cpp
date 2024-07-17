@@ -19,3 +19,14 @@ TEST("defaulted modifier", "non consteval")
 	(defaulted<int>(any1)).parse(TT("abc"));
 	(any1 % defaulted<int>).parse(TT("abc"));
 }
+
+
+
+#define DEFAULTED_MODIFIER_ASSERTER(P)                                               \
+	ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (Defaulted<P, bool>{}));      \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (Defaulted<P, bool>{}));
+
+TEST("defaulted modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(DEFAULTED_MODIFIER_ASSERTER);
+}
