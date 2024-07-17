@@ -27,3 +27,20 @@ TEST("epsilon operator", "eps | P")
 	ASSERT((not choice_operable<eps, any2>), "The expression `eps | any2` compiled, but it should not");
 	ASSERT((not choice_operable<eps, any3>), "The expression `eps | any3` compiled, but it should not");
 }
+
+
+
+#define EPSILON_OPERATOR_ASSERTER(P)                                             \
+	[]<Parser PP>(PP) {                                                          \
+		DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                 \
+		                              P{},  eps);                                \
+		DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                             \
+		                                  eps, P{});                             \
+		DEP_ASSERT_PARSER_VALUES_EQ(PP{} | eps, PP{} | Epsilon<::value_type>{},  \
+								    P{}  | eps, P{}  | Epsilon<::value_type>{}); \
+	}(P{});
+
+TEST("epsilon operator", "eps anything")
+{
+	ASSERT_ALL_SAMPLES(EPSILON_OPERATOR_ASSERTER);
+}

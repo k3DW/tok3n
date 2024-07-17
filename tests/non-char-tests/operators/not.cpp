@@ -21,3 +21,30 @@ TEST("not operator", "!NoneOf")
 	ASSERT_PARSER_VALUES_EQ(!!none2, none2);
 	ASSERT_PARSER_VALUES_EQ(!!none3, none3);
 }
+
+
+
+#define NOT_OPERATOR_ASSERTER(P)                                           \
+	[]<Parser PP>(PP) {                                                    \
+		if constexpr (PP::family == AnyOfFamily)                           \
+		{                                                                  \
+			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying_v<PP>>{}, \
+					                    !P{},  NoneOf<underlying_v<P>>{}); \
+		}                                                                  \
+		else if constexpr (PP::family == NoneOfFamily)                     \
+		{                                                                  \
+			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
+			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying_v<PP>>{},  \
+					                    !P{},  AnyOf<underlying_v<P>>{});  \
+		}                                                                  \
+		else                                                               \
+		{                                                                  \
+			DEP_ASSERT_UNARY_NOT_OPERABLE(!, PP{}, P{});                   \
+		}                                                                  \
+	}(P{});
+
+TEST("not operator", "!{anything}")
+{
+	ASSERT_ALL_SAMPLES(NOT_OPERATOR_ASSERTER);
+}
