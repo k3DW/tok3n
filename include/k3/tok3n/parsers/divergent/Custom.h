@@ -24,8 +24,6 @@ namespace detail {
 template <class CRTP, class ValueType>
 struct Custom
 {
-	using _base = Custom<CRTP, ValueType>;
-
 	using value_type = ValueType;
 
 	template <class V, std::same_as<CRTP> P = CRTP>
