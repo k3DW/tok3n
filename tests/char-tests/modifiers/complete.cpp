@@ -47,3 +47,28 @@ TEST("complete modifier", "non consteval")
 	(complete(any1)).parse(TT("abc"));
 	(any1 % complete).parse(TT("abc"));
 }
+
+
+
+#define COMPLETE_MODIFIER_ASSERTER(P)                                             \
+	[]<Parser PP>(PP) {                                                           \
+		if constexpr (PP::family == CompleteFamily)                               \
+		{                                                                         \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
+				                           complete, (P{}),  P{});                \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, PP{},           \
+				                                  P{},  complete, P{});           \
+		}                                                                         \
+		else                                                                      \
+		{                                                                         \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), Complete<PP>{},      \
+				                           complete, (P{}),  Complete<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, Complete<PP>{}, \
+				                                  P{},  complete, Complete<P>{}); \
+		}                                                                         \
+	}(P{});
+
+TEST("complete modifier", "modify anything")
+{
+	ASSERT_ALL_SAMPLES(COMPLETE_MODIFIER_ASSERTER);
+}

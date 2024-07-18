@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {
 
@@ -14,7 +15,7 @@ struct ApplyInto
 	static constexpr bool parsable_range = detail::IsApplyable<decltype(construct), typename P::template result_for<V>>;
 
 	template <EqualityComparableWith<value_type> V>
-	using result_for = T;
+	using result_for = detail::head<T, V>;
 
 	static constexpr ParserFamily family = ApplyIntoFamily;
 

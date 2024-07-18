@@ -1,6 +1,7 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {
 
@@ -10,7 +11,7 @@ struct Ignore
 	using value_type = typename P::value_type;
 	
 	template <EqualityComparableWith<value_type> V>
-	using result_for = void;
+	using result_for = detail::head<void, V>;
 
 	static constexpr ParserFamily family = IgnoreFamily;
 

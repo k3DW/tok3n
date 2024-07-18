@@ -108,3 +108,59 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 }
 
 } // namespace
+
+
+
+#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                           \
+	[]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                         \
+		if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)          \
+		{                                                                                              \
+			DEP_ASSERT_BINARY_NOT_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                          \
+		}                                                                                              \
+		else                                                                                           \
+		{                                                                                              \
+			DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                              \
+			if constexpr (LLHS::family == AllOfFamily and RRHS::family == AllOfFamily)                 \
+			{                                                                                          \
+				constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                            \
+											LHS{}  >> RHS{},  AllOf<str>{});                           \
+			}                                                                                          \
+			else if constexpr (LLHS::family == SequenceFamily and RRHS::family != SequenceFamily)      \
+			{                                                                                          \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),  \
+											LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));  \
+			}                                                                                          \
+			else if constexpr (LLHS::family != SequenceFamily and RRHS::family == SequenceFamily)      \
+			{                                                                                          \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}), \
+											LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{})); \
+			}                                                                                          \
+			else if constexpr (LLHS::family == SequenceFamily and RRHS::family == SequenceFamily)      \
+			{                                                                                          \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),  \
+											LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));  \
+			}                                                                                          \
+			else                                                                                       \
+			{                                                                                          \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (Sequence<LLHS, RRHS>{}),                \
+											LHS{}  >> RHS{},  (Sequence<LHS,  RHS>{}));                \
+			}                                                                                          \
+		}                                                                                              \
+	}(LHS{}, RHS{});
+
+#define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
+	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+
+TEST("sequence operator", "{anything} >> {anything}")
+{
+	// Note that all the operations are reimplemented for sequence_checker. This is intentional. That way, there's redundancy in the code.
+	// A basic implementation is here, so if/when it gets changed in the library itself, it will be detected here.
+
+	// This works just fine, but it takes forever and may crash your computer. User beware.
+	// ASSERT_ALL_SAMPLES_2(SEQUENCE_OPERATOR_ASSERTER);
+
+	ASSERT_SAMPLES_2(SEQUENCE_OPERATOR_ASSERTER, SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES, SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES);
+	
+	ASSERT_SAMPLES_2(SEQUENCE_OPERATOR_ASSERTER, BASIC_SAMPLES, BASIC_SAMPLES);
+}

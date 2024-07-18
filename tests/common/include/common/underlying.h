@@ -2,19 +2,20 @@
 #include <k3/tok3n/concepts/Parser.h>
 #include <k3/tok3n/types/StaticArray.h>
 
-struct underlying
+template <template <auto> class ParserTemplate, k3::tok3n::StaticArray arr>
+consteval auto underlying_impl(ParserTemplate<arr>)
 {
-private:
-	template <template <class> class ParserTemplate, k3::tok3n::Parser P>
-	static consteval auto impl(ParserTemplate<P>) { return P{}; }
+	return arr;
+}
 
-	template <template <k3::tok3n::StaticArray> class ParserTemplate, k3::tok3n::StaticArray arr>
-	static consteval auto impl(ParserTemplate<arr>) { return arr; }
+template <template <class> class ParserTemplate, k3::tok3n::Parser P>
+consteval auto underlying_impl(ParserTemplate<P>)
+{
+	return P{};
+}
 
-public:
-	template <k3::tok3n::Parser P>
-	using parser = decltype(impl(P{}));
+template <k3::tok3n::Parser P>
+inline constexpr auto underlying_v = underlying_impl(P{});
 
-	template <k3::tok3n::Parser P>
-	static constexpr auto string = impl(P{});
-};
+template <k3::tok3n::Parser P>
+using underlying_t = decltype(underlying_impl(P{}));

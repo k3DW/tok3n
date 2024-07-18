@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {
 
@@ -9,7 +10,7 @@ struct Defaulted
 	using value_type = typename P::value_type;
 
 	template <EqualityComparableWith<value_type> V>
-	using result_for = T;
+	using result_for = detail::head<T, V>;
 
 	static constexpr ParserFamily family = DefaultedFamily;
 
