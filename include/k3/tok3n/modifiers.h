@@ -13,3 +13,5 @@
 #include <k3/tok3n/modifiers/into.h>
 #include <k3/tok3n/modifiers/join.h>
 #include <k3/tok3n/modifiers/multi.h>
+#include <k3/tok3n/modifiers/name.h>
+#include <k3/tok3n/modifiers/sub.h>

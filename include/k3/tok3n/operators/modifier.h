@@ -15,6 +15,8 @@ template <auto function> inline constexpr auto fn           = modifiers::fn<func
                          inline constexpr auto ignore       = modifiers::ignore{};
 template <class T>       inline constexpr auto into         = modifiers::into<T>{};
                          inline constexpr auto join         = modifiers::join{};
+template <StaticArray s> inline constexpr auto name         = modifiers::name<s>{};
+                         inline constexpr auto sub          = modifiers::sub{};
 
 constexpr auto operator%(Parser auto p, Modifier auto modifier)
 requires requires { modifier(p); }
