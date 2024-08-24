@@ -27,6 +27,7 @@ enum class ParserFamily
 	ApplyInto,
 	Constant,
 	Defaulted,
+	Named,
 	Custom,
 
 	END
@@ -46,6 +47,7 @@ inline constexpr ParserFamily ZeroOrMoreFamily     = ParserFamily::ZeroOrMore;
 inline constexpr ParserFamily DelimitFamily        = ParserFamily::Delimit;
 inline constexpr ParserFamily IgnoreFamily         = ParserFamily::Ignore;
 inline constexpr ParserFamily CompleteFamily       = ParserFamily::Complete;
+inline constexpr ParserFamily NamedFamily          = ParserFamily::Named;
 inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
 inline constexpr ParserFamily TransformFamily      = ParserFamily::Transform;
 inline constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
