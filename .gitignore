@@ -1,5 +1,6 @@
 /.bin/
 /.vs/
+/.vscode/
 /build/
 /_build/
 /__build/
