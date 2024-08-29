@@ -103,6 +103,11 @@ private:
 	std::span<const T> _value;
 };
 
+template <class T>
+concept IsSpan =
+	requires { typename T::value_type; }
+	and std::derived_from<T, Span<typename T::value_type>>;
+
 struct SpanEqualTo
 {
 	using is_transparent = void;
@@ -126,7 +131,7 @@ struct SpanEqualTo
 	}
 
 	template <class T, class RHS>
-	requires (not requires { typename RHS::value_type; } or not std::derived_from<std::remove_cvref_t<RHS>, Span<typename RHS::value_type>>)
+	requires (not IsSpan<std::remove_cvref_t<RHS>>)
 	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, RHS&& rhs)
 	{
 		if constexpr (std::is_bounded_array_v<std::remove_cvref_t<RHS>> or std::is_pointer_v<std::remove_cvref_t<RHS>>)
