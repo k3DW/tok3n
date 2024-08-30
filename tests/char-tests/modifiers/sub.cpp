@@ -4,14 +4,14 @@ FIXTURE("sub modifier");
 
 namespace {
 
-constexpr auto sub11 = (k3::tok3n::name<"nam1"> = ignore);
-constexpr auto sub21 = (k3::tok3n::name<"nam2"> = join);
-constexpr auto sub31 = (k3::tok3n::name<"nam3"> = k3::tok3n::name<"nam2">);
-constexpr auto sub41 = (k3::tok3n::name<"nam4"> = exactly<2>);
-constexpr auto sub12 = (k3::tok3n::name<"nam1"> = join);
-constexpr auto sub22 = (k3::tok3n::name<"nam2"> = ignore);
-constexpr auto sub32 = (k3::tok3n::name<"nam3"> = exactly<2>);
-constexpr auto sub42 = (k3::tok3n::name<"nam4"> = k3::tok3n::name<"nam2">);
+constexpr auto sub11 = (name<"nam1"> = ignore);
+constexpr auto sub21 = (name<"nam2"> = join);
+constexpr auto sub31 = (name<"nam3"> = name<"nam2">);
+constexpr auto sub41 = (name<"nam4"> = exactly<2>);
+constexpr auto sub12 = (name<"nam1"> = join);
+constexpr auto sub22 = (name<"nam2"> = ignore);
+constexpr auto sub32 = (name<"nam3"> = exactly<2>);
+constexpr auto sub42 = (name<"nam4"> = name<"nam2">);
 
 } // namespace
 
@@ -32,12 +32,12 @@ TEST("sub modifier", "create substitutions")
 {
     ASSERT_SUBSTITUTION_TYPE(sub11, "nam1", ignore);
     ASSERT_SUBSTITUTION_TYPE(sub21, "nam2", join);
-    ASSERT_SUBSTITUTION_TYPE(sub31, "nam3", k3::tok3n::name<"nam2">);
+    ASSERT_SUBSTITUTION_TYPE(sub31, "nam3", name<"nam2">);
     ASSERT_SUBSTITUTION_TYPE(sub41, "nam4", exactly<2>);
     ASSERT_SUBSTITUTION_TYPE(sub12, "nam1", join);
     ASSERT_SUBSTITUTION_TYPE(sub22, "nam2", ignore);
     ASSERT_SUBSTITUTION_TYPE(sub32, "nam3", exactly<2>);
-    ASSERT_SUBSTITUTION_TYPE(sub42, "nam4", k3::tok3n::name<"nam2">);
+    ASSERT_SUBSTITUTION_TYPE(sub42, "nam4", name<"nam2">);
 
     ASSERT_SUBSTITUTION_SAME_NAME(sub11, sub12);
     ASSERT_SUBSTITUTION_SAME_NAME(sub21, sub22);
