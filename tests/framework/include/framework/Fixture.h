@@ -11,7 +11,7 @@ class Test;
 class Fixture
 {
 public:
-	void add_test(Test& test);
+	void add_test(Test&& test);
 
 	std::string_view name() const
 	{
@@ -32,7 +32,7 @@ protected:
 
 private:
 	std::string _name;
-	std::unordered_map<std::string_view, Test*> _tests;
+	std::unordered_map<std::string_view, Test> _tests;
 };
 
 

@@ -16,10 +16,10 @@ Fixture& Runner::add(Fixture& fixture)
 	return fixture;
 }
 
-Test& Runner::add(std::string_view fixture_name, Test& test)
+bool Runner::add(std::string_view fixture_name, Test&& test)
 {
-	_fixtures.at(fixture_name)->add_test(test);
-	return test;
+	_fixtures.at(fixture_name)->add_test(std::move(test));
+	return true;
 }
 
 int Runner::exec(const int argc, const char* const argv[])

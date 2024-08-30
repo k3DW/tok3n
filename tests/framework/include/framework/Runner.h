@@ -13,7 +13,7 @@ public:
 	int exec(int argc, const char* const argv[]);
 
 	Fixture& add(Fixture& fixture);
-	Test& add(std::string_view fixture_name, Test& test);
+	bool add(std::string_view fixture_name, Test&& test);
 
 private:
 	Runner() = default;

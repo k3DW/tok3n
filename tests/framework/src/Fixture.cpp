@@ -2,9 +2,9 @@
 #include <iomanip>
 #include <iostream>
 
-void Fixture::add_test(Test& test)
+void Fixture::add_test(Test&& test)
 {
-	_tests.emplace(test.name(), &test);
+	_tests.emplace(test.name(), std::move(test));
 }
 
 FixtureResult Fixture::run(std::ostream& os) const
@@ -12,9 +12,9 @@ FixtureResult Fixture::run(std::ostream& os) const
 	os << "Running fixture " << std::quoted(_name) << "\n";
 	
 	FixtureResult result(_name);
-	for (auto [_, test] : _tests)
+	for (const auto& [_, test] : _tests)
 	{
-		result.push_back(test->run(os));
+		result.push_back(test.run(os));
 	}
 	result.print_brief(os);
 	return result;
@@ -32,14 +32,14 @@ FixtureResult Fixture::run(std::ostream& os, std::string_view test_name) const
 	}
 
 	os << "Running fixture " << std::quoted(_name) << "\n";
-	result.push_back(it->second->run(os));
+	result.push_back(it->second.run(os));
 	result.print_brief(os);
 	return result;
 }
 
 void Fixture::list(std::ostream& os) const
 {
-	for (auto [test_name, _] : _tests)
+	for (const auto& [test_name, _] : _tests)
 	{
 		os
 			<< std::quoted(_name)
