@@ -12,6 +12,12 @@ using Com5 = Complete<Maybe<_14>>;      constexpr Com5 com5;
 using Com6 = Complete<OneOrMore<_14>>;  constexpr Com6 com6;
 using Com7 = Complete<ZeroOrMore<_14>>; constexpr Com7 com7;
 
+using Nam1 = Named<_21, "nam1">; constexpr Nam1 nam1;
+using Nam2 = Named<_22, "nam2">; constexpr Nam2 nam2;
+using Nam3 = Named<_23, "nam3">; constexpr Nam3 nam3;
+using Nam4 = Named<_24, "nam4">; constexpr Nam4 nam4;
+
 #define ADAPTOR_SAMPLES                              \
 	(Ign1) (Ign2) (Ign3) (Ign4) (Ign5)               \
-	(Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7)
+	(Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7) \
+	(Nam1) (Nam2) (Nam3) (Nam4)

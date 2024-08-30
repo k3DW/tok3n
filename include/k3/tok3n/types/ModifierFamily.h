@@ -19,6 +19,8 @@ enum class ModifierFamily
 	into,
 	join,
 	multi,
+	name,
+	sub,
 
 	END
 };

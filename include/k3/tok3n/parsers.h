@@ -2,6 +2,7 @@
 
 #include <k3/tok3n/parsers/adaptor/Ignore.h>
 #include <k3/tok3n/parsers/adaptor/Complete.h>
+#include <k3/tok3n/parsers/adaptor/Named.h>
 
 #include <k3/tok3n/parsers/basic/AnyOf.h>
 #include <k3/tok3n/parsers/basic/NoneOf.h>
