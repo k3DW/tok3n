@@ -64,6 +64,8 @@ using ::k3::tok3n::fn;
 using ::k3::tok3n::ignore;
 using ::k3::tok3n::into;
 using ::k3::tok3n::join;
+using ::k3::tok3n::name;
+using ::k3::tok3n::sub;
 using ::k3::tok3n::operator%;
 
 } // namespace k3::tok3n::operators
