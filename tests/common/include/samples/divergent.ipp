@@ -33,7 +33,7 @@ struct Cus1 : Custom<Cus1>
 
 	static consteval auto get_parser()
 	{
-		return _25{} % fn<transform>;
+		return _25{} % map<transform>;
 	}
 
 	static constexpr std::size_t transform_impl(const std::tuple<std::vector<Output<char>>, std::optional<Output<char>>>& tup)
