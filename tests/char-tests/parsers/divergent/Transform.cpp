@@ -155,3 +155,48 @@ TEST("Transform", "Copy only")
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
 	}
 }
+
+TEST("Transform", "void input")
+{
+	using P = Ignore<ABC>;
+
+	constexpr auto func_good = []() { return 0; };
+	using TraGood = Transform<P, Const<func_good>>;
+	ASSERT_IS_PARSER(TraGood, value_type, TransformFamily, int);
+	ASSERT_PARSE_SUCCESS(TraGood, "abcd", 0, "d");
+	ASSERT_PARSE_FAILURE(TraGood, " abcd");
+
+	constexpr auto func_bad = [](auto) { return 0; };
+	using TraBad = Transform<P, Const<func_bad>>;
+	ASSERT_IS_NOT_PARSER(TraBad, value_type, TransformFamily);
+}
+
+TEST("Transform", "void output")
+{
+	using P = ABC;
+
+	constexpr auto func_good = [](auto) {};
+	using TraGood = Transform<P, Const<func_good>>;
+	ASSERT_IS_PARSER(TraGood, value_type, TransformFamily, void);
+	ASSERT_PARSE_SUCCESS_VOID(TraGood, "abcd", "d");
+	ASSERT_PARSE_FAILURE(TraGood, " abcd");
+
+	constexpr auto func_bad = []() {};
+	using TraBad = Transform<P, Const<func_bad>>;
+	ASSERT_IS_NOT_PARSER(TraBad, value_type, TransformFamily);
+}
+
+TEST("Transform", "void input and void output")
+{
+	using P = Ignore<ABC>;
+
+	constexpr auto func_good = []() {};
+	using TraGood = Transform<P, Const<func_good>>;
+	ASSERT_IS_PARSER(TraGood, value_type, TransformFamily, void);
+	ASSERT_PARSE_SUCCESS_VOID(TraGood, "abcd", "d");
+	ASSERT_PARSE_FAILURE(TraGood, " abcd");
+
+	constexpr auto func_bad = [](auto) {};
+	using TraBad = Transform<P, Const<func_bad>>;
+	ASSERT_IS_NOT_PARSER(TraBad, value_type, TransformFamily);
+}

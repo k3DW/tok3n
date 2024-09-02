@@ -9,7 +9,11 @@ struct Transform
 	using value_type = typename P::value_type;
 
 	template <EqualityComparableWith<value_type> V>
-	using result_for = decltype(std::invoke(FunctionValue::value, std::declval<typename P::template result_for<V>>()));
+	using result_for = typename std::conditional_t<
+		std::same_as<void, typename P::template result_for<V>>,
+		std::invoke_result<typename FunctionValue::value_type>,
+		std::invoke_result<typename FunctionValue::value_type, typename P::template result_for<V>>
+	>::type;
 
 	static constexpr ParserFamily family = TransformFamily;
 
@@ -19,17 +23,33 @@ struct Transform
 		Input input{ std::forward<R>(r) };
 		using V = InputValueType<R>;
 
+		using before_type = typename P::template result_for<V>;
+		using after_type = result_for<V>;
+
 		auto result = P::parse(input);
 		if (not result.has_value())
-			return Result<result_for<V>, V>{ failure, input };
+			return Result<after_type, V>{ failure, input };
 
-		if constexpr (std::same_as<result_for<V>, void>)
+		if constexpr (std::same_as<void, before_type>)
 		{
-			std::invoke(FunctionValue::value, std::move(*result));
-			return Result<result_for<V>, V>{ success, result.remaining() };
+			if constexpr (std::same_as<void, after_type>)
+			{
+				std::invoke(FunctionValue::value);
+				return Result<after_type, V>{ success, result.remaining() };
+			}
+			else
+				return Result<after_type, V>{ success, std::invoke(FunctionValue::value), result.remaining() };
 		}
 		else
-			return Result<result_for<V>, V>{ success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
+		{
+			if constexpr (std::same_as<void, after_type>)
+			{
+				std::invoke(FunctionValue::value, std::move(*result));
+				return Result<after_type, V>{ success, result.remaining() };
+			}
+			else
+				return Result<after_type, V>{ success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
+		}
 	}
 
 	template <InputConstructibleFor<value_type> R>
