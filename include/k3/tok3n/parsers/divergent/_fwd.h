@@ -47,7 +47,7 @@ template <Parser P>
 struct Join;
 
 template <Parser P, IsConst FunctionValue>
-struct Transform;
+struct Map;
 
 template <Parser P, IsConst FunctionValue>
 struct ApplyTransform;

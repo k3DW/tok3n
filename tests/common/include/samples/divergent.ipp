@@ -4,10 +4,10 @@ using Joi3 = Join<_23>; constexpr Joi3 joi3;
 using Joi4 = Join<_24>; constexpr Joi4 joi4;
 using Joi5 = Join<_25>; constexpr Joi5 joi5;
 
-using Tra1 = Transform<_22, Const<func1>>;    constexpr Tra1 tra1;
-using Tra2 = Transform<_23, Const<func2>>;    constexpr Tra2 tra2;
-using Tra3 = Transform<_24, Const<func3>>;    constexpr Tra3 tra3;
-using Tra4 = Transform<_25, Const<func4(3)>>; constexpr Tra4 tra4;
+using Map1 = Map<_22, Const<func1>>;    constexpr Map1 tra1;
+using Map2 = Map<_23, Const<func2>>;    constexpr Map2 tra2;
+using Map3 = Map<_24, Const<func3>>;    constexpr Map3 tra3;
+using Map4 = Map<_25, Const<func4(3)>>; constexpr Map4 tra4;
 
 using Apt1 = ApplyTransform<_24, Const<func3_apply>>;    constexpr Apt1 apt1;
 using Apt2 = ApplyTransform<_25, Const<func4_apply(3)>>; constexpr Apt2 apt2;
@@ -74,7 +74,7 @@ constexpr Cus2 cus2;
 
 #define DIVERGENT_SAMPLES              \
 	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
-	(Tra1) (Tra2) (Tra3) (Tra4)        \
+	(Map1) (Map2) (Map3) (Map4)        \
 	(Apt1) (Apt2)                      \
 	(Int1) (Int2) (Int3)               \
 	(Api1) (Api2)                      \

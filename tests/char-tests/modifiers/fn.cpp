@@ -29,12 +29,12 @@ TEST("fn modifier", "non consteval")
 
 
 
-#define FN_MODIFIER_ASSERTER(P)                                                                         \
-	[]<Parser PP>(PP) {                                                                                 \
-		DEP_ASSERT_MODIFIER_CALLABLE_R(fn<sink_func>, (PP{}), (Transform<PP, Const<sink_func>>{}),      \
-			                           fn<sink_func>, (P{}),  (Transform<P, Const<sink_func>>{}));      \
-		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, fn<sink_func>, (Transform<PP, Const<sink_func>>{}), \
-			                                  P{},  fn<sink_func>, (Transform<P, Const<sink_func>>{})); \
+#define FN_MODIFIER_ASSERTER(P)                                                                   \
+	[]<Parser PP>(PP) {                                                                           \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(fn<sink_func>, (PP{}), (Map<PP, Const<sink_func>>{}),      \
+			                           fn<sink_func>, (P{}),  (Map<P, Const<sink_func>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, fn<sink_func>, (Map<PP, Const<sink_func>>{}), \
+			                                  P{},  fn<sink_func>, (Map<P, Const<sink_func>>{})); \
 	}(P{});
 
 TEST("fn modifier", "modify anything")

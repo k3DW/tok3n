@@ -21,7 +21,7 @@ enum class ParserFamily
 	Ignore,
 	Complete,
 	Join,
-	Transform,
+	Map,
 	ApplyTransform,
 	Into,
 	ApplyInto,
@@ -49,7 +49,7 @@ inline constexpr ParserFamily IgnoreFamily         = ParserFamily::Ignore;
 inline constexpr ParserFamily CompleteFamily       = ParserFamily::Complete;
 inline constexpr ParserFamily NamedFamily          = ParserFamily::Named;
 inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
-inline constexpr ParserFamily TransformFamily      = ParserFamily::Transform;
+inline constexpr ParserFamily MapFamily            = ParserFamily::Map;
 inline constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
 inline constexpr ParserFamily IntoFamily           = ParserFamily::Into;
 inline constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;

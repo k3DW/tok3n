@@ -242,7 +242,7 @@ TEST("Join", "Join<Ignore>")
 	ASSERT_PARSE_SUCCESS(J4, e<int>("abc??abc??a"), e<int>("abc??abc"), e<int>("??a"));
 }
 
-TEST("Join", "Join<Transform>")
+TEST("Join", "Join<Map>")
 {
 	constexpr auto f = [](auto&& v)
 	{
@@ -261,9 +261,9 @@ TEST("Join", "Join<Transform>")
 			static_assert(std::same_as<V, void>);
 	};
 
-	using T1 = Transform<ABC, Const<f>>;
-	using T2 = Sequence<Transform<ABC, Const<f>>, QQ>;
-	using T3 = ZeroOrMore<Sequence<Transform<OneOrMore<ABC>, Const<f>>, QQ>>;
+	using T1 = Map<ABC, Const<f>>;
+	using T2 = Sequence<Map<ABC, Const<f>>, QQ>;
+	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, Const<f>>, QQ>>;
 	using J1 = Join<T1>;
 	using J2 = Join<T2>;
 	using J3 = Join<T3>;
