@@ -1,5 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/detail/apply.h>
 
 namespace k3::tok3n {
 
@@ -8,16 +9,13 @@ struct ApplyTransform
 {
 	using value_type = typename P::value_type;
 
-	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
-	static constexpr bool parsable_range = detail::IsApplyable<typename FunctionValue::value_type, typename P::template result_for<V>>;
-
 	template <EqualityComparableWith<value_type> V>
-	using result_for = detail::ApplyResult<typename FunctionValue::value_type, typename P::template result_for<V>>;
+	using result_for = decltype(detail::apply(FunctionValue::value, std::declval<typename P::template result_for<V>>()));
 
 	static constexpr ParserFamily family = ApplyTransformFamily;
 
 	template <InputConstructibleFor<value_type> R>
-	requires parsable_range<R>
+	requires requires { typename result_for<InputValueType<R>>; }
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
@@ -29,11 +27,11 @@ struct ApplyTransform
 			
 		if constexpr (std::same_as<result_for<V>, void>)
 		{
-			std::apply(FunctionValue::value, std::move(*result));
+			detail::apply(FunctionValue::value, std::move(*result));
 			return Result<result_for<V>, V>{ success, result.remaining() };
 		}
 		else
-			return Result<result_for<V>, V>{ success, std::apply(FunctionValue::value, std::move(*result)), result.remaining() };
+			return Result<result_for<V>, V>{ success, detail::apply(FunctionValue::value, std::move(*result)), result.remaining() };
 	}
 
 	template <InputConstructibleFor<value_type> R>
