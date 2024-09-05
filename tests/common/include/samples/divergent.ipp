@@ -9,8 +9,8 @@ using Map2 = Map<_23, Const<func2>>;    constexpr Map2 tra2;
 using Map3 = Map<_24, Const<func3>>;    constexpr Map3 tra3;
 using Map4 = Map<_25, Const<func4(3)>>; constexpr Map4 tra4;
 
-using Apt1 = aliases::ApplyTransform<_24, Const<func3_apply>>;    constexpr Apt1 apt1;
-using Apt2 = aliases::ApplyTransform<_25, Const<func4_apply(3)>>; constexpr Apt2 apt2;
+using Apm1 = aliases::ApplyMap<_24, Const<func3_apply>>;    constexpr Apm1 apm1;
+using Apm2 = aliases::ApplyMap<_25, Const<func4_apply(3)>>; constexpr Apm2 apm2;
 
 using Int1 = aliases::Into<SpaceDot, Class1>;                                       constexpr Int1 int1;
 using Int2 = aliases::Into<Sequence<ABC, SpaceDot>, Class2>;                        constexpr Int2 int2;
@@ -75,7 +75,7 @@ constexpr Cus2 cus2;
 #define DIVERGENT_SAMPLES              \
 	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
 	(Map1) (Map2) (Map3) (Map4)        \
-	(Apt1) (Apt2)                      \
+	(Apm1) (Apm2)                      \
 	(Int1) (Int2) (Int3)               \
 	(Api1) (Api2)                      \
 	(Con1) (Con2) (Con3) (Con4)        \

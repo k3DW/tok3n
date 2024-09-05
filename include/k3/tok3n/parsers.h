@@ -15,7 +15,7 @@
 
 #include <k3/tok3n/parsers/divergent/Join.h>
 #include <k3/tok3n/parsers/divergent/Map.h>
-#include <k3/tok3n/parsers/divergent/ApplyTransform.h>
+#include <k3/tok3n/parsers/divergent/ApplyMap.h>
 #include <k3/tok3n/parsers/divergent/Into.h>
 #include <k3/tok3n/parsers/divergent/ApplyInto.h>
 #include <k3/tok3n/parsers/divergent/Constant.h>
