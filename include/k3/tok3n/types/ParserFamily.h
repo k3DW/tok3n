@@ -22,7 +22,6 @@ enum class ParserFamily
 	Complete,
 	Join,
 	Map,
-	ApplyInto,
 	Named,
 	Custom,
 
@@ -46,7 +45,6 @@ inline constexpr ParserFamily CompleteFamily       = ParserFamily::Complete;
 inline constexpr ParserFamily NamedFamily          = ParserFamily::Named;
 inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
 inline constexpr ParserFamily MapFamily            = ParserFamily::Map;
-inline constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;
 inline constexpr ParserFamily CustomFamily         = ParserFamily::Custom;
 
 } // namespace k3::tok3n
