@@ -23,9 +23,9 @@ using Con1 = Constant<_22, Const<1>>;       constexpr Con1 con1;
 using Con2 = Constant<_23, Const<'t'>>;     constexpr Con2 con2;
 using Con3 = Constant<_24, Const<true>>;    constexpr Con3 con3;
 using Con4 = Constant<_25, Const<nullptr>>; constexpr Con4 con4;
-	
-using Def1 = Defaulted<_22, int>;    constexpr Def1 def1;
-using Def2 = Defaulted<_23, Class3>; constexpr Def2 def2;
+
+using Def1 = aliases::Defaulted<_22, int>;    constexpr Def1 def1;
+using Def2 = aliases::Defaulted<_23, Class3>; constexpr Def2 def2;
 
 struct Cus1 : Custom<Cus1>
 {

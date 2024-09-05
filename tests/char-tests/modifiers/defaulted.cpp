@@ -22,9 +22,9 @@ TEST("defaulted modifier", "non consteval")
 
 
 
-#define DEFAULTED_MODIFIER_ASSERTER(P)                                               \
-	ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (Defaulted<P, bool>{}));      \
-	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (Defaulted<P, bool>{}));
+#define DEFAULTED_MODIFIER_ASSERTER(P)                                                        \
+	ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (aliases::Defaulted<P, bool>{}));      \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (aliases::Defaulted<P, bool>{}));
 
 TEST("defaulted modifier", "modify anything")
 {

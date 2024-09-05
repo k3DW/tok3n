@@ -1,37 +1,16 @@
 #pragma once
-#include <k3/tok3n/parsers/divergent/_fwd.h>
-#include <k3/tok3n/detail/head.h>
+#include <k3/tok3n/parsers/divergent/Map.h>
 
-namespace k3::tok3n {
+namespace k3::tok3n::aliases {
+
+namespace detail {
+
+template <DefaultConstructible T>
+inline constexpr auto DefaultConstruct = [](auto&&...) { return T{}; };
+
+} // namespace detail
 
 template <Parser P, DefaultConstructible T>
-struct Defaulted
-{
-	using value_type = typename P::value_type;
+using Defaulted = Map<P, Const<detail::DefaultConstruct<T>>>;
 
-	template <EqualityComparableWith<value_type> V>
-	using result_for = detail::head<T, V>;
-
-	static constexpr ParserFamily family = DefaultedFamily;
-
-	template <InputConstructibleFor<value_type> R>
-	static constexpr auto parse(R&& r)
-	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
-
-		auto result = P::parse(input);
-		if (result.has_value())
-			return Result<result_for<V>, V>{ success, T{}, result.remaining() };
-		else
-			return Result<result_for<V>, V>{ failure, input };
-	}
-
-	template <InputConstructibleFor<value_type> R>
-	static constexpr auto lookahead(R&& r)
-	{
-		return P::lookahead(std::forward<R>(r));
-	}
-};
-
-} // namespace k3::tok3n
+} // namespace k3::tok3n::aliases
