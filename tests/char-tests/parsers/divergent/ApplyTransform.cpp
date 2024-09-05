@@ -7,14 +7,14 @@ TEST("ApplyTransform", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Apt1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Apt2, value_type);
 
-	ASSERT_IS_PARSER(Apt1, char, ApplyTransformFamily, bool);
-	ASSERT_IS_PARSER(Apt2, char, ApplyTransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Apt1, char, MapFamily, bool);
+	ASSERT_IS_PARSER(Apt2, char, MapFamily, std::size_t);
 
-	ASSERT_IS_PARSER(Apt1, wchar_t, ApplyTransformFamily, bool);
-	ASSERT_IS_PARSER(Apt2, wchar_t, ApplyTransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Apt1, wchar_t, MapFamily, bool);
+	ASSERT_IS_PARSER(Apt2, wchar_t, MapFamily, std::size_t);
 
-	ASSERT_IS_PARSER(Apt1, int, ApplyTransformFamily, bool);
-	ASSERT_IS_PARSER(Apt2, int, ApplyTransformFamily, std::size_t);
+	ASSERT_IS_PARSER(Apt1, int, MapFamily, bool);
+	ASSERT_IS_PARSER(Apt2, int, MapFamily, std::size_t);
 }
 
 TEST("ApplyTransform", "Parse all")
@@ -64,7 +64,7 @@ TEST("ApplyTransform", "Move only")
 	{
 		using tuple = std::tuple<Output<char>, Output<char>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 		ASSERT_PARSE_FAILURE(P, "ydcba");
 		ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
@@ -73,7 +73,7 @@ TEST("ApplyTransform", "Move only")
 	{
 		using tuple = std::tuple<Output<wchar_t>, Output<wchar_t>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
 		ASSERT_PARSE_FAILURE(P, L"ydcba");
 		ASSERT_PARSE_SUCCESS(P, L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd");
@@ -82,7 +82,7 @@ TEST("ApplyTransform", "Move only")
 	{
 		using tuple = std::tuple<Output<int>, Output<int>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("ydcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));
@@ -94,7 +94,7 @@ TEST("ApplyTransform", "Copy only")
 	{
 		using tuple = std::tuple<Output<char>, Output<char>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 		ASSERT_PARSE_FAILURE(P, "ydcba");
 		ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
@@ -103,7 +103,7 @@ TEST("ApplyTransform", "Copy only")
 	{
 		using tuple = std::tuple<Output<wchar_t>, Output<wchar_t>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
 		ASSERT_PARSE_FAILURE(P, L"ydcba");
 		ASSERT_PARSE_SUCCESS(P, L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd");
@@ -112,7 +112,7 @@ TEST("ApplyTransform", "Copy only")
 	{
 		using tuple = std::tuple<Output<int>, Output<int>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
+		using P = aliases::ApplyTransform<Sequence<Any3, ABC>, Const<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("ydcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));

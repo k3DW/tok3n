@@ -29,9 +29,6 @@ struct Join;
 template <Parser P, IsConst FunctionValue>
 struct Map;
 
-template <Parser P, IsConst FunctionValue>
-struct ApplyTransform;
-
 template <Parser P, class T>
 struct ApplyInto;
 

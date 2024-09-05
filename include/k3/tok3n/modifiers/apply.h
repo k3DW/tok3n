@@ -12,7 +12,7 @@ struct apply final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return ApplyTransform<P, Const<function>>{};
+		return aliases::ApplyTransform<P, Const<function>>{};
 	}
 };
 
