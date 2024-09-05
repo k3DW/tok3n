@@ -55,9 +55,6 @@ struct ApplyTransform;
 template <Parser P, class T>
 struct ApplyInto;
 
-template <Parser P, IsConst Value>
-struct Constant;
-
 template <class CRTP, class ValueType = char>
 struct Custom;
 

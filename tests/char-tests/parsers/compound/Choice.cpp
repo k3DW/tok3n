@@ -220,8 +220,8 @@ TEST("Choice", "Copy only")
 
 TEST("Choice", "Result type")
 {
-	using C1 = Constant<SpaceDot, Const<0>>;
-	using C2 = Constant<SpaceDot, Const<1>>;
+	using C1 = aliases::Constant<SpaceDot, Const<0>>;
+	using C2 = aliases::Constant<SpaceDot, Const<1>>;
 
 	using P1 = Choice<ABC, QQ, SpaceDot>;
 	ASSERT_IS_PARSER(P1, char, ChoiceFamily, Output<char>);

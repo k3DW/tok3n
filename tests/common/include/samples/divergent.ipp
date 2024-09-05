@@ -19,10 +19,10 @@ using Int3 = aliases::Into<aliases::Into<Sequence<ABC, SpaceDot>, Class4>, Class
 using Api1 = ApplyInto<Sequence<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
 using Api2 = ApplyInto<Sequence<SpaceDot, ABC>, Class5>; constexpr Api2 api2;
 
-using Con1 = Constant<_22, Const<1>>;       constexpr Con1 con1;
-using Con2 = Constant<_23, Const<'t'>>;     constexpr Con2 con2;
-using Con3 = Constant<_24, Const<true>>;    constexpr Con3 con3;
-using Con4 = Constant<_25, Const<nullptr>>; constexpr Con4 con4;
+using Con1 = aliases::Constant<_22, Const<1>>;       constexpr Con1 con1;
+using Con2 = aliases::Constant<_23, Const<'t'>>;     constexpr Con2 con2;
+using Con3 = aliases::Constant<_24, Const<true>>;    constexpr Con3 con3;
+using Con4 = aliases::Constant<_25, Const<nullptr>>; constexpr Con4 con4;
 
 using Def1 = aliases::Defaulted<_22, int>;    constexpr Def1 def1;
 using Def2 = aliases::Defaulted<_23, Class3>; constexpr Def2 def2;

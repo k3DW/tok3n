@@ -24,7 +24,6 @@ enum class ParserFamily
 	Map,
 	ApplyTransform,
 	ApplyInto,
-	Constant,
 	Named,
 	Custom,
 
@@ -50,7 +49,6 @@ inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
 inline constexpr ParserFamily MapFamily            = ParserFamily::Map;
 inline constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
 inline constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;
-inline constexpr ParserFamily ConstantFamily       = ParserFamily::Constant;
 inline constexpr ParserFamily CustomFamily         = ParserFamily::Custom;
 
 } // namespace k3::tok3n
