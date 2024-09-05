@@ -7,14 +7,14 @@ TEST("Defaulted", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
 
-	ASSERT_IS_PARSER(Def1, char, DefaultedFamily, int);
-	ASSERT_IS_PARSER(Def2, char, DefaultedFamily, Class3);
+	ASSERT_IS_PARSER(Def1, char, MapFamily, int);
+	ASSERT_IS_PARSER(Def2, char, MapFamily, Class3);
 
-	ASSERT_IS_PARSER(Def1, wchar_t, DefaultedFamily, int);
-	ASSERT_IS_PARSER(Def2, wchar_t, DefaultedFamily, Class3);
+	ASSERT_IS_PARSER(Def1, wchar_t, MapFamily, int);
+	ASSERT_IS_PARSER(Def2, wchar_t, MapFamily, Class3);
 
-	ASSERT_IS_PARSER(Def1, int, DefaultedFamily, int);
-	ASSERT_IS_PARSER(Def2, int, DefaultedFamily, Class3);
+	ASSERT_IS_PARSER(Def1, int, MapFamily, int);
+	ASSERT_IS_PARSER(Def2, int, MapFamily, Class3);
 }
 
 TEST("Defaulted", "Parse all")

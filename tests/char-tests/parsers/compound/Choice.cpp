@@ -162,7 +162,7 @@ TEST("Choice", "Move only")
 {
 	{
 		using T = MoveOnlyWrapper<Output<char>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
 		ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
@@ -171,7 +171,7 @@ TEST("Choice", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<Output<wchar_t>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
 		ASSERT_PARSE_SUCCESS(P, L"abcxyz", T(L"abc"), L"xyz");
@@ -180,7 +180,7 @@ TEST("Choice", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<Output<int>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcxyz"), T(e<int>("abc")), e<int>("xyz"));
@@ -192,7 +192,7 @@ TEST("Choice", "Copy only")
 {
 	{
 		using T = CopyOnlyWrapper<Output<char>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
 		ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
@@ -201,7 +201,7 @@ TEST("Choice", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<Output<wchar_t>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
 		ASSERT_PARSE_SUCCESS(P, L"abcxyz", T(L"abc"), L"xyz");
@@ -210,7 +210,7 @@ TEST("Choice", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<Output<int>>;
-		using P = Choice<Into<Any3, T>, Into<ABC, T>>;
+		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcxyz"), T(e<int>("abc")), e<int>("xyz"));
@@ -220,8 +220,8 @@ TEST("Choice", "Copy only")
 
 TEST("Choice", "Result type")
 {
-	using C1 = Constant<SpaceDot, Const<0>>;
-	using C2 = Constant<SpaceDot, Const<1>>;
+	using C1 = aliases::Constant<SpaceDot, Const<0>>;
+	using C2 = aliases::Constant<SpaceDot, Const<1>>;
 
 	using P1 = Choice<ABC, QQ, SpaceDot>;
 	ASSERT_IS_PARSER(P1, char, ChoiceFamily, Output<char>);

@@ -4,7 +4,7 @@
 namespace k3::tok3n {
 
 template <Parser P, IsConst FunctionValue>
-struct Transform
+struct Map
 {
 	using value_type = typename P::value_type;
 
@@ -15,7 +15,7 @@ struct Transform
 		std::invoke_result<typename FunctionValue::value_type, typename P::template result_for<V>>
 	>::type;
 
-	static constexpr ParserFamily family = TransformFamily;
+	static constexpr ParserFamily family = MapFamily;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

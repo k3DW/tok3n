@@ -12,7 +12,7 @@ struct apply_into final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return ApplyInto<P, T>{};
+		return aliases::ApplyInto<P, T>{};
 	}
 };
 

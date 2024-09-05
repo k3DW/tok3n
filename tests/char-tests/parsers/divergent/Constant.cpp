@@ -9,20 +9,20 @@ TEST("Constant", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Con3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Con4, value_type);
 
-	ASSERT_IS_PARSER(Con1, char, ConstantFamily, int);
-	ASSERT_IS_PARSER(Con2, char, ConstantFamily, char);
-	ASSERT_IS_PARSER(Con3, char, ConstantFamily, bool);
-	ASSERT_IS_PARSER(Con4, char, ConstantFamily, std::nullptr_t);
+	ASSERT_IS_PARSER(Con1, char, MapFamily, int);
+	ASSERT_IS_PARSER(Con2, char, MapFamily, char);
+	ASSERT_IS_PARSER(Con3, char, MapFamily, bool);
+	ASSERT_IS_PARSER(Con4, char, MapFamily, std::nullptr_t);
 
-	ASSERT_IS_PARSER(Con1, wchar_t, ConstantFamily, int);
-	ASSERT_IS_PARSER(Con2, wchar_t, ConstantFamily, char);
-	ASSERT_IS_PARSER(Con3, wchar_t, ConstantFamily, bool);
-	ASSERT_IS_PARSER(Con4, wchar_t, ConstantFamily, std::nullptr_t);
+	ASSERT_IS_PARSER(Con1, wchar_t, MapFamily, int);
+	ASSERT_IS_PARSER(Con2, wchar_t, MapFamily, char);
+	ASSERT_IS_PARSER(Con3, wchar_t, MapFamily, bool);
+	ASSERT_IS_PARSER(Con4, wchar_t, MapFamily, std::nullptr_t);
 
-	ASSERT_IS_PARSER(Con1, int, ConstantFamily, int);
-	ASSERT_IS_PARSER(Con2, int, ConstantFamily, char);
-	ASSERT_IS_PARSER(Con3, int, ConstantFamily, bool);
-	ASSERT_IS_PARSER(Con4, int, ConstantFamily, std::nullptr_t);
+	ASSERT_IS_PARSER(Con1, int, MapFamily, int);
+	ASSERT_IS_PARSER(Con2, int, MapFamily, char);
+	ASSERT_IS_PARSER(Con3, int, MapFamily, bool);
+	ASSERT_IS_PARSER(Con4, int, MapFamily, std::nullptr_t);
 }
 
 TEST("Constant", "Parse all")

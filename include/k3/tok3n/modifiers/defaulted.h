@@ -4,8 +4,7 @@
 
 namespace k3::tok3n::modifiers {
 
-template <class T>
-requires std::is_default_constructible_v<T>
+template <DefaultConstructible T>
 struct defaulted final : ModifierBase
 {
 	static constexpr auto family = ModifierFamily::defaulted;
@@ -13,7 +12,7 @@ struct defaulted final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return Defaulted<P, T>{};
+		return aliases::Defaulted<P, T>{};
 	}
 };
 

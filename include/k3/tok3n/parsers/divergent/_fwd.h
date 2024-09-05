@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
-#include <k3/tok3n/detail/has_tuple_size.h>
 #include <vector>
 
 namespace k3::tok3n {
@@ -24,45 +23,11 @@ namespace detail {
 
 
 
-namespace detail {
-
-template <class F, class Tup>
-struct ApplyTrait {};
-
-template <class F, template <class...> class List, class... Ts>
-requires detail::has_tuple_size<List<Ts...>> and std::invocable<F, Ts...>
-struct ApplyTrait<F, List<Ts...>> : std::invoke_result<F, Ts...> {};
-
-template <class F, class Tup>
-using ApplyResult = typename ApplyTrait<F, Tup>::type;
-
-template <class F, class Tup>
-concept IsApplyable = requires { typename ApplyTrait<F, Tup>::type; };
-
-} // namespace detail
-
-
-
 template <Parser P>
 struct Join;
 
 template <Parser P, IsConst FunctionValue>
-struct Transform;
-
-template <Parser P, IsConst FunctionValue>
-struct ApplyTransform;
-
-template <Parser P, class T>
-struct Into;
-
-template <Parser P, class T>
-struct ApplyInto;
-
-template <Parser P, IsConst Value>
-struct Constant;
-
-template <Parser P, DefaultConstructible T>
-struct Defaulted;
+struct Map;
 
 template <class CRTP, class ValueType = char>
 struct Custom;
