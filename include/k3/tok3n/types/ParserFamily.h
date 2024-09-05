@@ -23,7 +23,6 @@ enum class ParserFamily
 	Join,
 	Map,
 	ApplyTransform,
-	Into,
 	ApplyInto,
 	Constant,
 	Named,
@@ -50,7 +49,6 @@ inline constexpr ParserFamily NamedFamily          = ParserFamily::Named;
 inline constexpr ParserFamily JoinFamily           = ParserFamily::Join;
 inline constexpr ParserFamily MapFamily            = ParserFamily::Map;
 inline constexpr ParserFamily ApplyTransformFamily = ParserFamily::ApplyTransform;
-inline constexpr ParserFamily IntoFamily           = ParserFamily::Into;
 inline constexpr ParserFamily ApplyIntoFamily      = ParserFamily::ApplyInto;
 inline constexpr ParserFamily ConstantFamily       = ParserFamily::Constant;
 inline constexpr ParserFamily CustomFamily         = ParserFamily::Custom;

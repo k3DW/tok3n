@@ -12,9 +12,9 @@ using Map4 = Map<_25, Const<func4(3)>>; constexpr Map4 tra4;
 using Apt1 = ApplyTransform<_24, Const<func3_apply>>;    constexpr Apt1 apt1;
 using Apt2 = ApplyTransform<_25, Const<func4_apply(3)>>; constexpr Apt2 apt2;
 
-using Int1 = Into<SpaceDot, Class1>;                              constexpr Int1 int1;
-using Int2 = Into<Sequence<ABC, SpaceDot>, Class2>;               constexpr Int2 int2;
-using Int3 = Into<Into<Sequence<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
+using Int1 = aliases::Into<SpaceDot, Class1>;                                       constexpr Int1 int1;
+using Int2 = aliases::Into<Sequence<ABC, SpaceDot>, Class2>;                        constexpr Int2 int2;
+using Int3 = aliases::Into<aliases::Into<Sequence<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
 
 using Api1 = ApplyInto<Sequence<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
 using Api2 = ApplyInto<Sequence<SpaceDot, ABC>, Class5>; constexpr Api2 api2;

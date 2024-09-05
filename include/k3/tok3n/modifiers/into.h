@@ -12,7 +12,7 @@ struct into final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return Into<P, T>{};
+		return aliases::Into<P, T>{};
 	}
 };
 

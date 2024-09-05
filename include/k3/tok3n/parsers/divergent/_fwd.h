@@ -53,9 +53,6 @@ template <Parser P, IsConst FunctionValue>
 struct ApplyTransform;
 
 template <Parser P, class T>
-struct Into;
-
-template <Parser P, class T>
 struct ApplyInto;
 
 template <Parser P, IsConst Value>
