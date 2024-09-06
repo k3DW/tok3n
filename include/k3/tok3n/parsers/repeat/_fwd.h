@@ -52,6 +52,13 @@ public:
 	}
 
 	template <class U>
+	constexpr void emplace(Result<value_type, U>&& result)
+	{
+		if constexpr (not is_void)
+			this->value.emplace(*std::move(result));
+	}
+
+	template <class U>
 	constexpr Result<T, U> success(Input<U> input) &&
 	{
 		if constexpr (not is_void)
