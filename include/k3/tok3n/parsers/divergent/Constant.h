@@ -10,7 +10,7 @@ inline constexpr auto Constant = [](auto&&...) { return value; };
 
 } // namespace detail
 
-template <Parser P, IsConst Value>
+template <Parser P, detail::is_integral_constant Value>
 using Constant = Map<P, k3::tok3n::detail::integral_constant<detail::Constant<Value::value>>>;
 
 } // namespace k3::tok3n::aliases

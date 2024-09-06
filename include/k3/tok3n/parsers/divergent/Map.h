@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, IsConst FunctionValue>
+template <Parser P, detail::is_integral_constant FunctionValue>
 struct Map
 {
 	using value_type = typename P::value_type;

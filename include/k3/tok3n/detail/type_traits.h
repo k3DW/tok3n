@@ -26,4 +26,19 @@ using integral_constant = std::integral_constant<decltype(value), value>;
 template <std::size_t N>
 using index_c = integral_constant<N>;
 
+template <class value_type, auto value>
+concept constexpr_value = std::same_as<decltype(value), value_type>;
+
+template <class T>
+concept is_integral_constant =
+	requires { typename T::value_type; } and
+	constexpr_value<typename T::value_type, T{}.operator typename T::value_type()> and
+	constexpr_value<typename T::value_type, T{}()> and
+	constexpr_value<typename T::value_type, T::value>;
+
+template <class T, class value_type>
+concept integral_constant_of =
+	is_integral_constant<T> and
+	std::same_as<value_type, typename T::value_type>;
+
 } // namespace k3::tok3n::detail

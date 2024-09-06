@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, ParserCompatibleWith<P> D, IsConst<bool> KeepDelimiters>
+template <Parser P, ParserCompatibleWith<P> D, detail::integral_constant_of<bool> KeepDelimiters>
 struct Delimit
 {
 	using value_type = typename P::value_type;
