@@ -138,3 +138,32 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
 		ASSERT_PARSE_SUCCESS(Zom4, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
+
+TEST("ZeroOrMore", "Parse ZeroOrMore<void-parser>")
+{
+	using P = ZeroOrMore<Ignore<ABC>>;
+
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "a");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "");
+	ASSERT_PARSE_SUCCESS_VOID(P, " abcabc", " abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcab", "ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abc", "");
+	ASSERT_PARSE_SUCCESS_VOID(P, "", "");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"a");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"a");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"");
+	ASSERT_PARSE_SUCCESS_VOID(P, L" abcabc", L" abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcab", L"ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abc", L"");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"", L"");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("a"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("a"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>(""));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>(" abcabc"), e<int>(" abcabc"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcab"), e<int>("ab"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>(""), e<int>(""));
+}

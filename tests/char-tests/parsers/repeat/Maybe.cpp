@@ -102,3 +102,32 @@ TEST("Maybe", "Parse Maybe<Sequence>")
 	ASSERT_PARSE_SUCCESS(May4, e<int>("aliteralaliteralcliteralbliteral"), std::nullopt, e<int>("aliteralaliteralcliteralbliteral"));
 	ASSERT_PARSE_SUCCESS(May4, e<int>(""), std::nullopt, e<int>(""));
 }
+
+TEST("Maybe", "Parse Maybe<void-parser>")
+{
+	using P = Maybe<Ignore<ABC>>;
+	
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abcabca");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "abc");
+	ASSERT_PARSE_SUCCESS_VOID(P, " abcabc", " abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcab", "ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abc", "");
+	ASSERT_PARSE_SUCCESS_VOID(P, "", "");
+	
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"abcabca");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"abc");
+	ASSERT_PARSE_SUCCESS_VOID(P, L" abcabc", L" abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcab", L"ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abc", L"");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"", L"");
+	
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("abcabca"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("abca"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>("abc"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>(" abcabc"), e<int>(" abcabc"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcab"), e<int>("ab"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>(""), e<int>(""));
+}
