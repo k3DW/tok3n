@@ -16,7 +16,7 @@ constexpr auto SubstituteOne(T, Sub)
 
 template <template <StaticArray> class Basic, StaticArray arr, IsSubstitution Sub>
 requires Parser<Basic<arr>>
-constexpr Parser auto SubstituteOne(Basic<arr>, Sub)
+constexpr auto SubstituteOne(Basic<arr>, Sub)
 	-> Basic<arr>;
 
 template <Parser P, StaticArray str, IsSubstitution Sub>

@@ -45,7 +45,8 @@ private:
 			std::is_base_of_v<Fixture, FixtureImpl<test_hash(FIXTURE_NAME)>>, \
 			"Fixture \"" FIXTURE_NAME "\" has not been declared.");           \
 		static void _run();                                                   \
-		static inline const bool _init =                                      \
-			Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));               \
+		static const bool _init;                                              \
 	};                                                                        \
+	const bool TestImpl<test_hash(FIXTURE_NAME, NAME)>::_init                 \
+		= Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));                 \
 	void TestImpl<test_hash(FIXTURE_NAME, NAME)>::_run()
