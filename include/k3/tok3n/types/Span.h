@@ -2,8 +2,8 @@
 #include <algorithm>
 #include <span>
 #include <string_view>
-#include <k3/tok3n/concepts/CharType.h>
 #include <k3/tok3n/concepts/EqualityComparableWith.h>
+#include <k3/tok3n/detail/type_traits.h>
 
 namespace k3::tok3n {
 
@@ -46,7 +46,7 @@ private:
 	std::span<const T> _value;
 };
 
-template <CharType T>
+template <detail::character T>
 class Span<T>
 {
 public:
@@ -171,7 +171,7 @@ public:
 
 template <std::ranges::contiguous_range R>
 Input(R&&) -> Input<std::ranges::range_value_t<R>>;
-template <CharType T>
+template <detail::character T>
 Input(const T*) -> Input<T>;
 
 template <class T>
@@ -183,7 +183,7 @@ public:
 
 template <std::ranges::contiguous_range R>
 Output(R&&) -> Output<std::ranges::range_value_t<R>>;
-template <CharType T>
+template <detail::character T>
 Output(const T*) -> Output<T>;
 
 template <class T>
