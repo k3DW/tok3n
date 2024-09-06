@@ -152,3 +152,32 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 		ASSERT_PARSE_FAILURE(Exa4, e<int>());
 	}
 }
+
+TEST("Exactly", "Parse Exactly<void-parser>")
+{
+	using P = Exactly<Ignore<ABC>, Index<2>>;
+
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "");
+	ASSERT_PARSE_FAILURE(P, " abcabc");
+	ASSERT_PARSE_FAILURE(P, "abcab");
+	ASSERT_PARSE_FAILURE(P, "abc");
+	ASSERT_PARSE_FAILURE(P, "");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"a");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"");
+	ASSERT_PARSE_FAILURE(P, L" abcabc");
+	ASSERT_PARSE_FAILURE(P, L"abcab");
+	ASSERT_PARSE_FAILURE(P, L"abc");
+	ASSERT_PARSE_FAILURE(P, L"");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("abca"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("a"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>(""));
+	ASSERT_PARSE_FAILURE(P, e<int>(" abcabc"));
+	ASSERT_PARSE_FAILURE(P, e<int>("abcab"));
+	ASSERT_PARSE_FAILURE(P, e<int>("abc"));
+	ASSERT_PARSE_FAILURE(P, e<int>(""));
+}
