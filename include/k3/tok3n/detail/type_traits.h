@@ -18,4 +18,12 @@ template <class T, class U>
 concept equality_comparable_with = // `std::equality_comparable_with` requires a common reference
 	requires (T t, U u) { { t == u } -> std::convertible_to<bool>; };
 
+
+
+template <auto value>
+using integral_constant = std::integral_constant<decltype(value), value>;
+
+template <std::size_t N>
+using index_c = integral_constant<N>;
+
 } // namespace k3::tok3n::detail

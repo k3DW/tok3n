@@ -13,7 +13,7 @@ struct exactly final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return Exactly<P, Index<N>>{};
+		return Exactly<P, detail::index_c<N>>{};
 	}
 };
 

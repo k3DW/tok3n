@@ -13,6 +13,6 @@ inline constexpr auto DefaultConstruct = [](auto&&...) { return T{}; };
 
 template <Parser P, class T>
 requires std::is_default_constructible_v<T>
-using Defaulted = Map<P, Const<detail::DefaultConstruct<T>>>;
+using Defaulted = Map<P, k3::tok3n::detail::integral_constant<detail::DefaultConstruct<T>>>;
 
 } // namespace k3::tok3n::aliases

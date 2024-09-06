@@ -3,10 +3,10 @@ using May2 = Maybe<_12>; constexpr May2 may2;
 using May3 = Maybe<_13>; constexpr May3 may3;
 using May4 = Maybe<_14>; constexpr May4 may4;
 
-using Exa1 = Exactly<_11, Index<3>>; constexpr Exa1 exa1;
-using Exa2 = Exactly<_12, Index<5>>; constexpr Exa2 exa2;
-using Exa3 = Exactly<_13, Index<4>>; constexpr Exa3 exa3;
-using Exa4 = Exactly<_14, Index<2>>; constexpr Exa4 exa4;
+using Exa1 = Exactly<_11, detail::index_c<3>>; constexpr Exa1 exa1;
+using Exa2 = Exactly<_12, detail::index_c<5>>; constexpr Exa2 exa2;
+using Exa3 = Exactly<_13, detail::index_c<4>>; constexpr Exa3 exa3;
+using Exa4 = Exactly<_14, detail::index_c<2>>; constexpr Exa4 exa4;
 
 using Oom1 = OneOrMore<_11>; constexpr Oom1 oom1;
 using Oom2 = OneOrMore<_12>; constexpr Oom2 oom2;

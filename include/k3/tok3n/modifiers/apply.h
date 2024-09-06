@@ -12,7 +12,7 @@ struct apply final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return aliases::ApplyMap<P, Const<function>>{};
+		return aliases::ApplyMap<P, detail::integral_constant<function>>{};
 	}
 };
 

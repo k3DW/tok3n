@@ -11,6 +11,6 @@ inline constexpr auto Construct = []<class... Args>(Args&&... args) { return T(s
 } // namespace detail
 
 template <Parser P, class T>
-using Into = Map<P, Const<detail::Construct<T>>>;
+using Into = Map<P, k3::tok3n::detail::integral_constant<detail::Construct<T>>>;
 
 } // namespace k3::tok3n::aliases

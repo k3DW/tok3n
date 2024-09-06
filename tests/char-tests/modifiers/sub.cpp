@@ -71,13 +71,13 @@ TEST("sub modifier", "prefix")
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub22), nam3);
-	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub32), (Exactly<_23, Index<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub32), (Exactly<_23, detail::index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub42), nam3);
 
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub11), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub21), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub31), nam4);
-	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub41), (Exactly<_24, Index<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub41), (Exactly<_24, detail::index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub32), nam4);
@@ -110,13 +110,13 @@ TEST("sub modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub22), nam3);
-	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub32), (Exactly<_23, Index<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub32), (Exactly<_23, detail::index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub42), nam3);
 
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub11), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub21), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub31), nam4);
-	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub41), (Exactly<_24, Index<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub41), (Exactly<_24, detail::index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub32), nam4);
