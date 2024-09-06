@@ -9,7 +9,7 @@ struct Named
 {
 	using value_type = typename P::value_type;
 	
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = typename P::template result_for<V>;
 
 	static constexpr ParserFamily family = NamedFamily;

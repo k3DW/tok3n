@@ -9,7 +9,7 @@ struct Epsilon
 {
 	using value_type = ValueType;
 	
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = detail::head<void, V>;
 
 	static constexpr ParserFamily family = EpsilonFamily;

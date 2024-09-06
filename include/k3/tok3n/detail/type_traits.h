@@ -14,4 +14,8 @@ concept character = // https://en.cppreference.com/w/cpp/language/types
 	std::same_as<std::remove_const_t<T>, char32_t>      or
 	std::same_as<std::remove_const_t<T>, char8_t>;
 
+template <class T, class U>
+concept equality_comparable_with = // `std::equality_comparable_with` requires a common reference
+	requires (T t, U u) { { t == u } -> std::convertible_to<bool>; };
+
 } // namespace k3::tok3n::detail

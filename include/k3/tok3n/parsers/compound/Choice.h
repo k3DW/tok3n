@@ -62,12 +62,12 @@ struct Choice
 {
 	using value_type = typename detail::head<Ps...>::value_type;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using _filtered = detail::filter_deduplicate_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = typename std::conditional_t<_trait<V>::unwrapped,
 		_trait<V>,
 		detail::change_list<typename _trait<V>::type, std::variant>
