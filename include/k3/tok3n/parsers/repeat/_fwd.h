@@ -58,6 +58,13 @@ public:
 			this->value.emplace(*std::move(result));
 	}
 
+    template <class U>
+    constexpr void insert_back(Result<value_type, U>&& result)
+    {
+        if constexpr (not is_void)
+            this->value.insert(this->value.end(), *std::move(result));
+    }
+
 	template <class U>
 	constexpr Result<T, U> success(Input<U> input) &&
 	{

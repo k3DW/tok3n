@@ -8,37 +8,33 @@ struct ZeroOrMore
 {
 	using value_type = typename P::value_type;
 
-	template <InputConstructibleFor<value_type> R, class V = InputValueType<R>>
-	static constexpr bool parsable_range = not std::same_as<typename P::template result_for<V>, void>;
-
 	template <EqualityComparableWith<value_type> V>
-	using result_for = std::vector<typename P::template result_for<V>>;
+	using result_for = std::conditional_t<
+		std::same_as<void, typename P::template result_for<V>>,
+		void,
+		std::vector<typename P::template result_for<V>>
+	>;
 
 	static constexpr ParserFamily family = ZeroOrMoreFamily;
 
 	template <InputConstructibleFor<value_type> R>
-	requires parsable_range<R>
 	static constexpr auto parse(R&& r)
 	{
 		Input input{ std::forward<R>(r) };
 		using V = InputValueType<R>;
 
-		const Input original_input = input;
-		result_for<V> results;
+		detail::ResultBuilder<result_for<V>> builder;
 
 		while (true)
 		{
 			auto result = P::parse(input);
-			if (result.has_value())
-			{
-				input = result.remaining();
-				results.emplace_back(std::move(*result));
-			}
-			else
+			input = result.remaining();
+			if (not result.has_value())
 				break;
+			builder.insert_back(std::move(result));
 		}
 
-		return Result<result_for<V>, V>{ success, std::move(results), input };
+		return std::move(builder).success(input);
 	}
 
 	template <InputConstructibleFor<value_type> R>
@@ -47,13 +43,13 @@ struct ZeroOrMore
 		Input input{ std::forward<R>(r) };
 		using V = InputValueType<R>;
 
-		Result<void, V> result;
-
-		do
+		while (true)
 		{
-			result = P::lookahead(input);
+			auto result = P::lookahead(input);
 			input = result.remaining();
-		} while (result.has_value());
+			if (not result.has_value())
+				break;
+		}
 
 		return Result<void, V>{ success, input };
 	}
