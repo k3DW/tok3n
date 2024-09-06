@@ -44,11 +44,11 @@ namespace detail
 			if constexpr (not std::same_as<void, ResultType>)
 			{
 				if constexpr (not unwrapped)
-					this->full_result.template emplace<I>(std::move(*result));
+					this->value.template emplace<I>(std::move(*result));
 				else if constexpr (std::is_move_assignable_v<ResultType>)
-					this->full_result = std::move(*result);
+					this->value = std::move(*result);
 				else
-					this->full_result = *result;
+					this->value = *result;
 			}
 			return true;
 		}
@@ -95,7 +95,7 @@ struct Choice
 		if constexpr (std::same_as<result_for<V>, void>)
 			return Result<result_for<V>, V>{ success, executor.input };
 		else
-			return Result<result_for<V>, V>{ success, std::move(executor.full_result), executor.input };
+			return Result<result_for<V>, V>{ success, std::move(executor.value), executor.input };
 	}
 
 	template <InputConstructibleFor<value_type> R>

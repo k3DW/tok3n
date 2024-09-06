@@ -35,7 +35,7 @@ namespace detail
 	template <class ResultType>
 	struct ExecutorData
 	{
-		ResultType full_result = {};
+		ResultType value = {};
 	};
 
 	template <>
