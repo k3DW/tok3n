@@ -18,6 +18,9 @@ template <class T, class U>
 concept equality_comparable_with = // `std::equality_comparable_with` requires a common reference
 	requires (T t, U u) { { t == u } -> std::convertible_to<bool>; };
 
+template <class T>
+concept implicitly_default_constructible = requires (void(f)(T)) { f({}); };
+
 
 
 template <auto value>
