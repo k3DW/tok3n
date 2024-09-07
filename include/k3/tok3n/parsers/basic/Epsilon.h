@@ -1,6 +1,5 @@
 #pragma once
 #include <k3/tok3n/parsers/basic/_fwd.h>
-#include <k3/tok3n/detail/head.h>
 
 namespace k3::tok3n {
 
@@ -10,7 +9,7 @@ struct Epsilon
 	using value_type = ValueType;
 	
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = detail::head<void, V>;
+	using result_for = detail::front<void, V>;
 
 	static constexpr ParserFamily family = EpsilonFamily;
 

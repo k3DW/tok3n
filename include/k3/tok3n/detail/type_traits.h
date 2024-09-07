@@ -44,4 +44,26 @@ concept integral_constant_of =
 	is_integral_constant<T> and
 	std::same_as<value_type, typename T::value_type>;
 
+
+
+namespace impl {
+
+template <class T, class... Ts>
+extern std::bool_constant<(... && std::same_as<T, Ts>)> all_same;
+
+} // namespace impl
+
+template <class... Ts>
+concept all_same = decltype(impl::all_same<Ts...>)::value;
+
+namespace impl {
+
+template <class T, class... Ts>
+extern std::type_identity<T> front;
+
+} // namespace impl
+
+template <class... Ts>
+using front = typename decltype(impl::front<Ts...>)::type;
+
 } // namespace k3::tok3n::detail

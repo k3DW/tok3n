@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
-#include <k3/tok3n/detail/head.h>
 #include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 
@@ -57,7 +56,7 @@ template <Parser... Ps>
 requires SequenceConstructible<Ps...>
 struct Sequence
 {
-	using value_type = typename detail::head<Ps...>::value_type;
+	using value_type = typename detail::front<Ps...>::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
 	using _filtered = detail::filter_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
