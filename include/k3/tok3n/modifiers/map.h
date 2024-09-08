@@ -12,7 +12,7 @@ struct map final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return Map<P, Const<function>>{};
+		return Map<P, detail::integral_constant<function>>{};
 	}
 };
 

@@ -16,7 +16,7 @@ struct BasicBase
 {
 	using value_type = typename BasicTraits<P>::value_type;
 	
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
     using result_for = Output<V>;
 
 	template <InputConstructibleFor<value_type> R>

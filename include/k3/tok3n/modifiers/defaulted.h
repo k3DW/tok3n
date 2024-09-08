@@ -4,7 +4,8 @@
 
 namespace k3::tok3n::modifiers {
 
-template <DefaultConstructible T>
+template <class T>
+requires std::is_default_constructible_v<T>
 struct defaulted final : ModifierBase
 {
 	static constexpr auto family = ModifierFamily::defaulted;

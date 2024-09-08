@@ -106,7 +106,7 @@ TEST("Map", "Move only")
 {
 	{
 		using T = MoveOnlyWrapper<Output<char>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
 		ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
@@ -114,7 +114,7 @@ TEST("Map", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<Output<wchar_t>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
 		ASSERT_PARSE_SUCCESS(P, L"abcabcd", T(L"abc"), L"abcd");
@@ -122,7 +122,7 @@ TEST("Map", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<Output<int>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
@@ -133,7 +133,7 @@ TEST("Map", "Copy only")
 {
 	{
 		using T = CopyOnlyWrapper<Output<char>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
 		ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
@@ -141,7 +141,7 @@ TEST("Map", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<Output<wchar_t>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
 		ASSERT_PARSE_SUCCESS(P, L"abcabcd", T(L"abc"), L"abcd");
@@ -149,7 +149,7 @@ TEST("Map", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<Output<int>>;
-		using P = Map<ABC, Const<T::make>>;
+		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
@@ -161,13 +161,13 @@ TEST("Map", "void input")
 	using P = Ignore<ABC>;
 
 	constexpr auto func_good = []() { return 0; };
-	using MapGood = Map<P, Const<func_good>>;
+	using MapGood = Map<P, detail::integral_constant<func_good>>;
 	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, int);
 	ASSERT_PARSE_SUCCESS(MapGood, "abcd", 0, "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = [](auto) { return 0; };
-	using MapBad = Map<P, Const<func_bad>>;
+	using MapBad = Map<P, detail::integral_constant<func_bad>>;
 	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
 }
 
@@ -176,13 +176,13 @@ TEST("Map", "void output")
 	using P = ABC;
 
 	constexpr auto func_good = [](auto) {};
-	using MapGood = Map<P, Const<func_good>>;
+	using MapGood = Map<P, detail::integral_constant<func_good>>;
 	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, void);
 	ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = []() {};
-	using MapBad = Map<P, Const<func_bad>>;
+	using MapBad = Map<P, detail::integral_constant<func_bad>>;
 	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
 }
 
@@ -191,12 +191,12 @@ TEST("Map", "void input and void output")
 	using P = Ignore<ABC>;
 
 	constexpr auto func_good = []() {};
-	using MapGood = Map<P, Const<func_good>>;
+	using MapGood = Map<P, detail::integral_constant<func_good>>;
 	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, void);
 	ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = [](auto) {};
-	using MapBad = Map<P, Const<func_bad>>;
+	using MapBad = Map<P, detail::integral_constant<func_bad>>;
 	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
 }

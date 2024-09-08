@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, ParserCompatibleWith<P> D, IsConst<bool> KeepDelimiters>
+template <Parser P, ParserCompatibleWith<P> D, detail::integral_constant_of<bool> KeepDelimiters>
 struct Delimit
 {
 	using value_type = typename P::value_type;
@@ -13,7 +13,7 @@ struct Delimit
 		not std::same_as<typename P::template result_for<V>, void>
 		and (not std::same_as<typename D::template result_for<V>, void> or not KeepDelimiters::value);
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = std::conditional_t<KeepDelimiters::value,
 		std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>,
 		std::vector<typename P::template result_for<V>>

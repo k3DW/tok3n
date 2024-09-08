@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
-#include <k3/tok3n/detail/head.h>
 #include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 #include <variant>
@@ -60,14 +59,14 @@ template <Parser... Ps>
 requires ChoiceConstructible<Ps...>
 struct Choice
 {
-	using value_type = typename detail::head<Ps...>::value_type;
+	using value_type = typename detail::front<Ps...>::value_type;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using _filtered = detail::filter_deduplicate_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = typename std::conditional_t<_trait<V>::unwrapped,
 		_trait<V>,
 		detail::change_list<typename _trait<V>::type, std::variant>

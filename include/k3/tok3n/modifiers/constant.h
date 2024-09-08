@@ -12,7 +12,7 @@ struct constant final : ModifierBase
 	template <Parser P>
 	constexpr auto operator()(P) const
 	{
-		return aliases::Constant<P, Const<value>>{};
+		return aliases::Constant<P, detail::integral_constant<value>>{};
 	}
 };
 

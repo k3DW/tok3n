@@ -26,12 +26,12 @@ TEST("exactly modifier", "non consteval")
 
 
 
-#define EXACTLY_MODIFIER_ASSERTER(P)                                                       \
-	[]<Parser PP>(PP) {                                                                    \
-		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, Index<2>>{}),      \
-				                       exactly<2>, (P{}),  (Exactly<P, Index<2>>{}));      \
-		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, Index<2>>{}), \
-				                              P{},  exactly<2>, (Exactly<P, Index<2>>{})); \
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                               \
+	[]<Parser PP>(PP) {                                                                            \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, detail::index_c<2>>{}),      \
+				                       exactly<2>, (P{}),  (Exactly<P, detail::index_c<2>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, detail::index_c<2>>{}), \
+				                              P{},  exactly<2>, (Exactly<P, detail::index_c<2>>{})); \
 	}(P{});
 
 TEST("exactly modifier", "modify anything")

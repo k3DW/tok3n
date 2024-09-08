@@ -1,8 +1,8 @@
 #pragma once
 #include <k3/tok3n/types/ParserFamily.h>
 #include <k3/tok3n/types/Span.h>
-#include <k3/tok3n/detail/implicitly_default_constructible.h>
 #include <k3/tok3n/concepts/IsResult.h>
+#include <k3/tok3n/detail/type_traits.h>
 #include <type_traits>
 
 namespace k3::tok3n {

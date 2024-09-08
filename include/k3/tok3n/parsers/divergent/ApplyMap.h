@@ -11,7 +11,7 @@ inline constexpr auto Apply = []<class... Args>(Args&&... args) { return k3::tok
 
 } // namespace detail
 
-template <Parser P, IsConst FunctionValue>
-using ApplyMap = Map<P, Const<detail::Apply<FunctionValue::value>>>;
+template <Parser P, detail::is_integral_constant FunctionValue>
+using ApplyMap = Map<P, k3::tok3n::detail::integral_constant<detail::Apply<FunctionValue::value>>>;
 
 } // namespace k3::tok3n::aliases

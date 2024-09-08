@@ -5,7 +5,7 @@
 #include <cstddef>
 #include <ranges>
 #include <string_view>
-#include <k3/tok3n/concepts/CharType.h>
+#include <k3/tok3n/detail/type_traits.h>
 
 namespace k3::tok3n {
 
@@ -22,7 +22,7 @@ struct StaticArray
 		: data{{t, static_cast<Ts>(ts)...}}
 	{}
 
-	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires CharType<T>
+	constexpr StaticArray(const T(&input)[N + 1]) noexcept requires detail::character<T>
 	{
 		std::ranges::copy_n(input, N, data.begin());
 	}
@@ -37,7 +37,7 @@ struct StaticArray
 		return { data.data(), N };
 	}
 
-	constexpr std::basic_string_view<T> view() const requires CharType<T>
+	constexpr std::basic_string_view<T> view() const requires detail::character<T>
     {
         return { data.data(), N };
     }
@@ -68,7 +68,7 @@ template <class T, class... Ts>
 requires (... and std::convertible_to<Ts, T>)
 StaticArray(T, Ts...) -> StaticArray<T, sizeof...(Ts) + 1>;
 
-template <CharType T, std::size_t N>
+template <detail::character T, std::size_t N>
 StaticArray(const T(&)[N]) -> StaticArray<T, N - 1>;
 
 template <class T>

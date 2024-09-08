@@ -3,12 +3,12 @@
 
 namespace k3::tok3n {
 
-template <Parser P, IsConst FunctionValue>
+template <Parser P, detail::is_integral_constant FunctionValue>
 struct Map
 {
 	using value_type = typename P::value_type;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = typename std::conditional_t<
 		std::same_as<void, typename P::template result_for<V>>,
 		std::invoke_result<typename FunctionValue::value_type>,

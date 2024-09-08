@@ -3,13 +3,13 @@
 
 namespace k3::tok3n {
 
-template <Parser P, IsConst<std::size_t> N>
+template <Parser P, detail::integral_constant_of<std::size_t> N>
 requires (N::value != 0)
 struct Exactly
 {
 	using value_type = typename P::value_type;
 
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = std::conditional_t<
 		std::same_as<void, typename P::template result_for<V>>,
 		void,

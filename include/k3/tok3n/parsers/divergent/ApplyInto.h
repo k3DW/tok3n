@@ -5,6 +5,6 @@
 namespace k3::tok3n::aliases {
 
 template <Parser P, class T>
-using ApplyInto = Map<P, Const<detail::Apply<detail::Construct<T>>>>;
+using ApplyInto = Map<P, k3::tok3n::detail::integral_constant<detail::Apply<detail::Construct<T>>>>;
 
 } // namespace k3::tok3n::aliases

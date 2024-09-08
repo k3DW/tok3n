@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
-#include <k3/tok3n/detail/all_same.h>
 
 namespace k3::tok3n {
 

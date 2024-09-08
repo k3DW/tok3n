@@ -134,7 +134,7 @@ TEST("Join", "Contiguous empty strings")
 
 TEST("Join", "Join<Delimit>")
 {
-	using D = Delimit<ABC, QQ, Const<false>>;
+	using D = Delimit<ABC, QQ, detail::integral_constant<false>>;
 	using J = Join<D>;
 
 	{
@@ -261,9 +261,9 @@ TEST("Join", "Join<Map>")
 			static_assert(std::same_as<V, void>);
 	};
 
-	using T1 = Map<ABC, Const<f>>;
-	using T2 = Sequence<Map<ABC, Const<f>>, QQ>;
-	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, Const<f>>, QQ>>;
+	using T1 = Map<ABC, detail::integral_constant<f>>;
+	using T2 = Sequence<Map<ABC, detail::integral_constant<f>>, QQ>;
+	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, detail::integral_constant<f>>, QQ>>;
 	using J1 = Join<T1>;
 	using J2 = Join<T2>;
 	using J3 = Join<T3>;

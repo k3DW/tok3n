@@ -27,7 +27,7 @@ struct Custom
 	using value_type = ValueType;
 
 	template <class V, std::same_as<CRTP> P = CRTP>
-	requires EqualityComparableWith<typename P::value_type, V>
+	requires detail::equality_comparable_with<typename P::value_type, V>
 	using result_for = typename detail::CustomParserResultType<P, V>::type;
 
 	static constexpr ParserFamily family = CustomFamily;

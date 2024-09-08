@@ -2,8 +2,7 @@
 #include <algorithm>
 #include <span>
 #include <string_view>
-#include <k3/tok3n/concepts/CharType.h>
-#include <k3/tok3n/concepts/EqualityComparableWith.h>
+#include <k3/tok3n/detail/type_traits.h>
 
 namespace k3::tok3n {
 
@@ -46,7 +45,7 @@ private:
 	std::span<const T> _value;
 };
 
-template <CharType T>
+template <detail::character T>
 class Span<T>
 {
 public:
@@ -115,7 +114,7 @@ struct SpanEqualTo
 	template <class T, class U>
 	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, const Span<U>& rhs)
 	{
-		static_assert(EqualityComparableWith<T, U>);
+		static_assert(detail::equality_comparable_with<T, U>);
 
 		if (lhs.size() != rhs.size())
 			return false;
@@ -171,7 +170,7 @@ public:
 
 template <std::ranges::contiguous_range R>
 Input(R&&) -> Input<std::ranges::range_value_t<R>>;
-template <CharType T>
+template <detail::character T>
 Input(const T*) -> Input<T>;
 
 template <class T>
@@ -183,14 +182,14 @@ public:
 
 template <std::ranges::contiguous_range R>
 Output(R&&) -> Output<std::ranges::range_value_t<R>>;
-template <CharType T>
+template <detail::character T>
 Output(const T*) -> Output<T>;
 
 template <class T>
 using InputValueType = typename decltype(Input{ std::declval<T>() })::value_type;
 
 template <class T, class V>
-concept InputConstructibleFor = EqualityComparableWith<InputValueType<T>, V>;
+concept InputConstructibleFor = detail::equality_comparable_with<InputValueType<T>, V>;
 
 } // namespace k3::tok3n
 

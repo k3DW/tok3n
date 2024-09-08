@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/detail/head.h>
+#include <k3/tok3n/detail/type_traits.h>
 
 namespace k3::tok3n::detail {
 
@@ -19,7 +19,7 @@ consteval auto unwrap_if_single_impl(List<Ts...>)
 		return unwrap_if_single_trait<true, void>{};
 
 	else if constexpr (sizeof...(Ts) == 1)
-		return unwrap_if_single_trait<true, head<Ts...>>{};
+		return unwrap_if_single_trait<true, front<Ts...>>{};
 
 	else
 		return unwrap_if_single_trait<false, List<Ts...>>{};

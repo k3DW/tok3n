@@ -26,7 +26,7 @@ namespace detail {
 template <Parser P>
 struct Join;
 
-template <Parser P, IsConst FunctionValue>
+template <Parser P, detail::is_integral_constant FunctionValue>
 struct Map;
 
 template <class CRTP, class ValueType = char>

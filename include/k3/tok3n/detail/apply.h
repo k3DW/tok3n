@@ -1,5 +1,4 @@
 #pragma once
-#include <k3/tok3n/detail/has_tuple_size.h>
 #include <concepts>
 #include <type_traits>
 

@@ -27,13 +27,13 @@ TEST("Exactly", "Requirements")
 
 TEST("Exactly", "Constructibility")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Index<0>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, Index<1>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, Index<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<0>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<1>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<2>);
 
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<0>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<1>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, Const<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<0>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<1>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<2>);
 }
 
 TEST("Exactly", "Parse Exactly<AllOf>")
@@ -155,7 +155,7 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 
 TEST("Exactly", "Parse Exactly<void-parser>")
 {
-	using P = Exactly<Ignore<ABC>, Index<2>>;
+	using P = Exactly<Ignore<ABC>, detail::index_c<2>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

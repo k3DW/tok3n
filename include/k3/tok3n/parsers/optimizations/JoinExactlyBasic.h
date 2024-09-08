@@ -6,12 +6,12 @@
 
 namespace k3::tok3n {
 
-template <template <StaticArray> class Basic, StaticArray arr, IsConst<std::size_t> N>
+template <template <StaticArray> class Basic, StaticArray arr, detail::integral_constant_of<std::size_t> N>
 struct Join<Exactly<Basic<arr>, N>>
 {
 	using value_type = typename Basic<arr>::value_type;
 	
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = Output<V>;
 
 	static constexpr ParserFamily family = JoinFamily;

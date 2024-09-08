@@ -11,7 +11,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 {
 	using value_type = typename Basic<arr>::value_type;
 	
-	template <EqualityComparableWith<value_type> V>
+	template <detail::equality_comparable_with<value_type> V>
 	using result_for = Output<V>;
 
 	static constexpr ParserFamily family = JoinFamily;

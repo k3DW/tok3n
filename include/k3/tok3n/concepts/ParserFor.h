@@ -11,7 +11,7 @@ namespace detail
 template <class P, class V, class R = detail::DoNotCareAboutResultTag>
 concept ParserFor =
 	Parser<P> and
-	EqualityComparableWith<V, typename P::value_type> and
+	detail::equality_comparable_with<V, typename P::value_type> and
 	requires (Input<V> input)
 	{
 		typename P::template result_for<V>;
