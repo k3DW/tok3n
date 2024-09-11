@@ -3,12 +3,7 @@
 
 namespace k3::tok3n {
 
-namespace detail
-{
-	struct DoNotCareAboutResultTag {};
-}
-
-template <class P, class V, class R = detail::DoNotCareAboutResultTag>
+template <class P, class V>
 concept ParserFor =
 	Parser<P> and
 	detail::equality_comparable_with<V, typename P::value_type> and
@@ -19,10 +14,6 @@ concept ParserFor =
 		P::lookahead(input);
 		{ P::parse(input) } -> k3::tok3n::IsResult<typename P::template result_for<V>, V>;
 		{ P::lookahead(input) } -> k3::tok3n::IsResult<void, V>;
-	} and
-	(
-		std::same_as<R, detail::DoNotCareAboutResultTag> or
-		std::same_as<typename P::template result_for<V>, R>
-	);
+	};
 
 } // namespace k3::tok3n
