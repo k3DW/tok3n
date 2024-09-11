@@ -61,7 +61,7 @@ struct template_template_parameter_checker {};
 template <class P_raw, class P = std::remove_reference_t<P_raw>>
 concept parser =
     std::same_as<P, std::remove_reference_t<P_raw>> and // The 2nd parameter must only ever be defaulted
-	enum_within_bounds<parser_family, P::family, parser_family::none, parser_family::end> and
+	enum_within_bounds<parser_family, static_cast<parser_family>(P::family), parser_family::none, parser_family::end> and
 	std::is_empty_v<P> and
 	implicitly_default_constructible<P> and
 	requires { typename P::value_type; } and

@@ -32,7 +32,7 @@ struct modifier_base {};
 
 template <class M>
 concept modifier =
-	enum_within_bounds<modifier_family, M::family, modifier_family::none, modifier_family::end> and
+	enum_within_bounds<modifier_family, static_cast<modifier_family>(M::family), modifier_family::none, modifier_family::end> and
     std::derived_from<M, k3::tok3n::detail::modifier_base> and
 	std::is_empty_v<M>;
 
