@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
-#include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 #include <variant>
 
@@ -62,7 +61,7 @@ struct Choice
 	using value_type = typename detail::front<Ps...>::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
-	using _filtered = detail::filter_deduplicate_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
+	using _filtered = detail::filter_out_void_deduplicate<typename Ps::template result_for<V>...>;
 
 	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
