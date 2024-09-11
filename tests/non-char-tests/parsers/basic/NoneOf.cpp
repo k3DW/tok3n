@@ -11,8 +11,8 @@ FIXTURE("NoneOf");
 
 TEST("NoneOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, value_type, detail::none_of_family, Output<value_type>);
-	ASSERT_IS_PARSER(Multi, value_type, detail::none_of_family, Output<value_type>);
+	ASSERT_IS_PARSER(Single, value_type, detail::none_of_family, detail::output_span<value_type>);
+	ASSERT_IS_PARSER(Multi, value_type, detail::none_of_family, detail::output_span<value_type>);
 }
 
 TEST("NoneOf", "Parse single")

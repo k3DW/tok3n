@@ -12,15 +12,15 @@ struct Join<Maybe<Basic<arr>>>
 	using value_type = typename Basic<arr>::value_type;
 	
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = Output<V>;
+	using result_for = detail::output_span<V>;
 
 	static constexpr detail::parser_family family = detail::join_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 
@@ -30,11 +30,11 @@ struct Join<Maybe<Basic<arr>>>
 		return Result<result_for<V>, V>{ success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 	
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 

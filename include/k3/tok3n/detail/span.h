@@ -1,32 +1,32 @@
 #pragma once
-#include <algorithm>
+#include <ranges>
 #include <span>
 #include <string_view>
 #include <k3/tok3n/detail/type_traits.h>
 
-namespace k3::tok3n {
+namespace k3::tok3n::detail {
 
 template <class T>
-class Span
+class span
 {
 public:
 	using value_type = T;
 
-	constexpr Span() = default;
+	constexpr span() = default;
 
-	constexpr Span(std::span<const T> value)
+	constexpr span(std::span<const T> value)
 		: _value(value)
 	{}
 
 	template <std::ranges::contiguous_range R>
 	requires std::same_as<T, std::ranges::range_value_t<R>>
-	constexpr Span(R&& r)
+	constexpr span(R&& r)
 		: _value(std::forward<R>(r))
 	{}
 
 	template <class... Args>
 	requires std::constructible_from<std::span<const T>, Args...>
-	constexpr Span(Args&&... args)
+	constexpr span(Args&&... args)
 		: _value(std::forward<Args>(args)...)
 	{}
 
@@ -45,40 +45,40 @@ private:
 	std::span<const T> _value;
 };
 
-template <detail::character T>
-class Span<T>
+template <character T>
+class span<T>
 {
 public:
 	using value_type = T;
 
-	constexpr Span() = default;
+	constexpr span() = default;
 
-	constexpr Span(std::span<const T> value)
+	constexpr span(std::span<const T> value)
 		: _value(value)
 	{}
 
 	template <std::ranges::contiguous_range R>
 	requires std::same_as<T, std::ranges::range_value_t<R>>
-	constexpr Span(R&& r)
+	constexpr span(R&& r)
 		: _value(std::forward<R>(r))
 	{}
 
 	template <class... Args>
 	requires std::constructible_from<std::span<const T>, Args...>
-	constexpr Span(Args&&... args)
+	constexpr span(Args&&... args)
 		: _value(std::forward<Args>(args)...)
 	{}
 
-	constexpr Span(std::basic_string_view<T> value)
+	constexpr span(std::basic_string_view<T> value)
 		: _value(value)
 	{}
 	
-	constexpr Span(const T* data)
+	constexpr span(const T* data)
 		: _value(std::basic_string_view<T>(data))
 	{}
 
 	template <std::size_t N>
-	constexpr Span(const T(&arr)[N])
+	constexpr span(const T(&arr)[N])
 		: _value(arr, N - 1)
 	{}
 
@@ -102,19 +102,23 @@ private:
 	std::span<const T> _value;
 };
 
-template <class T>
-concept IsSpan =
-	requires { typename T::value_type; }
-	and std::derived_from<T, Span<typename T::value_type>>;
+namespace impl {
 
-struct SpanEqualTo
+template <class T>
+concept is_span =
+	requires { typename T::value_type; } and
+	std::derived_from<T, span<typename T::value_type>>;
+
+} // namespace impl
+
+struct span_equal_to
 {
 	using is_transparent = void;
 
 	template <class T, class U>
-	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, const Span<U>& rhs)
+	[[nodiscard]] constexpr bool operator()(const span<T>& lhs, const span<U>& rhs)
 	{
-		static_assert(detail::equality_comparable_with<T, U>);
+		static_assert(equality_comparable_with<T, U>);
 
 		if (lhs.size() != rhs.size())
 			return false;
@@ -130,8 +134,8 @@ struct SpanEqualTo
 	}
 
 	template <class T, class RHS>
-	requires (not IsSpan<std::remove_cvref_t<RHS>>)
-	[[nodiscard]] constexpr bool operator()(const Span<T>& lhs, RHS&& rhs)
+	requires (not impl::is_span<std::remove_cvref_t<RHS>>)
+	[[nodiscard]] constexpr bool operator()(const span<T>& lhs, RHS&& rhs)
 	{
 		if constexpr (std::is_bounded_array_v<std::remove_cvref_t<RHS>> or std::is_pointer_v<std::remove_cvref_t<RHS>>)
 		{
@@ -139,59 +143,67 @@ struct SpanEqualTo
 		}
 		else if constexpr (std::ranges::contiguous_range<RHS> and std::same_as<T, std::ranges::range_value_t<RHS>>)
 		{
-			return operator()(lhs, Span<T>(std::forward<RHS>(rhs)));
+			return operator()(lhs, span<T>(std::forward<RHS>(rhs)));
 		}
 		else
 		{
-			static_assert(std::same_as<void, T>, "operator==() not available for Span and this right-hand type");
+			static_assert(std::same_as<void, T>, "operator==() not available for `span` and this right-hand type");
 			return false;
 		}
 	}
 };
 
 template <class T, class RHS>
-[[nodiscard]] constexpr bool operator==(const Span<T>& lhs, RHS&& rhs)
+[[nodiscard]] constexpr bool operator==(const span<T>& lhs, RHS&& rhs)
 {
-	return SpanEqualTo{}(lhs, std::forward<RHS>(rhs));
+	return span_equal_to{}(lhs, std::forward<RHS>(rhs));
 }
 
 template <class T, class RHS>
-[[nodiscard]] constexpr bool operator!=(const Span<T>& lhs, RHS&& rhs)
+[[nodiscard]] constexpr bool operator!=(const span<T>& lhs, RHS&& rhs)
 {
-	return not SpanEqualTo{}(lhs, std::forward<RHS>(rhs));
+	return not span_equal_to{}(lhs, std::forward<RHS>(rhs));
 }
 
+} // namespace k3::tok3n::detail
+
+
+
 template <class T>
-class Input : public Span<T>
+struct std::equal_to<k3::tok3n::detail::span<T>> : k3::tok3n::detail::span_equal_to {};
+
+
+
+namespace k3::tok3n::detail {
+
+template <class T>
+class input_span : public span<T>
 {
 public:
-	using Span<T>::Span;
+	using span<T>::span;
 };
 
 template <std::ranges::contiguous_range R>
-Input(R&&) -> Input<std::ranges::range_value_t<R>>;
-template <detail::character T>
-Input(const T*) -> Input<T>;
+input_span(R&&) -> input_span<std::ranges::range_value_t<R>>;
+template <character T>
+input_span(const T*) -> input_span<T>;
 
 template <class T>
-class Output : public Span<T>
-{
-public:
-	using Span<T>::Span;
-};
-
-template <std::ranges::contiguous_range R>
-Output(R&&) -> Output<std::ranges::range_value_t<R>>;
-template <detail::character T>
-Output(const T*) -> Output<T>;
-
-template <class T>
-using InputValueType = typename decltype(Input{ std::declval<T>() })::value_type;
+using input_value_t = typename decltype(input_span{ std::declval<T>() })::value_type;
 
 template <class T, class V>
-concept InputConstructibleFor = detail::equality_comparable_with<InputValueType<T>, V>;
-
-} // namespace k3::tok3n
+concept input_constructible_for = equality_comparable_with<input_value_t<T>, V>;
 
 template <class T>
-struct std::equal_to<k3::tok3n::Span<T>> : k3::tok3n::SpanEqualTo {};
+class output_span : public span<T>
+{
+public:
+	using span<T>::span;
+};
+
+template <std::ranges::contiguous_range R>
+output_span(R&&) -> output_span<std::ranges::range_value_t<R>>;
+template <character T>
+output_span(const T*) -> output_span<T>;
+
+} // namespace k3::tok3n::detail

@@ -66,7 +66,7 @@ public:
     }
 
 	template <class U>
-	constexpr Result<T, U> success(Input<U> input) &&
+	constexpr Result<T, U> success(input_span<U> input) &&
 	{
 		if constexpr (not is_void)
 			return { SuccessTag{}, std::move(this->value), input };

@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/types/Span.h>
+#include <k3/tok3n/detail/span.h>
 #include <k3/tok3n/types/Tags.h>
 #include <optional>
 
@@ -12,13 +12,13 @@ class Result
 public:
 	constexpr Result() = default;
 
-	constexpr Result(FailureTag, Input<U> remaining)
+	constexpr Result(FailureTag, detail::input_span<U> remaining)
 		: _result(), _remaining(remaining) {}
 
-	constexpr Result(SuccessTag, const T& t, Input<U> remaining) requires std::constructible_from<T, const T&>
+	constexpr Result(SuccessTag, const T& t, detail::input_span<U> remaining) requires std::constructible_from<T, const T&>
 		: _result(t), _remaining(remaining) {}
 
-	constexpr Result(SuccessTag, T&& t, Input<U> remaining) requires std::constructible_from<T, T&&>
+	constexpr Result(SuccessTag, T&& t, detail::input_span<U> remaining) requires std::constructible_from<T, T&&>
 		: _result(std::move(t)), _remaining(remaining) {}
 
 	template <class T2>
@@ -42,11 +42,11 @@ public:
 	constexpr T&&       operator*() &&      { return *std::move(_result); }
 	constexpr const T&& operator*() const&& { return *std::move(_result); }
 
-	constexpr Input<U> remaining() const noexcept { return _remaining; }
+	constexpr detail::input_span<U> remaining() const noexcept { return _remaining; }
 
 private:
 	std::optional<T> _result;
-	Input<U> _remaining;
+	detail::input_span<U> _remaining;
 
 	template <class T2, class U2>
 	requires (not std::is_reference_v<T2>)
@@ -59,20 +59,20 @@ class Result<void, U>
 public:
 	constexpr Result() = default;
 
-	constexpr Result(FailureTag, Input<U> remaining)
+	constexpr Result(FailureTag, detail::input_span<U> remaining)
 		: _successful(false), _remaining(remaining) {}
 
-	constexpr Result(SuccessTag, Input<U> remaining)
+	constexpr Result(SuccessTag, detail::input_span<U> remaining)
 		: _successful(true), _remaining(remaining) {}
 
 	constexpr explicit operator bool() const noexcept { return _successful; }
 	constexpr bool has_value() const noexcept         { return _successful; }
 
-	constexpr Input<U> remaining() const noexcept { return _remaining; }
+	constexpr detail::input_span<U> remaining() const noexcept { return _remaining; }
 
 private:
 	bool _successful;
-	Input<U> _remaining;
+	detail::input_span<U> _remaining;
 };
 
 } // namespace k3::tok3n

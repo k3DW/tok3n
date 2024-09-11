@@ -1,7 +1,6 @@
 #pragma once
-#include <k3/tok3n/types/Span.h>
+#include <k3/tok3n/detail/span.h>
 #include <k3/tok3n/types/Tags.h>
-#include <concepts>
 
 namespace k3::tok3n::detail {
 
@@ -14,14 +13,14 @@ namespace IsResult::Void
 		{
 			{ static_cast<R>(r).operator bool() } -> std::same_as<bool>;
 			{ static_cast<R>(r).has_value() } -> std::same_as<bool>;
-			{ static_cast<R>(r).remaining() } -> std::same_as<Input<U>>;
+			{ static_cast<R>(r).remaining() } -> std::same_as<input_span<U>>;
 		};
 
 	template <class R, class U>
 	concept Constructible =
 		std::constructible_from<R>                        and
-		std::constructible_from<R, FailureTag, Input<U>>  and
-		std::constructible_from<R, SuccessTag, Input<U>>;
+		std::constructible_from<R, FailureTag, input_span<U>>  and
+		std::constructible_from<R, SuccessTag, input_span<U>>;
 
 }
 
@@ -49,9 +48,9 @@ namespace IsResult::NonVoid
 	template <class R, class T, class U>
 	concept Constructible =
 		std::constructible_from<R>                                        and
-		std::constructible_from<R, FailureTag, Input<U>>                  and
-			(std::constructible_from<R, SuccessTag, T&&, Input<U>> or
-			 std::constructible_from<R, SuccessTag, const T&, Input<U>>);
+		std::constructible_from<R, FailureTag, input_span<U>>                  and
+			(std::constructible_from<R, SuccessTag, T&&, input_span<U>> or
+			 std::constructible_from<R, SuccessTag, const T&, input_span<U>>);
 
 }
 

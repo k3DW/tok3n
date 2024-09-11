@@ -15,11 +15,11 @@ struct Complete
 
 	static constexpr detail::parser_family family = detail::complete_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		auto result = P::parse(input);
 		if (not result.has_value() or not result.remaining().empty())
@@ -28,11 +28,11 @@ struct Complete
 			return result;
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		auto result = P::lookahead(input);
 		if (not result.has_value() or not result.remaining().empty())

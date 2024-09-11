@@ -17,11 +17,11 @@ struct Map
 
 	static constexpr detail::parser_family family = detail::map_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using before_type = typename P::template result_for<V>;
 		using after_type = result_for<V>;
@@ -52,7 +52,7 @@ struct Map
 		}
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
 		return P::lookahead(std::forward<R>(r));

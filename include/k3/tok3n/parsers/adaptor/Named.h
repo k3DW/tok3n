@@ -15,13 +15,13 @@ struct Named
 
 	static constexpr detail::parser_family family = detail::named_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
 		return P::parse(std::forward<R>(r));
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
 		return P::lookahead(std::forward<R>(r));

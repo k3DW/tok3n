@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   
-  <Type Name="k3::tok3n::Span&lt;*&gt;">
+  <Type Name="k3::tok3n::detail::span&lt;*&gt;">
     <DisplayString>{_value}</DisplayString>
     <Expand>
         <ExpandedItem>_value</ExpandedItem>

@@ -9,26 +9,26 @@ TEST("OneOrMore", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Oom3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Oom4, value_type);
 
-	ASSERT_IS_PARSER(Oom1, char, detail::one_or_more_family, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom2, char, detail::one_or_more_family, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom3, char, detail::one_or_more_family, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom4, char, detail::one_or_more_family, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Oom1, char, detail::one_or_more_family, std::vector<detail::output_span<char>>);
+	ASSERT_IS_PARSER(Oom2, char, detail::one_or_more_family, std::vector<detail::output_span<char>>);
+	ASSERT_IS_PARSER(Oom3, char, detail::one_or_more_family, std::vector<detail::output_span<char>>);
+	ASSERT_IS_PARSER(Oom4, char, detail::one_or_more_family, std::vector<std::tuple<detail::output_span<char>, detail::output_span<char>>>);
 
-	ASSERT_IS_PARSER(Oom1, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom2, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom3, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom4, wchar_t, detail::one_or_more_family, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Oom1, wchar_t, detail::one_or_more_family, std::vector<detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Oom2, wchar_t, detail::one_or_more_family, std::vector<detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Oom3, wchar_t, detail::one_or_more_family, std::vector<detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Oom4, wchar_t, detail::one_or_more_family, std::vector<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Oom1, int, detail::one_or_more_family, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom2, int, detail::one_or_more_family, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom3, int, detail::one_or_more_family, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom4, int, detail::one_or_more_family, std::vector<std::tuple<Output<int>, Output<int>>>);
+	ASSERT_IS_PARSER(Oom1, int, detail::one_or_more_family, std::vector<detail::output_span<int>>);
+	ASSERT_IS_PARSER(Oom2, int, detail::one_or_more_family, std::vector<detail::output_span<int>>);
+	ASSERT_IS_PARSER(Oom3, int, detail::one_or_more_family, std::vector<detail::output_span<int>>);
+	ASSERT_IS_PARSER(Oom4, int, detail::one_or_more_family, std::vector<std::tuple<detail::output_span<int>, detail::output_span<int>>>);
 }
 
 TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 {
 	{
-		using vec_type = std::vector<Output<char>>;
+		using vec_type = std::vector<detail::output_span<char>>;
 		ASSERT_PARSE_FAILURE(Oom1, "litera");
 		ASSERT_PARSE_SUCCESS(Oom1, "literal", vec_type({ "literal" }), "");
 		ASSERT_PARSE_SUCCESS(Oom1, "literally", vec_type({ "literal" }), "ly");
@@ -39,7 +39,7 @@ TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 	}
 
 	{
-		using vec_type = std::vector<Output<wchar_t>>;
+		using vec_type = std::vector<detail::output_span<wchar_t>>;
 		ASSERT_PARSE_FAILURE(Oom1, L"litera");
 		ASSERT_PARSE_SUCCESS(Oom1, L"literal", vec_type({ L"literal" }), L"");
 		ASSERT_PARSE_SUCCESS(Oom1, L"literally", vec_type({ L"literal" }), L"ly");
@@ -50,7 +50,7 @@ TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 	}
 
 	{
-		using vec_type = std::vector<Output<int>>;
+		using vec_type = std::vector<detail::output_span<int>>;
 		ASSERT_PARSE_FAILURE(Oom1, e<int>("litera"));
 		ASSERT_PARSE_SUCCESS(Oom1, e<int>("literal"), vec_type({ e<int>("literal") }), e<int>(""));
 		ASSERT_PARSE_SUCCESS(Oom1, e<int>("literally"), vec_type({ e<int>("literal") }), e<int>("ly"));
@@ -63,7 +63,7 @@ TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 {
 	{
-		using vec_type = std::vector<Output<char>>;
+		using vec_type = std::vector<detail::output_span<char>>;
 		ASSERT_PARSE_SUCCESS(Oom2, "abcdef", vec_type({ "a", "b", "c" }), "def");
 		ASSERT_PARSE_FAILURE(Oom2, "fedcba");
 		ASSERT_PARSE_SUCCESS(Oom2, "cbabcccbjklmnop", vec_type({ "c", "b", "a", "b", "c", "c", "c", "b" }), "jklmnop");
@@ -71,7 +71,7 @@ TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 	}
 
 	{
-		using vec_type = std::vector<Output<wchar_t>>;
+		using vec_type = std::vector<detail::output_span<wchar_t>>;
 		ASSERT_PARSE_SUCCESS(Oom2, L"abcdef", vec_type({ L"a", L"b", L"c" }), L"def");
 		ASSERT_PARSE_FAILURE(Oom2, L"fedcba");
 		ASSERT_PARSE_SUCCESS(Oom2, L"cbabcccbjklmnop", vec_type({ L"c", L"b", L"a", L"b", L"c", L"c", L"c", L"b" }), L"jklmnop");
@@ -79,7 +79,7 @@ TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 	}
 
 	{
-		using vec_type = std::vector<Output<int>>;
+		using vec_type = std::vector<detail::output_span<int>>;
 		ASSERT_PARSE_SUCCESS(Oom2, e<int>("abcdef"), vec_type({ e<int>("a"), e<int>("b"), e<int>("c") }), e<int>("def"));
 		ASSERT_PARSE_FAILURE(Oom2, e<int>("fedcba"));
 		ASSERT_PARSE_SUCCESS(Oom2, e<int>("cbabcccbjklmnop"), vec_type({ e<int>("c"), e<int>("b"), e<int>("a"), e<int>("b"), e<int>("c"), e<int>("c"), e<int>("c"), e<int>("b") }), e<int>("jklmnop"));
@@ -89,7 +89,7 @@ TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
 TEST("OneOrMore", "Parse OneOrMore<Choice>")
 {
 	{
-		using vec_type = std::vector<Output<char>>;
+		using vec_type = std::vector<detail::output_span<char>>;
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, "abliteralcbliteralcf", vec_type({ "a", "b", "literal", "c", "b", "literal", "c" }), "f");
 		ASSERT_PARSE_SUCCESS(Oom3, "abliteralcblitralcf", vec_type({ "a", "b", "literal", "c", "b" }), "litralcf");
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, "literalabacliteral", vec_type({ "literal", "a", "b", "a", "c", "literal" }), "");
@@ -97,7 +97,7 @@ TEST("OneOrMore", "Parse OneOrMore<Choice>")
 	}
 
 	{
-		using vec_type = std::vector<Output<wchar_t>>;
+		using vec_type = std::vector<detail::output_span<wchar_t>>;
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, L"abliteralcbliteralcf", vec_type({ L"a", L"b", L"literal", L"c", L"b", L"literal", L"c" }), L"f");
 		ASSERT_PARSE_SUCCESS(Oom3, L"abliteralcblitralcf", vec_type({ L"a", L"b", L"literal", L"c", L"b" }), L"litralcf");
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, L"literalabacliteral", vec_type({ L"literal", L"a", L"b", L"a", L"c", L"literal" }), L"");
@@ -105,7 +105,7 @@ TEST("OneOrMore", "Parse OneOrMore<Choice>")
 	}
 
 	{
-		using vec_type = std::vector<Output<int>>;
+		using vec_type = std::vector<detail::output_span<int>>;
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, e<int>("abliteralcbliteralcf"), vec_type({ e<int>("a"), e<int>("b"), e<int>("literal"), e<int>("c"), e<int>("b"), e<int>("literal"), e<int>("c") }), e<int>("f"));
 		ASSERT_PARSE_SUCCESS(Oom3, e<int>("abliteralcblitralcf"), vec_type({ e<int>("a"), e<int>("b"), e<int>("literal"), e<int>("c"), e<int>("b") }), e<int>("litralcf"));
 		// ICE: ASSERT_PARSE_SUCCESS(Oom3, e<int>("literalabacliteral"), vec_type({ e<int>("literal"), e<int>("a"), e<int>("b"), e<int>("a"), e<int>("c"), e<int>("literal") }), e<int>(""));
@@ -115,7 +115,7 @@ TEST("OneOrMore", "Parse OneOrMore<Choice>")
 TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 {
 	{
-		using vec_type = std::vector<std::tuple<Output<char>, Output<char>>>;
+		using vec_type = std::vector<std::tuple<detail::output_span<char>, detail::output_span<char>>>;
 		ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralb", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "");
 		ASSERT_PARSE_SUCCESS(Oom4, "literalaliteralcliteralcliteralbliteral", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "literal");
 		ASSERT_PARSE_FAILURE(Oom4, "aliteralaliteralcliteralbliteral");
@@ -123,7 +123,7 @@ TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 	}
 
 	{
-		using vec_type = std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>;
+		using vec_type = std::vector<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>;
 		ASSERT_PARSE_SUCCESS(Oom4, L"literalaliteralcliteralcliteralb", vec_type({ {L"literal", L"a"}, {L"literal", L"c"}, {L"literal", L"c"}, {L"literal", L"b"} }), L"");
 		ASSERT_PARSE_SUCCESS(Oom4, L"literalaliteralcliteralcliteralbliteral", vec_type({ {L"literal", L"a"}, {L"literal", L"c"}, {L"literal", L"c"}, {L"literal", L"b"} }), L"literal");
 		ASSERT_PARSE_FAILURE(Oom4, L"aliteralaliteralcliteralbliteral");
@@ -131,7 +131,7 @@ TEST("OneOrMore", "Parse OneOrMore<Sequence>")
 	}
 
 	{
-		using vec_type = std::vector<std::tuple<Output<int>, Output<int>>>;
+		using vec_type = std::vector<std::tuple<detail::output_span<int>, detail::output_span<int>>>;
 		ASSERT_PARSE_SUCCESS(Oom4, e<int>("literalaliteralcliteralcliteralb"), vec_type({ {e<int>("literal"), e<int>("a")}, {e<int>("literal"), e<int>("c")}, {e<int>("literal"), e<int>("c")}, {e<int>("literal"), e<int>("b")} }), e<int>(""));
 		ASSERT_PARSE_SUCCESS(Oom4, e<int>("literalaliteralcliteralcliteralbliteral"), vec_type({ {e<int>("literal"), e<int>("a")}, {e<int>("literal"), e<int>("c")}, {e<int>("literal"), e<int>("c")}, {e<int>("literal"), e<int>("b")} }), e<int>("literal"));
 		ASSERT_PARSE_FAILURE(Oom4, e<int>("aliteralaliteralcliteralbliteral"));

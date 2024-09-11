@@ -7,9 +7,9 @@ FIXTURE("AllOf");
 TEST("AllOf", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(L, value_type);
-	ASSERT_IS_PARSER(L, char, detail::all_of_family, Output<char>);
-	ASSERT_IS_PARSER(L, wchar_t, detail::all_of_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(L, int, detail::all_of_family, Output<int>);
+	ASSERT_IS_PARSER(L, char, detail::all_of_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(L, wchar_t, detail::all_of_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(L, int, detail::all_of_family, detail::output_span<int>);
 }
 
 TEST("AllOf", "Parse 'literal'")

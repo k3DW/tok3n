@@ -71,7 +71,7 @@ template <class P, class V>
 concept parser_for =
 	parser<P> and
 	equality_comparable_with<V, typename P::value_type> and
-	requires (Input<V> input)
+	requires (input_span<V> input)
 	{
 		typename P::template result_for<V>;
 		P::parse(input);

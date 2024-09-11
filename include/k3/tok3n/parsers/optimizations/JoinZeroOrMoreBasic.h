@@ -12,19 +12,19 @@ struct Join<ZeroOrMore<Basic<arr>>>
 	using value_type = typename Basic<arr>::value_type;
 	
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = Output<V>;
+	using result_for = detail::output_span<V>;
 
 	static constexpr detail::parser_family family = detail::join_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 
-		Output<V> result = { input.data(), 0 };
+		detail::output_span<V> result = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{
@@ -35,11 +35,11 @@ struct Join<ZeroOrMore<Basic<arr>>>
 		return Result<result_for<V>, V>{ success, result, input };
 	}
 	
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 

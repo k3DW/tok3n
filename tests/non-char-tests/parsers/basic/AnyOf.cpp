@@ -11,8 +11,8 @@ FIXTURE("AnyOf");
 
 TEST("AnyOf", "Requirements")
 {
-	ASSERT_IS_PARSER(Single, value_type, detail::any_of_family, Output<value_type>);
-	ASSERT_IS_PARSER(Multi, value_type, detail::any_of_family, Output<value_type>);
+	ASSERT_IS_PARSER(Single, value_type, detail::any_of_family, detail::output_span<value_type>);
+	ASSERT_IS_PARSER(Multi, value_type, detail::any_of_family, detail::output_span<value_type>);
 }
 
 TEST("AnyOf", "Parse single")

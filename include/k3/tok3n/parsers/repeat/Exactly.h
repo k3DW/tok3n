@@ -18,13 +18,13 @@ struct Exactly
 
 	static constexpr detail::parser_family family = detail::exactly_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		const Input original_input = input;
+		const detail::input_span original_input = input;
 		detail::ResultBuilder<result_for<V>> builder;
 
 		for (std::size_t i = 0; i < N::value; i++)
@@ -40,13 +40,13 @@ struct Exactly
 		return std::move(builder).success(input);
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		const Input original_input = input;
+		const detail::input_span original_input = input;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{

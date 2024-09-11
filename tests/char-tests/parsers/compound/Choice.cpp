@@ -16,22 +16,22 @@ TEST("Choice", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(ThreeWay2, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Cho5, value_type);
 
-	ASSERT_IS_PARSER(TwoWay1, char, detail::choice_family, Output<char>);
-	ASSERT_IS_PARSER(TwoWay2, char, detail::choice_family, Output<char>);
-	ASSERT_IS_PARSER(ThreeWay1, char, detail::choice_family, Output<char>);
-	ASSERT_IS_PARSER(ThreeWay2, char, detail::choice_family, Output<char>);
+	ASSERT_IS_PARSER(TwoWay1, char, detail::choice_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(TwoWay2, char, detail::choice_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(ThreeWay1, char, detail::choice_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(ThreeWay2, char, detail::choice_family, detail::output_span<char>);
 	ASSERT_IS_PARSER(Cho5, char, detail::choice_family, void);
 
-	ASSERT_IS_PARSER(TwoWay1, wchar_t, detail::choice_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(TwoWay2, wchar_t, detail::choice_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(ThreeWay1, wchar_t, detail::choice_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(ThreeWay2, wchar_t, detail::choice_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(TwoWay1, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(TwoWay2, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(ThreeWay1, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(ThreeWay2, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
 	ASSERT_IS_PARSER(Cho5, wchar_t, detail::choice_family, void);
 
-	ASSERT_IS_PARSER(TwoWay1, int, detail::choice_family, Output<int>);
-	ASSERT_IS_PARSER(TwoWay2, int, detail::choice_family, Output<int>);
-	ASSERT_IS_PARSER(ThreeWay1, int, detail::choice_family, Output<int>);
-	ASSERT_IS_PARSER(ThreeWay2, int, detail::choice_family, Output<int>);
+	ASSERT_IS_PARSER(TwoWay1, int, detail::choice_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(TwoWay2, int, detail::choice_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(ThreeWay1, int, detail::choice_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(ThreeWay2, int, detail::choice_family, detail::output_span<int>);
 	ASSERT_IS_PARSER(Cho5, int, detail::choice_family, void);
 }
 
@@ -161,7 +161,7 @@ TEST("Choice", "Not constructible empty")
 TEST("Choice", "Move only")
 {
 	{
-		using T = MoveOnlyWrapper<Output<char>>;
+		using T = MoveOnlyWrapper<detail::output_span<char>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
@@ -170,7 +170,7 @@ TEST("Choice", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<wchar_t>>;
+		using T = MoveOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
@@ -179,7 +179,7 @@ TEST("Choice", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<int>>;
+		using T = MoveOnlyWrapper<detail::output_span<int>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
@@ -191,7 +191,7 @@ TEST("Choice", "Move only")
 TEST("Choice", "Copy only")
 {
 	{
-		using T = CopyOnlyWrapper<Output<char>>;
+		using T = CopyOnlyWrapper<detail::output_span<char>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
@@ -200,7 +200,7 @@ TEST("Choice", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<wchar_t>>;
+		using T = CopyOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
@@ -209,7 +209,7 @@ TEST("Choice", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<int>>;
+		using T = CopyOnlyWrapper<detail::output_span<int>>;
 		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
@@ -224,32 +224,32 @@ TEST("Choice", "Result type")
 	using C2 = aliases::Constant<SpaceDot, detail::integral_constant<1>>;
 
 	using P1 = Choice<ABC, QQ, SpaceDot>;
-	ASSERT_IS_PARSER(P1, char, detail::choice_family, Output<char>);
-	ASSERT_IS_PARSER(P1, wchar_t, detail::choice_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(P1, int, detail::choice_family, Output<int>);
+	ASSERT_IS_PARSER(P1, char, detail::choice_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(P1, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(P1, int, detail::choice_family, detail::output_span<int>);
 
 	using P2 = Choice<ABC, C1, QQ>;
-	ASSERT_IS_PARSER(P2, char, detail::choice_family, std::variant<Output<char>, int>);
-	ASSERT_IS_PARSER(P2, wchar_t, detail::choice_family, std::variant<Output<wchar_t>, int>);
-	ASSERT_IS_PARSER(P2, int, detail::choice_family, std::variant<Output<int>, int>);
+	ASSERT_IS_PARSER(P2, char, detail::choice_family, std::variant<detail::output_span<char>, int>);
+	ASSERT_IS_PARSER(P2, wchar_t, detail::choice_family, std::variant<detail::output_span<wchar_t>, int>);
+	ASSERT_IS_PARSER(P2, int, detail::choice_family, std::variant<detail::output_span<int>, int>);
 
 	using P3 = Choice<ABC, QQ, C1>;
-	ASSERT_IS_PARSER(P3, char, detail::choice_family, std::variant<Output<char>, int>);
-	ASSERT_IS_PARSER(P3, wchar_t, detail::choice_family, std::variant<Output<wchar_t>, int>);
-	ASSERT_IS_PARSER(P3, int, detail::choice_family, std::variant<Output<int>, int>);
+	ASSERT_IS_PARSER(P3, char, detail::choice_family, std::variant<detail::output_span<char>, int>);
+	ASSERT_IS_PARSER(P3, wchar_t, detail::choice_family, std::variant<detail::output_span<wchar_t>, int>);
+	ASSERT_IS_PARSER(P3, int, detail::choice_family, std::variant<detail::output_span<int>, int>);
 
 	using P4 = Choice<C1, ABC, QQ>;
-	ASSERT_IS_PARSER(P4, char, detail::choice_family, std::variant<int, Output<char>>);
-	ASSERT_IS_PARSER(P4, wchar_t, detail::choice_family, std::variant<int, Output<wchar_t>>);
-	ASSERT_IS_PARSER(P4, int, detail::choice_family, std::variant<int, Output<int>>);
+	ASSERT_IS_PARSER(P4, char, detail::choice_family, std::variant<int, detail::output_span<char>>);
+	ASSERT_IS_PARSER(P4, wchar_t, detail::choice_family, std::variant<int, detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(P4, int, detail::choice_family, std::variant<int, detail::output_span<int>>);
 
 	using P5 = Choice<C1, ABC, QQ, C2>;
-	ASSERT_IS_PARSER(P5, char, detail::choice_family, std::variant<int, Output<char>>);
-	ASSERT_IS_PARSER(P5, wchar_t, detail::choice_family, std::variant<int, Output<wchar_t>>);
-	ASSERT_IS_PARSER(P5, int, detail::choice_family, std::variant<int, Output<int>>);
+	ASSERT_IS_PARSER(P5, char, detail::choice_family, std::variant<int, detail::output_span<char>>);
+	ASSERT_IS_PARSER(P5, wchar_t, detail::choice_family, std::variant<int, detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(P5, int, detail::choice_family, std::variant<int, detail::output_span<int>>);
 
 	using P6 = Choice<C1, ABC, C2, QQ>;
-	ASSERT_IS_PARSER(P6, char, detail::choice_family, std::variant<int, Output<char>>);
-	ASSERT_IS_PARSER(P6, wchar_t, detail::choice_family, std::variant<int, Output<wchar_t>>);
-	ASSERT_IS_PARSER(P6, int, detail::choice_family, std::variant<int, Output<int>>);
+	ASSERT_IS_PARSER(P6, char, detail::choice_family, std::variant<int, detail::output_span<char>>);
+	ASSERT_IS_PARSER(P6, wchar_t, detail::choice_family, std::variant<int, detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(P6, int, detail::choice_family, std::variant<int, detail::output_span<int>>);
 }

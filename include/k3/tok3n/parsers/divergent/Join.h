@@ -20,7 +20,7 @@ namespace detail::executors
 			}
 		}
 
-		constexpr std::optional<Output<ValueType>> get_joined() const
+		constexpr std::optional<detail::output_span<ValueType>> get_joined() const
 		{
 			return joined;
 		}
@@ -28,7 +28,7 @@ namespace detail::executors
 	private:
 		// This is the fundamental function of this class,
 		// where we check if the next string_view is adjacent in memory to the last one.
-		constexpr bool try_join(Output<ValueType> output)
+		constexpr bool try_join(detail::output_span<ValueType> output)
 		{
 			if (output.empty())
 			{
@@ -102,7 +102,7 @@ namespace detail::executors
 			}(std::index_sequence_for<T, Ts...>{});
 		}
 
-		std::optional<Output<ValueType>> joined;
+		std::optional<detail::output_span<ValueType>> joined;
 	};
 
 }
@@ -113,28 +113,28 @@ struct Join
 	using value_type = typename P::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = Output<V>;
+	using result_for = detail::output_span<V>;
 
 	static constexpr detail::parser_family family = detail::join_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		auto result = P::parse(input);
 		if (result.has_value())
 		{
 			using Executor = detail::executors::Join<V>;
-			std::optional<Output<V>> joined = Executor(result).get_joined();
+			std::optional<detail::output_span<V>> joined = Executor(result).get_joined();
 			if (joined)
 				return Result<result_for<V>, V>{ success, std::move(*joined), result.remaining() };
 		}
 		return Result<result_for<V>, V>{ failure, input };
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
 		return P::lookahead(std::forward<R>(r));

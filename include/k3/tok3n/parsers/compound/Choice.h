@@ -12,7 +12,7 @@ namespace detail
 	template <class ResultType, class ValueType>
 	struct ChoiceExecutor : ExecutorData<ResultType>
 	{
-		Input<ValueType> input;
+		detail::input_span<ValueType> input;
 
 		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute()
@@ -73,11 +73,11 @@ struct Choice
 
 	static constexpr detail::parser_family family = detail::choice_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Executor = detail::ChoiceExecutor<result_for<V>, V>;
 		Executor executor{ .input = input };
@@ -96,11 +96,11 @@ struct Choice
 			return Result<result_for<V>, V>{ success, std::move(executor.value), executor.input };
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Executor = detail::ChoiceExecutor<void, V>;
 		Executor executor{ .input = input };

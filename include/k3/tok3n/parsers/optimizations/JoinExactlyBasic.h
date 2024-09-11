@@ -12,20 +12,20 @@ struct Join<Exactly<Basic<arr>, N>>
 	using value_type = typename Basic<arr>::value_type;
 	
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = Output<V>;
+	using result_for = detail::output_span<V>;
 
 	static constexpr detail::parser_family family = detail::join_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 
-		const Input original_input = input;
-		Output<V> result = { input.data(), 0 };
+		const detail::input_span original_input = input;
+		detail::output_span<V> result = { input.data(), 0 };
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
@@ -38,15 +38,15 @@ struct Join<Exactly<Basic<arr>, N>>
 		return Result<result_for<V>, V>{ success, result, input };
 	}
 	
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Traits = BasicTraits<Basic<arr>>;
 
-		const Input original_input = input;
+		const detail::input_span original_input = input;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{

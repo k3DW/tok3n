@@ -8,8 +8,8 @@ namespace k3::tok3n {
 
 namespace detail {
 
-	template <class T> constexpr bool is_joinable_v            = false;
-	template <class U> constexpr bool is_joinable_v<Output<U>> = true;
+	template <class T> constexpr bool is_joinable_v                 = false;
+	template <class U> constexpr bool is_joinable_v<output_span<U>> = true;
 
 	template <class T> constexpr bool is_joinable_v<const T> = is_joinable_v<T>;
 	template <class T> constexpr bool is_joinable_v<T&>      = is_joinable_v<T>;

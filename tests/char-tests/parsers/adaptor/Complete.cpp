@@ -12,29 +12,29 @@ TEST("Complete", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Com6, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Com7, value_type);
 
-	ASSERT_IS_PARSER(Com1, char, detail::complete_family, Output<char>);
-	ASSERT_IS_PARSER(Com2, char, detail::complete_family, Output<char>);
-	ASSERT_IS_PARSER(Com3, char, detail::complete_family, Output<char>);
-	ASSERT_IS_PARSER(Com4, char, detail::complete_family, std::tuple<Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(Com5, char, detail::complete_family, std::optional<std::tuple<Output<char>, Output<char>>>);
-	ASSERT_IS_PARSER(Com6, char, detail::complete_family, std::vector<std::tuple<Output<char>, Output<char>>>);
-	ASSERT_IS_PARSER(Com7, char, detail::complete_family, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Com1, char, detail::complete_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Com2, char, detail::complete_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Com3, char, detail::complete_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Com4, char, detail::complete_family, std::tuple<detail::output_span<char>, detail::output_span<char>>);
+	ASSERT_IS_PARSER(Com5, char, detail::complete_family, std::optional<std::tuple<detail::output_span<char>, detail::output_span<char>>>);
+	ASSERT_IS_PARSER(Com6, char, detail::complete_family, std::vector<std::tuple<detail::output_span<char>, detail::output_span<char>>>);
+	ASSERT_IS_PARSER(Com7, char, detail::complete_family, std::vector<std::tuple<detail::output_span<char>, detail::output_span<char>>>);
 
-	ASSERT_IS_PARSER(Com1, wchar_t, detail::complete_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com2, wchar_t, detail::complete_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com3, wchar_t, detail::complete_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(Com4, wchar_t, detail::complete_family, std::tuple<Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(Com5, wchar_t, detail::complete_family, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
-	ASSERT_IS_PARSER(Com6, wchar_t, detail::complete_family, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
-	ASSERT_IS_PARSER(Com7, wchar_t, detail::complete_family, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Com1, wchar_t, detail::complete_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Com2, wchar_t, detail::complete_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Com3, wchar_t, detail::complete_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Com4, wchar_t, detail::complete_family, std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Com5, wchar_t, detail::complete_family, std::optional<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Com6, wchar_t, detail::complete_family, std::vector<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Com7, wchar_t, detail::complete_family, std::vector<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>);
 	
-	ASSERT_IS_PARSER(Com1, int, detail::complete_family, Output<int>);
-	ASSERT_IS_PARSER(Com2, int, detail::complete_family, Output<int>);
-	ASSERT_IS_PARSER(Com3, int, detail::complete_family, Output<int>);
-	ASSERT_IS_PARSER(Com4, int, detail::complete_family, std::tuple<Output<int>, Output<int>>);
-	ASSERT_IS_PARSER(Com5, int, detail::complete_family, std::optional<std::tuple<Output<int>, Output<int>>>);
-	ASSERT_IS_PARSER(Com6, int, detail::complete_family, std::vector<std::tuple<Output<int>, Output<int>>>);
-	ASSERT_IS_PARSER(Com7, int, detail::complete_family, std::vector<std::tuple<Output<int>, Output<int>>>);
+	ASSERT_IS_PARSER(Com1, int, detail::complete_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Com2, int, detail::complete_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Com3, int, detail::complete_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Com4, int, detail::complete_family, std::tuple<detail::output_span<int>, detail::output_span<int>>);
+	ASSERT_IS_PARSER(Com5, int, detail::complete_family, std::optional<std::tuple<detail::output_span<int>, detail::output_span<int>>>);
+	ASSERT_IS_PARSER(Com6, int, detail::complete_family, std::vector<std::tuple<detail::output_span<int>, detail::output_span<int>>>);
+	ASSERT_IS_PARSER(Com7, int, detail::complete_family, std::vector<std::tuple<detail::output_span<int>, detail::output_span<int>>>);
 }
 
 TEST("Complete", "Complete<AllOf>")
