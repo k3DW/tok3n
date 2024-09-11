@@ -10,31 +10,31 @@ TEST("Map", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Map4, value_type);
 
 #if defined(VALUE_TYPE_CHAR)
-	ASSERT_IS_PARSER(Map1, char, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Map1, char, detail::map_family, std::size_t);
 #elif defined(VALUE_TYPE_WCHAR_T)
-	ASSERT_IS_NOT_PARSER(Map1, char, MapFamily);
+	ASSERT_IS_NOT_PARSER(Map1, char, detail::map_family);
 #else
 #error
 #endif
-	ASSERT_IS_PARSER(Map2, char, MapFamily, std::vector<char>);
-	ASSERT_IS_PARSER(Map3, char, MapFamily, bool);
-	ASSERT_IS_PARSER(Map4, char, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Map2, char, detail::map_family, std::vector<char>);
+	ASSERT_IS_PARSER(Map3, char, detail::map_family, bool);
+	ASSERT_IS_PARSER(Map4, char, detail::map_family, std::size_t);
 
 #if defined(VALUE_TYPE_CHAR)
-	ASSERT_IS_NOT_PARSER(Map1, wchar_t, MapFamily);
+	ASSERT_IS_NOT_PARSER(Map1, wchar_t, detail::map_family);
 #elif defined(VALUE_TYPE_WCHAR_T)
-	ASSERT_IS_PARSER(Map1, wchar_t, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Map1, wchar_t, detail::map_family, std::size_t);
 #else
 #error
 #endif
-	ASSERT_IS_PARSER(Map2, wchar_t, MapFamily, std::vector<wchar_t>);
-	ASSERT_IS_PARSER(Map3, wchar_t, MapFamily, bool);
-	ASSERT_IS_PARSER(Map4, wchar_t, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Map2, wchar_t, detail::map_family, std::vector<wchar_t>);
+	ASSERT_IS_PARSER(Map3, wchar_t, detail::map_family, bool);
+	ASSERT_IS_PARSER(Map4, wchar_t, detail::map_family, std::size_t);
 
-	ASSERT_IS_NOT_PARSER(Map1, int, MapFamily);
-	ASSERT_IS_PARSER(Map2, int, MapFamily, std::vector<int>);
-	ASSERT_IS_PARSER(Map3, int, MapFamily, bool);
-	ASSERT_IS_PARSER(Map4, int, MapFamily, std::size_t);
+	ASSERT_IS_NOT_PARSER(Map1, int, detail::map_family);
+	ASSERT_IS_PARSER(Map2, int, detail::map_family, std::vector<int>);
+	ASSERT_IS_PARSER(Map3, int, detail::map_family, bool);
+	ASSERT_IS_PARSER(Map4, int, detail::map_family, std::size_t);
 }
 
 TEST("Map", "Parse all")
@@ -162,13 +162,13 @@ TEST("Map", "void input")
 
 	constexpr auto func_good = []() { return 0; };
 	using MapGood = Map<P, detail::integral_constant<func_good>>;
-	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, int);
+	ASSERT_IS_PARSER(MapGood, value_type, detail::map_family, int);
 	ASSERT_PARSE_SUCCESS(MapGood, "abcd", 0, "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = [](auto) { return 0; };
 	using MapBad = Map<P, detail::integral_constant<func_bad>>;
-	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
+	ASSERT_IS_NOT_PARSER(MapBad, value_type, detail::map_family);
 }
 
 TEST("Map", "void output")
@@ -177,13 +177,13 @@ TEST("Map", "void output")
 
 	constexpr auto func_good = [](auto) {};
 	using MapGood = Map<P, detail::integral_constant<func_good>>;
-	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, void);
+	ASSERT_IS_PARSER(MapGood, value_type, detail::map_family, void);
 	ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = []() {};
 	using MapBad = Map<P, detail::integral_constant<func_bad>>;
-	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
+	ASSERT_IS_NOT_PARSER(MapBad, value_type, detail::map_family);
 }
 
 TEST("Map", "void input and void output")
@@ -192,11 +192,11 @@ TEST("Map", "void input and void output")
 
 	constexpr auto func_good = []() {};
 	using MapGood = Map<P, detail::integral_constant<func_good>>;
-	ASSERT_IS_PARSER(MapGood, value_type, MapFamily, void);
+	ASSERT_IS_PARSER(MapGood, value_type, detail::map_family, void);
 	ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
 	ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
 	constexpr auto func_bad = [](auto) {};
 	using MapBad = Map<P, detail::integral_constant<func_bad>>;
-	ASSERT_IS_NOT_PARSER(MapBad, value_type, MapFamily);
+	ASSERT_IS_NOT_PARSER(MapBad, value_type, detail::map_family);
 }

@@ -87,21 +87,21 @@ constexpr auto combine_strings = []
 	return str;
 }();
 
-template <Parser... LHS, Parser RHS>
-requires (RHS::family != SequenceFamily)
+template <detail::parser... LHS, detail::parser RHS>
+requires (RHS::family != detail::sequence_family)
 consteval auto sequence_combined_left(Sequence<LHS...>, RHS)
 {
 	return Sequence<LHS..., RHS>{};
 }
 
-template <Parser LHS, Parser... RHS>
-requires (LHS::family != SequenceFamily)
+template <detail::parser LHS, detail::parser... RHS>
+requires (LHS::family != detail::sequence_family)
 consteval auto sequence_combined_right(LHS, Sequence<RHS...>)
 {
 	return Sequence<LHS, RHS...>{};
 }
 
-template <Parser... LHS, Parser... RHS>
+template <detail::parser... LHS, detail::parser... RHS>
 consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 {
 	return Sequence<LHS..., RHS...>{};
@@ -111,42 +111,42 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 
 
 
-#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                           \
-	[]<Parser LLHS, Parser RRHS>(LLHS, RRHS) {                                                         \
-		if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)          \
-		{                                                                                              \
-			DEP_ASSERT_BINARY_NOT_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                          \
-		}                                                                                              \
-		else                                                                                           \
-		{                                                                                              \
-			DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                              \
-			if constexpr (LLHS::family == AllOfFamily and RRHS::family == AllOfFamily)                 \
-			{                                                                                          \
-				constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                            \
-											LHS{}  >> RHS{},  AllOf<str>{});                           \
-			}                                                                                          \
-			else if constexpr (LLHS::family == SequenceFamily and RRHS::family != SequenceFamily)      \
-			{                                                                                          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),  \
-											LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));  \
-			}                                                                                          \
-			else if constexpr (LLHS::family != SequenceFamily and RRHS::family == SequenceFamily)      \
-			{                                                                                          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}), \
-											LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{})); \
-			}                                                                                          \
-			else if constexpr (LLHS::family == SequenceFamily and RRHS::family == SequenceFamily)      \
-			{                                                                                          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),  \
-											LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));  \
-			}                                                                                          \
-			else                                                                                       \
-			{                                                                                          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (Sequence<LLHS, RRHS>{}),                \
-											LHS{}  >> RHS{},  (Sequence<LHS,  RHS>{}));                \
-			}                                                                                          \
-		}                                                                                              \
+#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                                        \
+	[]<detail::parser LLHS, detail::parser RRHS>(LLHS, RRHS) {                                                      \
+		if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)                       \
+		{                                                                                                           \
+			DEP_ASSERT_BINARY_NOT_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                       \
+		}                                                                                                           \
+		else                                                                                                        \
+		{                                                                                                           \
+			DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                                           \
+			if constexpr (LLHS::family == detail::all_of_family and RRHS::family == detail::all_of_family)          \
+			{                                                                                                       \
+				constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;                       \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                                         \
+											LHS{}  >> RHS{},  AllOf<str>{});                                        \
+			}                                                                                                       \
+			else if constexpr (LLHS::family == detail::sequence_family and RRHS::family != detail::sequence_family) \
+			{                                                                                                       \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),               \
+											LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));               \
+			}                                                                                                       \
+			else if constexpr (LLHS::family != detail::sequence_family and RRHS::family == detail::sequence_family) \
+			{                                                                                                       \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}),              \
+											LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{}));              \
+			}                                                                                                       \
+			else if constexpr (LLHS::family == detail::sequence_family and RRHS::family == detail::sequence_family) \
+			{                                                                                                       \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),               \
+											LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));               \
+			}                                                                                                       \
+			else                                                                                                    \
+			{                                                                                                       \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (Sequence<LLHS, RRHS>{}),                             \
+											LHS{}  >> RHS{},  (Sequence<LHS,  RHS>{}));                             \
+			}                                                                                                       \
+		}                                                                                                           \
 	}(LHS{}, RHS{});
 
 #define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \

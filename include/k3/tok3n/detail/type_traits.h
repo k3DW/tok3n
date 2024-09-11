@@ -46,6 +46,14 @@ concept integral_constant_of =
 
 
 
+template <class E, E e, E lower, E upper>
+concept enum_within_bounds =
+	std::is_enum_v<E> and
+	static_cast<std::underlying_type_t<E>>(e) > static_cast<std::underlying_type_t<E>>(lower) and
+	static_cast<std::underlying_type_t<E>>(e) < static_cast<std::underlying_type_t<E>>(upper);
+
+
+
 namespace impl {
 
 template <class T, class... Ts>

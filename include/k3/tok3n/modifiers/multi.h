@@ -1,17 +1,16 @@
 #pragma once
-#include <k3/tok3n/types/ModifierBase.h>
-#include <k3/tok3n/concepts/Modifier.h>
-#include <k3/tok3n/concepts/Parser.h>
+#include <k3/tok3n/detail/modifier.h>
+#include <k3/tok3n/detail/parser.h>
 
 namespace k3::tok3n::modifiers {
 
-template <Modifier... Ms>
-struct multi final : ModifierBase
+template <k3::tok3n::detail::modifier... Ms>
+struct multi final : k3::tok3n::detail::modifier_base
 {
-	static constexpr auto family = ModifierFamily::multi;
+	static constexpr auto family = k3::tok3n::detail::modifier_family::multi;
 
-	template <Parser P>
-	requires requires { { (P{} % ... % Ms{}) } -> Parser; }
+	template <k3::tok3n::detail::parser P>
+	requires requires { { (P{} % ... % Ms{}) } -> k3::tok3n::detail::parser; }
 	constexpr auto operator()(P) const
 	{
 		return (P{} % ... % Ms{});

@@ -11,17 +11,17 @@ TEST("Sequence", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Seq5, value_type);
 
-	ASSERT_IS_PARSER(TwoWay, char, SequenceFamily, std::tuple<Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(ThreeWay, char, SequenceFamily, std::tuple<Output<char>, Output<char>, Output<char>>);
-	ASSERT_IS_PARSER(Seq5, char, SequenceFamily, void);
+	ASSERT_IS_PARSER(TwoWay, char, detail::sequence_family, std::tuple<Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(ThreeWay, char, detail::sequence_family, std::tuple<Output<char>, Output<char>, Output<char>>);
+	ASSERT_IS_PARSER(Seq5, char, detail::sequence_family, void);
 
-	ASSERT_IS_PARSER(TwoWay, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(ThreeWay, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>, Output<wchar_t>, Output<wchar_t>>);
-	ASSERT_IS_PARSER(Seq5, wchar_t, SequenceFamily, void);
+	ASSERT_IS_PARSER(TwoWay, wchar_t, detail::sequence_family, std::tuple<Output<wchar_t>, Output<wchar_t>>);
+	ASSERT_IS_PARSER(ThreeWay, wchar_t, detail::sequence_family, std::tuple<Output<wchar_t>, Output<wchar_t>, Output<wchar_t>>);
+	ASSERT_IS_PARSER(Seq5, wchar_t, detail::sequence_family, void);
 
-	ASSERT_IS_PARSER(TwoWay, int, SequenceFamily, std::tuple<Output<int>, Output<int>>);
-	ASSERT_IS_PARSER(ThreeWay, int, SequenceFamily, std::tuple<Output<int>, Output<int>, Output<int>>);
-	ASSERT_IS_PARSER(Seq5, int, SequenceFamily, void);
+	ASSERT_IS_PARSER(TwoWay, int, detail::sequence_family, std::tuple<Output<int>, Output<int>>);
+	ASSERT_IS_PARSER(ThreeWay, int, detail::sequence_family, std::tuple<Output<int>, Output<int>, Output<int>>);
+	ASSERT_IS_PARSER(Seq5, int, detail::sequence_family, void);
 }
 
 TEST("Sequence", "Parse two-way Sequence")

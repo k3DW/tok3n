@@ -6,7 +6,7 @@ TEST("Epsilon", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
-	ASSERT_IS_PARSER(Eps1, value_type, EpsilonFamily, void);
+	ASSERT_IS_PARSER(Eps1, value_type, detail::epsilon_family, void);
 }
 
 TEST("Epsilon", "Parse")

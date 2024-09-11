@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/detail/modifier.h>
 #include <k3/tok3n/types/StaticArray.h>
 #include <k3/tok3n/types/Substitution.h>
 #include <k3/tok3n/parsers/adaptor/Named.h>
@@ -10,27 +10,27 @@ namespace k3::tok3n::modifiers {
 namespace detail {
 
 template <class T, IsSubstitution Sub>
-requires (not Parser<T>)
+requires (not k3::tok3n::detail::parser<T>)
 constexpr auto SubstituteOne(T, Sub)
 	-> T;
 
 template <template <StaticArray> class Basic, StaticArray arr, IsSubstitution Sub>
-requires Parser<Basic<arr>>
+requires k3::tok3n::detail::parser<Basic<arr>>
 constexpr auto SubstituteOne(Basic<arr>, Sub)
 	-> Basic<arr>;
 
-template <Parser P, StaticArray str, IsSubstitution Sub>
-constexpr Parser auto SubstituteOne(Named<P, str>, Sub);
+template <k3::tok3n::detail::parser P, StaticArray str, IsSubstitution Sub>
+constexpr k3::tok3n::detail::parser auto SubstituteOne(Named<P, str>, Sub);
 
 template <template <class...> class Template, class... Args, IsSubstitution Sub>
-requires Parser<Template<Args...>>
-constexpr Parser auto SubstituteOne(Template<Args...>, Sub)
+requires k3::tok3n::detail::parser<Template<Args...>>
+constexpr k3::tok3n::detail::parser auto SubstituteOne(Template<Args...>, Sub)
 {
 	return Template<decltype(SubstituteOne(Args{}, Sub{}))...>{};
 }
 
-template <Parser P, StaticArray str, IsSubstitution Sub>
-constexpr Parser auto SubstituteOne(Named<P, str>, Sub)
+template <k3::tok3n::detail::parser P, StaticArray str, IsSubstitution Sub>
+constexpr k3::tok3n::detail::parser auto SubstituteOne(Named<P, str>, Sub)
 {
 	using InnerSubbed = decltype(SubstituteOne(P{}, Sub{}));
 	if constexpr (Sub::name == str)
@@ -39,8 +39,8 @@ constexpr Parser auto SubstituteOne(Named<P, str>, Sub)
 		return Named<InnerSubbed, str>{};
 }
 
-template <Parser P, IsSubstitution Sub, IsSubstitution... Subs>
-constexpr Parser auto Substitute(P, Sub, Subs...)
+template <k3::tok3n::detail::parser P, IsSubstitution Sub, IsSubstitution... Subs>
+constexpr k3::tok3n::detail::parser auto Substitute(P, Sub, Subs...)
 {
 	using Subbed = decltype(SubstituteOne(P{}, Sub{}));
 	if constexpr (sizeof...(Subs) == 0)
@@ -51,22 +51,22 @@ constexpr Parser auto Substitute(P, Sub, Subs...)
 
 } // namespace detail
 
-struct sub final : ModifierBase
+struct sub final : k3::tok3n::detail::modifier_base
 {
-	static constexpr auto family = ModifierFamily::sub;
+	static constexpr auto family = k3::tok3n::detail::modifier_family::sub;
 
-	template <Parser P, IsSubstitution Sub, IsSubstitution... Subs>
+	template <k3::tok3n::detail::parser P, IsSubstitution Sub, IsSubstitution... Subs>
 	constexpr auto operator()(P, Sub, Subs...) const
 	{
 		return decltype(detail::Substitute(P{}, Sub{}, Subs{}...)){};
 	}
 
 	template <IsSubstitution Sub, IsSubstitution... Subs>
-	struct inner final : ModifierBase
+	struct inner final : k3::tok3n::detail::modifier_base
 	{
-		static constexpr auto family = ModifierFamily::sub;
+		static constexpr auto family = k3::tok3n::detail::modifier_family::sub;
 
-		template <Parser P>
+		template <k3::tok3n::detail::parser P>
 		constexpr auto operator()(P) const
 		{
 			return decltype(detail::Substitute(P{}, Sub{}, Subs{}...)){};

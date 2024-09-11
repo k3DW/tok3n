@@ -1,7 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
-#include <k3/tok3n/detail/is_not_type.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 
 namespace k3::tok3n {
@@ -14,7 +13,7 @@ namespace detail
 	{
 		Input<ValueType> input;
 
-		template <Parser P, std::size_t I, bool unwrapped>
+		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute()
 		{
 			if constexpr (I == -1)
@@ -23,7 +22,7 @@ namespace detail
 				return execute_element<P, I, unwrapped>();
 		}
 
-		template <Parser P>
+		template <parser P>
 		constexpr bool execute_lookahead()
 		{
 			auto result = P::lookahead(input);
@@ -31,7 +30,7 @@ namespace detail
 			return result.has_value();
 		}
 
-		template <Parser P, std::size_t I, bool unwrapped>
+		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute_element()
 		{
 			auto result = P::parse(input);
@@ -52,14 +51,14 @@ namespace detail
 
 } // namespace detail
 
-template <Parser... Ps>
+template <detail::parser... Ps>
 requires SequenceConstructible<Ps...>
 struct Sequence
 {
 	using value_type = typename detail::front<Ps...>::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
-	using _filtered = detail::filter_with_index<detail::is_not_type<void>, typename Ps::template result_for<V>...>;
+	using _filtered = detail::filter_out_void<typename Ps::template result_for<V>...>;
 
 	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
@@ -69,7 +68,7 @@ struct Sequence
 		detail::change_list<typename _trait<V>::type, std::tuple>
 	>::type;
 
-	static constexpr ParserFamily family = SequenceFamily;
+	static constexpr detail::parser_family family = detail::sequence_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

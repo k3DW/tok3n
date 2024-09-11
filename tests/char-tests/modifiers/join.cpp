@@ -45,8 +45,8 @@ TEST("join modifier", "non consteval")
 
 
 #define JOIN_MODIFIER_ASSERTER(P)                                         \
-	[]<Parser PP>(PP) {                                                   \
-		if constexpr (PP::family == JoinFamily)                           \
+	[]<detail::parser PP>(PP) {                                           \
+		if constexpr (PP::family == detail::join_family)                  \
 		{                                                                 \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},            \
 				                           join, (P{}),  P{});            \

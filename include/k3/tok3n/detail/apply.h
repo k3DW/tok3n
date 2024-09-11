@@ -4,24 +4,30 @@
 
 namespace k3::tok3n::detail {
 
+namespace impl {
+
 template <class F, class Tup, std::size_t... Is>
 requires requires (F&& f, Tup&& tup)
 {
     std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...);
 }
-constexpr decltype(auto) apply_impl(F&& f, Tup&& tup, std::index_sequence<Is...>)
+constexpr decltype(auto) apply(F&& f, Tup&& tup, std::index_sequence<Is...>)
+noexcept(noexcept(std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...)))
 {
     return std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...);
 }
 
+} // namespace impl
+
 template <class F, class Tup>
 requires requires (F&& f, Tup&& tup)
 {
-    apply_impl(std::forward<F>(f), std::forward<Tup>(tup), std::make_index_sequence<std::tuple_size_v<Tup>>{});
+    impl::apply(std::forward<F>(f), std::forward<Tup>(tup), std::make_index_sequence<std::tuple_size_v<Tup>>{});
 }
 constexpr decltype(auto) apply(F&& f, Tup&& tup)
+noexcept(noexcept(impl::apply(std::forward<F>(f), std::forward<Tup>(tup), std::make_index_sequence<std::tuple_size_v<Tup>>{})))
 {
-    return apply_impl(std::forward<F>(f), std::forward<Tup>(tup), std::make_index_sequence<std::tuple_size_v<Tup>>{});
+    return impl::apply(std::forward<F>(f), std::forward<Tup>(tup), std::make_index_sequence<std::tuple_size_v<Tup>>{});
 }
 
 } // namespace k3::tok3n::detail

@@ -12,17 +12,17 @@ TEST("JoinOneOrMoreBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_Oom_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Oom_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_Oom_OC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Oom_NC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Oom_L, char, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_Oom_OC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Oom_NC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Oom_L, char, detail::join_family, Output<char>);
 
-    ASSERT_IS_PARSER(Joi_Oom_OC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Oom_NC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Oom_L, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Oom_OC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Oom_NC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Oom_L, wchar_t, detail::join_family, Output<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_Oom_OC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Oom_NC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Oom_L, int, JoinFamily, Output<int>);
+    ASSERT_IS_PARSER(Joi_Oom_OC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Oom_NC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Oom_L, int, detail::join_family, Output<int>);
 }
 
 TEST("JoinOneOrMoreBasic", "OneOrMore<AnyOf>")

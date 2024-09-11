@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, detail::is_integral_constant FunctionValue>
+template <detail::parser P, detail::is_integral_constant FunctionValue>
 struct Map
 {
 	using value_type = typename P::value_type;
@@ -15,7 +15,7 @@ struct Map
 		std::invoke_result<typename FunctionValue::value_type, typename P::template result_for<V>>
 	>::type;
 
-	static constexpr ParserFamily family = MapFamily;
+	static constexpr detail::parser_family family = detail::map_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

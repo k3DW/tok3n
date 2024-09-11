@@ -35,7 +35,7 @@ TEST("delimit modifier", "non consteval")
 
 
 #define DELIMIT_MODIFIER_ASSERTER(P)                                                                         \
-	[]<Parser PP>(PP) {                                                                                      \
+	[]<detail::parser PP>(PP) {                                                                              \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(delimit, (PP{}, comma), (Delimit<PP, Comma, std::false_type>{}),      \
 			                           delimit, (P{}, comma),  (Delimit<P, Comma, std::false_type>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit(comma), (Delimit<PP, Comma, std::false_type>{}), \
@@ -43,7 +43,7 @@ TEST("delimit modifier", "non consteval")
 	}(P{});
 
 #define DELIMIT_MODIFIER_ASSERTER_2(P, D)                                                                    \
-	[]<Parser PP, Parser DD>(PP, DD) {                                                                       \
+	[]<detail::parser PP, detail::parser DD>(PP, DD) {                                                       \
 		if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>)                    \
 		{                                                                                                    \
 			DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit, (PP{}, DD{}),                                          \

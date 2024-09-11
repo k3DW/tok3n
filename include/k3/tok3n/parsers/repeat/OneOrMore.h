@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P>
+template <detail::parser P>
 struct OneOrMore
 {
 	using value_type = typename P::value_type;
@@ -15,7 +15,7 @@ struct OneOrMore
 		std::vector<typename P::template result_for<V>>
 	>;
 
-	static constexpr ParserFamily family = OneOrMoreFamily;
+	static constexpr detail::parser_family family = detail::one_or_more_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

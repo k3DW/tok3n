@@ -12,17 +12,17 @@ TEST("JoinZeroOrMoreBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Zom_L, char, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Zom_L, char, detail::join_family, Output<char>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, detail::join_family, Output<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Zom_L, int, JoinFamily, Output<int>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Zom_L, int, detail::join_family, Output<int>);
 }
 
 TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")

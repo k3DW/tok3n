@@ -10,23 +10,23 @@ TEST("Ignore", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Ign4, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Ign5, value_type);
 
-	ASSERT_IS_PARSER(Ign1, char, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign2, char, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign3, char, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign4, char, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign5, char, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign1, char, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, char, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, char, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, char, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, char, detail::ignore_family, void);
 
-	ASSERT_IS_PARSER(Ign1, wchar_t, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign2, wchar_t, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign3, wchar_t, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign4, wchar_t, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign5, wchar_t, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign1, wchar_t, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, wchar_t, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, wchar_t, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, wchar_t, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, wchar_t, detail::ignore_family, void);
 
-	ASSERT_IS_PARSER(Ign1, int, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign2, int, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign3, int, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign4, int, IgnoreFamily, void);
-	ASSERT_IS_PARSER(Ign5, int, IgnoreFamily, void);
+	ASSERT_IS_PARSER(Ign1, int, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, int, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, int, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, int, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, int, detail::ignore_family, void);
 }
 
 TEST("Ignore", "Parse all")

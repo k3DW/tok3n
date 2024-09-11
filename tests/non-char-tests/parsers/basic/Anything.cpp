@@ -6,7 +6,7 @@ TEST("Anything", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
-	ASSERT_IS_PARSER(Ant1, value_type, AnythingFamily, Output<value_type>);
+	ASSERT_IS_PARSER(Ant1, value_type, detail::anything_family, Output<value_type>);
 }
 
 TEST("Anything", "Parse")

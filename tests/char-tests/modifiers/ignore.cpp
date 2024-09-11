@@ -43,8 +43,8 @@ TEST("ignore modifier", "non consteval")
 
 
 #define IGNORE_MODIFIER_ASSERTER(P)                                           \
-	[]<Parser PP>(PP) {                                                       \
-		if constexpr (PP::family == IgnoreFamily)                             \
+	[]<detail::parser PP>(PP) {                                               \
+		if constexpr (PP::family == detail::ignore_family)                    \
 		{                                                                     \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
 				                           ignore, (P{}),  P{});              \

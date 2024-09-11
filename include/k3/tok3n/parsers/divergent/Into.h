@@ -1,16 +1,10 @@
 #pragma once
+#include <k3/tok3n/detail/functions.h>
 #include <k3/tok3n/parsers/divergent/Map.h>
 
 namespace k3::tok3n::aliases {
 
-namespace detail {
-
-template <class T>
-inline constexpr auto Construct = []<class... Args>(Args&&... args) { return T(std::forward<Args>(args)...); };
-
-} // namespace detail
-
-template <Parser P, class T>
-using Into = Map<P, k3::tok3n::detail::integral_constant<detail::Construct<T>>>;
+template <k3::tok3n::detail::parser P, class T>
+using Into = Map<P, k3::tok3n::detail::integral_constant<detail::construct_function<T>>>;
 
 } // namespace k3::tok3n::aliases

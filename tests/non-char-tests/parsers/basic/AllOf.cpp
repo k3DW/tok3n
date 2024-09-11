@@ -6,7 +6,7 @@ FIXTURE("AllOf");
 
 TEST("AllOf", "Requirements")
 {
-	ASSERT_IS_PARSER(L, value_type, AllOfFamily, Output<value_type>);
+	ASSERT_IS_PARSER(L, value_type, detail::all_of_family, Output<value_type>);
 }
 
 TEST("AllOf", "Parse")

@@ -51,8 +51,8 @@ TEST("complete modifier", "non consteval")
 
 
 #define COMPLETE_MODIFIER_ASSERTER(P)                                             \
-	[]<Parser PP>(PP) {                                                           \
-		if constexpr (PP::family == CompleteFamily)                               \
+	[]<detail::parser PP>(PP) {                                                   \
+		if constexpr (PP::family == detail::complete_family)                      \
 		{                                                                         \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
 				                           complete, (P{}),  P{});                \

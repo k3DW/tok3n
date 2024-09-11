@@ -21,7 +21,7 @@ struct BasicTraits<Anything<ValueType>>
 template <class ValueType>
 struct Anything : BasicBase<Anything<ValueType>>
 {
-	static constexpr ParserFamily family = AnythingFamily;
+	static constexpr detail::parser_family family = detail::anything_family;
 };
 
 } // namespace k3::tok3n

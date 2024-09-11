@@ -58,19 +58,19 @@ TEST("zero_or_more operator", "non consteval")
 
 
 #define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                      \
-	[]<Parser PP>(PP) {                                                        \
+	[]<detail::parser PP>(PP) {                                                \
 		DEP_ASSERT_UNARY_OPERABLE(*, PP{}, P{});                               \
-		if constexpr (PP::family == MaybeFamily)                               \
+		if constexpr (PP::family == detail::maybe_family)                      \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
 										*P{},  ZeroOrMore<underlying_t<P>>{}); \
 		}                                                                      \
-		else if constexpr (PP::family == OneOrMoreFamily)                      \
+		else if constexpr (PP::family == detail::one_or_more_family)           \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
 										*P{},  ZeroOrMore<underlying_t<P>>{}); \
 		}                                                                      \
-		else if constexpr (PP::family == ZeroOrMoreFamily)                     \
+		else if constexpr (PP::family == detail::zero_or_more_family)          \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, PP{},                           \
 										*P{},  P{});                           \

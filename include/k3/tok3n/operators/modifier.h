@@ -18,31 +18,31 @@ template <auto function> inline constexpr auto map           = modifiers::map<fu
 template <StaticArray s> inline constexpr auto name         = modifiers::name<s>{};
                          inline constexpr auto sub          = modifiers::sub{};
 
-constexpr auto operator%(Parser auto p, Modifier auto modifier)
+constexpr auto operator%(detail::parser auto p, detail::modifier auto modifier)
 requires requires { modifier(p); }
 {
 	return modifier(p);
 }
 
-template <Modifier LHS, Modifier RHS>
+template <detail::modifier LHS, detail::modifier RHS>
 constexpr auto operator%(LHS, RHS)
 {
 	return modifiers::multi<LHS, RHS>{};
 }
 
-template <Modifier... LHS, Modifier RHS>
+template <detail::modifier... LHS, detail::modifier RHS>
 constexpr auto operator%(modifiers::multi<LHS...>, RHS)
 {
 	return modifiers::multi<LHS..., RHS>{};
 }
 
-template <Modifier LHS, Modifier... RHS>
+template <detail::modifier LHS, detail::modifier... RHS>
 constexpr auto operator%(LHS, modifiers::multi<RHS...>)
 {
 	return modifiers::multi<LHS, RHS...>{};
 }
 
-template <Modifier... LHS, Modifier... RHS>
+template <detail::modifier... LHS, detail::modifier... RHS>
 constexpr auto operator%(modifiers::multi<LHS...>, modifiers::multi<RHS...>)
 {
 	return modifiers::multi<LHS..., RHS...>{};

@@ -26,8 +26,8 @@ TEST("exactly modifier", "non consteval")
 
 
 
-#define EXACTLY_MODIFIER_ASSERTER(P)                                                               \
-	[]<Parser PP>(PP) {                                                                            \
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                                 \
+	[]<detail::parser PP>(PP) {                                                                      \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, detail::index_c<2>>{}),      \
 				                       exactly<2>, (P{}),  (Exactly<P, detail::index_c<2>>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, detail::index_c<2>>{}), \

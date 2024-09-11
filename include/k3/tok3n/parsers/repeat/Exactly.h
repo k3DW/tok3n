@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, detail::integral_constant_of<std::size_t> N>
+template <detail::parser P, detail::integral_constant_of<std::size_t> N>
 requires (N::value != 0)
 struct Exactly
 {
@@ -16,7 +16,7 @@ struct Exactly
 		std::array<typename P::template result_for<V>, N::value>
 	>;
 
-	static constexpr ParserFamily family = ExactlyFamily;
+	static constexpr detail::parser_family family = detail::exactly_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)
