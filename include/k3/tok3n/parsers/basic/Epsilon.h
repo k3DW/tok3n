@@ -18,7 +18,7 @@ struct Epsilon
 	{
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
-        return Result<void, V>{ success, input };
+        return detail::result<void, V>{ detail::success_tag, input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -26,7 +26,7 @@ struct Epsilon
 	{
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
-        return Result<void, V>{ success, input };
+        return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

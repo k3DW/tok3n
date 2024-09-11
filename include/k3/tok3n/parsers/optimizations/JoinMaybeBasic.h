@@ -25,9 +25,9 @@ struct Join<Maybe<Basic<arr>>>
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return Result<result_for<V>, V>{ success, { input.data(), 0 }, input };
+			return detail::result<result_for<V>, V>{ detail::success_tag, { input.data(), 0 }, input };
 
-		return Result<result_for<V>, V>{ success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
+		return detail::result<result_for<V>, V>{ detail::success_tag, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 	
 	template <detail::input_constructible_for<value_type> R>
@@ -39,9 +39,9 @@ struct Join<Maybe<Basic<arr>>>
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return Result<void, V>{ success, input };
+			return detail::result<void, V>{ detail::success_tag, input };
 
-		return Result<void, V>{ success, { input.data() + Traits::length, input.size() - Traits::length } };
+		return detail::result<void, V>{ detail::success_tag, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 };
 

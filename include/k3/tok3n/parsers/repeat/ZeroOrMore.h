@@ -27,11 +27,11 @@ struct ZeroOrMore
 
 		while (true)
 		{
-			auto result = P::parse(input);
-			input = result.remaining();
-			if (not result.has_value())
+			auto res = P::parse(input);
+			input = res.remaining();
+			if (not res.has_value())
 				break;
-			builder.insert_back(std::move(result));
+			builder.insert_back(std::move(res));
 		}
 
 		return std::move(builder).success(input);
@@ -45,13 +45,13 @@ struct ZeroOrMore
 
 		while (true)
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			if (not result.has_value())
+			auto res = P::lookahead(input);
+			input = res.remaining();
+			if (not res.has_value())
 				break;
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

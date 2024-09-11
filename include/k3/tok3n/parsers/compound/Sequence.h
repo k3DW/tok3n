@@ -25,25 +25,25 @@ namespace detail
 		template <parser P>
 		constexpr bool execute_lookahead()
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			return result.has_value();
+			auto res = P::lookahead(input);
+			input = res.remaining();
+			return res.has_value();
 		}
 
 		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute_element()
 		{
-			auto result = P::parse(input);
-			if (not result.has_value())
+			auto res = P::parse(input);
+			if (not res.has_value())
 				return false;
 
-			input = result.remaining();
+			input = res.remaining();
 			if constexpr (not std::same_as<void, ResultType>)
 			{
 				if constexpr (not unwrapped)
-					std::get<I>(this->value) = std::move(*result);
+					std::get<I>(this->value) = std::move(*res);
 				else
-					this->value = std::move(*result);
+					this->value = std::move(*res);
 			}
 			return true;
 		}
@@ -86,12 +86,12 @@ struct Sequence
 		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
-			return Result<result_for<V>, V>{ failure, input };
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 
 		if constexpr (std::same_as<result_for<V>, void>)
-			return Result<result_for<V>, V>{ success, executor.input };
+			return detail::result<result_for<V>, V>{ detail::success_tag, executor.input };
 		else
-			return Result<result_for<V>, V>{ success, std::move(executor.value), executor.input };
+			return detail::result<result_for<V>, V>{ detail::success_tag, std::move(executor.value), executor.input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -106,9 +106,9 @@ struct Sequence
 		bool successful = (... && executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
 
 		if (successful)
-			return Result<void, V>{ success, executor.input };
+			return detail::result<void, V>{ detail::success_tag, executor.input };
 		else
-			return Result<void, V>{ failure, input };
+			return detail::result<void, V>{ detail::failure_tag, input };
 	}
 };
 

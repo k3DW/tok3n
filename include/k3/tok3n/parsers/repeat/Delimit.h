@@ -30,23 +30,23 @@ struct Delimit
 
 		result_for<V> results;
 
-		auto result = P::parse(input);
-		if (not result.has_value())
-			return Result<result_for<V>, V>{ failure, input };
+		auto res = P::parse(input);
+		if (not res.has_value())
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 
-		while (result)
+		while (res)
 		{
-			input = result.remaining();
-			results.emplace_back(std::move(*result));
+			input = res.remaining();
+			results.emplace_back(std::move(*res));
 
 			auto delimit_result = D::parse(input);
 			if (not delimit_result)
 				break;
 
-			result = P::parse(delimit_result.remaining());
+			res = P::parse(delimit_result.remaining());
 		}
 
-		return Result<result_for<V>, V>{ success, std::move(results), input };
+		return detail::result<result_for<V>, V>{ detail::success_tag, std::move(results), input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -59,25 +59,25 @@ struct Delimit
 		result_for<V> results;
 		auto& [values, delimiters] = results;
 
-		auto result = P::parse(input);
-		if (not result.has_value())
-			return Result<result_for<V>, V>{ failure, input };
+		auto res = P::parse(input);
+		if (not res.has_value())
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 
-		while (result)
+		while (res)
 		{
-			input = result.remaining();
-			values.emplace_back(std::move(*result));
+			input = res.remaining();
+			values.emplace_back(std::move(*res));
 
 			auto delimit_result = D::parse(input);
 			if (not delimit_result)
 				break;
 
-			result = P::parse(delimit_result.remaining());
-			if (result)
+			res = P::parse(delimit_result.remaining());
+			if (res)
 				delimiters.emplace_back(std::move(*delimit_result));
 		}
 
-		return Result<result_for<V>, V>{ success, std::move(results), input };
+		return detail::result<result_for<V>, V>{ detail::success_tag, std::move(results), input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -86,22 +86,22 @@ struct Delimit
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		auto result = P::lookahead(input);
-		if (not result.has_value())
-			return Result<void, V>{ failure, input };
+		auto res = P::lookahead(input);
+		if (not res.has_value())
+			return detail::result<void, V>{ detail::failure_tag, input };
 
-		while (result)
+		while (res)
 		{
-			input = result.remaining();
+			input = res.remaining();
 
 			auto delimit_result = D::lookahead(input);
 			if (not delimit_result)
 				break;
 
-			result = P::lookahead(delimit_result.remaining());
+			res = P::lookahead(delimit_result.remaining());
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

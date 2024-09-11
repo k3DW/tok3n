@@ -25,11 +25,11 @@ struct Maybe
 
 		detail::ResultBuilder<result_for<V>> builder;
 
-		auto result = P::parse(input);
-		if (result.has_value())
-			builder.emplace(std::move(result));
+		auto res = P::parse(input);
+		if (res.has_value())
+			builder.emplace(std::move(res));
 
-		return std::move(builder).success(result.remaining());
+		return std::move(builder).success(res.remaining());
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -38,11 +38,11 @@ struct Maybe
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		auto result = P::lookahead(input);
-		if (result.has_value())
-			return Result<void, V>{ success, result.remaining() };
+		auto res = P::lookahead(input);
+		if (res.has_value())
+			return detail::result<void, V>{ detail::success_tag, res.remaining() };
 		else
-			return Result<void, V>{ success, input };
+			return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

@@ -11,7 +11,7 @@ namespace detail::executors
 	{
 	public:
 		template <class T>
-		constexpr Join(const Result<T, ValueType>& t)
+		constexpr Join(const detail::result<T, ValueType>& t)
 		{
 			if (this->try_join(*t) && joined == std::nullopt)
 			{
@@ -123,15 +123,15 @@ struct Join
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		auto result = P::parse(input);
-		if (result.has_value())
+		auto res = P::parse(input);
+		if (res.has_value())
 		{
 			using Executor = detail::executors::Join<V>;
-			std::optional<detail::output_span<V>> joined = Executor(result).get_joined();
+			std::optional<detail::output_span<V>> joined = Executor(res).get_joined();
 			if (joined)
-				return Result<result_for<V>, V>{ success, std::move(*joined), result.remaining() };
+				return detail::result<result_for<V>, V>{ detail::success_tag, std::move(*joined), res.remaining() };
 		}
-		return Result<result_for<V>, V>{ failure, input };
+		return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>

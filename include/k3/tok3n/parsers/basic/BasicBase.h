@@ -27,9 +27,9 @@ struct BasicBase
 
 		using Traits = BasicTraits<P>;
 		if (Traits::failure_condition(input))
-			return Result<result_for<V>, V>{ failure, input };
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 		else
-			return Result<result_for<V>, V>{ success, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
+			return detail::result<result_for<V>, V>{ detail::success_tag, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -40,9 +40,9 @@ struct BasicBase
 
 		using Traits = BasicTraits<P>;
 		if (Traits::failure_condition(input))
-			return Result<void, V>{ failure, input };
+			return detail::result<void, V>{ detail::failure_tag, input };
 		else
-			return Result<void, V>{ success, { input.data() + Traits::length, input.size() - Traits::length } };
+			return detail::result<void, V>{ detail::success_tag, { input.data() + Traits::length, input.size() - Traits::length } };
 	}
 };
 

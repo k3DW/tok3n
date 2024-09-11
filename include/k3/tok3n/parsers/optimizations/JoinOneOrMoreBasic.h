@@ -25,18 +25,18 @@ struct Join<OneOrMore<Basic<arr>>>
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return Result<result_for<V>, V>{ failure, input };
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 
-		detail::output_span<V> result = { input.data(), Traits::length };
+		detail::output_span<V> res = { input.data(), Traits::length };
 		input = input.subspan(Traits::length);
 
 		while (not Traits::failure_condition(input))
 		{
-			result = { result.data(), result.size() + Traits::length };
+			res = { res.data(), res.size() + Traits::length };
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<result_for<V>, V>{ success, result, input };
+		return detail::result<result_for<V>, V>{ detail::success_tag, res, input };
 	}
 	
 	template <detail::input_constructible_for<value_type> R>
@@ -48,7 +48,7 @@ struct Join<OneOrMore<Basic<arr>>>
 		using Traits = BasicTraits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
-			return Result<void, V>{ failure, input };
+			return detail::result<void, V>{ detail::failure_tag, input };
 
 		input = input.subspan(Traits::length);
 
@@ -57,7 +57,7 @@ struct Join<OneOrMore<Basic<arr>>>
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

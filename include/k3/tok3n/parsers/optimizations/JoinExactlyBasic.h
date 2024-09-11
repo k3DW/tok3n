@@ -25,17 +25,17 @@ struct Join<Exactly<Basic<arr>, N>>
 		using Traits = BasicTraits<Basic<arr>>;
 
 		const detail::input_span original_input = input;
-		detail::output_span<V> result = { input.data(), 0 };
+		detail::output_span<V> res = { input.data(), 0 };
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
 			if (Traits::failure_condition(input))
-				return Result<result_for<V>, V>{ failure, original_input };
-			result = { result.data(), result.size() + Traits::length };
+				return detail::result<result_for<V>, V>{ detail::failure_tag, original_input };
+			res = { res.data(), res.size() + Traits::length };
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<result_for<V>, V>{ success, result, input };
+		return detail::result<result_for<V>, V>{ detail::success_tag, res, input };
 	}
 	
 	template <detail::input_constructible_for<value_type> R>
@@ -51,11 +51,11 @@ struct Join<Exactly<Basic<arr>, N>>
 		for (std::size_t i = 0; i < N::value; i++)
 		{
 			if (Traits::failure_condition(input))
-				return Result<void, V>{ failure, original_input };
+				return detail::result<void, V>{ detail::failure_tag, original_input };
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

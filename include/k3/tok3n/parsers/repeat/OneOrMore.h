@@ -28,18 +28,18 @@ struct OneOrMore
 
 		while (true)
 		{
-			auto result = P::parse(input);
-			input = result.remaining();
-			successful |= result.has_value();
-			if (not result.has_value())
+			auto res = P::parse(input);
+			input = res.remaining();
+			successful |= res.has_value();
+			if (not res.has_value())
 				break;
-			builder.insert_back(std::move(result));
+			builder.insert_back(std::move(res));
 		}
 
 		if (successful)
 			return std::move(builder).success(input);
 		else
-			return Result<result_for<V>, V>{ failure, input };
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 	}
 
 	template <detail::input_constructible_for<value_type> R>
@@ -52,17 +52,17 @@ struct OneOrMore
 
 		while (true)
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			successful |= result.has_value();
-			if (not result.has_value())
+			auto res = P::lookahead(input);
+			input = res.remaining();
+			successful |= res.has_value();
+			if (not res.has_value())
 				break;
 		}
 
 		if (successful)
-			return Result<void, V>{ success, input };
+			return detail::result<void, V>{ detail::success_tag, input };
 		else
-			return Result<void, V>{ failure, input };
+			return detail::result<void, V>{ detail::failure_tag, input };
 	}
 };
 

@@ -1,5 +1,6 @@
 #pragma once
 #include <concepts>
+#include <tuple>
 #include <type_traits>
 
 namespace k3::tok3n::detail {

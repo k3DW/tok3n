@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/concepts/IsResult.h>
+#include <k3/tok3n/detail/result.h>
 #include <k3/tok3n/detail/type_traits.h>
 
 namespace k3::tok3n::detail {
@@ -76,8 +76,8 @@ concept parser_for =
 		typename P::template result_for<V>;
 		P::parse(input);
 		P::lookahead(input);
-		{ P::parse(input) } -> k3::tok3n::IsResult<typename P::template result_for<V>, V>;
-		{ P::lookahead(input) } -> k3::tok3n::IsResult<void, V>;
+		{ P::parse(input) } -> result_of<typename P::template result_for<V>, V>;
+		{ P::lookahead(input) } -> result_of<void, V>;
 	};
 
 template <class P1, class P2>

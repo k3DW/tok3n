@@ -26,29 +26,29 @@ struct Map
 		using before_type = typename P::template result_for<V>;
 		using after_type = result_for<V>;
 
-		auto result = P::parse(input);
-		if (not result.has_value())
-			return Result<after_type, V>{ failure, input };
+		auto res = P::parse(input);
+		if (not res.has_value())
+			return detail::result<after_type, V>{ detail::failure_tag, input };
 
 		if constexpr (std::same_as<void, before_type>)
 		{
 			if constexpr (std::same_as<void, after_type>)
 			{
 				std::invoke(FunctionValue::value);
-				return Result<after_type, V>{ success, result.remaining() };
+				return detail::result<after_type, V>{ detail::success_tag, res.remaining() };
 			}
 			else
-				return Result<after_type, V>{ success, std::invoke(FunctionValue::value), result.remaining() };
+				return detail::result<after_type, V>{ detail::success_tag, std::invoke(FunctionValue::value), res.remaining() };
 		}
 		else
 		{
 			if constexpr (std::same_as<void, after_type>)
 			{
-				std::invoke(FunctionValue::value, std::move(*result));
-				return Result<after_type, V>{ success, result.remaining() };
+				std::invoke(FunctionValue::value, std::move(*res));
+				return detail::result<after_type, V>{ detail::success_tag, res.remaining() };
 			}
 			else
-				return Result<after_type, V>{ success, std::invoke(FunctionValue::value, std::move(*result)), result.remaining() };
+				return detail::result<after_type, V>{ detail::success_tag, std::invoke(FunctionValue::value, std::move(*res)), res.remaining() };
 		}
 	}
 

@@ -1,206 +1,206 @@
 #include "samples.h"
 
-FIXTURE("Result");
+FIXTURE("result");
 
-TEST("Result", "IsResult Result<void>")
+TEST("result", "result_of result<void>")
 {
-	using R = Result<void, value_type>;
+	using R = detail::result<void, value_type>;
 
-	ASSERT_CONCEPT    (IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 }
 
-TEST("Result", "IsResult Result<int>")
+TEST("result", "result_of result<int>")
 {
-	using R = Result<int, value_type>;
+	using R = detail::result<int, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_CONCEPT    (IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, int&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const int&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const int&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const int&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const int&&, value_type);
 }
 
-TEST("Result", "IsResult Result<std::pair>")
+TEST("result", "result_of result<std::pair>")
 {
-	using R = Result<std::pair<int, double>, value_type>;
+	using R = detail::result<std::pair<int, double>, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_CONCEPT    (IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::pair<int, double>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::pair<int, double>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::pair<int, double>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::pair<int, double>&&, value_type);
 }
 
-TEST("Result", "IsResult Result<std::string>")
+TEST("result", "result_of result<std::string>")
 {
-	using R = Result<std::string, value_type>;
+	using R = detail::result<std::string, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_CONCEPT    (IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::string&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::string&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::string&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::string&&, value_type);
 }
 
-TEST("Result", "IsResult Result<std::vector>")
+TEST("result", "result_of result<std::vector>")
 {
-	using R = Result<std::vector<int>, value_type>;
+	using R = detail::result<std::vector<int>, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_CONCEPT    (IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::vector<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::vector<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::vector<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::vector<int>&&, value_type);
 }
 
-TEST("Result", "IsResult Result<std::unique_ptr>")
+TEST("result", "result_of result<std::unique_ptr>")
 {
-	using R = Result<std::unique_ptr<int>, value_type>;
+	using R = detail::result<std::unique_ptr<int>, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_CONCEPT    (IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::unique_ptr<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const std::unique_ptr<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::unique_ptr<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const std::unique_ptr<int>&&, value_type);
 }
 
-TEST("Result", "IsResult Result<MoveOnlyWrapper>")
+TEST("result", "result_of result<MoveOnlyWrapper>")
 {
-	using R = Result<MoveOnlyWrapper<int>, value_type>;
+	using R = detail::result<MoveOnlyWrapper<int>, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_CONCEPT    (IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const MoveOnlyWrapper<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const MoveOnlyWrapper<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const MoveOnlyWrapper<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const MoveOnlyWrapper<int>&&, value_type);
 }
 
-TEST("Result", "IsResult Result<CopyOnlyWrapper>")
+TEST("result", "result_of result<CopyOnlyWrapper>")
 {
-	using R = Result<CopyOnlyWrapper<int>, value_type>;
+	using R = detail::result<CopyOnlyWrapper<int>, value_type>;
 
-	ASSERT_NOT_CONCEPT(IsResult, R, void, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, int, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<int, double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::string, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<int>, value_type);
-	ASSERT_CONCEPT    (IsResult, R, CopyOnlyWrapper<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, void, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, int, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<int, double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::string, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<int>, value_type);
+	ASSERT_CONCEPT    (detail::result_of, R, CopyOnlyWrapper<int>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, double, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::pair<double, int>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::wstring, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::vector<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, std::unique_ptr<long>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, MoveOnlyWrapper<double>, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, double, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::pair<double, int>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::wstring, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::vector<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, std::unique_ptr<long>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, MoveOnlyWrapper<double>, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<double>, value_type);
 
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, CopyOnlyWrapper<int>&&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const CopyOnlyWrapper<int>&, value_type);
-	ASSERT_NOT_CONCEPT(IsResult, R, const CopyOnlyWrapper<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, CopyOnlyWrapper<int>&&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const CopyOnlyWrapper<int>&, value_type);
+	ASSERT_NOT_CONCEPT(detail::result_of, R, const CopyOnlyWrapper<int>&&, value_type);
 }

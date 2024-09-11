@@ -29,12 +29,12 @@ struct Exactly
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
-			auto result = P::parse(input);
-			if (not result.has_value())
-				return Result<result_for<V>, V>{ failure, original_input };
+			auto res = P::parse(input);
+			if (not res.has_value())
+				return detail::result<result_for<V>, V>{ detail::failure_tag, original_input };
 
-			input = result.remaining();
-			builder.array_assign(i, std::move(result));
+			input = res.remaining();
+			builder.array_assign(i, std::move(res));
 		}
 
 		return std::move(builder).success(input);
@@ -50,14 +50,14 @@ struct Exactly
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
-			auto result = P::lookahead(input);
-			if (not result.has_value())
-				return Result<void, V>{ failure, original_input };
+			auto res = P::lookahead(input);
+			if (not res.has_value())
+				return detail::result<void, V>{ detail::failure_tag, original_input };
 			
-			input = result.remaining();
+			input = res.remaining();
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

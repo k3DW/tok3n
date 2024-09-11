@@ -24,15 +24,15 @@ struct Join<ZeroOrMore<Basic<arr>>>
 
 		using Traits = BasicTraits<Basic<arr>>;
 
-		detail::output_span<V> result = { input.data(), 0 };
+		detail::output_span<V> res = { input.data(), 0 };
 
 		while (not Traits::failure_condition(input))
 		{
-			result = { result.data(), result.size() + Traits::length };
+			res = { res.data(), res.size() + Traits::length };
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<result_for<V>, V>{ success, result, input };
+		return detail::result<result_for<V>, V>{ detail::success_tag, res, input };
 	}
 	
 	template <detail::input_constructible_for<value_type> R>
@@ -48,7 +48,7 @@ struct Join<ZeroOrMore<Basic<arr>>>
 			input = input.subspan(Traits::length);
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

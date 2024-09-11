@@ -1,6 +1,5 @@
 #pragma once
 #include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
 #include <k3/tok3n/parsers/compound/_fwd.h>
 #include <vector>
 
@@ -45,33 +44,33 @@ public:
 	constexpr ResultBuilder() = default;
 
 	template <class U>
-	constexpr void array_assign(std::size_t index, Result<value_type, U>&& result)
+	constexpr void array_assign(std::size_t index, result<value_type, U>&& res)
 	{
 		if constexpr (not is_void)
-			this->value[index] = *std::move(result);
+			this->value[index] = *std::move(res);
 	}
 
 	template <class U>
-	constexpr void emplace(Result<value_type, U>&& result)
+	constexpr void emplace(result<value_type, U>&& res)
 	{
 		if constexpr (not is_void)
-			this->value.emplace(*std::move(result));
+			this->value.emplace(*std::move(res));
 	}
 
     template <class U>
-    constexpr void insert_back(Result<value_type, U>&& result)
+    constexpr void insert_back(result<value_type, U>&& res)
     {
         if constexpr (not is_void)
-            this->value.insert(this->value.end(), *std::move(result));
+            this->value.insert(this->value.end(), *std::move(res));
     }
 
 	template <class U>
-	constexpr Result<T, U> success(input_span<U> input) &&
+	constexpr result<T, U> success(input_span<U> input) &&
 	{
 		if constexpr (not is_void)
-			return { SuccessTag{}, std::move(this->value), input };
+			return { success_tag, std::move(this->value), input };
 		else
-			return { SuccessTag{}, input };
+			return { success_tag, input };
 	}
 };
 
