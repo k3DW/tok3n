@@ -23,14 +23,14 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 // This wouldn't be needed if we had CWG2518 or P2593
 
 #define DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)     \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                     \
+	ASSERT_CONCEPT(detail::modifier, decltype(MOD_VALUE));                             \
 	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                    \
 		"`" STR(P_VALUES) "` do not all satisfy the Parser concept.");                 \
 	ASSERT((callable<MOD_VALUE, IDENTITY P_VALUES>),                                   \
 		"`" STR(MOD_DISPLAY) STR(P_DISPLAYS) "` does not satisfy the Parser concept.")
 
 #define DEP_ASSERT_MODIFIER_NOT_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS)             \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                 \
+	ASSERT_CONCEPT(detail::modifier, decltype(MOD_VALUE));                                         \
 	ASSERT((all_satisfy_parser<IDENTITY P_VALUES>),                                                \
 		"`" STR(P_VALUES) "` do not all satisfy the Parser concept.");                             \
 	ASSERT((not callable<MOD_VALUE, IDENTITY P_VALUES>),                                           \
@@ -45,13 +45,13 @@ concept all_satisfy_parser = (... && k3::tok3n::Parser<decltype(ps)>);
 
 #define DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)                    \
 	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                             \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                         \
+	ASSERT_CONCEPT(detail::modifier, decltype(MOD_VALUE));                                                 \
 	ASSERT((modulo_operable<P_VALUE, MOD_VALUE>),                                                          \
 		"`" STR(P_DISPLAY) " % " STR(MOD_DISPLAY) "` does not satisfy the Parser concept, but it should.")
 
 #define DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY)                  \
 	ASSERT_CONCEPT(Parser, decltype(P_VALUE));                                                               \
-	ASSERT_CONCEPT(Modifier, decltype(MOD_VALUE));                                                           \
+	ASSERT_CONCEPT(detail::modifier, decltype(MOD_VALUE));                                                   \
 	ASSERT((not modulo_operable<P_VALUE, MOD_VALUE>),                                                        \
 		"`" STR(P_DISPLAY) " % " STR(MOD_DISPLAY) "` does satisfies the Parser concept, but it should not.")
 

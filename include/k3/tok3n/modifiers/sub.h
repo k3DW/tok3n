@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/detail/modifier.h>
 #include <k3/tok3n/types/StaticArray.h>
 #include <k3/tok3n/types/Substitution.h>
 #include <k3/tok3n/parsers/adaptor/Named.h>
@@ -51,9 +51,9 @@ constexpr Parser auto Substitute(P, Sub, Subs...)
 
 } // namespace detail
 
-struct sub final : ModifierBase
+struct sub final : k3::tok3n::detail::modifier_base
 {
-	static constexpr auto family = ModifierFamily::sub;
+	static constexpr auto family = k3::tok3n::detail::modifier_family::sub;
 
 	template <Parser P, IsSubstitution Sub, IsSubstitution... Subs>
 	constexpr auto operator()(P, Sub, Subs...) const
@@ -62,9 +62,9 @@ struct sub final : ModifierBase
 	}
 
 	template <IsSubstitution Sub, IsSubstitution... Subs>
-	struct inner final : ModifierBase
+	struct inner final : k3::tok3n::detail::modifier_base
 	{
-		static constexpr auto family = ModifierFamily::sub;
+		static constexpr auto family = k3::tok3n::detail::modifier_family::sub;
 
 		template <Parser P>
 		constexpr auto operator()(P) const

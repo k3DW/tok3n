@@ -1,12 +1,12 @@
 #pragma once
-#include <k3/tok3n/types/ModifierBase.h>
+#include <k3/tok3n/detail/modifier.h>
 #include <k3/tok3n/parsers/repeat/Delimit.h>
 
 namespace k3::tok3n::modifiers {
 
-struct delimit final : ModifierBase
+struct delimit final : k3::tok3n::detail::modifier_base
 {
-	static constexpr auto family = ModifierFamily::delimit;
+	static constexpr auto family = k3::tok3n::detail::modifier_family::delimit;
 
 	template <Parser P, ParserCompatibleWith<P> D>
 	constexpr auto operator()(P, D) const
@@ -15,9 +15,9 @@ struct delimit final : ModifierBase
 	}
 
 	template <Parser D>
-	struct inner final : ModifierBase
+	struct inner final : k3::tok3n::detail::modifier_base
 	{
-		static constexpr auto family = ModifierFamily::delimit;
+		static constexpr auto family = k3::tok3n::detail::modifier_family::delimit;
 
 		template <ParserCompatibleWith<D> P>
 		constexpr auto operator()(P) const

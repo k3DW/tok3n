@@ -35,13 +35,13 @@ concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remo
 	DEP_ASSERT_PARSER_VALUES_NE(LHS_VALUE, RHS_VALUE, LHS_VALUE, RHS_VALUE)
 
 #define ASSERT_MODIFIER_VALUES_EQ(LHS_VALUE, RHS_VALUE)                                  \
-	ASSERT_CONCEPT(Modifier, decltype(LHS_VALUE));                                       \
-	ASSERT_CONCEPT(Modifier, decltype(RHS_VALUE));                                       \
+	ASSERT_CONCEPT(detail::modifier, decltype(LHS_VALUE));                               \
+	ASSERT_CONCEPT(detail::modifier, decltype(RHS_VALUE));                               \
 	ASSERT((same_values<(LHS_VALUE), (RHS_VALUE)>),                                      \
 		"`" STR(LHS_VALUE) "` and `" STR(RHS_VALUE) "` are not the same, but should be")
 
 #define ASSERT_MODIFIER_VALUES_NE(LHS_VALUE, RHS_VALUE)                                  \
-	ASSERT_CONCEPT(Modifier, decltype(LHS_VALUE));                                       \
-	ASSERT_CONCEPT(Modifier, decltype(RHS_VALUE));                                       \
+	ASSERT_CONCEPT(detail::modifier, decltype(LHS_VALUE));                               \
+	ASSERT_CONCEPT(detail::modifier, decltype(RHS_VALUE));                               \
 	ASSERT((not same_values<(LHS_VALUE), (RHS_VALUE)>),                                  \
 		"`" STR(LHS_VALUE) "` and `" STR(RHS_VALUE) "` are the same, but should not be")
