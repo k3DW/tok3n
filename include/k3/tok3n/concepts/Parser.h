@@ -14,9 +14,7 @@ struct HasTemplateAlias {};
 	
 template <class P>
 concept Parser =
-	requires { typename std::integral_constant<ParserFamily, P::family>; } &&
-	static_cast<int>(P::family) > static_cast<int>(ParserFamily::None) &&
-	static_cast<int>(P::family) < static_cast<int>(ParserFamily::END) &&
+	detail::enum_within_bounds<ParserFamily, P::family, ParserFamily::None, ParserFamily::END> &&
 	(std::is_empty_v<P>) &&
 	detail::implicitly_default_constructible<P> &&
 	requires { typename P::value_type; } &&
