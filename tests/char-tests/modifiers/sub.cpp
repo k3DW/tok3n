@@ -15,11 +15,11 @@ constexpr auto sub42 = (name<"nam4"> = name<"nam2">);
 
 } // namespace
 
-#define ASSERT_SUBSTITUTION_TYPE(SUB, NAME, SUBBED)                                                                       \
-    ASSERT(IsSubstitution<decltype(SUB)>, #SUB " is expected to satisfy IsSubstitution concept.");                        \
-    ASSERT(std::is_empty_v<decltype(SUB)>, #SUB " is expected to be an empty type.");                                     \
-    ASSERT((std::same_as<std::remove_cvref_t<decltype(SUB)>, Substitution<NAME, std::remove_cvref_t<decltype(SUBBED)>>>), \
-        #SUB " must be the same as Substitution<" NAME ", decltype(" #SUBBED ").")
+#define ASSERT_SUBSTITUTION_TYPE(SUB, NAME, SUBBED)                                                                                    \
+    ASSERT(detail::substitution<decltype(SUB)>, #SUB " is expected to satisfy substitution concept.");                           \
+    ASSERT(std::is_empty_v<decltype(SUB)>, #SUB " is expected to be an empty type.");                                                  \
+    ASSERT((std::same_as<std::remove_cvref_t<decltype(SUB)>, detail::substitution_info<NAME, std::remove_cvref_t<decltype(SUBBED)>>>), \
+        #SUB " must be the same as substitution_info<" NAME ", decltype(" #SUBBED ").")
 
 #define ASSERT_SUBSTITUTION_SAME_NAME(SUB1, SUB2)                                    \
     ASSERT((not std::same_as<decltype(SUB1), decltype(SUB2)>),                       \
