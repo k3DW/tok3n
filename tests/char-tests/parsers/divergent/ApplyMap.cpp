@@ -7,14 +7,14 @@ TEST("ApplyMap", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Apm1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Apm2, value_type);
 
-	ASSERT_IS_PARSER(Apm1, char, MapFamily, bool);
-	ASSERT_IS_PARSER(Apm2, char, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Apm1, char, detail::map_family, bool);
+	ASSERT_IS_PARSER(Apm2, char, detail::map_family, std::size_t);
 
-	ASSERT_IS_PARSER(Apm1, wchar_t, MapFamily, bool);
-	ASSERT_IS_PARSER(Apm2, wchar_t, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Apm1, wchar_t, detail::map_family, bool);
+	ASSERT_IS_PARSER(Apm2, wchar_t, detail::map_family, std::size_t);
 
-	ASSERT_IS_PARSER(Apm1, int, MapFamily, bool);
-	ASSERT_IS_PARSER(Apm2, int, MapFamily, std::size_t);
+	ASSERT_IS_PARSER(Apm1, int, detail::map_family, bool);
+	ASSERT_IS_PARSER(Apm2, int, detail::map_family, std::size_t);
 }
 
 TEST("ApplyMap", "Parse all")

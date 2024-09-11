@@ -7,14 +7,14 @@ TEST("ApplyInto", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Api1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Api2, value_type);
 
-	ASSERT_IS_PARSER(Api1, char, MapFamily, Class2);
-	ASSERT_IS_PARSER(Api2, char, MapFamily, Class5);
+	ASSERT_IS_PARSER(Api1, char, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Api2, char, detail::map_family, Class5);
 
-	ASSERT_IS_PARSER(Api1, wchar_t, MapFamily, Class2);
-	ASSERT_IS_PARSER(Api2, wchar_t, MapFamily, Class5);
+	ASSERT_IS_PARSER(Api1, wchar_t, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Api2, wchar_t, detail::map_family, Class5);
 
-	ASSERT_IS_PARSER(Api1, int, MapFamily, Class2);
-	ASSERT_IS_PARSER(Api2, int, MapFamily, Class5);
+	ASSERT_IS_PARSER(Api1, int, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Api2, int, detail::map_family, Class5);
 }
 
 TEST("ApplyInto", "Parse all")

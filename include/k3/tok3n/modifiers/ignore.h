@@ -8,10 +8,10 @@ struct ignore final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::ignore;
 
-	template <Parser P>
+	template <k3::tok3n::detail::parser P>
 	constexpr auto operator()(P) const
 	{
-		if constexpr (P::family == IgnoreFamily)
+		if constexpr (P::family == detail::ignore_family)
 			return P{};
 		else
 			return Ignore<P>{};

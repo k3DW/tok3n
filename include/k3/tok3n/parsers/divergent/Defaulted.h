@@ -4,7 +4,7 @@
 
 namespace k3::tok3n::aliases {
 
-template <Parser P, class T>
+template <k3::tok3n::detail::parser P, class T>
 requires std::is_default_constructible_v<T>
 using Defaulted = Map<P, k3::tok3n::detail::integral_constant<detail::default_construct_function<T>>>;
 

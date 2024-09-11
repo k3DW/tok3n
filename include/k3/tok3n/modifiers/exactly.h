@@ -10,7 +10,7 @@ struct exactly final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::exactly;
 
-	template <Parser P>
+	template <k3::tok3n::detail::parser P>
 	constexpr auto operator()(P) const
 	{
 		return Exactly<P, detail::index_c<N>>{};

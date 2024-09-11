@@ -12,13 +12,13 @@ struct EpsilonOperator
 
 inline constexpr EpsilonOperator eps = {};
 
-template <Parser P>
+template <detail::parser P>
 constexpr auto operator|(P, EpsilonOperator)
 {
 	return ::k3::tok3n::operator|(P{}, Epsilon<typename P::value_type>{});
 }
 
-template <Parser P>
+template <detail::parser P>
 constexpr auto operator|(EpsilonOperator, P) = delete;
 
 } // namespace k3::tok3n

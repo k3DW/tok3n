@@ -5,23 +5,23 @@
 
 namespace k3::tok3n::operators_impl {
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 consteval auto maybe(Maybe<P>) { return Maybe<P>{}; } // ~(~P) == ~P
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 consteval auto maybe(OneOrMore<P>) { return ZeroOrMore<P>{}; } // ~(+P) == *P
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 consteval auto maybe(ZeroOrMore<P>) { return ZeroOrMore<P>{}; } // ~(*P) == *P
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 consteval auto maybe(P) { return Maybe<P>{}; } // default
 
 } // namespace k3::tok3n::operators_impl
 
 namespace k3::tok3n {
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 constexpr auto operator~(P)
 {
 	return operators_impl::maybe(P{});

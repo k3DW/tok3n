@@ -3,7 +3,7 @@
 
 namespace k3::tok3n {
 
-template <Parser P, ParserCompatibleWith<P> D, detail::integral_constant_of<bool> KeepDelimiters>
+template <detail::parser P, detail::parser_compatible_with<P> D, detail::integral_constant_of<bool> KeepDelimiters>
 struct Delimit
 {
 	using value_type = typename P::value_type;
@@ -19,7 +19,7 @@ struct Delimit
 		std::vector<typename P::template result_for<V>>
 	>;
 
-	static constexpr ParserFamily family = DelimitFamily;
+	static constexpr detail::parser_family family = detail::delimit_family;
 
 	template <InputConstructibleFor<value_type> R>
 	requires (not KeepDelimiters::value) and parsable_range<R>

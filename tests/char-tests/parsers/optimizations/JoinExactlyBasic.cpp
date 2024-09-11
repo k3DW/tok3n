@@ -12,17 +12,17 @@ TEST("JoinExactlyBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_Exa_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Exa_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_Exa_L, char, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_Exa_L, char, detail::join_family, Output<char>);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Exa_L, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_L, wchar_t, detail::join_family, Output<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_Exa_L, int, JoinFamily, Output<int>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_Exa_L, int, detail::join_family, Output<int>);
 }
 
 TEST("JoinExactlyBasic", "Exactly<AnyOf, 2>")

@@ -9,20 +9,20 @@ TEST("OneOrMore", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Oom3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Oom4, value_type);
 
-	ASSERT_IS_PARSER(Oom1, char, OneOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom2, char, OneOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom3, char, OneOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Oom4, char, OneOrMoreFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Oom1, char, detail::one_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom2, char, detail::one_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom3, char, detail::one_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Oom4, char, detail::one_or_more_family, std::vector<std::tuple<Output<char>, Output<char>>>);
 
-	ASSERT_IS_PARSER(Oom1, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom2, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom3, wchar_t, OneOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Oom4, wchar_t, OneOrMoreFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Oom1, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom2, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom3, wchar_t, detail::one_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Oom4, wchar_t, detail::one_or_more_family, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Oom1, int, OneOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom2, int, OneOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom3, int, OneOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Oom4, int, OneOrMoreFamily, std::vector<std::tuple<Output<int>, Output<int>>>);
+	ASSERT_IS_PARSER(Oom1, int, detail::one_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Oom2, int, detail::one_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Oom3, int, detail::one_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Oom4, int, detail::one_or_more_family, std::vector<std::tuple<Output<int>, Output<int>>>);
 }
 
 TEST("OneOrMore", "Parse OneOrMore<AllOf>")

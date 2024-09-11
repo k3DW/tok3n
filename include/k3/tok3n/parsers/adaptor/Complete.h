@@ -1,10 +1,11 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/detail/parser.h>
 
 namespace k3::tok3n {
 
-template <Parser P>
+template <detail::parser P>
 struct Complete
 {
 	using value_type = typename P::value_type;
@@ -12,7 +13,7 @@ struct Complete
 	template <detail::equality_comparable_with<value_type> V>
 	using result_for = typename P::template result_for<V>;
 
-	static constexpr ParserFamily family = CompleteFamily;
+	static constexpr detail::parser_family family = detail::complete_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

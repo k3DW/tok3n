@@ -31,7 +31,7 @@ TEST("epsilon operator", "eps | P")
 
 
 #define EPSILON_OPERATOR_ASSERTER(P)                                             \
-	[]<Parser PP>(PP) {                                                          \
+	[]<detail::parser PP>(PP) {                                                  \
 		DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                 \
 		                              P{},  eps);                                \
 		DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                             \

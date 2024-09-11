@@ -26,7 +26,7 @@ TEST("constant modifier", "non consteval")
 
 
 
-#define CONSTANT_MODIFIER_ASSERTER(P)                                                                           \
+#define CONSTANT_MODIFIER_ASSERTER(P)                                                                            \
 	ASSERT_MODIFIER_CALLABLE_R(constant<0>, (P{}), (aliases::Constant<P, detail::integral_constant<0>>{}));      \
 	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, constant<0>, (aliases::Constant<P, detail::integral_constant<0>>{}));
 

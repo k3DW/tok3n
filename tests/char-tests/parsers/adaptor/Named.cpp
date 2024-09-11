@@ -9,20 +9,20 @@ TEST("Named", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Nam3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Nam4, value_type);
 
-	ASSERT_IS_PARSER(Nam1, char, NamedFamily, Output<char>);
-	ASSERT_IS_PARSER(Nam2, char, NamedFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Nam3, char, NamedFamily, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(Nam4, char, NamedFamily, std::tuple<Output<char>, std::vector<Output<char>>>);
+	ASSERT_IS_PARSER(Nam1, char, detail::named_family, Output<char>);
+	ASSERT_IS_PARSER(Nam2, char, detail::named_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Nam3, char, detail::named_family, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(Nam4, char, detail::named_family, std::tuple<Output<char>, std::vector<Output<char>>>);
 
-	ASSERT_IS_PARSER(Nam1, wchar_t, NamedFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Nam2, wchar_t, NamedFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Nam3, wchar_t, NamedFamily, std::optional<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Nam4, wchar_t, NamedFamily, std::tuple<Output<wchar_t>, std::vector<Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Nam1, wchar_t, detail::named_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Nam2, wchar_t, detail::named_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Nam3, wchar_t, detail::named_family, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Nam4, wchar_t, detail::named_family, std::tuple<Output<wchar_t>, std::vector<Output<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Nam1, int, NamedFamily, Output<int>);
-	ASSERT_IS_PARSER(Nam2, int, NamedFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Nam3, int, NamedFamily, std::optional<Output<int>>);
-	ASSERT_IS_PARSER(Nam4, int, NamedFamily, std::tuple<Output<int>, std::vector<Output<int>>>);
+	ASSERT_IS_PARSER(Nam1, int, detail::named_family, Output<int>);
+	ASSERT_IS_PARSER(Nam2, int, detail::named_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Nam3, int, detail::named_family, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(Nam4, int, detail::named_family, std::tuple<Output<int>, std::vector<Output<int>>>);
 }
 
 TEST("Named", "Named<AllOf>")

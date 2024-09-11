@@ -8,17 +8,17 @@ TEST("Into", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Int2, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Int3, value_type);
 
-	ASSERT_IS_PARSER(Int1, char, MapFamily, Class1);
-	ASSERT_IS_PARSER(Int2, char, MapFamily, Class2);
-	ASSERT_IS_PARSER(Int3, char, MapFamily, Class2);
+	ASSERT_IS_PARSER(Int1, char, detail::map_family, Class1);
+	ASSERT_IS_PARSER(Int2, char, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int3, char, detail::map_family, Class2);
 
-	ASSERT_IS_PARSER(Int1, wchar_t, MapFamily, Class1);
-	ASSERT_IS_PARSER(Int2, wchar_t, MapFamily, Class2);
-	ASSERT_IS_PARSER(Int3, wchar_t, MapFamily, Class2);
+	ASSERT_IS_PARSER(Int1, wchar_t, detail::map_family, Class1);
+	ASSERT_IS_PARSER(Int2, wchar_t, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int3, wchar_t, detail::map_family, Class2);
 
-	ASSERT_IS_PARSER(Int1, int, MapFamily, Class1);
-	ASSERT_IS_PARSER(Int2, int, MapFamily, Class2);
-	ASSERT_IS_PARSER(Int3, int, MapFamily, Class2);
+	ASSERT_IS_PARSER(Int1, int, detail::map_family, Class1);
+	ASSERT_IS_PARSER(Int2, int, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int3, int, detail::map_family, Class2);
 }
 
 TEST("Into", "Parse all")

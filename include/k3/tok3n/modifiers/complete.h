@@ -8,10 +8,10 @@ struct complete final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::complete;
 
-	template <Parser P>
+	template <k3::tok3n::detail::parser P>
 	constexpr auto operator()(P) const
 	{
-		if constexpr (P::family == CompleteFamily)
+		if constexpr (P::family == detail::complete_family)
 			return P{};
 		else
 			return Complete<P>{};

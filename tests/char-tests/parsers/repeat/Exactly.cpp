@@ -9,20 +9,20 @@ TEST("Exactly", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Exa3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Exa4, value_type);
 
-	ASSERT_IS_PARSER(Exa1, char, ExactlyFamily, std::array<Output<char>, 3>);
-	ASSERT_IS_PARSER(Exa2, char, ExactlyFamily, std::array<Output<char>, 5>);
-	ASSERT_IS_PARSER(Exa3, char, ExactlyFamily, std::array<Output<char>, 4>);
-	ASSERT_IS_PARSER(Exa4, char, ExactlyFamily, std::array<std::tuple<Output<char>, Output<char>>, 2>);
+	ASSERT_IS_PARSER(Exa1, char, detail::exactly_family, std::array<Output<char>, 3>);
+	ASSERT_IS_PARSER(Exa2, char, detail::exactly_family, std::array<Output<char>, 5>);
+	ASSERT_IS_PARSER(Exa3, char, detail::exactly_family, std::array<Output<char>, 4>);
+	ASSERT_IS_PARSER(Exa4, char, detail::exactly_family, std::array<std::tuple<Output<char>, Output<char>>, 2>);
 
-	ASSERT_IS_PARSER(Exa1, wchar_t, ExactlyFamily, std::array<Output<wchar_t>, 3>);
-	ASSERT_IS_PARSER(Exa2, wchar_t, ExactlyFamily, std::array<Output<wchar_t>, 5>);
-	ASSERT_IS_PARSER(Exa3, wchar_t, ExactlyFamily, std::array<Output<wchar_t>, 4>);
-	ASSERT_IS_PARSER(Exa4, wchar_t, ExactlyFamily, std::array<std::tuple<Output<wchar_t>, Output<wchar_t>>, 2>);
+	ASSERT_IS_PARSER(Exa1, wchar_t, detail::exactly_family, std::array<Output<wchar_t>, 3>);
+	ASSERT_IS_PARSER(Exa2, wchar_t, detail::exactly_family, std::array<Output<wchar_t>, 5>);
+	ASSERT_IS_PARSER(Exa3, wchar_t, detail::exactly_family, std::array<Output<wchar_t>, 4>);
+	ASSERT_IS_PARSER(Exa4, wchar_t, detail::exactly_family, std::array<std::tuple<Output<wchar_t>, Output<wchar_t>>, 2>);
 
-	ASSERT_IS_PARSER(Exa1, int, ExactlyFamily, std::array<Output<int>, 3>);
-	ASSERT_IS_PARSER(Exa2, int, ExactlyFamily, std::array<Output<int>, 5>);
-	ASSERT_IS_PARSER(Exa3, int, ExactlyFamily, std::array<Output<int>, 4>);
-	ASSERT_IS_PARSER(Exa4, int, ExactlyFamily, std::array<std::tuple<Output<int>, Output<int>>, 2>);
+	ASSERT_IS_PARSER(Exa1, int, detail::exactly_family, std::array<Output<int>, 3>);
+	ASSERT_IS_PARSER(Exa2, int, detail::exactly_family, std::array<Output<int>, 5>);
+	ASSERT_IS_PARSER(Exa3, int, detail::exactly_family, std::array<Output<int>, 4>);
+	ASSERT_IS_PARSER(Exa4, int, detail::exactly_family, std::array<std::tuple<Output<int>, Output<int>>, 2>);
 }
 
 TEST("Exactly", "Constructibility")

@@ -9,20 +9,20 @@ TEST("Maybe", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(May3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(May4, value_type);
 
-	ASSERT_IS_PARSER(May1, char, MaybeFamily, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May2, char, MaybeFamily, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May3, char, MaybeFamily, std::optional<Output<char>>);
-	ASSERT_IS_PARSER(May4, char, MaybeFamily, std::optional<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(May1, char, detail::maybe_family, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May2, char, detail::maybe_family, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May3, char, detail::maybe_family, std::optional<Output<char>>);
+	ASSERT_IS_PARSER(May4, char, detail::maybe_family, std::optional<std::tuple<Output<char>, Output<char>>>);
 
-	ASSERT_IS_PARSER(May1, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
-	ASSERT_IS_PARSER(May2, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
-	ASSERT_IS_PARSER(May3, wchar_t, MaybeFamily, std::optional<Output<wchar_t>>);
-	ASSERT_IS_PARSER(May4, wchar_t, MaybeFamily, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(May1, wchar_t, detail::maybe_family, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May2, wchar_t, detail::maybe_family, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May3, wchar_t, detail::maybe_family, std::optional<Output<wchar_t>>);
+	ASSERT_IS_PARSER(May4, wchar_t, detail::maybe_family, std::optional<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
 
-	ASSERT_IS_PARSER(May1, int, MaybeFamily, std::optional<Output<int>>);
-	ASSERT_IS_PARSER(May2, int, MaybeFamily, std::optional<Output<int>>);
-	ASSERT_IS_PARSER(May3, int, MaybeFamily, std::optional<Output<int>>);
-	ASSERT_IS_PARSER(May4, int, MaybeFamily, std::optional<std::tuple<Output<int>, Output<int>>>);
+	ASSERT_IS_PARSER(May1, int, detail::maybe_family, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May2, int, detail::maybe_family, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May3, int, detail::maybe_family, std::optional<Output<int>>);
+	ASSERT_IS_PARSER(May4, int, detail::maybe_family, std::optional<std::tuple<Output<int>, Output<int>>>);
 }
 
 TEST("Maybe", "Parse Maybe<AllOf>")

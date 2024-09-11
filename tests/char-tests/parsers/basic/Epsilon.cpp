@@ -6,9 +6,9 @@ TEST("Epsilon", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
-	ASSERT_IS_PARSER(Eps1, char, EpsilonFamily, void);
-	ASSERT_IS_PARSER(Eps1, wchar_t, EpsilonFamily, void);
-	ASSERT_IS_PARSER(Eps1, int, EpsilonFamily, void);
+	ASSERT_IS_PARSER(Eps1, char, detail::epsilon_family, void);
+	ASSERT_IS_PARSER(Eps1, wchar_t, detail::epsilon_family, void);
+	ASSERT_IS_PARSER(Eps1, int, detail::epsilon_family, void);
 }
 
 TEST("Epsilon", "Parse")
@@ -43,21 +43,21 @@ TEST("Epsilon", "Choice<P, Epsilon>")
 	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);
 
-	ASSERT_IS_PARSER(P, char, ChoiceFamily, Output<char>);
+	ASSERT_IS_PARSER(P, char, detail::choice_family, Output<char>);
 	ASSERT_PARSE_SUCCESS(P, "+abc", "+", "abc");
 	ASSERT_PARSE_SUCCESS(P, "++abc", "+", "+abc");
 	ASSERT_PARSE_SUCCESS(P, "-abc", "-", "abc");
 	ASSERT_PARSE_SUCCESS(P, "--abc", "-", "-abc");
 	ASSERT_PARSE_SUCCESS(P, "abc", "", "abc");
 
-	ASSERT_IS_PARSER(P, wchar_t, ChoiceFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(P, wchar_t, detail::choice_family, Output<wchar_t>);
 	ASSERT_PARSE_SUCCESS(P, L"+abc", L"+", L"abc");
 	ASSERT_PARSE_SUCCESS(P, L"++abc", L"+", L"+abc");
 	ASSERT_PARSE_SUCCESS(P, L"-abc", L"-", L"abc");
 	ASSERT_PARSE_SUCCESS(P, L"--abc", L"-", L"-abc");
 	ASSERT_PARSE_SUCCESS(P, L"abc", L"", L"abc");
 
-	ASSERT_IS_PARSER(P, int, ChoiceFamily, Output<int>);
+	ASSERT_IS_PARSER(P, int, detail::choice_family, Output<int>);
 	ASSERT_PARSE_SUCCESS(P, e<int>("+abc"), e<int>("+"), e<int>("abc"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("++abc"), e<int>("+"), e<int>("+abc"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("-abc"), e<int>("-"), e<int>("abc"));

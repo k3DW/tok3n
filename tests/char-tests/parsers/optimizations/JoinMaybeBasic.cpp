@@ -12,17 +12,17 @@ TEST("JoinMaybeBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_May_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_May_OC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_May_NC, char, JoinFamily, Output<char>);
-    ASSERT_IS_PARSER(Joi_May_L, char, JoinFamily, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_OC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_NC, char, detail::join_family, Output<char>);
+    ASSERT_IS_PARSER(Joi_May_L, char, detail::join_family, Output<char>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, JoinFamily, Output<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_L, wchar_t, JoinFamily, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, detail::join_family, Output<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_L, wchar_t, detail::join_family, Output<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_May_NC, int, JoinFamily, Output<int>);
-    ASSERT_IS_PARSER(Joi_May_L, int, JoinFamily, Output<int>);
+    ASSERT_IS_PARSER(Joi_May_OC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_May_NC, int, detail::join_family, Output<int>);
+    ASSERT_IS_PARSER(Joi_May_L, int, detail::join_family, Output<int>);
 }
 
 TEST("JoinMaybeBasic", "Maybe<AnyOf>")

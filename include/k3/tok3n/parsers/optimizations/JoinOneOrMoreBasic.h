@@ -14,7 +14,7 @@ struct Join<OneOrMore<Basic<arr>>>
 	template <detail::equality_comparable_with<value_type> V>
 	using result_for = Output<V>;
 
-	static constexpr ParserFamily family = JoinFamily;
+	static constexpr detail::parser_family family = detail::join_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

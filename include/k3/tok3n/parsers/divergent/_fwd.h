@@ -1,6 +1,7 @@
 #pragma once
 #include <k3/tok3n/types.h>
 #include <k3/tok3n/concepts.h>
+#include <k3/tok3n/detail/parser.h>
 #include <vector>
 
 namespace k3::tok3n {
@@ -23,10 +24,10 @@ namespace detail {
 
 
 
-template <Parser P>
+template <detail::parser P>
 struct Join;
 
-template <Parser P, detail::is_integral_constant FunctionValue>
+template <detail::parser P, detail::is_integral_constant FunctionValue>
 struct Map;
 
 template <class CRTP, class ValueType = char>

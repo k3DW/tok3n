@@ -9,7 +9,7 @@ struct map final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::map;
 
-	template <Parser P>
+	template <k3::tok3n::detail::parser P>
 	constexpr auto operator()(P) const
 	{
 		return Map<P, detail::integral_constant<function>>{};

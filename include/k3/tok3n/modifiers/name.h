@@ -13,7 +13,7 @@ struct name final : k3::tok3n::detail::modifier_base
 
     static constexpr auto Name = str;
 
-    template <Parser P>
+    template <k3::tok3n::detail::parser P>
     constexpr auto operator()(P) const
     {
         return Named<P, str>{};

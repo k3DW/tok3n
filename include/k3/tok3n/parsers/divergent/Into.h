@@ -4,7 +4,7 @@
 
 namespace k3::tok3n::aliases {
 
-template <Parser P, class T>
+template <k3::tok3n::detail::parser P, class T>
 using Into = Map<P, k3::tok3n::detail::integral_constant<detail::construct_function<T>>>;
 
 } // namespace k3::tok3n::aliases

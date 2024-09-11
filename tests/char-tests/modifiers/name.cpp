@@ -26,7 +26,7 @@ TEST("name modifier", "non consteval")
 
 
 
-#define NAME_MODIFIER_ASSERTER(P)                                                            \
+#define NAME_MODIFIER_ASSERTER(P)                                                 \
     ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (Named<P, "test1">{}));      \
     ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (Named<P, "test2">{}));      \
 	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test1">, (Named<P, "test1">{})); \

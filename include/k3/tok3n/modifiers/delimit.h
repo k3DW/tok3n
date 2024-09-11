@@ -8,25 +8,25 @@ struct delimit final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::delimit;
 
-	template <Parser P, ParserCompatibleWith<P> D>
+	template <k3::tok3n::detail::parser P, k3::tok3n::detail::parser_compatible_with<P> D>
 	constexpr auto operator()(P, D) const
 	{
 		return Delimit<P, D, std::false_type>{};
 	}
 
-	template <Parser D>
+	template <k3::tok3n::detail::parser D>
 	struct inner final : k3::tok3n::detail::modifier_base
 	{
 		static constexpr auto family = k3::tok3n::detail::modifier_family::delimit;
 
-		template <ParserCompatibleWith<D> P>
+		template <k3::tok3n::detail::parser_compatible_with<D> P>
 		constexpr auto operator()(P) const
 		{
 			return Delimit<P, D, std::false_type>{};
 		}
 	};
 
-	template <Parser D>
+	template <k3::tok3n::detail::parser D>
 	constexpr auto operator()(D) const
 	{
 		return inner<D>{};

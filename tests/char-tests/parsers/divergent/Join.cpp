@@ -10,23 +10,23 @@ TEST("Join", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Joi4, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Joi5, value_type);
 
-	ASSERT_IS_PARSER(Joi1, char, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi2, char, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi3, char, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi4, char, JoinFamily, Output<char>);
-	ASSERT_IS_PARSER(Joi5, char, JoinFamily, Output<char>);
+	ASSERT_IS_PARSER(Joi1, char, detail::join_family, Output<char>);
+	ASSERT_IS_PARSER(Joi2, char, detail::join_family, Output<char>);
+	ASSERT_IS_PARSER(Joi3, char, detail::join_family, Output<char>);
+	ASSERT_IS_PARSER(Joi4, char, detail::join_family, Output<char>);
+	ASSERT_IS_PARSER(Joi5, char, detail::join_family, Output<char>);
 
-	ASSERT_IS_PARSER(Joi1, wchar_t, JoinFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Joi2, wchar_t, JoinFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Joi3, wchar_t, JoinFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Joi4, wchar_t, JoinFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Joi5, wchar_t, JoinFamily, Output<wchar_t>);
+	ASSERT_IS_PARSER(Joi1, wchar_t, detail::join_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Joi2, wchar_t, detail::join_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Joi3, wchar_t, detail::join_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Joi4, wchar_t, detail::join_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Joi5, wchar_t, detail::join_family, Output<wchar_t>);
 
-	ASSERT_IS_PARSER(Joi1, int, JoinFamily, Output<int>);
-	ASSERT_IS_PARSER(Joi2, int, JoinFamily, Output<int>);
-	ASSERT_IS_PARSER(Joi3, int, JoinFamily, Output<int>);
-	ASSERT_IS_PARSER(Joi4, int, JoinFamily, Output<int>);
-	ASSERT_IS_PARSER(Joi5, int, JoinFamily, Output<int>);
+	ASSERT_IS_PARSER(Joi1, int, detail::join_family, Output<int>);
+	ASSERT_IS_PARSER(Joi2, int, detail::join_family, Output<int>);
+	ASSERT_IS_PARSER(Joi3, int, detail::join_family, Output<int>);
+	ASSERT_IS_PARSER(Joi4, int, detail::join_family, Output<int>);
+	ASSERT_IS_PARSER(Joi5, int, detail::join_family, Output<int>);
 }
 
 TEST("Join", "Parse all")
@@ -334,9 +334,9 @@ TEST("Join", "Join<Sequence<Choice<non-eps,eps>, anything>>")
 {
 	auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
 	using Seq = decltype(seq);
-	ASSERT_IS_PARSER(Seq, char, SequenceFamily, std::tuple<Output<char>,Output<char>>);
-	ASSERT_IS_PARSER(Seq, wchar_t, SequenceFamily, std::tuple<Output<wchar_t>,Output<wchar_t>>);
-	ASSERT_IS_PARSER(Seq, int, SequenceFamily, std::tuple<Output<int>,Output<int>>);
+	ASSERT_IS_PARSER(Seq, char, detail::sequence_family, std::tuple<Output<char>,Output<char>>);
+	ASSERT_IS_PARSER(Seq, wchar_t, detail::sequence_family, std::tuple<Output<wchar_t>,Output<wchar_t>>);
+	ASSERT_IS_PARSER(Seq, int, detail::sequence_family, std::tuple<Output<int>,Output<int>>);
 
 	using P = Join<Seq>;
 

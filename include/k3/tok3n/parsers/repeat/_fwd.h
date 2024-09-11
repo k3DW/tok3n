@@ -6,20 +6,20 @@
 
 namespace k3::tok3n {
 
-template <Parser P>
+template <detail::parser P>
 struct Maybe;
 
-template <Parser P, detail::integral_constant_of<std::size_t> N>
+template <detail::parser P, detail::integral_constant_of<std::size_t> N>
 requires (N::value != 0)
 struct Exactly;
 
-template <Parser P>
+template <detail::parser P>
 struct OneOrMore;
 
-template <Parser P>
+template <detail::parser P>
 struct ZeroOrMore;
 
-template <Parser P, ParserCompatibleWith<P> D, detail::integral_constant_of<bool> KeepDelimiters>
+template <detail::parser P, detail::parser_compatible_with<P> D, detail::integral_constant_of<bool> KeepDelimiters>
 struct Delimit;
 
 

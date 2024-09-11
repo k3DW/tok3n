@@ -25,8 +25,8 @@ TEST("apply modifier", "non consteval")
 
 
 
-#define APPLY_MODIFIER_ASSERTER(P)                                                                                                    \
-	[]<Parser PP>(PP) {                                                                                                               \
+#define APPLY_MODIFIER_ASSERTER(P)                                                                                                     \
+	[]<detail::parser PP>(PP) {                                                                                                        \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(apply<sink_func>, (PP{}), (aliases::ApplyMap<PP, detail::integral_constant<sink_func>>{}),      \
 									   apply<sink_func>, (P{}),  (aliases::ApplyMap<P, detail::integral_constant<sink_func>>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply<sink_func>, (aliases::ApplyMap<PP, detail::integral_constant<sink_func>>{}), \

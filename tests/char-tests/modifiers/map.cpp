@@ -29,8 +29,8 @@ TEST("map modifier", "non consteval")
 
 
 
-#define FN_MODIFIER_ASSERTER(P)                                                                                       \
-	[]<Parser PP>(PP) {                                                                                               \
+#define FN_MODIFIER_ASSERTER(P)                                                                                        \
+	[]<detail::parser PP>(PP) {                                                                                        \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(map<sink_func>, (PP{}), (Map<PP, detail::integral_constant<sink_func>>{}),      \
 			                           map<sink_func>, (P{}),  (Map<P, detail::integral_constant<sink_func>>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, map<sink_func>, (Map<PP, detail::integral_constant<sink_func>>{}), \

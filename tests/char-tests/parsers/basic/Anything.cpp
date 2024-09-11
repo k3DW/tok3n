@@ -6,9 +6,9 @@ TEST("Anything", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
-	ASSERT_IS_PARSER(Ant1, char, AnythingFamily, Output<char>);
-	ASSERT_IS_PARSER(Ant1, wchar_t, AnythingFamily, Output<wchar_t>);
-	ASSERT_IS_PARSER(Ant1, int, AnythingFamily, Output<int>);
+	ASSERT_IS_PARSER(Ant1, char, detail::anything_family, Output<char>);
+	ASSERT_IS_PARSER(Ant1, wchar_t, detail::anything_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Ant1, int, detail::anything_family, Output<int>);
 }
 
 TEST("Anything", "Parse")

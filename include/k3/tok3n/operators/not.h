@@ -16,7 +16,7 @@ constexpr auto operator!(NoneOf<arr>)
 	return AnyOf<arr>{};
 }
 
-template <Parser P>
+template <detail::parser P>
 constexpr auto operator!(P) = delete;
 
 } // namespace k3::tok3n

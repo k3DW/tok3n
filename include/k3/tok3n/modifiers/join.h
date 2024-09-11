@@ -8,10 +8,10 @@ struct join final : k3::tok3n::detail::modifier_base
 {
 	static constexpr auto family = k3::tok3n::detail::modifier_family::join;
 
-	template <Parser P>
+	template <k3::tok3n::detail::parser P>
 	constexpr auto operator()(P) const
 	{
-		if constexpr (P::family == JoinFamily)
+		if constexpr (P::family == detail::join_family)
 			return P{};
 		else
 			return Join<P>{};

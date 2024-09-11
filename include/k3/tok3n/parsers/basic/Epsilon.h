@@ -11,7 +11,7 @@ struct Epsilon
 	template <detail::equality_comparable_with<value_type> V>
 	using result_for = detail::front<void, V>;
 
-	static constexpr ParserFamily family = EpsilonFamily;
+	static constexpr detail::parser_family family = detail::epsilon_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

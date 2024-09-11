@@ -143,38 +143,38 @@ consteval auto choice(NoneOf<lhs>, AnyOf<rhs>) // !"ab" |  "bc" == "a"      <- s
 	return NoneOf<merged_with<SetDifferenceLeft, lhs, rhs>()>{};
 }
 
-template <Parser... P1s, Parser... P2s>
-requires ParserCompatibleWith<Choice<P1s...>, Choice<P2s...>>
+template <k3::tok3n::detail::parser... P1s, k3::tok3n::detail::parser... P2s>
+requires k3::tok3n::detail::parser_compatible_with<Choice<P1s...>, Choice<P2s...>>
 consteval auto choice(Choice<P1s...>, Choice<P2s...>) // (P1 | P2) | (P3 | P4) == (P1 | P2 | P3 | P4)
 {
 	return Choice<P1s..., P2s...>{};
 }
 
-template <Parser... Ps>
+template <k3::tok3n::detail::parser... Ps>
 consteval auto choice(Choice<Ps...>, Choice<Ps...>) // (P | P) == P
 {
 	return Choice<Ps...>{};
 }
 
-template <Parser P2, ParserCompatibleWith<P2>... P1s>
+template <k3::tok3n::detail::parser P2, k3::tok3n::detail::parser_compatible_with<P2>... P1s>
 consteval auto choice(Choice<P1s...>, P2) // (P1 | P2) | P3 == (P1 | P2 | P3)
 {
 	return Choice<P1s..., P2>{};
 }
 
-template <Parser P1, ParserCompatibleWith<P1>... P2s>
+template <k3::tok3n::detail::parser P1, k3::tok3n::detail::parser_compatible_with<P1>... P2s>
 consteval auto choice(P1, Choice<P2s...>) // P1 | (P2 | P3) == (P1 | P2 | P3)
 {
 	return Choice<P1, P2s...>{};
 }
 
-template <Parser P1, ParserCompatibleWith<P1> P2>
+template <k3::tok3n::detail::parser P1, k3::tok3n::detail::parser_compatible_with<P1> P2>
 consteval auto choice(P1, P2) // default
 {
 	return Choice<P1, P2>{};
 }
 
-template <Parser P>
+template <k3::tok3n::detail::parser P>
 consteval auto choice(P, P) // (P | P) == P
 {
 	return P{};
@@ -184,7 +184,7 @@ consteval auto choice(P, P) // (P | P) == P
 
 namespace k3::tok3n {
 
-template <Parser P1, ParserCompatibleWith<P1> P2>
+template <k3::tok3n::detail::parser P1, k3::tok3n::detail::parser_compatible_with<P1> P2>
 constexpr auto operator|(P1, P2)
 {
 	return operators_impl::choice(P1{}, P2{});

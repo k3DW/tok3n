@@ -7,14 +7,14 @@ TEST("Custom", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Cus1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Cus2, value_type);
 
-	ASSERT_IS_PARSER(Cus1, char, CustomFamily, std::size_t);
-	ASSERT_IS_PARSER(Cus2, char, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus1, char, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, char, detail::custom_family, std::size_t);
 
-	ASSERT_IS_PARSER(Cus1, wchar_t, CustomFamily, std::size_t);
-	ASSERT_IS_PARSER(Cus2, wchar_t, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus1, wchar_t, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, wchar_t, detail::custom_family, std::size_t);
 
-	ASSERT_IS_PARSER(Cus1, int, CustomFamily, std::size_t);
-	ASSERT_IS_PARSER(Cus2, int, CustomFamily, std::size_t);
+	ASSERT_IS_PARSER(Cus1, int, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, int, detail::custom_family, std::size_t);
 }
 
 TEST("Custom", "Parse Cus1")

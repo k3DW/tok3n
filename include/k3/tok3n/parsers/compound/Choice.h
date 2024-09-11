@@ -14,7 +14,7 @@ namespace detail
 	{
 		Input<ValueType> input;
 
-		template <Parser P, std::size_t I, bool unwrapped>
+		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute()
 		{
 			if constexpr (I == -1)
@@ -23,7 +23,7 @@ namespace detail
 				return execute_element<P, I, unwrapped>();
 		}
 
-		template <Parser P>
+		template <parser P>
 		constexpr bool execute_lookahead()
 		{
 			auto result = P::lookahead(input);
@@ -31,7 +31,7 @@ namespace detail
 			return result.has_value();
 		}
 
-		template <Parser P, std::size_t I, bool unwrapped>
+		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute_element()
 		{
 			auto result = P::parse(input);
@@ -54,7 +54,7 @@ namespace detail
 
 } // namespace detail
 
-template <Parser... Ps>
+template <detail::parser... Ps>
 requires ChoiceConstructible<Ps...>
 struct Choice
 {
@@ -71,7 +71,7 @@ struct Choice
 		detail::change_list<typename _trait<V>::type, std::variant>
 	>::type;
 
-	static constexpr ParserFamily family = ChoiceFamily;
+	static constexpr detail::parser_family family = detail::choice_family;
 
 	template <InputConstructibleFor<value_type> R>
 	static constexpr auto parse(R&& r)

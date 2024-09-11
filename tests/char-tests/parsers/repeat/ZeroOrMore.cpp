@@ -9,20 +9,20 @@ TEST("ZeroOrMore", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Zom3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Zom4, value_type);
 
-	ASSERT_IS_PARSER(Zom1, char, ZeroOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom2, char, ZeroOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom3, char, ZeroOrMoreFamily, std::vector<Output<char>>);
-	ASSERT_IS_PARSER(Zom4, char, ZeroOrMoreFamily, std::vector<std::tuple<Output<char>, Output<char>>>);
+	ASSERT_IS_PARSER(Zom1, char, detail::zero_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom2, char, detail::zero_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom3, char, detail::zero_or_more_family, std::vector<Output<char>>);
+	ASSERT_IS_PARSER(Zom4, char, detail::zero_or_more_family, std::vector<std::tuple<Output<char>, Output<char>>>);
 
-	ASSERT_IS_PARSER(Zom1, wchar_t, ZeroOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Zom2, wchar_t, ZeroOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Zom3, wchar_t, ZeroOrMoreFamily, std::vector<Output<wchar_t>>);
-	ASSERT_IS_PARSER(Zom4, wchar_t, ZeroOrMoreFamily, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
+	ASSERT_IS_PARSER(Zom1, wchar_t, detail::zero_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Zom2, wchar_t, detail::zero_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Zom3, wchar_t, detail::zero_or_more_family, std::vector<Output<wchar_t>>);
+	ASSERT_IS_PARSER(Zom4, wchar_t, detail::zero_or_more_family, std::vector<std::tuple<Output<wchar_t>, Output<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Zom1, int, ZeroOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Zom2, int, ZeroOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Zom3, int, ZeroOrMoreFamily, std::vector<Output<int>>);
-	ASSERT_IS_PARSER(Zom4, int, ZeroOrMoreFamily, std::vector<std::tuple<Output<int>, Output<int>>>);
+	ASSERT_IS_PARSER(Zom1, int, detail::zero_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Zom2, int, detail::zero_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Zom3, int, detail::zero_or_more_family, std::vector<Output<int>>);
+	ASSERT_IS_PARSER(Zom4, int, detail::zero_or_more_family, std::vector<std::tuple<Output<int>, Output<int>>>);
 }
 
 TEST("ZeroOrMore", "Parse ZeroOrMore<AllOf>")
