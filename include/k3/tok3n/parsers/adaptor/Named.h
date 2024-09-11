@@ -5,7 +5,7 @@
 
 namespace k3::tok3n {
 
-template <detail::parser P, StaticArray str>
+template <detail::parser P, detail::static_array str>
 struct Named
 {
 	using value_type = typename P::value_type;

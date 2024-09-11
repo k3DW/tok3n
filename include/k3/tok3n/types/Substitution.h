@@ -1,10 +1,10 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/types/StaticArray.h>
+#include <k3/tok3n/detail/static_array.h>
 
 namespace k3::tok3n {
 
-template <StaticArray Name, detail::modifier Mod>
+template <detail::static_array Name, detail::modifier Mod>
 struct Substitution
 {
     static constexpr auto name = Name;
@@ -21,7 +21,7 @@ template <class T>
 inline constexpr bool is_substitution_v<T&> = is_substitution_v<T>;
 template <class T>
 inline constexpr bool is_substitution_v<T&&> = is_substitution_v<T>;
-template <StaticArray Name, detail::modifier Mod>
+template <static_array Name, detail::modifier Mod>
 inline constexpr bool is_substitution_v<Substitution<Name, Mod>> = true;
 
 } // namespace detail

@@ -4,7 +4,7 @@
 
 namespace k3::tok3n {
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires NoneOfConstructible<arr>
 struct BasicTraits<NoneOf<arr>>
 {
@@ -19,7 +19,7 @@ struct BasicTraits<NoneOf<arr>>
 	}
 };
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires NoneOfConstructible<arr>
 struct NoneOf : BasicBase<NoneOf<arr>>
 {

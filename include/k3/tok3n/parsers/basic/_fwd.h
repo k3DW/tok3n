@@ -5,23 +5,23 @@
 
 namespace k3::tok3n {
 
-template <StaticArray arr>
-concept AnyOfConstructible = detail::SortedAndUniqued<arr>;
+template <detail::static_array arr>
+concept AnyOfConstructible = detail::is_sorted_and_uniqued(arr.span());
 
-template <StaticArray arr>
-concept NoneOfConstructible = detail::SortedAndUniqued<arr>;
+template <detail::static_array arr>
+concept NoneOfConstructible = detail::is_sorted_and_uniqued(arr.span());
 
 
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires AnyOfConstructible<arr>
 struct AnyOf;
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires NoneOfConstructible<arr>
 struct NoneOf;
 
-template <StaticArray arr>
+template <detail::static_array arr>
 struct AllOf;
 
 template <class ValueType>

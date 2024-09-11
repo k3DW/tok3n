@@ -1,11 +1,11 @@
 #pragma once
 #include "framework/Assert.h"
-#include <k3/tok3n/types/StaticArray.h>
+#include <k3/tok3n/detail/static_array.h>
 
 template <template <class...> class Family, class... Args>
 concept constructible_from = requires { typename Family<Args...>; };
 
-template <template <k3::tok3n::StaticArray> class Family, k3::tok3n::StaticArray arr>
+template <template <k3::tok3n::detail::static_array> class Family, k3::tok3n::detail::static_array arr>
 concept basic_constructible_from = requires { typename Family<arr>; };
 
 #define ASSERT_PARSER_CONSTRUCTIBLE(FAMILY, ...)                                          \

@@ -4,7 +4,7 @@
 
 namespace k3::tok3n {
 
-template <StaticArray arr>
+template <detail::static_array arr>
 struct BasicTraits<AllOf<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
@@ -18,7 +18,7 @@ struct BasicTraits<AllOf<arr>>
 	}
 };
 
-template <StaticArray arr>
+template <detail::static_array arr>
 struct AllOf : BasicBase<AllOf<arr>>
 {
 	static constexpr detail::parser_family family = detail::all_of_family;

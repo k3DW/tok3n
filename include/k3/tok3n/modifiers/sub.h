@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/types/StaticArray.h>
+#include <k3/tok3n/detail/static_array.h>
 #include <k3/tok3n/types/Substitution.h>
 #include <k3/tok3n/parsers/adaptor/Named.h>
 #include <k3/tok3n/modifiers/name.h>
@@ -14,12 +14,12 @@ requires (not k3::tok3n::detail::parser<T>)
 constexpr auto SubstituteOne(T, Sub)
 	-> T;
 
-template <template <StaticArray> class Basic, StaticArray arr, IsSubstitution Sub>
+template <template <k3::tok3n::detail::static_array> class Basic, k3::tok3n::detail::static_array arr, IsSubstitution Sub>
 requires k3::tok3n::detail::parser<Basic<arr>>
 constexpr auto SubstituteOne(Basic<arr>, Sub)
 	-> Basic<arr>;
 
-template <k3::tok3n::detail::parser P, StaticArray str, IsSubstitution Sub>
+template <k3::tok3n::detail::parser P, k3::tok3n::detail::static_array str, IsSubstitution Sub>
 constexpr k3::tok3n::detail::parser auto SubstituteOne(Named<P, str>, Sub);
 
 template <template <class...> class Template, class... Args, IsSubstitution Sub>
@@ -29,7 +29,7 @@ constexpr k3::tok3n::detail::parser auto SubstituteOne(Template<Args...>, Sub)
 	return Template<decltype(SubstituteOne(Args{}, Sub{}))...>{};
 }
 
-template <k3::tok3n::detail::parser P, StaticArray str, IsSubstitution Sub>
+template <k3::tok3n::detail::parser P, k3::tok3n::detail::static_array str, IsSubstitution Sub>
 constexpr k3::tok3n::detail::parser auto SubstituteOne(Named<P, str>, Sub)
 {
 	using InnerSubbed = decltype(SubstituteOne(P{}, Sub{}));

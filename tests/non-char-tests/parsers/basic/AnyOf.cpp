@@ -1,10 +1,10 @@
 #include "samples.h"
 
-using Single = AnyOf<StaticArray(A)>;
+using Single = AnyOf<detail::static_array(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-using Multi  = AnyOf<StaticArray(A, C)>;
+using Multi  = AnyOf<detail::static_array(A, C)>;
 #else
-using Multi  = AnyOf<StaticArray(A, B, C)>;
+using Multi  = AnyOf<detail::static_array(A, B, C)>;
 #endif
 
 FIXTURE("AnyOf");
@@ -48,24 +48,24 @@ TEST("AnyOf", "Parse multi")
 TEST("AnyOf", "Constructible from lexicographically sorted only")
 {
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, StaticArray(A, C));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(C, A));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, B, C));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, detail::static_array(A, C));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(C, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(A, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(A, B, C));
 #else
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, StaticArray(A, B, C));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, detail::static_array(A, B, C));
 #endif
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(A, C, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(B, A, C));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(B, C, A));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(C, A, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, StaticArray(C, B, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(A, C, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(B, A, C));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(B, C, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(C, A, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, detail::static_array(C, B, A));
 }
 
 TEST("AnyOf", "Parse")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, L"");
 	
-	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<value_type, 0>{})>, e(A, B, C));
-	ASSERT_PARSE_FAILURE(AnyOf<(StaticArray<value_type, 0>{})>, e());
+	ASSERT_PARSE_FAILURE(AnyOf<(detail::static_array<value_type, 0>{})>, e(A, B, C));
+	ASSERT_PARSE_FAILURE(AnyOf<(detail::static_array<value_type, 0>{})>, e());
 }

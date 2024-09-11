@@ -4,7 +4,7 @@
 
 namespace k3::tok3n {
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires AnyOfConstructible<arr>
 struct BasicTraits<AnyOf<arr>>
 {
@@ -19,7 +19,7 @@ struct BasicTraits<AnyOf<arr>>
 	}
 };
 
-template <StaticArray arr>
+template <detail::static_array arr>
 requires AnyOfConstructible<arr>
 struct AnyOf : BasicBase<AnyOf<arr>>
 {

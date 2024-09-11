@@ -1,6 +1,6 @@
 #include "samples.h"
 
-using L = AllOf<StaticArray(X, Y, Z)>;
+using L = AllOf<detail::static_array(X, Y, Z)>;
 
 FIXTURE("AllOf");
 
@@ -23,6 +23,6 @@ TEST("AllOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, e());
 
-	ASSERT_PARSE_SUCCESS(AllOf<(StaticArray<value_type, 0>{})>, e(A, B, C), e(), e(A, B, C));
-	ASSERT_PARSE_SUCCESS(AllOf<(StaticArray<value_type, 0>{})>, e(), e(), e());
+	ASSERT_PARSE_SUCCESS(AllOf<(detail::static_array<value_type, 0>{})>, e(A, B, C), e(), e(A, B, C));
+	ASSERT_PARSE_SUCCESS(AllOf<(detail::static_array<value_type, 0>{})>, e(), e(), e());
 }

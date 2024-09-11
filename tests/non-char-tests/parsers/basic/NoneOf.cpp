@@ -1,10 +1,10 @@
 #include "samples.h"
 
-using Single = NoneOf<StaticArray(A)>;
+using Single = NoneOf<detail::static_array(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-using Multi  = NoneOf<StaticArray(A, C)>;
+using Multi  = NoneOf<detail::static_array(A, C)>;
 #else
-using Multi  = NoneOf<StaticArray(A, B, C)>;
+using Multi  = NoneOf<detail::static_array(A, B, C)>;
 #endif
 
 FIXTURE("NoneOf");
@@ -48,24 +48,24 @@ TEST("NoneOf", "Parse multi")
 TEST("NoneOf", "Constructible from lexicographically sorted only")
 {
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, StaticArray(A, C));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(C, A));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, B, C));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, detail::static_array(A, C));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(C, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(A, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(A, B, C));
 #else
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, StaticArray(A, B, C));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, detail::static_array(A, B, C));
 #endif
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(A, C, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(B, A, C));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(B, C, A));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(C, A, B));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, StaticArray(C, B, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(A, C, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(B, A, C));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(B, C, A));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(C, A, B));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(NoneOf, detail::static_array(C, B, A));
 }
 
 TEST("NoneOf", "Parse empty")
 {
 	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(NoneOf, L"");
 
-	ASSERT_PARSE_SUCCESS(NoneOf<(StaticArray<value_type, 0>{})>, e(A, B, C), e(A), e(B, C));
-	ASSERT_PARSE_FAILURE(NoneOf<(StaticArray<value_type, 0>{})>, e());
+	ASSERT_PARSE_SUCCESS(NoneOf<(detail::static_array<value_type, 0>{})>, e(A, B, C), e(A), e(B, C));
+	ASSERT_PARSE_FAILURE(NoneOf<(detail::static_array<value_type, 0>{})>, e());
 }

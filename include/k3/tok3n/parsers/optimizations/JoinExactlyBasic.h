@@ -6,7 +6,7 @@
 
 namespace k3::tok3n {
 
-template <template <StaticArray> class Basic, StaticArray arr, detail::integral_constant_of<std::size_t> N>
+template <template <detail::static_array> class Basic, detail::static_array arr, detail::integral_constant_of<std::size_t> N>
 struct Join<Exactly<Basic<arr>, N>>
 {
 	using value_type = typename Basic<arr>::value_type;

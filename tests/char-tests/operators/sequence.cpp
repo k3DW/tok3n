@@ -73,8 +73,8 @@ TEST("sequence operator", "non consteval")
 
 namespace {
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <detail::static_array lhs, detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 constexpr auto combine_strings = []
 {
 	auto str = lhs.template create_empty_with_size<lhs.size() + rhs.size()>();
