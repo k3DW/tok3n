@@ -1,7 +1,6 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 
 namespace k3::tok3n {
 
@@ -15,30 +14,30 @@ struct Complete
 
 	static constexpr detail::parser_family family = detail::complete_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		auto result = P::parse(input);
-		if (not result.has_value() or not result.remaining().empty())
-			return Result<result_for<V>, V>{ failure, input };
+		auto res = P::parse(input);
+		if (not res.has_value() or not res.remaining().empty())
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 		else
-			return result;
+			return res;
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		auto result = P::lookahead(input);
-		if (not result.has_value() or not result.remaining().empty())
-			return Result<void, V>{ failure, input };
+		auto res = P::lookahead(input);
+		if (not res.has_value() or not res.remaining().empty())
+			return detail::result<void, V>{ detail::failure_tag, input };
 		else
-			return result;
+			return res;
 	}
 };
 

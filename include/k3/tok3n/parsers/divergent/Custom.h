@@ -1,5 +1,7 @@
 #pragma once
-#include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 
 namespace k3::tok3n {
 
@@ -21,7 +23,7 @@ namespace detail {
 
 } // namespace detail
 
-template <class CRTP, class ValueType>
+template <class CRTP, class ValueType = char>
 struct Custom
 {
 	using value_type = ValueType;
@@ -32,16 +34,16 @@ struct Custom
 
 	static constexpr detail::parser_family family = detail::custom_family;
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = InputValueType<R>>
-	static constexpr Result<typename P::template result_for<V>, V> parse(R&& r)
+	template <detail::input_constructible_for<value_type> R, std::same_as<CRTP> P = CRTP, class V = detail::input_value_t<R>>
+	static constexpr detail::result<typename P::template result_for<V>, V> parse(R&& r)
 	{
 		static_assert(requires { { P::get_parser() } -> detail::parser; }, "Custom parser requires a `get_parser()` function");
 		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
 		return decltype(P::get_parser())::parse(std::forward<R>(r));
 	}
 
-	template <InputConstructibleFor<value_type> R, std::same_as<CRTP> P = CRTP, class V = InputValueType<R>>
-	static constexpr Result<void, V> lookahead(R&& r)
+	template <detail::input_constructible_for<value_type> R, std::same_as<CRTP> P = CRTP, class V = detail::input_value_t<R>>
+	static constexpr detail::result<void, V> lookahead(R&& r)
 	{
 		static_assert(requires { { P::get_parser() } -> detail::parser; }, "Custom parser requires a `get_parser()` function");
 		static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);

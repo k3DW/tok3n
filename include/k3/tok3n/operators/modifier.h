@@ -15,7 +15,7 @@ template <std::size_t N> inline constexpr auto exactly      = modifiers::exactly
 template <class T>       inline constexpr auto into         = modifiers::into<T>{};
                          inline constexpr auto join         = modifiers::join{};
 template <auto function> inline constexpr auto map           = modifiers::map<function>{};
-template <StaticArray s> inline constexpr auto name         = modifiers::name<s>{};
+template <detail::static_array s> inline constexpr auto name         = modifiers::name<s>{};
                          inline constexpr auto sub          = modifiers::sub{};
 
 constexpr auto operator%(detail::parser auto p, detail::modifier auto modifier)

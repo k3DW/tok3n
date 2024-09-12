@@ -1,8 +1,8 @@
 #pragma once
 #include <k3/tok3n/detail/parser.h>
-#include <k3/tok3n/types/StaticArray.h>
+#include <k3/tok3n/detail/static_array.h>
 
-template <template <auto> class ParserTemplate, k3::tok3n::StaticArray arr>
+template <template <auto> class ParserTemplate, k3::tok3n::detail::static_array arr>
 consteval auto underlying_impl(ParserTemplate<arr>)
 {
 	return arr;

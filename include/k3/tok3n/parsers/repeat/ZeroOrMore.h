@@ -1,5 +1,8 @@
 #pragma once
-#include <k3/tok3n/parsers/repeat/_fwd.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
+#include <vector>
 
 namespace k3::tok3n {
 
@@ -17,41 +20,41 @@ struct ZeroOrMore
 
 	static constexpr detail::parser_family family = detail::zero_or_more_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		detail::ResultBuilder<result_for<V>> builder;
+		detail::result_builder<result_for<V>> builder;
 
 		while (true)
 		{
-			auto result = P::parse(input);
-			input = result.remaining();
-			if (not result.has_value())
+			auto res = P::parse(input);
+			input = res.remaining();
+			if (not res.has_value())
 				break;
-			builder.insert_back(std::move(result));
+			builder.insert_back(std::move(res));
 		}
 
-		return std::move(builder).success(input);
+		return std::move(builder).build(input);
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		while (true)
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			if (not result.has_value())
+			auto res = P::lookahead(input);
+			input = res.remaining();
+			if (not res.has_value())
 				break;
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

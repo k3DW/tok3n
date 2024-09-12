@@ -118,8 +118,8 @@ constexpr bool operator&(OpType lhs, OpType rhs)
 	return 0 != (static_cast<int>(lhs) & static_cast<int>(rhs));
 }
 
-template <StaticArray lhs, StaticArray rhs, OpType type>
-requires LikeStaticArrays<lhs, rhs>
+template <detail::static_array lhs, detail::static_array rhs, OpType type>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 constexpr auto set_operation_impl(auto func)
 {
 	auto do_if = [&func](auto val, OpType test_type)
@@ -155,10 +155,10 @@ constexpr auto set_operation_impl(auto func)
 	}
 }
 
-template <StaticArray lhs, StaticArray rhs>
-concept usable_in_set_operations = LikeStaticArrays<lhs, rhs> and detail::SortedAndUniqued<lhs> and detail::SortedAndUniqued<rhs>;
+template <detail::static_array lhs, detail::static_array rhs>
+concept usable_in_set_operations = decltype(detail::like_static_arrays(lhs, rhs))::value and detail::is_sorted_and_uniqued(lhs.span()) and detail::is_sorted_and_uniqued(rhs.span());
 
-template <StaticArray lhs, StaticArray rhs, OpType type>
+template <detail::static_array lhs, detail::static_array rhs, OpType type>
 requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_operation_general()
 {
@@ -174,19 +174,19 @@ constexpr auto set_operation_general()
 	return str;
 }
 
-template <StaticArray lhs, StaticArray rhs>
+template <detail::static_array lhs, detail::static_array rhs>
 requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_union_string = set_operation_general<lhs, rhs, OpType::set_union>();
 
-template <StaticArray lhs, StaticArray rhs>
+template <detail::static_array lhs, detail::static_array rhs>
 requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_intersection_string = set_operation_general<lhs, rhs, OpType::set_intersection>();
 
-template <StaticArray lhs, StaticArray rhs>
+template <detail::static_array lhs, detail::static_array rhs>
 requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_difference_left_string = set_operation_general<lhs, rhs, OpType::set_difference_left>();
 
-template <StaticArray lhs, StaticArray rhs>
+template <detail::static_array lhs, detail::static_array rhs>
 requires usable_in_set_operations<lhs, rhs>
 constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpType::set_difference_right>();
 

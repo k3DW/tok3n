@@ -43,21 +43,21 @@ TEST("Epsilon", "Choice<P, Epsilon>")
 	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);
 
-	ASSERT_IS_PARSER(P, char, detail::choice_family, Output<char>);
+	ASSERT_IS_PARSER(P, char, detail::choice_family, detail::output_span<char>);
 	ASSERT_PARSE_SUCCESS(P, "+abc", "+", "abc");
 	ASSERT_PARSE_SUCCESS(P, "++abc", "+", "+abc");
 	ASSERT_PARSE_SUCCESS(P, "-abc", "-", "abc");
 	ASSERT_PARSE_SUCCESS(P, "--abc", "-", "-abc");
 	ASSERT_PARSE_SUCCESS(P, "abc", "", "abc");
 
-	ASSERT_IS_PARSER(P, wchar_t, detail::choice_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(P, wchar_t, detail::choice_family, detail::output_span<wchar_t>);
 	ASSERT_PARSE_SUCCESS(P, L"+abc", L"+", L"abc");
 	ASSERT_PARSE_SUCCESS(P, L"++abc", L"+", L"+abc");
 	ASSERT_PARSE_SUCCESS(P, L"-abc", L"-", L"abc");
 	ASSERT_PARSE_SUCCESS(P, L"--abc", L"-", L"-abc");
 	ASSERT_PARSE_SUCCESS(P, L"abc", L"", L"abc");
 
-	ASSERT_IS_PARSER(P, int, detail::choice_family, Output<int>);
+	ASSERT_IS_PARSER(P, int, detail::choice_family, detail::output_span<int>);
 	ASSERT_PARSE_SUCCESS(P, e<int>("+abc"), e<int>("+"), e<int>("abc"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("++abc"), e<int>("+"), e<int>("+abc"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("-abc"), e<int>("-"), e<int>("abc"));

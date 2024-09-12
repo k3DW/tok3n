@@ -4,8 +4,8 @@
 
 namespace k3::tok3n::operators_impl {
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <k3::tok3n::detail::static_array lhs, k3::tok3n::detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 consteval auto sequence(AllOf<lhs>, AllOf<rhs>) { return AllOf<lhs + rhs>{}; } // "ab" >> "cd" == "abcd"
 
 template <k3::tok3n::detail::parser... P1s, k3::tok3n::detail::parser... P2s>

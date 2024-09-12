@@ -37,7 +37,7 @@ template <SetOperationType type>
 struct SetOperation
 {
 	template <class T, std::size_t M, std::size_t N, class It>
-	constexpr void operator()(const StaticArray<T, M>& lhs, const StaticArray<T, N> rhs, It it)
+	constexpr void operator()(const k3::tok3n::detail::static_array<T, M>& lhs, const k3::tok3n::detail::static_array<T, N> rhs, It it)
 	{
 		using enum SetOperationType;
 
@@ -75,8 +75,8 @@ using SetIntersection    = SetOperation<SetOperationType::set_intersection>;
 using SetDifferenceLeft  = SetOperation<SetOperationType::set_difference_left>;
 using SetDifferenceRight = SetOperation<SetOperationType::set_difference_right>;
 
-template <class Op, StaticArray str1, StaticArray str2>
-requires LikeStaticArrays<str1, str2>
+template <class Op, k3::tok3n::detail::static_array str1, k3::tok3n::detail::static_array str2>
+requires decltype(detail::like_static_arrays(str1, str2))::value
 consteval auto merged_with()
 {
 	constexpr auto size = []
@@ -91,53 +91,53 @@ consteval auto merged_with()
 	return str;
 }
 
-template <StaticArray arr>
+template <k3::tok3n::detail::static_array arr>
 consteval auto choice(AnyOf<arr>, AnyOf<arr>) // (P | P) == P
 {
 	return AnyOf<arr>{};
 }
 
-template <StaticArray arr>
+template <k3::tok3n::detail::static_array arr>
 consteval auto choice(NoneOf<arr>, NoneOf<arr>) // (P | P) == P
 {
 	return NoneOf<arr>{};
 }
 
-template <StaticArray arr>
+template <k3::tok3n::detail::static_array arr>
 consteval auto choice(AnyOf<arr>, NoneOf<arr>) // Anything
 {
 	return NoneOf<arr.template create_empty_with_size<0>()>{};
 }
 
-template <StaticArray arr>
+template <k3::tok3n::detail::static_array arr>
 consteval auto choice(NoneOf<arr>, AnyOf<arr>) // Anything
 {
 	return NoneOf<arr.template create_empty_with_size<0>()>{};
 }
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <k3::tok3n::detail::static_array lhs, k3::tok3n::detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 consteval auto choice(AnyOf<lhs>, AnyOf<rhs>) //  "ab" |  "bc" == "abc"    <- set_union
 {
 	return AnyOf<merged_with<SetUnion, lhs, rhs>()>{};
 }
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <k3::tok3n::detail::static_array lhs, k3::tok3n::detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 consteval auto choice(NoneOf<lhs>, NoneOf<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
 {
 	return NoneOf<merged_with<SetIntersection, lhs, rhs>()>{};
 }
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <k3::tok3n::detail::static_array lhs, k3::tok3n::detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 consteval auto choice(AnyOf<lhs>, NoneOf<rhs>) //  "ab" | !"bc" == "c"      <- set_difference
 {
 	return NoneOf<merged_with<SetDifferenceRight, lhs, rhs>()>{};
 }
 
-template <StaticArray lhs, StaticArray rhs>
-requires LikeStaticArrays<lhs, rhs>
+template <k3::tok3n::detail::static_array lhs, k3::tok3n::detail::static_array rhs>
+requires decltype(detail::like_static_arrays(lhs, rhs))::value
 consteval auto choice(NoneOf<lhs>, AnyOf<rhs>) // !"ab" |  "bc" == "a"      <- set_difference
 {
 	return NoneOf<merged_with<SetDifferenceLeft, lhs, rhs>()>{};

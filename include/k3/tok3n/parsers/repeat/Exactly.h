@@ -1,5 +1,8 @@
 #pragma once
-#include <k3/tok3n/parsers/repeat/_fwd.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
+#include <array>
 
 namespace k3::tok3n {
 
@@ -18,46 +21,46 @@ struct Exactly
 
 	static constexpr detail::parser_family family = detail::exactly_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		const Input original_input = input;
-		detail::ResultBuilder<result_for<V>> builder;
+		const detail::input_span original_input = input;
+		detail::result_builder<result_for<V>> builder;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
-			auto result = P::parse(input);
-			if (not result.has_value())
-				return Result<result_for<V>, V>{ failure, original_input };
+			auto res = P::parse(input);
+			if (not res.has_value())
+				return detail::result<result_for<V>, V>{ detail::failure_tag, original_input };
 
-			input = result.remaining();
-			builder.array_assign(i, std::move(result));
+			input = res.remaining();
+			builder.array_assign(i, std::move(res));
 		}
 
-		return std::move(builder).success(input);
+		return std::move(builder).build(input);
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
-		const Input original_input = input;
+		const detail::input_span original_input = input;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
-			auto result = P::lookahead(input);
-			if (not result.has_value())
-				return Result<void, V>{ failure, original_input };
+			auto res = P::lookahead(input);
+			if (not res.has_value())
+				return detail::result<void, V>{ detail::failure_tag, original_input };
 			
-			input = result.remaining();
+			input = res.remaining();
 		}
 
-		return Result<void, V>{ success, input };
+		return detail::result<void, V>{ detail::success_tag, input };
 	}
 };
 

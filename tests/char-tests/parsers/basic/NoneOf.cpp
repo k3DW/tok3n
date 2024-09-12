@@ -10,14 +10,14 @@ TEST("NoneOf", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Single, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
 
-	ASSERT_IS_PARSER(Single, char, detail::none_of_family, Output<char>);
-	ASSERT_IS_PARSER(Multi, char, detail::none_of_family, Output<char>);
+	ASSERT_IS_PARSER(Single, char, detail::none_of_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Multi, char, detail::none_of_family, detail::output_span<char>);
 
-	ASSERT_IS_PARSER(Single, wchar_t, detail::none_of_family, Output<wchar_t>);
-	ASSERT_IS_PARSER(Multi, wchar_t, detail::none_of_family, Output<wchar_t>);
+	ASSERT_IS_PARSER(Single, wchar_t, detail::none_of_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Multi, wchar_t, detail::none_of_family, detail::output_span<wchar_t>);
 
-	ASSERT_IS_PARSER(Single, int, detail::none_of_family, Output<int>);
-	ASSERT_IS_PARSER(Multi, int, detail::none_of_family, Output<int>);
+	ASSERT_IS_PARSER(Single, int, detail::none_of_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Multi, int, detail::none_of_family, detail::output_span<int>);
 }
 
 TEST("NoneOf", "Parse single")

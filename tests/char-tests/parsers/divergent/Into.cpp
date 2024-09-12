@@ -72,7 +72,7 @@ TEST("Into", "Parse all")
 TEST("Into", "Move only")
 {
 	{
-		using T = MoveOnlyWrapper<Output<char>>;
+		using T = MoveOnlyWrapper<detail::output_span<char>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -80,7 +80,7 @@ TEST("Into", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<wchar_t>>;
+		using T = MoveOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -88,7 +88,7 @@ TEST("Into", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<int>>;
+		using T = MoveOnlyWrapper<detail::output_span<int>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
@@ -99,7 +99,7 @@ TEST("Into", "Move only")
 TEST("Into", "Copy only")
 {
 	{
-		using T = CopyOnlyWrapper<Output<char>>;
+		using T = CopyOnlyWrapper<detail::output_span<char>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -107,7 +107,7 @@ TEST("Into", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<wchar_t>>;
+		using T = CopyOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -115,7 +115,7 @@ TEST("Into", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<int>>;
+		using T = CopyOnlyWrapper<detail::output_span<int>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));

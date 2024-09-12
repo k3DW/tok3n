@@ -105,7 +105,7 @@ TEST("Map", "Parse all")
 TEST("Map", "Move only")
 {
 	{
-		using T = MoveOnlyWrapper<Output<char>>;
+		using T = MoveOnlyWrapper<detail::output_span<char>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -113,7 +113,7 @@ TEST("Map", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<wchar_t>>;
+		using T = MoveOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -121,7 +121,7 @@ TEST("Map", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<Output<int>>;
+		using T = MoveOnlyWrapper<detail::output_span<int>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
@@ -132,7 +132,7 @@ TEST("Map", "Move only")
 TEST("Map", "Copy only")
 {
 	{
-		using T = CopyOnlyWrapper<Output<char>>;
+		using T = CopyOnlyWrapper<detail::output_span<char>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -140,7 +140,7 @@ TEST("Map", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<wchar_t>>;
+		using T = CopyOnlyWrapper<detail::output_span<wchar_t>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -148,7 +148,7 @@ TEST("Map", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<Output<int>>;
+		using T = CopyOnlyWrapper<detail::output_span<int>>;
 		using P = Map<ABC, detail::integral_constant<T::make>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));

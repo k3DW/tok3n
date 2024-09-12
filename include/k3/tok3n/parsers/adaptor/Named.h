@@ -1,11 +1,10 @@
 #pragma once
-#include <k3/tok3n/types.h>
-#include <k3/tok3n/concepts.h>
 #include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 
 namespace k3::tok3n {
 
-template <detail::parser P, StaticArray str>
+template <detail::parser P, detail::static_array str>
 struct Named
 {
 	using value_type = typename P::value_type;
@@ -15,13 +14,13 @@ struct Named
 
 	static constexpr detail::parser_family family = detail::named_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
 		return P::parse(std::forward<R>(r));
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
 		return P::lookahead(std::forward<R>(r));

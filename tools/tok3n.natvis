@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
   
-  <Type Name="k3::tok3n::Span&lt;*&gt;">
+  <Type Name="k3::tok3n::detail::span&lt;*&gt;">
     <DisplayString>{_value}</DisplayString>
     <Expand>
         <ExpandedItem>_value</ExpandedItem>
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::Result&lt;void,*&gt;" Priority="High">
+  <Type Name="k3::tok3n::detail::result&lt;void,*&gt;" Priority="High">
     <DisplayString Condition="_successful">success</DisplayString>
     <DisplayString Condition="!_successful">failure</DisplayString>
     <Expand>
@@ -16,7 +16,7 @@
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::Result&lt;*&gt;" Priority="Medium">
+  <Type Name="k3::tok3n::detail::result&lt;*&gt;" Priority="Medium">
     <DisplayString Condition="_result._Has_value">success</DisplayString>
     <DisplayString Condition="!_result._Has_value">failure</DisplayString>
     <Expand>

@@ -1,9 +1,9 @@
-constexpr std::size_t func1(std::vector<Output<::value_type>>&& vec)
+constexpr std::size_t func1(std::vector<detail::output_span<::value_type>>&& vec)
 {
 	return vec.size();
 }
 
-constexpr auto func2 = []<class T>(const std::optional<Output<T>>& opt) -> std::vector<T>
+constexpr auto func2 = []<class T>(const std::optional<detail::output_span<T>>& opt) -> std::vector<T>
 {
 	if (not opt.has_value())
 		return {};
@@ -16,19 +16,19 @@ constexpr auto func2 = []<class T>(const std::optional<Output<T>>& opt) -> std::
 
 constexpr struct func3_t
 {
-	constexpr bool operator()(std::tuple<Output<char>, std::vector<Output<char>>>&& tup) const
+	constexpr bool operator()(std::tuple<detail::output_span<char>, std::vector<detail::output_span<char>>>&& tup) const
 	{
 		auto&& [sv, vec] = std::move(tup);
 		return vec.size() % 2 == 0;
 	}
 
-	constexpr bool operator()(std::tuple<Output<wchar_t>, std::vector<Output<wchar_t>>>&& tup) const
+	constexpr bool operator()(std::tuple<detail::output_span<wchar_t>, std::vector<detail::output_span<wchar_t>>>&& tup) const
 	{
 		auto&& [sv, vec] = std::move(tup);
 		return vec.size() % 2 == 0;
 	}
 
-	constexpr bool operator()(std::tuple<Output<int>, std::vector<Output<int>>>&& tup) const
+	constexpr bool operator()(std::tuple<detail::output_span<int>, std::vector<detail::output_span<int>>>&& tup) const
 	{
 		auto&& [sv, vec] = std::move(tup);
 		return vec.size() % 2 == 0;
@@ -37,17 +37,17 @@ constexpr struct func3_t
 
 constexpr struct func3_apply_t
 {
-	constexpr bool operator()(Output<char>, std::vector<Output<char>>&& vec) const
+	constexpr bool operator()(detail::output_span<char>, std::vector<detail::output_span<char>>&& vec) const
 	{
 		return vec.size() % 2 == 0;
 	}
 
-	constexpr bool operator()(Output<wchar_t>, std::vector<Output<wchar_t>>&& vec) const
+	constexpr bool operator()(detail::output_span<wchar_t>, std::vector<detail::output_span<wchar_t>>&& vec) const
 	{
 		return vec.size() % 2 == 0;
 	}
 
-	constexpr bool operator()(Output<int>, std::vector<Output<int>>&& vec) const
+	constexpr bool operator()(detail::output_span<int>, std::vector<detail::output_span<int>>&& vec) const
 	{
 		return vec.size() % 2 == 0;
 	}
@@ -60,19 +60,19 @@ struct func4
 
 	int multiply_by;
 
-	constexpr std::size_t operator()(const std::tuple<std::vector<Output<char>>, std::optional<Output<char>>>& tup) const
+	constexpr std::size_t operator()(const std::tuple<std::vector<detail::output_span<char>>, std::optional<detail::output_span<char>>>& tup) const
 	{
 		const auto& [vec, opt] = tup;
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
 	}
 
-	constexpr std::size_t operator()(const std::tuple<std::vector<Output<wchar_t>>, std::optional<Output<wchar_t>>>& tup) const
+	constexpr std::size_t operator()(const std::tuple<std::vector<detail::output_span<wchar_t>>, std::optional<detail::output_span<wchar_t>>>& tup) const
 	{
 		const auto& [vec, opt] = tup;
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == L"abc" ? 2 : 3);
 	}
 
-	constexpr std::size_t operator()(const std::tuple<std::vector<Output<int>>, std::optional<Output<int>>>& tup) const
+	constexpr std::size_t operator()(const std::tuple<std::vector<detail::output_span<int>>, std::optional<detail::output_span<int>>>& tup) const
 	{
 		const auto& [vec, opt] = tup;
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == e<int>("abc") ? 2 : 3);
@@ -86,17 +86,17 @@ struct func4_apply
 
 	int multiply_by;
 
-	constexpr std::size_t operator()(const std::vector<Output<char>>& vec, const std::optional<Output<char>>& opt) const
+	constexpr std::size_t operator()(const std::vector<detail::output_span<char>>& vec, const std::optional<detail::output_span<char>>& opt) const
 	{
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
 	}
 
-	constexpr std::size_t operator()(const std::vector<Output<wchar_t>>& vec, const std::optional<Output<wchar_t>>& opt) const
+	constexpr std::size_t operator()(const std::vector<detail::output_span<wchar_t>>& vec, const std::optional<detail::output_span<wchar_t>>& opt) const
 	{
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == L"abc" ? 2 : 3);
 	}
 
-	constexpr std::size_t operator()(const std::vector<Output<int>>& vec, const std::optional<Output<int>>& opt) const
+	constexpr std::size_t operator()(const std::vector<detail::output_span<int>>& vec, const std::optional<detail::output_span<int>>& opt) const
 	{
 		return multiply_by * vec.size() * (not opt ? 1 : *opt == e<int>("abc") ? 2 : 3);
 	}

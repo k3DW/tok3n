@@ -53,7 +53,7 @@ TEST("ApplyInto", "Parse all")
 TEST("ApplyInto", "Move only")
 {
 	{
-		using tuple = std::tuple<Output<char>, Output<char>>;
+		using tuple = std::tuple<detail::output_span<char>, detail::output_span<char>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
@@ -62,7 +62,7 @@ TEST("ApplyInto", "Move only")
 	}
 
 	{
-		using tuple = std::tuple<Output<wchar_t>, Output<wchar_t>>;
+		using tuple = std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
@@ -71,7 +71,7 @@ TEST("ApplyInto", "Move only")
 	}
 
 	{
-		using tuple = std::tuple<Output<int>, Output<int>>;
+		using tuple = std::tuple<detail::output_span<int>, detail::output_span<int>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
@@ -83,7 +83,7 @@ TEST("ApplyInto", "Move only")
 TEST("ApplyInto", "Copy only")
 {
 	{
-		using tuple = std::tuple<Output<char>, Output<char>>;
+		using tuple = std::tuple<detail::output_span<char>, detail::output_span<char>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
@@ -92,7 +92,7 @@ TEST("ApplyInto", "Copy only")
 	}
 
 	{
-		using tuple = std::tuple<Output<wchar_t>, Output<wchar_t>>;
+		using tuple = std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
@@ -101,7 +101,7 @@ TEST("ApplyInto", "Copy only")
 	}
 
 	{
-		using tuple = std::tuple<Output<int>, Output<int>>;
+		using tuple = std::tuple<detail::output_span<int>, detail::output_span<int>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));

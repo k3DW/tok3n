@@ -1,7 +1,10 @@
 #pragma once
-#include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
+#include <tuple>
 
 namespace k3::tok3n {
 
@@ -9,9 +12,9 @@ namespace detail
 {
 
 	template <class ResultType, class ValueType>
-	struct SequenceExecutor : ExecutorData<ResultType>
+	struct SequenceExecutor : empty_if_void<ResultType>
 	{
-		Input<ValueType> input;
+		detail::input_span<ValueType> input;
 
 		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute()
@@ -25,25 +28,25 @@ namespace detail
 		template <parser P>
 		constexpr bool execute_lookahead()
 		{
-			auto result = P::lookahead(input);
-			input = result.remaining();
-			return result.has_value();
+			auto res = P::lookahead(input);
+			input = res.remaining();
+			return res.has_value();
 		}
 
 		template <parser P, std::size_t I, bool unwrapped>
 		constexpr bool execute_element()
 		{
-			auto result = P::parse(input);
-			if (not result.has_value())
+			auto res = P::parse(input);
+			if (not res.has_value())
 				return false;
 
-			input = result.remaining();
+			input = res.remaining();
 			if constexpr (not std::same_as<void, ResultType>)
 			{
 				if constexpr (not unwrapped)
-					std::get<I>(this->value) = std::move(*result);
+					std::get<I>(this->value) = std::move(*res);
 				else
-					this->value = std::move(*result);
+					this->value = std::move(*res);
 			}
 			return true;
 		}
@@ -51,14 +54,14 @@ namespace detail
 
 } // namespace detail
 
-template <detail::parser... Ps>
-requires SequenceConstructible<Ps...>
+template <detail::parser P, detail::parser... Ps>
+requires (... and std::same_as<typename P::value_type, typename Ps::value_type>)
 struct Sequence
 {
-	using value_type = typename detail::front<Ps...>::value_type;
+	using value_type = typename P::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
-	using _filtered = detail::filter_out_void<typename Ps::template result_for<V>...>;
+	using _filtered = detail::filter_out_void<typename P::template result_for<V>, typename Ps::template result_for<V>...>;
 
 	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
@@ -70,45 +73,45 @@ struct Sequence
 
 	static constexpr detail::parser_family family = detail::sequence_family;
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		// This might be a problem because it default initializes all members
 		using Executor = detail::SequenceExecutor<result_for<V>, V>;
 		Executor executor{ .input = input };
 
-		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
+		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
-			return (... && executor.template execute<Ps, Is, _trait<V>::unwrapped>());
+			return (executor.template execute<P, I, _trait<V>::unwrapped>() and ... and executor.template execute<Ps, Is, _trait<V>::unwrapped>());
 		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
-			return Result<result_for<V>, V>{ failure, input };
+			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 
 		if constexpr (std::same_as<result_for<V>, void>)
-			return Result<result_for<V>, V>{ success, executor.input };
+			return detail::result<result_for<V>, V>{ detail::success_tag, executor.input };
 		else
-			return Result<result_for<V>, V>{ success, std::move(executor.value), executor.input };
+			return detail::result<result_for<V>, V>{ detail::success_tag, std::move(executor.value), executor.input };
 	}
 
-	template <InputConstructibleFor<value_type> R>
+	template <detail::input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		Input input{ std::forward<R>(r) };
-		using V = InputValueType<R>;
+		detail::input_span input{ std::forward<R>(r) };
+		using V = detail::input_value_t<R>;
 
 		using Executor = detail::SequenceExecutor<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... && executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
+		bool successful = (executor.template execute<P, static_cast<std::size_t>(-1), _trait<V>::unwrapped>() and ... and executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
 
 		if (successful)
-			return Result<void, V>{ success, executor.input };
+			return detail::result<void, V>{ detail::success_tag, executor.input };
 		else
-			return Result<void, V>{ failure, input };
+			return detail::result<void, V>{ detail::failure_tag, input };
 	}
 };
 

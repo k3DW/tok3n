@@ -4,13 +4,13 @@
 
 namespace k3::tok3n {
 
-template <StaticArray arr>
+template <detail::static_array arr>
 constexpr auto operator!(AnyOf<arr>)
 {
 	return NoneOf<arr>{};
 }
 
-template <StaticArray arr>
+template <detail::static_array arr>
 constexpr auto operator!(NoneOf<arr>)
 {
 	return AnyOf<arr>{};
