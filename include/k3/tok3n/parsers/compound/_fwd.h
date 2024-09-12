@@ -1,4 +1,5 @@
 #pragma once
+#include <k3/tok3n/detail/helpers.h>
 #include <k3/tok3n/detail/parser.h>
 #include <k3/tok3n/detail/result.h>
 
@@ -25,23 +26,5 @@ struct Choice;
 template <detail::parser... Ps>
 requires SequenceConstructible<Ps...>
 struct Sequence;
-
-
-
-namespace detail
-{
-
-	template <class ResultType>
-	struct ExecutorData
-	{
-		ResultType value = {};
-	};
-
-	template <>
-	struct ExecutorData<void>
-	{
-	};
-
-} // namespace detail
 
 } // namespace k3::tok3n

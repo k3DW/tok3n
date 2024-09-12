@@ -23,7 +23,7 @@ struct OneOrMore
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		detail::ResultBuilder<result_for<V>> builder;
+		detail::result_builder<result_for<V>> builder;
 		bool successful = false;
 
 		while (true)
@@ -37,7 +37,7 @@ struct OneOrMore
 		}
 
 		if (successful)
-			return std::move(builder).success(input);
+			return std::move(builder).build(input);
 		else
 			return detail::result<result_for<V>, V>{ detail::failure_tag, input };
 	}

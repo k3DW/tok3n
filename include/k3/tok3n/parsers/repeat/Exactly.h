@@ -25,7 +25,7 @@ struct Exactly
 		using V = detail::input_value_t<R>;
 
 		const detail::input_span original_input = input;
-		detail::ResultBuilder<result_for<V>> builder;
+		detail::result_builder<result_for<V>> builder;
 
 		for (std::size_t i = 0; i < N::value; i++)
 		{
@@ -37,7 +37,7 @@ struct Exactly
 			builder.array_assign(i, std::move(res));
 		}
 
-		return std::move(builder).success(input);
+		return std::move(builder).build(input);
 	}
 
 	template <detail::input_constructible_for<value_type> R>

@@ -9,7 +9,7 @@ namespace detail
 {
 
 	template <class ResultType, class ValueType>
-	struct SequenceExecutor : ExecutorData<ResultType>
+	struct SequenceExecutor : empty_if_void<ResultType>
 	{
 		detail::input_span<ValueType> input;
 

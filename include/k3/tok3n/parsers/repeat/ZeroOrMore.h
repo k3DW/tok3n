@@ -23,7 +23,7 @@ struct ZeroOrMore
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		detail::ResultBuilder<result_for<V>> builder;
+		detail::result_builder<result_for<V>> builder;
 
 		while (true)
 		{
@@ -34,7 +34,7 @@ struct ZeroOrMore
 			builder.insert_back(std::move(res));
 		}
 
-		return std::move(builder).success(input);
+		return std::move(builder).build(input);
 	}
 
 	template <detail::input_constructible_for<value_type> R>

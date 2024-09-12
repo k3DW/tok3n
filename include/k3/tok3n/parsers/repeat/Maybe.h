@@ -23,13 +23,13 @@ struct Maybe
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		detail::ResultBuilder<result_for<V>> builder;
+		detail::result_builder<result_for<V>> builder;
 
 		auto res = P::parse(input);
 		if (res.has_value())
 			builder.emplace(std::move(res));
 
-		return std::move(builder).success(res.remaining());
+		return std::move(builder).build(res.remaining());
 	}
 
 	template <detail::input_constructible_for<value_type> R>
