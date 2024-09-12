@@ -1,8 +1,13 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/_fwd.h>
 #include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
+
+template <class ValueType>
+struct Anything : BasicBase<Anything<ValueType>>
+{
+	static constexpr detail::parser_family family = detail::anything_family;
+};
 
 template <class ValueType>
 struct BasicTraits<Anything<ValueType>>
@@ -16,12 +21,6 @@ struct BasicTraits<Anything<ValueType>>
 	{
 		return input.empty();
 	}
-};
-
-template <class ValueType>
-struct Anything : BasicBase<Anything<ValueType>>
-{
-	static constexpr detail::parser_family family = detail::anything_family;
 };
 
 } // namespace k3::tok3n

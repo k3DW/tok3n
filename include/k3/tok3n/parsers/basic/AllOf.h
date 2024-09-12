@@ -1,8 +1,13 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/_fwd.h>
 #include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
+
+template <detail::static_array arr>
+struct AllOf : BasicBase<AllOf<arr>>
+{
+	static constexpr detail::parser_family family = detail::all_of_family;
+};
 
 template <detail::static_array arr>
 struct BasicTraits<AllOf<arr>>
@@ -16,12 +21,6 @@ struct BasicTraits<AllOf<arr>>
 	{
 		return (input.size() < length) || (detail::input_span<value_type>(arr.span()) != detail::input_span<V>(input.first(length)));
 	}
-};
-
-template <detail::static_array arr>
-struct AllOf : BasicBase<AllOf<arr>>
-{
-	static constexpr detail::parser_family family = detail::all_of_family;
 };
 
 } // namespace k3::tok3n

@@ -1,11 +1,17 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/_fwd.h>
 #include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
 
 template <detail::static_array arr>
-requires NoneOfConstructible<arr>
+requires (detail::is_sorted_and_uniqued(arr.span()))
+struct NoneOf : BasicBase<NoneOf<arr>>
+{
+	static constexpr detail::parser_family family = detail::none_of_family;
+};
+
+template <detail::static_array arr>
+requires (detail::is_sorted_and_uniqued(arr.span()))
 struct BasicTraits<NoneOf<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
@@ -17,13 +23,6 @@ struct BasicTraits<NoneOf<arr>>
 	{
 		return input.empty() || arr.contains(input.front());
 	}
-};
-
-template <detail::static_array arr>
-requires NoneOfConstructible<arr>
-struct NoneOf : BasicBase<NoneOf<arr>>
-{
-	static constexpr detail::parser_family family = detail::none_of_family;
 };
 
 } // namespace k3::tok3n
