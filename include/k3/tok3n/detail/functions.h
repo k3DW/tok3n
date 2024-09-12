@@ -5,7 +5,7 @@
 namespace k3::tok3n::detail {
 
 template <auto function>
-inline constexpr auto apply_function = []<class Tup>(Tup&& tup) { return apply(function, std::forward<Tup>(tup)); };
+inline constexpr auto apply_function = []<class Tup>(Tup&& tup) { return apply_invoke(function, std::forward<Tup>(tup)); };
 
 template <auto value>
 inline constexpr auto constant_function = [](auto&&...) { return value; };
