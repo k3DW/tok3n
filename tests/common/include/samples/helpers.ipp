@@ -5,7 +5,7 @@ consteval auto e(Ts... ts)
     return std::array<T, sizeof...(Ts)>{ ts... };
 }
 
-template <class T, detail::character U, std::size_t N>
+template <class T, k3::tok3n::detail::character U, std::size_t N>
 requires std::convertible_to<T, U>
 consteval auto e(const U(&us)[N])
 {
