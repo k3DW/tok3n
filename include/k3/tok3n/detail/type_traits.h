@@ -57,16 +57,6 @@ concept enum_within_bounds =
 namespace impl {
 
 template <class T, class... Ts>
-extern std::bool_constant<(... && std::same_as<T, Ts>)> all_same;
-
-} // namespace impl
-
-template <class... Ts>
-concept all_same = decltype(impl::all_same<Ts...>)::value;
-
-namespace impl {
-
-template <class T, class... Ts>
 extern std::type_identity<T> front;
 
 } // namespace impl

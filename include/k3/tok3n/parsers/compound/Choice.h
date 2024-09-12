@@ -1,6 +1,8 @@
 #pragma once
-#include <k3/tok3n/parsers/compound/_fwd.h>
 #include <k3/tok3n/detail/filter.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 #include <k3/tok3n/detail/unwrap_if_single.h>
 #include <variant>
 
@@ -54,14 +56,14 @@ namespace detail
 
 } // namespace detail
 
-template <detail::parser... Ps>
-requires ChoiceConstructible<Ps...>
+template <detail::parser P, detail::parser... Ps>
+requires (... and std::same_as<typename P::value_type, typename Ps::value_type>)
 struct Choice
 {
-	using value_type = typename detail::front<Ps...>::value_type;
+	using value_type = typename P::value_type;
 
 	template <detail::equality_comparable_with<value_type> V>
-	using _filtered = detail::filter_out_void_deduplicate<typename Ps::template result_for<V>...>;
+	using _filtered = detail::filter_out_void_deduplicate<typename P::template result_for<V>, typename Ps::template result_for<V>...>;
 
 	template <detail::equality_comparable_with<value_type> V>
 	using _trait = detail::unwrap_if_single<typename _filtered<V>::type>;
@@ -82,9 +84,9 @@ struct Choice
 		using Executor = detail::ChoiceExecutor<result_for<V>, V>;
 		Executor executor{ .input = input };
 
-		bool successful = [&executor]<std::size_t... Is>(std::index_sequence<Is...>)
+		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
-			return (... || executor.template execute<Ps, Is, _trait<V>::unwrapped>());
+			return (executor.template execute<P, I, _trait<V>::unwrapped>() or ... or executor.template execute<Ps, Is, _trait<V>::unwrapped>());
 		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
@@ -105,7 +107,7 @@ struct Choice
 		using Executor = detail::ChoiceExecutor<void, V>;
 		Executor executor{ .input = input };
 
-		bool successful = (... || executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
+		bool successful = (executor.template execute<P, static_cast<std::size_t>(-1), _trait<V>::unwrapped>() or ... or executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
 
 		if (successful)
 			return detail::result<void, V>{ detail::success_tag, executor.input };
