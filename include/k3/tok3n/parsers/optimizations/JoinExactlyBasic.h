@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/parsers/basic/BasicBase.h>
-#include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/parsers/divergent/Join.h>
 #include <k3/tok3n/parsers/repeat/Exactly.h>
 
 namespace k3::tok3n {

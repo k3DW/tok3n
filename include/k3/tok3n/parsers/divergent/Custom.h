@@ -1,5 +1,7 @@
 #pragma once
-#include <k3/tok3n/parsers/divergent/_fwd.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
 
 namespace k3::tok3n {
 
@@ -21,7 +23,7 @@ namespace detail {
 
 } // namespace detail
 
-template <class CRTP, class ValueType>
+template <class CRTP, class ValueType = char>
 struct Custom
 {
 	using value_type = ValueType;
