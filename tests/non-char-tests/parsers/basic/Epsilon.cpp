@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("Epsilon");
 
@@ -8,7 +9,7 @@ TEST("Epsilon", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
-	ASSERT_IS_PARSER(Eps1, value_type, detail::epsilon_family, void);
+	ASSERT_IS_PARSER(Eps1, value_type, epsilon_family, void);
 }
 
 TEST("Epsilon", "Parse")

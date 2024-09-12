@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("not operator");
 
@@ -27,14 +28,14 @@ TEST("not operator", "!NoneOf")
 
 
 #define NOT_OPERATOR_ASSERTER(P)                                           \
-	[]<detail::parser PP>(PP) {                                            \
-		if constexpr (PP::family == detail::any_of_family)                 \
+	[]<parser PP>(PP) {                                                    \
+		if constexpr (PP::family == any_of_family)                         \
 		{                                                                  \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
 			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, NoneOf<underlying_v<PP>>{}, \
 					                    !P{},  NoneOf<underlying_v<P>>{}); \
 		}                                                                  \
-		else if constexpr (PP::family == detail::none_of_family)           \
+		else if constexpr (PP::family == none_of_family)                   \
 		{                                                                  \
 			DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
 			DEP_ASSERT_PARSER_VALUES_EQ(!PP{}, AnyOf<underlying_v<PP>>{},  \

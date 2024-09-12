@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("epsilon operator");
 
@@ -33,7 +34,7 @@ TEST("epsilon operator", "eps | P")
 
 
 #define EPSILON_OPERATOR_ASSERTER(P)                                             \
-	[]<detail::parser PP>(PP) {                                                  \
+	[]<parser PP>(PP) {                                                          \
 		DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                 \
 		                              P{},  eps);                                \
 		DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                             \
