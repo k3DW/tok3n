@@ -1,5 +1,9 @@
 #pragma once
-#include <k3/tok3n/parsers/repeat/_fwd.h>
+#include <k3/tok3n/detail/helpers.h>
+#include <k3/tok3n/detail/parser.h>
+#include <k3/tok3n/detail/result.h>
+#include <utility>
+#include <vector>
 
 namespace k3::tok3n {
 
