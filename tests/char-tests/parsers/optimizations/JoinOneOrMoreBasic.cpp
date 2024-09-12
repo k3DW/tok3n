@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("JoinOneOrMoreBasic");
 
 using Joi_Oom_OC = Join<OneOrMore<AnyOf<TT("123")>>>;

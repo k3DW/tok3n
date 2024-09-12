@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using L = AllOf<detail::static_array(X, Y, Z)>;
 
 FIXTURE("AllOf");

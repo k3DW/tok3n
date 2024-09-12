@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("JoinMaybeBasic");
 
 using Joi_May_OC = Join<Maybe<AnyOf<TT("123")>>>;

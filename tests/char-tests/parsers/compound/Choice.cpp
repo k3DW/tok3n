@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;
 

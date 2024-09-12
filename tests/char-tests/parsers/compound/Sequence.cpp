@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 

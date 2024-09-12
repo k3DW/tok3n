@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("JoinZeroOrMoreBasic");
 
 using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<TT("123")>>>;

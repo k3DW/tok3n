@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("sequence operator");
 
 TEST("sequence operator", "AllOf >> AllOf")

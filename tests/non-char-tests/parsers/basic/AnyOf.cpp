@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using Single = AnyOf<detail::static_array(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 using Multi  = AnyOf<detail::static_array(A, C)>;

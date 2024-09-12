@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using L = AllOf<TT("literal")>;
 
 FIXTURE("AllOf");

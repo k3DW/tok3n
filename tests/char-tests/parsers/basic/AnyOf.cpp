@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using Single = AnyOf<TT('a')>;
 using Multi  = AnyOf<TT("abc")>;
 

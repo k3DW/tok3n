@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("delimit modifier");
 
 TEST("delimit modifier", "prefix")

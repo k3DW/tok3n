@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("Anything");
 
 TEST("Anything", "Requirements")

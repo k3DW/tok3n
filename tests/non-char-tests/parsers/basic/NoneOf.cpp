@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using Single = NoneOf<detail::static_array(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 using Multi  = NoneOf<detail::static_array(A, C)>;

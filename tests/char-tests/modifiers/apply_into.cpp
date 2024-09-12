@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("apply_into modifier");
 
 TEST("apply_into modifier", "prefix")

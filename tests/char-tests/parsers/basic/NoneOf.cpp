@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 using Single = NoneOf<TT('a')>;
 using Multi  = NoneOf<TT("abc")>;
 

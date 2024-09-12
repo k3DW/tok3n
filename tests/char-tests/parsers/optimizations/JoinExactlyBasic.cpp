@@ -1,5 +1,7 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+
 FIXTURE("JoinExactlyBasic");
 
 using Joi_Exa_OC = Join<Exactly<AnyOf<TT("123")>, detail::index_c<2>>>;
