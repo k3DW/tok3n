@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("complete modifier");
 
@@ -53,8 +54,8 @@ TEST("complete modifier", "non consteval")
 
 
 #define COMPLETE_MODIFIER_ASSERTER(P)                                             \
-	[]<detail::parser PP>(PP) {                                                   \
-		if constexpr (PP::family == detail::complete_family)                      \
+	[]<parser PP>(PP) {                                                           \
+		if constexpr (PP::family == complete_family)                              \
 		{                                                                         \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
 				                           complete, (P{}),  P{});                \

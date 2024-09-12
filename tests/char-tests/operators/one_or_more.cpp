@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("one_or_more operator");
 
@@ -60,19 +61,19 @@ TEST("one_or_more operator", "non consteval")
 
 
 #define ONE_OR_MORE_OPERATOR_ASSERTER(P)                                       \
-	[]<detail::parser PP>(PP) {                                                \
+	[]<parser PP>(PP) {                                                        \
 		DEP_ASSERT_UNARY_OPERABLE(+, PP{}, P{});                               \
-		if constexpr (PP::family == detail::maybe_family)                      \
+		if constexpr (PP::family == maybe_family)                              \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, ZeroOrMore<underlying_t<PP>>{}, \
 										+P{},  ZeroOrMore<underlying_t<P>>{}); \
 		}                                                                      \
-		else if constexpr (PP::family == detail::one_or_more_family)           \
+		else if constexpr (PP::family == one_or_more_family)                   \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                           \
 										+P{},  P{});                           \
 		}                                                                      \
-		else if constexpr (PP::family == detail::zero_or_more_family)          \
+		else if constexpr (PP::family == zero_or_more_family)                  \
 		{                                                                      \
 			DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                           \
 										+P{},  P{});                           \

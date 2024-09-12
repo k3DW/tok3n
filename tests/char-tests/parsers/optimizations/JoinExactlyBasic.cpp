@@ -1,12 +1,13 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("JoinExactlyBasic");
 
-using Joi_Exa_OC = Join<Exactly<AnyOf<TT("123")>, detail::index_c<2>>>;
-using Joi_Exa_NC = Join<Exactly<NoneOf<TT("123")>, detail::index_c<2>>>;
-using Joi_Exa_L  = Join<Exactly<AllOf<TT("123")>, detail::index_c<2>>>;
+using Joi_Exa_OC = Join<Exactly<AnyOf<TT("123")>, index_c<2>>>;
+using Joi_Exa_NC = Join<Exactly<NoneOf<TT("123")>, index_c<2>>>;
+using Joi_Exa_L  = Join<Exactly<AllOf<TT("123")>, index_c<2>>>;
 
 TEST("JoinExactlyBasic", "Requirements")
 {
@@ -14,17 +15,17 @@ TEST("JoinExactlyBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_Exa_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Exa_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_Exa_L, char, detail::join_family, detail::output_span<char>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_Exa_L, char, join_family, output_span<char>);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Exa_L, wchar_t, detail::join_family, detail::output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Exa_L, wchar_t, join_family, output_span<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_Exa_OC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_Exa_NC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_Exa_L, int, detail::join_family, detail::output_span<int>);
+    ASSERT_IS_PARSER(Joi_Exa_OC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_Exa_NC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_Exa_L, int, join_family, output_span<int>);
 }
 
 TEST("JoinExactlyBasic", "Exactly<AnyOf, 2>")

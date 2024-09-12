@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
@@ -13,17 +14,17 @@ TEST("Sequence", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Seq5, value_type);
 
-	ASSERT_IS_PARSER(TwoWay, char, detail::sequence_family, std::tuple<detail::output_span<char>, detail::output_span<char>>);
-	ASSERT_IS_PARSER(ThreeWay, char, detail::sequence_family, std::tuple<detail::output_span<char>, detail::output_span<char>, detail::output_span<char>>);
-	ASSERT_IS_PARSER(Seq5, char, detail::sequence_family, void);
+	ASSERT_IS_PARSER(TwoWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>>);
+	ASSERT_IS_PARSER(ThreeWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>, output_span<char>>);
+	ASSERT_IS_PARSER(Seq5, char, sequence_family, void);
 
-	ASSERT_IS_PARSER(TwoWay, wchar_t, detail::sequence_family, std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(ThreeWay, wchar_t, detail::sequence_family, std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>, detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Seq5, wchar_t, detail::sequence_family, void);
+	ASSERT_IS_PARSER(TwoWay, wchar_t, sequence_family, std::tuple<output_span<wchar_t>, output_span<wchar_t>>);
+	ASSERT_IS_PARSER(ThreeWay, wchar_t, sequence_family, std::tuple<output_span<wchar_t>, output_span<wchar_t>, output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Seq5, wchar_t, sequence_family, void);
 
-	ASSERT_IS_PARSER(TwoWay, int, detail::sequence_family, std::tuple<detail::output_span<int>, detail::output_span<int>>);
-	ASSERT_IS_PARSER(ThreeWay, int, detail::sequence_family, std::tuple<detail::output_span<int>, detail::output_span<int>, detail::output_span<int>>);
-	ASSERT_IS_PARSER(Seq5, int, detail::sequence_family, void);
+	ASSERT_IS_PARSER(TwoWay, int, sequence_family, std::tuple<output_span<int>, output_span<int>>);
+	ASSERT_IS_PARSER(ThreeWay, int, sequence_family, std::tuple<output_span<int>, output_span<int>, output_span<int>>);
+	ASSERT_IS_PARSER(Seq5, int, sequence_family, void);
 }
 
 TEST("Sequence", "Parse two-way Sequence")

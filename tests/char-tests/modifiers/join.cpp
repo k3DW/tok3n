@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("join modifier");
 
@@ -47,8 +48,8 @@ TEST("join modifier", "non consteval")
 
 
 #define JOIN_MODIFIER_ASSERTER(P)                                         \
-	[]<detail::parser PP>(PP) {                                           \
-		if constexpr (PP::family == detail::join_family)                  \
+	[]<parser PP>(PP) {                                                   \
+		if constexpr (PP::family == join_family)                          \
 		{                                                                 \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},            \
 				                           join, (P{}),  P{});            \

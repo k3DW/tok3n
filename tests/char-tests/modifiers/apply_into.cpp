@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("apply_into modifier");
 
@@ -25,7 +26,7 @@ TEST("apply_into modifier", "non consteval")
 
 
 #define APPLY_INTO_MODIFIER_ASSERTER(P)                                                                 \
-	[]<detail::parser PP>(PP) {                                                                         \
+	[]<parser PP>(PP) {                                                                                 \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(apply_into<Sink>, (PP{}), (aliases::ApplyInto<PP, Sink>{}),      \
 									   apply_into<Sink>, (P{}),  (aliases::ApplyInto<P, Sink>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply_into<Sink>, (aliases::ApplyInto<PP, Sink>{}), \

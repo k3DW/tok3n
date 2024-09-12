@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("Join");
 
@@ -12,23 +13,23 @@ TEST("Join", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Joi4, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Joi5, value_type);
 
-	ASSERT_IS_PARSER(Joi1, char, detail::join_family, detail::output_span<char>);
-	ASSERT_IS_PARSER(Joi2, char, detail::join_family, detail::output_span<char>);
-	ASSERT_IS_PARSER(Joi3, char, detail::join_family, detail::output_span<char>);
-	ASSERT_IS_PARSER(Joi4, char, detail::join_family, detail::output_span<char>);
-	ASSERT_IS_PARSER(Joi5, char, detail::join_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Joi1, char, join_family, output_span<char>);
+	ASSERT_IS_PARSER(Joi2, char, join_family, output_span<char>);
+	ASSERT_IS_PARSER(Joi3, char, join_family, output_span<char>);
+	ASSERT_IS_PARSER(Joi4, char, join_family, output_span<char>);
+	ASSERT_IS_PARSER(Joi5, char, join_family, output_span<char>);
 
-	ASSERT_IS_PARSER(Joi1, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-	ASSERT_IS_PARSER(Joi2, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-	ASSERT_IS_PARSER(Joi3, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-	ASSERT_IS_PARSER(Joi4, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-	ASSERT_IS_PARSER(Joi5, wchar_t, detail::join_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Joi1, wchar_t, join_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(Joi2, wchar_t, join_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(Joi3, wchar_t, join_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(Joi4, wchar_t, join_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(Joi5, wchar_t, join_family, output_span<wchar_t>);
 
-	ASSERT_IS_PARSER(Joi1, int, detail::join_family, detail::output_span<int>);
-	ASSERT_IS_PARSER(Joi2, int, detail::join_family, detail::output_span<int>);
-	ASSERT_IS_PARSER(Joi3, int, detail::join_family, detail::output_span<int>);
-	ASSERT_IS_PARSER(Joi4, int, detail::join_family, detail::output_span<int>);
-	ASSERT_IS_PARSER(Joi5, int, detail::join_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Joi1, int, join_family, output_span<int>);
+	ASSERT_IS_PARSER(Joi2, int, join_family, output_span<int>);
+	ASSERT_IS_PARSER(Joi3, int, join_family, output_span<int>);
+	ASSERT_IS_PARSER(Joi4, int, join_family, output_span<int>);
+	ASSERT_IS_PARSER(Joi5, int, join_family, output_span<int>);
 }
 
 TEST("Join", "Parse all")
@@ -136,11 +137,11 @@ TEST("Join", "Contiguous empty strings")
 
 TEST("Join", "Join<Delimit>")
 {
-	using D = Delimit<ABC, QQ, detail::integral_constant<false>>;
+	using D = Delimit<ABC, QQ, integral_constant<false>>;
 	using J = Join<D>;
 
 	{
-		using vec_type = std::vector<detail::output_span<char>>;
+		using vec_type = std::vector<output_span<char>>;
 		ASSERT_PARSE_SUCCESS(D, "abc", vec_type({ "abc" }), "");
 		ASSERT_PARSE_SUCCESS(D, "abc??abc??a", vec_type({ "abc", "abc" }), "??a");
 		ASSERT_PARSE_SUCCESS(D, "abc??abc??abc", vec_type({ "abc", "abc", "abc" }), "");
@@ -150,7 +151,7 @@ TEST("Join", "Join<Delimit>")
 	}
 
 	{
-		using vec_type = std::vector<detail::output_span<wchar_t>>;
+		using vec_type = std::vector<output_span<wchar_t>>;
 		ASSERT_PARSE_SUCCESS(D, L"abc", vec_type({ L"abc" }), L"");
 		ASSERT_PARSE_SUCCESS(D, L"abc??abc??a", vec_type({ L"abc", L"abc" }), L"??a");
 		ASSERT_PARSE_SUCCESS(D, L"abc??abc??abc", vec_type({ L"abc", L"abc", L"abc" }), L"");
@@ -160,7 +161,7 @@ TEST("Join", "Join<Delimit>")
 	}
 
 	{
-		using vec_type = std::vector<detail::output_span<int>>;
+		using vec_type = std::vector<output_span<int>>;
 		ASSERT_PARSE_SUCCESS(D, e<int>("abc"), vec_type({ e<int>("abc") }), e<int>(""));
 		ASSERT_PARSE_SUCCESS(D, e<int>("abc??abc??a"), vec_type({ e<int>("abc"), e<int>("abc") }), e<int>("??a"));
 		ASSERT_PARSE_SUCCESS(D, e<int>("abc??abc??abc"), vec_type({ e<int>("abc"), e<int>("abc"), e<int>("abc") }), e<int>(""));
@@ -249,23 +250,23 @@ TEST("Join", "Join<Map>")
 	constexpr auto f = [](auto&& v)
 	{
 		using V = std::ranges::range_value_t<decltype(v)>;
-		if constexpr (std::same_as<V, char> or std::same_as<V, detail::output_span<char>>)
-			return detail::output_span<char>((v.size() % 2 == 0) ? "a" : "b");
-		else if constexpr (std::same_as<V, wchar_t> or std::same_as<V, detail::output_span<wchar_t>>)
-			return detail::output_span<wchar_t>((v.size() % 2 == 0) ? L"a" : L"b");
-		else if constexpr (std::same_as<V, int> or std::same_as<V, detail::output_span<int>>)
+		if constexpr (std::same_as<V, char> or std::same_as<V, output_span<char>>)
+			return output_span<char>((v.size() % 2 == 0) ? "a" : "b");
+		else if constexpr (std::same_as<V, wchar_t> or std::same_as<V, output_span<wchar_t>>)
+			return output_span<wchar_t>((v.size() % 2 == 0) ? L"a" : L"b");
+		else if constexpr (std::same_as<V, int> or std::same_as<V, output_span<int>>)
 		{
 			constexpr auto a = e<int>("a");
 			constexpr auto b = e<int>("b");
-			return detail::output_span<int>((v.size() % 2 == 0) ? a : b);
+			return output_span<int>((v.size() % 2 == 0) ? a : b);
 		}
 		else
 			static_assert(std::same_as<V, void>);
 	};
 
-	using T1 = Map<ABC, detail::integral_constant<f>>;
-	using T2 = Sequence<Map<ABC, detail::integral_constant<f>>, QQ>;
-	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, detail::integral_constant<f>>, QQ>>;
+	using T1 = Map<ABC, integral_constant<f>>;
+	using T2 = Sequence<Map<ABC, integral_constant<f>>, QQ>;
+	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
 	using J1 = Join<T1>;
 	using J2 = Join<T2>;
 	using J3 = Join<T3>;
@@ -283,7 +284,7 @@ TEST("Join", "Join<Map>")
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??abc", "abc");
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, "abc??", "");
 
-		using vec_type = std::vector<std::tuple<detail::output_span<char>, detail::output_span<char>>>;
+		using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;
 		ASSERT_PARSE_SUCCESS(T3, "abcabc??abc??ab", vec_type({ { "a", "??" }, { "b", "??" } }), "ab");
 		ASSERT_PARSE_SUCCESS(T3, "abc??abcabcabcabc??", vec_type({ { "b", "??" }, { "a", "??" } }), "");
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J3, "abcabc??abc??ab", "ab");
@@ -303,7 +304,7 @@ TEST("Join", "Join<Map>")
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, L"abc??abc", L"abc");
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, L"abc??", L"");
 
-		using vec_type = std::vector<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>>;
+		using vec_type = std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>;
 		ASSERT_PARSE_SUCCESS(T3, L"abcabc??abc??ab", vec_type({ { L"a", L"??" }, { L"b", L"??" } }), L"ab");
 		ASSERT_PARSE_SUCCESS(T3, L"abc??abcabcabcabc??", vec_type({ { L"b", L"??" }, { L"a", L"??" } }), L"");
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J3, L"abcabc??abc??ab", L"ab");
@@ -324,7 +325,7 @@ TEST("Join", "Join<Map>")
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, e<int>("abc??abc"), e<int>("abc"));
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, e<int>("abc??"), e<int>(""));
 
-		using vec_type = std::vector<std::tuple<detail::output_span<int>, detail::output_span<int>>>;
+		using vec_type = std::vector<std::tuple<output_span<int>, output_span<int>>>;
 		//ASSERT_PARSE_SUCCESS(T3, e<int>("abcabc??abc??ab"), vec_type({ { e<int>("a"), e<int>("??") }, { e<int>("b"), e<int>("??") } }), e<int>("ab"));
 		//ASSERT_PARSE_SUCCESS(T3, e<int>("abc??abcabcabcabc??"), vec_type({ { e<int>("b"), e<int>("??") }, { e<int>("a"), e<int>("??") } }), e<int>(""));
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J3, e<int>("abcabc??abc??ab"), e<int>("ab"));
@@ -336,9 +337,9 @@ TEST("Join", "Join<Sequence<Choice<non-eps,eps>, anything>>")
 {
 	auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
 	using Seq = decltype(seq);
-	ASSERT_IS_PARSER(Seq, char, detail::sequence_family, std::tuple<detail::output_span<char>,detail::output_span<char>>);
-	ASSERT_IS_PARSER(Seq, wchar_t, detail::sequence_family, std::tuple<detail::output_span<wchar_t>,detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Seq, int, detail::sequence_family, std::tuple<detail::output_span<int>,detail::output_span<int>>);
+	ASSERT_IS_PARSER(Seq, char, sequence_family, std::tuple<output_span<char>,output_span<char>>);
+	ASSERT_IS_PARSER(Seq, wchar_t, sequence_family, std::tuple<output_span<wchar_t>,output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Seq, int, sequence_family, std::tuple<output_span<int>,output_span<int>>);
 
 	using P = Join<Seq>;
 

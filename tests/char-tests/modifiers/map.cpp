@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("map modifier");
 
@@ -31,12 +32,12 @@ TEST("map modifier", "non consteval")
 
 
 
-#define FN_MODIFIER_ASSERTER(P)                                                                                        \
-	[]<detail::parser PP>(PP) {                                                                                        \
-		DEP_ASSERT_MODIFIER_CALLABLE_R(map<sink_func>, (PP{}), (Map<PP, detail::integral_constant<sink_func>>{}),      \
-			                           map<sink_func>, (P{}),  (Map<P, detail::integral_constant<sink_func>>{}));      \
-		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, map<sink_func>, (Map<PP, detail::integral_constant<sink_func>>{}), \
-			                                  P{},  map<sink_func>, (Map<P, detail::integral_constant<sink_func>>{})); \
+#define FN_MODIFIER_ASSERTER(P)                                                                                \
+	[]<parser PP>(PP) {                                                                                        \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(map<sink_func>, (PP{}), (Map<PP, integral_constant<sink_func>>{}),      \
+			                           map<sink_func>, (P{}),  (Map<P, integral_constant<sink_func>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, map<sink_func>, (Map<PP, integral_constant<sink_func>>{}), \
+			                                  P{},  map<sink_func>, (Map<P, integral_constant<sink_func>>{})); \
 	}(P{});
 
 TEST("map modifier", "modify anything")

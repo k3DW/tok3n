@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("ApplyInto");
 
@@ -9,14 +10,14 @@ TEST("ApplyInto", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Api1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Api2, value_type);
 
-	ASSERT_IS_PARSER(Api1, char, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Api2, char, detail::map_family, Class5);
+	ASSERT_IS_PARSER(Api1, char, map_family, Class2);
+	ASSERT_IS_PARSER(Api2, char, map_family, Class5);
 
-	ASSERT_IS_PARSER(Api1, wchar_t, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Api2, wchar_t, detail::map_family, Class5);
+	ASSERT_IS_PARSER(Api1, wchar_t, map_family, Class2);
+	ASSERT_IS_PARSER(Api2, wchar_t, map_family, Class5);
 
-	ASSERT_IS_PARSER(Api1, int, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Api2, int, detail::map_family, Class5);
+	ASSERT_IS_PARSER(Api1, int, map_family, Class2);
+	ASSERT_IS_PARSER(Api2, int, map_family, Class5);
 }
 
 TEST("ApplyInto", "Parse all")
@@ -55,7 +56,7 @@ TEST("ApplyInto", "Parse all")
 TEST("ApplyInto", "Move only")
 {
 	{
-		using tuple = std::tuple<detail::output_span<char>, detail::output_span<char>>;
+		using tuple = std::tuple<output_span<char>, output_span<char>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
@@ -64,7 +65,7 @@ TEST("ApplyInto", "Move only")
 	}
 
 	{
-		using tuple = std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>;
+		using tuple = std::tuple<output_span<wchar_t>, output_span<wchar_t>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
@@ -73,7 +74,7 @@ TEST("ApplyInto", "Move only")
 	}
 
 	{
-		using tuple = std::tuple<detail::output_span<int>, detail::output_span<int>>;
+		using tuple = std::tuple<output_span<int>, output_span<int>>;
 		using T = MoveOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
@@ -85,7 +86,7 @@ TEST("ApplyInto", "Move only")
 TEST("ApplyInto", "Copy only")
 {
 	{
-		using tuple = std::tuple<detail::output_span<char>, detail::output_span<char>>;
+		using tuple = std::tuple<output_span<char>, output_span<char>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
@@ -94,7 +95,7 @@ TEST("ApplyInto", "Copy only")
 	}
 
 	{
-		using tuple = std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>;
+		using tuple = std::tuple<output_span<wchar_t>, output_span<wchar_t>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
@@ -103,7 +104,7 @@ TEST("ApplyInto", "Copy only")
 	}
 
 	{
-		using tuple = std::tuple<detail::output_span<int>, detail::output_span<int>>;
+		using tuple = std::tuple<output_span<int>, output_span<int>>;
 		using T = CopyOnlyWrapper<tuple>;
 		using P = aliases::ApplyInto<Sequence<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
