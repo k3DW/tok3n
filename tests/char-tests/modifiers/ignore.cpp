@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("ignore modifier");
 
 TEST("ignore modifier", "prefix")
@@ -43,8 +46,8 @@ TEST("ignore modifier", "non consteval")
 
 
 #define IGNORE_MODIFIER_ASSERTER(P)                                           \
-	[]<detail::parser PP>(PP) {                                               \
-		if constexpr (PP::family == detail::ignore_family)                    \
+	[]<parser PP>(PP) {                                                       \
+		if constexpr (PP::family == ignore_family)                            \
 		{                                                                     \
 			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
 				                           ignore, (P{}),  P{});              \

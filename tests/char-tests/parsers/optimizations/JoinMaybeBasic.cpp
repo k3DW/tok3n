@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("JoinMaybeBasic");
 
 using Joi_May_OC = Join<Maybe<AnyOf<TT("123")>>>;
@@ -12,17 +15,17 @@ TEST("JoinMaybeBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_May_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_May_OC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_May_NC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_May_L, char, detail::join_family, detail::output_span<char>);
+    ASSERT_IS_PARSER(Joi_May_OC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_May_NC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_May_L, char, join_family, output_span<char>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_L, wchar_t, detail::join_family, detail::output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_May_L, wchar_t, join_family, output_span<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_May_NC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_May_L, int, detail::join_family, detail::output_span<int>);
+    ASSERT_IS_PARSER(Joi_May_OC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_May_NC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_May_L, int, join_family, output_span<int>);
 }
 
 TEST("JoinMaybeBasic", "Maybe<AnyOf>")

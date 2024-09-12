@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("delimit_keep modifier");
 
 TEST("delimit_keep modifier", "prefix")
@@ -35,7 +38,7 @@ TEST("delimit_keep modifier", "non consteval")
 
 
 #define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                                        \
-	[]<detail::parser PP>(PP) {                                                                                  \
+	[]<parser PP>(PP) {                                                                                          \
 		DEP_ASSERT_MODIFIER_CALLABLE_R(delimit_keep, (PP{}, comma), (Delimit<PP, Comma, std::true_type>{}),      \
 			                           delimit_keep, (P{}, comma),  (Delimit<P, Comma, std::true_type>{}));      \
 		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit_keep(comma), (Delimit<PP, Comma, std::true_type>{}), \
@@ -43,7 +46,7 @@ TEST("delimit_keep modifier", "non consteval")
 	}(P{});
 
 #define DELIMIT_KEEP_MODIFIER_ASSERTER_2(P, D)                                                                   \
-	[]<detail::parser PP, detail::parser DD>(PP, DD) {                                                           \
+	[]<parser PP, parser DD>(PP, DD) {                                                                           \
 		if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>)                        \
 		{                                                                                                        \
 			DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit_keep, (PP{}, DD{}),                                         \

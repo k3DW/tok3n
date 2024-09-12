@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("JoinZeroOrMoreBasic");
 
 using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<TT("123")>>>;
@@ -12,17 +15,17 @@ TEST("JoinZeroOrMoreBasic", "Requirements")
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_NC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_L, value_type);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, char, detail::join_family, detail::output_span<char>);
-    ASSERT_IS_PARSER(Joi_Zom_L, char, detail::join_family, detail::output_span<char>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, char, join_family, output_span<char>);
+    ASSERT_IS_PARSER(Joi_Zom_L, char, join_family, output_span<char>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, detail::join_family, detail::output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, detail::join_family, detail::output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, join_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, join_family, output_span<wchar_t>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, int, detail::join_family, detail::output_span<int>);
-    ASSERT_IS_PARSER(Joi_Zom_L, int, detail::join_family, detail::output_span<int>);
+    ASSERT_IS_PARSER(Joi_Zom_OC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_Zom_NC, int, join_family, output_span<int>);
+    ASSERT_IS_PARSER(Joi_Zom_L, int, join_family, output_span<int>);
 }
 
 TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")

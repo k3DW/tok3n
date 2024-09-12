@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Defaulted");
 
 TEST("Defaulted", "Requirements")
@@ -7,14 +10,14 @@ TEST("Defaulted", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
 
-	ASSERT_IS_PARSER(Def1, char, detail::map_family, int);
-	ASSERT_IS_PARSER(Def2, char, detail::map_family, Class3);
+	ASSERT_IS_PARSER(Def1, char, map_family, int);
+	ASSERT_IS_PARSER(Def2, char, map_family, Class3);
 
-	ASSERT_IS_PARSER(Def1, wchar_t, detail::map_family, int);
-	ASSERT_IS_PARSER(Def2, wchar_t, detail::map_family, Class3);
+	ASSERT_IS_PARSER(Def1, wchar_t, map_family, int);
+	ASSERT_IS_PARSER(Def2, wchar_t, map_family, Class3);
 
-	ASSERT_IS_PARSER(Def1, int, detail::map_family, int);
-	ASSERT_IS_PARSER(Def2, int, detail::map_family, Class3);
+	ASSERT_IS_PARSER(Def1, int, map_family, int);
+	ASSERT_IS_PARSER(Def2, int, map_family, Class3);
 }
 
 TEST("Defaulted", "Parse all")

@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("sub modifier");
 
 namespace {
@@ -15,10 +18,10 @@ constexpr auto sub42 = (name<"nam4"> = name<"nam2">);
 
 } // namespace
 
-#define ASSERT_SUBSTITUTION_TYPE(SUB, NAME, SUBBED)                                                                                    \
-    ASSERT(detail::substitution<decltype(SUB)>, #SUB " is expected to satisfy substitution concept.");                           \
-    ASSERT(std::is_empty_v<decltype(SUB)>, #SUB " is expected to be an empty type.");                                                  \
-    ASSERT((std::same_as<std::remove_cvref_t<decltype(SUB)>, detail::substitution_info<NAME, std::remove_cvref_t<decltype(SUBBED)>>>), \
+#define ASSERT_SUBSTITUTION_TYPE(SUB, NAME, SUBBED)                                                                            \
+    ASSERT(substitution<decltype(SUB)>, #SUB " is expected to satisfy substitution concept.");                                 \
+    ASSERT(std::is_empty_v<decltype(SUB)>, #SUB " is expected to be an empty type.");                                          \
+    ASSERT((std::same_as<std::remove_cvref_t<decltype(SUB)>, substitution_info<NAME, std::remove_cvref_t<decltype(SUBBED)>>>), \
         #SUB " must be the same as substitution_info<" NAME ", decltype(" #SUBBED ").")
 
 #define ASSERT_SUBSTITUTION_SAME_NAME(SUB1, SUB2)                                    \
@@ -71,13 +74,13 @@ TEST("sub modifier", "prefix")
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub22), nam3);
-	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub32), (Exactly<_23, detail::index_c<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub32), (Exactly<_23, index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub42), nam3);
 
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub11), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub21), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub31), nam4);
-	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub41), (Exactly<_24, detail::index_c<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub41), (Exactly<_24, index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub32), nam4);
@@ -110,13 +113,13 @@ TEST("sub modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub22), nam3);
-	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub32), (Exactly<_23, detail::index_c<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub32), (Exactly<_23, index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub42), nam3);
 
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub11), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub21), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub31), nam4);
-	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub41), (Exactly<_24, detail::index_c<2>>{}));
+	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub41), (Exactly<_24, index_c<2>>{}));
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub32), nam4);

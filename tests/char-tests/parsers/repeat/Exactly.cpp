@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Exactly");
 
 TEST("Exactly", "Requirements")
@@ -9,37 +12,37 @@ TEST("Exactly", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Exa3, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Exa4, value_type);
 
-	ASSERT_IS_PARSER(Exa1, char, detail::exactly_family, std::array<detail::output_span<char>, 3>);
-	ASSERT_IS_PARSER(Exa2, char, detail::exactly_family, std::array<detail::output_span<char>, 5>);
-	ASSERT_IS_PARSER(Exa3, char, detail::exactly_family, std::array<detail::output_span<char>, 4>);
-	ASSERT_IS_PARSER(Exa4, char, detail::exactly_family, std::array<std::tuple<detail::output_span<char>, detail::output_span<char>>, 2>);
+	ASSERT_IS_PARSER(Exa1, char, exactly_family, std::array<output_span<char>, 3>);
+	ASSERT_IS_PARSER(Exa2, char, exactly_family, std::array<output_span<char>, 5>);
+	ASSERT_IS_PARSER(Exa3, char, exactly_family, std::array<output_span<char>, 4>);
+	ASSERT_IS_PARSER(Exa4, char, exactly_family, std::array<std::tuple<output_span<char>, output_span<char>>, 2>);
 
-	ASSERT_IS_PARSER(Exa1, wchar_t, detail::exactly_family, std::array<detail::output_span<wchar_t>, 3>);
-	ASSERT_IS_PARSER(Exa2, wchar_t, detail::exactly_family, std::array<detail::output_span<wchar_t>, 5>);
-	ASSERT_IS_PARSER(Exa3, wchar_t, detail::exactly_family, std::array<detail::output_span<wchar_t>, 4>);
-	ASSERT_IS_PARSER(Exa4, wchar_t, detail::exactly_family, std::array<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>, 2>);
+	ASSERT_IS_PARSER(Exa1, wchar_t, exactly_family, std::array<output_span<wchar_t>, 3>);
+	ASSERT_IS_PARSER(Exa2, wchar_t, exactly_family, std::array<output_span<wchar_t>, 5>);
+	ASSERT_IS_PARSER(Exa3, wchar_t, exactly_family, std::array<output_span<wchar_t>, 4>);
+	ASSERT_IS_PARSER(Exa4, wchar_t, exactly_family, std::array<std::tuple<output_span<wchar_t>, output_span<wchar_t>>, 2>);
 
-	ASSERT_IS_PARSER(Exa1, int, detail::exactly_family, std::array<detail::output_span<int>, 3>);
-	ASSERT_IS_PARSER(Exa2, int, detail::exactly_family, std::array<detail::output_span<int>, 5>);
-	ASSERT_IS_PARSER(Exa3, int, detail::exactly_family, std::array<detail::output_span<int>, 4>);
-	ASSERT_IS_PARSER(Exa4, int, detail::exactly_family, std::array<std::tuple<detail::output_span<int>, detail::output_span<int>>, 2>);
+	ASSERT_IS_PARSER(Exa1, int, exactly_family, std::array<output_span<int>, 3>);
+	ASSERT_IS_PARSER(Exa2, int, exactly_family, std::array<output_span<int>, 5>);
+	ASSERT_IS_PARSER(Exa3, int, exactly_family, std::array<output_span<int>, 4>);
+	ASSERT_IS_PARSER(Exa4, int, exactly_family, std::array<std::tuple<output_span<int>, output_span<int>>, 2>);
 }
 
 TEST("Exactly", "Constructibility")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<0>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<1>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, detail::index_c<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, index_c<0>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, index_c<1>);
+	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, index_c<2>);
 
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<0>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<1>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, detail::integral_constant<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<0>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<1>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<2>);
 }
 
 TEST("Exactly", "Parse Exactly<AllOf>")
 {
 	{
-		using array_type = std::array<detail::output_span<char>, 3>;
+		using array_type = std::array<output_span<char>, 3>;
 		ASSERT_PARSE_FAILURE(Exa1, "litera");
 		ASSERT_PARSE_FAILURE(Exa1, "literal");
 		ASSERT_PARSE_FAILURE(Exa1, "literalliteral");
@@ -51,7 +54,7 @@ TEST("Exactly", "Parse Exactly<AllOf>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<wchar_t>, 3>;
+		using array_type = std::array<output_span<wchar_t>, 3>;
 		ASSERT_PARSE_FAILURE(Exa1, L"litera");
 		ASSERT_PARSE_FAILURE(Exa1, L"literal");
 		ASSERT_PARSE_FAILURE(Exa1, L"literalliteral");
@@ -63,7 +66,7 @@ TEST("Exactly", "Parse Exactly<AllOf>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<int>, 3>;
+		using array_type = std::array<output_span<int>, 3>;
 		ASSERT_PARSE_FAILURE(Exa1, e<int>("litera"));
 		ASSERT_PARSE_FAILURE(Exa1, e<int>("literal"));
 		ASSERT_PARSE_FAILURE(Exa1, e<int>("literalliteral"));
@@ -77,7 +80,7 @@ TEST("Exactly", "Parse Exactly<AllOf>")
 TEST("Exactly", "Parse Exactly<AnyOf>")
 {
 	{
-		using array_type = std::array<detail::output_span<char>, 5>;
+		using array_type = std::array<output_span<char>, 5>;
 		ASSERT_PARSE_SUCCESS(Exa2, "abcbaa", array_type({ "a", "b", "c", "b", "a" }), "a");
 		ASSERT_PARSE_FAILURE(Exa2, "fedcba");
 		ASSERT_PARSE_SUCCESS(Exa2, "cbabcccbjklmnop", array_type({ "c", "b", "a", "b", "c" }), "ccbjklmnop");
@@ -85,7 +88,7 @@ TEST("Exactly", "Parse Exactly<AnyOf>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<wchar_t>, 5>;
+		using array_type = std::array<output_span<wchar_t>, 5>;
 		ASSERT_PARSE_SUCCESS(Exa2, L"abcbaa", array_type({ L"a", L"b", L"c", L"b", L"a" }), L"a");
 		ASSERT_PARSE_FAILURE(Exa2, L"fedcba");
 		ASSERT_PARSE_SUCCESS(Exa2, L"cbabcccbjklmnop", array_type({ L"c", L"b", L"a", L"b", L"c" }), L"ccbjklmnop");
@@ -93,7 +96,7 @@ TEST("Exactly", "Parse Exactly<AnyOf>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<int>, 5>;
+		using array_type = std::array<output_span<int>, 5>;
 		ASSERT_PARSE_SUCCESS(Exa2, e<int>("abcbaa"), array_type({ e<int>("a"), e<int>("b"), e<int>("c"), e<int>("b"), e<int>("a") }), e<int>("a"));
 		ASSERT_PARSE_FAILURE(Exa2, e<int>("fedcba"));
 		ASSERT_PARSE_SUCCESS(Exa2, e<int>("cbabcccbjklmnop"), array_type({ e<int>("c"), e<int>("b"), e<int>("a"), e<int>("b"), e<int>("c") }), e<int>("ccbjklmnop"));
@@ -103,7 +106,7 @@ TEST("Exactly", "Parse Exactly<AnyOf>")
 TEST("Exactly", "Parse Exactly<Choice>")
 {
 	{
-		using array_type = std::array<detail::output_span<char>, 4>;
+		using array_type = std::array<output_span<char>, 4>;
 		ASSERT_PARSE_SUCCESS(Exa3, "abliteralcbliteralcf", array_type({ "a", "b", "literal", "c" }), "bliteralcf");
 		ASSERT_PARSE_SUCCESS(Exa3, "abliteralcblitralcf", array_type({ "a", "b", "literal", "c" }), "blitralcf");
 		ASSERT_PARSE_SUCCESS(Exa3, "literalabacliteral", array_type({ "literal", "a", "b", "a" }), "cliteral");
@@ -111,7 +114,7 @@ TEST("Exactly", "Parse Exactly<Choice>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<wchar_t>, 4>;
+		using array_type = std::array<output_span<wchar_t>, 4>;
 		ASSERT_PARSE_SUCCESS(Exa3, L"abliteralcbliteralcf", array_type({ L"a", L"b", L"literal", L"c" }), L"bliteralcf");
 		ASSERT_PARSE_SUCCESS(Exa3, L"abliteralcblitralcf", array_type({ L"a", L"b", L"literal", L"c" }), L"blitralcf");
 		ASSERT_PARSE_SUCCESS(Exa3, L"literalabacliteral", array_type({ L"literal", L"a", L"b", L"a" }), L"cliteral");
@@ -119,7 +122,7 @@ TEST("Exactly", "Parse Exactly<Choice>")
 	}
 
 	{
-		using array_type = std::array<detail::output_span<int>, 4>;
+		using array_type = std::array<output_span<int>, 4>;
 		ASSERT_PARSE_SUCCESS(Exa3, e<int>("abliteralcbliteralcf"), array_type({ e<int>("a"), e<int>("b"), e<int>("literal"), e<int>("c") }), e<int>("bliteralcf"));
 		ASSERT_PARSE_SUCCESS(Exa3, e<int>("abliteralcblitralcf"), array_type({ e<int>("a"), e<int>("b"), e<int>("literal"), e<int>("c") }), e<int>("blitralcf"));
 		ASSERT_PARSE_SUCCESS(Exa3, e<int>("literalabacliteral"), array_type({ e<int>("literal"), e<int>("a"), e<int>("b"), e<int>("a") }), e<int>("cliteral"));
@@ -129,7 +132,7 @@ TEST("Exactly", "Parse Exactly<Choice>")
 TEST("Exactly", "Parse Exactly<Sequence>")
 {
 	{
-		using array_type = std::array<std::tuple<detail::output_span<char>, detail::output_span<char>>, 2>;
+		using array_type = std::array<std::tuple<output_span<char>, output_span<char>>, 2>;
 		ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralb", array_type({ {"literal", "a"}, {"literal", "c"} }), "literalcliteralb");
 		ASSERT_PARSE_SUCCESS(Exa4, "literalaliteralcliteralcliteralbliteral", array_type({ {"literal", "a"}, {"literal", "c"} }), "literalcliteralbliteral");
 		ASSERT_PARSE_FAILURE(Exa4, "aliteralaliteralcliteralbliteral");
@@ -137,7 +140,7 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 	}
 
 	{
-		using array_type = std::array<std::tuple<detail::output_span<wchar_t>, detail::output_span<wchar_t>>, 2>;
+		using array_type = std::array<std::tuple<output_span<wchar_t>, output_span<wchar_t>>, 2>;
 		ASSERT_PARSE_SUCCESS(Exa4, L"literalaliteralcliteralcliteralb", array_type({ {L"literal", L"a"}, {L"literal", L"c"} }), L"literalcliteralb");
 		ASSERT_PARSE_SUCCESS(Exa4, L"literalaliteralcliteralcliteralbliteral", array_type({ {L"literal", L"a"}, {L"literal", L"c"} }), L"literalcliteralbliteral");
 		ASSERT_PARSE_FAILURE(Exa4, L"aliteralaliteralcliteralbliteral");
@@ -145,7 +148,7 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 	}
 
 	{
-		using array_type = std::array<std::tuple<detail::output_span<int>, detail::output_span<int>>, 2>;
+		using array_type = std::array<std::tuple<output_span<int>, output_span<int>>, 2>;
 		ASSERT_PARSE_SUCCESS(Exa4, e<int>("literalaliteralcliteralcliteralb"), array_type({ {e<int>("literal"), e<int>("a")}, {e<int>("literal"), e<int>("c")} }), e<int>("literalcliteralb"));
 		ASSERT_PARSE_SUCCESS(Exa4, e<int>("literalaliteralcliteralcliteralbliteral"), array_type({ {e<int>("literal"), e<int>("a")}, {e<int>("literal"), e<int>("c")} }), e<int>("literalcliteralbliteral"));
 		ASSERT_PARSE_FAILURE(Exa4, e<int>("aliteralaliteralcliteralbliteral"));
@@ -155,7 +158,7 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 
 TEST("Exactly", "Parse Exactly<void-parser>")
 {
-	using P = Exactly<Ignore<ABC>, detail::index_c<2>>;
+	using P = Exactly<Ignore<ABC>, index_c<2>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

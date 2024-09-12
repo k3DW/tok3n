@@ -1,9 +1,12 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 namespace
 {
 	template <class V>
-	using vec_type = std::vector<detail::output_span<V>>;
+	using vec_type = std::vector<output_span<V>>;
 }
 
 FIXTURE("Delimit regular");
@@ -20,32 +23,32 @@ TEST("Delimit regular", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Del7, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Del8, value_type);
 
-	ASSERT_IS_PARSER(Del1, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del2, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del3, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del4, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del5, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del6, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del7, char, detail::delimit_family, std::vector<detail::output_span<char>>);
-	ASSERT_IS_PARSER(Del8, char, detail::delimit_family, std::vector<detail::output_span<char>>);
+	ASSERT_IS_PARSER(Del1, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del2, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del3, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del4, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del5, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del6, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del7, char, delimit_family, std::vector<output_span<char>>);
+	ASSERT_IS_PARSER(Del8, char, delimit_family, std::vector<output_span<char>>);
 
-	ASSERT_IS_PARSER(Del1, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del2, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del3, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del4, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del5, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del6, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del7, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Del8, wchar_t, detail::delimit_family, std::vector<detail::output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del1, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del2, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del3, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del4, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del5, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del6, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del7, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+	ASSERT_IS_PARSER(Del8, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
 
-	ASSERT_IS_PARSER(Del1, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del2, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del3, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del4, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del5, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del6, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del7, int, detail::delimit_family, std::vector<detail::output_span<int>>);
-	ASSERT_IS_PARSER(Del8, int, detail::delimit_family, std::vector<detail::output_span<int>>);
+	ASSERT_IS_PARSER(Del1, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del2, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del3, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del4, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del5, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del6, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del7, int, delimit_family, std::vector<output_span<int>>);
+	ASSERT_IS_PARSER(Del8, int, delimit_family, std::vector<output_span<int>>);
 }
 
 TEST("Delimit keep", "Requirements")
@@ -59,32 +62,32 @@ TEST("Delimit keep", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Dek7, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Dek8, value_type);
 
-	ASSERT_IS_PARSER(Dek1, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek2, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek3, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek4, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek5, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek6, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek7, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
-	ASSERT_IS_PARSER(Dek8, char, detail::delimit_family, std::pair<std::vector<detail::output_span<char>>, std::vector<detail::output_span<char>>>);
+	ASSERT_IS_PARSER(Dek1, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek2, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek3, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek4, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek5, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek6, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek7, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+	ASSERT_IS_PARSER(Dek8, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
 
-	ASSERT_IS_PARSER(Dek1, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek2, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek3, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek4, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek5, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek6, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek7, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
-	ASSERT_IS_PARSER(Dek8, wchar_t, detail::delimit_family, std::pair<std::vector<detail::output_span<wchar_t>>, std::vector<detail::output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek1, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek2, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek3, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek4, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek5, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek6, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek7, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+	ASSERT_IS_PARSER(Dek8, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Dek1, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek2, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek3, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek4, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek5, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek6, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek7, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
-	ASSERT_IS_PARSER(Dek8, int, detail::delimit_family, std::pair<std::vector<detail::output_span<int>>, std::vector<detail::output_span<int>>>);
+	ASSERT_IS_PARSER(Dek1, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek2, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek3, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek4, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek5, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek6, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek7, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+	ASSERT_IS_PARSER(Dek8, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
 }
 
 TEST("Delimit regular", "Parse all")

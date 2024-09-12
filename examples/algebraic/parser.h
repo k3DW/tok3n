@@ -2,7 +2,7 @@
 #include <k3/tok3n.h>
 #include <variant>
 
-using namespace k3::tok3n::operators;
+using namespace k3::tok3n;
 
 /*
 

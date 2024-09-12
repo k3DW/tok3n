@@ -127,8 +127,6 @@ static_assert(Space < Dot);
 
 #endif
 
-using namespace k3::tok3n;
-
 #include "samples/helpers.ipp"
 
 #include "samples/basic-non-char.ipp"

@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Into");
 
 TEST("Into", "Requirements")
@@ -8,17 +11,17 @@ TEST("Into", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Int2, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Int3, value_type);
 
-	ASSERT_IS_PARSER(Int1, char, detail::map_family, Class1);
-	ASSERT_IS_PARSER(Int2, char, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Int3, char, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int1, char, map_family, Class1);
+	ASSERT_IS_PARSER(Int2, char, map_family, Class2);
+	ASSERT_IS_PARSER(Int3, char, map_family, Class2);
 
-	ASSERT_IS_PARSER(Int1, wchar_t, detail::map_family, Class1);
-	ASSERT_IS_PARSER(Int2, wchar_t, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Int3, wchar_t, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int1, wchar_t, map_family, Class1);
+	ASSERT_IS_PARSER(Int2, wchar_t, map_family, Class2);
+	ASSERT_IS_PARSER(Int3, wchar_t, map_family, Class2);
 
-	ASSERT_IS_PARSER(Int1, int, detail::map_family, Class1);
-	ASSERT_IS_PARSER(Int2, int, detail::map_family, Class2);
-	ASSERT_IS_PARSER(Int3, int, detail::map_family, Class2);
+	ASSERT_IS_PARSER(Int1, int, map_family, Class1);
+	ASSERT_IS_PARSER(Int2, int, map_family, Class2);
+	ASSERT_IS_PARSER(Int3, int, map_family, Class2);
 }
 
 TEST("Into", "Parse all")
@@ -72,7 +75,7 @@ TEST("Into", "Parse all")
 TEST("Into", "Move only")
 {
 	{
-		using T = MoveOnlyWrapper<detail::output_span<char>>;
+		using T = MoveOnlyWrapper<output_span<char>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -80,7 +83,7 @@ TEST("Into", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<detail::output_span<wchar_t>>;
+		using T = MoveOnlyWrapper<output_span<wchar_t>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -88,7 +91,7 @@ TEST("Into", "Move only")
 	}
 
 	{
-		using T = MoveOnlyWrapper<detail::output_span<int>>;
+		using T = MoveOnlyWrapper<output_span<int>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
@@ -99,7 +102,7 @@ TEST("Into", "Move only")
 TEST("Into", "Copy only")
 {
 	{
-		using T = CopyOnlyWrapper<detail::output_span<char>>;
+		using T = CopyOnlyWrapper<output_span<char>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
 		ASSERT_PARSE_FAILURE(P, "dcba");
@@ -107,7 +110,7 @@ TEST("Into", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<detail::output_span<wchar_t>>;
+		using T = CopyOnlyWrapper<output_span<wchar_t>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
 		ASSERT_PARSE_FAILURE(P, L"dcba");
@@ -115,7 +118,7 @@ TEST("Into", "Copy only")
 	}
 
 	{
-		using T = CopyOnlyWrapper<detail::output_span<int>>;
+		using T = CopyOnlyWrapper<output_span<int>>;
 		using P = aliases::Into<ABC, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));

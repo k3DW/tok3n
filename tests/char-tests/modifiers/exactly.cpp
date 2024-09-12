@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("exactly modifier");
 
 TEST("exactly modifier", "prefix")
@@ -26,12 +29,12 @@ TEST("exactly modifier", "non consteval")
 
 
 
-#define EXACTLY_MODIFIER_ASSERTER(P)                                                                 \
-	[]<detail::parser PP>(PP) {                                                                      \
-		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, detail::index_c<2>>{}),      \
-				                       exactly<2>, (P{}),  (Exactly<P, detail::index_c<2>>{}));      \
-		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, detail::index_c<2>>{}), \
-				                              P{},  exactly<2>, (Exactly<P, detail::index_c<2>>{})); \
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                         \
+	[]<parser PP>(PP) {                                                                      \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(exactly<2>, (PP{}), (Exactly<PP, index_c<2>>{}),      \
+				                       exactly<2>, (P{}),  (Exactly<P, index_c<2>>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, exactly<2>, (Exactly<PP, index_c<2>>{}), \
+				                              P{},  exactly<2>, (Exactly<P, index_c<2>>{})); \
 	}(P{});
 
 TEST("exactly modifier", "modify anything")

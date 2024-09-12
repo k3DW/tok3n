@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Ignore");
 
 TEST("Ignore", "Requirements")
@@ -10,23 +13,23 @@ TEST("Ignore", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Ign4, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Ign5, value_type);
 
-	ASSERT_IS_PARSER(Ign1, char, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign2, char, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign3, char, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign4, char, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign5, char, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign1, char, ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, char, ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, char, ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, char, ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, char, ignore_family, void);
 
-	ASSERT_IS_PARSER(Ign1, wchar_t, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign2, wchar_t, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign3, wchar_t, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign4, wchar_t, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign5, wchar_t, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign1, wchar_t, ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, wchar_t, ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, wchar_t, ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, wchar_t, ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, wchar_t, ignore_family, void);
 
-	ASSERT_IS_PARSER(Ign1, int, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign2, int, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign3, int, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign4, int, detail::ignore_family, void);
-	ASSERT_IS_PARSER(Ign5, int, detail::ignore_family, void);
+	ASSERT_IS_PARSER(Ign1, int, ignore_family, void);
+	ASSERT_IS_PARSER(Ign2, int, ignore_family, void);
+	ASSERT_IS_PARSER(Ign3, int, ignore_family, void);
+	ASSERT_IS_PARSER(Ign4, int, ignore_family, void);
+	ASSERT_IS_PARSER(Ign5, int, ignore_family, void);
 }
 
 TEST("Ignore", "Parse all")

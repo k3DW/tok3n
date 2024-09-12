@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Custom");
 
 TEST("Custom", "Requirements")
@@ -7,14 +10,14 @@ TEST("Custom", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Cus1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Cus2, value_type);
 
-	ASSERT_IS_PARSER(Cus1, char, detail::custom_family, std::size_t);
-	ASSERT_IS_PARSER(Cus2, char, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus1, char, custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, char, custom_family, std::size_t);
 
-	ASSERT_IS_PARSER(Cus1, wchar_t, detail::custom_family, std::size_t);
-	ASSERT_IS_PARSER(Cus2, wchar_t, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus1, wchar_t, custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, wchar_t, custom_family, std::size_t);
 
-	ASSERT_IS_PARSER(Cus1, int, detail::custom_family, std::size_t);
-	ASSERT_IS_PARSER(Cus2, int, detail::custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus1, int, custom_family, std::size_t);
+	ASSERT_IS_PARSER(Cus2, int, custom_family, std::size_t);
 }
 
 TEST("Custom", "Parse Cus1")

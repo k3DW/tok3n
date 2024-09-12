@@ -23,8 +23,6 @@
 #error Must define exactly one VALUE_TYPE_XYZ macro.
 #endif
 
-using namespace k3::tok3n;
-
 #include "samples/helpers.ipp"
 
 #include "samples/basic-char.ipp"

@@ -1,15 +1,18 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("multi operator");
 
 TEST("multi operator", "creation")
 {
-	ASSERT_MODIFIER_VALUES_EQ(ignore % join, (modifiers::multi<modifiers::ignore, modifiers::join>{}));
-	ASSERT_MODIFIER_VALUES_EQ(join % ignore, (modifiers::multi<modifiers::join, modifiers::ignore>{}));
-	ASSERT_MODIFIER_VALUES_EQ(complete % join, (modifiers::multi<modifiers::complete, modifiers::join>{}));
-	ASSERT_MODIFIER_VALUES_EQ(join % complete, (modifiers::multi<modifiers::join, modifiers::complete>{}));
-	ASSERT_MODIFIER_VALUES_EQ(ignore % complete, (modifiers::multi<modifiers::ignore, modifiers::complete>{}));
-	ASSERT_MODIFIER_VALUES_EQ(complete % ignore, (modifiers::multi<modifiers::complete, modifiers::ignore>{}));
+	ASSERT_MODIFIER_VALUES_EQ(ignore % join, (multi_modifier<ignore_modifier, join_modifier>{}));
+	ASSERT_MODIFIER_VALUES_EQ(join % ignore, (multi_modifier<join_modifier, ignore_modifier>{}));
+	ASSERT_MODIFIER_VALUES_EQ(complete % join, (multi_modifier<complete_modifier, join_modifier>{}));
+	ASSERT_MODIFIER_VALUES_EQ(join % complete, (multi_modifier<join_modifier, complete_modifier>{}));
+	ASSERT_MODIFIER_VALUES_EQ(ignore % complete, (multi_modifier<ignore_modifier, complete_modifier>{}));
+	ASSERT_MODIFIER_VALUES_EQ(complete % ignore, (multi_modifier<complete_modifier, ignore_modifier>{}));
 }
 
 TEST("multi operator", "not commutative")

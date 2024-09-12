@@ -1,12 +1,15 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 FIXTURE("Anything");
 
 TEST("Anything", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
-	ASSERT_IS_PARSER(Ant1, value_type, detail::anything_family, detail::output_span<value_type>);
+	ASSERT_IS_PARSER(Ant1, value_type, anything_family, output_span<value_type>);
 }
 
 TEST("Anything", "Parse")

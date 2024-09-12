@@ -1,5 +1,8 @@
 #include "samples.h"
 
+using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
+
 using Single = AnyOf<TT('a')>;
 using Multi  = AnyOf<TT("abc")>;
 
@@ -10,14 +13,14 @@ TEST("AnyOf", "Requirements")
 	ASSERT_PARSER_VALUE_TYPE(Single, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
 
-	ASSERT_IS_PARSER(Single, char, detail::any_of_family, detail::output_span<char>);
-	ASSERT_IS_PARSER(Multi, char, detail::any_of_family, detail::output_span<char>);
+	ASSERT_IS_PARSER(Single, char, any_of_family, output_span<char>);
+	ASSERT_IS_PARSER(Multi, char, any_of_family, output_span<char>);
 
-	ASSERT_IS_PARSER(Single, wchar_t, detail::any_of_family, detail::output_span<wchar_t>);
-	ASSERT_IS_PARSER(Multi, wchar_t, detail::any_of_family, detail::output_span<wchar_t>);
+	ASSERT_IS_PARSER(Single, wchar_t, any_of_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(Multi, wchar_t, any_of_family, output_span<wchar_t>);
 
-	ASSERT_IS_PARSER(Single, int, detail::any_of_family, detail::output_span<int>);
-	ASSERT_IS_PARSER(Multi, int, detail::any_of_family, detail::output_span<int>);
+	ASSERT_IS_PARSER(Single, int, any_of_family, output_span<int>);
+	ASSERT_IS_PARSER(Multi, int, any_of_family, output_span<int>);
 }
 
 TEST("AnyOf", "Parse single")

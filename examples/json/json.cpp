@@ -3,7 +3,7 @@
 #include <variant>
 #include <iostream>
 
-using namespace k3::tok3n::operators;
+using namespace k3::tok3n;
 
 constexpr auto whitespace = *(" \n\r\t"_any) % ignore;
 
