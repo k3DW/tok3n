@@ -1,18 +1,18 @@
 #pragma once
 #include <k3/tok3n/detail/parsers/basic_base.h>
 
-namespace k3::tok3n {
+namespace k3::tok3n::detail {
 
 template <class ValueType>
-struct Anything : detail::impl::basic_parser_base<Anything<ValueType>>
+struct anything_parser : impl::basic_parser_base<anything_parser<ValueType>>
 {
-	static constexpr detail::parser_family family = detail::anything_family;
+	static constexpr parser_family family = anything_family;
 };
 
-namespace detail::impl {
+namespace impl {
 
 template <class ValueType>
-struct basic_parser_traits<Anything<ValueType>>
+struct basic_parser_traits<anything_parser<ValueType>>
 {
 	using value_type = ValueType;
 
@@ -25,6 +25,6 @@ struct basic_parser_traits<Anything<ValueType>>
 	}
 };
 
-} // namespace detail::impl
+} // namespace impl
 
-} // namespace k3::tok3n
+} // namespace k3::tok3n::detail

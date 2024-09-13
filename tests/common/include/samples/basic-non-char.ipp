@@ -23,8 +23,8 @@ using All1 = k3::tok3n::detail::all_of_parser<k3::tok3n::detail::static_array(X,
 using All2 = k3::tok3n::detail::all_of_parser<k3::tok3n::detail::static_array(Y, Z)>;    constexpr All2 all2;
 using All3 = k3::tok3n::detail::all_of_parser<k3::tok3n::detail::static_array(A, B)>;    constexpr All3 all3;
 
-using Eps1 = k3::tok3n::Epsilon<::value_type>;  constexpr Eps1 eps1;
-using Ant1 = k3::tok3n::Anything<::value_type>; constexpr Ant1 ant1;
+using Eps1 = k3::tok3n::detail::epsilon_parser<::value_type>;  constexpr Eps1 eps1;
+using Ant1 = k3::tok3n::detail::anything_parser<::value_type>; constexpr Ant1 ant1;
 
 using QQ       = k3::tok3n::detail::all_of_parser<k3::tok3n::detail::static_array(Question, Question)>; constexpr QQ       qq;
 using ABC      = k3::tok3n::detail::all_of_parser<k3::tok3n::detail::static_array(A, B, C)>;            constexpr ABC      abc;

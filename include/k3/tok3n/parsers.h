@@ -7,8 +7,8 @@
 #include <k3/tok3n/detail/parsers/any_of.h>
 #include <k3/tok3n/detail/parsers/none_of.h>
 #include <k3/tok3n/detail/parsers/all_of.h>
-#include <k3/tok3n/parsers/basic/Anything.h>
-#include <k3/tok3n/parsers/basic/Epsilon.h>
+#include <k3/tok3n/detail/parsers/anything.h>
+#include <k3/tok3n/detail/parsers/epsilon.h>
 
 #include <k3/tok3n/parsers/compound/Choice.h>
 #include <k3/tok3n/parsers/compound/Sequence.h>

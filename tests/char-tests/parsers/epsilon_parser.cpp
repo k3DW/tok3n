@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Epsilon");
+FIXTURE("epsilon_parser");
 
-TEST("Epsilon", "Requirements")
+TEST("epsilon_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
@@ -14,7 +14,7 @@ TEST("Epsilon", "Requirements")
 	ASSERT_IS_PARSER(Eps1, int, epsilon_family, void);
 }
 
-TEST("Epsilon", "Parse")
+TEST("epsilon_parser", "Parse")
 {
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, "ab", "ab");
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, "ba", "ba");
@@ -41,7 +41,7 @@ TEST("Epsilon", "Parse")
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e<int>(""), e<int>(""));
 }
 
-TEST("Epsilon", "Choice<P, Epsilon>")
+TEST("epsilon_parser", "Choice<P, epsilon_parser>")
 {
 	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);

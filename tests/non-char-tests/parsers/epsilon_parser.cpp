@@ -3,16 +3,16 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Epsilon");
+FIXTURE("epsilon_parser");
 
-TEST("Epsilon", "Requirements")
+TEST("epsilon_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
 
 	ASSERT_IS_PARSER(Eps1, value_type, epsilon_family, void);
 }
 
-TEST("Epsilon", "Parse")
+TEST("epsilon_parser", "Parse")
 {
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e(A, B, C), e(A, B, C));
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e(A, C, B), e(A, C, B));

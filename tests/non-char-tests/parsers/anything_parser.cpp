@@ -3,16 +3,16 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Anything");
+FIXTURE("anything_parser");
 
-TEST("Anything", "Requirements")
+TEST("anything_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
 
 	ASSERT_IS_PARSER(Ant1, value_type, anything_family, output_span<value_type>);
 }
 
-TEST("Anything", "Parse")
+TEST("anything_parser", "Parse")
 {
 	ASSERT_PARSE_SUCCESS(Ant1, e(A, B, C), e(A), e(B, C));
 	ASSERT_PARSE_SUCCESS(Ant1, e(A, C, B), e(A), e(C, B));
