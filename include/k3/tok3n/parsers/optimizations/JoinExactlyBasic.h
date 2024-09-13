@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/BasicBase.h>
+#include <k3/tok3n/detail/parsers/basic_parser_base.h>
 #include <k3/tok3n/parsers/divergent/Join.h>
 #include <k3/tok3n/parsers/repeat/Exactly.h>
 
@@ -21,7 +21,7 @@ struct Join<Exactly<Basic<arr>, N>>
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		using Traits = BasicTraits<Basic<arr>>;
+		using Traits = detail::impl::basic_parser_traits<Basic<arr>>;
 
 		const detail::input_span original_input = input;
 		detail::output_span<V> res = { input.data(), 0 };
@@ -43,7 +43,7 @@ struct Join<Exactly<Basic<arr>, N>>
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		using Traits = BasicTraits<Basic<arr>>;
+		using Traits = detail::impl::basic_parser_traits<Basic<arr>>;
 
 		const detail::input_span original_input = input;
 

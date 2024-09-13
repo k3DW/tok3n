@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/BasicBase.h>
+#include <k3/tok3n/detail/parsers/basic_parser_base.h>
 #include <k3/tok3n/parsers/divergent/Join.h>
 #include <k3/tok3n/parsers/repeat/Maybe.h>
 
@@ -21,7 +21,7 @@ struct Join<Maybe<Basic<arr>>>
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		using Traits = BasicTraits<Basic<arr>>;
+		using Traits = detail::impl::basic_parser_traits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
 			return detail::result<result_for<V>, V>{ detail::success_tag, { input.data(), 0 }, input };
@@ -35,7 +35,7 @@ struct Join<Maybe<Basic<arr>>>
 		detail::input_span input{ std::forward<R>(r) };
 		using V = detail::input_value_t<R>;
 
-		using Traits = BasicTraits<Basic<arr>>;
+		using Traits = detail::impl::basic_parser_traits<Basic<arr>>;
 
 		if (Traits::failure_condition(input))
 			return detail::result<void, V>{ detail::success_tag, input };
