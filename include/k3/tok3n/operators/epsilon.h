@@ -1,6 +1,6 @@
 #pragma once
+#include <k3/tok3n/detail/operators/choice.h>
 #include <k3/tok3n/parsers/basic/Epsilon.h>
-#include <k3/tok3n/operators/choice.h>
 
 namespace k3::tok3n {
 
@@ -15,7 +15,7 @@ inline constexpr EpsilonOperator eps = {};
 template <detail::parser P>
 constexpr auto operator|(P, EpsilonOperator)
 {
-	return ::k3::tok3n::operator|(P{}, Epsilon<typename P::value_type>{});
+	return ::k3::tok3n::detail::operator|(P{}, Epsilon<typename P::value_type>{});
 }
 
 template <detail::parser P>

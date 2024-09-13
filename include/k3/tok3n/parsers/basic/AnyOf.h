@@ -1,4 +1,5 @@
 #pragma once
+#include <k3/tok3n/detail/static_array.h>
 #include <k3/tok3n/parsers/basic/BasicBase.h>
 
 namespace k3::tok3n {
