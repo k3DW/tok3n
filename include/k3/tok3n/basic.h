@@ -75,23 +75,3 @@ consteval auto operator"" _ign()
 }
 
 } // namespace k3::tok3n
-
-namespace k3::tok3n::operators {
-
-using ::k3::tok3n::any;
-using ::k3::tok3n::any_of;
-using ::k3::tok3n::none;
-using ::k3::tok3n::none_of;
-using ::k3::tok3n::all;
-using ::k3::tok3n::all_of;
-using ::k3::tok3n::ign;
-
-using ::k3::tok3n::operator""_any;
-using ::k3::tok3n::operator""_any_of;
-using ::k3::tok3n::operator""_none;
-using ::k3::tok3n::operator""_none_of;
-using ::k3::tok3n::operator""_all;
-using ::k3::tok3n::operator""_all_of;
-using ::k3::tok3n::operator""_ign;
-
-} // namespace k3::tok3n::operators
