@@ -6,7 +6,7 @@ int main()
 	using namespace k3;
 	using namespace k3::tok3n;
 
-	constexpr auto oc = AnyOf<"ab">{};
+	constexpr auto oc = detail::any_of_parser<"ab">{};
 	constexpr auto test = exactly<2>(oc);
 
 	auto result_ = test.parse("cbac");

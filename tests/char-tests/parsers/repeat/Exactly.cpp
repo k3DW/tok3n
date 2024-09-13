@@ -39,7 +39,7 @@ TEST("Exactly", "Constructibility")
 	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<2>);
 }
 
-TEST("Exactly", "Parse Exactly<AllOf>")
+TEST("Exactly", "Parse Exactly<all_of_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 3>;
@@ -77,7 +77,7 @@ TEST("Exactly", "Parse Exactly<AllOf>")
 		ASSERT_PARSE_FAILURE(Exa1, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<AnyOf>")
+TEST("Exactly", "Parse Exactly<any_of_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 5>;

@@ -4,9 +4,9 @@
 #include <k3/tok3n/parsers/adaptor/Complete.h>
 #include <k3/tok3n/parsers/adaptor/Named.h>
 
-#include <k3/tok3n/parsers/basic/AnyOf.h>
-#include <k3/tok3n/parsers/basic/NoneOf.h>
-#include <k3/tok3n/parsers/basic/AllOf.h>
+#include <k3/tok3n/detail/parsers/any_of.h>
+#include <k3/tok3n/detail/parsers/none_of.h>
+#include <k3/tok3n/detail/parsers/all_of.h>
 #include <k3/tok3n/parsers/basic/Anything.h>
 #include <k3/tok3n/parsers/basic/Epsilon.h>
 

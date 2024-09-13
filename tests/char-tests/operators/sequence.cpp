@@ -5,17 +5,17 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("sequence operator");
 
-TEST("sequence operator", "AllOf >> AllOf")
+TEST("sequence operator", "all_of_parser >> all_of_parser")
 {
-	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<TT("literalliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<TT("literally")>{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<TT("literaltest")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<TT("lyliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<TT("lyly")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<TT("lytest")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<TT("testliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<TT("testly")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<TT("testtest")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all1, all_of_parser<TT("literalliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all2, all_of_parser<TT("literally")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all3, all_of_parser<TT("literaltest")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all1, all_of_parser<TT("lyliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all2, all_of_parser<TT("lyly")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all3, all_of_parser<TT("lytest")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all1, all_of_parser<TT("testliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all2, all_of_parser<TT("testly")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all3, all_of_parser<TT("testtest")>{});
 }
 
 
@@ -126,8 +126,8 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 			if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)             \
 			{                                                                                          \
 				constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                            \
-											LHS{}  >> RHS{},  AllOf<str>{});                           \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, all_of_parser<str>{},                    \
+											LHS{}  >> RHS{},  all_of_parser<str>{});                   \
 			}                                                                                          \
 			else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family)    \
 			{                                                                                          \
@@ -153,7 +153,7 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 	}(LHS{}, RHS{});
 
 #define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
-	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+	(any_of_parser<"abc">) (any_of_parser<"xyz">) (any_of_parser<L"abc">) (any_of_parser<L"xyz">)
 
 TEST("sequence operator", "{anything} >> {anything}")
 {

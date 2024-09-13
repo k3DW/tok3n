@@ -1,5 +1,5 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/AllOf.h>
+#include <k3/tok3n/detail/parsers/all_of.h>
 #include <k3/tok3n/parsers/compound/Sequence.h>
 
 namespace k3::tok3n::detail {
@@ -8,9 +8,9 @@ namespace impl {
 
 template <static_array lhs, static_array rhs>
 requires decltype(like_static_arrays(lhs, rhs))::value
-consteval auto sequence_operator(AllOf<lhs>, AllOf<rhs>) // "ab" >> "cd" == "abcd"
+consteval auto sequence_operator(all_of_parser<lhs>, all_of_parser<rhs>) // "ab" >> "cd" == "abcd"
 {
-	return AllOf<lhs + rhs>{};
+	return all_of_parser<lhs + rhs>{};
 }
 
 template <parser... P1s, parser... P2s>

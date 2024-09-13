@@ -28,7 +28,7 @@ TEST("Maybe", "Requirements")
 	ASSERT_IS_PARSER(May4, int, maybe_family, std::optional<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("Maybe", "Parse Maybe<AllOf>")
+TEST("Maybe", "Parse Maybe<all_of_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May1, "litera", std::nullopt, "litera");
 	ASSERT_PARSE_SUCCESS(May1, "literal", std::optional("literal"), "");
@@ -54,7 +54,7 @@ TEST("Maybe", "Parse Maybe<AllOf>")
 	ASSERT_PARSE_SUCCESS(May1, e<int>(" literalliterallitera"), std::nullopt, e<int>(" literalliterallitera"));
 	ASSERT_PARSE_SUCCESS(May1, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<AnyOf>")
+TEST("Maybe", "Parse Maybe<any_of_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May2, "abcdef", std::optional("a"), "bcdef");
 	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");

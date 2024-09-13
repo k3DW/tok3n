@@ -5,9 +5,9 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("JoinMaybeBasic");
 
-using Joi_May_OC = Join<Maybe<AnyOf<TT("123")>>>;
-using Joi_May_NC = Join<Maybe<NoneOf<TT("123")>>>;
-using Joi_May_L  = Join<Maybe<AllOf<TT("123")>>>;
+using Joi_May_OC = Join<Maybe<any_of_parser<TT("123")>>>;
+using Joi_May_NC = Join<Maybe<none_of_parser<TT("123")>>>;
+using Joi_May_L  = Join<Maybe<all_of_parser<TT("123")>>>;
 
 TEST("JoinMaybeBasic", "Requirements")
 {
@@ -28,7 +28,7 @@ TEST("JoinMaybeBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_May_L, int, join_family, output_span<int>);
 }
 
-TEST("JoinMaybeBasic", "Maybe<AnyOf>")
+TEST("JoinMaybeBasic", "Maybe<any_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "12321321", "1", "2321321");
     ASSERT_PARSE_SUCCESS(Joi_May_OC, "1232 1321", "1", "232 1321");
@@ -49,7 +49,7 @@ TEST("JoinMaybeBasic", "Maybe<AnyOf>")
     ASSERT_PARSE_SUCCESS(Joi_May_OC, e<int>("012341321"), e<int>(""), e<int>("012341321"));
 }
 
-TEST("JoinMaybeBasic", "Maybe<NoneOf>")
+TEST("JoinMaybeBasic", "Maybe<none_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "12321321", "", "12321321");
     ASSERT_PARSE_SUCCESS(Joi_May_NC, "1232 1321", "", "1232 1321");
@@ -70,7 +70,7 @@ TEST("JoinMaybeBasic", "Maybe<NoneOf>")
     ASSERT_PARSE_SUCCESS(Joi_May_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
 }
 
-TEST("JoinMaybeBasic", "Maybe<AllOf>")
+TEST("JoinMaybeBasic", "Maybe<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_May_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_May_L, "12312321321", "123", "12321321");

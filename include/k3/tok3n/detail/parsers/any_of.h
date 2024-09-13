@@ -1,21 +1,21 @@
 #pragma once
+#include <k3/tok3n/detail/parsers/basic_base.h>
 #include <k3/tok3n/detail/static_array.h>
-#include <k3/tok3n/detail/parsers/basic_parser_base.h>
 
-namespace k3::tok3n {
-
-template <detail::static_array arr>
-requires (detail::is_sorted_and_uniqued(arr.span()))
-struct AnyOf : detail::impl::basic_parser_base<AnyOf<arr>>
-{
-	static constexpr detail::parser_family family = detail::any_of_family;
-};
-
-namespace detail::impl {
+namespace k3::tok3n::detail {
 
 template <static_array arr>
 requires (is_sorted_and_uniqued(arr.span()))
-struct basic_parser_traits<AnyOf<arr>>
+struct any_of_parser : impl::basic_parser_base<any_of_parser<arr>>
+{
+	static constexpr parser_family family = any_of_family;
+};
+
+namespace impl {
+
+template <static_array arr>
+requires (is_sorted_and_uniqued(arr.span()))
+struct basic_parser_traits<any_of_parser<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
 
@@ -28,6 +28,6 @@ struct basic_parser_traits<AnyOf<arr>>
 	}
 };
 
-} // namespace detail::impl
+} // namespace impl
 
-} // namespace k3::tok3n
+} // namespace k3::tok3n::detail

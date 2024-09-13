@@ -28,7 +28,7 @@ TEST("Named", "Requirements")
 	ASSERT_IS_PARSER(Nam4, int, named_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
 }
 
-TEST("Named", "Named<AllOf>")
+TEST("Named", "Named<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Nam1, "abc", "abc", "");
     ASSERT_PARSE_SUCCESS(Nam1, "abcd", "abc", "d");

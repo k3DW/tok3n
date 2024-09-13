@@ -40,7 +40,7 @@ TEST("Complete", "Requirements")
 	ASSERT_IS_PARSER(Com7, int, complete_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("Complete", "Complete<AllOf>")
+TEST("Complete", "Complete<all_of_parser>")
 {
 	ASSERT_PARSE_FAILURE(Com1, "litera");
 	ASSERT_PARSE_SUCCESS(Com1, "literal", "literal", "");
@@ -66,7 +66,7 @@ TEST("Complete", "Complete<AllOf>")
 	ASSERT_PARSE_FAILURE(Com1, e<int>(" literalliterallitera"));
 	ASSERT_PARSE_FAILURE(Com1, e<int>());
 }
-TEST("Complete", "Complete<AnyOf>")
+TEST("Complete", "Complete<any_of_parser>")
 {
 	ASSERT_PARSE_SUCCESS(Com2, "a", "a", "");
 	ASSERT_PARSE_SUCCESS(Com2, "b", "b", "");

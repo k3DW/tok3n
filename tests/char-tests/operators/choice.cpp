@@ -5,33 +5,33 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("choice operator");
 
-TEST("choice operator", "AnyOf | AnyOf")
+TEST("choice operator", "any_of_parser | any_of_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(any1 | any2, any2 | any1);
 	ASSERT_PARSER_VALUES_EQ(any1 | any3, any3 | any1);
 	ASSERT_PARSER_VALUES_EQ(any2 | any3, any3 | any2);
-	ASSERT_PARSER_VALUES_EQ(any1 | any2, AnyOf<TT("abcd")>{});
-	ASSERT_PARSER_VALUES_EQ(any1 | any3, AnyOf<TT("abcxyz")>{});
-	ASSERT_PARSER_VALUES_EQ(any2 | any3, AnyOf<TT("bcdxyz")>{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any2, any_of_parser<TT("abcd")>{});
+	ASSERT_PARSER_VALUES_EQ(any1 | any3, any_of_parser<TT("abcxyz")>{});
+	ASSERT_PARSER_VALUES_EQ(any2 | any3, any_of_parser<TT("bcdxyz")>{});
 	ASSERT_PARSER_VALUES_EQ(any1 | any1, any1);
 	ASSERT_PARSER_VALUES_EQ(any2 | any2, any2);
 	ASSERT_PARSER_VALUES_EQ(any3 | any3, any3);
 }
 
-TEST("choice operator", "NoneOf | NoneOf")
+TEST("choice operator", "none_of_parser | none_of_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(none1 | none2, none2 | none1);
 	ASSERT_PARSER_VALUES_EQ(none1 | none3, none3 | none1);
 	ASSERT_PARSER_VALUES_EQ(none2 | none3, none3 | none2);
-	ASSERT_PARSER_VALUES_EQ(none1 | none2, NoneOf<TT("bc")>{});
-	ASSERT_PARSER_VALUES_EQ(none1 | none3, NoneOf<TT("")>{});
-	ASSERT_PARSER_VALUES_EQ(none2 | none3, NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none2, none_of_parser<TT("bc")>{});
+	ASSERT_PARSER_VALUES_EQ(none1 | none3, none_of_parser<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(none2 | none3, none_of_parser<TT("")>{});
 	ASSERT_PARSER_VALUES_EQ(none1 | none1, none1);
 	ASSERT_PARSER_VALUES_EQ(none2 | none2, none2);
 	ASSERT_PARSER_VALUES_EQ(none3 | none3, none3);
 }
 
-TEST("choice operator", "AnyOf | NoneOf, and NoneOf | AnyOf")
+TEST("choice operator", "any_of_parser | none_of_parser, and none_of_parser | any_of_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(any1 | none1, none1 | any1);
 	ASSERT_PARSER_VALUES_EQ(any1 | none2, none2 | any1);
@@ -42,15 +42,15 @@ TEST("choice operator", "AnyOf | NoneOf, and NoneOf | AnyOf")
 	ASSERT_PARSER_VALUES_EQ(any3 | none1, none1 | any3);
 	ASSERT_PARSER_VALUES_EQ(any3 | none2, none2 | any3);
 	ASSERT_PARSER_VALUES_EQ(any3 | none3, none3 | any3);
-	ASSERT_PARSER_VALUES_EQ(any1 | none1, NoneOf<TT("")>{});
-	ASSERT_PARSER_VALUES_EQ(any1 | none2, NoneOf<TT("d")>{});
-	ASSERT_PARSER_VALUES_EQ(any1 | none3, NoneOf<TT("xyz")>{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none1, NoneOf<TT("a")>{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none2, NoneOf<TT("")>{});
-	ASSERT_PARSER_VALUES_EQ(any2 | none3, NoneOf<TT("xyz")>{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none1, NoneOf<TT("abc")>{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none2, NoneOf<TT("bcd")>{});
-	ASSERT_PARSER_VALUES_EQ(any3 | none3, NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none1, none_of_parser<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none2, none_of_parser<TT("d")>{});
+	ASSERT_PARSER_VALUES_EQ(any1 | none3, none_of_parser<TT("xyz")>{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none1, none_of_parser<TT("a")>{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none2, none_of_parser<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(any2 | none3, none_of_parser<TT("xyz")>{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none1, none_of_parser<TT("abc")>{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none2, none_of_parser<TT("bcd")>{});
+	ASSERT_PARSER_VALUES_EQ(any3 | none3, none_of_parser<TT("")>{});
 }
 
 
@@ -234,26 +234,26 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 			else if constexpr (LLHS::family == any_of_family and RRHS::family == any_of_family)           \
 			{                                                                                             \
 				constexpr auto str = set_union_string<underlying_v<LLHS>, underlying_v<RRHS>>;            \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, AnyOf<str>{},                                \
-					                        LHS{}  | RHS{},  AnyOf<str>{});                               \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, any_of_parser<str>{},                        \
+					                        LHS{}  | RHS{},  any_of_parser<str>{});                       \
 			}                                                                                             \
 			else if constexpr (LLHS::family == none_of_family and RRHS::family == none_of_family)         \
 			{                                                                                             \
 				constexpr auto str = set_intersection_string<underlying_v<LLHS>, underlying_v<RRHS>>;     \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                               \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                              \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, none_of_parser<str>{},                       \
+					                        LHS{}  | RHS{},  none_of_parser<str>{});                      \
 			}                                                                                             \
 			else if constexpr (LLHS::family == none_of_family and RRHS::family == any_of_family)          \
 			{                                                                                             \
 				constexpr auto str = set_difference_left_string<underlying_v<LLHS>, underlying_v<RRHS>>;  \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                               \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                              \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, none_of_parser<str>{},                       \
+					                        LHS{}  | RHS{},  none_of_parser<str>{});                      \
 			}                                                                                             \
 			else if constexpr (LLHS::family == any_of_family and RRHS::family == none_of_family)          \
 			{                                                                                             \
 				constexpr auto str = set_difference_right_string<underlying_v<LLHS>, underlying_v<RRHS>>; \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, NoneOf<str>{},                               \
-					                        LHS{}  | RHS{},  NoneOf<str>{});                              \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, none_of_parser<str>{},                       \
+					                        LHS{}  | RHS{},  none_of_parser<str>{});                      \
 			}                                                                                             \
 			else if constexpr (LLHS::family == choice_family and RRHS::family != choice_family)           \
 			{                                                                                             \
@@ -279,7 +279,7 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 	}(LHS{}, RHS{});
 
 #define CHOICE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
-	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+	(any_of_parser<"abc">) (any_of_parser<"xyz">) (any_of_parser<L"abc">) (any_of_parser<L"xyz">)
 
 TEST("choice operator", "{anything} | {anything}")
 {

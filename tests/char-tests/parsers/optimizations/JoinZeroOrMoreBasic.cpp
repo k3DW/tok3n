@@ -5,9 +5,9 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("JoinZeroOrMoreBasic");
 
-using Joi_Zom_OC = Join<ZeroOrMore<AnyOf<TT("123")>>>;
-using Joi_Zom_NC = Join<ZeroOrMore<NoneOf<TT("123")>>>;
-using Joi_Zom_L  = Join<ZeroOrMore<AllOf<TT("123")>>>;
+using Joi_Zom_OC = Join<ZeroOrMore<any_of_parser<TT("123")>>>;
+using Joi_Zom_NC = Join<ZeroOrMore<none_of_parser<TT("123")>>>;
+using Joi_Zom_L  = Join<ZeroOrMore<all_of_parser<TT("123")>>>;
 
 TEST("JoinZeroOrMoreBasic", "Requirements")
 {
@@ -28,7 +28,7 @@ TEST("JoinZeroOrMoreBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_Zom_L, int, join_family, output_span<int>);
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")
+TEST("JoinZeroOrMoreBasic", "ZeroOrMore<any_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "12321321", "12321321", "");
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "1232 1321", "1232", " 1321");
@@ -49,7 +49,7 @@ TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AnyOf>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, e<int>("012341321"), e<int>(""), e<int>("012341321"));
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<NoneOf>")
+TEST("JoinZeroOrMoreBasic", "ZeroOrMore<none_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, "12321321", "", "12321321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, "1232 1321", "", "1232 1321");
@@ -70,7 +70,7 @@ TEST("JoinZeroOrMoreBasic", "ZeroOrMore<NoneOf>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<AllOf>")
+TEST("JoinZeroOrMoreBasic", "ZeroOrMore<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12312321321", "123123", "21321");

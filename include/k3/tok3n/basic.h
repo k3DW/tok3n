@@ -1,34 +1,34 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/AnyOf.h>
-#include <k3/tok3n/parsers/basic/NoneOf.h>
-#include <k3/tok3n/parsers/basic/AllOf.h>
+#include <k3/tok3n/detail/parsers/any_of.h>
+#include <k3/tok3n/detail/parsers/none_of.h>
+#include <k3/tok3n/detail/parsers/all_of.h>
 #include <k3/tok3n/parsers/adaptor/Ignore.h>
 
 namespace k3::tok3n {
 
 template <detail::static_array arr>
-constexpr auto any = AnyOf<detail::sort_and_unique<arr>()>{};
+constexpr auto any = detail::any_of_parser<detail::sort_and_unique<arr>()>{};
 
 template <auto t, auto... ts>
 requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
 constexpr auto any_of = any<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
-constexpr auto none = NoneOf<detail::sort_and_unique<arr>()>{};
+constexpr auto none = detail::none_of_parser<detail::sort_and_unique<arr>()>{};
 
 template <auto t, auto... ts>
 requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
 constexpr auto none_of = none<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
-constexpr auto all = AllOf<arr>{};
+constexpr auto all = detail::all_of_parser<arr>{};
 
 template <auto t, auto... ts>
 requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
 constexpr auto all_of = all<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
-constexpr auto ign = Ignore<AllOf<arr>>{};
+constexpr auto ign = Ignore<detail::all_of_parser<arr>>{};
 
 
 

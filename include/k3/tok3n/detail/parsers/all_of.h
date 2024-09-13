@@ -1,18 +1,19 @@
 #pragma once
-#include <k3/tok3n/detail/parsers/basic_parser_base.h>
+#include <k3/tok3n/detail/parsers/basic_base.h>
+#include <k3/tok3n/detail/static_array.h>
 
-namespace k3::tok3n {
-
-template <detail::static_array arr>
-struct AllOf : detail::impl::basic_parser_base<AllOf<arr>>
-{
-	static constexpr detail::parser_family family = detail::all_of_family;
-};
-
-namespace detail::impl {
+namespace k3::tok3n::detail {
 
 template <static_array arr>
-struct basic_parser_traits<AllOf<arr>>
+struct all_of_parser : impl::basic_parser_base<all_of_parser<arr>>
+{
+	static constexpr parser_family family = all_of_family;
+};
+
+namespace impl {
+
+template <static_array arr>
+struct basic_parser_traits<all_of_parser<arr>>
 {
 	using value_type = typename decltype(arr)::value_type;
 
@@ -25,6 +26,6 @@ struct basic_parser_traits<AllOf<arr>>
 	}
 };
 
-} // namespace detail::impl
+} // namespace impl
 
-} // namespace k3::tok3n
+} // namespace k3::tok3n::detail

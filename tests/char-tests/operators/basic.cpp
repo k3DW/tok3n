@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("basic operators");
 
@@ -12,7 +13,7 @@ TEST("basic operators", "UDL _any")
 	ASSERT_PARSER_VALUES_EQ(TT("cd"_any), any4);
 	ASSERT_PARSER_VALUES_EQ(TT(","_any), comma);
 	ASSERT_PARSER_VALUES_EQ(TT(" ."_any), spacedot);
-	ASSERT_PARSER_VALUES_EQ(TT(""_any), AnyOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_any), any_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "UDL _any_of")
@@ -23,7 +24,7 @@ TEST("basic operators", "UDL _any_of")
 	ASSERT_PARSER_VALUES_EQ(TT("cd"_any_of), any4);
 	ASSERT_PARSER_VALUES_EQ(TT(","_any_of), comma);
 	ASSERT_PARSER_VALUES_EQ(TT(" ."_any_of), spacedot);
-	ASSERT_PARSER_VALUES_EQ(TT(""_any_of), AnyOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_any_of), any_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "any<>")
@@ -34,7 +35,7 @@ TEST("basic operators", "any<>")
 	ASSERT_PARSER_VALUES_EQ(any<TT("cd")>, any4);
 	ASSERT_PARSER_VALUES_EQ(any<TT(",")>, comma);
 	ASSERT_PARSER_VALUES_EQ(any<TT(" .")>, spacedot);
-	ASSERT_PARSER_VALUES_EQ(any<TT("")>, AnyOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(any<TT("")>, any_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "any_of<>")
@@ -54,7 +55,7 @@ TEST("basic operators", "UDL _none")
 	ASSERT_PARSER_VALUES_EQ(TT("xyz"_none), none3);
 	ASSERT_PARSER_VALUES_EQ(TT("cd"_none), none4);
 	ASSERT_PARSER_VALUES_EQ(TT("z"_none), none5);
-	ASSERT_PARSER_VALUES_EQ(TT(""_none), NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_none), none_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "UDL _none_of")
@@ -64,7 +65,7 @@ TEST("basic operators", "UDL _none_of")
 	ASSERT_PARSER_VALUES_EQ(TT("xyz"_none_of), none3);
 	ASSERT_PARSER_VALUES_EQ(TT("cd"_none_of), none4);
 	ASSERT_PARSER_VALUES_EQ(TT("z"_none_of), none5);
-	ASSERT_PARSER_VALUES_EQ(TT(""_none_of), NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_none_of), none_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "none<>")
@@ -74,7 +75,7 @@ TEST("basic operators", "none<>")
 	ASSERT_PARSER_VALUES_EQ(none<TT("xyz")>, none3);
 	ASSERT_PARSER_VALUES_EQ(none<TT("cd")>, none4);
 	ASSERT_PARSER_VALUES_EQ(none<TT("z")>, none5);
-	ASSERT_PARSER_VALUES_EQ(none<TT("")>, NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(none<TT("")>, none_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "none_of<>")
@@ -94,7 +95,7 @@ TEST("basic operators", "UDL _all")
 	ASSERT_PARSER_VALUES_EQ(TT("ab"_all), all4);
 	ASSERT_PARSER_VALUES_EQ(TT("??"_all), qq);
 	ASSERT_PARSER_VALUES_EQ(TT("abc"_all), abc);
-	ASSERT_PARSER_VALUES_EQ(TT(""_all), AllOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_all), all_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "UDL _all_of")
@@ -105,7 +106,7 @@ TEST("basic operators", "UDL _all_of")
 	ASSERT_PARSER_VALUES_EQ(TT("ab"_all_of), all4);
 	ASSERT_PARSER_VALUES_EQ(TT("??"_all_of), qq);
 	ASSERT_PARSER_VALUES_EQ(TT("abc"_all_of), abc);
-	ASSERT_PARSER_VALUES_EQ(TT(""_all_of), AllOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_all_of), all_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "all<>")
@@ -116,7 +117,7 @@ TEST("basic operators", "all<>")
 	ASSERT_PARSER_VALUES_EQ(all<TT("ab")>, all4);
 	ASSERT_PARSER_VALUES_EQ(all<TT("??")>, qq);
 	ASSERT_PARSER_VALUES_EQ(all<TT("abc")>, abc);
-	ASSERT_PARSER_VALUES_EQ(all<TT("")>, AllOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(all<TT("")>, all_of_parser<TT("")>{});
 }
 
 TEST("basic operators", "all_of<>")
@@ -137,7 +138,7 @@ TEST("basic operators", "UDL _ign")
 	ASSERT_PARSER_VALUES_EQ(TT("ab"_ign), Ignore<All4>{});
 	ASSERT_PARSER_VALUES_EQ(TT("??"_ign), Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(TT("abc"_ign), Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_ign), Ignore<AllOf<TT("")>>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_ign), Ignore<all_of_parser<TT("")>>{});
 }
 
 TEST("basic operators", "ign<>")
@@ -148,42 +149,42 @@ TEST("basic operators", "ign<>")
 	ASSERT_PARSER_VALUES_EQ(ign<TT("ab")>, Ignore<All4>{});
 	ASSERT_PARSER_VALUES_EQ(ign<TT("??")>, Ignore<QQ>{});
 	ASSERT_PARSER_VALUES_EQ(ign<TT("abc")>, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("")>, Ignore<AllOf<TT("")>>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("")>, Ignore<all_of_parser<TT("")>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")
 {
-	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any), AnyOf<TT("123")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none), NoneOf<TT("123")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("123abc"_any), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("123abc"_none), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("abc123"_any), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("abc123"_none), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("Aa"_any), AnyOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("Aa"_none), NoneOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("aA"_any), AnyOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("aA"_none), NoneOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("A"_any), AnyOf<TT("A")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("A"_none), NoneOf<TT("A")>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_any), AnyOf<TT("")>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_none), NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any), any_of_parser<TT("123")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none), none_of_parser<TT("123")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("123abc"_any), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("123abc"_none), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("abc123"_any), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("abc123"_none), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("Aa"_any), any_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("Aa"_none), none_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("aA"_any), any_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("aA"_none), none_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("A"_any), any_of_parser<TT("A")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("A"_none), none_of_parser<TT("A")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_any), any_of_parser<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_none), none_of_parser<TT("")>{});
 
-	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any_of), AnyOf<TT("123")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none_of), NoneOf<TT("123")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("123abc"_any_of), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("123abc"_none_of), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("abc123"_any_of), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("abc123"_none_of), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any_of), AnyOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none_of), NoneOf<TT("123abc")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("Aa"_any_of), AnyOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("Aa"_none_of), NoneOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("aA"_any_of), AnyOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("aA"_none_of), NoneOf<TT("Aa")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("A"_any_of), AnyOf<TT("A")>{});
-	ASSERT_PARSER_VALUES_EQ(TT("A"_none_of), NoneOf<TT("A")>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_any_of), AnyOf<TT("")>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_none_of), NoneOf<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any_of), any_of_parser<TT("123")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none_of), none_of_parser<TT("123")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("123abc"_any_of), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("123abc"_none_of), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("abc123"_any_of), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("abc123"_none_of), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any_of), any_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none_of), none_of_parser<TT("123abc")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("Aa"_any_of), any_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("Aa"_none_of), none_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("aA"_any_of), any_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("aA"_none_of), none_of_parser<TT("Aa")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("A"_any_of), any_of_parser<TT("A")>{});
+	ASSERT_PARSER_VALUES_EQ(TT("A"_none_of), none_of_parser<TT("A")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_any_of), any_of_parser<TT("")>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_none_of), none_of_parser<TT("")>{});
 }

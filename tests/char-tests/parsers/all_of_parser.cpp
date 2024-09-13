@@ -3,11 +3,11 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-using L = AllOf<TT("literal")>;
+using L = all_of_parser<TT("literal")>;
 
-FIXTURE("AllOf");
+FIXTURE("all_of_parser");
 
-TEST("AllOf", "Requirements")
+TEST("all_of_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(L, value_type);
 	ASSERT_IS_PARSER(L, char, all_of_family, output_span<char>);
@@ -15,7 +15,7 @@ TEST("AllOf", "Requirements")
 	ASSERT_IS_PARSER(L, int, all_of_family, output_span<int>);
 }
 
-TEST("AllOf", "Parse 'literal'")
+TEST("all_of_parser", "Parse 'literal'")
 {
 	ASSERT_PARSE_SUCCESS(L, "literal", "literal", "");
 	ASSERT_PARSE_SUCCESS(L, "literally", "literal", "ly");
@@ -41,16 +41,16 @@ TEST("AllOf", "Parse 'literal'")
 
 
 
-TEST("AllOf", "Parse empty")
+TEST("all_of_parser", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AllOf, TT(""));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(all_of_parser, TT(""));
 
-	ASSERT_PARSE_SUCCESS(AllOf<"">, "anything", "", "anything");
-	ASSERT_PARSE_SUCCESS(AllOf<"">, "", "", "");
+	ASSERT_PARSE_SUCCESS(all_of_parser<"">, "anything", "", "anything");
+	ASSERT_PARSE_SUCCESS(all_of_parser<"">, "", "", "");
 
-	ASSERT_PARSE_SUCCESS(AllOf<L"">, L"anything", L"", L"anything");
-	ASSERT_PARSE_SUCCESS(AllOf<L"">, L"", L"", L"");
+	ASSERT_PARSE_SUCCESS(all_of_parser<L"">, L"anything", L"", L"anything");
+	ASSERT_PARSE_SUCCESS(all_of_parser<L"">, L"", L"", L"");
 
-	ASSERT_PARSE_SUCCESS(AllOf<"">, e<int>("anything"), e<int>(), e<int>("anything"));
-	ASSERT_PARSE_SUCCESS(AllOf<"">, e<int>(), e<int>(), e<int>());
+	ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>("anything"), e<int>(), e<int>("anything"));
+	ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>(), e<int>(), e<int>());
 }

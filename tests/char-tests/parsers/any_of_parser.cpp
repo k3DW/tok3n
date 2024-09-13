@@ -3,12 +3,12 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-using Single = AnyOf<TT('a')>;
-using Multi  = AnyOf<TT("abc")>;
+using Single = any_of_parser<TT('a')>;
+using Multi  = any_of_parser<TT("abc")>;
 
-FIXTURE("AnyOf");
+FIXTURE("any_of_parser");
 
-TEST("AnyOf", "Requirements")
+TEST("any_of_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Single, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
@@ -23,7 +23,7 @@ TEST("AnyOf", "Requirements")
 	ASSERT_IS_PARSER(Multi, int, any_of_family, output_span<int>);
 }
 
-TEST("AnyOf", "Parse single")
+TEST("any_of_parser", "Parse single")
 {
 	ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
 	ASSERT_PARSE_FAILURE(Single, "ba");
@@ -47,7 +47,7 @@ TEST("AnyOf", "Parse single")
 	ASSERT_PARSE_FAILURE(Single, e<int>(" abc"));
 }
 
-TEST("AnyOf", "Parse multi")
+TEST("any_of_parser", "Parse multi")
 {
 	ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
 	ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
@@ -97,26 +97,26 @@ TEST("AnyOf", "Parse multi")
 
 
 
-TEST("AnyOf", "Constructible from lexicographically sorted only")
+TEST("any_of_parser", "Constructible from lexicographically sorted only")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, TT("abc"));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("acb"));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("bac"));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("bca"));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("cab"));
-	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(AnyOf, TT("cba"));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(any_of_parser, TT("abc"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, TT("acb"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, TT("bac"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, TT("bca"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, TT("cab"));
+	ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, TT("cba"));
 }
 
-TEST("AnyOf", "Parse empty")
+TEST("any_of_parser", "Parse empty")
 {
-	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(AnyOf, TT(""));
+	ASSERT_BASIC_PARSER_CONSTRUCTIBLE(any_of_parser, TT(""));
 
-	ASSERT_PARSE_FAILURE(AnyOf<"">, "anything");
-	ASSERT_PARSE_FAILURE(AnyOf<"">, "");
+	ASSERT_PARSE_FAILURE(any_of_parser<"">, "anything");
+	ASSERT_PARSE_FAILURE(any_of_parser<"">, "");
 
-	ASSERT_PARSE_FAILURE(AnyOf<L"">, L"anything");
-	ASSERT_PARSE_FAILURE(AnyOf<L"">, L"");
+	ASSERT_PARSE_FAILURE(any_of_parser<L"">, L"anything");
+	ASSERT_PARSE_FAILURE(any_of_parser<L"">, L"");
 
-	ASSERT_PARSE_FAILURE(AnyOf<"">, e<int>("anything"));
-	ASSERT_PARSE_FAILURE(AnyOf<"">, e<int>());
+	ASSERT_PARSE_FAILURE(any_of_parser<"">, e<int>("anything"));
+	ASSERT_PARSE_FAILURE(any_of_parser<"">, e<int>());
 }

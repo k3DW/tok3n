@@ -64,7 +64,7 @@ TEST("delimit_keep modifier", "non consteval")
 	}(P{}, D{});
 
 #define DELIMIT_KEEP_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
-	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+	(any_of_parser<"abc">) (any_of_parser<"xyz">) (any_of_parser<L"abc">) (any_of_parser<L"xyz">)
 
 TEST("delimit_keep modifier", "modify anything")
 {

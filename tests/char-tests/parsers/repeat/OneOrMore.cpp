@@ -28,7 +28,7 @@ TEST("OneOrMore", "Requirements")
 	ASSERT_IS_PARSER(Oom4, int, one_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("OneOrMore", "Parse OneOrMore<AllOf>")
+TEST("OneOrMore", "Parse OneOrMore<all_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -63,7 +63,7 @@ TEST("OneOrMore", "Parse OneOrMore<AllOf>")
 		ASSERT_PARSE_FAILURE(Oom1, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<AnyOf>")
+TEST("OneOrMore", "Parse OneOrMore<any_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;

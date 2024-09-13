@@ -28,7 +28,7 @@ TEST("ZeroOrMore", "Requirements")
 	ASSERT_IS_PARSER(Zom4, int, zero_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("ZeroOrMore", "Parse ZeroOrMore<AllOf>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<all_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -63,7 +63,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<AllOf>")
 		ASSERT_PARSE_SUCCESS(Zom1, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<AnyOf>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<any_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
