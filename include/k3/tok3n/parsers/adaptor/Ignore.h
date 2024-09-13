@@ -10,7 +10,7 @@ struct Ignore
 	using value_type = typename P::value_type;
 	
 	template <detail::equality_comparable_with<value_type> V>
-	using result_for = detail::front<void, V>;
+	using result_for = std::conditional_t<std::same_as<void, V>, V, void>; // Always void
 
 	static constexpr detail::parser_family family = detail::ignore_family;
 
