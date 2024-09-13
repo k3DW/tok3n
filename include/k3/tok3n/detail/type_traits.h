@@ -56,12 +56,25 @@ concept enum_within_bounds =
 
 namespace impl {
 
-template <class T, class... Ts>
-extern std::type_identity<T> front;
+template <bool Value, class Type>
+struct unwrap_if_single_trait
+{
+	static constexpr bool unwrapped = Value;
+	using type = Type;
+};
+
+template <template <class...> class List>
+consteval auto unwrap_if_single(List<>) -> unwrap_if_single_trait<true, void>;
+
+template <template <class...> class List, class T>
+consteval auto unwrap_if_single(List<T>) -> unwrap_if_single_trait<true, T>;
+
+template <template <class...> class List, class... Ts>
+consteval auto unwrap_if_single(List<Ts...>) -> unwrap_if_single_trait<false, List<Ts...>>;
 
 } // namespace impl
 
-template <class... Ts>
-using front = typename decltype(impl::front<Ts...>)::type;
+template <class List>
+using unwrap_if_single = decltype(impl::unwrap_if_single(List{}));
 
 } // namespace k3::tok3n::detail
