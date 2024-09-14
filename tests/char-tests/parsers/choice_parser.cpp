@@ -9,9 +9,9 @@ using TwoWay2 = Cho2;
 using ThreeWay1 = Cho3;
 using ThreeWay2 = Cho4;
 
-FIXTURE("Choice");
+FIXTURE("choice_parser");
 
-TEST("Choice", "Requirements")
+TEST("choice_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(TwoWay1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(TwoWay2, value_type);
@@ -38,7 +38,7 @@ TEST("Choice", "Requirements")
 	ASSERT_IS_PARSER(Cho5, int, choice_family, void);
 }
 
-TEST("Choice", "Parse two-way Choice")
+TEST("choice_parser", "Parse two-way choice_parser")
 {
 	ASSERT_PARSE_SUCCESS(TwoWay1, "abc", "ab", "c");
 	ASSERT_PARSE_SUCCESS(TwoWay1, "ba", "b", "a");
@@ -77,7 +77,7 @@ TEST("Choice", "Parse two-way Choice")
 	ASSERT_PARSE_SUCCESS(TwoWay2, e<int>("edcba"), e<int>("e"), e<int>("dcba"));
 }
 
-TEST("Choice", "Parse three-way Choice")
+TEST("choice_parser", "Parse three-way choice_parser")
 {
 	ASSERT_PARSE_SUCCESS(ThreeWay1, "abc", "ab", "c");
 	ASSERT_PARSE_SUCCESS(ThreeWay1, "ba", "b", "a");
@@ -131,7 +131,7 @@ TEST("Choice", "Parse three-way Choice")
 	ASSERT_PARSE_SUCCESS(ThreeWay2, e<int>("xyz"), e<int>("x"), e<int>("yz"));
 }
 
-TEST("Choice", "Parse void result_type")
+TEST("choice_parser", "Parse void result_type")
 {
 	ASSERT_PARSE_FAILURE(Cho5, "ab");
 	ASSERT_PARSE_SUCCESS_VOID(Cho5, "abca", "a");
@@ -148,24 +148,24 @@ TEST("Choice", "Parse void result_type")
 
 
 
-TEST("Choice", "Constructible not only from parsers with the same result_type")
+TEST("choice_parser", "Constructible not only from parsers with the same result_type")
 {
-	ASSERT_PARSER_CONSTRUCTIBLE(Choice, Any1, Any3, Non2, Non1, All2);
-	ASSERT_PARSER_CONSTRUCTIBLE(Choice, Any1, Sequence<Any2, Any3>);
+	ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, Any3, Non2, Non1, All2);
+	ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, sequence_parser<Any2, Any3>);
 }
 
-TEST("Choice", "Not constructible empty")
+TEST("choice_parser", "Not constructible empty")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Choice);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(choice_parser);
 }
 
 
 
-TEST("Choice", "Move only")
+TEST("choice_parser", "Move only")
 {
 	{
 		using T = MoveOnlyWrapper<output_span<char>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
 		ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
@@ -174,7 +174,7 @@ TEST("Choice", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<output_span<wchar_t>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
 		ASSERT_PARSE_SUCCESS(P, L"abcxyz", T(L"abc"), L"xyz");
@@ -183,7 +183,7 @@ TEST("Choice", "Move only")
 
 	{
 		using T = MoveOnlyWrapper<output_span<int>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcxyz"), T(e<int>("abc")), e<int>("xyz"));
@@ -191,11 +191,11 @@ TEST("Choice", "Move only")
 	}
 }
 
-TEST("Choice", "Copy only")
+TEST("choice_parser", "Copy only")
 {
 	{
 		using T = CopyOnlyWrapper<output_span<char>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
 		ASSERT_PARSE_FAILURE(P, "abxyz");
 		ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
@@ -204,7 +204,7 @@ TEST("Choice", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<output_span<wchar_t>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
 		ASSERT_PARSE_FAILURE(P, L"abxyz");
 		ASSERT_PARSE_SUCCESS(P, L"abcxyz", T(L"abc"), L"xyz");
@@ -213,7 +213,7 @@ TEST("Choice", "Copy only")
 
 	{
 		using T = CopyOnlyWrapper<output_span<int>>;
-		using P = Choice<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
+		using P = choice_parser<aliases::Into<Any3, T>, aliases::Into<ABC, T>>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
 		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcxyz"), T(e<int>("abc")), e<int>("xyz"));
@@ -221,37 +221,37 @@ TEST("Choice", "Copy only")
 	}
 }
 
-TEST("Choice", "Result type")
+TEST("choice_parser", "Result type")
 {
 	using C1 = aliases::Constant<SpaceDot, integral_constant<0>>;
 	using C2 = aliases::Constant<SpaceDot, integral_constant<1>>;
 
-	using P1 = Choice<ABC, QQ, SpaceDot>;
+	using P1 = choice_parser<ABC, QQ, SpaceDot>;
 	ASSERT_IS_PARSER(P1, char, choice_family, output_span<char>);
 	ASSERT_IS_PARSER(P1, wchar_t, choice_family, output_span<wchar_t>);
 	ASSERT_IS_PARSER(P1, int, choice_family, output_span<int>);
 
-	using P2 = Choice<ABC, C1, QQ>;
+	using P2 = choice_parser<ABC, C1, QQ>;
 	ASSERT_IS_PARSER(P2, char, choice_family, std::variant<output_span<char>, int>);
 	ASSERT_IS_PARSER(P2, wchar_t, choice_family, std::variant<output_span<wchar_t>, int>);
 	ASSERT_IS_PARSER(P2, int, choice_family, std::variant<output_span<int>, int>);
 
-	using P3 = Choice<ABC, QQ, C1>;
+	using P3 = choice_parser<ABC, QQ, C1>;
 	ASSERT_IS_PARSER(P3, char, choice_family, std::variant<output_span<char>, int>);
 	ASSERT_IS_PARSER(P3, wchar_t, choice_family, std::variant<output_span<wchar_t>, int>);
 	ASSERT_IS_PARSER(P3, int, choice_family, std::variant<output_span<int>, int>);
 
-	using P4 = Choice<C1, ABC, QQ>;
+	using P4 = choice_parser<C1, ABC, QQ>;
 	ASSERT_IS_PARSER(P4, char, choice_family, std::variant<int, output_span<char>>);
 	ASSERT_IS_PARSER(P4, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
 	ASSERT_IS_PARSER(P4, int, choice_family, std::variant<int, output_span<int>>);
 
-	using P5 = Choice<C1, ABC, QQ, C2>;
+	using P5 = choice_parser<C1, ABC, QQ, C2>;
 	ASSERT_IS_PARSER(P5, char, choice_family, std::variant<int, output_span<char>>);
 	ASSERT_IS_PARSER(P5, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
 	ASSERT_IS_PARSER(P5, int, choice_family, std::variant<int, output_span<int>>);
 
-	using P6 = Choice<C1, ABC, C2, QQ>;
+	using P6 = choice_parser<C1, ABC, C2, QQ>;
 	ASSERT_IS_PARSER(P6, char, choice_family, std::variant<int, output_span<char>>);
 	ASSERT_IS_PARSER(P6, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
 	ASSERT_IS_PARSER(P6, int, choice_family, std::variant<int, output_span<int>>);

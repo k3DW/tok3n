@@ -41,7 +41,7 @@ TEST("epsilon_parser", "Parse")
 	ASSERT_PARSE_SUCCESS_VOID(Eps1, e<int>(""), e<int>(""));
 }
 
-TEST("epsilon_parser", "Choice<P, epsilon_parser>")
+TEST("epsilon_parser", "choice_parser<P, epsilon_parser>")
 {
 	auto parser = TT("+-"_any_of) | eps;
 	using P = decltype(parser);

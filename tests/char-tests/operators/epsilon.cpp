@@ -19,9 +19,9 @@ TEST("epsilon operator", ".of<>")
 
 TEST("epsilon operator", "P | eps")
 {
-	ASSERT_PARSER_VALUES_EQ(any1 | eps, (Choice<Any1, epsilon_parser<value_type>>{}));
-	ASSERT_PARSER_VALUES_EQ(any2 | eps, (Choice<Any2, epsilon_parser<value_type>>{}));
-	ASSERT_PARSER_VALUES_EQ(any3 | eps, (Choice<Any3, epsilon_parser<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 | eps, (choice_parser<Any1, epsilon_parser<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 | eps, (choice_parser<Any2, epsilon_parser<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 | eps, (choice_parser<Any3, epsilon_parser<value_type>>{}));
 }
 
 TEST("epsilon operator", "eps | P")

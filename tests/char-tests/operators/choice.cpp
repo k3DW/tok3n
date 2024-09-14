@@ -55,37 +55,37 @@ TEST("choice operator", "any_of_parser | none_of_parser, and none_of_parser | an
 
 
 
-TEST("choice operator", "Choice | Choice")
+TEST("choice operator", "choice_parser | choice_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(cho1 | cho1, cho1);
 	ASSERT_PARSER_VALUES_EQ(cho2 | cho2, cho2);
 	ASSERT_PARSER_VALUES_EQ(cho3 | cho3, cho3);
 	ASSERT_PARSER_VALUES_EQ(cho4 | cho4, cho4);
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho2, (Choice<All4, Non4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho1, (Choice<Non4, All4, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho3, (Choice<All4, Non4, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho1, (Choice<All4, Any4, Non5, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho1 | cho4, (Choice<All4, Non4, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho1, (Choice<Non5, All4, Any4, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho3, (Choice<Non4, All4, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho2, (Choice<All4, Any4, Non5, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | cho4, (Choice<Non4, All4, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho2, (Choice<Non5, All4, Any4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | cho4, (Choice<All4, Any4, Non5, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | cho3, (Choice<Non5, All4, Any4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho2, (choice_parser<All4, Non4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho1, (choice_parser<Non4, All4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho3, (choice_parser<All4, Non4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho1, (choice_parser<All4, Any4, Non5, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | cho4, (choice_parser<All4, Non4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho1, (choice_parser<Non5, All4, Any4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho3, (choice_parser<Non4, All4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho2, (choice_parser<All4, Any4, Non5, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | cho4, (choice_parser<Non4, All4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho2, (choice_parser<Non5, All4, Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | cho4, (choice_parser<All4, Any4, Non5, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | cho3, (choice_parser<Non5, All4, Any4, All4, Any4, Non5>{}));
 	ASSERT_PARSER_VALUES_EQ(cho5 | cho5, cho5);
 }
 
-TEST("choice operator", "Choice | {anything}, and {anything} | Choice")
+TEST("choice operator", "choice_parser | {anything}, and {anything} | choice_parser")
 {
-	ASSERT_PARSER_VALUES_EQ(cho1 | any1, (Choice<All4, Non4, Any1>{}));
-	ASSERT_PARSER_VALUES_EQ(any1 | cho1, (Choice<Any1, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho2 | any4, (Choice<Non4, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(any4 | cho2, (Choice<Any4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(cho3 | any3, (Choice<All4, Any4, Non5, Any3>{}));
-	ASSERT_PARSER_VALUES_EQ(any3 | cho3, (Choice<Any3, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(cho4 | any2, (Choice<Non5, All4, Any4, Any2>{}));
-	ASSERT_PARSER_VALUES_EQ(any2 | cho4, (Choice<Any2, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho1 | any1, (choice_parser<All4, Non4, Any1>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 | cho1, (choice_parser<Any1, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho2 | any4, (choice_parser<Non4, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(any4 | cho2, (choice_parser<Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(cho3 | any3, (choice_parser<All4, Any4, Non5, Any3>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 | cho3, (choice_parser<Any3, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(cho4 | any2, (choice_parser<Non5, All4, Any4, Any2>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 | cho4, (choice_parser<Any2, Non5, All4, Any4>{}));
 }
 
 TEST("choice operator", "void result_type")
@@ -195,22 +195,22 @@ constexpr auto set_difference_right_string = set_operation_general<lhs, rhs, OpT
 
 template <parser... LHS, parser RHS>
 requires (RHS::family != choice_family)
-consteval auto choice_combined_left(Choice<LHS...>, RHS)
+consteval auto choice_combined_left(choice_parser<LHS...>, RHS)
 {
-	return Choice<LHS..., RHS>{};
+	return choice_parser<LHS..., RHS>{};
 }
 
 template <parser LHS, parser... RHS>
 requires (LHS::family != choice_family)
-consteval auto choice_combined_right(LHS, Choice<RHS...>)
+consteval auto choice_combined_right(LHS, choice_parser<RHS...>)
 {
-	return Choice<LHS, RHS...>{};
+	return choice_parser<LHS, RHS...>{};
 }
 
 template <parser... LHS, parser... RHS>
-consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
+consteval auto choice_combined_both(choice_parser<LHS...>, choice_parser<RHS...>)
 {
-	return Choice<LHS..., RHS...>{};
+	return choice_parser<LHS..., RHS...>{};
 }
 
 } // namespace
@@ -272,8 +272,8 @@ consteval auto choice_combined_both(Choice<LHS...>, Choice<RHS...>)
 			}                                                                                             \
 			else                                                                                          \
 			{                                                                                             \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, (Choice<LLHS, RRHS>{}),                      \
-					                        LHS{}  | RHS{},  (Choice<LHS,  RHS>{}));                      \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} | RRHS{}, (choice_parser<LLHS, RRHS>{}),               \
+					                        LHS{}  | RHS{},  (choice_parser<LHS,  RHS>{}));               \
 			}                                                                                             \
 		}                                                                                                 \
 	}(LHS{}, RHS{});

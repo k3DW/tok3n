@@ -103,7 +103,7 @@ TEST("Exactly", "Parse Exactly<any_of_parser>")
 		ASSERT_PARSE_FAILURE(Exa2, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<Choice>")
+TEST("Exactly", "Parse Exactly<choice_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 4>;
@@ -129,7 +129,7 @@ TEST("Exactly", "Parse Exactly<Choice>")
 		ASSERT_PARSE_FAILURE(Exa3, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<Sequence>")
+TEST("Exactly", "Parse Exactly<sequence_parser>")
 {
 	{
 		using array_type = std::array<std::tuple<output_span<char>, output_span<char>>, 2>;

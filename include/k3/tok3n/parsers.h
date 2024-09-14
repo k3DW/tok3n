@@ -10,8 +10,8 @@
 #include <k3/tok3n/detail/parsers/anything.h>
 #include <k3/tok3n/detail/parsers/epsilon.h>
 
-#include <k3/tok3n/parsers/compound/Choice.h>
-#include <k3/tok3n/parsers/compound/Sequence.h>
+#include <k3/tok3n/detail/parsers/choice.h>
+#include <k3/tok3n/detail/parsers/sequence.h>
 
 #include <k3/tok3n/parsers/divergent/Join.h>
 #include <k3/tok3n/parsers/divergent/Map.h>

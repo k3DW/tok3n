@@ -89,7 +89,7 @@ TEST("complete_parser", "complete_parser<any_of_parser>")
 	ASSERT_PARSE_FAILURE(Com2, e<int>("cbabcccbjklmnop"));
 	ASSERT_PARSE_FAILURE(Com2, e<int>());
 }
-TEST("complete_parser", "complete_parser<Choice>")
+TEST("complete_parser", "complete_parser<choice_parser>")
 {
 	ASSERT_PARSE_FAILURE(Com3, "abliteralcbliteralcf");
 	ASSERT_PARSE_FAILURE(Com3, "abliteralcblitralcf");
@@ -115,7 +115,7 @@ TEST("complete_parser", "complete_parser<Choice>")
 	ASSERT_PARSE_SUCCESS(Com3, e<int>("b"), e<int>("b"), e<int>());
 	ASSERT_PARSE_FAILURE(Com3, e<int>());
 }
-TEST("complete_parser", "complete_parser<Sequence>")
+TEST("complete_parser", "complete_parser<sequence_parser>")
 {
 	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralb");
 	ASSERT_PARSE_FAILURE(Com4, "literalaliteralcliteralcliteralbliteral");

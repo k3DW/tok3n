@@ -6,9 +6,9 @@ using namespace k3::tok3n::detail;
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
 
-FIXTURE("Sequence");
+FIXTURE("sequence_parser");
 
-TEST("Sequence", "Requirements")
+TEST("sequence_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(TwoWay, value_type);
 	ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
@@ -27,7 +27,7 @@ TEST("Sequence", "Requirements")
 	ASSERT_IS_PARSER(Seq5, int, sequence_family, void);
 }
 
-TEST("Sequence", "Parse two-way Sequence")
+TEST("sequence_parser", "Parse two-way sequence_parser")
 {
 	ASSERT_PARSE_FAILURE(TwoWay, "abc");
 	ASSERT_PARSE_FAILURE(TwoWay, "abcd");
@@ -45,7 +45,7 @@ TEST("Sequence", "Parse two-way Sequence")
 	ASSERT_PARSE_SUCCESS(TwoWay, e<int>("ab ef"), std::tuple(e<int>("ab"), e<int>(" ")), e<int>("ef"));
 }
 
-TEST("Sequence", "Parse three-way Sequence")
+TEST("sequence_parser", "Parse three-way sequence_parser")
 {
 	ASSERT_PARSE_SUCCESS(ThreeWay, "abcde", std::tuple("ab", "c", "d"), "e");
 	ASSERT_PARSE_SUCCESS(ThreeWay, "abdc", std::tuple("ab", "d", "c"), "");
@@ -60,7 +60,7 @@ TEST("Sequence", "Parse three-way Sequence")
 	ASSERT_PARSE_FAILURE(ThreeWay, e<int>("abcz"));
 }
 
-TEST("Sequence", "Parse void result_type")
+TEST("sequence_parser", "Parse void result_type")
 {
 	ASSERT_PARSE_FAILURE(Seq5, "ab");
 	ASSERT_PARSE_FAILURE(Seq5, "abca");
@@ -77,16 +77,16 @@ TEST("Sequence", "Parse void result_type")
 
 
 
-TEST("Sequence", "Not constructible empty")
+TEST("sequence_parser", "Not constructible empty")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Sequence);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(sequence_parser);
 }
 
 
 
-TEST("Sequence", "Sequence<ignore_parser>")
+TEST("sequence_parser", "sequence_parser<ignore_parser>")
 {
-	using P = Sequence<ABC, ignore_parser<QQ>, ABC>;
+	using P = sequence_parser<ABC, ignore_parser<QQ>, ABC>;
 
 	ASSERT_PARSE_SUCCESS(P, "abc??abc??", std::tuple("abc", "abc"), "??");
 	ASSERT_PARSE_FAILURE(P, "abcabc??");

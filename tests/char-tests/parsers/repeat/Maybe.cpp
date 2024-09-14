@@ -71,7 +71,7 @@ TEST("Maybe", "Parse Maybe<any_of_parser>")
 	ASSERT_PARSE_SUCCESS(May2, e<int>("cbabcccbjklmnop"), std::optional(e<int>("c")), e<int>("babcccbjklmnop"));
 	ASSERT_PARSE_SUCCESS(May2, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<Choice>")
+TEST("Maybe", "Parse Maybe<choice_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May3, "abliteralcbliteralcf", std::optional("a"), "bliteralcbliteralcf");
 	ASSERT_PARSE_SUCCESS(May3, "abliteralcblitralcf", std::optional("a"), "bliteralcblitralcf");
@@ -88,7 +88,7 @@ TEST("Maybe", "Parse Maybe<Choice>")
 	ASSERT_PARSE_SUCCESS(May3, e<int>("literalabacliteral"), std::optional(e<int>("literal")), e<int>("abacliteral"));
 	ASSERT_PARSE_SUCCESS(May3, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<Sequence>")
+TEST("Maybe", "Parse Maybe<sequence_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralb");
 	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralbliteral");

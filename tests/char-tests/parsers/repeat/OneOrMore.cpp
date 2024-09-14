@@ -89,7 +89,7 @@ TEST("OneOrMore", "Parse OneOrMore<any_of_parser>")
 		ASSERT_PARSE_FAILURE(Oom2, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<Choice>")
+TEST("OneOrMore", "Parse OneOrMore<choice_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -115,7 +115,7 @@ TEST("OneOrMore", "Parse OneOrMore<Choice>")
 		ASSERT_PARSE_FAILURE(Oom3, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<Sequence>")
+TEST("OneOrMore", "Parse OneOrMore<sequence_parser>")
 {
 	{
 		using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;

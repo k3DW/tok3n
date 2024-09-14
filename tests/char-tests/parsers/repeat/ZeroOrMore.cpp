@@ -89,7 +89,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<any_of_parser>")
 		ASSERT_PARSE_SUCCESS(Zom2, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<choice_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -115,7 +115,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Choice>")
 		ASSERT_PARSE_SUCCESS(Zom3, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
+TEST("ZeroOrMore", "Parse ZeroOrMore<sequence_parser>")
 {
 	{
 		using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;

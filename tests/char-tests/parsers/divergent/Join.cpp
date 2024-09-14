@@ -121,10 +121,10 @@ TEST("Join", "Parse all")
 
 TEST("Join", "Contiguous empty strings")
 {
-	using J1 = Join<Maybe<Choice<ABC, QQ>>>;
-	using J2 = Join<ZeroOrMore<Sequence<All1, Any2>>>;
+	using J1 = Join<Maybe<choice_parser<ABC, QQ>>>;
+	using J2 = Join<ZeroOrMore<sequence_parser<All1, Any2>>>;
 
-	using P = Join<Sequence<all_of_parser<TT("**start**")>, J1, J2, all_of_parser<TT("__end__")>>>;
+	using P = Join<sequence_parser<all_of_parser<TT("**start**")>, J1, J2, all_of_parser<TT("__end__")>>>;
 	
 	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
 
@@ -175,10 +175,10 @@ TEST("Join", "Join<ignore_parser>")
 {
 	using Q = any_of_parser<TT("?")>;
 
-	using S1 = Sequence<ABC, ignore_parser<QQ>>;
-	using S2 = Sequence<ABC, ignore_parser<QQ>, ABC>;
-	using S3 = Sequence<ABC, QQ, ABC>;
-	using S4 = Sequence<ABC, Q, Q, ABC>;
+	using S1 = sequence_parser<ABC, ignore_parser<QQ>>;
+	using S2 = sequence_parser<ABC, ignore_parser<QQ>, ABC>;
+	using S3 = sequence_parser<ABC, QQ, ABC>;
+	using S4 = sequence_parser<ABC, Q, Q, ABC>;
 	using J1 = Join<S1>;
 	using J2 = Join<S2>;
 	using J3 = Join<S3>;
@@ -265,8 +265,8 @@ TEST("Join", "Join<Map>")
 	};
 
 	using T1 = Map<ABC, integral_constant<f>>;
-	using T2 = Sequence<Map<ABC, integral_constant<f>>, QQ>;
-	using T3 = ZeroOrMore<Sequence<Map<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
+	using T2 = sequence_parser<Map<ABC, integral_constant<f>>, QQ>;
+	using T3 = ZeroOrMore<sequence_parser<Map<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
 	using J1 = Join<T1>;
 	using J2 = Join<T2>;
 	using J3 = Join<T3>;
@@ -333,7 +333,7 @@ TEST("Join", "Join<Map>")
 	}
 }
 
-TEST("Join", "Join<Sequence<Choice<non-eps,eps>, anything>>")
+TEST("Join", "Join<sequence_parser<choice_parser<non-eps,eps>, anything>>")
 {
 	auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
 	using Seq = decltype(seq);

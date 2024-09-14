@@ -100,7 +100,7 @@ TEST("named_parser", "named_parser<Maybe>")
     ASSERT_PARSE_SUCCESS(Nam3, e<int>("??? ab abc"), e<int>("??"), e<int>("? ab abc"));
 }
 
-TEST("named_parser", "named_parser<Sequence>")
+TEST("named_parser", "named_parser<sequence_parser>")
 {
     {
         using type = std::tuple<output_span<char>, std::vector<output_span<char>>>;
