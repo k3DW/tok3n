@@ -158,7 +158,7 @@ TEST("Exactly", "Parse Exactly<Sequence>")
 
 TEST("Exactly", "Parse Exactly<void-parser>")
 {
-	using P = Exactly<Ignore<ABC>, index_c<2>>;
+	using P = Exactly<ignore_parser<ABC>, index_c<2>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

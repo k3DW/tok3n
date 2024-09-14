@@ -2,7 +2,7 @@
 #include <k3/tok3n/detail/parsers/any_of.h>
 #include <k3/tok3n/detail/parsers/none_of.h>
 #include <k3/tok3n/detail/parsers/all_of.h>
-#include <k3/tok3n/parsers/adaptor/Ignore.h>
+#include <k3/tok3n/detail/parsers/ignore.h>
 
 namespace k3::tok3n {
 
@@ -28,7 +28,7 @@ requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decl
 constexpr auto all_of = all<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
-constexpr auto ign = Ignore<detail::all_of_parser<arr>>{};
+constexpr auto ign = detail::ignore_parser<detail::all_of_parser<arr>>{};
 
 
 

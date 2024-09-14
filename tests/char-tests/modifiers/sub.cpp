@@ -50,7 +50,7 @@ TEST("sub modifier", "create substitutions")
 
 TEST("sub modifier", "prefix")
 {
-	ASSERT_PARSER_VALUES_EQ(sub(nam1, sub11), Ignore<_21>{});
+	ASSERT_PARSER_VALUES_EQ(sub(nam1, sub11), ignore_parser<_21>{});
 	ASSERT_PARSER_VALUES_EQ(sub(nam1, sub21), nam1);
 	ASSERT_PARSER_VALUES_EQ(sub(nam1, sub31), nam1);
 	ASSERT_PARSER_VALUES_EQ(sub(nam1, sub41), nam1);
@@ -64,13 +64,13 @@ TEST("sub modifier", "prefix")
 	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub31), nam2);
 	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub41), nam2);
 	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub12), nam2);
-	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub22), Ignore<_22>{});
+	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub22), ignore_parser<_22>{});
 	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub32), nam2);
 	ASSERT_PARSER_VALUES_EQ(sub(nam2, sub42), nam2);
 
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub11), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub21), nam3);
-	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub31), (Named<_23, "nam2">{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub31), (named_parser<_23, "nam2">{}));
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(sub(nam3, sub22), nam3);
@@ -84,12 +84,12 @@ TEST("sub modifier", "prefix")
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub32), nam4);
-	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub42), (Named<_24, "nam2">{}));
+	ASSERT_PARSER_VALUES_EQ(sub(nam4, sub42), (named_parser<_24, "nam2">{}));
 }
 
 TEST("sub modifier", "infix")
 {
-	ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub11), Ignore<_21>{});
+	ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub11), ignore_parser<_21>{});
 	ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub21), nam1);
 	ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub31), nam1);
 	ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub41), nam1);
@@ -103,13 +103,13 @@ TEST("sub modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub31), nam2);
 	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub41), nam2);
 	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub12), nam2);
-	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub22), Ignore<_22>{});
+	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub22), ignore_parser<_22>{});
 	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub32), nam2);
 	ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub42), nam2);
 
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub11), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21), nam3);
-	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31), (Named<_23, "nam2">{}));
+	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31), (named_parser<_23, "nam2">{}));
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub41), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub12), nam3);
 	ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub22), nam3);
@@ -123,12 +123,12 @@ TEST("sub modifier", "infix")
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub12), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub22), nam4);
 	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub32), nam4);
-	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub42), (Named<_24, "nam2">{}));
+	ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub42), (named_parser<_24, "nam2">{}));
 }
 
 TEST("sub modifier", "order-dependent")
 {
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21, sub31), (Named<_23, "nam2">{}));
+    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21, sub31), (named_parser<_23, "nam2">{}));
     ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31, sub21), Join<_23>{});
 }
 

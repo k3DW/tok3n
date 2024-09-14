@@ -161,7 +161,7 @@ TEST("Map", "Copy only")
 
 TEST("Map", "void input")
 {
-	using P = Ignore<ABC>;
+	using P = ignore_parser<ABC>;
 
 	constexpr auto func_good = []() { return 0; };
 	using MapGood = Map<P, integral_constant<func_good>>;
@@ -191,7 +191,7 @@ TEST("Map", "void output")
 
 TEST("Map", "void input and void output")
 {
-	using P = Ignore<ABC>;
+	using P = ignore_parser<ABC>;
 
 	constexpr auto func_good = []() {};
 	using MapGood = Map<P, integral_constant<func_good>>;

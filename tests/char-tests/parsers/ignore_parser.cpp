@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Ignore");
+FIXTURE("ignore_parser");
 
-TEST("Ignore", "Requirements")
+TEST("ignore_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Ign1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Ign2, value_type);
@@ -32,7 +32,7 @@ TEST("Ignore", "Requirements")
 	ASSERT_IS_PARSER(Ign5, int, ignore_family, void);
 }
 
-TEST("Ignore", "Parse all")
+TEST("ignore_parser", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS_VOID(Ign1, "abcabc", "abc");
 	ASSERT_PARSE_FAILURE(Ign1, "Abcabc");

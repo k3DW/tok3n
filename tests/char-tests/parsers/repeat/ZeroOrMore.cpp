@@ -144,7 +144,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<Sequence>")
 
 TEST("ZeroOrMore", "Parse ZeroOrMore<void-parser>")
 {
-	using P = ZeroOrMore<Ignore<ABC>>;
+	using P = ZeroOrMore<ignore_parser<ABC>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "a");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

@@ -171,12 +171,12 @@ TEST("Join", "Join<Delimit>")
 	}
 }
 
-TEST("Join", "Join<Ignore>")
+TEST("Join", "Join<ignore_parser>")
 {
 	using Q = any_of_parser<TT("?")>;
 
-	using S1 = Sequence<ABC, Ignore<QQ>>;
-	using S2 = Sequence<ABC, Ignore<QQ>, ABC>;
+	using S1 = Sequence<ABC, ignore_parser<QQ>>;
+	using S2 = Sequence<ABC, ignore_parser<QQ>, ABC>;
 	using S3 = Sequence<ABC, QQ, ABC>;
 	using S4 = Sequence<ABC, Q, Q, ABC>;
 	using J1 = Join<S1>;

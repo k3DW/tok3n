@@ -2,29 +2,29 @@
 #include <k3/tok3n/detail/parser.h>
 #include <k3/tok3n/detail/result.h>
 
-namespace k3::tok3n {
+namespace k3::tok3n::detail {
 
-template <detail::parser P, detail::static_array str>
-struct Named
+template <parser P, static_array str>
+struct named_parser
 {
 	using value_type = typename P::value_type;
 	
-	template <detail::equality_comparable_with<value_type> V>
+	template <equality_comparable_with<value_type> V>
 	using result_for = typename P::template result_for<V>;
 
-	static constexpr detail::parser_family family = detail::named_family;
+	static constexpr parser_family family = named_family;
 
-	template <detail::input_constructible_for<value_type> R>
+	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
 		return P::parse(std::forward<R>(r));
 	}
 
-	template <detail::input_constructible_for<value_type> R>
+	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
 		return P::lookahead(std::forward<R>(r));
 	}
 };
 
-} // namespace k3::tok3n
+} // namespace k3::tok3n::detail

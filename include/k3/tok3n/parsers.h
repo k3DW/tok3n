@@ -1,8 +1,8 @@
 #pragma once
 
-#include <k3/tok3n/parsers/adaptor/Ignore.h>
-#include <k3/tok3n/parsers/adaptor/Complete.h>
-#include <k3/tok3n/parsers/adaptor/Named.h>
+#include <k3/tok3n/detail/parsers/ignore.h>
+#include <k3/tok3n/detail/parsers/complete.h>
+#include <k3/tok3n/detail/parsers/named.h>
 
 #include <k3/tok3n/detail/parsers/any_of.h>
 #include <k3/tok3n/detail/parsers/none_of.h>

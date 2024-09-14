@@ -32,6 +32,6 @@ TEST("multi operator", "associative")
 
 TEST("multi operator", "applying the modifier")
 {
-	ASSERT_PARSER_VALUES_EQ(oom1 % (join % ignore % complete), Complete<Ignore<Join<Oom1>>>{});
-	ASSERT_PARSER_VALUES_EQ(oom1 % (join % complete % ignore), Ignore<Complete<Join<Oom1>>>{});
+	ASSERT_PARSER_VALUES_EQ(oom1 % (join % ignore % complete), complete_parser<ignore_parser<Join<Oom1>>>{});
+	ASSERT_PARSER_VALUES_EQ(oom1 % (join % complete % ignore), ignore_parser<complete_parser<Join<Oom1>>>{});
 }

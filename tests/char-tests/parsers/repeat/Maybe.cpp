@@ -108,7 +108,7 @@ TEST("Maybe", "Parse Maybe<Sequence>")
 
 TEST("Maybe", "Parse Maybe<void-parser>")
 {
-	using P = Maybe<Ignore<ABC>>;
+	using P = Maybe<ignore_parser<ABC>>;
 	
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abcabca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "abca");

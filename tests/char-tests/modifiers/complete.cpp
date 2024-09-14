@@ -53,22 +53,22 @@ TEST("complete modifier", "non consteval")
 
 
 
-#define COMPLETE_MODIFIER_ASSERTER(P)                                             \
-	[]<parser PP>(PP) {                                                           \
-		if constexpr (PP::family == complete_family)                              \
-		{                                                                         \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                \
-				                           complete, (P{}),  P{});                \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, PP{},           \
-				                                  P{},  complete, P{});           \
-		}                                                                         \
-		else                                                                      \
-		{                                                                         \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), Complete<PP>{},      \
-				                           complete, (P{}),  Complete<P>{});      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, Complete<PP>{}, \
-				                                  P{},  complete, Complete<P>{}); \
-		}                                                                         \
+#define COMPLETE_MODIFIER_ASSERTER(P)                                                    \
+	[]<parser PP>(PP) {                                                                  \
+		if constexpr (PP::family == complete_family)                                     \
+		{                                                                                \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), PP{},                       \
+				                           complete, (P{}),  P{});                       \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, PP{},                  \
+				                                  P{},  complete, P{});                  \
+		}                                                                                \
+		else                                                                             \
+		{                                                                                \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(complete, (PP{}), complete_parser<PP>{},      \
+				                           complete, (P{}),  complete_parser<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, complete, complete_parser<PP>{}, \
+				                                  P{},  complete, complete_parser<P>{}); \
+		}                                                                                \
 	}(P{});
 
 TEST("complete modifier", "modify anything")

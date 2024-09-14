@@ -86,12 +86,12 @@ TEST("basic operators", "all_of<>")
 
 TEST("basic operators", "ign<>")
 {
-	ASSERT_PARSER_VALUES_EQ(ign<static_array(X, Y, Z)>, Ignore<All1>{});
-	ASSERT_PARSER_VALUES_EQ(ign<static_array(Y, Z)>, Ignore<All2>{});
-	ASSERT_PARSER_VALUES_EQ(ign<static_array(A, B)>, Ignore<All3>{});
-	ASSERT_PARSER_VALUES_EQ(ign<static_array(Question, Question)>, Ignore<QQ>{});
-	ASSERT_PARSER_VALUES_EQ(ign<static_array(A, B, C)>, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(ign<(static_array<value_type, 0>{})>, Ignore<all_of_parser<(static_array<value_type, 0>{})>>{});
+	ASSERT_PARSER_VALUES_EQ(ign<static_array(X, Y, Z)>, ignore_parser<All1>{});
+	ASSERT_PARSER_VALUES_EQ(ign<static_array(Y, Z)>, ignore_parser<All2>{});
+	ASSERT_PARSER_VALUES_EQ(ign<static_array(A, B)>, ignore_parser<All3>{});
+	ASSERT_PARSER_VALUES_EQ(ign<static_array(Question, Question)>, ignore_parser<QQ>{});
+	ASSERT_PARSER_VALUES_EQ(ign<static_array(A, B, C)>, ignore_parser<ABC>{});
+	ASSERT_PARSER_VALUES_EQ(ign<(static_array<value_type, 0>{})>, ignore_parser<all_of_parser<(static_array<value_type, 0>{})>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")

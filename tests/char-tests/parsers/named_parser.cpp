@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Named");
+FIXTURE("named_parser");
 
-TEST("Named", "Requirements")
+TEST("named_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Nam1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Nam2, value_type);
@@ -28,7 +28,7 @@ TEST("Named", "Requirements")
 	ASSERT_IS_PARSER(Nam4, int, named_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
 }
 
-TEST("Named", "Named<all_of_parser>")
+TEST("named_parser", "named_parser<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Nam1, "abc", "abc", "");
     ASSERT_PARSE_SUCCESS(Nam1, "abcd", "abc", "d");
@@ -43,7 +43,7 @@ TEST("Named", "Named<all_of_parser>")
     ASSERT_PARSE_FAILURE(Nam1, e<int>(" abc"));
 }
 
-TEST("Named", "Named<OneOrMore>")
+TEST("named_parser", "named_parser<OneOrMore>")
 {
     {
         using type = std::vector<output_span<char>>;
@@ -73,7 +73,7 @@ TEST("Named", "Named<OneOrMore>")
     }
 }
 
-TEST("Named", "Named<Maybe>")
+TEST("named_parser", "named_parser<Maybe>")
 {
     ASSERT_PARSE_SUCCESS(Nam3, "abcabcab", "abc", "abcab");
     ASSERT_PARSE_SUCCESS(Nam3, "abcd", "abc", "d");
@@ -100,7 +100,7 @@ TEST("Named", "Named<Maybe>")
     ASSERT_PARSE_SUCCESS(Nam3, e<int>("??? ab abc"), e<int>("??"), e<int>("? ab abc"));
 }
 
-TEST("Named", "Named<Sequence>")
+TEST("named_parser", "named_parser<Sequence>")
 {
     {
         using type = std::tuple<output_span<char>, std::vector<output_span<char>>>;

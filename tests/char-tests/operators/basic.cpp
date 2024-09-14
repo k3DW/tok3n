@@ -132,24 +132,24 @@ TEST("basic operators", "all_of<>")
 
 TEST("basic operators", "UDL _ign")
 {
-	ASSERT_PARSER_VALUES_EQ(TT("literal"_ign), Ignore<All1>{});
-	ASSERT_PARSER_VALUES_EQ(TT("ly"_ign), Ignore<All2>{});
-	ASSERT_PARSER_VALUES_EQ(TT("test"_ign), Ignore<All3>{});
-	ASSERT_PARSER_VALUES_EQ(TT("ab"_ign), Ignore<All4>{});
-	ASSERT_PARSER_VALUES_EQ(TT("??"_ign), Ignore<QQ>{});
-	ASSERT_PARSER_VALUES_EQ(TT("abc"_ign), Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(TT(""_ign), Ignore<all_of_parser<TT("")>>{});
+	ASSERT_PARSER_VALUES_EQ(TT("literal"_ign), ignore_parser<All1>{});
+	ASSERT_PARSER_VALUES_EQ(TT("ly"_ign), ignore_parser<All2>{});
+	ASSERT_PARSER_VALUES_EQ(TT("test"_ign), ignore_parser<All3>{});
+	ASSERT_PARSER_VALUES_EQ(TT("ab"_ign), ignore_parser<All4>{});
+	ASSERT_PARSER_VALUES_EQ(TT("??"_ign), ignore_parser<QQ>{});
+	ASSERT_PARSER_VALUES_EQ(TT("abc"_ign), ignore_parser<ABC>{});
+	ASSERT_PARSER_VALUES_EQ(TT(""_ign), ignore_parser<all_of_parser<TT("")>>{});
 }
 
 TEST("basic operators", "ign<>")
 {
-	ASSERT_PARSER_VALUES_EQ(ign<TT("literal")>, Ignore<All1>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("ly")>, Ignore<All2>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("test")>, Ignore<All3>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("ab")>, Ignore<All4>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("??")>, Ignore<QQ>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("abc")>, Ignore<ABC>{});
-	ASSERT_PARSER_VALUES_EQ(ign<TT("")>, Ignore<all_of_parser<TT("")>>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("literal")>, ignore_parser<All1>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("ly")>, ignore_parser<All2>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("test")>, ignore_parser<All3>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("ab")>, ignore_parser<All4>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("??")>, ignore_parser<QQ>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("abc")>, ignore_parser<ABC>{});
+	ASSERT_PARSER_VALUES_EQ(ign<TT("")>, ignore_parser<all_of_parser<TT("")>>{});
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")
