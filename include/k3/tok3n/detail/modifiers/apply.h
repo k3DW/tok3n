@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/divergent/ApplyMap.h>
+#include <k3/tok3n/detail/aliases/apply_map.h>
 
 namespace k3::tok3n::detail {
 
@@ -12,7 +12,7 @@ struct apply_modifier final : modifier_base
 	template <parser P>
 	constexpr auto operator()(P) const
 	{
-		return aliases::ApplyMap<P, integral_constant<function>>{};
+		return apply_map_parser<P, integral_constant<function>>{};
 	}
 };
 

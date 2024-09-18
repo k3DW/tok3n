@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/divergent/Into.h>
+#include <k3/tok3n/detail/aliases/into.h>
 
 namespace k3::tok3n::detail {
 
@@ -12,7 +12,7 @@ struct into_modifier final : modifier_base
 	template <parser P>
 	constexpr auto operator()(P) const
 	{
-		return aliases::Into<P, T>{};
+		return into_parser<P, T>{};
 	}
 };
 

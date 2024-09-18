@@ -14,12 +14,12 @@
 #include <k3/tok3n/detail/parsers/sequence.h>
 
 #include <k3/tok3n/parsers/divergent/Join.h>
-#include <k3/tok3n/parsers/divergent/Map.h>
-#include <k3/tok3n/parsers/divergent/ApplyMap.h>
-#include <k3/tok3n/parsers/divergent/Into.h>
-#include <k3/tok3n/parsers/divergent/ApplyInto.h>
-#include <k3/tok3n/parsers/divergent/Constant.h>
-#include <k3/tok3n/parsers/divergent/Defaulted.h>
+#include <k3/tok3n/detail/parsers/map.h>
+#include <k3/tok3n/detail/aliases/apply_map.h>
+#include <k3/tok3n/detail/aliases/into.h>
+#include <k3/tok3n/detail/aliases/apply_into.h>
+#include <k3/tok3n/detail/aliases/constant.h>
+#include <k3/tok3n/detail/aliases/defaulted.h>
 #include <k3/tok3n/parsers/divergent/Custom.h>
 
 #include <k3/tok3n/parsers/repeat/Maybe.h>

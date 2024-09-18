@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("ApplyInto");
+FIXTURE("apply_into_parser");
 
-TEST("ApplyInto", "Requirements")
+TEST("apply_into_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Api1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Api2, value_type);
@@ -20,7 +20,7 @@ TEST("ApplyInto", "Requirements")
 	ASSERT_IS_PARSER(Api2, int, map_family, Class5);
 }
 
-TEST("ApplyInto", "Parse all")
+TEST("apply_into_parser", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Api1, "abc.", Class2("abc", "."), "");
 	ASSERT_PARSE_SUCCESS(Api1, "abc . ", Class2("abc", " "), ". ");
@@ -53,12 +53,12 @@ TEST("ApplyInto", "Parse all")
 	ASSERT_PARSE_FAILURE(Api2, e<int>("abc"));
 }
 
-TEST("ApplyInto", "Move only")
+TEST("apply_into_parser", "Move only")
 {
 	{
 		using tuple = std::tuple<output_span<char>, output_span<char>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 		ASSERT_PARSE_FAILURE(P, "ydcba");
 		ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
@@ -67,7 +67,7 @@ TEST("ApplyInto", "Move only")
 	{
 		using tuple = std::tuple<output_span<wchar_t>, output_span<wchar_t>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
 		ASSERT_PARSE_FAILURE(P, L"ydcba");
 		ASSERT_PARSE_SUCCESS(P, L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd");
@@ -76,19 +76,19 @@ TEST("ApplyInto", "Move only")
 	{
 		using tuple = std::tuple<output_span<int>, output_span<int>>;
 		using T = MoveOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("ydcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));
 	}
 }
 
-TEST("ApplyInto", "Copy only")
+TEST("apply_into_parser", "Copy only")
 {
 	{
 		using tuple = std::tuple<output_span<char>, output_span<char>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
 		ASSERT_PARSE_FAILURE(P, "ydcba");
 		ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
@@ -97,7 +97,7 @@ TEST("ApplyInto", "Copy only")
 	{
 		using tuple = std::tuple<output_span<wchar_t>, output_span<wchar_t>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
 		ASSERT_PARSE_FAILURE(P, L"ydcba");
 		ASSERT_PARSE_SUCCESS(P, L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd");
@@ -106,7 +106,7 @@ TEST("ApplyInto", "Copy only")
 	{
 		using tuple = std::tuple<output_span<int>, output_span<int>>;
 		using T = CopyOnlyWrapper<tuple>;
-		using P = aliases::ApplyInto<sequence_parser<Any3, ABC>, T>;
+		using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
 		ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
 		ASSERT_PARSE_FAILURE(P, e<int>("ydcba"));
 		ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));

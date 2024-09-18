@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Constant");
+FIXTURE("constant_parser");
 
-TEST("Constant", "Requirements")
+TEST("constant_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Con1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Con2, value_type);
@@ -28,7 +28,7 @@ TEST("Constant", "Requirements")
 	ASSERT_IS_PARSER(Con4, int, map_family, std::nullptr_t);
 }
 
-TEST("Constant", "Parse all")
+TEST("constant_parser", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Con1, "abcabcabcab", 1, "ab");
 	ASSERT_PARSE_FAILURE(Con1, "");

@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("name modifier");
 

@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Defaulted");
+FIXTURE("defaulted_parser");
 
-TEST("Defaulted", "Requirements")
+TEST("defaulted_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
@@ -20,7 +20,7 @@ TEST("Defaulted", "Requirements")
 	ASSERT_IS_PARSER(Def2, int, map_family, Class3);
 }
 
-TEST("Defaulted", "Parse all")
+TEST("defaulted_parser", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Def1, "abcabcabcab", 0, "ab");
 	ASSERT_PARSE_FAILURE(Def1, "");

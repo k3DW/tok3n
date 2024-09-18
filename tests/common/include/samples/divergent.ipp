@@ -4,28 +4,28 @@ using Joi3 = k3::tok3n::Join<_23>; constexpr Joi3 joi3;
 using Joi4 = k3::tok3n::Join<_24>; constexpr Joi4 joi4;
 using Joi5 = k3::tok3n::Join<_25>; constexpr Joi5 joi5;
 
-using Map1 = k3::tok3n::Map<_22, k3::tok3n::detail::integral_constant<func1>>;    constexpr Map1 tra1;
-using Map2 = k3::tok3n::Map<_23, k3::tok3n::detail::integral_constant<func2>>;    constexpr Map2 tra2;
-using Map3 = k3::tok3n::Map<_24, k3::tok3n::detail::integral_constant<func3>>;    constexpr Map3 tra3;
-using Map4 = k3::tok3n::Map<_25, k3::tok3n::detail::integral_constant<func4(3)>>; constexpr Map4 tra4;
+using Map1 = k3::tok3n::detail::map_parser<_22, k3::tok3n::detail::integral_constant<func1>>;    constexpr Map1 tra1;
+using Map2 = k3::tok3n::detail::map_parser<_23, k3::tok3n::detail::integral_constant<func2>>;    constexpr Map2 tra2;
+using Map3 = k3::tok3n::detail::map_parser<_24, k3::tok3n::detail::integral_constant<func3>>;    constexpr Map3 tra3;
+using Map4 = k3::tok3n::detail::map_parser<_25, k3::tok3n::detail::integral_constant<func4(3)>>; constexpr Map4 tra4;
 
-using Apm1 = k3::tok3n::aliases::ApplyMap<_24, k3::tok3n::detail::integral_constant<func3_apply>>;    constexpr Apm1 apm1;
-using Apm2 = k3::tok3n::aliases::ApplyMap<_25, k3::tok3n::detail::integral_constant<func4_apply(3)>>; constexpr Apm2 apm2;
+using Apm1 = k3::tok3n::detail::apply_map_parser<_24, k3::tok3n::detail::integral_constant<func3_apply>>;    constexpr Apm1 apm1;
+using Apm2 = k3::tok3n::detail::apply_map_parser<_25, k3::tok3n::detail::integral_constant<func4_apply(3)>>; constexpr Apm2 apm2;
 
-using Int1 = k3::tok3n::aliases::Into<SpaceDot, Class1>;                                                             constexpr Int1 int1;
-using Int2 = k3::tok3n::aliases::Into<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>;                                   constexpr Int2 int2;
-using Int3 = k3::tok3n::aliases::Into<k3::tok3n::aliases::Into<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
+using Int1 = k3::tok3n::detail::into_parser<SpaceDot, Class1>;                                                             constexpr Int1 int1;
+using Int2 = k3::tok3n::detail::into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>;                                   constexpr Int2 int2;
+using Int3 = k3::tok3n::detail::into_parser<k3::tok3n::detail::into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
 
-using Api1 = k3::tok3n::aliases::ApplyInto<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
-using Api2 = k3::tok3n::aliases::ApplyInto<k3::tok3n::detail::sequence_parser<SpaceDot, ABC>, Class5>; constexpr Api2 api2;
+using Api1 = k3::tok3n::detail::apply_into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
+using Api2 = k3::tok3n::detail::apply_into_parser<k3::tok3n::detail::sequence_parser<SpaceDot, ABC>, Class5>; constexpr Api2 api2;
 
-using Con1 = k3::tok3n::aliases::Constant<_22, k3::tok3n::detail::integral_constant<1>>;       constexpr Con1 con1;
-using Con2 = k3::tok3n::aliases::Constant<_23, k3::tok3n::detail::integral_constant<'t'>>;     constexpr Con2 con2;
-using Con3 = k3::tok3n::aliases::Constant<_24, k3::tok3n::detail::integral_constant<true>>;    constexpr Con3 con3;
-using Con4 = k3::tok3n::aliases::Constant<_25, k3::tok3n::detail::integral_constant<nullptr>>; constexpr Con4 con4;
+using Con1 = k3::tok3n::detail::constant_parser<_22, k3::tok3n::detail::integral_constant<1>>;       constexpr Con1 con1;
+using Con2 = k3::tok3n::detail::constant_parser<_23, k3::tok3n::detail::integral_constant<'t'>>;     constexpr Con2 con2;
+using Con3 = k3::tok3n::detail::constant_parser<_24, k3::tok3n::detail::integral_constant<true>>;    constexpr Con3 con3;
+using Con4 = k3::tok3n::detail::constant_parser<_25, k3::tok3n::detail::integral_constant<nullptr>>; constexpr Con4 con4;
 
-using Def1 = k3::tok3n::aliases::Defaulted<_22, int>;    constexpr Def1 def1;
-using Def2 = k3::tok3n::aliases::Defaulted<_23, Class3>; constexpr Def2 def2;
+using Def1 = k3::tok3n::detail::defaulted_parser<_22, int>;    constexpr Def1 def1;
+using Def2 = k3::tok3n::detail::defaulted_parser<_23, Class3>; constexpr Def2 def2;
 
 struct Cus1 : k3::tok3n::Custom<Cus1>
 {

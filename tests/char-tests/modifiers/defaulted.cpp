@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("defaulted modifier");
 
@@ -24,9 +25,9 @@ TEST("defaulted modifier", "non consteval")
 
 
 
-#define DEFAULTED_MODIFIER_ASSERTER(P)                                                        \
-	ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (aliases::Defaulted<P, bool>{}));      \
-	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (aliases::Defaulted<P, bool>{}));
+#define DEFAULTED_MODIFIER_ASSERTER(P)                                                      \
+	ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (defaulted_parser<P, bool>{}));      \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (defaulted_parser<P, bool>{}));
 
 TEST("defaulted modifier", "modify anything")
 {

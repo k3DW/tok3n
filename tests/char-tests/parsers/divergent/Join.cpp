@@ -245,7 +245,7 @@ TEST("Join", "Join<ignore_parser>")
 	ASSERT_PARSE_SUCCESS(J4, e<int>("abc??abc??a"), e<int>("abc??abc"), e<int>("??a"));
 }
 
-TEST("Join", "Join<Map>")
+TEST("Join", "Join<map_parser>")
 {
 	constexpr auto f = [](auto&& v)
 	{
@@ -264,9 +264,9 @@ TEST("Join", "Join<Map>")
 			static_assert(std::same_as<V, void>);
 	};
 
-	using T1 = Map<ABC, integral_constant<f>>;
-	using T2 = sequence_parser<Map<ABC, integral_constant<f>>, QQ>;
-	using T3 = ZeroOrMore<sequence_parser<Map<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
+	using T1 = map_parser<ABC, integral_constant<f>>;
+	using T2 = sequence_parser<map_parser<ABC, integral_constant<f>>, QQ>;
+	using T3 = ZeroOrMore<sequence_parser<map_parser<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
 	using J1 = Join<T1>;
 	using J2 = Join<T2>;
 	using J3 = Join<T3>;
