@@ -9,10 +9,10 @@ namespace
 	using vec_type = std::vector<output_span<V>>;
 }
 
-FIXTURE("Delimit regular");
-FIXTURE("Delimit keep");
+FIXTURE("delimit_parser regular");
+FIXTURE("delimit_parser keep");
 
-TEST("Delimit regular", "Requirements")
+TEST("delimit_parser regular", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Del1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Del2, value_type);
@@ -51,7 +51,7 @@ TEST("Delimit regular", "Requirements")
 	ASSERT_IS_PARSER(Del8, int, delimit_family, std::vector<output_span<int>>);
 }
 
-TEST("Delimit keep", "Requirements")
+TEST("delimit_parser keep", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Dek1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Dek2, value_type);
@@ -90,7 +90,7 @@ TEST("Delimit keep", "Requirements")
 	ASSERT_IS_PARSER(Dek8, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
 }
 
-TEST("Delimit regular", "Parse all")
+TEST("delimit_parser regular", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Del1, "abc,abc,abc,,abc,abc,abc", vec_type<char>({ "abc", "abc", "abc" }), ",,abc,abc,abc");
 	ASSERT_PARSE_FAILURE(Del1, ",abc,abc,abc,,abc,abc,abc");
@@ -150,7 +150,7 @@ TEST("Delimit regular", "Parse all")
 	ASSERT_PARSE_FAILURE(Del4, e<int>());
 }
 
-TEST("Delimit regular", "Parse all inverted")
+TEST("delimit_parser regular", "Parse all inverted")
 {
 	ASSERT_PARSE_FAILURE(Del5, "abc,abc,abc,,abc,abc,abc");
 	ASSERT_PARSE_SUCCESS(Del5, ",abc,abc,abc,,abc,abc,abc", vec_type<char>({ ",", ",", ",", "," }), ",abc,abc,abc");
@@ -210,7 +210,7 @@ TEST("Delimit regular", "Parse all inverted")
 	ASSERT_PARSE_FAILURE(Del8, e<int>());
 }
 
-TEST("Delimit keep", "Parse all")
+TEST("delimit_parser keep", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Dek1, "abc,abc,abc,,abc,abc,abc", std::pair(vec_type<char>({ "abc", "abc", "abc" }), vec_type<char>({ ",", "," })), ",,abc,abc,abc");
 	ASSERT_PARSE_FAILURE(Dek1, ",abc,abc,abc,,abc,abc,abc");
@@ -270,7 +270,7 @@ TEST("Delimit keep", "Parse all")
 	ASSERT_PARSE_FAILURE(Dek4, e<int>());
 }
 
-TEST("Delimit keep", "Parse all inverted")
+TEST("delimit_parser keep", "Parse all inverted")
 {
 	ASSERT_PARSE_FAILURE(Dek5, "abc,abc,abc,,abc,abc,abc");
 	ASSERT_PARSE_SUCCESS(Dek5, ",abc,abc,abc,,abc,abc,abc", std::pair(vec_type<char>({ ",", ",", ",", ","}), vec_type<char>({ "abc", "abc", "abc" })), ",abc,abc,abc");

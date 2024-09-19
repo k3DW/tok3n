@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("OneOrMore");
+FIXTURE("one_or_more_parser");
 
-TEST("OneOrMore", "Requirements")
+TEST("one_or_more_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Oom1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Oom2, value_type);
@@ -28,7 +28,7 @@ TEST("OneOrMore", "Requirements")
 	ASSERT_IS_PARSER(Oom4, int, one_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("OneOrMore", "Parse OneOrMore<all_of_parser>")
+TEST("one_or_more_parser", "Parse one_or_more_parser<all_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -63,7 +63,7 @@ TEST("OneOrMore", "Parse OneOrMore<all_of_parser>")
 		ASSERT_PARSE_FAILURE(Oom1, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<any_of_parser>")
+TEST("one_or_more_parser", "Parse one_or_more_parser<any_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -89,7 +89,7 @@ TEST("OneOrMore", "Parse OneOrMore<any_of_parser>")
 		ASSERT_PARSE_FAILURE(Oom2, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<choice_parser>")
+TEST("one_or_more_parser", "Parse one_or_more_parser<choice_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -115,7 +115,7 @@ TEST("OneOrMore", "Parse OneOrMore<choice_parser>")
 		ASSERT_PARSE_FAILURE(Oom3, e<int>(""));
 	}
 }
-TEST("OneOrMore", "Parse OneOrMore<sequence_parser>")
+TEST("one_or_more_parser", "Parse one_or_more_parser<sequence_parser>")
 {
 	{
 		using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;
@@ -142,9 +142,9 @@ TEST("OneOrMore", "Parse OneOrMore<sequence_parser>")
 	}
 }
 
-TEST("OneOrMore", "Parse OneOrMore<void-parser>")
+TEST("one_or_more_parser", "Parse one_or_more_parser<void-parser>")
 {
-	using P = OneOrMore<ignore_parser<ABC>>;
+	using P = one_or_more_parser<ignore_parser<ABC>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "a");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/repeat/Exactly.h>
+#include <k3/tok3n/detail/parsers/exactly.h>
 
 namespace k3::tok3n::detail {
 
@@ -13,7 +13,7 @@ struct exactly_modifier final : modifier_base
 	template <parser P>
 	constexpr auto operator()(P) const
 	{
-		return Exactly<P, index_c<N>>{};
+		return exactly_parser<P, index_c<N>>{};
 	}
 };
 

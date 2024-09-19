@@ -3,13 +3,13 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("JoinZeroOrMoreBasic");
+FIXTURE("join_zero_or_more_basic");
 
-using Joi_Zom_OC = Join<ZeroOrMore<any_of_parser<TT("123")>>>;
-using Joi_Zom_NC = Join<ZeroOrMore<none_of_parser<TT("123")>>>;
-using Joi_Zom_L  = Join<ZeroOrMore<all_of_parser<TT("123")>>>;
+using Joi_Zom_OC = join_parser<zero_or_more_parser<any_of_parser<TT("123")>>>;
+using Joi_Zom_NC = join_parser<zero_or_more_parser<none_of_parser<TT("123")>>>;
+using Joi_Zom_L  = join_parser<zero_or_more_parser<all_of_parser<TT("123")>>>;
 
-TEST("JoinZeroOrMoreBasic", "Requirements")
+TEST("join_zero_or_more_basic", "Requirements")
 {
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_OC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Zom_NC, value_type);
@@ -28,7 +28,7 @@ TEST("JoinZeroOrMoreBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_Zom_L, int, join_family, output_span<int>);
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<any_of_parser>")
+TEST("join_zero_or_more_basic", "zero_or_more_parser<any_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "12321321", "12321321", "");
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, "1232 1321", "1232", " 1321");
@@ -49,7 +49,7 @@ TEST("JoinZeroOrMoreBasic", "ZeroOrMore<any_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_OC, e<int>("012341321"), e<int>(""), e<int>("012341321"));
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<none_of_parser>")
+TEST("join_zero_or_more_basic", "zero_or_more_parser<none_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, "12321321", "", "12321321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, "1232 1321", "", "1232 1321");
@@ -70,7 +70,7 @@ TEST("JoinZeroOrMoreBasic", "ZeroOrMore<none_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_Zom_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
 }
 
-TEST("JoinZeroOrMoreBasic", "ZeroOrMore<all_of_parser>")
+TEST("join_zero_or_more_basic", "zero_or_more_parser<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_Zom_L, "12312321321", "123123", "21321");

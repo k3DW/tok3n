@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Join");
+FIXTURE("join_parser");
 
-TEST("Join", "Requirements")
+TEST("join_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Joi1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Joi2, value_type);
@@ -32,7 +32,7 @@ TEST("Join", "Requirements")
 	ASSERT_IS_PARSER(Joi5, int, join_family, output_span<int>);
 }
 
-TEST("Join", "Parse all")
+TEST("join_parser", "Parse all")
 {
 	ASSERT_PARSE_SUCCESS(Joi1, "abcabc", "abc", "abc");
 	ASSERT_PARSE_FAILURE(Joi1, "Abcabc");
@@ -119,12 +119,12 @@ TEST("Join", "Parse all")
 	ASSERT_PARSE_FAILURE(Joi5, e<int>(""));
 }
 
-TEST("Join", "Contiguous empty strings")
+TEST("join_parser", "Contiguous empty strings")
 {
-	using J1 = Join<Maybe<choice_parser<ABC, QQ>>>;
-	using J2 = Join<ZeroOrMore<sequence_parser<All1, Any2>>>;
+	using J1 = join_parser<maybe_parser<choice_parser<ABC, QQ>>>;
+	using J2 = join_parser<zero_or_more_parser<sequence_parser<All1, Any2>>>;
 
-	using P = Join<sequence_parser<all_of_parser<TT("**start**")>, J1, J2, all_of_parser<TT("__end__")>>>;
+	using P = join_parser<sequence_parser<all_of_parser<TT("**start**")>, J1, J2, all_of_parser<TT("__end__")>>>;
 	
 	ASSERT_PARSE_SUCCESS(P, "**start**__end__", "**start**__end__", "");
 
@@ -135,10 +135,10 @@ TEST("Join", "Contiguous empty strings")
 
 
 
-TEST("Join", "Join<Delimit>")
+TEST("join_parser", "join_parser<delimit_parser>")
 {
-	using D = Delimit<ABC, QQ, integral_constant<false>>;
-	using J = Join<D>;
+	using D = delimit_parser<ABC, QQ, integral_constant<false>>;
+	using J = join_parser<D>;
 
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -171,7 +171,7 @@ TEST("Join", "Join<Delimit>")
 	}
 }
 
-TEST("Join", "Join<ignore_parser>")
+TEST("join_parser", "join_parser<ignore_parser>")
 {
 	using Q = any_of_parser<TT("?")>;
 
@@ -179,10 +179,10 @@ TEST("Join", "Join<ignore_parser>")
 	using S2 = sequence_parser<ABC, ignore_parser<QQ>, ABC>;
 	using S3 = sequence_parser<ABC, QQ, ABC>;
 	using S4 = sequence_parser<ABC, Q, Q, ABC>;
-	using J1 = Join<S1>;
-	using J2 = Join<S2>;
-	using J3 = Join<S3>;
-	using J4 = Join<S4>;
+	using J1 = join_parser<S1>;
+	using J2 = join_parser<S2>;
+	using J3 = join_parser<S3>;
+	using J4 = join_parser<S4>;
 
 	ASSERT_PARSE_SUCCESS(S1, "abc??abc", "abc", "abc");
 	ASSERT_PARSE_SUCCESS(S1, "abc??abc??a", "abc", "abc??a");
@@ -245,7 +245,7 @@ TEST("Join", "Join<ignore_parser>")
 	ASSERT_PARSE_SUCCESS(J4, e<int>("abc??abc??a"), e<int>("abc??abc"), e<int>("??a"));
 }
 
-TEST("Join", "Join<map_parser>")
+TEST("join_parser", "join_parser<map_parser>")
 {
 	constexpr auto f = [](auto&& v)
 	{
@@ -266,10 +266,10 @@ TEST("Join", "Join<map_parser>")
 
 	using T1 = map_parser<ABC, integral_constant<f>>;
 	using T2 = sequence_parser<map_parser<ABC, integral_constant<f>>, QQ>;
-	using T3 = ZeroOrMore<sequence_parser<map_parser<OneOrMore<ABC>, integral_constant<f>>, QQ>>;
-	using J1 = Join<T1>;
-	using J2 = Join<T2>;
-	using J3 = Join<T3>;
+	using T3 = zero_or_more_parser<sequence_parser<map_parser<one_or_more_parser<ABC>, integral_constant<f>>, QQ>>;
+	using J1 = join_parser<T1>;
+	using J2 = join_parser<T2>;
+	using J3 = join_parser<T3>;
 
 	{
 		ASSERT_PARSE_SUCCESS(T1, "abcabc", "b", "abc");
@@ -333,7 +333,7 @@ TEST("Join", "Join<map_parser>")
 	}
 }
 
-TEST("Join", "Join<sequence_parser<choice_parser<non-eps,eps>, anything>>")
+TEST("join_parser", "join_parser<sequence_parser<choice_parser<non-eps,eps>, anything>>")
 {
 	auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
 	using Seq = decltype(seq);
@@ -341,7 +341,7 @@ TEST("Join", "Join<sequence_parser<choice_parser<non-eps,eps>, anything>>")
 	ASSERT_IS_PARSER(Seq, wchar_t, sequence_family, std::tuple<output_span<wchar_t>,output_span<wchar_t>>);
 	ASSERT_IS_PARSER(Seq, int, sequence_family, std::tuple<output_span<int>,output_span<int>>);
 
-	using P = Join<Seq>;
+	using P = join_parser<Seq>;
 
 	ASSERT_PARSE_SUCCESS(P, "+abcd", "+abc", "d");
 	ASSERT_PARSE_SUCCESS(P, "-abcd", "-abc", "d");

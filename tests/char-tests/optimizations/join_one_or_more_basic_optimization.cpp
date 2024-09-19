@@ -3,13 +3,13 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("JoinOneOrMoreBasic");
+FIXTURE("join_one_or_more_basic");
 
-using Joi_Oom_OC = Join<OneOrMore<any_of_parser<TT("123")>>>;
-using Joi_Oom_NC = Join<OneOrMore<none_of_parser<TT("123")>>>;
-using Joi_Oom_L  = Join<OneOrMore<all_of_parser<TT("123")>>>;
+using Joi_Oom_OC = join_parser<one_or_more_parser<any_of_parser<TT("123")>>>;
+using Joi_Oom_NC = join_parser<one_or_more_parser<none_of_parser<TT("123")>>>;
+using Joi_Oom_L  = join_parser<one_or_more_parser<all_of_parser<TT("123")>>>;
 
-TEST("JoinOneOrMoreBasic", "Requirements")
+TEST("join_one_or_more_basic", "Requirements")
 {
     ASSERT_PARSER_VALUE_TYPE(Joi_Oom_OC, value_type);
     ASSERT_PARSER_VALUE_TYPE(Joi_Oom_NC, value_type);
@@ -28,7 +28,7 @@ TEST("JoinOneOrMoreBasic", "Requirements")
     ASSERT_IS_PARSER(Joi_Oom_L, int, join_family, output_span<int>);
 }
 
-TEST("JoinOneOrMoreBasic", "OneOrMore<any_of_parser>")
+TEST("join_one_or_more_basic", "one_or_more_parser<any_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Oom_OC, "12321321", "12321321", "");
     ASSERT_PARSE_SUCCESS(Joi_Oom_OC, "1232 1321", "1232", " 1321");
@@ -49,7 +49,7 @@ TEST("JoinOneOrMoreBasic", "OneOrMore<any_of_parser>")
     ASSERT_PARSE_FAILURE(Joi_Oom_OC, e<int>("012341321"));
 }
 
-TEST("JoinOneOrMoreBasic", "OneOrMore<none_of_parser>")
+TEST("join_one_or_more_basic", "one_or_more_parser<none_of_parser>")
 {
     ASSERT_PARSE_FAILURE(Joi_Oom_NC, "12321321");
     ASSERT_PARSE_FAILURE(Joi_Oom_NC, "1232 1321");
@@ -70,7 +70,7 @@ TEST("JoinOneOrMoreBasic", "OneOrMore<none_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_Oom_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
 }
 
-TEST("JoinOneOrMoreBasic", "OneOrMore<all_of_parser>")
+TEST("join_one_or_more_basic", "one_or_more_parser<all_of_parser>")
 {
     ASSERT_PARSE_SUCCESS(Joi_Oom_L, "12321321", "123", "21321");
     ASSERT_PARSE_SUCCESS(Joi_Oom_L, "12312321321", "123123", "21321");

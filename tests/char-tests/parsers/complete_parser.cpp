@@ -141,7 +141,7 @@ TEST("complete_parser", "complete_parser<sequence_parser>")
 	ASSERT_PARSE_FAILURE(Com4, e<int>("aliteralaliteralcliteralbliteral"));
 	ASSERT_PARSE_FAILURE(Com4, e<int>());
 }
-TEST("complete_parser", "complete_parser<Maybe>")
+TEST("complete_parser", "complete_parser<maybe_parser>")
 {
 	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralb");
 	ASSERT_PARSE_FAILURE(Com5, "literalaliteralcliteralcliteralbliteral");
@@ -167,7 +167,7 @@ TEST("complete_parser", "complete_parser<Maybe>")
 	ASSERT_PARSE_FAILURE(Com5, e<int>("aliteralaliteralcliteralbliteral"));
 	ASSERT_PARSE_SUCCESS(Com5, e<int>(), std::nullopt, e<int>());
 }
-TEST("complete_parser", "complete_parser<OneOrMore>")
+TEST("complete_parser", "complete_parser<one_or_more_parser>")
 {
 	ASSERT_PARSE_SUCCESS(Com6, "literalaliteralcliteralcliteralb", Com6::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com6, "literalaliteralcliteralcliteralbliteral");
@@ -193,7 +193,7 @@ TEST("complete_parser", "complete_parser<OneOrMore>")
 	ASSERT_PARSE_FAILURE(Com6, e<int>("aliteralaliteralcliteralbliteral"));
 	ASSERT_PARSE_FAILURE(Com6, e<int>());
 }
-TEST("complete_parser", "complete_parser<ZeroOrMore>")
+TEST("complete_parser", "complete_parser<zero_or_more_parser>")
 {
 	ASSERT_PARSE_SUCCESS(Com7, "literalaliteralcliteralcliteralb", Com7::result_for<char>({ { "literal", "a" }, { "literal", "c" }, { "literal", "c" }, { "literal", "b" } }), "");
 	ASSERT_PARSE_FAILURE(Com7, "literalaliteralcliteralcliteralbliteral");

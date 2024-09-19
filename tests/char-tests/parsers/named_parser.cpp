@@ -43,7 +43,7 @@ TEST("named_parser", "named_parser<all_of_parser>")
     ASSERT_PARSE_FAILURE(Nam1, e<int>(" abc"));
 }
 
-TEST("named_parser", "named_parser<OneOrMore>")
+TEST("named_parser", "named_parser<one_or_more_parser>")
 {
     {
         using type = std::vector<output_span<char>>;
@@ -73,7 +73,7 @@ TEST("named_parser", "named_parser<OneOrMore>")
     }
 }
 
-TEST("named_parser", "named_parser<Maybe>")
+TEST("named_parser", "named_parser<maybe_parser>")
 {
     ASSERT_PARSE_SUCCESS(Nam3, "abcabcab", "abc", "abcab");
     ASSERT_PARSE_SUCCESS(Nam3, "abcd", "abc", "d");

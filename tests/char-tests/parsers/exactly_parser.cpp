@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Exactly");
+FIXTURE("exactly_parser");
 
-TEST("Exactly", "Requirements")
+TEST("exactly_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Exa1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Exa2, value_type);
@@ -28,18 +28,18 @@ TEST("Exactly", "Requirements")
 	ASSERT_IS_PARSER(Exa4, int, exactly_family, std::array<std::tuple<output_span<int>, output_span<int>>, 2>);
 }
 
-TEST("Exactly", "Constructibility")
+TEST("exactly_parser", "Constructibility")
 {
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, index_c<0>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, index_c<1>);
-	ASSERT_PARSER_CONSTRUCTIBLE(Exactly, Any1, index_c<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, index_c<0>);
+	ASSERT_PARSER_CONSTRUCTIBLE(exactly_parser, Any1, index_c<1>);
+	ASSERT_PARSER_CONSTRUCTIBLE(exactly_parser, Any1, index_c<2>);
 
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<0>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<1>);
-	ASSERT_PARSER_NOT_CONSTRUCTIBLE(Exactly, Any1, integral_constant<2>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<0>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<1>);
+	ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<2>);
 }
 
-TEST("Exactly", "Parse Exactly<all_of_parser>")
+TEST("exactly_parser", "Parse exactly_parser<all_of_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 3>;
@@ -77,7 +77,7 @@ TEST("Exactly", "Parse Exactly<all_of_parser>")
 		ASSERT_PARSE_FAILURE(Exa1, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<any_of_parser>")
+TEST("exactly_parser", "Parse exactly_parser<any_of_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 5>;
@@ -103,7 +103,7 @@ TEST("Exactly", "Parse Exactly<any_of_parser>")
 		ASSERT_PARSE_FAILURE(Exa2, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<choice_parser>")
+TEST("exactly_parser", "Parse exactly_parser<choice_parser>")
 {
 	{
 		using array_type = std::array<output_span<char>, 4>;
@@ -129,7 +129,7 @@ TEST("Exactly", "Parse Exactly<choice_parser>")
 		ASSERT_PARSE_FAILURE(Exa3, e<int>());
 	}
 }
-TEST("Exactly", "Parse Exactly<sequence_parser>")
+TEST("exactly_parser", "Parse exactly_parser<sequence_parser>")
 {
 	{
 		using array_type = std::array<std::tuple<output_span<char>, output_span<char>>, 2>;
@@ -156,9 +156,9 @@ TEST("Exactly", "Parse Exactly<sequence_parser>")
 	}
 }
 
-TEST("Exactly", "Parse Exactly<void-parser>")
+TEST("exactly_parser", "Parse exactly_parser<void-parser>")
 {
-	using P = Exactly<ignore_parser<ABC>, index_c<2>>;
+	using P = exactly_parser<ignore_parser<ABC>, index_c<2>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

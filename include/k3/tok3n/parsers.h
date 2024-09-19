@@ -13,7 +13,7 @@
 #include <k3/tok3n/detail/parsers/choice.h>
 #include <k3/tok3n/detail/parsers/sequence.h>
 
-#include <k3/tok3n/parsers/divergent/Join.h>
+#include <k3/tok3n/detail/parsers/join.h>
 #include <k3/tok3n/detail/parsers/map.h>
 #include <k3/tok3n/detail/aliases/apply_map.h>
 #include <k3/tok3n/detail/aliases/into.h>
@@ -22,13 +22,13 @@
 #include <k3/tok3n/detail/aliases/defaulted.h>
 #include <k3/tok3n/parsers/divergent/Custom.h>
 
-#include <k3/tok3n/parsers/repeat/Maybe.h>
-#include <k3/tok3n/parsers/repeat/Exactly.h>
-#include <k3/tok3n/parsers/repeat/OneOrMore.h>
-#include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
-#include <k3/tok3n/parsers/repeat/Delimit.h>
+#include <k3/tok3n/detail/parsers/exactly.h>
+#include <k3/tok3n/detail/parsers/maybe.h>
+#include <k3/tok3n/detail/parsers/one_or_more.h>
+#include <k3/tok3n/detail/parsers/zero_or_more.h>
+#include <k3/tok3n/detail/parsers/delimit.h>
 
-#include <k3/tok3n/parsers/optimizations/JoinExactlyBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinMaybeBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinOneOrMoreBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinZeroOrMoreBasic.h>
+#include <k3/tok3n/detail/optimizations/join_exactly_basic.h>
+#include <k3/tok3n/detail/optimizations/join_maybe_basic.h>
+#include <k3/tok3n/detail/optimizations/join_one_or_more_basic.h>
+#include <k3/tok3n/detail/optimizations/join_zero_or_more_basic.h>

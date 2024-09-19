@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("ZeroOrMore");
+FIXTURE("zero_or_more_parser");
 
-TEST("ZeroOrMore", "Requirements")
+TEST("zero_or_more_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Zom1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Zom2, value_type);
@@ -28,7 +28,7 @@ TEST("ZeroOrMore", "Requirements")
 	ASSERT_IS_PARSER(Zom4, int, zero_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("ZeroOrMore", "Parse ZeroOrMore<all_of_parser>")
+TEST("zero_or_more_parser", "Parse zero_or_more_parser<all_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -63,7 +63,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<all_of_parser>")
 		ASSERT_PARSE_SUCCESS(Zom1, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<any_of_parser>")
+TEST("zero_or_more_parser", "Parse zero_or_more_parser<any_of_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -89,7 +89,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<any_of_parser>")
 		ASSERT_PARSE_SUCCESS(Zom2, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<choice_parser>")
+TEST("zero_or_more_parser", "Parse zero_or_more_parser<choice_parser>")
 {
 	{
 		using vec_type = std::vector<output_span<char>>;
@@ -115,7 +115,7 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<choice_parser>")
 		ASSERT_PARSE_SUCCESS(Zom3, e<int>(""), vec_type{}, e<int>(""));
 	}
 }
-TEST("ZeroOrMore", "Parse ZeroOrMore<sequence_parser>")
+TEST("zero_or_more_parser", "Parse zero_or_more_parser<sequence_parser>")
 {
 	{
 		using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;
@@ -142,9 +142,9 @@ TEST("ZeroOrMore", "Parse ZeroOrMore<sequence_parser>")
 	}
 }
 
-TEST("ZeroOrMore", "Parse ZeroOrMore<void-parser>")
+TEST("zero_or_more_parser", "Parse zero_or_more_parser<void-parser>")
 {
-	using P = ZeroOrMore<ignore_parser<ABC>>;
+	using P = zero_or_more_parser<ignore_parser<ABC>>;
 
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "a");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");

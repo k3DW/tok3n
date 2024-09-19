@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Maybe");
+FIXTURE("maybe_parser");
 
-TEST("Maybe", "Requirements")
+TEST("maybe_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(May1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(May2, value_type);
@@ -28,7 +28,7 @@ TEST("Maybe", "Requirements")
 	ASSERT_IS_PARSER(May4, int, maybe_family, std::optional<std::tuple<output_span<int>, output_span<int>>>);
 }
 
-TEST("Maybe", "Parse Maybe<all_of_parser>")
+TEST("maybe_parser", "Parse maybe_parser<all_of_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May1, "litera", std::nullopt, "litera");
 	ASSERT_PARSE_SUCCESS(May1, "literal", std::optional("literal"), "");
@@ -54,7 +54,7 @@ TEST("Maybe", "Parse Maybe<all_of_parser>")
 	ASSERT_PARSE_SUCCESS(May1, e<int>(" literalliterallitera"), std::nullopt, e<int>(" literalliterallitera"));
 	ASSERT_PARSE_SUCCESS(May1, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<any_of_parser>")
+TEST("maybe_parser", "Parse maybe_parser<any_of_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May2, "abcdef", std::optional("a"), "bcdef");
 	ASSERT_PARSE_SUCCESS(May2, "fedcba", std::nullopt, "fedcba");
@@ -71,7 +71,7 @@ TEST("Maybe", "Parse Maybe<any_of_parser>")
 	ASSERT_PARSE_SUCCESS(May2, e<int>("cbabcccbjklmnop"), std::optional(e<int>("c")), e<int>("babcccbjklmnop"));
 	ASSERT_PARSE_SUCCESS(May2, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<choice_parser>")
+TEST("maybe_parser", "Parse maybe_parser<choice_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May3, "abliteralcbliteralcf", std::optional("a"), "bliteralcbliteralcf");
 	ASSERT_PARSE_SUCCESS(May3, "abliteralcblitralcf", std::optional("a"), "bliteralcblitralcf");
@@ -88,7 +88,7 @@ TEST("Maybe", "Parse Maybe<choice_parser>")
 	ASSERT_PARSE_SUCCESS(May3, e<int>("literalabacliteral"), std::optional(e<int>("literal")), e<int>("abacliteral"));
 	ASSERT_PARSE_SUCCESS(May3, e<int>(""), std::nullopt, e<int>(""));
 }
-TEST("Maybe", "Parse Maybe<sequence_parser>")
+TEST("maybe_parser", "Parse maybe_parser<sequence_parser>")
 {
 	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralb", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralb");
 	ASSERT_PARSE_SUCCESS(May4, "literalaliteralcliteralcliteralbliteral", std::optional(std::tuple("literal", "a")), "literalcliteralcliteralbliteral");
@@ -106,9 +106,9 @@ TEST("Maybe", "Parse Maybe<sequence_parser>")
 	ASSERT_PARSE_SUCCESS(May4, e<int>(""), std::nullopt, e<int>(""));
 }
 
-TEST("Maybe", "Parse Maybe<void-parser>")
+TEST("maybe_parser", "Parse maybe_parser<void-parser>")
 {
-	using P = Maybe<ignore_parser<ABC>>;
+	using P = maybe_parser<ignore_parser<ABC>>;
 	
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abcabca");
 	ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "abca");

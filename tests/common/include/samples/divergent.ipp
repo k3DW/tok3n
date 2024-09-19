@@ -1,8 +1,8 @@
-using Joi1 = k3::tok3n::Join<_21>; constexpr Joi1 joi1;
-using Joi2 = k3::tok3n::Join<_22>; constexpr Joi2 joi2;
-using Joi3 = k3::tok3n::Join<_23>; constexpr Joi3 joi3;
-using Joi4 = k3::tok3n::Join<_24>; constexpr Joi4 joi4;
-using Joi5 = k3::tok3n::Join<_25>; constexpr Joi5 joi5;
+using Joi1 = k3::tok3n::detail::join_parser<_21>; constexpr Joi1 joi1;
+using Joi2 = k3::tok3n::detail::join_parser<_22>; constexpr Joi2 joi2;
+using Joi3 = k3::tok3n::detail::join_parser<_23>; constexpr Joi3 joi3;
+using Joi4 = k3::tok3n::detail::join_parser<_24>; constexpr Joi4 joi4;
+using Joi5 = k3::tok3n::detail::join_parser<_25>; constexpr Joi5 joi5;
 
 using Map1 = k3::tok3n::detail::map_parser<_22, k3::tok3n::detail::integral_constant<func1>>;    constexpr Map1 tra1;
 using Map2 = k3::tok3n::detail::map_parser<_23, k3::tok3n::detail::integral_constant<func2>>;    constexpr Map2 tra2;
