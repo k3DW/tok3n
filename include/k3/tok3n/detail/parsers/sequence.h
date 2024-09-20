@@ -7,52 +7,6 @@
 
 namespace k3::tok3n::detail {
 
-namespace impl {
-
-template <class ResultType, class ValueType, bool unwrapped>
-struct sequence_executor : empty_if_void<ResultType>
-{
-	input_span<ValueType> input;
-
-	template <parser P, std::size_t I = static_cast<std::size_t>(-1)>
-	constexpr bool execute()
-	{
-		if constexpr (I == static_cast<std::size_t>(-1))
-			return execute_lookahead<P>();
-		else
-			return execute_element<P, I>();
-	}
-
-private:
-	template <parser P>
-	constexpr bool execute_lookahead()
-	{
-		auto res = P::lookahead(input);
-		input = res.remaining();
-		return res.has_value();
-	}
-
-	template <parser P, std::size_t I>
-	constexpr bool execute_element()
-	{
-		auto res = P::parse(input);
-		if (not res.has_value())
-			return false;
-
-		input = res.remaining();
-		if constexpr (not std::same_as<void, ResultType>)
-		{
-			if constexpr (not unwrapped)
-				std::get<I>(this->value) = std::move(*res);
-			else
-				this->value = std::move(*res);
-		}
-		return true;
-	}
-};
-
-} // namespace impl
-
 template <parser P, parser_compatible_with<P>... Ps>
 struct sequence_parser
 {
@@ -89,7 +43,7 @@ public:
 		if constexpr (std::same_as<result_for<V>, void>)
 			return result<result_for<V>, V>{ success_tag, executor.input };
 		else
-			return result<result_for<V>, V>{ success_tag, std::move(executor.value), executor.input };
+			return std::move(executor.builder).build(executor.input);
 	}
 
 	template <input_constructible_for<value_type> R>
