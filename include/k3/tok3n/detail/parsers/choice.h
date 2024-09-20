@@ -55,22 +55,18 @@ private:
 
 } // namespace impl
 
-template <parser P, parser... Ps>
-requires (... and std::same_as<typename P::value_type, typename Ps::value_type>)
+template <parser P, parser_compatible_with<P>... Ps>
 struct choice_parser
 {
 	using value_type = typename P::value_type;
 
+private:
 	template <equality_comparable_with<value_type> V>
-	using _filtered = filter_out_void_deduplicate<typename P::template result_for<V>, typename Ps::template result_for<V>...>;
+	using _trait = compound_trait<filter_out_void_deduplicate, std::variant, V, P, Ps...>;
 
+public:
 	template <equality_comparable_with<value_type> V>
-	using _trait = unwrap_if_single<typename _filtered<V>::type>;
-	template <equality_comparable_with<value_type> V>
-	using result_for = typename std::conditional_t<_trait<V>::unwrapped,
-		_trait<V>,
-		change_list<typename _trait<V>::type, std::variant>
-	>::type;
+	using result_for = typename _trait<V>::result_for;
 
 	static constexpr parser_family family = choice_family;
 
@@ -86,7 +82,7 @@ struct choice_parser
 		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
 			return (executor.template execute<P, I>() or ... or executor.template execute<Ps, Is>());
-		}(typename _filtered<V>::sequence{});
+		}(typename _trait<V>::sequence{});
 
 		if (not successful)
 			return result<result_for<V>, V>{ failure_tag, input };

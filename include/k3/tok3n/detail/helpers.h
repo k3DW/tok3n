@@ -1,4 +1,5 @@
 #pragma once
+#include <k3/tok3n/detail/parser.h>
 #include <k3/tok3n/detail/result.h>
 
 namespace k3::tok3n::detail {
@@ -58,6 +59,41 @@ public:
 		else
 			return { success_tag, input };
 	}
+};
+
+
+
+namespace impl {
+
+template <class list, template <class...> class Other>
+struct change_list;
+
+template <template <class...> class list, class... Ts, template <class...> class Other>
+struct change_list<list<Ts...>, Other>
+{
+	using type = Other<Ts...>;
+};
+
+} // namespace impl
+
+template <template <class...> class algorithm, template <class...> class container, class V, parser... Ps>
+struct compound_trait
+{
+private:
+	using filtered = algorithm<typename Ps::template result_for<V>...>;
+
+	using unwrapped_trait = unwrap_if_single<typename filtered::type>;
+
+public:
+	using sequence = typename filtered::sequence;
+
+	static constexpr bool unwrapped = unwrapped_trait::unwrapped;
+
+	using result_for =
+		typename std::conditional_t<unwrapped,
+			unwrapped_trait,
+			impl::change_list<typename unwrapped_trait::type, container>
+		>::type;
 };
 
 } // namespace k3::tok3n::detail

@@ -16,15 +16,6 @@ struct is_not_void
 
 } // namespace impl
 
-template <class list, template <class...> class Other>
-struct change_list;
-
-template <template <class...> class list, class... Ts, template <class...> class Other>
-struct change_list<list<Ts...>, Other>
-{
-	using type = Other<Ts...>;
-};
-
 
 
 namespace impl {
