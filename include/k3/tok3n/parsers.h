@@ -20,7 +20,7 @@
 #include <k3/tok3n/detail/aliases/apply_into.h>
 #include <k3/tok3n/detail/aliases/constant.h>
 #include <k3/tok3n/detail/aliases/defaulted.h>
-#include <k3/tok3n/parsers/divergent/Custom.h>
+#include <k3/tok3n/detail/parsers/custom.h>
 
 #include <k3/tok3n/detail/parsers/exactly.h>
 #include <k3/tok3n/detail/parsers/maybe.h>
@@ -32,3 +32,9 @@
 #include <k3/tok3n/detail/optimizations/join_maybe_basic.h>
 #include <k3/tok3n/detail/optimizations/join_one_or_more_basic.h>
 #include <k3/tok3n/detail/optimizations/join_zero_or_more_basic.h>
+
+namespace k3::tok3n {
+
+using ::k3::tok3n::detail::custom_parser;
+
+} // namespace k3::tok3n

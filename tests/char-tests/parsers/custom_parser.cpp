@@ -3,9 +3,9 @@
 using namespace k3::tok3n;
 using namespace k3::tok3n::detail;
 
-FIXTURE("Custom");
+FIXTURE("custom_parser");
 
-TEST("Custom", "Requirements")
+TEST("custom_parser", "Requirements")
 {
 	ASSERT_PARSER_VALUE_TYPE(Cus1, value_type);
 	ASSERT_PARSER_VALUE_TYPE(Cus2, value_type);
@@ -20,7 +20,7 @@ TEST("Custom", "Requirements")
 	ASSERT_IS_PARSER(Cus2, int, custom_family, std::size_t);
 }
 
-TEST("Custom", "Parse Cus1")
+TEST("custom_parser", "Parse Cus1")
 {
 	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc??", 36, "");
 	ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc", 12, "");
@@ -44,7 +44,7 @@ TEST("Custom", "Parse Cus1")
 	ASSERT_PARSE_FAILURE(Cus1, e<int>(""));
 }
 
-TEST("Custom", "Parse Cus2")
+TEST("custom_parser", "Parse Cus2")
 {
 	ASSERT_PARSE_SUCCESS(Cus2, "abc", (std::size_t)0, "bc");
 	ASSERT_PARSE_SUCCESS(Cus2, "bca", (std::size_t)0, "ca");

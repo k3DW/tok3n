@@ -27,7 +27,7 @@ using Con4 = k3::tok3n::detail::constant_parser<_25, k3::tok3n::detail::integral
 using Def1 = k3::tok3n::detail::defaulted_parser<_22, int>;    constexpr Def1 def1;
 using Def2 = k3::tok3n::detail::defaulted_parser<_23, Class3>; constexpr Def2 def2;
 
-struct Cus1 : k3::tok3n::Custom<Cus1>
+struct Cus1 : k3::tok3n::detail::custom_parser<Cus1>
 {
 	using value_type = ::value_type;
 
@@ -61,7 +61,7 @@ struct Cus1 : k3::tok3n::Custom<Cus1>
 };
 constexpr Cus1 cus1;
 
-struct Cus2 : k3::tok3n::Custom<Cus2, ::value_type>
+struct Cus2 : k3::tok3n::detail::custom_parser<Cus2, ::value_type>
 {
 	using result_type = std::size_t;
 
