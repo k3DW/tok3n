@@ -1,4 +1,5 @@
 #pragma once
+
 #include <k3/tok3n/detail/parsers/any_of.h>
 #include <k3/tok3n/detail/parsers/none_of.h>
 #include <k3/tok3n/detail/parsers/all_of.h>

@@ -13,7 +13,7 @@ struct epsilon_operator
 template <parser P>
 constexpr auto operator|(P, epsilon_operator)
 {
-	return ::k3::tok3n::detail::operator|(P{}, epsilon_parser<typename P::value_type>{});
+	return impl::choice_operator(P{}, epsilon_parser<typename P::value_type>{});
 }
 
 template <parser P>

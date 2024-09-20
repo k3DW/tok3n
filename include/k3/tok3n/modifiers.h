@@ -1,5 +1,20 @@
 #pragma once
-#include <k3/tok3n/detail/modifiers.h>
+
+#include <k3/tok3n/detail/modifiers/apply_into.h>
+#include <k3/tok3n/detail/modifiers/apply.h>
+#include <k3/tok3n/detail/modifiers/complete.h>
+#include <k3/tok3n/detail/modifiers/constant.h>
+#include <k3/tok3n/detail/modifiers/defaulted.h>
+#include <k3/tok3n/detail/modifiers/delimit.h>
+#include <k3/tok3n/detail/modifiers/delimit_keep.h>
+#include <k3/tok3n/detail/modifiers/exactly.h>
+#include <k3/tok3n/detail/modifiers/ignore.h>
+#include <k3/tok3n/detail/modifiers/into.h>
+#include <k3/tok3n/detail/modifiers/join.h>
+#include <k3/tok3n/detail/modifiers/map.h>
+#include <k3/tok3n/detail/modifiers/multi.h>
+#include <k3/tok3n/detail/modifiers/name.h>
+#include <k3/tok3n/detail/modifiers/sub.h>
 
 namespace k3::tok3n {
 
