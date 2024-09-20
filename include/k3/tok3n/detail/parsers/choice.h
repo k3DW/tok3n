@@ -9,20 +9,21 @@ namespace k3::tok3n::detail {
 
 namespace impl {
 
-template <class ResultType, class ValueType>
+template <class ResultType, class ValueType, bool unwrapped>
 struct choice_executor : empty_if_void<ResultType>
 {
 	input_span<ValueType> input;
 
-	template <parser P, std::size_t I, bool unwrapped>
+	template <parser P, std::size_t I = static_cast<std::size_t>(-1)>
 	constexpr bool execute()
 	{
-		if constexpr (I == -1)
+		if constexpr (I == static_cast<std::size_t>(-1))
 			return execute_lookahead<P>();
 		else
-			return execute_element<P, I, unwrapped>();
+			return execute_element<P, I>();
 	}
 
+private:
 	template <parser P>
 	constexpr bool execute_lookahead()
 	{
@@ -31,7 +32,7 @@ struct choice_executor : empty_if_void<ResultType>
 		return res.has_value();
 	}
 
-	template <parser P, std::size_t I, bool unwrapped>
+	template <parser P, std::size_t I>
 	constexpr bool execute_element()
 	{
 		auto res = P::parse(input);
@@ -79,12 +80,12 @@ struct choice_parser
 		input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
-		using Executor = impl::choice_executor<result_for<V>, V>;
+		using Executor = impl::choice_executor<result_for<V>, V, _trait<V>::unwrapped>;
 		Executor executor{ .input = input };
 
 		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
-			return (executor.template execute<P, I, _trait<V>::unwrapped>() or ... or executor.template execute<Ps, Is, _trait<V>::unwrapped>());
+			return (executor.template execute<P, I>() or ... or executor.template execute<Ps, Is>());
 		}(typename _filtered<V>::sequence{});
 
 		if (not successful)
@@ -102,10 +103,10 @@ struct choice_parser
 		input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
-		using Executor = impl::choice_executor<void, V>;
+		using Executor = impl::choice_executor<void, V, _trait<V>::unwrapped>;
 		Executor executor{ .input = input };
 
-		bool successful = (executor.template execute<P, static_cast<std::size_t>(-1), _trait<V>::unwrapped>() or ... or executor.template execute<Ps, static_cast<std::size_t>(-1), _trait<V>::unwrapped>());
+		bool successful = (executor.template execute<P>() or ... or executor.template execute<Ps>());
 
 		if (successful)
 			return result<void, V>{ success_tag, executor.input };
