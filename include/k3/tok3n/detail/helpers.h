@@ -69,6 +69,20 @@ public:
             this->value.insert(this->value.end(), *std::move(res));
     }
 
+	template <class T2, class U>
+	constexpr void insert_back_first(result<T2, U>&& res)
+	{
+		if constexpr (not is_void)
+            this->value.first.insert(this->value.first.end(), *std::move(res));
+	}
+
+	template <class T2, class U>
+	constexpr void insert_back_second(result<T2, U>&& res)
+	{
+		if constexpr (not is_void)
+            this->value.second.insert(this->value.second.end(), *std::move(res));
+	}
+
 	template <class U>
 	constexpr result<T, U> build(input_span<U> input) &&
 	{

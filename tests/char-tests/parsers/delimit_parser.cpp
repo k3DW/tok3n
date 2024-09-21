@@ -329,3 +329,67 @@ TEST("delimit_parser keep", "Parse all inverted")
 	ASSERT_PARSE_SUCCESS(Dek8, e<int>(" ?? ??.?? .??.?? ??"), std::pair(vec_type<int>({ e<int>(" "), e<int>(" "), e<int>("."), e<int>(" ") }), vec_type<int>({ e<int>("??"), e<int>("??"), e<int>("??") })), e<int>(".??.?? ??"));
 	ASSERT_PARSE_FAILURE(Dek8, e<int>());
 }
+
+TEST("delimit_parser regular", "Parse delimit_parser<void-parser>")
+{
+	using P = delimit_parser<ignore_parser<ABC>, ignore_parser<Comma>>;
+
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abcabca");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abc,abcabca", "abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abc,abc,abca", "a");
+	ASSERT_PARSE_FAILURE(P, ",abc,abc,abca");
+	ASSERT_PARSE_FAILURE(P, " abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abcab", "ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, "abc", "");
+	ASSERT_PARSE_FAILURE(P, "");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"abcabca");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abc,abcabca", L"abca");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abc,abc,abca", L"a");
+	ASSERT_PARSE_FAILURE(P, L",abc,abc,abca");
+	ASSERT_PARSE_FAILURE(P, L" abcabc");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abcab", L"ab");
+	ASSERT_PARSE_SUCCESS_VOID(P, L"abc", L"");
+	ASSERT_PARSE_FAILURE(P, L"");
+
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("abcabca"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc,abcabca"), e<int>("abca"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc,abc,abca"), e<int>("a"));
+	ASSERT_PARSE_FAILURE(P, e<int>(",abc,abc,abca"));
+	ASSERT_PARSE_FAILURE(P, e<int>(" abcabc"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcab"), e<int>("ab"));
+	ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
+	ASSERT_PARSE_FAILURE(P, e<int>(""));
+}
+
+TEST("delimit_parser keep", "Parse delimit_parser<void-parser>")
+{
+	using P = delimit_parser<ignore_parser<ABC>, Comma>;
+
+	ASSERT_PARSE_SUCCESS(P, "abcabcabca", vec_type<char>({}), "abcabca");
+	ASSERT_PARSE_SUCCESS(P, "abc,abcabca", vec_type<char>({ "," }), "abca");
+	ASSERT_PARSE_SUCCESS(P, "abc,abc,abca", vec_type<char>({ ",", "," }), "a");
+	ASSERT_PARSE_FAILURE(P, ",abc,abc,abca");
+	ASSERT_PARSE_FAILURE(P, " abcabc");
+	ASSERT_PARSE_SUCCESS(P, "abcab", vec_type<char>({}), "ab");
+	ASSERT_PARSE_SUCCESS(P, "abc", vec_type<char>({}), "");
+	ASSERT_PARSE_FAILURE(P, "");
+
+	ASSERT_PARSE_SUCCESS(P, L"abcabcabca", vec_type<wchar_t>({}), L"abcabca");
+	ASSERT_PARSE_SUCCESS(P, L"abc,abcabca", vec_type<wchar_t>({ L"," }), L"abca");
+	ASSERT_PARSE_SUCCESS(P, L"abc,abc,abca", vec_type<wchar_t>({ L",", L"," }), L"a");
+	ASSERT_PARSE_FAILURE(P, L",abc,abc,abca");
+	ASSERT_PARSE_FAILURE(P, L" abcabc");
+	ASSERT_PARSE_SUCCESS(P, L"abcab", vec_type<wchar_t>({}), L"ab");
+	ASSERT_PARSE_SUCCESS(P, L"abc", vec_type<wchar_t>({}), L"");
+	ASSERT_PARSE_FAILURE(P, L"");
+
+	ASSERT_PARSE_SUCCESS(P, e<int>("abcabcabca"), vec_type<int>({}), e<int>("abcabca"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abc,abcabca"), vec_type<int>({ e<int>(",") }), e<int>("abca"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abc,abc,abca"), vec_type<int>({ e<int>(","), e<int>(",") }), e<int>("a"));
+	ASSERT_PARSE_FAILURE(P, e<int>(",abc,abc,abca"));
+	ASSERT_PARSE_FAILURE(P, e<int>(" abcabc"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abcab"), vec_type<int>({}), e<int>("ab"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abc"), vec_type<int>({}), e<int>(""));
+	ASSERT_PARSE_FAILURE(P, e<int>(""));
+}

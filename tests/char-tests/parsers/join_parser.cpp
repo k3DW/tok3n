@@ -137,7 +137,7 @@ TEST("join_parser", "Contiguous empty strings")
 
 TEST("join_parser", "join_parser<delimit_parser>")
 {
-	using D = delimit_parser<ABC, QQ, integral_constant<false>>;
+	using D = delimit_parser<ABC, ignore_parser<QQ>>;
 	using J = join_parser<D>;
 
 	{

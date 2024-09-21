@@ -18,23 +18,23 @@ using Zom2 = k3::tok3n::detail::zero_or_more_parser<_12>; constexpr Zom2 zom2;
 using Zom3 = k3::tok3n::detail::zero_or_more_parser<_13>; constexpr Zom3 zom3;
 using Zom4 = k3::tok3n::detail::zero_or_more_parser<_14>; constexpr Zom4 zom4;
 
-using Del1 = k3::tok3n::detail::delimit_parser<ABC, Comma, std::false_type>;    constexpr Del1 del1;
-using Del2 = k3::tok3n::detail::delimit_parser<ABC, SpaceDot, std::false_type>; constexpr Del2 del2;
-using Del3 = k3::tok3n::detail::delimit_parser<QQ, Comma, std::false_type>;     constexpr Del3 del3;
-using Del4 = k3::tok3n::detail::delimit_parser<QQ, SpaceDot, std::false_type>;  constexpr Del4 del4;
-using Del5 = k3::tok3n::detail::delimit_parser<Comma, ABC, std::false_type>;    constexpr Del5 del5;
-using Del6 = k3::tok3n::detail::delimit_parser<SpaceDot, ABC, std::false_type>; constexpr Del6 del6;
-using Del7 = k3::tok3n::detail::delimit_parser<Comma, QQ, std::false_type>;     constexpr Del7 del7;
-using Del8 = k3::tok3n::detail::delimit_parser<SpaceDot, QQ, std::false_type>;  constexpr Del8 del8;
+using Del1 = k3::tok3n::detail::delimit_parser<ABC, k3::tok3n::detail::ignore_parser<Comma>>;    constexpr Del1 del1;
+using Del2 = k3::tok3n::detail::delimit_parser<ABC, k3::tok3n::detail::ignore_parser<SpaceDot>>; constexpr Del2 del2;
+using Del3 = k3::tok3n::detail::delimit_parser<QQ, k3::tok3n::detail::ignore_parser<Comma>>;     constexpr Del3 del3;
+using Del4 = k3::tok3n::detail::delimit_parser<QQ, k3::tok3n::detail::ignore_parser<SpaceDot>>;  constexpr Del4 del4;
+using Del5 = k3::tok3n::detail::delimit_parser<Comma, k3::tok3n::detail::ignore_parser<ABC>>;    constexpr Del5 del5;
+using Del6 = k3::tok3n::detail::delimit_parser<SpaceDot, k3::tok3n::detail::ignore_parser<ABC>>; constexpr Del6 del6;
+using Del7 = k3::tok3n::detail::delimit_parser<Comma, k3::tok3n::detail::ignore_parser<QQ>>;     constexpr Del7 del7;
+using Del8 = k3::tok3n::detail::delimit_parser<SpaceDot, k3::tok3n::detail::ignore_parser<QQ>>;  constexpr Del8 del8;
 
-using Dek1 = k3::tok3n::detail::delimit_parser<ABC, Comma, std::true_type>;    constexpr Dek1 dek1;
-using Dek2 = k3::tok3n::detail::delimit_parser<ABC, SpaceDot, std::true_type>; constexpr Dek2 dek2;
-using Dek3 = k3::tok3n::detail::delimit_parser<QQ, Comma, std::true_type>;     constexpr Dek3 dek3;
-using Dek4 = k3::tok3n::detail::delimit_parser<QQ, SpaceDot, std::true_type>;  constexpr Dek4 dek4;
-using Dek5 = k3::tok3n::detail::delimit_parser<Comma, ABC, std::true_type>;    constexpr Dek5 dek5;
-using Dek6 = k3::tok3n::detail::delimit_parser<SpaceDot, ABC, std::true_type>; constexpr Dek6 dek6;
-using Dek7 = k3::tok3n::detail::delimit_parser<Comma, QQ, std::true_type>;     constexpr Dek7 dek7;
-using Dek8 = k3::tok3n::detail::delimit_parser<SpaceDot, QQ, std::true_type>;  constexpr Dek8 dek8;
+using Dek1 = k3::tok3n::detail::delimit_parser<ABC, Comma>;    constexpr Dek1 dek1;
+using Dek2 = k3::tok3n::detail::delimit_parser<ABC, SpaceDot>; constexpr Dek2 dek2;
+using Dek3 = k3::tok3n::detail::delimit_parser<QQ, Comma>;     constexpr Dek3 dek3;
+using Dek4 = k3::tok3n::detail::delimit_parser<QQ, SpaceDot>;  constexpr Dek4 dek4;
+using Dek5 = k3::tok3n::detail::delimit_parser<Comma, ABC>;    constexpr Dek5 dek5;
+using Dek6 = k3::tok3n::detail::delimit_parser<SpaceDot, ABC>; constexpr Dek6 dek6;
+using Dek7 = k3::tok3n::detail::delimit_parser<Comma, QQ>;     constexpr Dek7 dek7;
+using Dek8 = k3::tok3n::detail::delimit_parser<SpaceDot, QQ>;  constexpr Dek8 dek8;
 
 #define REPEAT_SAMPLES                                      \
 	(May1) (May2) (May3) (May4)                             \

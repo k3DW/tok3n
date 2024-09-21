@@ -7,81 +7,71 @@
 
 namespace k3::tok3n::detail {
 
-template <parser P, parser_compatible_with<P> D, integral_constant_of<bool> KeepDelimiters>
+template <parser P, parser_compatible_with<P> D>
 struct delimit_parser
 {
 	using value_type = typename P::value_type;
 
-	template <input_constructible_for<value_type> R, class V = input_value_t<R>>
-	static constexpr bool parsable_range =
-		not std::same_as<typename P::template result_for<V>, void>
-		and (not std::same_as<typename D::template result_for<V>, void> or not KeepDelimiters::value);
-
 	template <equality_comparable_with<value_type> V>
-	using result_for = std::conditional_t<KeepDelimiters::value,
-		std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>,
-		std::vector<typename P::template result_for<V>>
+	using result_for = std::conditional_t<
+		std::same_as<void, typename D::template result_for<V>>,
+		std::conditional_t<
+			std::same_as<void, typename P::template result_for<V>>,
+			void,
+			std::vector<typename P::template result_for<V>>
+		>,
+		std::conditional_t<
+			std::same_as<void, typename P::template result_for<V>>,
+			std::vector<typename D::template result_for<V>>,
+			std::pair<std::vector<typename P::template result_for<V>>, std::vector<typename D::template result_for<V>>>
+		>
 	>;
 
 	static constexpr parser_family family = delimit_family;
 
 	template <input_constructible_for<value_type> R>
-	requires (not KeepDelimiters::value) and parsable_range<R>
 	static constexpr auto parse(R&& r)
 	{
 		input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
-		result_for<V> results;
+		result_builder<result_for<V>> builder;
+		constexpr bool is_p_void = std::same_as<void, typename P::template result_for<V>>;
+		constexpr bool is_d_void = std::same_as<void, typename D::template result_for<V>>;
 
 		auto res = P::parse(input);
 		if (not res.has_value())
 			return result<result_for<V>, V>{ failure_tag, input };
 
-		while (res)
+		while (res.has_value())
 		{
 			input = res.remaining();
-			results.emplace_back(std::move(*res));
+			if constexpr (not is_p_void)
+			{
+				if constexpr (is_d_void)
+					builder.insert_back(std::move(res));
+				else
+					builder.insert_back_first(std::move(res));
+			}
 
-			auto delimit_result = D::parse(input);
-			if (not delimit_result)
+			auto delimit_res = D::parse(input);
+			if (not delimit_res)
 				break;
 
-			res = P::parse(delimit_result.remaining());
+			res = P::parse(delimit_res.remaining());
+			if constexpr (not is_d_void)
+			{
+				if (res.has_value())
+				{
+					if constexpr (is_p_void)
+						builder.insert_back(std::move(delimit_res));
+					else
+						builder.insert_back_second(std::move(delimit_res));
+				}
+			}
 		}
 
-		return result<result_for<V>, V>{ success_tag, std::move(results), input };
-	}
-
-	template <input_constructible_for<value_type> R>
-	requires (KeepDelimiters::value) and parsable_range<R>
-	static constexpr auto parse(R&& r)
-	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-
-		result_for<V> results;
-		auto& [values, delimiters] = results;
-
-		auto res = P::parse(input);
-		if (not res.has_value())
-			return result<result_for<V>, V>{ failure_tag, input };
-
-		while (res)
-		{
-			input = res.remaining();
-			values.emplace_back(std::move(*res));
-
-			auto delimit_result = D::parse(input);
-			if (not delimit_result)
-				break;
-
-			res = P::parse(delimit_result.remaining());
-			if (res)
-				delimiters.emplace_back(std::move(*delimit_result));
-		}
-
-		return result<result_for<V>, V>{ success_tag, std::move(results), input };
+		return std::move(builder).build(input);
 	}
 
 	template <input_constructible_for<value_type> R>
@@ -94,7 +84,7 @@ struct delimit_parser
 		if (not res.has_value())
 			return result<void, V>{ failure_tag, input };
 
-		while (res)
+		while (res.has_value())
 		{
 			input = res.remaining();
 

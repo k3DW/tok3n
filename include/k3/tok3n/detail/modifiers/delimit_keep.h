@@ -11,7 +11,7 @@ struct delimit_keep_modifier final : modifier_base
 	template <parser P, parser_compatible_with<P> D>
 	constexpr auto operator()(P, D) const
 	{
-		return delimit_parser<P, D, std::true_type>{};
+		return delimit_parser<P, D>{};
 	}
 
 	template <parser D>
@@ -22,7 +22,7 @@ struct delimit_keep_modifier final : modifier_base
 		template <parser_compatible_with<D> P>
 		constexpr auto operator()(P) const
 		{
-			return delimit_parser<P, D, std::true_type>{};
+			return delimit_parser<P, D>{};
 		}
 	};
 
