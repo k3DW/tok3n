@@ -56,10 +56,10 @@ TEST("ignore modifier", "non consteval")
 		}                                                                     \
 		else                                                                  \
 		{                                                                     \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), Ignore<PP>{},      \
-				                           ignore, (P{}),  Ignore<P>{});      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, Ignore<PP>{}, \
-				                                  P{},  ignore, Ignore<P>{}); \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), ignore_parser<PP>{},      \
+				                           ignore, (P{}),  ignore_parser<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, ignore_parser<PP>{}, \
+				                                  P{},  ignore, ignore_parser<P>{}); \
 		}                                                                     \
 	}(P{});
 

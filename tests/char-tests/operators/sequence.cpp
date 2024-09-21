@@ -5,60 +5,60 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("sequence operator");
 
-TEST("sequence operator", "AllOf >> AllOf")
+TEST("sequence operator", "all_of_parser >> all_of_parser")
 {
-	ASSERT_PARSER_VALUES_EQ(all1 >> all1, AllOf<TT("literalliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all2, AllOf<TT("literally")>{});
-	ASSERT_PARSER_VALUES_EQ(all1 >> all3, AllOf<TT("literaltest")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all1, AllOf<TT("lyliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all2, AllOf<TT("lyly")>{});
-	ASSERT_PARSER_VALUES_EQ(all2 >> all3, AllOf<TT("lytest")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all1, AllOf<TT("testliteral")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all2, AllOf<TT("testly")>{});
-	ASSERT_PARSER_VALUES_EQ(all3 >> all3, AllOf<TT("testtest")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all1, all_of_parser<TT("literalliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all2, all_of_parser<TT("literally")>{});
+	ASSERT_PARSER_VALUES_EQ(all1 >> all3, all_of_parser<TT("literaltest")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all1, all_of_parser<TT("lyliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all2, all_of_parser<TT("lyly")>{});
+	ASSERT_PARSER_VALUES_EQ(all2 >> all3, all_of_parser<TT("lytest")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all1, all_of_parser<TT("testliteral")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all2, all_of_parser<TT("testly")>{});
+	ASSERT_PARSER_VALUES_EQ(all3 >> all3, all_of_parser<TT("testtest")>{});
 }
 
 
 
-TEST("sequence operator", "Sequence >> Sequence")
+TEST("sequence operator", "sequence_parser >> sequence_parser")
 {
-	ASSERT_PARSER_VALUES_EQ(seq1 >> seq1, (Sequence<All4, Non4, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> seq2, (Sequence<Non4, All4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> seq3, (Sequence<All4, Any4, Non5, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> seq4, (Sequence<Non5, All4, Any4, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq5 >> seq5, (Sequence<Ign1, Ign2, Ign1, Ign2>{}));
-	ASSERT_PARSER_VALUES_EQ(seq1 >> seq2, (Sequence<All4, Non4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> seq1, (Sequence<Non4, All4, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq1 >> seq3, (Sequence<All4, Non4, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> seq1, (Sequence<All4, Any4, Non5, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq1 >> seq4, (Sequence<All4, Non4, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> seq1, (Sequence<Non5, All4, Any4, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq1 >> seq5, (Sequence<All4, Non4, Ign1, Ign2>{}));
-	ASSERT_PARSER_VALUES_EQ(seq5 >> seq1, (Sequence<Ign1, Ign2, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> seq3, (Sequence<Non4, All4, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> seq2, (Sequence<All4, Any4, Non5, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> seq4, (Sequence<Non4, All4, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> seq2, (Sequence<Non5, All4, Any4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> seq5, (Sequence<Non4, All4, Ign1, Ign2>{}));
-	ASSERT_PARSER_VALUES_EQ(seq5 >> seq2, (Sequence<Ign1, Ign2, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> seq4, (Sequence<All4, Any4, Non5, Non5, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> seq3, (Sequence<Non5, All4, Any4, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> seq5, (Sequence<All4, Any4, Non5, Ign1, Ign2>{}));
-	ASSERT_PARSER_VALUES_EQ(seq5 >> seq3, (Sequence<Ign1, Ign2, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> seq5, (Sequence<Non5, All4, Any4, Ign1, Ign2>{}));
-	ASSERT_PARSER_VALUES_EQ(seq5 >> seq4, (Sequence<Ign1, Ign2, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq1, (sequence_parser<All4, Non4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq2, (sequence_parser<Non4, All4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq3, (sequence_parser<All4, Any4, Non5, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq4, (sequence_parser<Non5, All4, Any4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq5, (sequence_parser<Ign1, Ign2, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq2, (sequence_parser<All4, Non4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq1, (sequence_parser<Non4, All4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq3, (sequence_parser<All4, Non4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq1, (sequence_parser<All4, Any4, Non5, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq4, (sequence_parser<All4, Non4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq1, (sequence_parser<Non5, All4, Any4, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> seq5, (sequence_parser<All4, Non4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq1, (sequence_parser<Ign1, Ign2, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq3, (sequence_parser<Non4, All4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq2, (sequence_parser<All4, Any4, Non5, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq4, (sequence_parser<Non4, All4, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq2, (sequence_parser<Non5, All4, Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> seq5, (sequence_parser<Non4, All4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq2, (sequence_parser<Ign1, Ign2, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq4, (sequence_parser<All4, Any4, Non5, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq3, (sequence_parser<Non5, All4, Any4, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> seq5, (sequence_parser<All4, Any4, Non5, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq3, (sequence_parser<Ign1, Ign2, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> seq5, (sequence_parser<Non5, All4, Any4, Ign1, Ign2>{}));
+	ASSERT_PARSER_VALUES_EQ(seq5 >> seq4, (sequence_parser<Ign1, Ign2, Non5, All4, Any4>{}));
 }
 
-TEST("sequence operator", "Sequence >> {anything}")
+TEST("sequence operator", "sequence_parser >> {anything}")
 {
-	ASSERT_PARSER_VALUES_EQ(seq1 >> any1, (Sequence<All4, Non4, Any1>{}));
-	ASSERT_PARSER_VALUES_EQ(any1 >> seq1, (Sequence<Any1, All4, Non4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq2 >> any4, (Sequence<Non4, All4, Any4>{}));
-	ASSERT_PARSER_VALUES_EQ(any4 >> seq2, (Sequence<Any4, Non4, All4>{}));
-	ASSERT_PARSER_VALUES_EQ(seq3 >> any3, (Sequence<All4, Any4, Non5, Any3>{}));
-	ASSERT_PARSER_VALUES_EQ(any3 >> seq3, (Sequence<Any3, All4, Any4, Non5>{}));
-	ASSERT_PARSER_VALUES_EQ(seq4 >> any2, (Sequence<Non5, All4, Any4, Any2>{}));
-	ASSERT_PARSER_VALUES_EQ(any2 >> seq4, (Sequence<Any2, Non5, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq1 >> any1, (sequence_parser<All4, Non4, Any1>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 >> seq1, (sequence_parser<Any1, All4, Non4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq2 >> any4, (sequence_parser<Non4, All4, Any4>{}));
+	ASSERT_PARSER_VALUES_EQ(any4 >> seq2, (sequence_parser<Any4, Non4, All4>{}));
+	ASSERT_PARSER_VALUES_EQ(seq3 >> any3, (sequence_parser<All4, Any4, Non5, Any3>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 >> seq3, (sequence_parser<Any3, All4, Any4, Non5>{}));
+	ASSERT_PARSER_VALUES_EQ(seq4 >> any2, (sequence_parser<Non5, All4, Any4, Any2>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 >> seq4, (sequence_parser<Any2, Non5, All4, Any4>{}));
 }
 
 TEST("sequence operator", "void result_type")
@@ -92,22 +92,22 @@ constexpr auto combine_strings = []
 
 template <parser... LHS, parser RHS>
 requires (RHS::family != sequence_family)
-consteval auto sequence_combined_left(Sequence<LHS...>, RHS)
+consteval auto sequence_combined_left(sequence_parser<LHS...>, RHS)
 {
-	return Sequence<LHS..., RHS>{};
+	return sequence_parser<LHS..., RHS>{};
 }
 
 template <parser LHS, parser... RHS>
 requires (LHS::family != sequence_family)
-consteval auto sequence_combined_right(LHS, Sequence<RHS...>)
+consteval auto sequence_combined_right(LHS, sequence_parser<RHS...>)
 {
-	return Sequence<LHS, RHS...>{};
+	return sequence_parser<LHS, RHS...>{};
 }
 
 template <parser... LHS, parser... RHS>
-consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
+consteval auto sequence_combined_both(sequence_parser<LHS...>, sequence_parser<RHS...>)
 {
-	return Sequence<LHS..., RHS...>{};
+	return sequence_parser<LHS..., RHS...>{};
 }
 
 } // namespace
@@ -126,8 +126,8 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 			if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)             \
 			{                                                                                          \
 				constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, AllOf<str>{},                            \
-											LHS{}  >> RHS{},  AllOf<str>{});                           \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, all_of_parser<str>{},                    \
+											LHS{}  >> RHS{},  all_of_parser<str>{});                   \
 			}                                                                                          \
 			else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family)    \
 			{                                                                                          \
@@ -146,14 +146,14 @@ consteval auto sequence_combined_both(Sequence<LHS...>, Sequence<RHS...>)
 			}                                                                                          \
 			else                                                                                       \
 			{                                                                                          \
-				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (Sequence<LLHS, RRHS>{}),                \
-											LHS{}  >> RHS{},  (Sequence<LHS,  RHS>{}));                \
+				DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (sequence_parser<LLHS, RRHS>{}),         \
+											LHS{}  >> RHS{},  (sequence_parser<LHS,  RHS>{}));         \
 			}                                                                                          \
 		}                                                                                              \
 	}(LHS{}, RHS{});
 
 #define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
-	(AnyOf<"abc">) (AnyOf<"xyz">) (AnyOf<L"abc">) (AnyOf<L"xyz">)
+	(any_of_parser<"abc">) (any_of_parser<"xyz">) (any_of_parser<L"abc">) (any_of_parser<L"xyz">)
 
 TEST("sequence operator", "{anything} >> {anything}")
 {

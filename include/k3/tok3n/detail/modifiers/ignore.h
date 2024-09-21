@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/adaptor/Ignore.h>
+#include <k3/tok3n/detail/parsers/ignore.h>
 
 namespace k3::tok3n::detail {
 
@@ -14,7 +14,7 @@ struct ignore_modifier final : modifier_base
 		if constexpr (P::family == ignore_family)
 			return P{};
 		else
-			return Ignore<P>{};
+			return ignore_parser<P>{};
 	}
 };
 

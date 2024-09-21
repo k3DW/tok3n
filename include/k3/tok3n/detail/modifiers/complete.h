@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/adaptor/Complete.h>
+#include <k3/tok3n/detail/parsers/complete.h>
 
 namespace k3::tok3n::detail {
 
@@ -14,7 +14,7 @@ struct complete_modifier final : modifier_base
 		if constexpr (P::family == complete_family)
 			return P{};
 		else
-			return Complete<P>{};
+			return complete_parser<P>{};
 	}
 };
 

@@ -1,6 +1,7 @@
 #include "samples.h"
 
 using namespace k3::tok3n;
+using namespace k3::tok3n::detail;
 
 FIXTURE("name modifier");
 
@@ -29,10 +30,10 @@ TEST("name modifier", "non consteval")
 
 
 #define NAME_MODIFIER_ASSERTER(P)                                                 \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (Named<P, "test1">{}));      \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (Named<P, "test2">{}));      \
-	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test1">, (Named<P, "test1">{})); \
-	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test2">, (Named<P, "test2">{}));
+    ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (named_parser<P, "test1">{}));      \
+    ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (named_parser<P, "test2">{}));      \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test1">, (named_parser<P, "test1">{})); \
+	ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test2">, (named_parser<P, "test2">{}));
 
 TEST("name modifier", "modify anything")
 {

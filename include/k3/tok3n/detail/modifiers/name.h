@@ -2,7 +2,7 @@
 #include <k3/tok3n/detail/modifier.h>
 #include <k3/tok3n/detail/static_array.h>
 #include <k3/tok3n/detail/substitution.h>
-#include <k3/tok3n/parsers/adaptor/Named.h>
+#include <k3/tok3n/detail/parsers/named.h>
 
 namespace k3::tok3n::detail {
 
@@ -16,7 +16,7 @@ struct name_modifier final : modifier_base
     template <parser P>
     constexpr auto operator()(P) const
     {
-        return Named<P, str>{};
+        return named_parser<P, str>{};
     }
 
     template <modifier M>

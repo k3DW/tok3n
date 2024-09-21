@@ -25,7 +25,7 @@ ws	::= [{' '|'\t'|'\n'|'\r'}];
 constexpr auto ws = *"\t\n\r "_any % ignore;
 constexpr auto dgt = "0123456789"_any;
 
-struct number : Custom<number>
+struct number : custom_parser<number>
 {
 	struct result_type
 	{
@@ -46,25 +46,25 @@ struct number : Custom<number>
 
 
 
-struct powterm : Custom<powterm>
+struct powterm : custom_parser<powterm>
 {
 	struct result_type;
 	static consteval auto get_parser();
 };
 
-struct factor : Custom<factor>
+struct factor : custom_parser<factor>
 {
 	using result_type = std::vector<powterm::result_type>;
 	static consteval auto get_parser();
 };
 
-struct term : Custom<term>
+struct term : custom_parser<term>
 {
 	using result_type = std::pair<std::vector<factor::result_type>, std::vector<std::string_view>>;
 	static consteval auto get_parser();
 };
 
-struct expr : Custom<expr>
+struct expr : custom_parser<expr>
 {
 	using result_type = std::pair<std::vector<term::result_type>, std::vector<std::string_view>>;
 	static consteval auto get_parser();
@@ -109,7 +109,7 @@ consteval auto powterm::get_parser()
 
 
 
-struct input : Custom<input>
+struct input : custom_parser<input>
 {
 	static constexpr auto parser = complete(ws >> expr{} >> ws);
 	static consteval auto get_parser() { return parser; }

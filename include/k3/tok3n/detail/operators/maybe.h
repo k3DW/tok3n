@@ -1,34 +1,34 @@
 #pragma once
-#include <k3/tok3n/parsers/repeat/Maybe.h>
-#include <k3/tok3n/parsers/repeat/OneOrMore.h>
-#include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
+#include <k3/tok3n/detail/parsers/maybe.h>
+#include <k3/tok3n/detail/parsers/one_or_more.h>
+#include <k3/tok3n/detail/parsers/zero_or_more.h>
 
 namespace k3::tok3n::detail {
 
 namespace impl {
 
 template <parser P>
-consteval auto maybe_operator(Maybe<P>) // ~(~P) == ~P
+consteval auto maybe_operator(maybe_parser<P>) // ~(~P) == ~P
 {
-	return Maybe<P>{};
+	return maybe_parser<P>{};
 }
 
 template <parser P>
-consteval auto maybe_operator(OneOrMore<P>) // ~(+P) == *P
+consteval auto maybe_operator(one_or_more_parser<P>) // ~(+P) == *P
 {
-	return ZeroOrMore<P>{};
+	return zero_or_more_parser<P>{};
 }
 
 template <parser P>
-consteval auto maybe_operator(ZeroOrMore<P>) // ~(*P) == *P
+consteval auto maybe_operator(zero_or_more_parser<P>) // ~(*P) == *P
 {
-	return ZeroOrMore<P>{};
+	return zero_or_more_parser<P>{};
 }
 
 template <parser P>
 consteval auto maybe_operator(P) // default
 {
-	return Maybe<P>{};
+	return maybe_parser<P>{};
 }
 
 } // namespace impl

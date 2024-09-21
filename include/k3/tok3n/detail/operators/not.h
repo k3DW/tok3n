@@ -1,21 +1,21 @@
 #pragma once
-#include <k3/tok3n/parsers/basic/AnyOf.h>
-#include <k3/tok3n/parsers/basic/NoneOf.h>
+#include <k3/tok3n/detail/parsers/any_of.h>
+#include <k3/tok3n/detail/parsers/none_of.h>
 
 namespace k3::tok3n::detail {
 
 namespace impl {
 
 template <static_array arr>
-constexpr auto not_operator(AnyOf<arr>)
+constexpr auto not_operator(any_of_parser<arr>)
 {
-	return NoneOf<arr>{};
+	return none_of_parser<arr>{};
 }
 
 template <static_array arr>
-constexpr auto not_operator(NoneOf<arr>)
+constexpr auto not_operator(none_of_parser<arr>)
 {
-	return AnyOf<arr>{};
+	return any_of_parser<arr>{};
 }
 
 template <parser P>

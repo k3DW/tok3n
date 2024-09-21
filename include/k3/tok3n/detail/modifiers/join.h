@@ -1,6 +1,6 @@
 #pragma once
 #include <k3/tok3n/detail/modifier.h>
-#include <k3/tok3n/parsers/divergent/Join.h>
+#include <k3/tok3n/detail/parsers/join.h>
 
 namespace k3::tok3n::detail {
 
@@ -14,7 +14,7 @@ struct join_modifier final : modifier_base
 		if constexpr (P::family == join_family)
 			return P{};
 		else
-			return Join<P>{};
+			return join_parser<P>{};
 	}
 };
 

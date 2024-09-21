@@ -47,22 +47,22 @@ TEST("join modifier", "non consteval")
 
 
 
-#define JOIN_MODIFIER_ASSERTER(P)                                         \
-	[]<parser PP>(PP) {                                                   \
-		if constexpr (PP::family == join_family)                          \
-		{                                                                 \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},            \
-				                           join, (P{}),  P{});            \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, PP{},       \
-				                                  P{},  join, P{});       \
-		}                                                                 \
-		else                                                              \
-		{                                                                 \
-			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), Join<PP>{},      \
-				                           join, (P{}),  Join<P>{});      \
-			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, Join<PP>{}, \
-				                                  P{},  join, Join<P>{}); \
-		}                                                                 \
+#define JOIN_MODIFIER_ASSERTER(P)                                                \
+	[]<parser PP>(PP) {                                                          \
+		if constexpr (PP::family == join_family)                                 \
+		{                                                                        \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},                   \
+				                           join, (P{}),  P{});                   \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, PP{},              \
+				                                  P{},  join, P{});              \
+		}                                                                        \
+		else                                                                     \
+		{                                                                        \
+			DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), join_parser<PP>{},      \
+				                           join, (P{}),  join_parser<P>{});      \
+			DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, join_parser<PP>{}, \
+				                                  P{},  join, join_parser<P>{}); \
+		}                                                                        \
 	}(P{});
 
 TEST("join modifier", "modify anything")

@@ -1,34 +1,37 @@
 #pragma once
 
-#include <k3/tok3n/parsers/adaptor/Ignore.h>
-#include <k3/tok3n/parsers/adaptor/Complete.h>
-#include <k3/tok3n/parsers/adaptor/Named.h>
+#include <k3/tok3n/detail/aliases/apply_into.h>
+#include <k3/tok3n/detail/aliases/apply_map.h>
+#include <k3/tok3n/detail/aliases/constant.h>
+#include <k3/tok3n/detail/aliases/defaulted.h>
+#include <k3/tok3n/detail/aliases/into.h>
 
-#include <k3/tok3n/parsers/basic/AnyOf.h>
-#include <k3/tok3n/parsers/basic/NoneOf.h>
-#include <k3/tok3n/parsers/basic/AllOf.h>
-#include <k3/tok3n/parsers/basic/Anything.h>
-#include <k3/tok3n/parsers/basic/Epsilon.h>
+#include <k3/tok3n/detail/optimizations/join_exactly_basic.h>
+#include <k3/tok3n/detail/optimizations/join_maybe_basic.h>
+#include <k3/tok3n/detail/optimizations/join_one_or_more_basic.h>
+#include <k3/tok3n/detail/optimizations/join_zero_or_more_basic.h>
 
-#include <k3/tok3n/parsers/compound/Choice.h>
-#include <k3/tok3n/parsers/compound/Sequence.h>
+#include <k3/tok3n/detail/parsers/all_of.h>
+#include <k3/tok3n/detail/parsers/any_of.h>
+#include <k3/tok3n/detail/parsers/anything.h>
+#include <k3/tok3n/detail/parsers/choice.h>
+#include <k3/tok3n/detail/parsers/complete.h>
+#include <k3/tok3n/detail/parsers/custom.h>
+#include <k3/tok3n/detail/parsers/delimit.h>
+#include <k3/tok3n/detail/parsers/epsilon.h>
+#include <k3/tok3n/detail/parsers/exactly.h>
+#include <k3/tok3n/detail/parsers/ignore.h>
+#include <k3/tok3n/detail/parsers/join.h>
+#include <k3/tok3n/detail/parsers/map.h>
+#include <k3/tok3n/detail/parsers/maybe.h>
+#include <k3/tok3n/detail/parsers/named.h>
+#include <k3/tok3n/detail/parsers/none_of.h>
+#include <k3/tok3n/detail/parsers/one_or_more.h>
+#include <k3/tok3n/detail/parsers/sequence.h>
+#include <k3/tok3n/detail/parsers/zero_or_more.h>
 
-#include <k3/tok3n/parsers/divergent/Join.h>
-#include <k3/tok3n/parsers/divergent/Map.h>
-#include <k3/tok3n/parsers/divergent/ApplyMap.h>
-#include <k3/tok3n/parsers/divergent/Into.h>
-#include <k3/tok3n/parsers/divergent/ApplyInto.h>
-#include <k3/tok3n/parsers/divergent/Constant.h>
-#include <k3/tok3n/parsers/divergent/Defaulted.h>
-#include <k3/tok3n/parsers/divergent/Custom.h>
+namespace k3::tok3n {
 
-#include <k3/tok3n/parsers/repeat/Maybe.h>
-#include <k3/tok3n/parsers/repeat/Exactly.h>
-#include <k3/tok3n/parsers/repeat/OneOrMore.h>
-#include <k3/tok3n/parsers/repeat/ZeroOrMore.h>
-#include <k3/tok3n/parsers/repeat/Delimit.h>
+using ::k3::tok3n::detail::custom_parser;
 
-#include <k3/tok3n/parsers/optimizations/JoinExactlyBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinMaybeBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinOneOrMoreBasic.h>
-#include <k3/tok3n/parsers/optimizations/JoinZeroOrMoreBasic.h>
+} // namespace k3::tok3n

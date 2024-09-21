@@ -14,14 +14,14 @@ concept choice_operable = requires { lhs | rhs; };
 
 TEST("epsilon operator", ".of<>")
 {
-	ASSERT_PARSER_VALUES_EQ(eps.of<value_type>, Epsilon<value_type>{});
+	ASSERT_PARSER_VALUES_EQ(eps.of<value_type>, epsilon_parser<value_type>{});
 }
 
 TEST("epsilon operator", "P | eps")
 {
-	ASSERT_PARSER_VALUES_EQ(any1 | eps, (Choice<Any1, Epsilon<value_type>>{}));
-	ASSERT_PARSER_VALUES_EQ(any2 | eps, (Choice<Any2, Epsilon<value_type>>{}));
-	ASSERT_PARSER_VALUES_EQ(any3 | eps, (Choice<Any3, Epsilon<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any1 | eps, (choice_parser<Any1, epsilon_parser<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any2 | eps, (choice_parser<Any2, epsilon_parser<value_type>>{}));
+	ASSERT_PARSER_VALUES_EQ(any3 | eps, (choice_parser<Any3, epsilon_parser<value_type>>{}));
 }
 
 TEST("epsilon operator", "eps | P")
@@ -33,14 +33,14 @@ TEST("epsilon operator", "eps | P")
 
 
 
-#define EPSILON_OPERATOR_ASSERTER(P)                                             \
-	[]<parser PP>(PP) {                                                          \
-		DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                 \
-		                              P{},  eps);                                \
-		DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                             \
-		                                  eps, P{});                             \
-		DEP_ASSERT_PARSER_VALUES_EQ(PP{} | eps, PP{} | Epsilon<::value_type>{},  \
-								    P{}  | eps, P{}  | Epsilon<::value_type>{}); \
+#define EPSILON_OPERATOR_ASSERTER(P)                                                    \
+	[]<parser PP>(PP) {                                                                 \
+		DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                        \
+		                              P{},  eps);                                       \
+		DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                                    \
+		                                  eps, P{});                                    \
+		DEP_ASSERT_PARSER_VALUES_EQ(PP{} | eps, PP{} | epsilon_parser<::value_type>{},  \
+								    P{}  | eps, P{}  | epsilon_parser<::value_type>{}); \
 	}(P{});
 
 TEST("epsilon operator", "eps anything")

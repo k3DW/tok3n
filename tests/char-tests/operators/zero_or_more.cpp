@@ -5,7 +5,7 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("zero_or_more operator");
 
-TEST("zero_or_more operator", "*Maybe")
+TEST("zero_or_more operator", "*maybe_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(*may1, zom1);
 	ASSERT_PARSER_VALUES_EQ(**may1, zom1);
@@ -21,7 +21,7 @@ TEST("zero_or_more operator", "*Maybe")
 	ASSERT_PARSER_VALUES_EQ(***may4, zom4);
 }
 
-TEST("zero_or_more operator", "*OneOrMore")
+TEST("zero_or_more operator", "*one_or_more_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(*oom1, zom1);
 	ASSERT_PARSER_VALUES_EQ(**oom1, zom1);
@@ -37,7 +37,7 @@ TEST("zero_or_more operator", "*OneOrMore")
 	ASSERT_PARSER_VALUES_EQ(***oom4, zom4);
 }
 
-TEST("zero_or_more operator", "*ZeroOrMore")
+TEST("zero_or_more operator", "*zero_or_more_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(*zom1, zom1);
 	ASSERT_PARSER_VALUES_EQ(**zom1, zom1);
@@ -60,29 +60,29 @@ TEST("zero_or_more operator", "non consteval")
 
 
 
-#define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                      \
-	[]<parser PP>(PP) {                                                        \
-		DEP_ASSERT_UNARY_OPERABLE(*, PP{}, P{});                               \
-		if constexpr (PP::family == maybe_family)                              \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
-										*P{},  ZeroOrMore<underlying_t<P>>{}); \
-		}                                                                      \
-		else if constexpr (PP::family == one_or_more_family)                   \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<underlying_t<PP>>{}, \
-										*P{},  ZeroOrMore<underlying_t<P>>{}); \
-		}                                                                      \
-		else if constexpr (PP::family == zero_or_more_family)                  \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, PP{},                           \
-										*P{},  P{});                           \
-		}                                                                      \
-		else                                                                   \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, ZeroOrMore<PP>{},               \
-										*P{},  ZeroOrMore<P>{});               \
-		}                                                                      \
+#define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                               \
+	[]<parser PP>(PP) {                                                                 \
+		DEP_ASSERT_UNARY_OPERABLE(*, PP{}, P{});                                        \
+		if constexpr (PP::family == maybe_family)                                       \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, zero_or_more_parser<underlying_t<PP>>{}, \
+										*P{},  zero_or_more_parser<underlying_t<P>>{}); \
+		}                                                                               \
+		else if constexpr (PP::family == one_or_more_family)                            \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, zero_or_more_parser<underlying_t<PP>>{}, \
+										*P{},  zero_or_more_parser<underlying_t<P>>{}); \
+		}                                                                               \
+		else if constexpr (PP::family == zero_or_more_family)                           \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, PP{},                                    \
+										*P{},  P{});                                    \
+		}                                                                               \
+		else                                                                            \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(*PP{}, zero_or_more_parser<PP>{},               \
+										*P{},  zero_or_more_parser<P>{});               \
+		}                                                                               \
 	}(P{});
 
 TEST("zero_or_more operator", "*{anything}")

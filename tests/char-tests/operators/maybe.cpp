@@ -5,7 +5,7 @@ using namespace k3::tok3n::detail;
 
 FIXTURE("maybe operator");
 
-TEST("maybe operator", "~Maybe")
+TEST("maybe operator", "~maybe_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(~may1, may1);
 	ASSERT_PARSER_VALUES_EQ(~~may1, may1);
@@ -21,7 +21,7 @@ TEST("maybe operator", "~Maybe")
 	ASSERT_PARSER_VALUES_EQ(~~~may4, may4);
 }
 
-TEST("maybe operator", "~OneOrMore")
+TEST("maybe operator", "~one_or_more_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(~oom1, zom1);
 	ASSERT_PARSER_VALUES_EQ(~~oom1, zom1);
@@ -37,7 +37,7 @@ TEST("maybe operator", "~OneOrMore")
 	ASSERT_PARSER_VALUES_EQ(~~~oom4, zom4);
 }
 
-TEST("maybe operator", "~ZeroOrMore")
+TEST("maybe operator", "~zero_or_more_parser")
 {
 	ASSERT_PARSER_VALUES_EQ(~zom1, zom1);
 	ASSERT_PARSER_VALUES_EQ(~~zom1, zom1);
@@ -60,29 +60,29 @@ TEST("maybe operator", "non consteval")
 
 
 
-#define MAYBE_OPERATOR_ASSERTER(P)                                             \
-	[]<parser PP>(PP) {                                                        \
-		DEP_ASSERT_UNARY_OPERABLE(~, PP{}, P{});                               \
-		if constexpr (PP::family == maybe_family)                              \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                           \
-										~P{},  P{});                           \
-		}                                                                      \
-		else if constexpr (PP::family == one_or_more_family)                   \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, ZeroOrMore<underlying_t<PP>>{}, \
-										~P{},  ZeroOrMore<underlying_t<P>>{}); \
-		}                                                                      \
-		else if constexpr (PP::family == zero_or_more_family)                  \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                           \
-										~P{},  P{});                           \
-		}                                                                      \
-		else                                                                   \
-		{                                                                      \
-			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, Maybe<PP>{},                    \
-										~P{},  Maybe<P>{});                    \
-		}                                                                      \
+#define MAYBE_OPERATOR_ASSERTER(P)                                                      \
+	[]<parser PP>(PP) {                                                                 \
+		DEP_ASSERT_UNARY_OPERABLE(~, PP{}, P{});                                        \
+		if constexpr (PP::family == maybe_family)                                       \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                    \
+										~P{},  P{});                                    \
+		}                                                                               \
+		else if constexpr (PP::family == one_or_more_family)                            \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, zero_or_more_parser<underlying_t<PP>>{}, \
+										~P{},  zero_or_more_parser<underlying_t<P>>{}); \
+		}                                                                               \
+		else if constexpr (PP::family == zero_or_more_family)                           \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                    \
+										~P{},  P{});                                    \
+		}                                                                               \
+		else                                                                            \
+		{                                                                               \
+			DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, maybe_parser<PP>{},                      \
+										~P{},  maybe_parser<P>{});                      \
+		}                                                                               \
 	}(P{});
 
 TEST("maybe operator", "~{anything}")

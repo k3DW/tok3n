@@ -25,12 +25,12 @@ TEST("apply_into modifier", "non consteval")
 
 
 
-#define APPLY_INTO_MODIFIER_ASSERTER(P)                                                                 \
-	[]<parser PP>(PP) {                                                                                 \
-		DEP_ASSERT_MODIFIER_CALLABLE_R(apply_into<Sink>, (PP{}), (aliases::ApplyInto<PP, Sink>{}),      \
-									   apply_into<Sink>, (P{}),  (aliases::ApplyInto<P, Sink>{}));      \
-		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply_into<Sink>, (aliases::ApplyInto<PP, Sink>{}), \
-											  P{},  apply_into<Sink>, (aliases::ApplyInto<P, Sink>{})); \
+#define APPLY_INTO_MODIFIER_ASSERTER(P)                                                                \
+	[]<parser PP>(PP) {                                                                                \
+		DEP_ASSERT_MODIFIER_CALLABLE_R(apply_into<Sink>, (PP{}), (apply_into_parser<PP, Sink>{}),      \
+									   apply_into<Sink>, (P{}),  (apply_into_parser<P, Sink>{}));      \
+		DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply_into<Sink>, (apply_into_parser<PP, Sink>{}), \
+											  P{},  apply_into<Sink>, (apply_into_parser<P, Sink>{})); \
 	}(P{});
 
 TEST("apply_into modifier", "modify anything")

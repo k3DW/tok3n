@@ -44,19 +44,19 @@ constexpr auto string = []
 
 
 
-struct JsonValue : Custom<JsonValue>
+struct JsonValue : custom_parser<JsonValue>
 {
 	struct result_type;
 	static consteval auto get_parser();
 };
 
-struct JsonObject : Custom<JsonObject>
+struct JsonObject : custom_parser<JsonObject>
 {
 	using result_type = std::vector<std::pair<std::string, JsonValue::result_type>>;
 	static consteval auto get_parser();
 };
 
-struct JsonArray : Custom<JsonArray>
+struct JsonArray : custom_parser<JsonArray>
 {
 	using result_type = std::vector<JsonValue::result_type>;
 	static consteval auto get_parser();

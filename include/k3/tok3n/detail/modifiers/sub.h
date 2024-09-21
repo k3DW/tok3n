@@ -3,7 +3,7 @@
 #include <k3/tok3n/detail/modifiers/name.h>
 #include <k3/tok3n/detail/static_array.h>
 #include <k3/tok3n/detail/substitution.h>
-#include <k3/tok3n/parsers/adaptor/Named.h>
+#include <k3/tok3n/detail/parsers/named.h>
 
 namespace k3::tok3n::detail {
 
@@ -20,7 +20,7 @@ constexpr auto SubstituteOne(Basic<arr>, Sub)
 	-> Basic<arr>;
 
 template <parser P, static_array str, substitution Sub>
-constexpr parser auto SubstituteOne(Named<P, str>, Sub);
+constexpr parser auto SubstituteOne(named_parser<P, str>, Sub);
 
 template <template <class...> class Template, class... Args, substitution Sub>
 requires parser<Template<Args...>>
@@ -30,13 +30,13 @@ constexpr parser auto SubstituteOne(Template<Args...>, Sub)
 }
 
 template <parser P, static_array str, substitution Sub>
-constexpr parser auto SubstituteOne(Named<P, str>, Sub)
+constexpr parser auto SubstituteOne(named_parser<P, str>, Sub)
 {
 	using InnerSubbed = decltype(SubstituteOne(P{}, Sub{}));
 	if constexpr (Sub::name == str)
 		return Sub::mod(InnerSubbed{});
 	else
-		return Named<InnerSubbed, str>{};
+		return named_parser<InnerSubbed, str>{};
 }
 
 template <parser P, substitution Sub, substitution... Subs>
