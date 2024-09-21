@@ -20,6 +20,7 @@
 #include <k3/tok3n/detail/parsers/delimit.h>
 #include <k3/tok3n/detail/parsers/epsilon.h>
 #include <k3/tok3n/detail/parsers/exactly.h>
+#include <k3/tok3n/detail/parsers/filter.h>
 #include <k3/tok3n/detail/parsers/ignore.h>
 #include <k3/tok3n/detail/parsers/join.h>
 #include <k3/tok3n/detail/parsers/map.h>

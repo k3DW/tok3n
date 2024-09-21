@@ -15,6 +15,7 @@ enum class modifier_family
 	delimit_keep,
 	delimit,
 	exactly,
+	filter,
 	ignore,
 	into,
 	join,

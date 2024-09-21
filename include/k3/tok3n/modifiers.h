@@ -8,6 +8,7 @@
 #include <k3/tok3n/detail/modifiers/delimit.h>
 #include <k3/tok3n/detail/modifiers/delimit_keep.h>
 #include <k3/tok3n/detail/modifiers/exactly.h>
+#include <k3/tok3n/detail/modifiers/filter.h>
 #include <k3/tok3n/detail/modifiers/ignore.h>
 #include <k3/tok3n/detail/modifiers/into.h>
 #include <k3/tok3n/detail/modifiers/join.h>
@@ -38,6 +39,9 @@ inline constexpr auto delimit = detail::delimit_modifier{};
 
 template <std::size_t N>
 inline constexpr auto exactly = detail::exactly_modifier<N>{};
+
+template <auto function>
+inline constexpr auto filter = detail::filter_modifier<function>{};
 
 inline constexpr auto ignore = detail::ignore_modifier{};
 
