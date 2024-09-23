@@ -152,3 +152,5 @@ constexpr struct filter_func3_apply_t
 } filter_func3_apply;
 
 constexpr auto sink_func = [](auto&&...) {};
+
+constexpr auto true_filter = [](auto&&...) { return true; };
