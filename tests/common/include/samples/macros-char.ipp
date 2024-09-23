@@ -4,8 +4,8 @@
 	ASSERT_SAMPLES(ASSERTER, ADAPTOR_SAMPLES BASIC_SAMPLES COMPOUND_SAMPLES DIVERGENT_SAMPLES REPEAT_SAMPLES)
 
 // This macro needs to be manually expanded in this ugly way otherwise it crashes the compiler
-#define ASSERT_ALL_SAMPLES_2(ASSERTER)                                                                                   \
-	{                                                                                                                    \
+#define ASSERT_ALL_SAMPLES_2(ASSERTER)                                    \
+	{                                                                     \
 		ASSERT_SAMPLES_2(ASSERTER, ADAPTOR_SAMPLES, ADAPTOR_SAMPLES);     \
 		ASSERT_SAMPLES_2(ASSERTER, ADAPTOR_SAMPLES, BASIC_SAMPLES);       \
 		ASSERT_SAMPLES_2(ASSERTER, ADAPTOR_SAMPLES, COMPOUND_SAMPLES);    \

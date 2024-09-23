@@ -21,9 +21,8 @@ TEST("apply modifier", "infix")
 
 TEST("apply modifier", "non consteval")
 {
-	constexpr auto sink = [](auto&&...) {};
-	(apply<sink>(any1 >> any2)).parse(TT("abc"));
-	((any1 >> any2) % apply<sink>).parse(TT("abc"));
+	(apply<sink_func>(any1 >> any2)).parse(TT("abc"));
+	((any1 >> any2) % apply<sink_func>).parse(TT("abc"));
 }
 
 
