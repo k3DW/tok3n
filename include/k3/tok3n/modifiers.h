@@ -1,5 +1,6 @@
 #pragma once
 
+#include <k3/tok3n/detail/modifiers/apply_filter.h>
 #include <k3/tok3n/detail/modifiers/apply_into.h>
 #include <k3/tok3n/detail/modifiers/apply.h>
 #include <k3/tok3n/detail/modifiers/complete.h>
@@ -18,6 +19,9 @@
 #include <k3/tok3n/detail/modifiers/sub.h>
 
 namespace k3::tok3n {
+
+template <auto function>
+inline constexpr auto apply_filter = detail::apply_filter_modifier<function>{};
 
 template <class T>
 inline constexpr auto apply_into = detail::apply_into_modifier<T>{};

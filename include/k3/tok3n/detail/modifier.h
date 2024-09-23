@@ -7,6 +7,7 @@ enum class modifier_family
 {
 	none,
 
+	apply_filter,
 	apply_into,
 	apply,
 	complete,

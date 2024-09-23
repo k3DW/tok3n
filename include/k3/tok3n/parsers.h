@@ -1,5 +1,6 @@
 #pragma once
 
+#include <k3/tok3n/detail/aliases/apply_filter.h>
 #include <k3/tok3n/detail/aliases/apply_into.h>
 #include <k3/tok3n/detail/aliases/apply_map.h>
 #include <k3/tok3n/detail/aliases/constant.h>
