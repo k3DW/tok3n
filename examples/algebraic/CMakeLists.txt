@@ -5,14 +5,13 @@ file(GLOB_RECURSE algebraic_files
      "*.cpp"
 )
 
-tok3n_configure_ide("${algebraic_files}")
-
 
 
 add_executable(algebraic
     ${algebraic_files}
 )
 
+tok3n_configure_ide(algebraic)
 tok3n_configure_target(algebraic PUBLIC)
 
 set_target_properties(algebraic

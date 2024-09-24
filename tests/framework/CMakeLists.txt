@@ -4,14 +4,14 @@ file(GLOB_RECURSE framework_files
      "*.cpp"
 )
 
-tok3n_configure_ide("${framework_files}")
-
 
 
 add_library(framework
     ${framework_files}
 )
 
+
+tok3n_configure_ide(framework)
 tok3n_configure_target(framework PUBLIC)
 
 target_include_directories(framework PUBLIC include)
