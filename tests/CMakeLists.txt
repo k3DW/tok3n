@@ -1,3 +1,5 @@
+add_subdirectory(external/boostorg/preprocessor)
+
 add_subdirectory(framework)
 add_subdirectory(common)
 

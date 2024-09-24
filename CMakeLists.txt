@@ -32,7 +32,6 @@ option (tok3n_SETUP_IDE "Organize the projects for IDEs" OFF)
 #--------------------------------------------
 if (tok3n_BUILD_TESTS)
     enable_testing()
-    add_subdirectory(external/boostorg/preprocessor)
     add_subdirectory(tests)
 endif()
 
