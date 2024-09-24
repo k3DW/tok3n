@@ -1,5 +1,6 @@
 #pragma once
 
+#include <k3/tok3n/detail/modifiers/apply_filter.h>
 #include <k3/tok3n/detail/modifiers/apply_into.h>
 #include <k3/tok3n/detail/modifiers/apply.h>
 #include <k3/tok3n/detail/modifiers/complete.h>
@@ -8,6 +9,7 @@
 #include <k3/tok3n/detail/modifiers/delimit.h>
 #include <k3/tok3n/detail/modifiers/delimit_keep.h>
 #include <k3/tok3n/detail/modifiers/exactly.h>
+#include <k3/tok3n/detail/modifiers/filter.h>
 #include <k3/tok3n/detail/modifiers/ignore.h>
 #include <k3/tok3n/detail/modifiers/into.h>
 #include <k3/tok3n/detail/modifiers/join.h>
@@ -17,6 +19,9 @@
 #include <k3/tok3n/detail/modifiers/sub.h>
 
 namespace k3::tok3n {
+
+template <auto function>
+inline constexpr auto apply_filter = detail::apply_filter_modifier<function>{};
 
 template <class T>
 inline constexpr auto apply_into = detail::apply_into_modifier<T>{};
@@ -38,6 +43,9 @@ inline constexpr auto delimit = detail::delimit_modifier{};
 
 template <std::size_t N>
 inline constexpr auto exactly = detail::exactly_modifier<N>{};
+
+template <auto function>
+inline constexpr auto filter = detail::filter_modifier<function>{};
 
 inline constexpr auto ignore = detail::ignore_modifier{};
 

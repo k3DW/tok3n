@@ -24,6 +24,7 @@ enum class parser_family
 	complete,
 	join,
 	map,
+	filter,
 	named,
 	custom,
 
@@ -44,9 +45,10 @@ inline constexpr parser_family zero_or_more_family = parser_family::zero_or_more
 inline constexpr parser_family delimit_family      = parser_family::delimit;
 inline constexpr parser_family ignore_family       = parser_family::ignore;
 inline constexpr parser_family complete_family     = parser_family::complete;
-inline constexpr parser_family named_family        = parser_family::join;
 inline constexpr parser_family join_family         = parser_family::map;
 inline constexpr parser_family map_family          = parser_family::named;
+inline constexpr parser_family filter_family       = parser_family::filter;
+inline constexpr parser_family named_family        = parser_family::join;
 inline constexpr parser_family custom_family       = parser_family::custom;
 
 

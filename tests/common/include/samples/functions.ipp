@@ -102,4 +102,55 @@ struct func4_apply
 	}
 };
 
+constexpr bool filter_func1(const std::vector<k3::tok3n::detail::output_span<::value_type>>& vec)
+{
+	return vec.size() % 2 == 0;
+}
+
+constexpr auto filter_func2 = []<class T>(const std::optional<k3::tok3n::detail::output_span<T>>& opt)
+{
+	return opt.has_value();
+};
+
+constexpr struct filter_func3_t
+{
+	constexpr bool operator()(const std::tuple<k3::tok3n::detail::output_span<char>, std::vector<k3::tok3n::detail::output_span<char>>>& tup) const
+	{
+		auto&& [sv, vec] = std::move(tup);
+		return vec.size() % 2 == 0;
+	}
+
+	constexpr bool operator()(const std::tuple<k3::tok3n::detail::output_span<wchar_t>, std::vector<k3::tok3n::detail::output_span<wchar_t>>>& tup) const
+	{
+		auto&& [sv, vec] = std::move(tup);
+		return vec.size() % 2 == 0;
+	}
+
+	constexpr bool operator()(const std::tuple<k3::tok3n::detail::output_span<int>, std::vector<k3::tok3n::detail::output_span<int>>>& tup) const
+	{
+		auto&& [sv, vec] = std::move(tup);
+		return vec.size() % 2 == 0;
+	}
+} filter_func3;
+
+constexpr struct filter_func3_apply_t
+{
+	constexpr bool operator()(const k3::tok3n::detail::output_span<char>&, const std::vector<k3::tok3n::detail::output_span<char>>& vec) const
+	{
+		return vec.size() % 2 == 0;
+	}
+
+	constexpr bool operator()(const k3::tok3n::detail::output_span<wchar_t>&, const std::vector<k3::tok3n::detail::output_span<wchar_t>>& vec) const
+	{
+		return vec.size() % 2 == 0;
+	}
+
+	constexpr bool operator()(const k3::tok3n::detail::output_span<int>&, const std::vector<k3::tok3n::detail::output_span<int>>& vec) const
+	{
+		return vec.size() % 2 == 0;
+	}
+} filter_func3_apply;
+
 constexpr auto sink_func = [](auto&&...) {};
+
+constexpr auto true_filter = [](auto&&...) { return true; };

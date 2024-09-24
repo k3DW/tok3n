@@ -7,6 +7,7 @@ enum class modifier_family
 {
 	none,
 
+	apply_filter,
 	apply_into,
 	apply,
 	complete,
@@ -15,6 +16,7 @@ enum class modifier_family
 	delimit_keep,
 	delimit,
 	exactly,
+	filter,
 	ignore,
 	into,
 	join,

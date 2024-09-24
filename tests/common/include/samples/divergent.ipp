@@ -4,16 +4,22 @@ using Joi3 = k3::tok3n::detail::join_parser<_23>; constexpr Joi3 joi3;
 using Joi4 = k3::tok3n::detail::join_parser<_24>; constexpr Joi4 joi4;
 using Joi5 = k3::tok3n::detail::join_parser<_25>; constexpr Joi5 joi5;
 
-using Map1 = k3::tok3n::detail::map_parser<_22, k3::tok3n::detail::integral_constant<func1>>;    constexpr Map1 tra1;
-using Map2 = k3::tok3n::detail::map_parser<_23, k3::tok3n::detail::integral_constant<func2>>;    constexpr Map2 tra2;
-using Map3 = k3::tok3n::detail::map_parser<_24, k3::tok3n::detail::integral_constant<func3>>;    constexpr Map3 tra3;
-using Map4 = k3::tok3n::detail::map_parser<_25, k3::tok3n::detail::integral_constant<func4(3)>>; constexpr Map4 tra4;
+using Map1 = k3::tok3n::detail::map_parser<_22, k3::tok3n::detail::integral_constant<func1>>;    constexpr Map1 map1;
+using Map2 = k3::tok3n::detail::map_parser<_23, k3::tok3n::detail::integral_constant<func2>>;    constexpr Map2 map2;
+using Map3 = k3::tok3n::detail::map_parser<_24, k3::tok3n::detail::integral_constant<func3>>;    constexpr Map3 map3;
+using Map4 = k3::tok3n::detail::map_parser<_25, k3::tok3n::detail::integral_constant<func4(3)>>; constexpr Map4 map4;
+
+using Fil1 = k3::tok3n::detail::filter_parser<_22, k3::tok3n::detail::integral_constant<filter_func1>>; constexpr Fil1 fil1;
+using Fil2 = k3::tok3n::detail::filter_parser<_23, k3::tok3n::detail::integral_constant<filter_func2>>; constexpr Fil2 fil2;
+using Fil3 = k3::tok3n::detail::filter_parser<_24, k3::tok3n::detail::integral_constant<filter_func3>>; constexpr Fil3 fil3;
 
 using Apm1 = k3::tok3n::detail::apply_map_parser<_24, k3::tok3n::detail::integral_constant<func3_apply>>;    constexpr Apm1 apm1;
 using Apm2 = k3::tok3n::detail::apply_map_parser<_25, k3::tok3n::detail::integral_constant<func4_apply(3)>>; constexpr Apm2 apm2;
 
-using Int1 = k3::tok3n::detail::into_parser<SpaceDot, Class1>;                                                             constexpr Int1 int1;
-using Int2 = k3::tok3n::detail::into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>;                                   constexpr Int2 int2;
+using Apf1 = k3::tok3n::detail::apply_filter_parser<_24, k3::tok3n::detail::integral_constant<filter_func3_apply>>; constexpr Apf1 apf1;
+
+using Int1 = k3::tok3n::detail::into_parser<SpaceDot, Class1>;                                                                                  constexpr Int1 int1;
+using Int2 = k3::tok3n::detail::into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>;                                         constexpr Int2 int2;
 using Int3 = k3::tok3n::detail::into_parser<k3::tok3n::detail::into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class4>, Class2>; constexpr Int3 int3;
 
 using Api1 = k3::tok3n::detail::apply_into_parser<k3::tok3n::detail::sequence_parser<ABC, SpaceDot>, Class2>; constexpr Api1 api1;
@@ -75,7 +81,9 @@ constexpr Cus2 cus2;
 #define DIVERGENT_SAMPLES              \
 	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
 	(Map1) (Map2) (Map3) (Map4)        \
+	(Fil1) (Fil2) (Fil3)               \
 	(Apm1) (Apm2)                      \
+	(Apf1)                             \
 	(Int1) (Int2) (Int3)               \
 	(Api1) (Api2)                      \
 	(Con1) (Con2) (Con3) (Con4)        \
