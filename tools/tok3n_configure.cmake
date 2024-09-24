@@ -23,7 +23,7 @@ endmacro()
 
 function(tok3n_configure_ide list_of_files)
 
-    if (tok3n_SETUP_IDE)
+    if (TOK3N_SETUP_IDE)
 
         foreach(_source IN ITEMS ${list_of_files})
             get_filename_component(_source_path "${_source}" PATH)

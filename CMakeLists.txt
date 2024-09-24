@@ -21,16 +21,16 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-option (tok3n_BUILD_TESTS "Build tests" OFF)
-option (tok3n_BUILD_EXAMPLES "Build examples" OFF)
-option (tok3n_SETUP_IDE "Organize the projects for IDEs" OFF)
+option (TOK3N_BUILD_TESTS "Build tests" ON)
+option (TOK3N_BUILD_EXAMPLES "Build examples" ON)
+option (TOK3N_SETUP_IDE "Organize the projects for IDEs" ON)
 
 
 
 #--------------------------------------------
 #   Tests
 #--------------------------------------------
-if (tok3n_BUILD_TESTS)
+if (TOK3N_BUILD_TESTS)
     enable_testing()
     add_subdirectory(tests)
 endif()
@@ -40,7 +40,7 @@ endif()
 #--------------------------------------------
 #   Examples
 #--------------------------------------------
-if (tok3n_BUILD_EXAMPLES)
+if (TOK3N_BUILD_EXAMPLES)
     add_subdirectory(examples)
 endif()
 
@@ -49,7 +49,7 @@ endif()
 #--------------------------------------------
 #   IDEs
 #--------------------------------------------
-if (tok3n_SETUP_IDE)
+if (TOK3N_SETUP_IDE)
 
     file(GLOB_RECURSE list_of_files
         LIST_DIRECTORIES false
