@@ -22,6 +22,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 endif()
 
 option (TOK3N_BUILD_TESTS "Build tests" ON)
+option (TOK3N_DISCOVER_TESTS "Add all tests to CTest" ON)
+
 option (TOK3N_BUILD_EXAMPLES "Build examples" ON)
 option (TOK3N_SETUP_IDE "Organize the projects for IDEs" ON)
 

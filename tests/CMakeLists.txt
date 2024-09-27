@@ -5,41 +5,48 @@ add_subdirectory(common)
 
 macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
 
-    add_executable("_${target}" ${ARGN})
+    if(TOK3N_DISCOVER_TESTS)
+        set(target_name "${target}_")
+    else()
+        set(target_name "${target}")
+    endif()
 
-    target_compile_definitions("_${target}" PRIVATE ${value_type_pp_definition})
+    add_executable(${target_name} ${ARGN})
 
-    target_include_directories("_${target}" PRIVATE .)
-    target_link_libraries("_${target}" PRIVATE common)
-    target_precompile_headers("_${target}" PRIVATE samples.h)
+    target_compile_definitions(${target_name} PRIVATE ${value_type_pp_definition})
 
-    tok3n_configure_source_group("_${target}")
-    tok3n_configure_target("_${target}" PRIVATE)
+    target_include_directories(${target_name} PRIVATE .)
+    target_link_libraries(${target_name} PRIVATE common)
+    target_precompile_headers(${target_name} PRIVATE samples.h)
 
-    set_target_properties("_${target}"
+    tok3n_configure_source_group(${target_name})
+    tok3n_configure_target(${target_name} PRIVATE)
+
+    set_target_properties(${target_name}
         PROPERTIES
             FOLDER tests
     )
 
-    tok3n_discover_tests(${target} ${assembly_name})
-
-    set_target_properties(${target}
-        PROPERTIES
-            FOLDER tests/_generated
-    )
+    if(TOK3N_DISCOVER_TESTS)
+        tok3n_discover_tests(${target} ${assembly_name})
+        set_target_properties(${target}
+            PROPERTIES
+                FOLDER tests/_generated
+        )
+    endif()
 
 endmacro()
 
 macro(tok3n_discover_tests target assembly_name)
 
     add_custom_target("${target}" ALL)
-    add_dependencies("${target}" "_${target}")
+    add_dependencies("${target}" "${target}_")
 
     set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}.add_tests.cmake")
 
     add_custom_command(
         TARGET "${target}" POST_BUILD
-        COMMAND "_${target}" list "${generated_file}"
+        COMMAND "${target}_" list "${generated_file}"
         COMMAND "${CMAKE_COMMAND}"
             -D "ASSEMBLY_NAME=${assembly_name}"
             -D "TEST_TARGET=${target}_"
