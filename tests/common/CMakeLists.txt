@@ -10,7 +10,7 @@ add_library(common INTERFACE
     ${common_files}
 )
 
-tok3n_configure_ide(common)
+tok3n_configure_source_group(common)
 tok3n_configure_target(common INTERFACE)
 
 target_include_directories(common INTERFACE include)

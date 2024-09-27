@@ -11,7 +11,7 @@ add_executable(algebraic
     ${algebraic_files}
 )
 
-tok3n_configure_ide(algebraic)
+tok3n_configure_source_group(algebraic)
 tok3n_configure_target(algebraic PUBLIC)
 
 set_target_properties(algebraic

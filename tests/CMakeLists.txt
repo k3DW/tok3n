@@ -13,8 +13,8 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
     target_link_libraries("_${target}" PRIVATE common)
     target_precompile_headers("_${target}" PRIVATE samples.h)
 
+    tok3n_configure_source_group("_${target}")
     tok3n_configure_target("_${target}" PRIVATE)
-    tok3n_configure_ide("_${target}")
 
     set_target_properties("_${target}"
         PROPERTIES

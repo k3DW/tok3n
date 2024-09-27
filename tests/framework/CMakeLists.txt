@@ -11,7 +11,7 @@ add_library(framework
 )
 
 
-tok3n_configure_ide(framework)
+tok3n_configure_source_group(framework)
 tok3n_configure_target(framework PUBLIC)
 
 target_include_directories(framework PUBLIC include)

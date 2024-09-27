@@ -21,7 +21,7 @@ macro(tok3n_configure_target target visibility)
 
 endmacro()
 
-function(tok3n_configure_ide target)
+function(tok3n_configure_source_group target)
 
     get_target_property(list_of_files ${target} SOURCES)
 

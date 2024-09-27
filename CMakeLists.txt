@@ -61,7 +61,7 @@ if (TOK3N_SETUP_IDE)
         ${list_of_files}
     )
     
-    tok3n_configure_ide(tok3n)
+    tok3n_configure_source_group(tok3n)
     tok3n_configure_target(tok3n PUBLIC)
 
     target_include_directories(tok3n PUBLIC include)

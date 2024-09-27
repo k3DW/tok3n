@@ -11,7 +11,7 @@ add_executable(json
     ${json_files}
 )
 
-tok3n_configure_ide(json)
+tok3n_configure_source_group(json)
 tok3n_configure_target(json PUBLIC)
 
 set_target_properties(json
