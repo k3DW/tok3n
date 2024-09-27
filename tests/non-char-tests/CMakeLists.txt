@@ -4,38 +4,18 @@ file(GLOB_RECURSE non_char_test_files
      "./*.cpp"
 )
 
-
-
-add_executable(int_tests
+tok3n_add_test_executable(int_tests int VALUE_TYPE_INT
     ${non_char_test_files}
 )
 
-tok3n_configure_ide(int_tests)
-tok3n_configure_test_target(int_tests VALUE_TYPE_INT)
-
-
-
-add_executable(enum_tests
+tok3n_add_test_executable(enum_tests enum VALUE_TYPE_ENUM
     ${non_char_test_files}
 )
 
-tok3n_configure_ide(enum_tests)
-tok3n_configure_test_target(enum_tests VALUE_TYPE_ENUM)
-
-
-
-add_executable(structural_tests
+tok3n_add_test_executable(structural_tests structural VALUE_TYPE_STRUCTURAL
     ${non_char_test_files}
 )
 
-tok3n_configure_ide(structural_tests)
-tok3n_configure_test_target(structural_tests VALUE_TYPE_STRUCTURAL)
-
-
-
-add_executable(structural_op_equals_tests
+tok3n_add_test_executable(structural_op_equals_tests structural_op_equals VALUE_TYPE_STRUCTURAL_OP_EQUALS
     ${non_char_test_files}
 )
-
-tok3n_configure_ide(structural_op_equals_tests)
-tok3n_configure_test_target(structural_op_equals_tests VALUE_TYPE_STRUCTURAL_OP_EQUALS)

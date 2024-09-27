@@ -4,20 +4,10 @@ file(GLOB_RECURSE char_test_files
      "./*.cpp"
 )
 
-
-
-add_executable(char_tests
+tok3n_add_test_executable(char_tests char VALUE_TYPE_CHAR
     ${char_test_files}
 )
 
-tok3n_configure_ide(char_tests)
-tok3n_configure_test_target(char_tests VALUE_TYPE_CHAR)
-
-
-
-add_executable(wchar_t_tests
+tok3n_add_test_executable(wchar_t_tests wchar_t VALUE_TYPE_WCHAR_T
     ${char_test_files}
 )
-
-tok3n_configure_ide(wchar_t_tests)
-tok3n_configure_test_target(wchar_t_tests VALUE_TYPE_WCHAR_T)
