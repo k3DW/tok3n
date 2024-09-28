@@ -26,6 +26,9 @@ function(tok3n_configure_source_group target)
     get_target_property(list_of_files ${target} SOURCES)
 
     foreach(_source IN ITEMS ${list_of_files})
+        if(${_source} MATCHES "^\\$<") # Skip any unevaluated generator expressions
+            continue()
+        endif()
         get_filename_component(_source_path "${_source}" DIRECTORY)
         file(RELATIVE_PATH _source_path_rel "${CMAKE_CURRENT_LIST_DIR}" "${_source_path}")
         string(REPLACE "/" "\\" _group_path "${_source_path_rel}")

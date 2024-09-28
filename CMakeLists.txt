@@ -8,7 +8,15 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include(tools/tok3n_configure.cmake)
 
+
+
+file(GLOB_RECURSE k3_tok3n_files
+    LIST_DIRECTORIES false
+    "include/*.h"
+)
+
 add_library(k3_tok3n INTERFACE
+    ${k3_tok3n_files}
     "$<$<CXX_COMPILER_ID:MSVC>:tools/tok3n.natvis>"
 )
 add_library(k3::tok3n ALIAS k3_tok3n)
@@ -16,6 +24,7 @@ add_library(k3::tok3n ALIAS k3_tok3n)
 target_include_directories(k3_tok3n INTERFACE include)
 
 tok3n_configure_target(k3_tok3n INTERFACE)
+tok3n_configure_source_group(k3_tok3n)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
@@ -25,7 +34,7 @@ option (TOK3N_BUILD_TESTS "Build tests" ON)
 option (TOK3N_DISCOVER_TESTS "Add all tests to CTest" ON)
 
 option (TOK3N_BUILD_EXAMPLES "Build examples" ON)
-option (TOK3N_SETUP_IDE "Organize the projects for IDEs" ON)
+option (TOK3N_BUILD_MAIN "Create an executable with the main function" ON)
 
 
 
@@ -49,23 +58,11 @@ endif()
 
 
 #--------------------------------------------
-#   IDEs
+#   Main
 #--------------------------------------------
-if (TOK3N_SETUP_IDE)
-
-    file(GLOB_RECURSE list_of_files
-        LIST_DIRECTORIES false
-        "include/*.h"
-        "src/main.cpp"
-    )
-
-    add_executable(tok3n
-        ${list_of_files}
-    )
-    
-    tok3n_configure_source_group(tok3n)
-    tok3n_configure_target(tok3n PUBLIC)
-
-    target_include_directories(tok3n PUBLIC include)
-
+if (TOK3N_BUILD_MAIN)
+    add_executable(tok3n_main "src/main.cpp")
+    source_group("" FILES "src/main.cpp")
+    target_link_libraries(tok3n_main k3::tok3n)
+    tok3n_configure_target(tok3n_main PUBLIC)
 endif()
