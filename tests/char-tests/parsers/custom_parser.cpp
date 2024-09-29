@@ -46,21 +46,21 @@ TEST("custom_parser", "Parse Cus1")
 
 TEST("custom_parser", "Parse Cus2")
 {
-	ASSERT_PARSE_SUCCESS(Cus2, "abc", (std::size_t)0, "bc");
-	ASSERT_PARSE_SUCCESS(Cus2, "bca", (std::size_t)0, "ca");
-	ASSERT_PARSE_SUCCESS(Cus2, "cab", (std::size_t)0, "ab");
+	ASSERT_PARSE_SUCCESS(Cus2, "abc", 0, "bc");
+	ASSERT_PARSE_SUCCESS(Cus2, "bca", 0, "ca");
+	ASSERT_PARSE_SUCCESS(Cus2, "cab", 0, "ab");
 	ASSERT_PARSE_FAILURE(Cus2, "xyz");
 	ASSERT_PARSE_FAILURE(Cus2, "");
 
-	ASSERT_PARSE_SUCCESS(Cus2, L"abc", (std::size_t)0, L"bc");
-	ASSERT_PARSE_SUCCESS(Cus2, L"bca", (std::size_t)0, L"ca");
-	ASSERT_PARSE_SUCCESS(Cus2, L"cab", (std::size_t)0, L"ab");
+	ASSERT_PARSE_SUCCESS(Cus2, L"abc", 0, L"bc");
+	ASSERT_PARSE_SUCCESS(Cus2, L"bca", 0, L"ca");
+	ASSERT_PARSE_SUCCESS(Cus2, L"cab", 0, L"ab");
 	ASSERT_PARSE_FAILURE(Cus2, L"xyz");
 	ASSERT_PARSE_FAILURE(Cus2, L"");
 
-	ASSERT_PARSE_SUCCESS(Cus2, e<int>("abc"), (std::size_t)0, e<int>("bc"));
-	ASSERT_PARSE_SUCCESS(Cus2, e<int>("bca"), (std::size_t)0, e<int>("ca"));
-	ASSERT_PARSE_SUCCESS(Cus2, e<int>("cab"), (std::size_t)0, e<int>("ab"));
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("abc"), 0, e<int>("bc"));
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("bca"), 0, e<int>("ca"));
+	ASSERT_PARSE_SUCCESS(Cus2, e<int>("cab"), 0, e<int>("ab"));
 	ASSERT_PARSE_FAILURE(Cus2, e<int>("xyz"));
 	ASSERT_PARSE_FAILURE(Cus2, e<int>(""));
 }

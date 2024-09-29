@@ -9,6 +9,6 @@ int main()
 	constexpr auto oc = detail::any_of_parser<"ab">{};
 	constexpr auto test = exactly<2>(oc);
 
-	auto result_ = test.parse("cbac");
-	auto result_2 = test.parse("abac");
+	[[maybe_unused]] auto result_ = test.parse("cbac");
+	[[maybe_unused]] auto result_2 = test.parse("abac");
 }

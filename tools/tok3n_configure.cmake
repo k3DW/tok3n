@@ -17,6 +17,29 @@ macro(tok3n_configure_target target visibility)
             /permissive- /volatile:iso /Zc:preprocessor
             /WX /W4
         >
+        $<$<OR:$<CXX_COMPILER_ID:Clang>,$<CXX_COMPILER_ID:GNU>>:
+            -Werror
+            -Wall -Wextra -Wshadow -Wnon-virtual-dtor -pedantic
+            -Wold-style-cast
+            -Wcast-align
+            -Wunused
+            -Woverloaded-virtual
+            -Wpedantic
+            -Wconversion
+            -Wsign-conversion
+            -Wmisleading-indentation
+            -Wnull-dereference
+            -Wdouble-promotion
+            -Wformat=2
+            -Wimplicit-fallthrough
+        >
+        $<$<CXX_COMPILER_ID:GNU>:
+            -Wduplicated-cond
+            -Wduplicated-branches
+            -Wlogical-op
+            -Wuseless-cast
+            -Wlifetime
+        >
     )
 
 endmacro()

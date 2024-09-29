@@ -22,7 +22,7 @@ public:
 		if (this->try_join(*t) && joined == std::nullopt)
 		{
 			// If the contents are empty, make sure this result is still contiguous
-			joined = { t.remaining().data(), 0 };
+			joined = { t.remaining().data(), 0ull };
 		}
 	}
 
@@ -54,7 +54,7 @@ private:
 				not std::is_constant_evaluated() or
 				__builtin_constant_p(output.data() - joined->data())
 			) and
-			joined->size() == output.data() - joined->data()
+			static_cast<std::ptrdiff_t>(joined->size()) == output.data() - joined->data()
 		)
 #else
 #error
