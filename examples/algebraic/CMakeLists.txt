@@ -12,11 +12,10 @@ add_executable(algebraic
 )
 
 tok3n_configure_source_group(algebraic)
-tok3n_configure_target(algebraic PUBLIC)
 
 set_target_properties(algebraic
     PROPERTIES
         FOLDER examples
 )
 
-target_link_libraries(algebraic PUBLIC k3::tok3n)
+target_link_libraries(algebraic tok3n_shared_settings)

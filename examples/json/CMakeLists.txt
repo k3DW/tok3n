@@ -12,11 +12,10 @@ add_executable(json
 )
 
 tok3n_configure_source_group(json)
-tok3n_configure_target(json PUBLIC)
 
 set_target_properties(json
     PROPERTIES
         FOLDER examples
 )
 
-target_link_libraries(json PUBLIC k3::tok3n)
+target_link_libraries(json tok3n_shared_settings)

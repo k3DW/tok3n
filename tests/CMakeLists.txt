@@ -20,7 +20,6 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
     target_precompile_headers(${target_name} PRIVATE samples.h)
 
     tok3n_configure_source_group(${target_name})
-    tok3n_configure_target(${target_name} PRIVATE)
 
     set_target_properties(${target_name}
         PROPERTIES

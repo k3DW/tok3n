@@ -11,7 +11,6 @@ add_library(common INTERFACE
 )
 
 tok3n_configure_source_group(common)
-tok3n_configure_target(common INTERFACE)
 
 target_include_directories(common INTERFACE include)
 
