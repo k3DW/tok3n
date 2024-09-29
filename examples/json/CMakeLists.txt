@@ -5,19 +5,17 @@ file(GLOB_RECURSE json_files
      "*.cpp"
 )
 
-tok3n_configure_ide("${json_files}")
-
 
 
 add_executable(json
     ${json_files}
 )
 
-tok3n_configure_target(json PUBLIC)
+tok3n_configure_source_group(json)
 
 set_target_properties(json
     PROPERTIES
         FOLDER examples
 )
 
-target_link_libraries(json PUBLIC k3::tok3n)
+target_link_libraries(json tok3n_shared_settings)

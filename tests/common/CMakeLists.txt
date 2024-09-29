@@ -4,15 +4,13 @@ file(GLOB_RECURSE common_files
      "include/*.ipp"
 )
 
-tok3n_configure_ide("${common_files}")
-
 
 
 add_library(common INTERFACE
     ${common_files}
 )
 
-tok3n_configure_target(common INTERFACE)
+tok3n_configure_source_group(common)
 
 target_include_directories(common INTERFACE include)
 

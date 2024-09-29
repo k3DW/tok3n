@@ -325,7 +325,7 @@ TEST("join_parser", "join_parser<map_parser>")
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, e<int>("abc??abc"), e<int>("abc"));
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J2, e<int>("abc??"), e<int>(""));
 
-		using vec_type = std::vector<std::tuple<output_span<int>, output_span<int>>>;
+		using vec_type [[maybe_unused]] = std::vector<std::tuple<output_span<int>, output_span<int>>>;
 		//ASSERT_PARSE_SUCCESS(T3, e<int>("abcabc??abc??ab"), vec_type({ { e<int>("a"), e<int>("??") }, { e<int>("b"), e<int>("??") } }), e<int>("ab"));
 		//ASSERT_PARSE_SUCCESS(T3, e<int>("abc??abcabcabcabc??"), vec_type({ { e<int>("b"), e<int>("??") }, { e<int>("a"), e<int>("??") } }), e<int>(""));
 		ASSERT_PARSE_LOOKAHEAD_ONLY(J3, e<int>("abcabc??abc??ab"), e<int>("ab"));
