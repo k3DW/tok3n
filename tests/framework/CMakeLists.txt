@@ -20,3 +20,25 @@ set_target_properties(framework
     PROPERTIES
         FOLDER tests
 )
+
+macro(tok3n_discover_tests runner generator assembly_name)
+
+    add_custom_target(${generator} ALL)
+    add_dependencies(${generator} ${runner})
+
+    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${generator}.add_tests.cmake")
+
+    add_custom_command(
+        TARGET ${generator} POST_BUILD
+        COMMAND ${runner} list ${generated_file}
+        COMMAND ${CMAKE_COMMAND}
+            -D "ASSEMBLY_NAME=${assembly_name}"
+            -D "TEST_TARGET=${runner}"
+            -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
+            -D "LIST_OF_TESTS_FILE=${generated_file}"
+            -P "${CMAKE_SOURCE_DIR}/tests/add_tests.cmake"
+        BYPRODUCTS ${generated_file}
+        VERBATIM
+    )
+
+endmacro()

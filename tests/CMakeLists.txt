@@ -27,34 +27,12 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
     )
 
     if(TOK3N_DISCOVER_TESTS)
-        tok3n_discover_tests(${target} ${assembly_name})
+        tok3n_discover_tests(${target_name} ${target} ${assembly_name})
         set_target_properties(${target}
             PROPERTIES
                 FOLDER tests/_generated
         )
     endif()
-
-endmacro()
-
-macro(tok3n_discover_tests target assembly_name)
-
-    add_custom_target("${target}" ALL)
-    add_dependencies("${target}" "${target}_")
-
-    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}.add_tests.cmake")
-
-    add_custom_command(
-        TARGET "${target}" POST_BUILD
-        COMMAND "${target}_" list "${generated_file}"
-        COMMAND "${CMAKE_COMMAND}"
-            -D "ASSEMBLY_NAME=${assembly_name}"
-            -D "TEST_TARGET=${target}_"
-            -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
-            -D "LIST_OF_TESTS_FILE=${generated_file}"
-            -P "${CMAKE_SOURCE_DIR}/tests/add_tests.cmake"
-        BYPRODUCTS "${generated_file}"
-        VERBATIM
-    )
 
 endmacro()
 
