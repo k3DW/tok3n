@@ -1,0 +1,52 @@
+name: CI
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build-msvc-vs2022:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+        
+      - name: Build tok3n
+        run: |
+          mkdir build
+          cd build
+          cmake -G "Visual Studio 17 2022" ..
+          cmake --build . -j8
+
+      - name: Run tok3n tests
+        run: |
+          cd build
+          ctest --output-on-failure
+
+  build-clang-17:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+        
+      - name: Set up Clang
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 17
+          sudo apt-get install -y libc++-17-dev libc++abi-17-dev
+
+      - name: Build tok3n
+        run: |
+          mkdir build
+          cd build
+          cmake -DCMAKE_CXX_COMPILER=clang++-17 ..
+          cmake --build . -j8
+
+      - name: Run tok3n tests
+        run: |
+          cd build
+          ctest --output-on-failure
