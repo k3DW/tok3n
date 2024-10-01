@@ -23,10 +23,20 @@ set_target_properties(framework
 
 macro(tok3n_discover_tests runner generator assembly_name)
 
+    string(REGEX REPLACE "[\\\\\\/:]" "_" discovery "_discovery_${CMAKE_CURRENT_BINARY_DIR}")
+    if(NOT TARGET ${discovery})
+        add_custom_target(${discovery} ALL)
+        set_target_properties(${discovery}
+            PROPERTIES
+                FOLDER tests/_generated
+        )
+    endif()
+
     add_custom_target(${generator} ALL)
     add_dependencies(${generator} ${runner})
+    add_dependencies(${discovery} ${generator})
 
-    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${generator}.add_tests.cmake")
+    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${generator}.list_of_tests.cmake")
 
     add_custom_command(
         TARGET ${generator} POST_BUILD
@@ -36,8 +46,17 @@ macro(tok3n_discover_tests runner generator assembly_name)
             -D "TEST_TARGET=${runner}"
             -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
             -D "LIST_OF_TESTS_FILE=${generated_file}"
-            -P "${CMAKE_SOURCE_DIR}/tests/add_tests.cmake"
+            -P "${CMAKE_SOURCE_DIR}/tests/discover_tests.cmake"
         BYPRODUCTS ${generated_file}
+        VERBATIM
+    )
+
+    add_custom_command(
+        TARGET ${discovery} POST_BUILD
+        COMMAND ${CMAKE_COMMAND}
+            -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
+            -D "LIST_OF_TESTS_FILE=${generated_file}"
+            -P "${CMAKE_SOURCE_DIR}/tests/include_tests.cmake"
         VERBATIM
     )
 
