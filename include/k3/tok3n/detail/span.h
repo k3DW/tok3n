@@ -157,16 +157,17 @@ struct span_equal_to
 	}
 };
 
-template <class T, class RHS>
-[[nodiscard]] constexpr bool operator==(const span<T>& lhs, RHS&& rhs)
+template <class T, class U>
+[[nodiscard]] constexpr bool operator==(const span<T>& lhs, const span<U>& rhs)
 {
-	return span_equal_to{}(lhs, std::forward<RHS>(rhs));
+	return span_equal_to{}(lhs, rhs);
 }
 
 template <class T, class RHS>
-[[nodiscard]] constexpr bool operator!=(const span<T>& lhs, RHS&& rhs)
+requires (not impl::is_span<std::remove_cvref_t<RHS>>)
+[[nodiscard]] constexpr bool operator==(const span<T>& lhs, RHS&& rhs)
 {
-	return not span_equal_to{}(lhs, std::forward<RHS>(rhs));
+	return span_equal_to{}(lhs, std::forward<RHS>(rhs));
 }
 
 } // namespace k3::tok3n::detail
