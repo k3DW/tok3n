@@ -1,3 +1,7 @@
+// Copyright 2022-2024 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
 constexpr std::size_t func1(std::vector<k3::tok3n::detail::output_span<::value_type>>&& vec)
 {
 	return vec.size();

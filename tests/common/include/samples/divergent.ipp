@@ -1,3 +1,7 @@
+// Copyright 2022-2024 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
 using Joi1 = k3::tok3n::detail::join_parser<_21>; constexpr Joi1 joi1;
 using Joi2 = k3::tok3n::detail::join_parser<_22>; constexpr Joi2 joi2;
 using Joi3 = k3::tok3n::detail::join_parser<_23>; constexpr Joi3 joi3;

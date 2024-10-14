@@ -1,3 +1,7 @@
+// Copyright 2022-2024 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
 using Cho1 = k3::tok3n::detail::choice_parser<All4, Non4>;       constexpr Cho1 cho1;
 using Cho2 = k3::tok3n::detail::choice_parser<Non4, All4>;       constexpr Cho2 cho2;
 using Cho3 = k3::tok3n::detail::choice_parser<All4, Any4, Non5>; constexpr Cho3 cho3;

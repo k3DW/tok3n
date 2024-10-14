@@ -1,3 +1,7 @@
+# Copyright 2024 Braden Ganetsky
+# Distributed under the Boost Software License, Version 1.0.
+# https://www.boost.org/LICENSE_1_0.txt
+
 function(tok3n_configure_source_group target)
 
     get_target_property(list_of_files ${target} SOURCES)

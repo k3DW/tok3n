@@ -1,3 +1,7 @@
+// Copyright 2023-2024 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
 template <class T = ::value_type, class... Ts>
 requires (... and std::convertible_to<T, Ts>)
 consteval auto e(Ts... ts)

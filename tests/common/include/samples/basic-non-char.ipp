@@ -1,3 +1,7 @@
+// Copyright 2024 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 using Any1 = k3::tok3n::detail::any_of_parser<k3::tok3n::detail::static_array(A, C)>;    constexpr Any1 any1;
 using Any2 = k3::tok3n::detail::any_of_parser<k3::tok3n::detail::static_array(B, D)>;    constexpr Any2 any2;

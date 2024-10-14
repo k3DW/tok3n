@@ -1,3 +1,6 @@
+# Copyright 2023-2024 Braden Ganetsky
+# Distributed under the Boost Software License, Version 1.0.
+# https://www.boost.org/LICENSE_1_0.txt
 
 file(GLOB_RECURSE json_files
      LIST_DIRECTORIES false
