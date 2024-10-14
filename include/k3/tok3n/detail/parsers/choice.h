@@ -33,7 +33,7 @@ public:
 		using V = input_value_t<R>;
 
 		using Executor = impl::choice_executor<result_for<V>, V, _trait<V>::unwrapped>;
-		Executor executor{ .input = input };
+		Executor executor{ input };
 
 		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
@@ -56,7 +56,7 @@ public:
 		using V = input_value_t<R>;
 
 		using Executor = impl::choice_executor<void, V, _trait<V>::unwrapped>;
-		Executor executor{ .input = input };
+		Executor executor{ input };
 
 		bool successful = (executor.template execute<P>() or ... or executor.template execute<Ps>());
 

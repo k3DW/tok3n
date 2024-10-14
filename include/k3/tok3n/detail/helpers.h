@@ -148,6 +148,10 @@ struct compound_executor
 	input_span<ValueType> input;
 	result_builder<ResultType> builder;
 
+	constexpr compound_executor(input_span<ValueType> input_)
+		: input(input_)
+	{}
+
 	template <parser P, std::size_t I = static_cast<std::size_t>(-1)>
 	constexpr bool execute()
 	{

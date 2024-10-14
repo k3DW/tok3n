@@ -34,7 +34,7 @@ public:
 
 		// This might be a problem because it default initializes all members
 		using Executor = impl::sequence_executor<result_for<V>, V, _trait<V>::unwrapped>;
-		Executor executor{ .input = input };
+		Executor executor{ input };
 
 		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
 		{
@@ -57,7 +57,7 @@ public:
 		using V = input_value_t<R>;
 
 		using Executor = impl::sequence_executor<void, V, _trait<V>::unwrapped>;
-		Executor executor{ .input = input };
+		Executor executor{ input };
 
 		bool successful = (executor.template execute<P>() and ... and executor.template execute<Ps>());
 
