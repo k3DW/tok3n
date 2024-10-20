@@ -6,58 +6,78 @@ name: CI
 
 on: 
   workflow_dispatch:
+  push:
+    branches:
+      - 'vs2022'
 
 jobs:
-  build-msvc-vs2022:
+  build-msvc:
     runs-on: windows-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-            submodules: recursive
-
-      - name: Build tok3n
-        run: |
-          mkdir build
-          cd build
-          cmake -G "Visual Studio 17 2022" ..
-          cmake --build . -j8
-
-      - name: Run tok3n tests
-        run: |
-          cd build
-          ctest --output-on-failure
-
-  build-clang:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        clang-version: [16, 17, 18, 19]
+    # strategy:
+    #   matrix:
+    #     vsversion: ["2022"]
+    #     toolset: ["14.40", "14.41"]
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-            submodules: recursive
+      # - name: Checkout code
+      #   uses: actions/checkout@v4
+      #   with:
+      #     submodules: recursive
 
-      - name: Set up Clang
+      - name: Install VS
         run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh ${{matrix.clang-version}}
-          sudo apt-get install -y \
-            libc++-${{matrix.clang-version}}-dev \
-            libc++abi-${{matrix.clang-version}}-dev
+          cd C:\Users
+          ls
+          cd Public\AppData\Local\Temp
+          ls
+        # curl -O https://aka.ms/vs/17/release/vs_buildtools.exe
+        # .\vs_buildtools.exe modify --add Microsoft.VisualStudio.Component.VC.14.38.17.8.x86.x64
 
-      - name: Build tok3n
-        run: |
-          mkdir build
-          cd build
-          cmake .. \
-            -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}}
-          cmake --build . -j8
+      # - name: Build tok3n
+      #   run: |
+      #     mkdir build
+      #     cd build
+      #     cmake `
+      #       -G "Visual Studio 17 2022" `
+      #       -T version=${{ matrix.toolset }} `
+      #       ..
+      #     cmake --build . -j8
 
-      - name: Run tok3n tests
-        run: |
-          cd build
-          ctest --output-on-failure
+      # - name: Run tok3n tests
+      #   run: |
+      #     cd build
+      #     ctest --output-on-failure
+
+  # build-clang:
+  #   runs-on: ubuntu-latest
+  #   strategy:
+  #     matrix:
+  #       clang-version: [16, 17, 18, 19]
+
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v4
+  #       with:
+  #         submodules: recursive
+
+  #     - name: Set up Clang
+  #       run: |
+  #         wget https://apt.llvm.org/llvm.sh
+  #         chmod +x llvm.sh
+  #         sudo ./llvm.sh ${{matrix.clang-version}}
+  #         sudo apt-get install -y \
+  #           libc++-${{matrix.clang-version}}-dev \
+  #           libc++abi-${{matrix.clang-version}}-dev
+
+  #     - name: Build tok3n
+  #       run: |
+  #         mkdir build
+  #         cd build
+  #         cmake .. \
+  #           -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}}
+  #         cmake --build . -j8
+
+  #     - name: Run tok3n tests
+  #       run: |
+  #         cd build
+  #         ctest --output-on-failure
