@@ -4,6 +4,8 @@
 
 #pragma once
 #include <iosfwd>
+#include <string_view>
+#include <vector>
 
 struct Error;
 

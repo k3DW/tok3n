@@ -8,9 +8,9 @@
 #include <string_view>
 #include <unordered_map>
 #include "framework/Hash.h"
+#include "framework/Test.h"
 
 struct FixtureResult;
-class Test;
 
 class Fixture
 {
