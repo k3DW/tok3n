@@ -193,8 +193,34 @@ input_span(R&&) -> input_span<std::ranges::range_value_t<R>>;
 template <character T>
 input_span(const T*) -> input_span<T>;
 
+namespace impl {
+
 template <class T>
-using input_value_t = typename decltype(input_span{ std::declval<T>() })::value_type;
+struct input_value {};
+
+template <std::ranges::contiguous_range R>
+struct input_value<R>
+{
+	using type = std::ranges::range_value_t<R>;
+};
+
+template <character T>
+struct input_value<const T*>
+{
+	using type = T;
+};
+
+template <class T>
+struct input_value<const T> { using type = typename input_value<T>::type; };
+template <class T>
+struct input_value<T&> { using type = typename input_value<T>::type; };
+template <class T>
+struct input_value<T&&> { using type = typename input_value<T>::type; };
+
+} // namespace impl
+
+template <class T>
+using input_value_t = typename impl::input_value<T>::type;
 
 template <class T, class V>
 concept input_constructible_for = equality_comparable_with<input_value_t<T>, V>;
