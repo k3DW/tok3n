@@ -28,13 +28,13 @@ concept implicitly_default_constructible = requires (void(f)(T)) { f({}); };
 
 
 template <auto value>
-using integral_constant = std::integral_constant<decltype(value), value>;
+using integral_constant = std::integral_constant<std::remove_const_t<decltype(value)>, value>;
 
 template <std::size_t N>
 using index_c = integral_constant<N>;
 
 template <class value_type, auto value>
-concept constexpr_value = std::same_as<decltype(value), value_type>;
+concept constexpr_value = std::same_as<std::remove_const_t<decltype(value)>, value_type>;
 
 template <class T>
 concept is_integral_constant =
