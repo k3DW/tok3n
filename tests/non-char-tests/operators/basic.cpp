@@ -102,7 +102,8 @@ TEST("basic operators", "Non sorted_and_uniqued")
 {
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
 
-#if defined(__GNUC__) || defined(__clang__)
+// This discrepancy is because of the different implementations of `std::ranges::sort()`
+#if defined(__clang__)
 	ASSERT_PARSER_VALUES_EQ(any<static_array(B, A, C, A, C, B, A, A, B, C, C, A)>, any_of_parser<static_array(A, C)>{});
 	ASSERT_PARSER_VALUES_EQ(none<static_array(B, A, C, A, C, B, A, A, B, C, C, A)>, none_of_parser<static_array(A, C)>{});
 	ASSERT_PARSER_VALUES_EQ(any<static_array(X, Y, Z, A, B, C)>, any_of_parser<static_array(B, C, X, Y, Z)>{});
@@ -111,7 +112,7 @@ TEST("basic operators", "Non sorted_and_uniqued")
 	ASSERT_PARSER_VALUES_EQ(none<static_array(A, B, C, X, Y, Z)>, none_of_parser<static_array(B, C, X, Y, Z)>{});
 	ASSERT_PARSER_VALUES_EQ(any<static_array(A, X, B, Y, C, Z)>, any_of_parser<static_array(B, C, X, Y, Z)>{});
 	ASSERT_PARSER_VALUES_EQ(none<static_array(A, X, B, Y, C, Z)>, none_of_parser<static_array(B, C, X, Y, Z)>{});
-#elif defined(_MSC_VER)
+#elif defined(_MSC_VER) || defined(__GNUC__)
 	ASSERT_PARSER_VALUES_EQ(any<static_array(B, A, C, A, C, B, A, A, B, C, C, A)>, any_of_parser<static_array(B, C)>{});
 	ASSERT_PARSER_VALUES_EQ(none<static_array(B, A, C, A, C, B, A, A, B, C, C, A)>, none_of_parser<static_array(B, C)>{});
 	ASSERT_PARSER_VALUES_EQ(any<static_array(X, Y, Z, A, B, C)>, any_of_parser<static_array(A, C, X, Y, Z)>{});
