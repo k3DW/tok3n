@@ -19,7 +19,7 @@ void print(std::string_view val, std::size_t tabs)
 
 struct autoprint
 {
-	autoprint(std::string_view val, std::size_t tabs) : tabs(tabs)
+	autoprint(std::string_view val, std::size_t tabs_) : tabs(tabs_)
 	{
 		print(val, tabs);
 		std::cout << " :\n";

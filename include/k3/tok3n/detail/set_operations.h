@@ -80,9 +80,9 @@ consteval auto sets_merged_with()
 {
 	constexpr auto size = []
 	{
-		std::size_t size = 0;
-		set_operation<Op>{}(str1, str2, counting_insert_iterator(size));
-		return size;
+		std::size_t size_ = 0;
+		set_operation<Op>{}(str1, str2, counting_insert_iterator(size_));
+		return size_;
 	};
 
 	auto str = str1.template create_empty_with_size<size()>();
