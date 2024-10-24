@@ -61,3 +61,38 @@ jobs:
         run: |
           cd build
           ctest --output-on-failure
+
+  build-gcc:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        gcc-version: [12, 13, 14]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+
+      - name: Set up GCC
+        run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt update
+          sudo apt-get install -y \
+            gcc-${{matrix.gcc-version}} \
+            g++-${{matrix.gcc-version}} \
+            libstdc++-${{matrix.gcc-version}}-dev
+          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${{matrix.gcc-version}} 999
+          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${{matrix.gcc-version}} 999
+
+      - name: Build tok3n
+        run: |
+          mkdir build
+          cd build
+          cmake ..
+          cmake --build . -j8
+
+      - name: Run tok3n tests
+        run: |
+          cd build
+          ctest --output-on-failure
