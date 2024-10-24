@@ -131,12 +131,10 @@ int main()
 	//auto json_result = JsonValue::parse(R"( [  "test"  , true, -1234.5678e+90123 , [  "test"  , true, -1234.5678e+90123 , "" ]   ]      )");
 	auto json_result = JsonObject::parse(json);
 
-	volatile int x = 0;
-
 	if (json_result)
 	{
 		auto& val = json_result.value();
-		x += val.empty() ? 0 : 1;
+		std::ignore = val;
 	}
 	else
 		std::cout << "Json parse error!!!\n";
