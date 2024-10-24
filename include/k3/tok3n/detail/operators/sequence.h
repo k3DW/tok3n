@@ -11,7 +11,7 @@ namespace k3::tok3n::detail {
 namespace impl {
 
 template <static_array lhs, static_array rhs>
-requires decltype(like_static_arrays(lhs, rhs))::value
+requires (decltype(like_static_arrays(lhs, rhs))::value)
 consteval auto sequence_operator(all_of_parser<lhs>, all_of_parser<rhs>) // "ab" >> "cd" == "abcd"
 {
 	return all_of_parser<lhs + rhs>{};

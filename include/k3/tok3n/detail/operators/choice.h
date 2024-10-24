@@ -37,28 +37,28 @@ consteval auto choice_operator(none_of_parser<arr>, any_of_parser<arr>) // Anyth
 }
 
 template <static_array lhs, static_array rhs>
-requires decltype(like_static_arrays(lhs, rhs))::value
+requires (decltype(like_static_arrays(lhs, rhs))::value)
 consteval auto choice_operator(any_of_parser<lhs>, any_of_parser<rhs>)   //  "ab" |  "bc" == "abc"    <- set_union
 {
 	return any_of_parser<set_union<lhs, rhs>()>{};
 }
 
 template <static_array lhs, static_array rhs>
-requires decltype(like_static_arrays(lhs, rhs))::value
+requires (decltype(like_static_arrays(lhs, rhs))::value)
 consteval auto choice_operator(none_of_parser<lhs>, none_of_parser<rhs>) // !"ab" | !"bc" == "b"      <- set_intersection
 {
 	return none_of_parser<set_intersection<lhs, rhs>()>{};
 }
 
 template <static_array lhs, static_array rhs>
-requires decltype(like_static_arrays(lhs, rhs))::value
+requires (decltype(like_static_arrays(lhs, rhs))::value)
 consteval auto choice_operator(any_of_parser<lhs>, none_of_parser<rhs>)  //  "ab" | !"bc" == "c"      <- set_difference
 {
 	return none_of_parser<set_difference_right<lhs, rhs>()>{};
 }
 
 template <static_array lhs, static_array rhs>
-requires decltype(like_static_arrays(lhs, rhs))::value
+requires (decltype(like_static_arrays(lhs, rhs))::value)
 consteval auto choice_operator(none_of_parser<lhs>, any_of_parser<rhs>)  // !"ab" |  "bc" == "a"      <- set_difference
 {
 	return none_of_parser<set_difference_left<lhs, rhs>()>{};

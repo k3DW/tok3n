@@ -75,7 +75,7 @@ struct set_operation
 };
 
 template <set_operation_type Op, static_array str1, static_array str2>
-requires decltype(like_static_arrays(str1, str2))::value
+requires (decltype(like_static_arrays(str1, str2))::value)
 consteval auto sets_merged_with()
 {
 	constexpr auto size = []
