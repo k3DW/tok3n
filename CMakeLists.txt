@@ -107,7 +107,6 @@ if (TOK3N_BUILD_TESTS OR TOK3N_BUILD_EXAMPLES OR TOK3N_BUILD_MAIN)
             -Wduplicated-branches
             -Wlogical-op
             -Wuseless-cast
-            -Wlifetime
         >
     )
 
