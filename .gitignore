@@ -1,4 +1,5 @@
 /.bin/
+/.cache/
 /.vs/
 /.vscode/
 /build/
