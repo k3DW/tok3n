@@ -21,7 +21,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake -G "Visual Studio 17 2022" ..
+          cmake -G "Visual Studio 17 2022" --preset all ..
           cmake --build . -j8
 
       - name: Run tok3n tests
@@ -55,6 +55,7 @@ jobs:
           mkdir build
           cd build
           cmake .. \
+            --preset all \
             -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}}
           cmake --build . -j8
 
@@ -90,7 +91,7 @@ jobs:
         run: |
           mkdir build
           cd build
-          cmake ..
+          cmake --preset all ..
           cmake --build . -j8
 
       - name: Run tok3n tests

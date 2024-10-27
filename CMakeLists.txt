@@ -33,18 +33,18 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 endif()
 
-option (TOK3N_BUILD_TESTS "Build tests" ON)
-option (TOK3N_DISCOVER_TESTS "Add all tests to CTest" ON)
+option (TOK3N_BUILD_TESTS "Build tests" OFF)
+option (TOK3N_DISCOVER_TESTS "Add all tests to CTest" OFF)
 
-option (TOK3N_BUILD_EXAMPLES "Build examples" ON)
-option (TOK3N_BUILD_MAIN "Create an executable with the main function" ON)
+option (TOK3N_BUILD_EXAMPLES "Build examples" OFF)
+option (TOK3N_BUILD_EXE "Build tok3n's main() function" OFF)
 
 
 
 #--------------------------------------------
 #   Shared settings
 #--------------------------------------------
-if (TOK3N_BUILD_TESTS OR TOK3N_BUILD_EXAMPLES OR TOK3N_BUILD_MAIN)
+if (TOK3N_BUILD_TESTS OR TOK3N_BUILD_EXAMPLES OR TOK3N_BUILD_EXE)
 
     add_library(tok3n_shared_settings INTERFACE)
     target_link_libraries(tok3n_shared_settings INTERFACE k3::tok3n)
@@ -136,7 +136,7 @@ endif()
 #--------------------------------------------
 #   Main
 #--------------------------------------------
-if (TOK3N_BUILD_MAIN)
+if (TOK3N_BUILD_EXE)
     add_executable(tok3n_main "src/main.cpp")
     source_group("" FILES "src/main.cpp")
     target_link_libraries(tok3n_main tok3n_shared_settings)
