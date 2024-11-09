@@ -21,7 +21,23 @@ struct named_parser
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		return P::parse(std::forward<R>(r));
+		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
+		{
+			return P::parse(std::forward<R>(r));
+		}
+		else
+		{
+			result_for<input_value_t<R>> out;
+			return P::parse(std::forward<R>(r), out)
+				.with_value(std::move(out));
+		}
+	}
+
+	template <input_constructible_for<value_type> R, class Out>
+	requires parsable_into<P, R&&, Out>
+	static constexpr auto parse(R&& r, Out& out)
+	{
+		return P::parse(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
