@@ -81,4 +81,22 @@ consteval auto unwrap_if_single(List<Ts...>) -> unwrap_if_single_trait<false, Li
 template <class List>
 using unwrap_if_single = decltype(impl::unwrap_if_single(List{}));
 
+
+
+template <class P, class T>
+concept pointer_of =
+	std::is_pointer_v<P> and
+	std::same_as<std::remove_cvref_t<decltype(*P{})>, T>;
+
+template <class T>
+concept span_like = requires (T& t, const T& ct)
+	{
+		typename T::value_type;
+		{ ct.data() } -> pointer_of<typename T::value_type>; // `data()` could return a pointer-to-const or pointer-to-non-const
+		{ ct.size() } -> std::same_as<std::size_t>;
+		{ ct.empty() } -> std::same_as<bool>;
+		t = T{};
+		t = T{ ct.data(), ct.size() };
+	};
+
 } // namespace k3::tok3n::detail

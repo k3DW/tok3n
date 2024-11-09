@@ -21,7 +21,7 @@ struct epsilon_parser
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
+		const input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
         return result<void, V>{ success_tag, input };
 	}
@@ -29,7 +29,7 @@ struct epsilon_parser
 	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
+		const input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
         return result<void, V>{ success_tag, input };
 	}
