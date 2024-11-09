@@ -92,4 +92,14 @@ concept parser_compatible_with =
 	parser<P2> and
 	std::same_as<typename P1::value_type, typename P2::value_type>;
 
+template <class P, class R, class Out>
+concept parsable_into =
+	parser<P> and
+	input_constructible_for<R, typename P::value_type> and
+	requires (R r, Out& out)
+	{
+		requires std::is_reference_v<R>; // The call to `std::forward` below makes no sense otherwise
+		{ P::parse(std::forward<R>(r), out) } -> std::same_as<result<void, input_value_t<R>>>;
+	};
+
 } // namespace k3::tok3n::detail
