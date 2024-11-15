@@ -99,4 +99,47 @@ concept span_like = requires (T& t, const T& ct)
 		t = T{ ct.data(), ct.size() };
 	};
 
+template <class T>
+concept indexable = requires (T t, std::size_t i)
+	{
+		// `static_cast<T>(t)` acts like `std::forward` when `T` is a reference type,
+		// but it's a no-op when `T` is not a reference type
+		requires
+			requires { static_cast<T>(t).at(i); }
+			or requires { static_cast<T>(t)[i]; };
+	};
+
+template <indexable T>
+constexpr decltype(auto) index(T&& t, const std::size_t i)
+{
+	// Prefer checked indexing when available
+	if constexpr (requires { std::forward<T>(t).at(i); })
+		return std::forward<T>(t).at(i);
+	else
+		return std::forward<T>(t)[i];
+}
+
+template <class T, class Element>
+concept pushable = requires (T& t, Element element)
+	{
+		// `static_cast<Element>(element)` acts like `std::forward` when `Element` is a reference type,
+		// but it's a no-op when `Element` is not a reference type
+		requires
+			requires { t.push_back(static_cast<Element>(element)); }
+			or requires { t.push(static_cast<Element>(element)); }
+			or requires { t.insert(static_cast<Element>(element)); };
+	};
+
+template <class Element, pushable<Element&&> T>
+constexpr decltype(auto) push(T& t, Element&& element)
+{
+	// Prefer `push_back` if available, then `push`, then `insert`
+	if constexpr (requires { t.push_back(std::forward<Element>(element)); })
+		return t.push_back(std::forward<Element>(element));
+	else if constexpr (requires { t.push(std::forward<Element>(element)); })
+		return t.push(std::forward<Element>(element));
+	else
+		return t.insert(std::forward<Element>(element));
+}
+
 } // namespace k3::tok3n::detail

@@ -28,42 +28,53 @@ struct exactly_parser
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-
-		const input_span original_input = input;
-		result_builder<result_for<V>> builder;
-
-		for (std::size_t i = 0; i < N::value; i++)
+		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
-			auto res = P::parse(input);
-			if (not res.has_value())
-				return result<result_for<V>, V>{ failure_tag, original_input };
-
-			input = res.remaining();
-			builder.array_assign(i, std::move(res));
+			return _impl(call_parse, std::forward<R>(r));
 		}
+		else
+		{
+			result_for<input_value_t<R>> out;
+			return _impl(call_parse_into, std::forward<R>(r), out)
+				.with_value(std::move(out));
+		}
+	}
 
-		return std::move(builder).build(input);
+	template <input_constructible_for<value_type> R, indexable Out>
+	requires parsable_into<P, R&&, std::remove_cvref_t<decltype(index(std::declval<Out&>(), std::size_t{}))>>
+		and std::is_default_constructible_v<Out>
+		and std::is_move_assignable_v<Out>
+	static constexpr auto parse(R&& r, Out& out)
+	{
+		return _impl(call_parse_into, std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
+	{
+		return _impl(call_lookahead, std::forward<R>(r));
+	}
+
+private:
+	template <class Call, input_constructible_for<value_type> R, class... Out>
+	requires (sizeof...(Out) <= 1)
+	static constexpr result<void, input_value_t<R>> _impl(Call call, R&& r, Out&... out)
 	{
 		input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
 		const input_span original_input = input;
 
-		for (std::size_t i = 0; i < N::value; i++)
+		for (std::size_t i = 0; i < N::value; ++i)
 		{
-			auto res = P::lookahead(input);
+			result<void, V> res = call(P{}, input, index(out, i)...);
 			if (not res.has_value())
+			{
+				(..., (out = Out{}));
 				return result<void, V>{ failure_tag, original_input };
-			
+			}
 			input = res.remaining();
 		}
-
 		return result<void, V>{ success_tag, input };
 	}
 };
