@@ -163,4 +163,19 @@ constexpr decltype(auto) adl_get(T&& t)
 template <class T, std::size_t I>
 using adl_get_t = decltype(adl_get<I>(std::declval<T>()));
 
+// Extend `is_invocable` to allow `<F,void>` to mean just `<F>`
+template <class F, class... Args>
+struct invoke_result_ex : std::invoke_result<F, Args...> {};
+template <class F>
+struct invoke_result_ex<F, void> : std::invoke_result<F> {};
+template <class F>
+struct invoke_result_ex<F, const void> : std::invoke_result<F> {};
+template <class F, class... Args>
+using invoke_result_ex_t = typename invoke_result_ex<F, Args...>::type;
+
+template <class T, class F, class... Args>
+concept invoke_assignable_to =
+	std::invocable<F, Args...> and
+	std::is_assignable_v<T, std::invoke_result_t<F, Args...>&&>;
+
 } // namespace k3::tok3n::detail
