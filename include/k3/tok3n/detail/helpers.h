@@ -5,6 +5,8 @@
 #pragma once
 #include <k3/tok3n/detail/parser.h>
 #include <k3/tok3n/detail/result.h>
+#include <tuple>
+#include <variant>
 
 namespace k3::tok3n::detail {
 
@@ -174,78 +176,55 @@ public:
 		>::type;
 };
 
-
-
-namespace impl {
-
 enum class compound_type
 {
 	choice,
 	sequence,
 };
 
-template <class ResultType, class ValueType, bool unwrapped, compound_type type>
+template <class V, bool unwrapped, class Call, compound_type type>
 struct compound_executor
 {
-	input_span<ValueType> input;
-	result_builder<ResultType> builder;
+	input_span<V> input;
 
-	constexpr compound_executor(input_span<ValueType> input_)
-		: input(input_)
-	{}
-
-	template <parser P, std::size_t I = static_cast<std::size_t>(-1)>
-	constexpr bool execute()
+	template <std::size_t I, parser P, class... Out>
+	requires (sizeof...(Out) <= 1)
+	constexpr bool exec(P, [[maybe_unused]] Out&... out)
 	{
+		constexpr auto call = Call{};
+
 		if constexpr (I == static_cast<std::size_t>(-1))
-			return execute_lookahead<P>();
-		else
-			return execute_element<P, I>();
-	}
-
-private:
-	template <parser P>
-	constexpr bool execute_lookahead()
-	{
-		auto res = P::lookahead(input);
-		input = res.remaining();
-		return res.has_value();
-	}
-
-	template <parser P, std::size_t I>
-	constexpr bool execute_element()
-	{
-		auto res = P::parse(input);
-		if (not res.has_value())
-			return false;
-
-		input = res.remaining();
-		if constexpr (unwrapped)
 		{
-			if constexpr (std::is_move_assignable_v<ResultType>)
-				builder.assign(std::move(res));
-			else
-				builder.assign(res);
+			static_assert(Call::kind == call_kind::lookahead || std::same_as<void, typename P::template result_for<V>>);
+			constexpr auto inner_call = std::conditional_t<Call::kind == call_kind::parse_into, decltype(call_parse), Call>{};
+			const result<void, V> res = inner_call(P{}, input);
+			input = res.remaining();
+			return res.has_value();
+		}
+		else if constexpr (unwrapped)
+		{
+			const result<void, V> res = call(P{}, input, out...);
+			input = res.remaining();
+			return res.has_value();
 		}
 		else
 		{
-			if constexpr (type == compound_type::choice)
-				builder.template emplace<I>(std::move(res));
-			else if constexpr (type == compound_type::sequence)
-				builder.template get_assign<I>(std::move(res));
-			else
-				static_assert(std::same_as<ValueType, void>); // always false
+			using element_type = std::remove_cvref_t<decltype(std::get<I>(out...))>;
+			element_type element;
+			const result<void, V> res = call(P{}, input, element);
+			input = res.remaining();
+			if (res.has_value())
+			{
+				if constexpr (type == compound_type::choice)
+					(..., out.template emplace<I>(std::move(element)));
+				else if constexpr (type == compound_type::sequence)
+					(..., (std::get<I>(out) = std::move(element)));
+				else
+					static_assert(std::same_as<V, void>, "Unreachable"); // Always false
+			}
+			return res.has_value();
 		}
-		return true;
 	}
 };
-
-template <class ResultType, class ValueType, bool unwrapped>
-using choice_executor = compound_executor<ResultType, ValueType, unwrapped, compound_type::choice>;
-
-template <class ResultType, class ValueType, bool unwrapped>
-using sequence_executor = compound_executor<ResultType, ValueType, unwrapped, compound_type::sequence>;
-
-} // namespace impl
 
 } // namespace k3::tok3n::detail

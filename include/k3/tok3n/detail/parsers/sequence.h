@@ -29,42 +29,43 @@ public:
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-
-		// This might be a problem because it default initializes all members
-		using Executor = impl::sequence_executor<result_for<V>, V, _trait<V>::unwrapped>;
-		Executor executor{ input };
-
-		bool successful = [&executor]<std::size_t I, std::size_t... Is>(std::index_sequence<I, Is...>)
-		{
-			return (executor.template execute<P, I>() and ... and executor.template execute<Ps, Is>());
-		}(typename _trait<V>::sequence{});
-
-		if (not successful)
-			return result<result_for<V>, V>{ failure_tag, input };
-
-		if constexpr (std::same_as<result_for<V>, void>)
-			return result<result_for<V>, V>{ success_tag, executor.input };
+		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
+			{
+			return _impl(call_parse, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{});
+		}
 		else
-			return std::move(executor.builder).build(executor.input);
+		{
+			result_for<input_value_t<R>> out;
+			return _impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out)
+				.with_value(std::move(out));
+		}
+	}
+
+	template <input_constructible_for<value_type> R, class Out>
+	static constexpr auto parse(R&& r, Out& out)
+	{
+		return _impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out);
 	}
 
 	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
+		constexpr auto make_minus_one = [](auto&&) { return static_cast<std::size_t>(-1); };
+		using seq = std::index_sequence<make_minus_one(P{}), make_minus_one(Ps{})...>;
+		return _impl(call_lookahead, std::forward<R>(r), seq{});
+	}
+
+private:
+	template <class Call, input_constructible_for<value_type> R, std::size_t I, std::size_t... Is, class... Out>
+	requires (sizeof...(Out) <= 1)
+	static constexpr result<void, input_value_t<R>> _impl(Call, R&& r, std::index_sequence<I, Is...>, Out&... out)
+	{
+		const input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
-		using Executor = impl::sequence_executor<void, V, _trait<V>::unwrapped>;
-		Executor executor{ input };
-
-		bool successful = (executor.template execute<P>() and ... and executor.template execute<Ps>());
-
-		if (successful)
-			return result<void, V>{ success_tag, executor.input };
-		else
-			return result<void, V>{ failure_tag, input };
+		auto executor = compound_executor<V, _trait<V>::unwrapped, Call, compound_type::sequence>{ input };
+		const bool successful = (executor.template exec<I>(P{}, out...) and ... and executor.template exec<Is>(Ps{}, out...));
+		return result<void, V>{ successful, successful ? executor.input : input };
 	}
 };
 
