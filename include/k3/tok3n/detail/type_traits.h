@@ -142,4 +142,25 @@ constexpr decltype(auto) push(T& t, Element&& element)
 		return t.insert(std::forward<Element>(element));
 }
 
+template <class T, std::size_t I>
+concept gettable = requires (T t)
+	{
+		// `static_cast<T>(t)` acts like `std::forward` when `T` is a reference type,
+		// but it's a no-op when `T` is not a reference type
+		[]<class T_>(T_&& t_) {
+			using std::get;
+			(void)get<I>(std::forward<T_>(t_));
+		}(static_cast<T>(t));
+	};
+
+template <std::size_t I, gettable<I> T>
+constexpr decltype(auto) adl_get(T&& t)
+{
+	using std::get;
+	return get<I>(std::forward<T>(t));
+}
+
+template <class T, std::size_t I>
+using adl_get_t = decltype(adl_get<I>(std::declval<T>()));
+
 } // namespace k3::tok3n::detail
