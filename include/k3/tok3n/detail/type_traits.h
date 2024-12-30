@@ -4,6 +4,7 @@
 
 #pragma once
 #include <concepts>
+#include <tuple>
 #include <type_traits>
 
 namespace k3::tok3n::detail {
@@ -177,5 +178,25 @@ template <class T, class F, class... Args>
 concept invoke_assignable_to =
 	std::invocable<F, Args...> and
 	std::is_assignable_v<T, std::invoke_result_t<F, Args...>&&>;
+
+template <class T>
+concept optional_like = requires (T& t, const T& ct)
+	{
+		typename T::value_type;
+		{ *t } -> std::same_as<typename T::value_type&>;
+		{ *ct } -> std::same_as<const typename T::value_type&>;
+		{ ct.has_value() } -> std::same_as<bool>;
+	};
+
+template <class T>
+concept tuple_like = requires (const T& ct)
+	{
+		std::tuple_size<T>{};
+		std::tuple_size<T>::value;
+		requires std::tuple_size_v<T> != 0;
+		[]<std::size_t... Is>(const T& ct_, std::index_sequence<Is...>) {
+			(..., adl_get<Is>(ct_));
+		}(ct, std::make_index_sequence<std::tuple_size_v<T>>{});
+	};
 
 } // namespace k3::tok3n::detail
