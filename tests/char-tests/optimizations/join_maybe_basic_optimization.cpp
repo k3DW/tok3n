@@ -51,6 +51,11 @@ TEST("join_maybe_basic", "maybe_parser<any_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_May_OC, e<int>(" 12321321"), e<int>(""), e<int>(" 12321321"));
     ASSERT_PARSE_SUCCESS(Joi_May_OC, e<int>("12341321"), e<int>("1"), e<int>("2341321"));
     ASSERT_PARSE_SUCCESS(Joi_May_OC, e<int>("012341321"), e<int>(""), e<int>("012341321"));
+
+    using P = complete_parser<Joi_May_OC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "1", "1", "");
+    ASSERT_PARSE_SUCCESS(P, L"1", L"1", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("1"), e<int>("1"), e<int>(""));
 }
 
 TEST("join_maybe_basic", "maybe_parser<none_of_parser>")
@@ -72,6 +77,11 @@ TEST("join_maybe_basic", "maybe_parser<none_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_May_NC, e<int>(" 12321321"), e<int>(" "), e<int>("12321321"));
     ASSERT_PARSE_SUCCESS(Joi_May_NC, e<int>("12341321"), e<int>(""), e<int>("12341321"));
     ASSERT_PARSE_SUCCESS(Joi_May_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
+
+    using P = complete_parser<Joi_May_NC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "4", "4", "");
+    ASSERT_PARSE_SUCCESS(P, L"4", L"4", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("4"), e<int>("4"), e<int>(""));
 }
 
 TEST("join_maybe_basic", "maybe_parser<all_of_parser>")
@@ -96,4 +106,9 @@ TEST("join_maybe_basic", "maybe_parser<all_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_May_L, e<int>(" 12321321"), e<int>(""), e<int>(" 12321321"));
     ASSERT_PARSE_SUCCESS(Joi_May_L, e<int>("12341321"), e<int>("123"), e<int>("41321"));
     ASSERT_PARSE_SUCCESS(Joi_May_L, e<int>("012341321"), e<int>(""), e<int>("012341321"));
+
+    using P = complete_parser<Joi_May_L>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "123", "123", "");
+    ASSERT_PARSE_SUCCESS(P, L"123", L"123", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("123"), e<int>("123"), e<int>(""));
 }

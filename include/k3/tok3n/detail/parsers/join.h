@@ -14,6 +14,9 @@
 
 namespace k3::tok3n::detail {
 
+template <parser P>
+struct join_parser;
+
 namespace impl {
 
 template <class T>
@@ -129,10 +132,11 @@ private:
 	std::optional<Span> joined;
 };
 
-} // namespace impl
+template <class CRTP>
+struct join_parser_base;
 
 template <parser P>
-struct join_parser
+struct join_parser_base<join_parser<P>>
 {
 	using value_type = typename P::value_type;
 
@@ -142,20 +146,20 @@ struct join_parser
 	static constexpr parser_family family = join_family;
 
 	template <input_constructible_for<value_type> R>
-	requires requires (R&& r, result_for<input_value_t<R>>& out) { _parse_impl(std::forward<R>(r), out); }
+	requires requires (R&& r, result_for<input_value_t<R>>& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
 	static constexpr auto parse(R&& r)
 	{
 		result_for<input_value_t<R>> out;
-		return _parse_impl(std::forward<R>(r), out)
+		return join_parser<P>::_parse_impl(std::forward<R>(r), out)
 			.with_value(std::move(out));
 	}
 
 	template <input_constructible_for<value_type> R, span_like Out>
-	requires requires (R&& r, Out& out) { _parse_impl(std::forward<R>(r), out); }
+	requires requires (R&& r, Out& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
 		and std::same_as<input_value_t<R>, typename Out::value_type>
 	static constexpr auto parse(R&& r, Out& out)
 	{
-		return _parse_impl(std::forward<R>(r), out);
+		return join_parser<P>::_parse_impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
@@ -163,6 +167,15 @@ struct join_parser
 	{
 		return P::lookahead(std::forward<R>(r));
 	}
+};
+
+} // namespace impl
+
+template <parser P>
+struct join_parser : impl::join_parser_base<join_parser<P>>
+{
+	friend struct impl::join_parser_base<join_parser<P>>;
+	using value_type = typename impl::join_parser_base<join_parser<P>>::value_type;
 
 private:
 	template <input_constructible_for<value_type> R, class Out>
