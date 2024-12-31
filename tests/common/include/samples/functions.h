@@ -2,12 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
+#pragma once
+#include "samples.h"
+
 constexpr std::size_t func1(std::vector<k3::tok3n::detail::output_span<::value_type>>&& vec)
 {
 	return vec.size();
 }
 
-constexpr auto func2 = []<class T>(const std::optional<k3::tok3n::detail::output_span<T>>& opt) -> std::vector<T>
+inline constexpr auto func2 = []<class T>(const std::optional<k3::tok3n::detail::output_span<T>>& opt) -> std::vector<T>
 {
 	if (not opt.has_value())
 		return {};
@@ -111,7 +114,7 @@ constexpr bool filter_func1(const std::vector<k3::tok3n::detail::output_span<::v
 	return vec.size() % 2 == 0;
 }
 
-constexpr auto filter_func2 = []<class T>(const std::optional<k3::tok3n::detail::output_span<T>>& opt)
+inline constexpr auto filter_func2 = []<class T>(const std::optional<k3::tok3n::detail::output_span<T>>& opt)
 {
 	return opt.has_value();
 };
@@ -155,6 +158,6 @@ constexpr struct filter_func3_apply_t
 	}
 } filter_func3_apply;
 
-constexpr auto sink_func = [](auto&&...) {};
+inline constexpr auto sink_func = [](auto&&...) {};
 
-constexpr auto true_filter = [](auto&&...) { return true; };
+inline constexpr auto true_filter = [](auto&&...) { return true; };

@@ -5,7 +5,6 @@
 file(GLOB_RECURSE common_files
      LIST_DIRECTORIES false
      "include/*.h"
-     "include/*.ipp"
 )
 
 

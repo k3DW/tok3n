@@ -27,16 +27,16 @@
 #error Must define exactly one VALUE_TYPE_XYZ macro.
 #endif
 
-#include "samples/helpers.ipp"
+#include "samples/helpers.h"
 
-#include "samples/basic-char.ipp"
-#include "samples/sub_parsers.ipp"
+#include "samples/basic-char.h"
+#include "samples/sub_parsers.h"
 
-#include "samples/classes.ipp"
-#include "samples/functions.ipp"
-#include "samples/macros-char.ipp"
+#include "samples/classes.h"
+#include "samples/functions.h"
+#include "samples/macros-char.h"
 
-#include "samples/adaptor.ipp"
-#include "samples/compound.ipp"
-#include "samples/divergent.ipp"
-#include "samples/repeat.ipp"
+#include "samples/adaptor.h"
+#include "samples/compound.h"
+#include "samples/divergent.h"
+#include "samples/repeat.h"

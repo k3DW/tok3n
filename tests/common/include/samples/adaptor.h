@@ -2,6 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
+#pragma once
+#include "samples.h"
+
 using Ign1 = k3::tok3n::detail::ignore_parser<_21>; constexpr Ign1 ign1;
 using Ign2 = k3::tok3n::detail::ignore_parser<_22>; constexpr Ign2 ign2;
 using Ign3 = k3::tok3n::detail::ignore_parser<_23>; constexpr Ign3 ign3;

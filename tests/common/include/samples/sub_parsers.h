@@ -2,6 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
+#pragma once
+#include "samples.h"
+
 using _11 = All1;
 using _12 = Any1;
 using _13 = k3::tok3n::detail::choice_parser<All1, Any1>;
