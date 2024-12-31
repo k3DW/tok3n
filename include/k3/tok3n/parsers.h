@@ -11,10 +11,18 @@
 #include <k3/tok3n/detail/aliases/defaulted.h>
 #include <k3/tok3n/detail/aliases/into.h>
 
-#include <k3/tok3n/detail/optimizations/join_exactly_basic.h>
-#include <k3/tok3n/detail/optimizations/join_maybe_basic.h>
-#include <k3/tok3n/detail/optimizations/join_one_or_more_basic.h>
-#include <k3/tok3n/detail/optimizations/join_zero_or_more_basic.h>
+#include <k3/tok3n/detail/optimizations/join_basic.h>
+#include <k3/tok3n/detail/optimizations/join_choice.h>
+#include <k3/tok3n/detail/optimizations/join_complete.h>
+#include <k3/tok3n/detail/optimizations/join_custom.h>
+#include <k3/tok3n/detail/optimizations/join_delimit.h>
+#include <k3/tok3n/detail/optimizations/join_epsilon.h>
+#include <k3/tok3n/detail/optimizations/join_exactly.h>
+#include <k3/tok3n/detail/optimizations/join_maybe.h>
+#include <k3/tok3n/detail/optimizations/join_named.h>
+#include <k3/tok3n/detail/optimizations/join_one_or_more.h>
+#include <k3/tok3n/detail/optimizations/join_sequence.h>
+#include <k3/tok3n/detail/optimizations/join_zero_or_more.h>
 
 #include <k3/tok3n/detail/parsers/all_of.h>
 #include <k3/tok3n/detail/parsers/any_of.h>

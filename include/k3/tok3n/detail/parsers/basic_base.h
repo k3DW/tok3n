@@ -29,27 +29,41 @@ struct basic_parser_base
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
+		result_for<input_value_t<R>> out;
+		return _impl(std::forward<R>(r), out)
+			.with_value(std::move(out));
+	}
 
-		using Traits = basic_parser_traits<P>;
-		if (Traits::failure_condition(input))
-			return result<result_for<V>, V>{ failure_tag, input };
-		else
-			return result<result_for<V>, V>{ success_tag, { input.data(), Traits::length }, { input.data() + Traits::length, input.size() - Traits::length } };
+	template <input_constructible_for<value_type> R, span_like Out>
+	requires std::same_as<input_value_t<R>, typename Out::value_type>
+	static constexpr auto parse(R&& r, Out& out)
+	{
+		return _impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
+		return _impl(std::forward<R>(r));
+	}
+
+private:
+	template <input_constructible_for<value_type> R, class... Out>
+	requires (sizeof...(Out) <= 1)
+	static constexpr result<void, input_value_t<R>> _impl(R&& r, Out&... out)
+	{
+		const input_span input{ std::forward<R>(r) };
 
 		using Traits = basic_parser_traits<P>;
 		if (Traits::failure_condition(input))
-			return result<void, V>{ failure_tag, input };
+		{
+			return { failure_tag, input };
+		}
 		else
-			return result<void, V>{ success_tag, { input.data() + Traits::length, input.size() - Traits::length } };
+		{
+			(..., (out = Out{ input.data(), Traits::length }));
+			return { success_tag, { input.data() + Traits::length, input.size() - Traits::length } };
+		}
 	}
 };
 

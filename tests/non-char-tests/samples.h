@@ -131,9 +131,9 @@ static_assert(Space < Dot);
 
 #endif
 
-#include "samples/helpers.ipp"
+#include "samples/helpers.h"
 
-#include "samples/basic-non-char.ipp"
-#include "samples/sub_parsers.ipp"
+#include "samples/basic-non-char.h"
+#include "samples/sub_parsers.h"
 
-#include "samples/macros-non-char.ipp"
+#include "samples/macros-non-char.h"

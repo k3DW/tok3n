@@ -77,10 +77,22 @@ public:
 	constexpr result(success_tag_t, input_span<U> remaining)
 		: _successful(true), _remaining(remaining) {}
 
+	explicit constexpr result(bool success, input_span<U> remaining)
+		: _successful(success), _remaining(remaining) {}
+
 	constexpr explicit operator bool() const noexcept { return _successful; }
 	constexpr bool has_value() const noexcept         { return _successful; }
 
 	constexpr input_span<U> remaining() const noexcept { return _remaining; }
+
+	template <class T>
+	constexpr auto with_value(T&& t) const
+	{
+		if (_successful)
+			return result<std::remove_cvref_t<T>, U>{ success_tag, std::forward<T>(t), _remaining };
+		else
+			return result<std::remove_cvref_t<T>, U>{ failure_tag, _remaining };
+	}
 
 private:
 	bool _successful;

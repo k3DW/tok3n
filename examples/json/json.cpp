@@ -67,9 +67,8 @@ struct JsonArray : custom_parser<JsonArray>
 };
 
 struct JsonValue::result_type
+	: std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, std::nullptr_t>
 {
-	using variant_type = std::variant<std::string, number_type, JsonObject::result_type, JsonArray::result_type, bool, std::nullptr_t>;
-	variant_type variant;
 };
 
 consteval auto JsonObject::get_parser()

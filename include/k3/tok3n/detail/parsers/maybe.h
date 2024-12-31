@@ -27,29 +27,53 @@ struct maybe_parser
 	template <input_constructible_for<value_type> R>
 	static constexpr auto parse(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
+		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
+		{
+			return _impl(call_parse, std::forward<R>(r));
+		}
+		else
+		{
+			result_for<input_value_t<R>> out;
+			return _impl(call_parse_into, std::forward<R>(r), out)
+				.with_value(std::move(out));
+		}
+	}
 
-		result_builder<result_for<V>> builder;
-
-		auto res = P::parse(input);
-		if (res.has_value())
-			builder.emplace(std::move(res));
-
-		return std::move(builder).build(res.remaining());
+	template <input_constructible_for<value_type> R, class Out>
+	requires parsable_into<P, R&&, typename P::template result_for<input_value_t<R>>>
+		and std::is_assignable_v<Out&, typename P::template result_for<input_value_t<R>>&&>
+	static constexpr auto parse(R&& r, Out& out)
+	{
+		return _impl(call_parse_into, std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
 	static constexpr auto lookahead(R&& r)
 	{
-		input_span input{ std::forward<R>(r) };
+		return _impl(call_lookahead, std::forward<R>(r));
+	}
+
+private:
+	template <class Call, input_constructible_for<value_type> R, class... Out>
+	requires (sizeof...(Out) <= 1)
+	static constexpr result<void, input_value_t<R>> _impl(Call call, R&& r, Out&... out)
+	{
+		const input_span input{ std::forward<R>(r) };
 		using V = input_value_t<R>;
 
-		auto res = P::lookahead(input);
-		if (res.has_value())
-			return result<void, V>{ success_tag, res.remaining() };
+		if constexpr (sizeof...(Out) == 0)
+		{
+			result<void, V> res = call(P{}, input);
+			return { success_tag, res.remaining() };
+		}
 		else
-			return result<void, V>{ success_tag, input };
+		{
+			typename P::template result_for<V> element;
+			result<void, V> res = call(P{}, input, element);
+			if (res.has_value())
+				(..., (out = std::move(element)));
+			return { success_tag, res.remaining() };
+		}
 	}
 };
 

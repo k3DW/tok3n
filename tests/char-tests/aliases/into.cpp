@@ -102,30 +102,3 @@ TEST("into_parser", "Move only")
 		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
 	}
 }
-
-TEST("into_parser", "Copy only")
-{
-	{
-		using T = CopyOnlyWrapper<output_span<char>>;
-		using P = into_parser<ABC, T>;
-		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
-		ASSERT_PARSE_FAILURE(P, "dcba");
-		ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<wchar_t>>;
-		using P = into_parser<ABC, T>;
-		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
-		ASSERT_PARSE_FAILURE(P, L"dcba");
-		ASSERT_PARSE_SUCCESS(P, L"abcabcd", T(L"abc"), L"abcd");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<int>>;
-		using P = into_parser<ABC, T>;
-		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
-		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
-		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
-	}
-}

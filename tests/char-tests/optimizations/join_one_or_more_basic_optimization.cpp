@@ -51,6 +51,11 @@ TEST("join_one_or_more_basic", "one_or_more_parser<any_of_parser>")
     ASSERT_PARSE_FAILURE(Joi_Oom_OC, e<int>(" 12321321"));
     ASSERT_PARSE_SUCCESS(Joi_Oom_OC, e<int>("12341321"), e<int>("123"), e<int>("41321"));
     ASSERT_PARSE_FAILURE(Joi_Oom_OC, e<int>("012341321"));
+
+    using P = complete_parser<Joi_Oom_OC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "12321321", "12321321", "");
+    ASSERT_PARSE_SUCCESS(P, L"12321321", L"12321321", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("12321321"), e<int>("12321321"), e<int>(""));
 }
 
 TEST("join_one_or_more_basic", "one_or_more_parser<none_of_parser>")
@@ -72,6 +77,11 @@ TEST("join_one_or_more_basic", "one_or_more_parser<none_of_parser>")
     ASSERT_PARSE_SUCCESS(Joi_Oom_NC, e<int>(" 12321321"), e<int>(" "), e<int>("12321321"));
     ASSERT_PARSE_FAILURE(Joi_Oom_NC, e<int>("12341321"));
     ASSERT_PARSE_SUCCESS(Joi_Oom_NC, e<int>("012341321"), e<int>("0"), e<int>("12341321"));
+
+    using P = complete_parser<Joi_Oom_NC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "45654654", "45654654", "");
+    ASSERT_PARSE_SUCCESS(P, L"45654654", L"45654654", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("45654654"), e<int>("45654654"), e<int>(""));
 }
 
 TEST("join_one_or_more_basic", "one_or_more_parser<all_of_parser>")
@@ -96,4 +106,9 @@ TEST("join_one_or_more_basic", "one_or_more_parser<all_of_parser>")
     ASSERT_PARSE_FAILURE(Joi_Oom_L, e<int>(" 12321321"));
     ASSERT_PARSE_SUCCESS(Joi_Oom_L, e<int>("12341321"), e<int>("123"), e<int>("41321"));
     ASSERT_PARSE_FAILURE(Joi_Oom_L, e<int>("012341321"));
+
+    using P = complete_parser<Joi_Oom_L>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "123123123", "123123123", "");
+    ASSERT_PARSE_SUCCESS(P, L"123123123", L"123123123", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("123123123"), e<int>("123123123"), e<int>(""));
 }

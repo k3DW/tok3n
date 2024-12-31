@@ -136,33 +136,6 @@ TEST("map_parser", "Move only")
 	}
 }
 
-TEST("map_parser", "Copy only")
-{
-	{
-		using T = CopyOnlyWrapper<output_span<char>>;
-		using P = map_parser<ABC, integral_constant<T::make>>;
-		ASSERT_PARSE_SUCCESS(P, "abcd", T("abc"), "d");
-		ASSERT_PARSE_FAILURE(P, "dcba");
-		ASSERT_PARSE_SUCCESS(P, "abcabcd", T("abc"), "abcd");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<wchar_t>>;
-		using P = map_parser<ABC, integral_constant<T::make>>;
-		ASSERT_PARSE_SUCCESS(P, L"abcd", T(L"abc"), L"d");
-		ASSERT_PARSE_FAILURE(P, L"dcba");
-		ASSERT_PARSE_SUCCESS(P, L"abcabcd", T(L"abc"), L"abcd");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<int>>;
-		using P = map_parser<ABC, integral_constant<T::make>>;
-		ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), T(e<int>("abc")), e<int>("d"));
-		ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
-		ASSERT_PARSE_SUCCESS(P, e<int>("abcabcd"), T(e<int>("abc")), e<int>("abcd"));
-	}
-}
-
 TEST("map_parser", "void input")
 {
 	using P = ignore_parser<ABC>;

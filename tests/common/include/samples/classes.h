@@ -2,9 +2,14 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
+#pragma once
+#include "samples.h"
+
 class Class1
 {
 public:
+	constexpr Class1() = default;
+
 	explicit constexpr Class1(int value) : value(value) {}
 
 	template <class T>
@@ -32,6 +37,8 @@ private:
 class Class2
 {
 public:
+	constexpr Class2() = default;
+
 	explicit constexpr Class2(k3::tok3n::detail::output_span<char> sv1, k3::tok3n::detail::output_span<char> sv2)
 		: sv1(sv1), sv2(sv2) {}
 
@@ -83,6 +90,8 @@ public:
 class Class4
 {
 public:
+	constexpr Class4() = default;
+
 	explicit constexpr Class4(const std::tuple<k3::tok3n::detail::output_span<char>, k3::tok3n::detail::output_span<char>>& tup)
 		: sv1(std::get<0>(tup)), sv2(std::get<1>(tup)) {}
 
@@ -103,6 +112,8 @@ private:
 class Class5
 {
 public:
+	constexpr Class5() = default;
+
 	explicit constexpr Class5(k3::tok3n::detail::output_span<char> sv1, k3::tok3n::detail::output_span<char> sv2)
 		: sv1(sv1), sv2(sv2) {}
 

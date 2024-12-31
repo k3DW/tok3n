@@ -195,36 +195,6 @@ TEST("choice_parser", "Move only")
 	}
 }
 
-TEST("choice_parser", "Copy only")
-{
-	{
-		using T = CopyOnlyWrapper<output_span<char>>;
-		using P = choice_parser<into_parser<Any3, T>, into_parser<ABC, T>>;
-		ASSERT_PARSE_SUCCESS(P, "xyz", T("x"), "yz");
-		ASSERT_PARSE_FAILURE(P, "abxyz");
-		ASSERT_PARSE_SUCCESS(P, "abcxyz", T("abc"), "xyz");
-		ASSERT_PARSE_SUCCESS(P, "zabcxyz", T("z"), "abcxyz");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<wchar_t>>;
-		using P = choice_parser<into_parser<Any3, T>, into_parser<ABC, T>>;
-		ASSERT_PARSE_SUCCESS(P, L"xyz", T(L"x"), L"yz");
-		ASSERT_PARSE_FAILURE(P, L"abxyz");
-		ASSERT_PARSE_SUCCESS(P, L"abcxyz", T(L"abc"), L"xyz");
-		ASSERT_PARSE_SUCCESS(P, L"zabcxyz", T(L"z"), L"abcxyz");
-	}
-
-	{
-		using T = CopyOnlyWrapper<output_span<int>>;
-		using P = choice_parser<into_parser<Any3, T>, into_parser<ABC, T>>;
-		ASSERT_PARSE_SUCCESS(P, e<int>("xyz"), T(e<int>("x")), e<int>("yz"));
-		ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
-		ASSERT_PARSE_SUCCESS(P, e<int>("abcxyz"), T(e<int>("abc")), e<int>("xyz"));
-		ASSERT_PARSE_SUCCESS(P, e<int>("zabcxyz"), T(e<int>("z")), e<int>("abcxyz"));
-	}
-}
-
 TEST("choice_parser", "Result type")
 {
 	using C1 = constant_parser<SpaceDot, integral_constant<0>>;

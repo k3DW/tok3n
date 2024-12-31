@@ -2,6 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
+#pragma once
+#include "samples.h"
+
 using Any1 = k3::tok3n::detail::any_of_parser<TT("abc")>; constexpr Any1 any1;
 using Any2 = k3::tok3n::detail::any_of_parser<TT("bcd")>; constexpr Any2 any2;
 using Any3 = k3::tok3n::detail::any_of_parser<TT("xyz")>; constexpr Any3 any3;

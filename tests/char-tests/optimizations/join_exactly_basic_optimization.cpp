@@ -57,6 +57,11 @@ TEST("join_exactly_basic", "exactly_parser<any_of_parser, 2>")
     ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("012341321"));
     ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("0012341321"));
     ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("1012341321"));
+
+    using P = complete_parser<Joi_Exa_OC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "12", "12", "");
+    ASSERT_PARSE_SUCCESS(P, L"12", L"12", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("12"), e<int>("12"), e<int>(""));
 }
 
 TEST("join_exactly_basic", "exactly_parser<none_of_parser, 2>")
@@ -84,6 +89,11 @@ TEST("join_exactly_basic", "exactly_parser<none_of_parser, 2>")
     ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("012341321"));
     ASSERT_PARSE_SUCCESS(Joi_Exa_NC, e<int>("0012341321"), e<int>("00"), e<int>("12341321"));
     ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("1012341321"));
+
+    using P = complete_parser<Joi_Exa_NC>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "45", "45", "");
+    ASSERT_PARSE_SUCCESS(P, L"45", L"45", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("45"), e<int>("45"), e<int>(""));
 }
 
 TEST("join_exactly_basic", "exactly_parser<all_of_parser, 2>")
@@ -108,4 +118,9 @@ TEST("join_exactly_basic", "exactly_parser<all_of_parser, 2>")
     ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>(" 12321321"));
     ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("12341321"));
     ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("012341321"));
+
+    using P = complete_parser<Joi_Exa_L>; // Wrap the parser to test its nestability
+    ASSERT_PARSE_SUCCESS(P, "123123", "123123", "");
+    ASSERT_PARSE_SUCCESS(P, L"123123", L"123123", L"");
+    ASSERT_PARSE_SUCCESS(P, e<int>("123123"), e<int>("123123"), e<int>(""));
 }
