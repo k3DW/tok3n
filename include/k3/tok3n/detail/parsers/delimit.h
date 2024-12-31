@@ -32,7 +32,10 @@ public:
 		if constexpr (call_type<I>::kind == call_kind::parse_into)
 		{
 			typename parser_type<I>::template result_for<V> element;
-			return call_type<I>{}(parser_type<I>{}, in, element)
+			// TODO: Both of these lines cause a compile error on clang, even though they should be exactly the same
+			// return call_type<I>{}(parser_type<I>{}, in, element)
+			// return call_parse_into(parser_type<I>{}, in, element)
+			return parser_type<I>::parse(in, element)
 				.with_value(std::move(element));
 		}
 		else
