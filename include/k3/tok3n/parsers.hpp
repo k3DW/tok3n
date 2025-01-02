@@ -2,7 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_PARSERS_HPP
+#define K3_TOK3N_PARSERS_HPP
 
 #include <k3/tok3n/detail/aliases/apply_filter.hpp>
 #include <k3/tok3n/detail/aliases/apply_into.hpp>
@@ -49,3 +50,5 @@ namespace k3::tok3n {
 using ::k3::tok3n::detail::custom_parser;
 
 } // namespace k3::tok3n
+
+#endif // K3_TOK3N_PARSERS_HPP

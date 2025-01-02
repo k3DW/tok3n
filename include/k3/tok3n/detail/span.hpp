@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_SPAN_HPP
+#define K3_TOK3N_DETAIL_SPAN_HPP
+
 #include <ranges>
 #include <span>
 #include <string_view>
@@ -238,3 +240,5 @@ template <character T>
 output_span(const T*) -> output_span<T>;
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_SPAN_HPP

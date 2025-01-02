@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_PARSERS_EXACTLY_HPP
+#define K3_TOK3N_DETAIL_PARSERS_EXACTLY_HPP
+
 #include <k3/tok3n/detail/helpers.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
@@ -80,3 +82,5 @@ private:
 };
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_PARSERS_EXACTLY_HPP

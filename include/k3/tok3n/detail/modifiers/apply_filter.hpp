@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_MODIFIERS_APPLY_FILTER_HPP
+#define K3_TOK3N_DETAIL_MODIFIERS_APPLY_FILTER_HPP
+
 #include <k3/tok3n/detail/modifier.hpp>
 #include <k3/tok3n/detail/aliases/apply_filter.hpp>
 
@@ -21,3 +23,5 @@ struct apply_filter_modifier final : modifier_base
 };
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_MODIFIERS_APPLY_FILTER_HPP

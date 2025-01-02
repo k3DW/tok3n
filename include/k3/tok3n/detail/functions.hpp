@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_FUNCTIONS_HPP
+#define K3_TOK3N_DETAIL_FUNCTIONS_HPP
+
 #include <k3/tok3n/detail/apply.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 
@@ -22,3 +24,5 @@ requires std::is_default_constructible_v<T>
 inline constexpr auto default_construct_function = [](auto&&...) { return T{}; };
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_FUNCTIONS_HPP

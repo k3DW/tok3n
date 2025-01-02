@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_OPERATORS_EPSILON_HPP
+#define K3_TOK3N_DETAIL_OPERATORS_EPSILON_HPP
+
 #include <k3/tok3n/detail/operators/choice.hpp>
 #include <k3/tok3n/detail/parsers/epsilon.hpp>
 
@@ -24,3 +26,5 @@ template <parser P>
 constexpr auto operator|(epsilon_operator, P) = delete;
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_OPERATORS_EPSILON_HPP

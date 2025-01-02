@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_PARSER_HPP
+#define K3_TOK3N_DETAIL_PARSER_HPP
+
 #include <k3/tok3n/detail/result.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 
@@ -112,3 +114,5 @@ concept parsable_void =
 	std::same_as<void, typename P::template result_for<input_value_t<R>>>;
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_PARSER_HPP

@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_PARSERS_ALL_OF_HPP
+#define K3_TOK3N_DETAIL_PARSERS_ALL_OF_HPP
+
 #include <k3/tok3n/detail/parsers/basic_base.hpp>
 #include <k3/tok3n/detail/static_array.hpp>
 
@@ -33,3 +35,5 @@ struct basic_parser_traits<all_of_parser<arr>>
 } // namespace impl
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_PARSERS_ALL_OF_HPP

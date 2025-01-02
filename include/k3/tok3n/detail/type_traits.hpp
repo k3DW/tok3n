@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_TYPE_TRAITS_HPP
+#define K3_TOK3N_DETAIL_TYPE_TRAITS_HPP
+
 #include <concepts>
 #include <tuple>
 #include <type_traits>
@@ -200,3 +202,5 @@ concept tuple_like = requires (const T& ct)
 	};
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_TYPE_TRAITS_HPP

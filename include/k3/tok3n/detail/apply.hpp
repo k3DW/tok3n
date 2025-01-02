@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_APPLY_HPP
+#define K3_TOK3N_DETAIL_APPLY_HPP
+
 #include <concepts>
 #include <functional>
 #include <tuple>
@@ -32,3 +34,5 @@ noexcept(noexcept(impl::apply_invoke(std::forward<F>(f), std::forward<Tup>(tup),
 }
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_APPLY_HPP

@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_OPERATORS_NOT_HPP
+#define K3_TOK3N_DETAIL_OPERATORS_NOT_HPP
+
 #include <k3/tok3n/detail/parsers/any_of.hpp>
 #include <k3/tok3n/detail/parsers/none_of.hpp>
 
@@ -35,3 +37,5 @@ requires requires { impl::not_operator(P{}); }
 }
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_OPERATORS_NOT_HPP

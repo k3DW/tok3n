@@ -2,7 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_MODIFIERS_HPP
+#define K3_TOK3N_MODIFIERS_HPP
 
 #include <k3/tok3n/detail/modifiers/apply_filter.hpp>
 #include <k3/tok3n/detail/modifiers/apply_into.hpp>
@@ -67,3 +68,5 @@ inline constexpr auto name = detail::name_modifier<s>{};
 inline constexpr auto sub = detail::sub_modifier{};
 
 } // namespace k3::tok3n
+
+#endif // K3_TOK3N_MODIFIERS_HPP

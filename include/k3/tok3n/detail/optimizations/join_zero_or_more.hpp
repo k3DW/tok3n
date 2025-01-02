@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_ZERO_OR_MORE_HPP
+#define K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_ZERO_OR_MORE_HPP
+
 #include <k3/tok3n/detail/optimizations/guaranteed_contiguous.hpp>
 	
 namespace k3::tok3n::detail {
@@ -39,3 +41,5 @@ private:
 };
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_ZERO_OR_MORE_HPP

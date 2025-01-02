@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_FILTER_HPP
+#define K3_TOK3N_DETAIL_FILTER_HPP
+
 #include <type_traits>
 
 namespace k3::tok3n::detail {
@@ -130,3 +132,5 @@ template <class... Ts>
 using filter_out_void_deduplicate = impl::filter_deduplicate_with_index<impl::is_not_void, impl::list<>, std::index_sequence<>, 0, Ts...>;
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_FILTER_HPP

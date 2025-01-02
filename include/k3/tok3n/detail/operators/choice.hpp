@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_OPERATORS_CHOICE_HPP
+#define K3_TOK3N_DETAIL_OPERATORS_CHOICE_HPP
+
 #include <k3/tok3n/detail/set_operations.hpp>
 #include <k3/tok3n/detail/parsers/any_of.hpp>
 #include <k3/tok3n/detail/parsers/none_of.hpp>
@@ -110,3 +112,5 @@ constexpr auto operator|(P1, P2)
 }
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_OPERATORS_CHOICE_HPP

@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_BASIC_HPP
+#define K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_BASIC_HPP
+
 #include <k3/tok3n/detail/parsers/join.hpp>
 #include <k3/tok3n/detail/parsers/all_of.hpp>
 #include <k3/tok3n/detail/parsers/any_of.hpp>
@@ -28,3 +30,5 @@ private:
 };
 
 } // namespace k3::tok3n::detail
+
+#endif // K3_TOK3N_DETAIL_OPTIMIZATIONS_JOIN_BASIC_HPP
