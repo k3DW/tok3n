@@ -33,14 +33,14 @@ cmake --build .
 
 * Find this repo using `add_subdirectory()`, `FetchContent`, or whichever other method you prefer
 * Use `target_link_libraries()` either with the target `k3_tok3n` or with its alias `k3::tok3n`
-* `#include "k3/tok3n.h"` in your C++ file 
+* `#include "k3/tok3n.hpp"` in your C++ file 
 
 ## Usage examples
 
 In all these examples, I will assume the following setup:
 
 ```cpp
-#include "k3/tok3n.h"
+#include "k3/tok3n.hpp"
 using namespace k3::tok3n;
 ```
 

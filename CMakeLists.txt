@@ -16,7 +16,7 @@ include(tools/tok3n_configure.cmake)
 
 file(GLOB_RECURSE k3_tok3n_files
     LIST_DIRECTORIES false
-    "include/*.h"
+    "include/*.hpp"
 )
 
 add_library(k3_tok3n INTERFACE

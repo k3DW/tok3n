@@ -4,7 +4,7 @@
 
 file(GLOB_RECURSE framework_files
     LIST_DIRECTORIES false
-        "*.h"
+        "*.hpp"
         "*.cpp"
 )
 
@@ -18,7 +18,7 @@ target_include_directories(framework PUBLIC include)
 
 target_link_libraries(framework PUBLIC tok3n_shared_settings)
 
-target_precompile_headers(framework PUBLIC include/framework.h)
+target_precompile_headers(framework PUBLIC include/framework.hpp)
 
 set_target_properties(framework
     PROPERTIES

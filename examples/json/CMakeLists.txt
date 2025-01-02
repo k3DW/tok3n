@@ -4,7 +4,7 @@
 
 file(GLOB_RECURSE json_files
      LIST_DIRECTORIES false
-     "*.h"
+     "*.hpp"
      "*.cpp"
 )
 

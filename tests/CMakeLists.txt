@@ -21,7 +21,7 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
 
     target_include_directories(${target_name} PRIVATE .)
     target_link_libraries(${target_name} PRIVATE common)
-    target_precompile_headers(${target_name} PRIVATE samples.h)
+    target_precompile_headers(${target_name} PRIVATE samples.hpp)
 
     tok3n_configure_source_group(${target_name})
 
