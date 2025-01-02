@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -120,7 +120,7 @@ struct compound_executor
 		}
 		else
 		{
-			using element_type = std::remove_cvref_t<decltype(std::get<I>(out...))>;
+			using element_type = std::remove_cvref_t<decltype(adl_get<I>(out...))>;
 			element_type element;
 			const result<void, V> res = call(P{}, input, element);
 			input = res.remaining();
@@ -129,7 +129,7 @@ struct compound_executor
 				if constexpr (type == compound_type::choice)
 					(..., out.template emplace<I>(std::move(element)));
 				else if constexpr (type == compound_type::sequence)
-					(..., (std::get<I>(out) = std::move(element)));
+					(..., (adl_get<I>(out) = std::move(element)));
 				else
 					static_assert(std::same_as<V, void>, "Unreachable"); // Always false
 			}
