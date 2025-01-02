@@ -2,7 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_HPP
+#define K3_TOK3N_TESTS_COMMON_HPP
 
 #include "framework.hpp"
 
@@ -28,3 +29,5 @@
 
 #include <boost/preprocessor/seq/for_each.hpp>
 #include <boost/preprocessor/seq/for_each_product.hpp>
+
+#endif // K3_TOK3N_TESTS_COMMON_HPP

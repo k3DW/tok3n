@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_EQUALITY_HPP
+#define K3_TOK3N_TESTS_COMMON_ASSERTS_EQUALITY_HPP
+
 #include "framework/Assert.hpp"
 #include "common/asserts/Concept.hpp"
 
@@ -49,3 +51,5 @@ concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remo
 	ASSERT_CONCEPT(k3::tok3n::detail::modifier, decltype(RHS_VALUE));                    \
 	ASSERT((not same_values<(LHS_VALUE), (RHS_VALUE)>),                                  \
 		"`" STR(LHS_VALUE) "` and `" STR(RHS_VALUE) "` are the same, but should not be")
+
+#endif // K3_TOK3N_TESTS_COMMON_ASSERTS_EQUALITY_HPP

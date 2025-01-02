@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_PARSE_HPP
+#define K3_TOK3N_TESTS_COMMON_ASSERTS_PARSE_HPP
+
 #include "framework/Assert.hpp"
 #include "common/asserts/Concept.hpp"
 
@@ -64,3 +66,5 @@
 	ASSERT_PARSE_IMPL_PARSE_REMAINING_(P, INPUT, INPUT);        \
 	ASSERT_PARSE_IMPL_LOOKAHEAD_VALID_(P, INPUT);               \
 	ASSERT_PARSE_IMPL_LOOKAHEAD_REMAINING_(P, INPUT, REMAINING)
+
+#endif // K3_TOK3N_TESTS_COMMON_ASSERTS_PARSE_HPP

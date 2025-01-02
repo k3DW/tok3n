@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_MACROS_COMMON_HPP
+#define K3_TOK3N_TESTS_SAMPLES_MACROS_COMMON_HPP
+
 #include "samples.hpp"
 
 #define ASSERT_SAMPLES_IMPL_(R, DATA, ELEM) \
@@ -32,3 +34,5 @@
 			)                                                \
 		)                                                    \
 	} REQUIRE_SEMICOLON
+
+#endif // K3_TOK3N_TESTS_SAMPLES_MACROS_COMMON_HPP

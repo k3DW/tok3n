@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_OPERATION_HPP
+#define K3_TOK3N_TESTS_COMMON_ASSERTS_OPERATION_HPP
+
 #include "framework/Assert.hpp"
 #include "common/asserts/Concept.hpp"
 #include "common/asserts/Equality.hpp"
@@ -105,3 +107,5 @@ concept all_satisfy_parser = (... && k3::tok3n::detail::parser<decltype(ps)>);
 
 #define ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P_VALUE, MOD_VALUE) \
 	DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_VALUE, MOD_VALUE)
+
+#endif // K3_TOK3N_TESTS_COMMON_ASSERTS_OPERATION_HPP

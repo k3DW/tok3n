@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_MACROS_CHAR_HPP
+#define K3_TOK3N_TESTS_SAMPLES_MACROS_CHAR_HPP
+
 #include "samples.hpp"
 #include "samples/macros-common.hpp"
 
@@ -39,3 +41,5 @@
 		ASSERT_SAMPLES_2(ASSERTER, REPEAT_SAMPLES, DIVERGENT_SAMPLES);    \
 		ASSERT_SAMPLES_2(ASSERTER, REPEAT_SAMPLES, REPEAT_SAMPLES);       \
 	} REQUIRE_SEMICOLON
+
+#endif // K3_TOK3N_TESTS_SAMPLES_MACROS_CHAR_HPP

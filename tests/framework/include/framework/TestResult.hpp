@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP
+#define K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP
+
 #include <iosfwd>
 #include <string_view>
 #include <vector>
@@ -56,3 +58,5 @@ private:
 	static inline TestResult* _current_result = nullptr;
 	TestResult* _old_result;
 };
+
+#endif // K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP

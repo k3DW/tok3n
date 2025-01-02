@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP
+#define K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP
+
 #include "samples.hpp"
 
 using Joi1 = k3::tok3n::detail::join_parser<_21>; constexpr Joi1 joi1;
@@ -96,3 +98,5 @@ constexpr Cus2 cus2;
 	(Con1) (Con2) (Con3) (Con4)        \
 	(Def1) (Def2)                      \
 	(Cus1) (Cus2)
+
+#endif // K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP

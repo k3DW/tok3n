@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP
+#define K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP
+
 #include "framework/Assert.hpp"
 #include <k3/tok3n/detail/parser.hpp>
 
@@ -33,3 +35,5 @@
 #define ASSERT_PARSER_VALUE_TYPE(P, V)                         \
 	ASSERT((std::same_as<typename P::value_type, V>),          \
 		"`" STR(P) "::result_for<" STR(V) ">` is not " STR(V))
+
+#endif // K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP

@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_FUNCTIONS_HPP
+#define K3_TOK3N_TESTS_SAMPLES_FUNCTIONS_HPP
+
 #include "samples.hpp"
 
 constexpr std::size_t func1(std::vector<k3::tok3n::detail::output_span<::value_type>>&& vec)
@@ -161,3 +163,5 @@ constexpr struct filter_func3_apply_t
 inline constexpr auto sink_func = [](auto&&...) {};
 
 inline constexpr auto true_filter = [](auto&&...) { return true; };
+
+#endif // K3_TOK3N_TESTS_SAMPLES_FUNCTIONS_HPP

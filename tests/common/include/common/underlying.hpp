@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_COMMON_UNDERLYING_HPP
+#define K3_TOK3N_TESTS_COMMON_UNDERLYING_HPP
+
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/static_array.hpp>
 
@@ -23,3 +25,5 @@ inline constexpr auto underlying_v = underlying_impl(P{});
 
 template <k3::tok3n::detail::parser P>
 using underlying_t = decltype(underlying_impl(P{}));
+
+#endif // K3_TOK3N_TESTS_COMMON_UNDERLYING_HPP

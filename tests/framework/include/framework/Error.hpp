@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_FRAMEWORK_ERROR_HPP
+#define K3_TOK3N_TESTS_FRAMEWORK_ERROR_HPP
+
 #include <source_location>
 #include <string_view>
 
@@ -26,3 +28,5 @@ struct Error
 };
 
 void print(std::ostream& os, const Error& error);
+
+#endif // K3_TOK3N_TESTS_FRAMEWORK_ERROR_HPP

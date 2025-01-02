@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP
+#define K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP
+
 #include <iosfwd>
 #include <string>
 #include <string_view>
@@ -54,3 +56,5 @@ private:
 	const bool TestImpl<test_hash(FIXTURE_NAME, NAME)>::_init                 \
 		= Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));                 \
 	void TestImpl<test_hash(FIXTURE_NAME, NAME)>::_run()
+
+#endif // K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP

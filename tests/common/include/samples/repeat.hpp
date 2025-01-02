@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_REPEAT_HPP
+#define K3_TOK3N_TESTS_SAMPLES_REPEAT_HPP
+
 #include "samples.hpp"
 
 using May1 = k3::tok3n::detail::maybe_parser<_11>; constexpr May1 may1;
@@ -50,3 +52,5 @@ using Dek8 = k3::tok3n::detail::delimit_parser<SpaceDot, QQ>;  constexpr Dek8 de
 	(Zom1) (Zom2) (Zom3) (Zom4)                             \
 	(Del1) (Del2) (Del3) (Del4) (Del5) (Del6) (Del7) (Del8) \
 	(Dek1) (Dek2) (Dek3) (Dek4) (Dek5) (Dek6) (Dek7) (Dek8)
+
+#endif // K3_TOK3N_TESTS_SAMPLES_REPEAT_HPP

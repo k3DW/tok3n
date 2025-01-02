@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_BASIC_CHAR_HPP
+#define K3_TOK3N_TESTS_SAMPLES_BASIC_CHAR_HPP
+
 #include "samples.hpp"
 
 using Any1 = k3::tok3n::detail::any_of_parser<TT("abc")>; constexpr Any1 any1;
@@ -35,3 +37,5 @@ using SpaceDot = k3::tok3n::detail::any_of_parser<TT(" .")>;  constexpr SpaceDot
 	(All1) (All2) (All3) (All4)        \
 	(Eps1) (Ant1)                      \
 	(QQ) (ABC) (Comma) (SpaceDot)
+
+#endif // K3_TOK3N_TESTS_SAMPLES_BASIC_CHAR_HPP

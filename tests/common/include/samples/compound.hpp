@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_SAMPLES_COMPOUND_HPP
+#define K3_TOK3N_TESTS_SAMPLES_COMPOUND_HPP
+
 #include "samples.hpp"
 
 using Cho1 = k3::tok3n::detail::choice_parser<All4, Non4>;       constexpr Cho1 cho1;
@@ -20,3 +22,5 @@ using Seq5 = k3::tok3n::detail::sequence_parser<Ign1, Ign2>;       constexpr Seq
 #define COMPOUND_SAMPLES               \
 	(Cho1) (Cho2) (Cho3) (Cho4) (Cho5) \
 	(Seq1) (Seq2) (Seq3) (Seq4) (Seq5)
+
+#endif // K3_TOK3N_TESTS_SAMPLES_COMPOUND_HPP

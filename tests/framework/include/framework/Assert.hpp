@@ -2,7 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
+#define K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 
 // #define DISABLE_STATIC_ASSERT
 
@@ -26,3 +27,5 @@
 #define IDENTITY(...) __VA_ARGS__
 
 #define STR(...) #__VA_ARGS__
+
+#endif // K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP

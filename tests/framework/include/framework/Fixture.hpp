@@ -2,7 +2,9 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#pragma once
+#ifndef K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP
+#define K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP
+
 #include <iosfwd>
 #include <string>
 #include <string_view>
@@ -55,3 +57,5 @@ class FixtureImpl {};
 	const Fixture& FixtureImpl<test_hash(NAME)>::_self          \
 		= Runner::get().add([]() -> auto&                       \
 		{ static FixtureImpl<test_hash(NAME)> f; return f; }())
+
+#endif // K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP
