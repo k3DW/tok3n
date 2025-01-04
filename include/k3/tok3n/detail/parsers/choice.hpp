@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -32,7 +32,7 @@ public:
 	static constexpr auto parse(R&& r)
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
-			{
+		{
 			return _impl(call_parse, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{});
 		}
 		else
@@ -45,6 +45,7 @@ public:
 
 	template <input_constructible_for<value_type> R, class Out>
 	static constexpr auto parse(R&& r, Out& out)
+	requires requires { choice_parser<P, Ps...>::_impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out); }
 	{
 		return _impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out);
 	}
@@ -60,6 +61,8 @@ public:
 private:
 	template <class Call, input_constructible_for<value_type> R, std::size_t I, std::size_t... Is, class... Out>
 	requires (sizeof...(Out) <= 1)
+		and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, I, P, input_value_t<R>, Out...>
+		and (... and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, Is, Ps, input_value_t<R>, Out...>)
 	static constexpr result<void, input_value_t<R>> _impl(Call, R&& r, std::index_sequence<I, Is...>, Out&... out)
 	{
 		const input_span input{ std::forward<R>(r) };

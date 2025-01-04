@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -161,6 +161,15 @@ constexpr decltype(auto) adl_get(T&& t)
 {
 	using std::get;
 	return get<I>(std::forward<T>(t));
+}
+
+template <class T, class U, std::size_t I>
+concept emplaceable = requires (T& t, U u) { t.template emplace<I>(static_cast<U>(u)); };
+
+template <std::size_t I, class U, emplaceable<U, I> T>
+constexpr decltype(auto) emplace(T& t, U&& u)
+{
+	return t.template emplace<I>(std::forward<U>(u));
 }
 
 template <class T, std::size_t I>

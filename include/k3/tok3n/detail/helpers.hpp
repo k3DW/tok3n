@@ -93,48 +93,93 @@ enum class compound_type
 	sequence,
 };
 
+namespace impl {
+
+template <bool unwrapped, class P, class V, class Out>
+concept compound_executable_unwrapped = unwrapped
+	and parsable_into<P, input_span<V>&, Out>;
+
+template <compound_type type, std::size_t I, class Out>
+concept choice_element_constraints = (type == compound_type::choice)
+	and emplaceable<Out, std::remove_reference_t<adl_get_t<Out&, I>>&&, I>;
+
+template <compound_type type, std::size_t I, class Out>
+concept sequence_element_constraints = (type == compound_type::sequence)
+	and std::is_move_assignable_v<std::remove_reference_t<adl_get_t<Out&, I>>>;
+
+template <bool unwrapped, compound_type type, std::size_t I, class P, class V, class Out>
+concept compound_executable_element = not unwrapped
+	and gettable<Out&, I>
+	and parsable_into<P, input_span<V>&, adl_get_t<Out&, I>>
+	and
+	(
+		choice_element_constraints<type, I, Out>
+		or sequence_element_constraints<type, I, Out>
+	);
+
+template <bool unwrapped, compound_type type, std::size_t I, class P, class V, class... Out>
+concept compound_executable = (I == static_cast<std::size_t>(-1))
+	or impl::compound_executable_unwrapped<unwrapped, P, V, typename std::type_identity<Out...>::type>
+	or impl::compound_executable_element<unwrapped, type, I, P, V, typename std::type_identity<Out...>::type>;
+
+} // namespace impl
+
 template <class V, bool unwrapped, class Call, compound_type type>
 struct compound_executor
 {
 	input_span<V> input;
 
-	template <std::size_t I, parser P, class... Out>
-	requires (sizeof...(Out) <= 1)
-	constexpr bool exec(P, [[maybe_unused]] Out&... out)
+	template <std::size_t I, parser P>
+	requires (I == static_cast<std::size_t>(-1))
+	constexpr bool exec(P, auto&...)
 	{
-		constexpr auto call = Call{};
+		static_assert(Call::kind == call_kind::lookahead || std::same_as<void, typename P::template result_for<V>>);
+		constexpr auto call = std::conditional_t<Call::kind == call_kind::parse_into, decltype(call_parse), Call>{};
+		const result<void, V> res = call(P{}, input);
+		input = res.remaining();
+		return res.has_value();
+	}
 
-		if constexpr (I == static_cast<std::size_t>(-1))
-		{
-			static_assert(Call::kind == call_kind::lookahead || std::same_as<void, typename P::template result_for<V>>);
-			constexpr auto inner_call = std::conditional_t<Call::kind == call_kind::parse_into, decltype(call_parse), Call>{};
-			const result<void, V> res = inner_call(P{}, input);
-			input = res.remaining();
-			return res.has_value();
-		}
-		else if constexpr (unwrapped)
-		{
-			const result<void, V> res = call(P{}, input, out...);
-			input = res.remaining();
-			return res.has_value();
-		}
+	template <std::size_t I, parser P, class Out>
+	requires (I != static_cast<std::size_t>(-1))
+		and impl::compound_executable<unwrapped, type, I, P, V, Out>
+	constexpr bool exec(P, Out& out)
+	{
+		static_assert(Call::kind == call_kind::parse_into);
+		if constexpr (unwrapped)
+			return exec_unwrapped(P{}, out);
 		else
+			return exec_element<I>(P{}, out);
+	}
+
+private:
+	template <parser P, class Out>
+	requires impl::compound_executable_unwrapped<unwrapped, P, V, Out>
+	constexpr bool exec_unwrapped(P, Out& out)
+	{
+		const result<void, V> res = Call{}(P{}, input, out);
+		input = res.remaining();
+		return res.has_value();
+	}
+
+	template <std::size_t I, parser P, class Out>
+	requires impl::compound_executable_element<unwrapped, type, I, P, V, Out>
+	constexpr bool exec_element(P, Out& out)
+	{
+		using element_type = std::remove_reference_t<adl_get_t<Out&, I>>;
+		element_type element;
+		const result<void, V> res = Call{}(P{}, input, element);
+		input = res.remaining();
+		if (res.has_value())
 		{
-			using element_type = std::remove_cvref_t<decltype(adl_get<I>(out...))>;
-			element_type element;
-			const result<void, V> res = call(P{}, input, element);
-			input = res.remaining();
-			if (res.has_value())
-			{
-				if constexpr (type == compound_type::choice)
-					(..., out.template emplace<I>(std::move(element)));
-				else if constexpr (type == compound_type::sequence)
-					(..., (adl_get<I>(out) = std::move(element)));
-				else
-					static_assert(std::same_as<V, void>, "Unreachable"); // Always false
-			}
-			return res.has_value();
+			if constexpr (type == compound_type::choice)
+				emplace<I>(out, std::move(element));
+			else if constexpr (type == compound_type::sequence)
+				adl_get<I>(out) = std::move(element);
+			else
+				static_assert(std::same_as<V, void>, "Unreachable"); // Always false
 		}
+		return res.has_value();
 	}
 };
 
