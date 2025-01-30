@@ -43,7 +43,7 @@ public:
 	static constexpr parser_family family = choice_family;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
@@ -58,14 +58,14 @@ public:
 	}
 
 	template <input_constructible_for<value_type> R, class Out>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	requires requires { choice_parser<P, Ps...>::_impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out); }
 	{
 		return _impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		constexpr auto make_minus_one = [](auto&&) { return static_cast<std::size_t>(-1); };
 		using seq = std::index_sequence<make_minus_one(P{}), make_minus_one(Ps{})...>;

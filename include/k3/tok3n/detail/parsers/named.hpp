@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -21,7 +21,7 @@ struct named_parser
 	static constexpr parser_family family = named_family;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
@@ -37,13 +37,13 @@ struct named_parser
 
 	template <input_constructible_for<value_type> R, class Out>
 	requires parsable_into<P, R&&, Out>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return P::parse(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return P::lookahead(std::forward<R>(r));
 	}

@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -28,7 +28,7 @@ struct exactly_parser
 	static constexpr parser_family family = exactly_family;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
@@ -46,13 +46,13 @@ struct exactly_parser
 	requires parsable_into<P, R&&, std::remove_cvref_t<decltype(index(std::declval<Out&>(), std::size_t{}))>>
 		and std::is_default_constructible_v<Out>
 		and std::is_move_assignable_v<Out>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_parse_into, std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_lookahead, std::forward<R>(r));
 	}

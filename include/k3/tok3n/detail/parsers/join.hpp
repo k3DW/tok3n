@@ -149,7 +149,7 @@ struct join_parser_base<join_parser<P>>
 
 	template <input_constructible_for<value_type> R>
 	requires requires (R&& r, result_for<input_value_t<R>>& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		result_for<input_value_t<R>> out;
 		return join_parser<P>::_parse_impl(std::forward<R>(r), out)
@@ -159,13 +159,13 @@ struct join_parser_base<join_parser<P>>
 	template <input_constructible_for<value_type> R, span_like Out>
 	requires requires (R&& r, Out& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
 		and std::same_as<input_value_t<R>, typename Out::value_type>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return join_parser<P>::_parse_impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return P::lookahead(std::forward<R>(r));
 	}
