@@ -22,6 +22,20 @@ private:
 	template <equality_comparable_with<value_type> V>
 	using _trait = compound_trait<filter_out_void_deduplicate, std::variant, V, P, Ps...>;
 
+	template <class Call, input_constructible_for<value_type> R, std::size_t I, std::size_t... Is, class... Out>
+	requires (sizeof...(Out) <= 1)
+		and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, I, P, input_value_t<R>, Out...>
+		and (... and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, Is, Ps, input_value_t<R>, Out...>)
+	static constexpr result<void, input_value_t<R>> _impl(Call, R&& r, std::index_sequence<I, Is...>, Out&... out)
+	{
+		const input_span input{ std::forward<R>(r) };
+		using V = input_value_t<R>;
+
+		auto executor = compound_executor<V, _trait<V>::unwrapped, Call, compound_type::choice>{ input };
+		const bool successful = (executor.template exec<I>(P{}, out...) or ... or executor.template exec<Is>(Ps{}, out...));
+		return result<void, V>{ successful, executor.input };
+	}
+
 public:
 	template <equality_comparable_with<value_type> V>
 	using result_for = typename _trait<V>::result_for;
@@ -56,21 +70,6 @@ public:
 		constexpr auto make_minus_one = [](auto&&) { return static_cast<std::size_t>(-1); };
 		using seq = std::index_sequence<make_minus_one(P{}), make_minus_one(Ps{})...>;
 		return _impl(call_lookahead, std::forward<R>(r), seq{});
-	}
-
-private:
-	template <class Call, input_constructible_for<value_type> R, std::size_t I, std::size_t... Is, class... Out>
-	requires (sizeof...(Out) <= 1)
-		and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, I, P, input_value_t<R>, Out...>
-		and (... and impl::compound_executable<_trait<input_value_t<R>>::unwrapped, compound_type::choice, Is, Ps, input_value_t<R>, Out...>)
-	static constexpr result<void, input_value_t<R>> _impl(Call, R&& r, std::index_sequence<I, Is...>, Out&... out)
-	{
-		const input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-
-		auto executor = compound_executor<V, _trait<V>::unwrapped, Call, compound_type::choice>{ input };
-		const bool successful = (executor.template exec<I>(P{}, out...) or ... or executor.template exec<Is>(Ps{}, out...));
-		return result<void, V>{ successful, executor.input };
 	}
 };
 
