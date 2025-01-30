@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -21,11 +21,20 @@ struct join_parser;
 
 namespace impl {
 
+struct dummy_visitor
+{
+	constexpr bool operator()(const auto&)
+	{
+		return true;
+	}
+};
+
 template <class T>
 concept joinable = span_like<T>
 	or optional_like<T>
 	or std::ranges::range<T>
-	or tuple_like<T>;
+	or tuple_like<T>
+	or visitable<T, dummy_visitor>;
 
 template <span_like Span>
 class join_executor
@@ -63,6 +72,8 @@ private:
 			return try_join_range(t);
 		else if constexpr (tuple_like<T>)
 			return try_join_tuple(t);
+		else if constexpr (visitable<T, visitor>)
+			return try_join_visitable(t);
 	}
 
 	// This is the fundamental function of this class,
@@ -131,6 +142,23 @@ private:
 		}(std::make_index_sequence<std::tuple_size_v<T>>{});
 	}
 
+	struct visitor
+	{
+		template <class Element>
+		constexpr bool operator()(const Element& element)
+		{
+			return self.try_join(element);
+		}
+		join_executor& self;
+	};
+	friend struct visitor;
+
+	template <visitable<visitor> T>
+	constexpr bool try_join_visitable(const T& var)
+	{
+		return visit(var, visitor{*this});
+	}
+
 	std::optional<Span> joined;
 };
 
@@ -149,7 +177,7 @@ struct join_parser_base<join_parser<P>>
 
 	template <input_constructible_for<value_type> R>
 	requires requires (R&& r, result_for<input_value_t<R>>& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		result_for<input_value_t<R>> out;
 		return join_parser<P>::_parse_impl(std::forward<R>(r), out)
@@ -159,13 +187,13 @@ struct join_parser_base<join_parser<P>>
 	template <input_constructible_for<value_type> R, span_like Out>
 	requires requires (R&& r, Out& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
 		and std::same_as<input_value_t<R>, typename Out::value_type>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return join_parser<P>::_parse_impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return P::lookahead(std::forward<R>(r));
 	}

@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -31,7 +31,7 @@ struct filter_parser
 	static constexpr parser_family family = filter_family;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
@@ -48,13 +48,13 @@ struct filter_parser
 	template <input_constructible_for<value_type> R, class Out>
 	requires parsable_into<P, R&&, Out>
 		and std::convertible_to<std::invoke_result_t<typename FunctionValue::value_type, const Out&>, bool>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _parse_impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return P::lookahead(std::forward<R>(r));
 	}

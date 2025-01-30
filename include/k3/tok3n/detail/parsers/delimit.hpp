@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -93,7 +93,7 @@ public:
 	static constexpr parser_family family = delimit_family;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
 		{
@@ -112,7 +112,7 @@ public:
 		and parsable_into<D, R&&, result_for_d<input_value_t<R>>>
 		and pushable<adl_get_t<Out, 0>, result_for_p<input_value_t<R>>&&>
 		and pushable<adl_get_t<Out, 1>, result_for_d<input_value_t<R>>&&>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_parse_into, call_parse_into, std::forward<R>(r), out);
 	}
@@ -121,7 +121,7 @@ public:
 	requires std::same_as<void, result_for_p<input_value_t<R>>>
 		and parsable_into<D, R&&, result_for_d<input_value_t<R>>>
 		and pushable<Out, result_for_d<input_value_t<R>>&&>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_parse, call_parse_into, std::forward<R>(r), out);
 	}
@@ -130,13 +130,13 @@ public:
 	requires std::same_as<void, result_for_d<input_value_t<R>>>
 		and parsable_into<P, R&&, result_for_p<input_value_t<R>>>
 		and pushable<Out, result_for_p<input_value_t<R>>&&>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_parse_into, call_parse, std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_lookahead, call_lookahead, std::forward<R>(r));
 	}

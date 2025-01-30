@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -361,4 +361,41 @@ TEST("join_parser", "join_parser<sequence_parser<choice_parser<non-eps,eps>, any
 	ASSERT_PARSE_SUCCESS(P, e<int>("-abcd"), e<int>("-abc"), e<int>("d"));
 	ASSERT_PARSE_SUCCESS(P, e<int>("abcd"), e<int>("abc"), e<int>("d"));
 	ASSERT_PARSE_FAILURE(P, e<int>(" abcd"));
+}
+
+TEST("join_parser", "join variant")
+{
+	constexpr auto passthrough = [](auto val) { return val; };
+	using LHS = map_parser<ABC, integral_constant<passthrough>>;
+	using RHS = sequence_parser<Comma, QQ>;
+	using Inner = choice_parser<LHS, RHS>;
+	static_assert(not guaranteed_contiguous<Inner>); // Avoid the optimization
+	using P = join_parser<Inner>;
+	
+	ASSERT_PARSER_VALUE_TYPE(Inner, value_type);
+	ASSERT_IS_PARSER(Inner, char, choice_family, decltype(std::variant<output_span<char>, std::tuple<output_span<char>, output_span<char>>>{}));
+	ASSERT_IS_PARSER(Inner, wchar_t, choice_family, decltype(std::variant<output_span<wchar_t>, std::tuple<output_span<wchar_t>, output_span<wchar_t>>>{}));
+	ASSERT_IS_PARSER(Inner, int, choice_family, decltype(std::variant<output_span<int>, std::tuple<output_span<int>, output_span<int>>>{}));
+	
+	ASSERT_PARSER_VALUE_TYPE(P, value_type);
+	ASSERT_IS_PARSER(P, char, join_family, output_span<char>);
+	ASSERT_IS_PARSER(P, wchar_t, join_family, output_span<wchar_t>);
+	ASSERT_IS_PARSER(P, int, join_family, output_span<int>);
+
+#if __cpp_lib_variant >= 202106L // Fully constexpr std::variant
+	ASSERT_PARSE_SUCCESS(P, "abc,??", "abc", ",??");
+	ASSERT_PARSE_SUCCESS(P, "abcd,??", "abc", "d,??");
+	ASSERT_PARSE_SUCCESS(P, ",??abc", ",??", "abc");
+	ASSERT_PARSE_FAILURE(P, " ,??abc");
+
+	ASSERT_PARSE_SUCCESS(P, L"abc,??", L"abc", L",??");
+	ASSERT_PARSE_SUCCESS(P, L"abcd,??", L"abc", L"d,??");
+	ASSERT_PARSE_SUCCESS(P, L",??abc", L",??", L"abc");
+	ASSERT_PARSE_FAILURE(P, L" ,??abc");
+
+	ASSERT_PARSE_SUCCESS(P, e<int>("abc,??"), e<int>("abc"), e<int>(",??"));
+	ASSERT_PARSE_SUCCESS(P, e<int>("abcd,??"), e<int>("abc"), e<int>("d,??"));
+	ASSERT_PARSE_SUCCESS(P, e<int>(",??abc"), e<int>(",??"), e<int>("abc"));
+	ASSERT_PARSE_FAILURE(P, e<int>(" ,??abc"));
+#endif
 }

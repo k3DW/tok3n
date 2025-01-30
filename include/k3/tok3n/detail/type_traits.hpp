@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -8,6 +8,7 @@
 #include <concepts>
 #include <tuple>
 #include <type_traits>
+#include <variant>
 
 namespace k3::tok3n::detail {
 
@@ -161,6 +162,35 @@ constexpr decltype(auto) adl_get(T&& t)
 {
 	using std::get;
 	return get<I>(std::forward<T>(t));
+}
+
+template <class T, class U, std::size_t I>
+concept emplaceable = requires (T& t, U u) { t.template emplace<I>(static_cast<U>(u)); };
+
+template <std::size_t I, class U, emplaceable<U, I> T>
+constexpr decltype(auto) emplace(T& t, U&& u)
+{
+	return t.template emplace<I>(std::forward<U>(u));
+}
+
+template <class T, class Visitor>
+concept visitable = requires (T t, Visitor visitor)
+	{
+		// `static_cast<T>(t)` acts like `std::forward` when `T` is a reference type,
+		// but it's a no-op when `T` is not a reference type
+		requires
+			requires { static_cast<T>(t).visit(static_cast<Visitor>(visitor)); }
+			or requires { std::visit(static_cast<Visitor>(visitor), static_cast<T>(t)); };
+	};
+
+template <class Visitor, visitable<Visitor&&> T>
+constexpr decltype(auto) visit(T&& t, Visitor&& visitor)
+{
+	// Prefer member `visit` if available, otherwise `std::visit`
+	if constexpr (requires { std::forward<T>(t).visit(std::forward<Visitor>(visitor)); })
+		return std::forward<T>(t).visit(std::forward<Visitor>(visitor));
+	else
+		return std::visit(std::forward<Visitor>(visitor), std::forward<T>(t));
 }
 
 template <class T, std::size_t I>

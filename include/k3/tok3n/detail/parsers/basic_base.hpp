@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -29,7 +29,7 @@ struct basic_parser_base
     using result_for = output_span<V>;
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r)
+	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
 	{
 		result_for<input_value_t<R>> out;
 		return _impl(std::forward<R>(r), out)
@@ -38,13 +38,13 @@ struct basic_parser_base
 
 	template <input_constructible_for<value_type> R, span_like Out>
 	requires std::same_as<input_value_t<R>, typename Out::value_type>
-	static constexpr auto parse(R&& r, Out& out)
+	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(std::forward<R>(r), out);
 	}
 
 	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r)
+	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
 	{
 		return _impl(std::forward<R>(r));
 	}

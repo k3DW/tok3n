@@ -1,10 +1,11 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
 #ifndef K3_TOK3N_DETAIL_APPLY_HPP
 #define K3_TOK3N_DETAIL_APPLY_HPP
 
+#include <k3/tok3n/detail/type_traits.hpp>
 #include <concepts>
 #include <functional>
 #include <tuple>
@@ -16,10 +17,10 @@ namespace impl {
 
 template <class F, class Tup, std::size_t... Is>
 constexpr auto apply_invoke(F&& f, Tup&& tup, std::index_sequence<Is...>)
-noexcept(noexcept(std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...)))
--> decltype(std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...))
+noexcept(noexcept(std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...)))
+-> decltype(std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...))
 {
-    return std::invoke(std::forward<F>(f), std::get<Is>(std::forward<Tup>(tup))...);
+    return std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...);
 }
 
 } // namespace impl

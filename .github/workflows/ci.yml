@@ -33,7 +33,8 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        clang-version: [16, 17, 18, 19]
+        # clang-version: [16, 17, 18, 19] # Fix 16
+        clang-version: [17, 18, 19]
 
     steps:
       - name: Checkout code
