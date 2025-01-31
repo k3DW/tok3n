@@ -30,12 +30,19 @@ jobs:
           ctest --output-on-failure
 
   build-clang:
-    runs-on: ubuntu-latest
     strategy:
       matrix:
-        # clang-version: [16, 17, 18, 19] # Fix 16
-        clang-version: [17, 18, 19]
+        include:
+          - clang-version: 16
+            os: ubuntu-22.04
+          - clang-version: 17
+            os: ubuntu-24.04
+          - clang-version: 18
+            os: ubuntu-24.04
+          - clang-version: 19
+            os: ubuntu-24.04
 
+    runs-on: ${{matrix.os}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
