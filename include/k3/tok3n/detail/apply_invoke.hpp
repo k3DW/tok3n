@@ -5,6 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_APPLY_HPP
 #define K3_TOK3N_DETAIL_APPLY_HPP
 
+#include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 #include <concepts>
 #include <functional>

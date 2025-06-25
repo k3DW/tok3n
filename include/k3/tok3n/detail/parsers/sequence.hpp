@@ -5,8 +5,9 @@
 #ifndef K3_TOK3N_DETAIL_PARSERS_SEQUENCE_HPP
 #define K3_TOK3N_DETAIL_PARSERS_SEQUENCE_HPP
 
+#include <k3/tok3n/detail/call.hpp>
+#include <k3/tok3n/detail/compound.hpp>
 #include <k3/tok3n/detail/filter.hpp>
-#include <k3/tok3n/detail/helpers.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
 #include <tuple>

@@ -2,57 +2,16 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifndef K3_TOK3N_DETAIL_HELPERS_HPP
-#define K3_TOK3N_DETAIL_HELPERS_HPP
+#ifndef K3_TOK3N_DETAIL_COMPOUND_HPP
+#define K3_TOK3N_DETAIL_COMPOUND_HPP
 
+#include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
 #include <tuple>
 #include <variant>
 
 namespace k3::tok3n::detail {
-
-enum class call_kind
-{
-	parse,
-	parse_into,
-	lookahead,
-};
-
-struct call_parse_t
-{
-	static constexpr call_kind kind = call_kind::parse;
-	template <parser P, class R>
-	constexpr auto operator()(P, R&& r) const
-	{
-		return P::parse(std::forward<R>(r));
-	}
-};
-inline constexpr call_parse_t call_parse{};
-
-struct call_parse_into_t
-{
-	static constexpr call_kind kind = call_kind::parse_into;
-	template <parser P, class R, class Out>
-	constexpr auto operator()(P, R&& r, Out& out) const
-	{
-		return P::parse(std::forward<R>(r), out);
-	}
-};
-inline constexpr call_parse_into_t call_parse_into{};
-
-struct call_lookahead_t
-{
-	static constexpr call_kind kind = call_kind::lookahead;
-	template <parser P, class R>
-	constexpr auto operator()(P, R&& r) const
-	{
-		return P::lookahead(std::forward<R>(r));
-	}
-};
-inline constexpr call_lookahead_t call_lookahead{};
-
-
 
 namespace impl {
 
@@ -65,7 +24,26 @@ struct change_list<list<Ts...>, Other>
 	using type = Other<Ts...>;
 };
 
+template <bool Value, class Type>
+struct unwrap_if_single_trait
+{
+	static constexpr bool unwrapped = Value;
+	using type = Type;
+};
+
+template <template <class...> class List>
+consteval auto unwrap_if_single(List<>) -> unwrap_if_single_trait<true, void>;
+
+template <template <class...> class List, class T>
+consteval auto unwrap_if_single(List<T>) -> unwrap_if_single_trait<true, T>;
+
+template <template <class...> class List, class... Ts>
+consteval auto unwrap_if_single(List<Ts...>) -> unwrap_if_single_trait<false, List<Ts...>>;
+
 } // namespace impl
+
+template <class List>
+using unwrap_if_single = decltype(impl::unwrap_if_single(List{}));
 
 template <template <class...> class algorithm, template <class...> class container, class V, parser... Ps>
 struct compound_trait
@@ -185,4 +163,4 @@ private:
 
 } // namespace k3::tok3n::detail
 
-#endif // K3_TOK3N_DETAIL_HELPERS_HPP
+#endif // K3_TOK3N_DETAIL_COMPOUND_HPP

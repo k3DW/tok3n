@@ -5,6 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_PARSERS_BASIC_BASE_HPP
 #define K3_TOK3N_DETAIL_PARSERS_BASIC_BASE_HPP
 
+#include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
 
@@ -24,7 +25,7 @@ template <class P>
 struct basic_parser_base
 {
 	using value_type = typename basic_parser_traits<P>::value_type;
-	
+
 	template <equality_comparable_with<value_type> V>
     using result_for = output_span<V>;
 
