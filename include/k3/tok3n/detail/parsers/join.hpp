@@ -24,7 +24,7 @@ namespace impl {
 
 struct dummy_visitor
 {
-	constexpr bool operator()(const auto&)
+	constexpr bool operator()(const auto&) const
 	{
 		return true;
 	}
@@ -35,7 +35,7 @@ concept joinable = span_like<T>
 	or optional_like<T>
 	or std::ranges::range<T>
 	or tuple_like<T>
-	or visitable<T, dummy_visitor>;
+	or visitable<const T&, const dummy_visitor&>;
 
 template <span_like Span>
 class join_executor
@@ -73,7 +73,7 @@ private:
 			return try_join_range(t);
 		else if constexpr (tuple_like<T>)
 			return try_join_tuple(t);
-		else if constexpr (visitable<T, visitor>)
+		else if constexpr (visitable<const T&, const visitor&>)
 			return try_join_visitable(t);
 	}
 
@@ -139,14 +139,14 @@ private:
 	{
 		return [&]<std::size_t... Is>(std::index_sequence<Is...>) -> bool
 		{
-			return (... && try_join(adl_get<Is>(tup)));
+			return (... && try_join(get_<Is>(tup)));
 		}(std::make_index_sequence<std::tuple_size_v<T>>{});
 	}
 
 	struct visitor
 	{
 		template <class Element>
-		constexpr bool operator()(const Element& element)
+		constexpr bool operator()(const Element& element) const
 		{
 			return self.try_join(element);
 		}
@@ -154,7 +154,8 @@ private:
 	};
 	friend struct visitor;
 
-	template <visitable<visitor> T>
+	template <class T>
+	requires visitable<const T&, const visitor&>
 	constexpr bool try_join_visitable(const T& var)
 	{
 		return visit(var, visitor{*this});

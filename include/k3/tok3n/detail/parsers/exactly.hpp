@@ -43,8 +43,8 @@ struct exactly_parser
 		}
 	}
 
-	template <input_constructible_for<value_type> R, indexable Out>
-	requires parsable_into<P, R&&, std::remove_cvref_t<decltype(index(std::declval<Out&>(), std::size_t{}))>>
+	template <input_constructible_for<value_type> R, class Out>
+	requires parsable_into<P, R&&, std::remove_cvref_t<index_t<Out&>>>
 		and std::is_default_constructible_v<Out>
 		and std::is_move_assignable_v<Out>
 	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>

@@ -79,16 +79,16 @@ concept compound_executable_unwrapped = unwrapped
 
 template <compound_type type, std::size_t I, class Out>
 concept choice_element_constraints = (type == compound_type::choice)
-	and emplaceable<Out, std::remove_reference_t<adl_get_t<Out&, I>>&&, I>;
+	and emplaceable<Out, std::remove_reference_t<get_t<Out&, I>>&&, I>;
 
 template <compound_type type, std::size_t I, class Out>
 concept sequence_element_constraints = (type == compound_type::sequence)
-	and std::is_move_assignable_v<std::remove_reference_t<adl_get_t<Out&, I>>>;
+	and std::is_move_assignable_v<std::remove_reference_t<get_t<Out&, I>>>;
 
 template <bool unwrapped, compound_type type, std::size_t I, class P, class V, class Out>
 concept compound_executable_element = not unwrapped
 	and gettable<Out&, I>
-	and parsable_into<P, input_span<V>&, adl_get_t<Out&, I>>
+	and parsable_into<P, input_span<V>&, get_t<Out&, I>>
 	and
 	(
 		choice_element_constraints<type, I, Out>
@@ -144,7 +144,7 @@ private:
 	requires impl::compound_executable_element<unwrapped, type, I, P, V, Out>
 	constexpr bool exec_element(P, Out& out)
 	{
-		using element_type = std::remove_reference_t<adl_get_t<Out&, I>>;
+		using element_type = std::remove_reference_t<get_t<Out&, I>>;
 		element_type element;
 		const result<void, V> res = Call{}(P{}, input, element);
 		input = res.remaining();
@@ -153,7 +153,7 @@ private:
 			if constexpr (type == compound_type::choice)
 				emplace<I>(out, std::move(element));
 			else if constexpr (type == compound_type::sequence)
-				adl_get<I>(out) = std::move(element);
+				get_<I>(out) = std::move(element);
 			else
 				static_assert(std::same_as<V, void>, "Unreachable"); // Always false
 		}
