@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -14,10 +14,10 @@ Runner& Runner::get()
 	return runner;
 }
 
-Fixture& Runner::add(Fixture& fixture)
+bool Runner::add(Fixture& fixture)
 {
 	_fixtures.emplace(fixture.name(), &fixture);
-	return fixture;
+	return true;
 }
 
 bool Runner::add(std::string_view fixture_name, Test&& test)

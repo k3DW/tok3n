@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -18,7 +18,7 @@ public:
 
 	int exec(int argc, const char* const argv[]);
 
-	Fixture& add(Fixture& fixture);
+	bool add(Fixture& fixture);
 	bool add(std::string_view fixture_name, Test&& test);
 
 private:
