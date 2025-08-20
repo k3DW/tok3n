@@ -2,6 +2,6 @@
 /.cache/
 /.vs/
 /.vscode/
-/build/
+/build*/
 /_build/
 /__build/
