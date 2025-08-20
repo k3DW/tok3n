@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -61,9 +61,12 @@ TestResultContext::~TestResultContext()
 	_current_result = _old_result;
 }
 
-void TestResultContext::add_error(std::string_view message, std::source_location location)
+void TestResultContext::add_error(bool ct, bool rt, std::string_view message, Error::Fatality fatality, std::source_location location)
 {
-	_current_result->errors.emplace_back(Error::Time::run_time, Error::Fatality::fatal, message, std::move(location));
+	if (not ct)
+		_current_result->errors.emplace_back(Error::Time::compile_time, fatality, message, std::move(location));
+	if (not rt)
+		_current_result->errors.emplace_back(Error::Time::run_time, fatality, message, std::move(location));
 }
 
 bool TestResultContext::check(bool condition)

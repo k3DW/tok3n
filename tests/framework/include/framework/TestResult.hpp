@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -50,7 +50,7 @@ public:
 	TestResultContext& operator=(const TestResultContext&) = delete;
 	TestResultContext& operator=(TestResultContext&&) = delete;
 
-	static void add_error(std::string_view message, std::source_location location = std::source_location::current());
+	static void add_error(bool ct, bool rt, std::string_view message, Error::Fatality fatality, std::source_location location = std::source_location::current());
 
 	static bool check(bool condition);
 

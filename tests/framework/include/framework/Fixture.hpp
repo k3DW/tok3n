@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -34,7 +34,11 @@ protected:
 		: _name(std::move(name))
 	{}
 
-	virtual ~Fixture() {}
+	template <std::size_t hash>
+	static Fixture& global(std::string name) {
+		static Fixture f(std::move(name));
+		return f;
+	}
 
 private:
 	std::string _name;
@@ -43,19 +47,15 @@ private:
 
 
 
-template <std::size_t hash>
-class FixtureImpl {};
-
-#define FIXTURE(NAME)                                           \
-	template <>                                                 \
-	class FixtureImpl<test_hash(NAME)> : private Fixture        \
-	{                                                           \
-	private:                                                    \
-		FixtureImpl() : Fixture(NAME) {}                        \
-		static const Fixture& _self;                            \
-	};                                                          \
-	const Fixture& FixtureImpl<test_hash(NAME)>::_self          \
-		= Runner::get().add([]() -> auto&                       \
-		{ static FixtureImpl<test_hash(NAME)> f; return f; }())
+#define FIXTURE(NAME)                                                    \
+	template <std::size_t hash>                                          \
+	class FixtureImpl;                                                   \
+	template <>                                                          \
+	class FixtureImpl<test_hash(NAME)> : private ::Fixture               \
+	{                                                                    \
+	private:                                                             \
+		static inline bool _init =                                       \
+			Runner::get().add(::Fixture::global<test_hash(NAME)>(NAME)); \
+	}
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP
