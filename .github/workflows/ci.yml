@@ -1,4 +1,4 @@
-# Copyright 2024 Braden Ganetsky
+# Copyright 2024-2025 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
@@ -19,15 +19,14 @@ jobs:
 
       - name: Build tok3n
         run: |
-          mkdir build
-          cd build
-          cmake -G "Visual Studio 17 2022" --preset all ..
-          cmake --build . -j8
+          cmake --preset all `
+            -B build `
+            -G "Visual Studio 17 2022"
+          cmake --build build -j16
 
       - name: Run tok3n tests
         run: |
-          cd build
-          ctest --output-on-failure
+          ctest --test-dir build --output-on-failure
 
   build-clang:
     strategy:
@@ -40,6 +39,8 @@ jobs:
           - clang-version: 18
             os: ubuntu-24.04
           - clang-version: 19
+            os: ubuntu-24.04
+          - clang-version: 20
             os: ubuntu-24.04
 
     runs-on: ${{matrix.os}}
@@ -60,17 +61,14 @@ jobs:
 
       - name: Build tok3n
         run: |
-          mkdir build
-          cd build
-          cmake .. \
-            --preset all \
+          cmake --preset all \
+            -B build \
             -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}}
-          cmake --build . -j8
+          cmake --build build -j16
 
       - name: Run tok3n tests
         run: |
-          cd build
-          ctest --output-on-failure
+          ctest --test-dir build --output-on-failure
 
   build-gcc:
     runs-on: ubuntu-24.04
@@ -97,12 +95,10 @@ jobs:
 
       - name: Build tok3n
         run: |
-          mkdir build
-          cd build
-          cmake --preset all ..
-          cmake --build . -j8
+          cmake --preset all \
+            -B build
+          cmake --build build -j16
 
       - name: Run tok3n tests
         run: |
-          cd build
-          ctest --output-on-failure
+          ctest --test-dir build --output-on-failure
