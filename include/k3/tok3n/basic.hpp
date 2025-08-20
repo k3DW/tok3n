@@ -39,43 +39,43 @@ constexpr auto ign = detail::ignore_parser<detail::all_of_parser<arr>>{};
 
 
 template <detail::static_array arr>
-consteval auto operator"" _any()
+consteval auto operator""_any()
 {
 	return any<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _any_of()
+consteval auto operator""_any_of()
 {
 	return any<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _none()
+consteval auto operator""_none()
 {
 	return none<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _none_of()
+consteval auto operator""_none_of()
 {
 	return none<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _all()
+consteval auto operator""_all()
 {
 	return all<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _all_of()
+consteval auto operator""_all_of()
 {
 	return all<arr>;
 }
 
 template <detail::static_array arr>
-consteval auto operator"" _ign()
+consteval auto operator""_ign()
 {
 	return ign<arr>;
 }

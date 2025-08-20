@@ -40,6 +40,8 @@ jobs:
             os: ubuntu-24.04
           - clang-version: 19
             os: ubuntu-24.04
+          - clang-version: 20
+            os: ubuntu-24.04
 
     runs-on: ${{matrix.os}}
     steps:
