@@ -9,8 +9,8 @@
 Support in C++20 mode for:
 
 * Visual Studio 2022
-* Clang 16, 17, 18, 19
-* GCC 12, 13, 14
+* Clang 16, 17, 18, 19, 20
+* GCC 12, 13, 14, 15
 
 ### Build `tok3n` with CMake
 
@@ -33,7 +33,7 @@ cmake --build .
 
 * Find this repo using `add_subdirectory()`, `FetchContent`, or whichever other method you prefer
 * Use `target_link_libraries()` either with the target `k3_tok3n` or with its alias `k3::tok3n`
-* `#include "k3/tok3n.hpp"` in your C++ file 
+* `#include "k3/tok3n.hpp"` in your C++ file
 
 ## Usage examples
 
@@ -109,6 +109,8 @@ Each modifier `m` can be used on a parser `p` in 2 ways. These are exactly equiv
 
 * `m(p)`
 * `p % m`
+
+Note that the parsers are modified with the "mod" `%` operator, hence why this operator was chosen. The expression `p % m` can be read as "`p` modified by `m`".
 
 The `join` modifier takes care of an annoyance displayed above.
 
