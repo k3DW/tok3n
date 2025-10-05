@@ -38,6 +38,8 @@ constexpr auto ign = detail::ignore_parser<detail::all_of_parser<arr>>{};
 
 
 
+inline namespace literals {
+
 template <detail::static_array arr>
 consteval auto operator""_any()
 {
@@ -79,6 +81,8 @@ consteval auto operator""_ign()
 {
 	return ign<arr>;
 }
+
+} // inline namespace literals
 
 } // namespace k3::tok3n
 
