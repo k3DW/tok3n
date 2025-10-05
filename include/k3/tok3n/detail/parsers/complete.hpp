@@ -5,6 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_PARSERS_COMPLETE_HPP
 #define K3_TOK3N_DETAIL_PARSERS_COMPLETE_HPP
 
+#include <k3/tok3n/detail/helpers.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
 
