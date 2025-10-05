@@ -7,7 +7,6 @@
 
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
-#include <concepts>
 #include <functional>
 #include <tuple>
 #include <type_traits>

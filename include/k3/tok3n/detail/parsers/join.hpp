@@ -9,11 +9,9 @@
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/result.hpp>
-#include <array>
 #include <optional>
 #include <tuple>
 #include <utility>
-#include <vector>
 
 namespace k3::tok3n::detail {
 

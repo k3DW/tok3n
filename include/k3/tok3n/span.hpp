@@ -120,7 +120,7 @@ struct span_equal_to
     using is_transparent = void;
 
     template <class T, class U>
-    [[nodiscard]] constexpr bool operator()(const span<T>& lhs, const span<U>& rhs)
+    [[nodiscard]] constexpr bool operator()(const span<T>& lhs, const span<U>& rhs) const noexcept
     {
         static_assert(detail::equality_comparable_with<T, U>);
 
@@ -138,16 +138,16 @@ struct span_equal_to
     }
 
     template <class T, class RHS>
-    requires (not is_span<std::remove_cvref_t<RHS>>)
-    [[nodiscard]] constexpr bool operator()(const span<T>& lhs, RHS&& rhs)
+    requires (not is_span<RHS>)
+    [[nodiscard]] constexpr bool operator()(const span<T>& lhs, const RHS& rhs) const noexcept
     {
-        if constexpr (std::is_bounded_array_v<std::remove_cvref_t<RHS>> or std::is_pointer_v<std::remove_cvref_t<RHS>>)
+        if constexpr (std::is_bounded_array_v<RHS> or std::is_pointer_v<RHS>)
         {
-            return lhs.operator std::basic_string_view<T>() == std::basic_string_view<T>(std::forward<RHS>(rhs));
+            return lhs.operator std::basic_string_view<T>() == std::basic_string_view<T>(rhs);
         }
         else if constexpr (std::ranges::contiguous_range<RHS> and std::same_as<T, std::ranges::range_value_t<RHS>>)
         {
-            return operator()(lhs, span<T>(std::forward<RHS>(rhs)));
+            return operator()(lhs, span<T>(rhs));
         }
         else
         {
@@ -166,10 +166,10 @@ template <class T, class U>
 }
 
 template <class T, class RHS>
-requires (not detail::is_span<std::remove_cvref_t<RHS>>)
-[[nodiscard]] constexpr bool operator==(const span<T>& lhs, RHS&& rhs)
+requires (not detail::is_span<RHS>)
+[[nodiscard]] constexpr bool operator==(const span<T>& lhs, const RHS& rhs)
 {
-    return detail::span_equal_to{}(lhs, std::forward<RHS>(rhs));
+    return detail::span_equal_to{}(lhs, rhs);
 }
 
 } // namespace k3::tok3n
