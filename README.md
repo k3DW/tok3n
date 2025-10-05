@@ -9,8 +9,8 @@
 Support in C++20 mode for:
 
 * Visual Studio 2022
-* Clang 16, 17, 18, 19, 20
-* GCC 12, 13, 14, 15
+* Clang >= 16
+* GCC >= 12
 
 ### Build `tok3n` with CMake
 
