@@ -4,7 +4,7 @@
 
 name: CI
 
-on: 
+on:
   workflow_dispatch:
   pull_request:
 
@@ -41,6 +41,8 @@ jobs:
           - clang-version: 19
             os: ubuntu-24.04
           - clang-version: 20
+            os: ubuntu-24.04
+          - clang-version: 21
             os: ubuntu-24.04
 
     runs-on: ${{matrix.os}}
