@@ -1,4 +1,4 @@
-# Copyright 2023-2024 Braden Ganetsky
+# Copyright 2023-2025 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
@@ -25,29 +25,16 @@ set_target_properties(framework
         FOLDER tests
 )
 
-macro(tok3n_discover_tests runner generator assembly_name)
+macro(tok3n_discover_tests target assembly_name)
 
-    string(REGEX REPLACE "[\\\\\\/:]" "_" discovery "_discovery_${CMAKE_CURRENT_BINARY_DIR}")
-    if(NOT TARGET ${discovery})
-        add_custom_target(${discovery} ALL)
-        set_target_properties(${discovery}
-            PROPERTIES
-                FOLDER tests/_generated
-        )
-    endif()
-
-    add_custom_target(${generator} ALL)
-    add_dependencies(${generator} ${runner})
-    add_dependencies(${discovery} ${generator})
-
-    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${generator}.list_of_tests.cmake")
+    set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}.list_of_tests.cmake")
 
     add_custom_command(
-        TARGET ${generator} POST_BUILD
-        COMMAND ${runner} list ${generated_file}
+        TARGET ${target} POST_BUILD
+        COMMAND ${target} list ${generated_file}
         COMMAND ${CMAKE_COMMAND}
             -D "ASSEMBLY_NAME=${assembly_name}"
-            -D "TEST_TARGET=${runner}"
+            -D "TEST_TARGET=${target}"
             -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
             -D "LIST_OF_TESTS_FILE=${generated_file}"
             -P "${CMAKE_SOURCE_DIR}/tests/discover_tests.cmake"
@@ -56,7 +43,7 @@ macro(tok3n_discover_tests runner generator assembly_name)
     )
 
     add_custom_command(
-        TARGET ${discovery} POST_BUILD
+        TARGET ${target} POST_BUILD
         COMMAND ${CMAKE_COMMAND}
             -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
             -D "LIST_OF_TESTS_FILE=${generated_file}"
