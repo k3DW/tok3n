@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_WRAPPERS_HPP
 #define K3_TOK3N_TESTS_COMMON_WRAPPERS_HPP
 
-#include <type_traits>
+#include <utility>
 
 template <class T>
 class MoveOnlyWrapper

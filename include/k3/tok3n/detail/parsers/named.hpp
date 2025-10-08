@@ -7,6 +7,7 @@
 
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/detail/static_array.hpp>
 
 namespace k3::tok3n::detail {
 

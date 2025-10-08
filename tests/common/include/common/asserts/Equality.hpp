@@ -9,7 +9,7 @@
 #include "common/asserts/Concept.hpp"
 
 template <auto lhs, auto rhs>
-concept same_values = std::same_as<std::remove_cvref_t<decltype(lhs)>, std::remove_cvref_t<decltype(rhs)>>;
+concept same_values = std::same_as<decltype(lhs), decltype(rhs)>;
 
 
 

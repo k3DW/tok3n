@@ -6,7 +6,6 @@
 #define K3_TOK3N_DETAIL_APPLY_HPP
 
 #include <k3/tok3n/detail/type_traits.hpp>
-#include <concepts>
 #include <functional>
 #include <tuple>
 #include <type_traits>

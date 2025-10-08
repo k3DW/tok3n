@@ -16,22 +16,22 @@ template <detail::static_array arr>
 constexpr auto any = detail::any_of_parser<detail::sort_and_unique<arr>()>{};
 
 template <auto t, auto... ts>
-requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
-constexpr auto any_of = any<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
+requires (... and std::constructible_from<decltype(t), decltype(ts)>)
+constexpr auto any_of = any<detail::static_array<decltype(t), 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
 constexpr auto none = detail::none_of_parser<detail::sort_and_unique<arr>()>{};
 
 template <auto t, auto... ts>
-requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
-constexpr auto none_of = none<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
+requires (... and std::constructible_from<decltype(t), decltype(ts)>)
+constexpr auto none_of = none<detail::static_array<decltype(t), 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
 constexpr auto all = detail::all_of_parser<arr>{};
 
 template <auto t, auto... ts>
-requires (... and std::constructible_from<std::remove_cvref_t<decltype(t)>, decltype(ts)>)
-constexpr auto all_of = all<detail::static_array<std::remove_cvref_t<decltype(t)>, 1 + sizeof...(ts)>{ t, ts... }>;
+requires (... and std::constructible_from<decltype(t), decltype(ts)>)
+constexpr auto all_of = all<detail::static_array<decltype(t), 1 + sizeof...(ts)>{ t, ts... }>;
 
 template <detail::static_array arr>
 constexpr auto ign = detail::ignore_parser<detail::all_of_parser<arr>>{};
