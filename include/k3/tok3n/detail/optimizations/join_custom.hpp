@@ -20,7 +20,7 @@ private:
     template <input_constructible_for<value_type> R, class Out>
     static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
     {
-        return join_parser<decltype(CRTP::get_parser())>::parse(std::forward<R>(r), out);
+        return join_parser<decltype(CRTP::get_parser())>::parse_into(std::forward<R>(r), out);
     }
 };
 

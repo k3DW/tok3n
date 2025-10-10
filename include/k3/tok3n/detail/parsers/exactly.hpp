@@ -47,7 +47,7 @@ struct exactly_parser
     requires parsable_into<P, R&&, std::remove_cvref_t<index_t<Out&>>>
         and std::is_default_constructible_v<Out>
         and std::is_move_assignable_v<Out>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(call_parse_into, std::forward<R>(r), out);
     }

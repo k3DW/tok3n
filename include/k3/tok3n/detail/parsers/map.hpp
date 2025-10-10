@@ -43,7 +43,7 @@ struct map_parser
     template <input_constructible_for<value_type> R, class Out>
     requires parsable_void<P, R&&>
         and invoke_assignable_to<Out&, typename FunctionValue::value_type>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _parse_impl(std::forward<R>(r), out);
     }
@@ -51,7 +51,7 @@ struct map_parser
     template <input_constructible_for<value_type> R, class Out>
     requires parsable_into<P, R&&, typename P::template result_for<input_value_t<R>>>
         and invoke_assignable_to<Out&, typename FunctionValue::value_type, typename P::template result_for<input_value_t<R>>&&>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _parse_impl(std::forward<R>(r), out);
     }
@@ -84,7 +84,7 @@ private:
         else
         {
             typename P::template result_for<V> before;
-            result<void, V> res = P::parse(std::forward<R>(r), before);
+            result<void, V> res = P::parse_into(std::forward<R>(r), before);
             if (not res.has_value())
                 return { failure_tag, res.remaining() };
 

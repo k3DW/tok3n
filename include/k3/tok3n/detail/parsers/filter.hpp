@@ -35,12 +35,12 @@ struct filter_parser
     {
         if constexpr (std::same_as<void, result_for<input_value_t<R>>>)
         {
-            return _parse_impl(std::forward<R>(r));
+            return _parse_impl(call_parse, std::forward<R>(r));
         }
         else
         {
             result_for<input_value_t<R>> out;
-            return _parse_impl(std::forward<R>(r), out)
+            return _parse_impl(call_parse_into, std::forward<R>(r), out)
                 .with_value(std::move(out));
         }
     }
@@ -48,9 +48,9 @@ struct filter_parser
     template <input_constructible_for<value_type> R, class Out>
     requires parsable_into<P, R&&, Out>
         and std::convertible_to<std::invoke_result_t<typename FunctionValue::value_type, const Out&>, bool>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
-        return _parse_impl(std::forward<R>(r), out);
+        return _parse_impl(call_parse_into, std::forward<R>(r), out);
     }
 
     template <input_constructible_for<value_type> R>
@@ -60,14 +60,14 @@ struct filter_parser
     }
 
 private:
-    template <input_constructible_for<value_type> R, class... Out>
+    template <class Call, input_constructible_for<value_type> R, class... Out>
     requires (sizeof...(Out) <= 1)
-    static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out&... out)
+    static constexpr result<void, input_value_t<R>> _parse_impl(Call call, R&& r, Out&... out)
     {
         const input_span input{ std::forward<R>(r) };
         using V = input_value_t<R>;
 
-        result<void, V> res = P::parse(input, out...);
+        result<void, V> res = call(P{}, input, out...);
         if (not res.has_value())
             return { failure_tag, input };
 

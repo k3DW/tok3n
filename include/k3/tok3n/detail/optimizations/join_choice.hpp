@@ -23,7 +23,7 @@ private:
         using V = input_value_t<R>;
 
         const auto executor = [&]<parser Inner>(Inner) {
-            result<void, V> res = join_parser<Inner>::parse(input, out);
+            result<void, V> res = join_parser<Inner>::parse_into(input, out);
             input = res.remaining();
             return res.has_value();
         };

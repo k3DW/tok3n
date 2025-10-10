@@ -33,7 +33,7 @@ struct call_parse_into_t
     template <parser P, class R, class Out>
     constexpr auto operator()(P, R&& r, Out& out) const
     {
-        return P::parse(std::forward<R>(r), out);
+        return P::parse_into(std::forward<R>(r), out);
     }
 };
 inline constexpr call_parse_into_t call_parse_into{};

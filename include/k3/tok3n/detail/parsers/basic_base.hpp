@@ -39,7 +39,7 @@ struct basic_parser_base
 
     template <input_constructible_for<value_type> R, span_like Out>
     requires std::same_as<input_value_t<R>, typename Out::value_type>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(std::forward<R>(r), out);
     }

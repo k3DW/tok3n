@@ -59,7 +59,7 @@ public:
     }
 
     template <input_constructible_for<value_type> R, class Out>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     requires requires { choice_parser<P, Ps...>::_impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out); }
     {
         return _impl(call_parse_into, std::forward<R>(r), typename _trait<input_value_t<R>>::sequence{}, out);

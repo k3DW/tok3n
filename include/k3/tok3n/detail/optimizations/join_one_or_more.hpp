@@ -29,7 +29,7 @@ private:
         while (true)
         {
             Out nested;
-            result<void, V> res = join_parser<P>::parse(input, nested);
+            result<void, V> res = join_parser<P>::parse_into(input, nested);
             successful |= res.has_value();
             if (not res.has_value())
                 break;

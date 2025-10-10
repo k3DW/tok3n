@@ -30,16 +30,16 @@ struct named_parser
         else
         {
             result_for<input_value_t<R>> out;
-            return P::parse(std::forward<R>(r), out)
+            return P::parse_into(std::forward<R>(r), out)
                 .with_value(std::move(out));
         }
     }
 
     template <input_constructible_for<value_type> R, class Out>
     requires parsable_into<P, R&&, Out>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
-        return P::parse(std::forward<R>(r), out);
+        return P::parse_into(std::forward<R>(r), out);
     }
 
     template <input_constructible_for<value_type> R>

@@ -25,7 +25,7 @@ private:
     template <input_constructible_for<value_type> R, class Out>
     static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
     {
-        return Basic::parse(std::forward<R>(r), out);
+        return Basic::parse_into(std::forward<R>(r), out);
     }
 };
 

@@ -29,7 +29,7 @@ private:
         for (std::size_t i = 0; i != N::value; ++i)
         {
             Out nested;
-            result<void, V> res = join_parser<P>::parse(input, nested);
+            result<void, V> res = join_parser<P>::parse_into(input, nested);
             if (not res.has_value())
                 return { failure_tag, original_input };
             input = res.remaining();

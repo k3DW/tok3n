@@ -38,7 +38,7 @@ public:
             // TODO: Both of these lines cause a compile error on clang, even though they should be exactly the same
             // return call_type<I>{}(parser_type<I>{}, in, element)
             // return call_parse_into(parser_type<I>{}, in, element)
-            return parser_type<I>::parse(in, element)
+            return parser_type<I>::parse_into(in, element)
                 .with_value(std::move(element));
         }
         else
@@ -103,7 +103,7 @@ public:
         else
         {
             result_for<input_value_t<R>> out;
-            return parse(std::forward<R>(r), out)
+            return parse_into(std::forward<R>(r), out)
                 .with_value(std::move(out));
         }
     }
@@ -113,7 +113,7 @@ public:
         and parsable_into<D, R&&, result_for_d<input_value_t<R>>>
         and pushable<get_t<Out&, 0>, result_for_p<input_value_t<R>>&&>
         and pushable<get_t<Out&, 1>, result_for_d<input_value_t<R>>&&>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(call_parse_into, call_parse_into, std::forward<R>(r), out);
     }
@@ -122,7 +122,7 @@ public:
     requires std::same_as<void, result_for_p<input_value_t<R>>>
         and parsable_into<D, R&&, result_for_d<input_value_t<R>>>
         and pushable<Out, result_for_d<input_value_t<R>>&&>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(call_parse, call_parse_into, std::forward<R>(r), out);
     }
@@ -131,7 +131,7 @@ public:
     requires std::same_as<void, result_for_d<input_value_t<R>>>
         and parsable_into<P, R&&, result_for_p<input_value_t<R>>>
         and pushable<Out, result_for_p<input_value_t<R>>&&>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(call_parse_into, call_parse, std::forward<R>(r), out);
     }

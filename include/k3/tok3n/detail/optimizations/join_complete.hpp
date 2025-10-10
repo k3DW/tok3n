@@ -22,7 +22,7 @@ private:
         const input_span input{ std::forward<R>(r) };
         using V = input_value_t<R>;
 
-        result<void, V> res = join_parser<P>::parse(input, out);
+        result<void, V> res = join_parser<P>::parse_into(input, out);
         if (not res.has_value() or not res.remaining().empty())
             return { failure_tag, input };
         else

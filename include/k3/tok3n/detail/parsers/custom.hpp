@@ -53,17 +53,17 @@ struct custom_parser
         else
         {
             typename P::template result_for<V> out;
-            return decltype(P::get_parser())::parse(std::forward<R>(r), out)
+            return decltype(P::get_parser())::parse_into(std::forward<R>(r), out)
                 .with_value(std::move(out));
         }
     }
 
     template <input_constructible_for<value_type> R, class Out, std::same_as<CRTP> P = CRTP, std::same_as<input_value_t<R>> V = input_value_t<R>>
-    static constexpr result<void, V> parse(R&& r, Out& out)
+    static constexpr result<void, V> parse_into(R&& r, Out& out)
     {
         static_assert(requires { { P::get_parser() } -> parser; }, "custom parser requires a `get_parser()` function");
         static_assert(std::same_as<typename decltype(P::get_parser())::value_type, typename P::value_type>);
-        return decltype(P::get_parser())::parse(std::forward<R>(r), out);
+        return decltype(P::get_parser())::parse_into(std::forward<R>(r), out);
     }
 
 

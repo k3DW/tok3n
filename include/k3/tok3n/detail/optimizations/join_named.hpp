@@ -19,7 +19,7 @@ private:
     template <input_constructible_for<value_type> R, class Out>
     static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
     {
-        return join_parser<P>::parse(std::forward<R>(r), out);
+        return join_parser<P>::parse_into(std::forward<R>(r), out);
     }
 };
 

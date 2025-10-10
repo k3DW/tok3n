@@ -28,7 +28,7 @@ private:
 
         const auto executor = [&]<parser Inner>(Inner) {
             Out nested;
-            result<void, V> res = join_parser<Inner>::parse(input, nested);
+            result<void, V> res = join_parser<Inner>::parse_into(input, nested);
             if (not res.has_value())
                 return false;
             input = res.remaining();

@@ -45,7 +45,7 @@ struct zero_or_more_parser
     template <input_constructible_for<value_type> R, class Out>
     requires parsable_into<P, R&&, typename P::template result_for<input_value_t<R>>>
         and pushable<Out, typename P::template result_for<input_value_t<R>>&&>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return _impl(call_parse_into, std::forward<R>(r), out);
     }

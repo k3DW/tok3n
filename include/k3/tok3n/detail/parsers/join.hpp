@@ -189,7 +189,7 @@ struct join_parser_base<join_parser<P>>
     template <input_constructible_for<value_type> R, span_like Out>
     requires requires (R&& r, Out& out) { join_parser<P>::_parse_impl(std::forward<R>(r), out); }
         and std::same_as<input_value_t<R>, typename Out::value_type>
-    static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
+    static constexpr auto parse_into(R&& r, Out& out) -> result<void, input_value_t<R>>
     {
         return join_parser<P>::_parse_impl(std::forward<R>(r), out);
     }
@@ -218,7 +218,7 @@ private:
         using V = input_value_t<R>;
 
         typename P::template result_for<V> before;
-        result<void, V> res = P::parse(input, before);
+        result<void, V> res = P::parse_into(input, before);
         if (res.has_value())
         {
             using Executor = impl::join_executor<Out>;
