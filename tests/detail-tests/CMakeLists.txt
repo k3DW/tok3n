@@ -4,4 +4,5 @@
 
 tok3n_add_basic_test_executable(detail_tests detail
     ${CMAKE_CURRENT_LIST_DIR}/main.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/cpo/get.cpp
 )
