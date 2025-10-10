@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -13,13 +13,13 @@ namespace k3::tok3n::detail {
 template <class T>
 struct apply_into_modifier final : modifier_base
 {
-	static constexpr auto family = modifier_family::apply_into;
+    static constexpr auto family = modifier_family::apply_into;
 
-	template <parser P>
-	constexpr auto operator()(P) const
-	{
-		return apply_into_parser<P, T>{};
-	}
+    template <parser P>
+    constexpr auto operator()(P) const
+    {
+        return apply_into_parser<P, T>{};
+    }
 };
 
 } // namespace k3::tok3n::detail

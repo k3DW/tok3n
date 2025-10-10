@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -41,10 +41,10 @@ using Comma    = k3::tok3n::detail::any_of_parser<k3::tok3n::detail::static_arra
 using SpaceDot = k3::tok3n::detail::any_of_parser<k3::tok3n::detail::static_array(Space, Dot)>;         constexpr SpaceDot spacedot;
 
 #define BASIC_SAMPLES                  \
-	(Any1) (Any2) (Any3) (Any4)        \
-	(Non1) (Non2) (Non3) (Non4) (Non5) \
-	(All1) (All2) (All3)               \
-	(Eps1) (Ant1)                      \
-	(QQ) (ABC) (Comma) (SpaceDot)
+    (Any1) (Any2) (Any3) (Any4)        \
+    (Non1) (Non2) (Non3) (Non4) (Non5) \
+    (All1) (All2) (All3)               \
+    (Eps1) (Ant1)                      \
+    (QQ) (ABC) (Comma) (SpaceDot)
 
 #endif // K3_TOK3N_TESTS_SAMPLES_BASIC_NON_CHAR_HPP

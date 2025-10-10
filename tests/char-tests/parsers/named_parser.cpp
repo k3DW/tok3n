@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -11,25 +11,25 @@ FIXTURE("named_parser");
 
 TEST("named_parser", "Requirements")
 {
-	ASSERT_PARSER_VALUE_TYPE(Nam1, value_type);
-	ASSERT_PARSER_VALUE_TYPE(Nam2, value_type);
-	ASSERT_PARSER_VALUE_TYPE(Nam3, value_type);
-	ASSERT_PARSER_VALUE_TYPE(Nam4, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Nam1, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Nam2, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Nam3, value_type);
+    ASSERT_PARSER_VALUE_TYPE(Nam4, value_type);
 
-	ASSERT_IS_PARSER(Nam1, char, named_family, output_span<char>);
-	ASSERT_IS_PARSER(Nam2, char, named_family, std::vector<output_span<char>>);
-	ASSERT_IS_PARSER(Nam3, char, named_family, std::optional<output_span<char>>);
-	ASSERT_IS_PARSER(Nam4, char, named_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
+    ASSERT_IS_PARSER(Nam1, char, named_family, output_span<char>);
+    ASSERT_IS_PARSER(Nam2, char, named_family, std::vector<output_span<char>>);
+    ASSERT_IS_PARSER(Nam3, char, named_family, std::optional<output_span<char>>);
+    ASSERT_IS_PARSER(Nam4, char, named_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
 
-	ASSERT_IS_PARSER(Nam1, wchar_t, named_family, output_span<wchar_t>);
-	ASSERT_IS_PARSER(Nam2, wchar_t, named_family, std::vector<output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Nam3, wchar_t, named_family, std::optional<output_span<wchar_t>>);
-	ASSERT_IS_PARSER(Nam4, wchar_t, named_family, std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>);
+    ASSERT_IS_PARSER(Nam1, wchar_t, named_family, output_span<wchar_t>);
+    ASSERT_IS_PARSER(Nam2, wchar_t, named_family, std::vector<output_span<wchar_t>>);
+    ASSERT_IS_PARSER(Nam3, wchar_t, named_family, std::optional<output_span<wchar_t>>);
+    ASSERT_IS_PARSER(Nam4, wchar_t, named_family, std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>);
 
-	ASSERT_IS_PARSER(Nam1, int, named_family, output_span<int>);
-	ASSERT_IS_PARSER(Nam2, int, named_family, std::vector<output_span<int>>);
-	ASSERT_IS_PARSER(Nam3, int, named_family, std::optional<output_span<int>>);
-	ASSERT_IS_PARSER(Nam4, int, named_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
+    ASSERT_IS_PARSER(Nam1, int, named_family, output_span<int>);
+    ASSERT_IS_PARSER(Nam2, int, named_family, std::vector<output_span<int>>);
+    ASSERT_IS_PARSER(Nam3, int, named_family, std::optional<output_span<int>>);
+    ASSERT_IS_PARSER(Nam4, int, named_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
 }
 
 TEST("named_parser", "named_parser<all_of_parser>")
@@ -57,7 +57,7 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
         ASSERT_PARSE_FAILURE(Nam2, "ab abc");
         ASSERT_PARSE_FAILURE(Nam2, " ab abc");
     }
-    
+
     {
         using type = std::vector<output_span<wchar_t>>;
         ASSERT_PARSE_SUCCESS(Nam2, L"abcabcab", (type{L"abc", L"abc"}), L"ab");
@@ -66,7 +66,7 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
         ASSERT_PARSE_FAILURE(Nam2, L"ab abc");
         ASSERT_PARSE_FAILURE(Nam2, L" ab abc");
     }
-    
+
     {
         using type = std::vector<output_span<int>>;
         ASSERT_PARSE_SUCCESS(Nam2, e<int>("abcabcab"), (type{e<int>("abc"), e<int>("abc")}), e<int>("ab"));
@@ -114,7 +114,7 @@ TEST("named_parser", "named_parser<sequence_parser>")
         ASSERT_PARSE_FAILURE(Nam4, "ab???? abc");
         ASSERT_PARSE_SUCCESS(Nam4, "abc?? ?? abc", (type{"abc", {"??"}}), " ?? abc");
     }
-    
+
     {
         using type = std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>;
         ASSERT_PARSE_SUCCESS(Nam4, L"abcabcab", (type{L"abc", {}}), L"abcab");
@@ -123,7 +123,7 @@ TEST("named_parser", "named_parser<sequence_parser>")
         ASSERT_PARSE_FAILURE(Nam4, L"ab???? abc");
         ASSERT_PARSE_SUCCESS(Nam4, L"abc?? ?? abc", (type{L"abc", {L"??"}}), L" ?? abc");
     }
-    
+
     {
         using type = std::tuple<output_span<int>, std::vector<output_span<int>>>;
         ASSERT_PARSE_SUCCESS(Nam4, e<int>("abcabcab"), (type{e<int>("abc"), {}}), e<int>("abcab"));

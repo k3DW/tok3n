@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -44,59 +44,59 @@ using Def2 = k3::tok3n::detail::defaulted_parser<_23, Class3>; constexpr Def2 de
 
 struct Cus1 : k3::tok3n::detail::custom_parser<Cus1>
 {
-	using value_type = ::value_type;
+    using value_type = ::value_type;
 
-	static consteval auto get_parser()
-	{
-		return _25{} % k3::tok3n::map<transform>;
-	}
+    static consteval auto get_parser()
+    {
+        return _25{} % k3::tok3n::map<transform>;
+    }
 
-	static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<char>>, std::optional<k3::tok3n::detail::output_span<char>>>& tup)
-	{
-		const auto& [vec, opt] = tup;
-		return 3 * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
-	}
+    static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<char>>, std::optional<k3::tok3n::detail::output_span<char>>>& tup)
+    {
+        const auto& [vec, opt] = tup;
+        return 3 * vec.size() * (not opt ? 1 : *opt == "abc" ? 2 : 3);
+    }
 
-	static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<wchar_t>>, std::optional<k3::tok3n::detail::output_span<wchar_t>>>& tup)
-	{
-		const auto& [vec, opt] = tup;
-		return 3 * vec.size() * (not opt ? 1 : *opt == L"abc" ? 2 : 3);
-	}
+    static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<wchar_t>>, std::optional<k3::tok3n::detail::output_span<wchar_t>>>& tup)
+    {
+        const auto& [vec, opt] = tup;
+        return 3 * vec.size() * (not opt ? 1 : *opt == L"abc" ? 2 : 3);
+    }
 
-	static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<int>>, std::optional<k3::tok3n::detail::output_span<int>>>& tup)
-	{
-		const auto& [vec, opt] = tup;
-		return 3 * vec.size() * (not opt ? 1 : *opt == e<int>("abc") ? 2 : 3);
-	}
+    static constexpr std::size_t transform_impl(const std::tuple<std::vector<k3::tok3n::detail::output_span<int>>, std::optional<k3::tok3n::detail::output_span<int>>>& tup)
+    {
+        const auto& [vec, opt] = tup;
+        return 3 * vec.size() * (not opt ? 1 : *opt == e<int>("abc") ? 2 : 3);
+    }
 
-	static constexpr auto transform = []<class T>(const std::tuple<std::vector<k3::tok3n::detail::output_span<T>>, std::optional<k3::tok3n::detail::output_span<T>>>&tup)
-	{
-		return transform_impl(tup);
-	};
+    static constexpr auto transform = []<class T>(const std::tuple<std::vector<k3::tok3n::detail::output_span<T>>, std::optional<k3::tok3n::detail::output_span<T>>>&tup)
+    {
+        return transform_impl(tup);
+    };
 };
 constexpr Cus1 cus1;
 
 struct Cus2 : k3::tok3n::detail::custom_parser<Cus2, ::value_type>
 {
-	using result_type = std::size_t;
+    using result_type = std::size_t;
 
-	static consteval auto get_parser()
-	{
-		return _12{} % k3::tok3n::constant<(int)0>;
-	}
+    static consteval auto get_parser()
+    {
+        return _12{} % k3::tok3n::constant<(int)0>;
+    }
 };
 constexpr Cus2 cus2;
 
 #define DIVERGENT_SAMPLES              \
-	(Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
-	(Map1) (Map2) (Map3) (Map4)        \
-	(Fil1) (Fil2) (Fil3)               \
-	(Apm1) (Apm2)                      \
-	(Apf1)                             \
-	(Int1) (Int2) (Int3)               \
-	(Api1) (Api2)                      \
-	(Con1) (Con2) (Con3) (Con4)        \
-	(Def1) (Def2)                      \
-	(Cus1) (Cus2)
+    (Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
+    (Map1) (Map2) (Map3) (Map4)        \
+    (Fil1) (Fil2) (Fil3)               \
+    (Apm1) (Apm2)                      \
+    (Apf1)                             \
+    (Int1) (Int2) (Int3)               \
+    (Api1) (Api2)                      \
+    (Con1) (Con2) (Con3) (Con4)        \
+    (Def1) (Def2)                      \
+    (Cus1) (Cus2)
 
 #endif // K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP

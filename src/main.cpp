@@ -7,12 +7,12 @@
 
 int main()
 {
-	using namespace k3;
-	using namespace k3::tok3n;
+    using namespace k3;
+    using namespace k3::tok3n;
 
-	constexpr auto oc = detail::any_of_parser<"ab">{};
-	constexpr auto test = exactly<2>(oc);
+    constexpr auto oc = detail::any_of_parser<"ab">{};
+    constexpr auto test = exactly<2>(oc);
 
-	[[maybe_unused]] auto result_ = test.parse("cbac");
-	[[maybe_unused]] auto result_2 = test.parse("abac");
+    [[maybe_unused]] auto result_ = test.parse("cbac");
+    [[maybe_unused]] auto result_2 = test.parse("abac");
 }

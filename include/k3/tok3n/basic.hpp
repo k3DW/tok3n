@@ -1,4 +1,4 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -43,43 +43,43 @@ inline namespace literals {
 template <detail::static_array arr>
 consteval auto operator""_any()
 {
-	return any<arr>;
+    return any<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_any_of()
 {
-	return any<arr>;
+    return any<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_none()
 {
-	return none<arr>;
+    return none<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_none_of()
 {
-	return none<arr>;
+    return none<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_all()
 {
-	return all<arr>;
+    return all<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_all_of()
 {
-	return all<arr>;
+    return all<arr>;
 }
 
 template <detail::static_array arr>
 consteval auto operator""_ign()
 {
-	return ign<arr>;
+    return ign<arr>;
 }
 
 } // inline namespace literals

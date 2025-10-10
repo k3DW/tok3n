@@ -13,24 +13,24 @@ namespace k3::tok3n::detail {
 template <parser P>
 struct ignore_parser
 {
-	using value_type = typename P::value_type;
-	
-	template <equality_comparable_with<value_type> V>
-	using result_for = std::conditional_t<std::same_as<void, V>, V, void>; // Always void
+    using value_type = typename P::value_type;
 
-	static constexpr parser_family family = ignore_family;
+    template <equality_comparable_with<value_type> V>
+    using result_for = std::conditional_t<std::same_as<void, V>, V, void>; // Always void
 
-	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
-	{
-		return P::lookahead(std::forward<R>(r));
-	}
+    static constexpr parser_family family = ignore_family;
 
-	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
-	{
-		return P::lookahead(std::forward<R>(r));
-	}
+    template <input_constructible_for<value_type> R>
+    static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
+    {
+        return P::lookahead(std::forward<R>(r));
+    }
+
+    template <input_constructible_for<value_type> R>
+    static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
+    {
+        return P::lookahead(std::forward<R>(r));
+    }
 };
 
 } // namespace k3::tok3n::detail

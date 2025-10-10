@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -18,87 +18,87 @@ requires (not std::is_reference_v<T>)
 class result
 {
 public:
-	using value_type = T;
-	using span_type = U;
+    using value_type = T;
+    using span_type = U;
 
-	constexpr result() = default;
+    constexpr result() = default;
 
-	constexpr result(failure_tag_t, input_span<U> remaining)
-		: _result(), _remaining(remaining) {}
+    constexpr result(failure_tag_t, input_span<U> remaining)
+        : _result(), _remaining(remaining) {}
 
-	constexpr result(success_tag_t, const T& t, input_span<U> remaining) requires std::constructible_from<T, const T&>
-		: _result(t), _remaining(remaining) {}
+    constexpr result(success_tag_t, const T& t, input_span<U> remaining) requires std::constructible_from<T, const T&>
+        : _result(t), _remaining(remaining) {}
 
-	constexpr result(success_tag_t, T&& t, input_span<U> remaining) requires std::constructible_from<T, T&&>
-		: _result(std::move(t)), _remaining(remaining) {}
+    constexpr result(success_tag_t, T&& t, input_span<U> remaining) requires std::constructible_from<T, T&&>
+        : _result(std::move(t)), _remaining(remaining) {}
 
-	template <class T2>
-	constexpr result(const result<T2, U>& other)
-		: _result(other._result), _remaining(other._remaining) {}
+    template <class T2>
+    constexpr result(const result<T2, U>& other)
+        : _result(other._result), _remaining(other._remaining) {}
 
-	template <class T2>
-	constexpr result(result<T2, U>&& other)
-		: _result(std::move(other)._result), _remaining(other._remaining) {}
+    template <class T2>
+    constexpr result(result<T2, U>&& other)
+        : _result(std::move(other)._result), _remaining(other._remaining) {}
 
-	constexpr explicit operator bool() const noexcept { return _result.operator bool(); }
-	constexpr bool has_value() const noexcept         { return _result.has_value(); }
+    constexpr explicit operator bool() const noexcept { return _result.operator bool(); }
+    constexpr bool has_value() const noexcept         { return _result.has_value(); }
 
-	constexpr T&        value() &       { return _result.value(); }
-	constexpr const T&  value() const&  { return _result.value(); }
-	constexpr T&&       value() &&      { return std::move(_result).value(); }
-	constexpr const T&& value() const&& { return std::move(_result).value(); }
+    constexpr T&        value() &       { return _result.value(); }
+    constexpr const T&  value() const&  { return _result.value(); }
+    constexpr T&&       value() &&      { return std::move(_result).value(); }
+    constexpr const T&& value() const&& { return std::move(_result).value(); }
 
-	constexpr T&        operator*() &       { return *_result; }
-	constexpr const T&  operator*() const&  { return *_result; }
-	constexpr T&&       operator*() &&      { return *std::move(_result); }
-	constexpr const T&& operator*() const&& { return *std::move(_result); }
+    constexpr T&        operator*() &       { return *_result; }
+    constexpr const T&  operator*() const&  { return *_result; }
+    constexpr T&&       operator*() &&      { return *std::move(_result); }
+    constexpr const T&& operator*() const&& { return *std::move(_result); }
 
-	constexpr input_span<U> remaining() const noexcept { return _remaining; }
+    constexpr input_span<U> remaining() const noexcept { return _remaining; }
 
 private:
-	std::optional<T> _result;
-	input_span<U> _remaining;
+    std::optional<T> _result;
+    input_span<U> _remaining;
 
-	template <class T2, class U2>
-	requires (not std::is_reference_v<T2>)
-	friend class result;
+    template <class T2, class U2>
+    requires (not std::is_reference_v<T2>)
+    friend class result;
 };
 
 template <class U>
 class result<void, U>
 {
 public:
-	using value_type = void;
-	using span_type = U;
+    using value_type = void;
+    using span_type = U;
 
-	constexpr result() = default;
+    constexpr result() = default;
 
-	constexpr result(failure_tag_t, input_span<U> remaining)
-		: _successful(false), _remaining(remaining) {}
+    constexpr result(failure_tag_t, input_span<U> remaining)
+        : _successful(false), _remaining(remaining) {}
 
-	constexpr result(success_tag_t, input_span<U> remaining)
-		: _successful(true), _remaining(remaining) {}
+    constexpr result(success_tag_t, input_span<U> remaining)
+        : _successful(true), _remaining(remaining) {}
 
-	explicit constexpr result(bool success, input_span<U> remaining)
-		: _successful(success), _remaining(remaining) {}
+    explicit constexpr result(bool success, input_span<U> remaining)
+        : _successful(success), _remaining(remaining) {}
 
-	constexpr explicit operator bool() const noexcept { return _successful; }
-	constexpr bool has_value() const noexcept         { return _successful; }
+    constexpr explicit operator bool() const noexcept { return _successful; }
+    constexpr bool has_value() const noexcept         { return _successful; }
 
-	constexpr input_span<U> remaining() const noexcept { return _remaining; }
+    constexpr input_span<U> remaining() const noexcept { return _remaining; }
 
-	template <class T>
-	constexpr auto with_value(T&& t) const
-	{
-		if (_successful)
-			return result<std::remove_cvref_t<T>, U>{ success_tag, std::forward<T>(t), _remaining };
-		else
-			return result<std::remove_cvref_t<T>, U>{ failure_tag, _remaining };
-	}
+    template <class T>
+    constexpr auto with_value(T&& t) const
+    {
+        if (_successful)
+            return result<std::remove_cvref_t<T>, U>{ success_tag, std::forward<T>(t), _remaining };
+        else
+            return result<std::remove_cvref_t<T>, U>{ failure_tag, _remaining };
+    }
 
 private:
-	bool _successful;
-	input_span<U> _remaining;
+    bool _successful;
+    input_span<U> _remaining;
 };
 
 
@@ -121,9 +121,9 @@ extern std::bool_constant<is_result_v<R>> is_result_v<R&&>;
 
 template <class R, class T, class U>
 concept result_of =
-	decltype(impl::is_result_v<R>)::value and
-	std::same_as<T, typename R::value_type> and
-	std::same_as<U, typename R::span_type>;
+    decltype(impl::is_result_v<R>)::value and
+    std::same_as<T, typename R::value_type> and
+    std::same_as<U, typename R::span_type>;
 
 } // namespace k3::tok3n::detail
 

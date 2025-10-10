@@ -12,11 +12,11 @@ namespace k3::tok3n::detail {
 template <class T, std::size_t I>
 concept gettable =  std::is_reference_v<T> and
     requires (T t)
-	{
-		requires
-			requires { std::get<I>(static_cast<T>(t)); }
-			or requires { get<I>(static_cast<T>(t)); };
-	};
+    {
+        requires
+            requires { std::get<I>(static_cast<T>(t)); }
+            or requires { get<I>(static_cast<T>(t)); };
+    };
 
 namespace impl {
 
@@ -48,56 +48,56 @@ using get_t = std::invoke_result_t<impl::get_cpo<I>, T>;
 
 template <class T>
 concept span_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
-	{
-		typename std::remove_cvref_t<T>::value_type;
-		{ ct.data() } -> pointer_of<typename std::remove_cvref_t<T>::value_type>; // `data()` could return a pointer-to-const or pointer-to-non-const
-		{ ct.size() } -> std::same_as<std::size_t>;
-		{ ct.empty() } -> std::same_as<bool>;
-		t = std::remove_cvref_t<T>{};
-		t = std::remove_cvref_t<T>{ ct.data(), ct.size() };
-	};
+    {
+        typename std::remove_cvref_t<T>::value_type;
+        { ct.data() } -> pointer_of<typename std::remove_cvref_t<T>::value_type>; // `data()` could return a pointer-to-const or pointer-to-non-const
+        { ct.size() } -> std::same_as<std::size_t>;
+        { ct.empty() } -> std::same_as<bool>;
+        t = std::remove_cvref_t<T>{};
+        t = std::remove_cvref_t<T>{ ct.data(), ct.size() };
+    };
 
 template <class T>
 concept optional_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
-	{
-		typename std::remove_cvref_t<T>::value_type;
-		{ *t } -> std::same_as<typename std::remove_cvref_t<T>::value_type&>;
-		{ *ct } -> std::same_as<const typename std::remove_cvref_t<T>::value_type&>;
+    {
+        typename std::remove_cvref_t<T>::value_type;
+        { *t } -> std::same_as<typename std::remove_cvref_t<T>::value_type&>;
+        { *ct } -> std::same_as<const typename std::remove_cvref_t<T>::value_type&>;
         { *static_cast<std::remove_cvref_t<T>&&>(t) } -> std::same_as<typename std::remove_cvref_t<T>::value_type&&>;
         { *static_cast<const std::remove_cvref_t<T>&&>(ct) } -> std::same_as<const typename std::remove_cvref_t<T>::value_type&&>;
-		{ ct.has_value() } -> std::same_as<bool>;
-	};
+        { ct.has_value() } -> std::same_as<bool>;
+    };
 
 template <class T>
 concept tuple_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
-	{
-		std::tuple_size<std::decay_t<T>>{};
-		std::tuple_size<std::decay_t<T>>::value;
-		requires std::tuple_size_v<std::decay_t<T>> != 0;
-		[]<std::size_t... Is>(std::remove_cvref_t<T>& t_, std::index_sequence<Is...>) {
-			(..., get_<Is>(t_));
-		}(t, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
-		[]<std::size_t... Is>(const std::remove_cvref_t<T>& ct_, std::index_sequence<Is...>) {
-			(..., get_<Is>(ct_));
-		}(ct, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
-		[]<std::size_t... Is>(std::remove_cvref_t<T>&& t_, std::index_sequence<Is...>) {
-			(..., get_<Is>(static_cast<std::remove_cvref_t<T>&&>(t_)));
-		}(static_cast<std::remove_cvref_t<T>&&>(t), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
-		[]<std::size_t... Is>(const std::remove_cvref_t<T>&& ct_, std::index_sequence<Is...>) {
-			(..., get_<Is>(static_cast<const std::remove_cvref_t<T>&&>(ct_)));
-		}(static_cast<const std::remove_cvref_t<T>&&>(ct), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
-	};
+    {
+        std::tuple_size<std::decay_t<T>>{};
+        std::tuple_size<std::decay_t<T>>::value;
+        requires std::tuple_size_v<std::decay_t<T>> != 0;
+        []<std::size_t... Is>(std::remove_cvref_t<T>& t_, std::index_sequence<Is...>) {
+            (..., get_<Is>(t_));
+        }(t, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+        []<std::size_t... Is>(const std::remove_cvref_t<T>& ct_, std::index_sequence<Is...>) {
+            (..., get_<Is>(ct_));
+        }(ct, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+        []<std::size_t... Is>(std::remove_cvref_t<T>&& t_, std::index_sequence<Is...>) {
+            (..., get_<Is>(static_cast<std::remove_cvref_t<T>&&>(t_)));
+        }(static_cast<std::remove_cvref_t<T>&&>(t), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+        []<std::size_t... Is>(const std::remove_cvref_t<T>&& ct_, std::index_sequence<Is...>) {
+            (..., get_<Is>(static_cast<const std::remove_cvref_t<T>&&>(ct_)));
+        }(static_cast<const std::remove_cvref_t<T>&&>(ct), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+    };
 
 
 
 template <class T>
 concept indexable = std::is_reference_v<T> and
     requires (T t, std::size_t i)
-	{
-		requires
-			requires { static_cast<T>(t).at(i); }
-			or requires { static_cast<T>(t)[i]; };
-	};
+    {
+        requires
+            requires { static_cast<T>(t).at(i); }
+            or requires { static_cast<T>(t)[i]; };
+    };
 
 namespace impl {
 
@@ -127,12 +127,12 @@ using index_t = std::invoke_result_t<impl::index_cpo, T, std::size_t>;
 template <class T, class Element>
 concept pushable = std::is_reference_v<Element> and
     requires (T t, Element element)
-	{
-		requires
-			requires { t.push_back(static_cast<Element>(element)); }
-			or requires { t.push(static_cast<Element>(element)); }
-			or requires { t.insert(static_cast<Element>(element)); };
-	};
+    {
+        requires
+            requires { t.push_back(static_cast<Element>(element)); }
+            or requires { t.push(static_cast<Element>(element)); }
+            or requires { t.insert(static_cast<Element>(element)); };
+    };
 
 namespace impl {
 
@@ -160,9 +160,9 @@ inline constexpr impl::push_cpo push{};
 template <class T, class U, std::size_t I>
 concept emplaceable = std::is_reference_v<U> and
     requires (T t, U u)
-	{
-		t.template emplace<I>(static_cast<U>(u));
-	};
+    {
+        t.template emplace<I>(static_cast<U>(u));
+    };
 
 
 
@@ -170,13 +170,13 @@ template <class T, class Visitor>
 concept visitable = std::is_reference_v<T> and
     std::is_reference_v<Visitor> and
     requires (T t, Visitor visitor)
-	{
+    {
         // Prefer member `visit` if available, otherwise `std::visit` or ADL `visit`
-		requires
-			requires { static_cast<T>(t).visit(static_cast<Visitor>(visitor)); }
-			or requires { std::visit(static_cast<Visitor>(visitor), static_cast<T>(t)); }
-			or requires { visit(static_cast<Visitor>(visitor), static_cast<T>(t)); };
-	};
+        requires
+            requires { static_cast<T>(t).visit(static_cast<Visitor>(visitor)); }
+            or requires { std::visit(static_cast<Visitor>(visitor), static_cast<T>(t)); }
+            or requires { visit(static_cast<Visitor>(visitor), static_cast<T>(t)); };
+    };
 
 namespace impl {
 

@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -20,7 +20,7 @@ using Seq4 = k3::tok3n::detail::sequence_parser<Non5, All4, Any4>; constexpr Seq
 using Seq5 = k3::tok3n::detail::sequence_parser<Ign1, Ign2>;       constexpr Seq5 seq5;
 
 #define COMPOUND_SAMPLES               \
-	(Cho1) (Cho2) (Cho3) (Cho4) (Cho5) \
-	(Seq1) (Seq2) (Seq3) (Seq4) (Seq5)
+    (Cho1) (Cho2) (Cho3) (Cho4) (Cho5) \
+    (Seq1) (Seq2) (Seq3) (Seq4) (Seq5)
 
 #endif // K3_TOK3N_TESTS_SAMPLES_COMPOUND_HPP
