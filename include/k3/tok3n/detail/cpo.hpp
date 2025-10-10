@@ -189,10 +189,11 @@ concept visitable = std::is_reference_v<T> and
     std::is_reference_v<Visitor> and
     requires (T t, Visitor visitor)
 	{
-        // Prefer member `visit` if available, otherwise `std::visit`
+        // Prefer member `visit` if available, otherwise `std::visit` or ADL `visit`
 		requires
 			requires { static_cast<T>(t).visit(static_cast<Visitor>(visitor)); }
-			or requires { std::visit(static_cast<Visitor>(visitor), static_cast<T>(t)); };
+			or requires { std::visit(static_cast<Visitor>(visitor), static_cast<T>(t)); }
+			or requires { visit(static_cast<Visitor>(visitor), static_cast<T>(t)); };
 	};
 
 namespace impl {
@@ -203,11 +204,13 @@ struct visit_cpo {
     requires visitable<T&&, Visitor&&>
     constexpr decltype(auto) operator()(T&& t, Visitor&& visitor) const
     {
-        // Prefer member `visit` if available, otherwise `std::visit`
+        // Prefer member `visit` if available, otherwise `std::visit` or ADL `visit`
         if constexpr (requires { std::forward<T>(t).visit(std::forward<Visitor>(visitor)); })
             return std::forward<T>(t).visit(std::forward<Visitor>(visitor));
-        else
+        else if constexpr (requires { std::visit(std::forward<Visitor>(visitor), std::forward<T>(t)); })
             return std::visit(std::forward<Visitor>(visitor), std::forward<T>(t));
+        else
+            return visit(std::forward<Visitor>(visitor), std::forward<T>(t));
     }
 };
 
