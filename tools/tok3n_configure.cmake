@@ -5,6 +5,9 @@
 function(tok3n_configure_source_group target)
 
     get_target_property(list_of_files ${target} SOURCES)
+    if(NOT list_of_files)
+        return()
+    endif()
 
     foreach(_source IN ITEMS ${list_of_files})
         if(${_source} MATCHES "^\\$<") # Skip any unevaluated generator expressions
