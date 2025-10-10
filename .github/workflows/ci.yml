@@ -51,6 +51,10 @@ jobs:
             os: ubuntu-24.04
           - clang-version: 21
             os: ubuntu-24.04
+        exclude:
+          # There's some libc++ error for some reason
+          - clang-version: 19
+            cxx-standard: 23
 
     runs-on: ${{matrix.os}}
     steps:
