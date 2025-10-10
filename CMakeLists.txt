@@ -16,7 +16,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     target_sources(k3_tok3n INTERFACE
-        "$<$<CXX_COMPILER_ID:MSVC>:${CMAKE_CURRENT_LIST_DIR}/tools/tok3n.natvis>"
+        "$<$<CXX_COMPILER_ID:MSVC>:${CMAKE_CURRENT_LIST_DIR}/extra/tok3n.natvis>"
     )
 endif()
 
