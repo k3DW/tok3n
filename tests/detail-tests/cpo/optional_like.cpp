@@ -4,7 +4,7 @@
 
 #include "framework/Assert.hpp"
 #include <k3/tok3n/detail/cpo.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <optional>
 
 FIXTURE("optional_like");
@@ -44,31 +44,31 @@ TEST("optional_like", "std::optional")
 
 TEST("optional_like", "tok3n result")
 {
-    SIMPLE_EXPECT((detail::optional_like<detail::result<int, char>>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<int, char>>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<int, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<int, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<int, char>&&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<int, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<result<int, char>>));
+    SIMPLE_EXPECT((detail::optional_like<const result<int, char>>));
+    SIMPLE_EXPECT((detail::optional_like<result<int, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<int, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<result<int, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<int, char>&&>));
 
-    SIMPLE_EXPECT((detail::optional_like<detail::result<double, char>>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<double, char>>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<double, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<double, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<double, char>&&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<double, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<result<double, char>>));
+    SIMPLE_EXPECT((detail::optional_like<const result<double, char>>));
+    SIMPLE_EXPECT((detail::optional_like<result<double, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<double, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<result<double, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<double, char>&&>));
 
-    SIMPLE_EXPECT((detail::optional_like<detail::result<char, char>>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<char, char>>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<char, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<char, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<char, char>&&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<char, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<result<char, char>>));
+    SIMPLE_EXPECT((detail::optional_like<const result<char, char>>));
+    SIMPLE_EXPECT((detail::optional_like<result<char, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<char, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<result<char, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<char, char>&&>));
 
-    SIMPLE_EXPECT((detail::optional_like<detail::result<wchar_t, char>>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<wchar_t, char>>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<wchar_t, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<wchar_t, char>&>));
-    SIMPLE_EXPECT((detail::optional_like<detail::result<wchar_t, char>&&>));
-    SIMPLE_EXPECT((detail::optional_like<const detail::result<wchar_t, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<result<wchar_t, char>>));
+    SIMPLE_EXPECT((detail::optional_like<const result<wchar_t, char>>));
+    SIMPLE_EXPECT((detail::optional_like<result<wchar_t, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<wchar_t, char>&>));
+    SIMPLE_EXPECT((detail::optional_like<result<wchar_t, char>&&>));
+    SIMPLE_EXPECT((detail::optional_like<const result<wchar_t, char>&&>));
 }

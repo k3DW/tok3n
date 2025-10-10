@@ -11,41 +11,41 @@ namespace k3::tok3n::detail {
 
 enum class call_kind
 {
-	parse,
-	parse_into,
-	lookahead,
+    parse,
+    parse_into,
+    lookahead,
 };
 
 struct call_parse_t
 {
-	static constexpr call_kind kind = call_kind::parse;
-	template <parser P, class R>
-	constexpr auto operator()(P, R&& r) const
-	{
-		return P::parse(std::forward<R>(r));
-	}
+    static constexpr call_kind kind = call_kind::parse;
+    template <parser P, class R>
+    constexpr auto operator()(P, R&& r) const
+    {
+        return P::parse(std::forward<R>(r));
+    }
 };
 inline constexpr call_parse_t call_parse{};
 
 struct call_parse_into_t
 {
-	static constexpr call_kind kind = call_kind::parse_into;
-	template <parser P, class R, class Out>
-	constexpr auto operator()(P, R&& r, Out& out) const
-	{
-		return P::parse(std::forward<R>(r), out);
-	}
+    static constexpr call_kind kind = call_kind::parse_into;
+    template <parser P, class R, class Out>
+    constexpr auto operator()(P, R&& r, Out& out) const
+    {
+        return P::parse_into(std::forward<R>(r), out);
+    }
 };
 inline constexpr call_parse_into_t call_parse_into{};
 
 struct call_lookahead_t
 {
-	static constexpr call_kind kind = call_kind::lookahead;
-	template <parser P, class R>
-	constexpr auto operator()(P, R&& r) const
-	{
-		return P::lookahead(std::forward<R>(r));
-	}
+    static constexpr call_kind kind = call_kind::lookahead;
+    template <parser P, class R>
+    constexpr auto operator()(P, R&& r) const
+    {
+        return P::lookahead(std::forward<R>(r));
+    }
 };
 inline constexpr call_lookahead_t call_lookahead{};
 

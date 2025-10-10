@@ -14,17 +14,17 @@ class Fixture;
 class Runner
 {
 public:
-	static Runner& get();
+    static Runner& get();
 
-	int exec(int argc, const char* const argv[]);
+    int exec(int argc, const char* const argv[]);
 
-	bool add(Fixture& fixture);
-	bool add(std::string_view fixture_name, Test&& test);
+    bool add(Fixture& fixture);
+    bool add(std::string_view fixture_name, Test&& test);
 
 private:
-	Runner() = default;
+    Runner() = default;
 
-	std::map<std::string_view, Fixture*> _fixtures;
+    std::map<std::string_view, Fixture*> _fixtures;
 };
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_RUNNER_HPP

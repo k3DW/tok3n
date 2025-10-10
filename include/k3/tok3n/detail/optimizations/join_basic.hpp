@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -18,15 +18,15 @@ template <parser Basic>
 requires std::derived_from<Basic, impl::basic_parser_base<Basic>>
 struct join_parser<Basic> : impl::join_parser_base<join_parser<Basic>>
 {
-	friend struct impl::join_parser_base<join_parser<Basic>>;
-	using value_type = typename impl::join_parser_base<join_parser<Basic>>::value_type;
+    friend struct impl::join_parser_base<join_parser<Basic>>;
+    using value_type = typename impl::join_parser_base<join_parser<Basic>>::value_type;
 
 private:
-	template <input_constructible_for<value_type> R, class Out>
-	static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
-	{
-        return Basic::parse(std::forward<R>(r), out);
-	}
+    template <input_constructible_for<value_type> R, class Out>
+    static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
+    {
+        return Basic::parse_into(std::forward<R>(r), out);
+    }
 };
 
 } // namespace k3::tok3n::detail

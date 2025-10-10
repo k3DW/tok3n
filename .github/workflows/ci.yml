@@ -10,6 +10,10 @@ on:
 
 jobs:
   build-msvc-vs2022:
+    strategy:
+      matrix:
+        cxx-standard: [20, 23]
+
     runs-on: windows-latest
     steps:
       - name: Checkout code
@@ -21,7 +25,8 @@ jobs:
         run: |
           cmake --preset all `
             -B build `
-            -G "Visual Studio 17 2022"
+            -G "Visual Studio 17 2022" `
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
           cmake --build build -j16
 
       - name: Run tok3n tests
@@ -31,6 +36,8 @@ jobs:
   build-clang:
     strategy:
       matrix:
+        clang-version: [16, 17, 18, 19, 20, 21]
+        cxx-standard: [20, 23]
         include:
           - clang-version: 16
             os: ubuntu-22.04
@@ -44,6 +51,10 @@ jobs:
             os: ubuntu-24.04
           - clang-version: 21
             os: ubuntu-24.04
+        exclude:
+          # There's some libc++ error for some reason
+          - clang-version: 19
+            cxx-standard: 23
 
     runs-on: ${{matrix.os}}
     steps:
@@ -65,7 +76,9 @@ jobs:
         run: |
           cmake --preset all \
             -B build \
-            -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}}
+            -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}} \
+            -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
           cmake --build build -j16
 
       - name: Run tok3n tests
@@ -77,6 +90,7 @@ jobs:
     strategy:
       matrix:
         gcc-version: [12, 13, 14]
+        cxx-standard: [20, 23]
 
     steps:
       - name: Checkout code
@@ -92,13 +106,13 @@ jobs:
             gcc-${{matrix.gcc-version}} \
             g++-${{matrix.gcc-version}} \
             libstdc++-${{matrix.gcc-version}}-dev
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-${{matrix.gcc-version}} 999
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-${{matrix.gcc-version}} 999
 
       - name: Build tok3n
         run: |
           cmake --preset all \
-            -B build
+            -B build \
+            -DCMAKE_CXX_COMPILER=g++-${{matrix.gcc-version}} \
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
           cmake --build build -j16
 
       - name: Run tok3n tests

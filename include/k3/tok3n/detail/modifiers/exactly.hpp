@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -14,13 +14,13 @@ template <std::size_t N>
 requires (N != 0)
 struct exactly_modifier final : modifier_base
 {
-	static constexpr auto family = modifier_family::exactly;
+    static constexpr auto family = modifier_family::exactly;
 
-	template <parser P>
-	constexpr auto operator()(P) const
-	{
-		return exactly_parser<P, index_c<N>>{};
-	}
+    template <parser P>
+    constexpr auto operator()(P) const
+    {
+        return exactly_parser<P, index_c<N>>{};
+    }
 };
 
 } // namespace k3::tok3n::detail

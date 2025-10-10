@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -14,7 +14,7 @@ template <static_array arr>
 requires (is_sorted_and_uniqued(arr.span()))
 struct none_of_parser : impl::basic_parser_base<none_of_parser<arr>>
 {
-	static constexpr parser_family family = none_of_family;
+    static constexpr parser_family family = none_of_family;
 };
 
 namespace impl {
@@ -23,15 +23,15 @@ template <static_array arr>
 requires (is_sorted_and_uniqued(arr.span()))
 struct basic_parser_traits<none_of_parser<arr>>
 {
-	using value_type = typename decltype(arr)::value_type;
+    using value_type = typename decltype(arr)::value_type;
 
-	static constexpr std::size_t length = 1;
+    static constexpr std::size_t length = 1;
 
-	template <equality_comparable_with<value_type> V>
-	static constexpr bool failure_condition(input_span<V> input)
-	{
-		return input.empty() || arr.contains(input.front());
-	}
+    template <equality_comparable_with<value_type> V>
+    static constexpr bool failure_condition(input_span<V> input)
+    {
+        return input.empty() || arr.contains(input.front());
+    }
 };
 
 } // namespace impl

@@ -6,35 +6,35 @@
 #define K3_TOK3N_DETAIL_PARSERS_EPSILON_HPP
 
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 
 namespace k3::tok3n::detail {
 
 template <class ValueType>
 struct epsilon_parser
 {
-	using value_type = ValueType;
-	
-	template <equality_comparable_with<value_type> V>
-	using result_for = std::conditional_t<std::same_as<void, V>, V, void>; // Always void
+    using value_type = ValueType;
 
-	static constexpr parser_family family = epsilon_family;
+    template <equality_comparable_with<value_type> V>
+    using result_for = std::conditional_t<std::same_as<void, V>, V, void>; // Always void
 
-	template <input_constructible_for<value_type> R>
-	static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
-	{
-		const input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-        return result<void, V>{ success_tag, input };
-	}
+    static constexpr parser_family family = epsilon_family;
 
-	template <input_constructible_for<value_type> R>
-	static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
-	{
-		const input_span input{ std::forward<R>(r) };
-		using V = input_value_t<R>;
-        return result<void, V>{ success_tag, input };
-	}
+    template <input_constructible_for<value_type> R>
+    static constexpr auto parse(R&& r) -> result<result_for<input_value_t<R>>, input_value_t<R>>
+    {
+        const input_span input{ std::forward<R>(r) };
+        using V = input_value_t<R>;
+        return result<void, V>{ success, input };
+    }
+
+    template <input_constructible_for<value_type> R>
+    static constexpr auto lookahead(R&& r) -> result<void, input_value_t<R>>
+    {
+        const input_span input{ std::forward<R>(r) };
+        using V = input_value_t<R>;
+        return result<void, V>{ success, input };
+    }
 };
 
 } // namespace k3::tok3n::detail

@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-Copyright 2024 Braden Ganetsky
+Copyright 2024-2025 Braden Ganetsky
 Distributed under the Boost Software License, Version 1.0.
 https://www.boost.org/LICENSE_1_0.txt
 -->
 
 <AutoVisualizer xmlns="http://schemas.microsoft.com/vstudio/debugger/natvis/2010">
-  
-  <Type Name="k3::tok3n::detail::span&lt;*&gt;">
+
+  <Type Name="k3::tok3n::span&lt;*&gt;">
     <DisplayString>{_value}</DisplayString>
     <Expand>
         <ExpandedItem>_value</ExpandedItem>
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::detail::result&lt;void,*&gt;" Priority="High">
+  <Type Name="k3::tok3n::result&lt;void,*&gt;" Priority="High">
     <DisplayString Condition="_successful">success</DisplayString>
     <DisplayString Condition="!_successful">failure</DisplayString>
     <Expand>
-        <Item Name="[remaining]">_remaining</Item>  
+        <Item Name="[remaining]">_remaining</Item>
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::detail::result&lt;*&gt;" Priority="Medium">
+  <Type Name="k3::tok3n::result&lt;*&gt;" Priority="Medium">
     <DisplayString Condition="_result._Has_value">success</DisplayString>
     <DisplayString Condition="!_result._Has_value">failure</DisplayString>
     <Expand>
-        <Item Name="[result]" Condition="_result._Has_value">_result._Value</Item>  
-        <Item Name="[remaining]">_remaining</Item>  
+        <Item Name="[result]" Condition="_result._Has_value">_result._Value</Item>
+        <Item Name="[remaining]">_remaining</Item>
     </Expand>
   </Type>
 

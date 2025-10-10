@@ -1,4 +1,4 @@
-// Copyright 2022-2024 Braden Ganetsky
+// Copyright 2022-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -27,8 +27,8 @@ using Nam3 = k3::tok3n::detail::named_parser<_23, "nam3">; constexpr Nam3 nam3;
 using Nam4 = k3::tok3n::detail::named_parser<_24, "nam4">; constexpr Nam4 nam4;
 
 #define ADAPTOR_SAMPLES                              \
-	(Ign1) (Ign2) (Ign3) (Ign4) (Ign5)               \
-	(Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7) \
-	(Nam1) (Nam2) (Nam3) (Nam4)
+    (Ign1) (Ign2) (Ign3) (Ign4) (Ign5)               \
+    (Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7) \
+    (Nam1) (Nam2) (Nam3) (Nam4)
 
 #endif // K3_TOK3N_TESTS_SAMPLES_ADAPTOR_HPP

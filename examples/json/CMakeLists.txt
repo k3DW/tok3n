@@ -11,4 +11,4 @@ set_target_properties(json
         FOLDER examples
 )
 
-target_link_libraries(json tok3n_shared_settings)
+target_link_libraries(json PRIVATE k3::tok3n)

@@ -1,40 +1,40 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
 #ifndef K3_TOK3N_DETAIL_PARSER_HPP
 #define K3_TOK3N_DETAIL_PARSER_HPP
 
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 
 namespace k3::tok3n::detail {
 
 enum class parser_family
 {
-	none,
+    none,
 
-	any_of,
-	none_of,
-	all_of,
-	anything,
-	epsilon,
-	choice,
-	sequence,
-	maybe,
-	exactly,
-	one_or_more,
-	zero_or_more,
-	delimit,
-	ignore,
-	complete,
-	join,
-	map,
-	filter,
-	named,
-	custom,
+    any_of,
+    none_of,
+    all_of,
+    anything,
+    epsilon,
+    choice,
+    sequence,
+    maybe,
+    exactly,
+    one_or_more,
+    zero_or_more,
+    delimit,
+    ignore,
+    complete,
+    join,
+    map,
+    filter,
+    named,
+    custom,
 
-	end
+    end
 };
 
 inline constexpr parser_family any_of_family       = parser_family::any_of;
@@ -65,53 +65,53 @@ template <template <class...> class A>
 struct template_template_parameter_checker {};
 
 } // namespace impl
-    
+
 template <class P_raw, class P = std::remove_reference_t<P_raw>>
 concept parser =
     std::same_as<P, std::remove_reference_t<P_raw>> and // The 2nd parameter must only ever be defaulted
-	enum_within_bounds<parser_family, static_cast<parser_family>(P::family), parser_family::none, parser_family::end> and
-	std::is_empty_v<P> and
-	implicitly_default_constructible<P> and
-	requires { typename P::value_type; } and
-	requires { impl::template_template_parameter_checker<P::template result_for>{}; };
-    
+    enum_within_bounds<parser_family, static_cast<parser_family>(P::family), parser_family::none, parser_family::end> and
+    std::is_empty_v<P> and
+    implicitly_default_constructible<P> and
+    requires { typename P::value_type; } and
+    requires { impl::template_template_parameter_checker<P::template result_for>{}; };
+
 template <class P, class V>
 concept parser_for =
-	parser<P> and
-	equality_comparable_with<V, typename P::value_type> and
-	requires (input_span<V> input)
-	{
-		typename P::template result_for<V>;
-		P::parse(input);
-		P::lookahead(input);
-		{ P::parse(input) } -> result_of<typename P::template result_for<V>, V>;
-		{ P::lookahead(input) } -> result_of<void, V>;
-	};
+    parser<P> and
+    equality_comparable_with<V, typename P::value_type> and
+    requires (input_span<V> input)
+    {
+        typename P::template result_for<V>;
+        P::parse(input);
+        P::lookahead(input);
+        { P::parse(input) } -> result_of<typename P::template result_for<V>, V>;
+        { P::lookahead(input) } -> result_of<void, V>;
+    };
 
 template <class P1, class P2>
-concept parser_compatible_with = 
-	parser<P1> and
-	parser<P2> and
-	std::same_as<typename P1::value_type, typename P2::value_type>;
+concept parser_compatible_with =
+    parser<P1> and
+    parser<P2> and
+    std::same_as<typename P1::value_type, typename P2::value_type>;
 
 template <class P, class R>
 concept basic_parsable =
-	parser<P> and
-	input_constructible_for<R, typename P::value_type>;
+    parser<P> and
+    input_constructible_for<R, typename P::value_type>;
 
 template <class P, class R, class Out>
 concept parsable_into =
-	basic_parsable<P, R> and
-	requires (R r, Out& out)
-	{
-		requires std::is_reference_v<R>; // The call to `std::forward` below makes no sense otherwise
-		{ P::parse(std::forward<R>(r), out) } -> std::same_as<result<void, input_value_t<R>>>;
-	};
+    basic_parsable<P, R> and
+    std::is_reference_v<R> and
+    requires (R r, Out& out)
+    {
+        { P::parse_into(static_cast<R>(r), out) } -> std::same_as<result<void, input_value_t<R>>>;
+    };
 
 template <class P, class R>
 concept parsable_void =
-	basic_parsable<P, R> and
-	std::same_as<void, typename P::template result_for<input_value_t<R>>>;
+    basic_parsable<P, R> and
+    std::same_as<void, typename P::template result_for<input_value_t<R>>>;
 
 } // namespace k3::tok3n::detail
 

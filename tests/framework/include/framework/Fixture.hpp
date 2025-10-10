@@ -17,45 +17,45 @@ struct FixtureResult;
 class Fixture
 {
 public:
-	void add_test(Test&& test);
+    void add_test(Test&& test);
 
-	std::string_view name() const
-	{
-		return _name;
-	}
+    std::string_view name() const
+    {
+        return _name;
+    }
 
-	FixtureResult run(std::ostream& os) const;
-	FixtureResult run(std::ostream& os, std::string_view test_name) const;
+    FixtureResult run(std::ostream& os) const;
+    FixtureResult run(std::ostream& os, std::string_view test_name) const;
 
-	void list(std::ostream& os) const;
+    void list(std::ostream& os) const;
 
 protected:
-	Fixture(std::string name)
-		: _name(std::move(name))
-	{}
+    Fixture(std::string name)
+        : _name(std::move(name))
+    {}
 
-	template <std::size_t hash>
-	static Fixture& global(std::string name) {
-		static Fixture f(std::move(name));
-		return f;
-	}
+    template <std::size_t hash>
+    static Fixture& global(std::string name) {
+        static Fixture f(std::move(name));
+        return f;
+    }
 
 private:
-	std::string _name;
-	std::unordered_map<std::string_view, Test> _tests;
+    std::string _name;
+    std::unordered_map<std::string_view, Test> _tests;
 };
 
 
 
 #define FIXTURE(NAME)                                                    \
-	template <std::size_t hash>                                          \
-	class FixtureImpl;                                                   \
-	template <>                                                          \
-	class FixtureImpl<test_hash(NAME)> : private ::Fixture               \
-	{                                                                    \
-	private:                                                             \
-		static inline bool _init =                                       \
-			Runner::get().add(::Fixture::global<test_hash(NAME)>(NAME)); \
-	}
+    template <std::size_t hash>                                          \
+    class FixtureImpl;                                                   \
+    template <>                                                          \
+    class FixtureImpl<test_hash(NAME)> : private ::Fixture               \
+    {                                                                    \
+    private:                                                             \
+        static inline bool _init =                                       \
+            Runner::get().add(::Fixture::global<test_hash(NAME)>(NAME)); \
+    }
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP
