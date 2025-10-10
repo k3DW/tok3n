@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_PARSER_HPP
 #define K3_TOK3N_DETAIL_PARSER_HPP
 
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 
 namespace k3::tok3n::detail {

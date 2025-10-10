@@ -24,7 +24,7 @@ private:
 
         result<void, V> res = join_parser<P>::parse_into(input, out);
         if (not res.has_value() or not res.remaining().empty())
-            return { failure_tag, input };
+            return { failure, input };
         else
             return res;
     }

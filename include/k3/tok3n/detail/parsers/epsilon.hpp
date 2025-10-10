@@ -6,7 +6,7 @@
 #define K3_TOK3N_DETAIL_PARSERS_EPSILON_HPP
 
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 
 namespace k3::tok3n::detail {
 
@@ -25,7 +25,7 @@ struct epsilon_parser
     {
         const input_span input{ std::forward<R>(r) };
         using V = input_value_t<R>;
-        return result<void, V>{ success_tag, input };
+        return result<void, V>{ success, input };
     }
 
     template <input_constructible_for<value_type> R>
@@ -33,7 +33,7 @@ struct epsilon_parser
     {
         const input_span input{ std::forward<R>(r) };
         using V = input_value_t<R>;
-        return result<void, V>{ success_tag, input };
+        return result<void, V>{ success, input };
     }
 };
 

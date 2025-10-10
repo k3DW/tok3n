@@ -8,7 +8,7 @@
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <array>
 
 namespace k3::tok3n::detail {
@@ -74,11 +74,11 @@ private:
             if (not res.has_value())
             {
                 (..., (out = Out{}));
-                return result<void, V>{ failure_tag, original_input };
+                return result<void, V>{ failure, original_input };
             }
             input = res.remaining();
         }
-        return result<void, V>{ success_tag, input };
+        return result<void, V>{ success, input };
     }
 };
 

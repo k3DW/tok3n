@@ -7,7 +7,7 @@
 
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <functional>
 #include <utility>
 
@@ -69,13 +69,13 @@ private:
 
         result<void, V> res = call(P{}, input, out...);
         if (not res.has_value())
-            return { failure_tag, input };
+            return { failure, input };
 
         static_assert(requires { { std::invoke(FunctionValue::value, std::as_const(out)...) } -> std::convertible_to<bool>; });
         if (std::invoke(FunctionValue::value, std::as_const(out)...))
             return res;
         else
-            return { failure_tag, input };
+            return { failure, input };
     }
 };
 

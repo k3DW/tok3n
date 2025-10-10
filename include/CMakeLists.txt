@@ -11,6 +11,7 @@ target_sources(k3_tok3n INTERFACE FILE_SET headers TYPE HEADERS FILES
     k3/tok3n/modifiers.hpp
     k3/tok3n/operators.hpp
     k3/tok3n/parsers.hpp
+    k3/tok3n/result.hpp
     k3/tok3n/span.hpp
     k3/tok3n/detail/apply_invoke.hpp
     k3/tok3n/detail/call.hpp
@@ -20,7 +21,6 @@ target_sources(k3_tok3n INTERFACE FILE_SET headers TYPE HEADERS FILES
     k3/tok3n/detail/function_objects.hpp
     k3/tok3n/detail/modifier.hpp
     k3/tok3n/detail/parser.hpp
-    k3/tok3n/detail/result.hpp
     k3/tok3n/detail/set_operations.hpp
     k3/tok3n/detail/static_array.hpp
     k3/tok3n/detail/substitution.hpp

@@ -20,7 +20,7 @@ private:
     static constexpr result<void, input_value_t<R>> _parse_impl(R&& r, Out& out)
     {
         out = Out{};
-        return { success_tag, input_span{ std::forward<R>(r) } };
+        return { success, input_span{ std::forward<R>(r) } };
     }
 };
 

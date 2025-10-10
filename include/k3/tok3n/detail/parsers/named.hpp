@@ -6,7 +6,7 @@
 #define K3_TOK3N_DETAIL_PARSERS_NAMED_HPP
 
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 
 namespace k3::tok3n::detail {
 

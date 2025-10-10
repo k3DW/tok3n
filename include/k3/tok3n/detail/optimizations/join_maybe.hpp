@@ -23,7 +23,7 @@ private:
         using V = input_value_t<R>;
 
         result<void, V> res = join_parser<P>::parse_into(input, out);
-        return { success_tag, res.remaining() };
+        return { success, res.remaining() };
     }
 };
 

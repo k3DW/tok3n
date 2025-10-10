@@ -9,6 +9,7 @@
 #include <k3/tok3n/modifiers.hpp>
 #include <k3/tok3n/operators.hpp>
 #include <k3/tok3n/parsers.hpp>
+#include <k3/tok3n/result.hpp>
 #include <k3/tok3n/span.hpp>
 
 #endif // K3_TOK3N_HPP

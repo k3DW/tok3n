@@ -8,7 +8,7 @@
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <vector>
 
 namespace k3::tok3n::detail {

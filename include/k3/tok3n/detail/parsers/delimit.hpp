@@ -8,7 +8,7 @@
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <utility>
 #include <vector>
 
@@ -153,7 +153,7 @@ private:
 
         auto res = executor.template call<0>(input);
         if (not res.has_value())
-            return { failure_tag, input };
+            return { failure, input };
 
         executor.template maybe_push<0>(std::move(res), out...);
 
@@ -173,7 +173,7 @@ private:
             }
         }
 
-        return { success_tag, input };
+        return { success, input };
     }
 };
 

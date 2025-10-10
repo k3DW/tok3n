@@ -8,7 +8,7 @@
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <array>
 #include <optional>
 #include <tuple>
@@ -226,10 +226,10 @@ private:
             if (joined)
             {
                 out = *std::move(joined);
-                return { success_tag, res.remaining() };
+                return { success, res.remaining() };
             }
         }
-        return { failure_tag, input };
+        return { failure, input };
     }
 };
 

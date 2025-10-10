@@ -14,7 +14,7 @@ https://www.boost.org/LICENSE_1_0.txt
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::detail::result&lt;void,*&gt;" Priority="High">
+  <Type Name="k3::tok3n::result&lt;void,*&gt;" Priority="High">
     <DisplayString Condition="_successful">success</DisplayString>
     <DisplayString Condition="!_successful">failure</DisplayString>
     <Expand>
@@ -22,7 +22,7 @@ https://www.boost.org/LICENSE_1_0.txt
     </Expand>
   </Type>
 
-  <Type Name="k3::tok3n::detail::result&lt;*&gt;" Priority="Medium">
+  <Type Name="k3::tok3n::result&lt;*&gt;" Priority="Medium">
     <DisplayString Condition="_result._Has_value">success</DisplayString>
     <DisplayString Condition="!_result._Has_value">failure</DisplayString>
     <Expand>

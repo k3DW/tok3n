@@ -36,7 +36,7 @@ private:
         }
 
         out = Out{ ptr, length };
-        return { success_tag, input };
+        return { success, input };
     }
 };
 

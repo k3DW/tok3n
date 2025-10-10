@@ -7,7 +7,7 @@
 
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <functional>
 
 namespace k3::tok3n::detail {
@@ -73,26 +73,26 @@ private:
         {
             result<void, V> res = P::parse(std::forward<R>(r));
             if (not res.has_value())
-                return { failure_tag, res.remaining() };
+                return { failure, res.remaining() };
 
             if constexpr (sizeof...(out) == 0)
                 std::invoke(FunctionValue::value);
             else
                 (..., (out = std::invoke(FunctionValue::value)));
-            return { success_tag, res.remaining() };
+            return { success, res.remaining() };
         }
         else
         {
             typename P::template result_for<V> before;
             result<void, V> res = P::parse_into(std::forward<R>(r), before);
             if (not res.has_value())
-                return { failure_tag, res.remaining() };
+                return { failure, res.remaining() };
 
             if constexpr (sizeof...(out) == 0)
                 std::invoke(FunctionValue::value, std::move(before));
             else
                 (..., (out = std::invoke(FunctionValue::value, std::move(before))));
-            return { success_tag, res.remaining() };
+            return { success, res.remaining() };
         }
     }
 };

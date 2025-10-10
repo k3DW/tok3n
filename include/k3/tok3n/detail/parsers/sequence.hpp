@@ -9,7 +9,7 @@
 #include <k3/tok3n/detail/compound.hpp>
 #include <k3/tok3n/detail/filter.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <tuple>
 
 namespace k3::tok3n::detail {

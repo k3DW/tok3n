@@ -4,7 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n::detail;
+using k3::tok3n::result;
+using k3::tok3n::detail::result_of;
 
 FIXTURE("result");
 

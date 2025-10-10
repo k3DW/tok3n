@@ -7,7 +7,7 @@
 
 #include <k3/tok3n/detail/call.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 #include <optional>
 
 namespace k3::tok3n::detail {
@@ -66,7 +66,7 @@ private:
         if constexpr (sizeof...(Out) == 0)
         {
             result<void, V> res = call(P{}, input);
-            return { success_tag, res.remaining() };
+            return { success, res.remaining() };
         }
         else
         {
@@ -74,7 +74,7 @@ private:
             result<void, V> res = call(P{}, input, element);
             if (res.has_value())
                 (..., (out = std::move(element)));
-            return { success_tag, res.remaining() };
+            return { success, res.remaining() };
         }
     }
 };

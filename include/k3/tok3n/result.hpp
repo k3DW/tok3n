@@ -2,16 +2,16 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifndef K3_TOK3N_DETAIL_RESULT_HPP
-#define K3_TOK3N_DETAIL_RESULT_HPP
+#ifndef K3_TOK3N_RESULT_HPP
+#define K3_TOK3N_RESULT_HPP
 
 #include <k3/tok3n/span.hpp>
 #include <optional>
 
-namespace k3::tok3n::detail {
+namespace k3::tok3n {
 
-inline constexpr struct failure_tag_t final {} failure_tag;
-inline constexpr struct success_tag_t final {} success_tag;
+inline constexpr struct failure_t final {} failure;
+inline constexpr struct success_t final {} success;
 
 template <class T, class U>
 requires (not std::is_reference_v<T>)
@@ -23,13 +23,13 @@ public:
 
     constexpr result() = default;
 
-    constexpr result(failure_tag_t, input_span<U> remaining)
+    constexpr result(failure_t, input_span<U> remaining)
         : _result(), _remaining(remaining) {}
 
-    constexpr result(success_tag_t, const T& t, input_span<U> remaining) requires std::constructible_from<T, const T&>
+    constexpr result(success_t, const T& t, input_span<U> remaining) requires std::constructible_from<T, const T&>
         : _result(t), _remaining(remaining) {}
 
-    constexpr result(success_tag_t, T&& t, input_span<U> remaining) requires std::constructible_from<T, T&&>
+    constexpr result(success_t, T&& t, input_span<U> remaining) requires std::constructible_from<T, T&&>
         : _result(std::move(t)), _remaining(remaining) {}
 
     template <class T2>
@@ -73,14 +73,14 @@ public:
 
     constexpr result() = default;
 
-    constexpr result(failure_tag_t, input_span<U> remaining)
+    constexpr result(failure_t, input_span<U> remaining)
         : _successful(false), _remaining(remaining) {}
 
-    constexpr result(success_tag_t, input_span<U> remaining)
+    constexpr result(success_t, input_span<U> remaining)
         : _successful(true), _remaining(remaining) {}
 
-    explicit constexpr result(bool success, input_span<U> remaining)
-        : _successful(success), _remaining(remaining) {}
+    explicit constexpr result(bool successful, input_span<U> remaining)
+        : _successful(successful), _remaining(remaining) {}
 
     constexpr explicit operator bool() const noexcept { return _successful; }
     constexpr bool has_value() const noexcept         { return _successful; }
@@ -91,9 +91,9 @@ public:
     constexpr auto with_value(T&& t) const
     {
         if (_successful)
-            return result<std::remove_cvref_t<T>, U>{ success_tag, std::forward<T>(t), _remaining };
+            return result<std::remove_cvref_t<T>, U>{ success, std::forward<T>(t), _remaining };
         else
-            return result<std::remove_cvref_t<T>, U>{ failure_tag, _remaining };
+            return result<std::remove_cvref_t<T>, U>{ failure, _remaining };
     }
 
 private:
@@ -103,7 +103,7 @@ private:
 
 
 
-namespace impl {
+namespace detail {
 
 template <class R>
 extern std::false_type is_result_v;
@@ -117,14 +117,14 @@ extern std::bool_constant<is_result_v<R>> is_result_v<R&>;
 template <class R>
 extern std::bool_constant<is_result_v<R>> is_result_v<R&&>;
 
-} // namespace impl
-
 template <class R, class T, class U>
 concept result_of =
-    decltype(impl::is_result_v<R>)::value and
+    decltype(is_result_v<R>)::value and
     std::same_as<T, typename R::value_type> and
     std::same_as<U, typename R::span_type>;
 
-} // namespace k3::tok3n::detail
+} // namespace detail
 
-#endif // K3_TOK3N_DETAIL_RESULT_HPP
+} // namespace k3::tok3n
+
+#endif // K3_TOK3N_RESULT_HPP

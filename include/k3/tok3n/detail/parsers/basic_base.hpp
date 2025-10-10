@@ -7,7 +7,7 @@
 
 #include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
-#include <k3/tok3n/detail/result.hpp>
+#include <k3/tok3n/result.hpp>
 
 namespace k3::tok3n::detail {
 
@@ -60,12 +60,12 @@ private:
         using Traits = basic_parser_traits<P>;
         if (Traits::failure_condition(input))
         {
-            return { failure_tag, input };
+            return { failure, input };
         }
         else
         {
             (..., (out = Out{ input.data(), Traits::length }));
-            return { success_tag, { input.data() + Traits::length, input.size() - Traits::length } };
+            return { success, { input.data() + Traits::length, input.size() - Traits::length } };
         }
     }
 };

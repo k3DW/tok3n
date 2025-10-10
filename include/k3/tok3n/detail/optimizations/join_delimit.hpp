@@ -30,7 +30,7 @@ private:
             Out nested;
             res = join_parser<P>::parse_into(input, nested);
             if (not res.has_value())
-                return { failure_tag, input };
+                return { failure, input };
             length += nested.size();
         }
 
@@ -50,7 +50,7 @@ private:
         }
 
         out = Out{ ptr, length };
-        return { success_tag, input };
+        return { success, input };
     }
 };
 

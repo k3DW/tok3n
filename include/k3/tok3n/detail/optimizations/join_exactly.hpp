@@ -31,13 +31,13 @@ private:
             Out nested;
             result<void, V> res = join_parser<P>::parse_into(input, nested);
             if (not res.has_value())
-                return { failure_tag, original_input };
+                return { failure, original_input };
             input = res.remaining();
             length += nested.size();
         }
 
         out = Out{ ptr, length };
-        return { success_tag, input };
+        return { success, input };
     }
 };
 
