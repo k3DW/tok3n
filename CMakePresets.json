@@ -11,6 +11,8 @@
             "displayName": "tok3n default",
             "description": "Build nothing, just expose tok3n as a header-only library",
             "cacheVariables": {
+                "TOK3N_CXX_STANDARD": "detect",
+                "TOK3N_CXX_WARNINGS": "detect",
                 "TOK3N_BUILD_EXE": "OFF",
                 "TOK3N_BUILD_TESTS": "OFF",
                 "TOK3N_DISCOVER_TESTS": "OFF",
@@ -49,6 +51,7 @@
             "name": "all",
             "displayName": "All tok3n targets",
             "description": "Build everything from the other configurations",
+            "inherits": "default",
             "cacheVariables": {
                 "TOK3N_BUILD_EXE": "ON",
                 "TOK3N_BUILD_TESTS": "ON",
