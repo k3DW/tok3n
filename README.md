@@ -55,15 +55,21 @@ constexpr auto abc = "abc"_all;
 This is a parser that checks for `'a'`, then `'b'`, then `'c'`, in that order.
 
 ```cpp
+constexpr auto result = abc.parse("abcd");
+```
+
+Alternatively, because the parser takes any contiguous range, we could use a `std::array` like the following.
+
+```cpp
 constexpr std::array<char, 4> arr{{ 'a', 'b', 'c', 'd' }};
 constexpr auto result = abc.parse(arr);
 ```
 
-Even though `arr` is a `std::array`, it is still a contiguous range, so this is fine.
+Either way, the following `static_assert`s will hold.
 
 ```cpp
 static_assert(result); // could call `result.has_value()`
-static_assert(*result == "abc");
+static_assert(*result == "abc"); // could call `result.value()`
 static_assert(result.remaining() == "d");
 ```
 
