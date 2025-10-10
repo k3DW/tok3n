@@ -102,10 +102,10 @@ concept basic_parsable =
 template <class P, class R, class Out>
 concept parsable_into =
     basic_parsable<P, R> and
+    std::is_reference_v<R> and
     requires (R r, Out& out)
     {
-        requires std::is_reference_v<R>; // The call to `std::forward` below makes no sense otherwise
-        { P::parse_into(std::forward<R>(r), out) } -> std::same_as<result<void, input_value_t<R>>>;
+        { P::parse_into(static_cast<R>(r), out) } -> std::same_as<result<void, input_value_t<R>>>;
     };
 
 template <class P, class R>
