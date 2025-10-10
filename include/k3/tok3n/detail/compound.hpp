@@ -151,7 +151,7 @@ private:
 		if (res.has_value())
 		{
 			if constexpr (type == compound_type::choice)
-				emplace<I>(out, std::move(element));
+				out.template emplace<I>(std::move(element));
 			else if constexpr (type == compound_type::sequence)
 				get_<I>(out) = std::move(element);
 			else

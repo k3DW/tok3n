@@ -164,24 +164,6 @@ concept emplaceable = std::is_reference_v<U> and
 		t.template emplace<I>(static_cast<U>(u));
 	};
 
-namespace impl {
-
-template <std::size_t I>
-struct emplace_cpo {
-    explicit constexpr emplace_cpo() = default;
-    template <class T, class U>
-    requires emplaceable<T, U&&, I>
-    constexpr decltype(auto) operator()(T& t, U&& u) const
-    {
-        return t.template emplace<I>(std::forward<U>(u));
-    }
-};
-
-} // namespace impl
-
-template <std::size_t I>
-inline constexpr impl::emplace_cpo<I> emplace{};
-
 
 
 template <class T, class Visitor>
