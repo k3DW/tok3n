@@ -58,11 +58,13 @@ concept span_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref
 	};
 
 template <class T>
-concept optional_like = requires (T& t, const T& ct)
+concept optional_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
 	{
-		typename T::value_type;
-		{ *t } -> std::same_as<typename T::value_type&>;
-		{ *ct } -> std::same_as<const typename T::value_type&>;
+		typename std::remove_cvref_t<T>::value_type;
+		{ *t } -> std::same_as<typename std::remove_cvref_t<T>::value_type&>;
+		{ *ct } -> std::same_as<const typename std::remove_cvref_t<T>::value_type&>;
+        { *static_cast<std::remove_cvref_t<T>&&>(t) } -> std::same_as<typename std::remove_cvref_t<T>::value_type&&>;
+        { *static_cast<const std::remove_cvref_t<T>&&>(ct) } -> std::same_as<const typename std::remove_cvref_t<T>::value_type&&>;
 		{ ct.has_value() } -> std::same_as<bool>;
 	};
 
