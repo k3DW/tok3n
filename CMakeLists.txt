@@ -10,8 +10,6 @@ project (k3_tok3n
 
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-include(tools/tok3n_configure.cmake)
-
 add_subdirectory(include)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")

@@ -11,8 +11,6 @@ target_sources(algebraic PRIVATE FILE_SET headers TYPE HEADERS FILES
     print.hpp
 )
 
-tok3n_configure_source_group(algebraic)
-
 set_target_properties(algebraic
     PROPERTIES
         FOLDER examples

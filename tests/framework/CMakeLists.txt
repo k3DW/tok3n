@@ -20,8 +20,6 @@ target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
     include/framework/TestResult.hpp
 )
 
-tok3n_configure_source_group(framework)
-
 target_include_directories(framework PUBLIC include)
 
 target_link_libraries(framework PUBLIC tok3n_shared_settings)

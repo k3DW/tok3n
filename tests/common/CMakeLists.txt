@@ -27,8 +27,6 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/samples/sub_parsers.hpp
 )
 
-tok3n_configure_source_group(common)
-
 target_include_directories(common INTERFACE include)
 
 target_link_libraries(common INTERFACE framework)

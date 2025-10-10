@@ -12,8 +12,6 @@ macro(tok3n_add_basic_test_executable target assembly_name)
     add_executable(${target} ${ARGN})
     target_link_libraries(${target} PRIVATE framework)
 
-    tok3n_configure_source_group(${target})
-
     set_target_properties(${target}
         PROPERTIES
             FOLDER tests

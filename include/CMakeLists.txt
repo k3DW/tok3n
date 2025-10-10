@@ -92,5 +92,3 @@ target_sources(k3_tok3n INTERFACE FILE_SET headers TYPE HEADERS FILES
 )
 
 target_include_directories(k3_tok3n INTERFACE .)
-
-tok3n_configure_source_group(k3_tok3n)
