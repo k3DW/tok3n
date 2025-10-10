@@ -69,14 +69,23 @@ concept optional_like = requires (std::remove_cvref_t<T>& t, const std::remove_c
 	};
 
 template <class T>
-concept tuple_like = requires (const T& ct)
+concept tuple_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
 	{
-		std::tuple_size<T>{};
-		std::tuple_size<T>::value;
-		requires std::tuple_size_v<T> != 0;
-		[]<std::size_t... Is>(const T& ct_, std::index_sequence<Is...>) {
+		std::tuple_size<std::decay_t<T>>{};
+		std::tuple_size<std::decay_t<T>>::value;
+		requires std::tuple_size_v<std::decay_t<T>> != 0;
+		[]<std::size_t... Is>(std::remove_cvref_t<T>& t_, std::index_sequence<Is...>) {
+			(..., get_<Is>(t_));
+		}(t, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+		[]<std::size_t... Is>(const std::remove_cvref_t<T>& ct_, std::index_sequence<Is...>) {
 			(..., get_<Is>(ct_));
-		}(ct, std::make_index_sequence<std::tuple_size_v<T>>{});
+		}(ct, std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+		[]<std::size_t... Is>(std::remove_cvref_t<T>&& t_, std::index_sequence<Is...>) {
+			(..., get_<Is>(static_cast<std::remove_cvref_t<T>&&>(t_)));
+		}(static_cast<std::remove_cvref_t<T>&&>(t), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
+		[]<std::size_t... Is>(const std::remove_cvref_t<T>&& ct_, std::index_sequence<Is...>) {
+			(..., get_<Is>(static_cast<const std::remove_cvref_t<T>&&>(ct_)));
+		}(static_cast<const std::remove_cvref_t<T>&&>(ct), std::make_index_sequence<std::tuple_size_v<std::decay_t<T>>>{});
 	};
 
 
