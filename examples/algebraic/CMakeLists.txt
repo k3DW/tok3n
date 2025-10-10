@@ -3,12 +3,12 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 add_executable(algebraic
-    ${CMAKE_CURRENT_LIST_DIR}/algebraic.cpp
+    algebraic.cpp
 )
 target_sources(algebraic PRIVATE FILE_SET headers TYPE HEADERS FILES
-    ${CMAKE_CURRENT_LIST_DIR}/evaluate.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/parser.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/print.hpp
+    evaluate.hpp
+    parser.hpp
+    print.hpp
 )
 
 tok3n_configure_source_group(algebraic)

@@ -1,7 +1,9 @@
-# Copyright 2024 Braden Ganetsky
+# Copyright 2024-2025 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
+# This function is broken in its current state.
+# It was originally supposed to put all the sources into a nice state for Visual Studio projects.
 function(tok3n_configure_source_group target)
 
     get_target_property(list_of_files ${target} SOURCES)
@@ -14,8 +16,7 @@ function(tok3n_configure_source_group target)
             continue()
         endif()
         get_filename_component(_source_path "${_source}" DIRECTORY)
-        file(RELATIVE_PATH _source_path_rel "${CMAKE_CURRENT_LIST_DIR}" "${_source_path}")
-        string(REPLACE "/" "\\" _group_path "${_source_path_rel}")
+        string(REPLACE "/" "\\" _group_path "${_source_path}")
         source_group("${_group_path}" FILES "${_source}")
     endforeach()
 

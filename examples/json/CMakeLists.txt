@@ -3,7 +3,7 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 add_executable(json
-    ${CMAKE_CURRENT_LIST_DIR}/json.cpp
+    json.cpp
 )
 
 tok3n_configure_source_group(json)

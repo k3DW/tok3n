@@ -4,27 +4,27 @@
 
 add_library(common INTERFACE)
 target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
-    ${CMAKE_CURRENT_LIST_DIR}/include/common.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/asserts/Concept.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/asserts/Constructible.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/asserts/Equality.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/asserts/Operation.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/asserts/Parse.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/underlying.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/common/wrappers.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/adaptor.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/basic-char.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/basic-non-char.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/classes.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/compound.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/divergent.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/functions.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/helpers.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/macros-char.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/macros-common.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/macros-non-char.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/repeat.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/samples/sub_parsers.hpp
+    include/common.hpp
+    include/common/asserts/Concept.hpp
+    include/common/asserts/Constructible.hpp
+    include/common/asserts/Equality.hpp
+    include/common/asserts/Operation.hpp
+    include/common/asserts/Parse.hpp
+    include/common/underlying.hpp
+    include/common/wrappers.hpp
+    include/samples/adaptor.hpp
+    include/samples/basic-char.hpp
+    include/samples/basic-non-char.hpp
+    include/samples/classes.hpp
+    include/samples/compound.hpp
+    include/samples/divergent.hpp
+    include/samples/functions.hpp
+    include/samples/helpers.hpp
+    include/samples/macros-char.hpp
+    include/samples/macros-common.hpp
+    include/samples/macros-non-char.hpp
+    include/samples/repeat.hpp
+    include/samples/sub_parsers.hpp
 )
 
 tok3n_configure_source_group(common)

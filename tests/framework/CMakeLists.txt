@@ -3,21 +3,21 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 add_library(framework STATIC
-    ${CMAKE_CURRENT_LIST_DIR}/src/Error.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Fixture.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Runner.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/Test.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/TestResult.cpp
+    src/Error.cpp
+    src/Fixture.cpp
+    src/Runner.cpp
+    src/Test.cpp
+    src/TestResult.cpp
 )
 target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Assert.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Error.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Fixture.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Hash.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Runner.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/Test.hpp
-    ${CMAKE_CURRENT_LIST_DIR}/include/framework/TestResult.hpp
+    include/framework.hpp
+    include/framework/Assert.hpp
+    include/framework/Error.hpp
+    include/framework/Fixture.hpp
+    include/framework/Hash.hpp
+    include/framework/Runner.hpp
+    include/framework/Test.hpp
+    include/framework/TestResult.hpp
 )
 
 tok3n_configure_source_group(framework)
