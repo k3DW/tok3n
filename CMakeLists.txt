@@ -42,6 +42,5 @@ if (TOK3N_BUILD_EXAMPLES)
 endif()
 
 if (TOK3N_BUILD_EXE)
-    add_executable(k3_tok3n_exe "src/main.cpp")
-    target_link_libraries(k3_tok3n_exe PRIVATE k3::tok3n)
+    add_subdirectory(src)
 endif()
