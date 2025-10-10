@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_RESULT_HPP
 #define K3_TOK3N_DETAIL_RESULT_HPP
 
-#include <k3/tok3n/detail/span.hpp>
+#include <k3/tok3n/span.hpp>
 #include <optional>
 
 namespace k3::tok3n::detail {

@@ -2,15 +2,15 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifndef K3_TOK3N_DETAIL_SPAN_HPP
-#define K3_TOK3N_DETAIL_SPAN_HPP
+#ifndef K3_TOK3N_SPAN_HPP
+#define K3_TOK3N_SPAN_HPP
 
 #include <ranges>
 #include <span>
 #include <string_view>
 #include <k3/tok3n/detail/type_traits.hpp>
 
-namespace k3::tok3n::detail {
+namespace k3::tok3n {
 
 template <class T>
 class span
@@ -51,7 +51,7 @@ private:
     std::span<const T> _value;
 };
 
-template <character T>
+template <detail::character T>
 class span<T>
 {
 public:
@@ -108,14 +108,12 @@ private:
     std::span<const T> _value;
 };
 
-namespace impl {
+namespace detail {
 
 template <class T>
 concept is_span =
     requires { typename T::value_type; } and
     std::derived_from<T, span<typename T::value_type>>;
-
-} // namespace impl
 
 struct span_equal_to
 {
@@ -124,7 +122,7 @@ struct span_equal_to
     template <class T, class U>
     [[nodiscard]] constexpr bool operator()(const span<T>& lhs, const span<U>& rhs)
     {
-        static_assert(equality_comparable_with<T, U>);
+        static_assert(detail::equality_comparable_with<T, U>);
 
         if (lhs.size() != rhs.size())
             return false;
@@ -140,7 +138,7 @@ struct span_equal_to
     }
 
     template <class T, class RHS>
-    requires (not impl::is_span<std::remove_cvref_t<RHS>>)
+    requires (not is_span<std::remove_cvref_t<RHS>>)
     [[nodiscard]] constexpr bool operator()(const span<T>& lhs, RHS&& rhs)
     {
         if constexpr (std::is_bounded_array_v<std::remove_cvref_t<RHS>> or std::is_pointer_v<std::remove_cvref_t<RHS>>)
@@ -159,29 +157,31 @@ struct span_equal_to
     }
 };
 
+} // namespace detail
+
 template <class T, class U>
 [[nodiscard]] constexpr bool operator==(const span<T>& lhs, const span<U>& rhs)
 {
-    return span_equal_to{}(lhs, rhs);
+    return detail::span_equal_to{}(lhs, rhs);
 }
 
 template <class T, class RHS>
-requires (not impl::is_span<std::remove_cvref_t<RHS>>)
+requires (not detail::is_span<std::remove_cvref_t<RHS>>)
 [[nodiscard]] constexpr bool operator==(const span<T>& lhs, RHS&& rhs)
 {
-    return span_equal_to{}(lhs, std::forward<RHS>(rhs));
+    return detail::span_equal_to{}(lhs, std::forward<RHS>(rhs));
 }
 
-} // namespace k3::tok3n::detail
+} // namespace k3::tok3n
 
 
 
 template <class T>
-struct std::equal_to<k3::tok3n::detail::span<T>> : k3::tok3n::detail::span_equal_to {};
+struct std::equal_to<k3::tok3n::span<T>> : k3::tok3n::detail::span_equal_to {};
 
 
 
-namespace k3::tok3n::detail {
+namespace k3::tok3n {
 
 template <class T>
 class input_span : public span<T>
@@ -192,10 +192,22 @@ public:
 
 template <std::ranges::contiguous_range R>
 input_span(R&&) -> input_span<std::ranges::range_value_t<R>>;
-template <character T>
+template <detail::character T>
 input_span(const T*) -> input_span<T>;
 
-namespace impl {
+template <class T>
+class output_span : public span<T>
+{
+public:
+    using span<T>::span;
+};
+
+template <std::ranges::contiguous_range R>
+output_span(R&&) -> output_span<std::ranges::range_value_t<R>>;
+template <detail::character T>
+output_span(const T*) -> output_span<T>;
+
+namespace detail {
 
 template <class T>
 struct input_value {};
@@ -219,26 +231,14 @@ struct input_value<T&> { using type = typename input_value<T>::type; };
 template <class T>
 struct input_value<T&&> { using type = typename input_value<T>::type; };
 
-} // namespace impl
-
 template <class T>
-using input_value_t = typename impl::input_value<T>::type;
+using input_value_t = typename input_value<T>::type;
 
 template <class T, class V>
 concept input_constructible_for = equality_comparable_with<input_value_t<T>, V>;
 
-template <class T>
-class output_span : public span<T>
-{
-public:
-    using span<T>::span;
-};
+} // namespace detail
 
-template <std::ranges::contiguous_range R>
-output_span(R&&) -> output_span<std::ranges::range_value_t<R>>;
-template <character T>
-output_span(const T*) -> output_span<T>;
+} // namespace k3::tok3n
 
-} // namespace k3::tok3n::detail
-
-#endif // K3_TOK3N_DETAIL_SPAN_HPP
+#endif // K3_TOK3N_SPAN_HPP
