@@ -1,17 +1,14 @@
-# Copyright 2023-2024 Braden Ganetsky
+# Copyright 2023-2025 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
-file(GLOB_RECURSE algebraic_files
-     LIST_DIRECTORIES false
-     "*.hpp"
-     "*.cpp"
-)
-
-
-
 add_executable(algebraic
-    ${algebraic_files}
+    ${CMAKE_CURRENT_LIST_DIR}/algebraic.cpp
+)
+target_sources(algebraic PRIVATE FILE_SET headers TYPE HEADERS FILES
+    ${CMAKE_CURRENT_LIST_DIR}/evaluate.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/parser.hpp
+    ${CMAKE_CURRENT_LIST_DIR}/print.hpp
 )
 
 tok3n_configure_source_group(algebraic)

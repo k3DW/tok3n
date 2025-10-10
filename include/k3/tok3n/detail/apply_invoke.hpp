@@ -5,6 +5,7 @@
 #ifndef K3_TOK3N_DETAIL_APPLY_HPP
 #define K3_TOK3N_DETAIL_APPLY_HPP
 
+#include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 #include <concepts>
 #include <functional>
@@ -17,10 +18,10 @@ namespace impl {
 
 template <class F, class Tup, std::size_t... Is>
 constexpr auto apply_invoke(F&& f, Tup&& tup, std::index_sequence<Is...>)
-noexcept(noexcept(std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...)))
--> decltype(std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...))
+noexcept(noexcept(std::invoke(std::forward<F>(f), get_<Is>(std::forward<Tup>(tup))...)))
+-> decltype(std::invoke(std::forward<F>(f), get_<Is>(std::forward<Tup>(tup))...))
 {
-    return std::invoke(std::forward<F>(f), adl_get<Is>(std::forward<Tup>(tup))...);
+    return std::invoke(std::forward<F>(f), get_<Is>(std::forward<Tup>(tup))...);
 }
 
 } // namespace impl

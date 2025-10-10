@@ -1,8 +1,8 @@
-# Copyright 2023-2024 Braden Ganetsky
+# Copyright 2023-2025 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
-cmake_minimum_required (VERSION 3.22)
+cmake_minimum_required (VERSION 3.23)
 
 project (k3_tok3n
          VERSION 0
@@ -12,25 +12,14 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 include(tools/tok3n_configure.cmake)
 
-
-
-file(GLOB_RECURSE k3_tok3n_files
-    LIST_DIRECTORIES false
-    "include/*.hpp"
-)
-
-add_library(k3_tok3n INTERFACE
-    ${k3_tok3n_files}
-    "$<$<CXX_COMPILER_ID:MSVC>:tools/tok3n.natvis>"
-)
-add_library(k3::tok3n ALIAS k3_tok3n)
-
-target_include_directories(k3_tok3n INTERFACE include)
-
-tok3n_configure_source_group(k3_tok3n)
+add_subdirectory(include)
 
 if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -stdlib=libc++")
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+    target_sources(k3_tok3n INTERFACE
+        "$<$<CXX_COMPILER_ID:MSVC>:tools/tok3n.natvis>"
+    )
 endif()
 
 option (TOK3N_BUILD_TESTS "Build tests" OFF)

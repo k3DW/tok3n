@@ -1,11 +1,11 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
 #ifndef K3_TOK3N_DETAIL_FUNCTIONS_HPP
 #define K3_TOK3N_DETAIL_FUNCTIONS_HPP
 
-#include <k3/tok3n/detail/apply.hpp>
+#include <k3/tok3n/detail/apply_invoke.hpp>
 #include <k3/tok3n/detail/type_traits.hpp>
 
 namespace k3::tok3n::detail {

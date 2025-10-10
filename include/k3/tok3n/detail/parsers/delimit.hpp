@@ -5,7 +5,8 @@
 #ifndef K3_TOK3N_DETAIL_PARSERS_DELIMIT_HPP
 #define K3_TOK3N_DETAIL_PARSERS_DELIMIT_HPP
 
-#include <k3/tok3n/detail/helpers.hpp>
+#include <k3/tok3n/detail/call.hpp>
+#include <k3/tok3n/detail/cpo.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 #include <k3/tok3n/detail/result.hpp>
 #include <utility>
@@ -53,7 +54,7 @@ public:
 		if constexpr (call_type<I>::kind == call_kind::parse_into)
 		{
 			if constexpr (call_type<1-I>::kind == call_kind::parse_into)
-				(..., (push(adl_get<I>(out), *std::move(res))));
+				(..., (push(get_<I>(out), *std::move(res))));
 			else
 				(..., (push(out, *std::move(res))));
 		}
@@ -110,8 +111,8 @@ public:
 	template <input_constructible_for<value_type> R, class Out>
 	requires parsable_into<P, R&&, result_for_p<input_value_t<R>>>
 		and parsable_into<D, R&&, result_for_d<input_value_t<R>>>
-		and pushable<adl_get_t<Out, 0>, result_for_p<input_value_t<R>>&&>
-		and pushable<adl_get_t<Out, 1>, result_for_d<input_value_t<R>>&&>
+		and pushable<get_t<Out&, 0>, result_for_p<input_value_t<R>>&&>
+		and pushable<get_t<Out&, 1>, result_for_d<input_value_t<R>>&&>
 	static constexpr auto parse(R&& r, Out& out) -> result<void, input_value_t<R>>
 	{
 		return _impl(call_parse_into, call_parse_into, std::forward<R>(r), out);
