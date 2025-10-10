@@ -39,3 +39,5 @@ endmacro()
 
 add_subdirectory(char-tests)
 add_subdirectory(non-char-tests)
+
+add_subdirectory(detail-tests)
