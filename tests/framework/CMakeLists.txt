@@ -22,7 +22,7 @@ target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
 
 target_include_directories(framework PUBLIC include)
 
-target_link_libraries(framework PUBLIC tok3n_shared_settings)
+target_link_libraries(framework PUBLIC k3::tok3n)
 
 target_precompile_headers(framework PUBLIC include/framework.hpp)
 
