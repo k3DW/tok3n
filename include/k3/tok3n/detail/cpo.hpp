@@ -47,14 +47,14 @@ using get_t = std::invoke_result_t<impl::get_cpo<I>, T>;
 
 
 template <class T>
-concept span_like = requires (T& t, const T& ct)
+concept span_like = requires (std::remove_cvref_t<T>& t, const std::remove_cvref_t<T>& ct)
 	{
-		typename T::value_type;
-		{ ct.data() } -> pointer_of<typename T::value_type>; // `data()` could return a pointer-to-const or pointer-to-non-const
+		typename std::remove_cvref_t<T>::value_type;
+		{ ct.data() } -> pointer_of<typename std::remove_cvref_t<T>::value_type>; // `data()` could return a pointer-to-const or pointer-to-non-const
 		{ ct.size() } -> std::same_as<std::size_t>;
 		{ ct.empty() } -> std::same_as<bool>;
-		t = T{};
-		t = T{ ct.data(), ct.size() };
+		t = std::remove_cvref_t<T>{};
+		t = std::remove_cvref_t<T>{ ct.data(), ct.size() };
 	};
 
 template <class T>
