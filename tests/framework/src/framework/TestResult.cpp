@@ -61,12 +61,12 @@ TestResultContext::~TestResultContext()
     _current_result = _old_result;
 }
 
-void TestResultContext::add_error(bool ct, bool rt, std::string_view message, Error::Fatality fatality, std::source_location location)
+void TestResultContext::add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location)
 {
     if (not ct)
-        _current_result->errors.emplace_back(Error::Time::compile_time, fatality, message, std::move(location));
+        _current_result->errors.emplace_back(Error::Time::compile_time, fatality, std::move(message), std::move(location));
     if (not rt)
-        _current_result->errors.emplace_back(Error::Time::run_time, fatality, message, std::move(location));
+        _current_result->errors.emplace_back(Error::Time::run_time, fatality, std::move(message), std::move(location));
 }
 
 bool TestResultContext::check(bool condition)

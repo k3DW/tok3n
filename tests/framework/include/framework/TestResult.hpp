@@ -50,7 +50,7 @@ public:
     TestResultContext& operator=(const TestResultContext&) = delete;
     TestResultContext& operator=(TestResultContext&&) = delete;
 
-    static void add_error(bool ct, bool rt, std::string_view message, Error::Fatality fatality, std::source_location location = std::source_location::current());
+    static void add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location = std::source_location::current());
 
     static bool check(bool condition);
 

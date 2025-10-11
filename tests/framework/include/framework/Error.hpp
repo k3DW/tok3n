@@ -7,6 +7,7 @@
 
 #include <source_location>
 #include <string_view>
+#include <string>
 
 struct Error
 {
@@ -23,7 +24,7 @@ struct Error
 
     Time time;
     Fatality fatality;
-    std::string_view message;
+    std::string message;
     std::source_location location;
 };
 
