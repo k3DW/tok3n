@@ -63,7 +63,7 @@
              _rt = TestResultContext::check(CONDITION);                                                   \
         not _ct or not _rt                                                                                \
     )                                                                                                     \
-        TestResultContext::add_error(_ct, _rt, MESSAGE, Error::Fatality::fatal)
+        TestResultContext::add_error(_ct, _rt, MESSAGE, Error::Fatality::non_fatal)
 
 
 
