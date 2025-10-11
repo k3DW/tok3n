@@ -31,9 +31,14 @@ set_target_properties(framework
         FOLDER tests
 )
 
+set(_tok3n_test_framework_list_dir "${CMAKE_CURRENT_LIST_DIR}")
+
 macro(tok3n_discover_tests target assembly_name)
 
     set(generated_file "${CMAKE_CURRENT_BINARY_DIR}/${target}.list_of_tests.cmake")
+
+    # Must grab it like this because we're inside macro
+    get_property(_current_dir TARGET framework PROPERTY SOURCE_DIR)
 
     add_custom_command(
         TARGET ${target} POST_BUILD
@@ -43,7 +48,7 @@ macro(tok3n_discover_tests target assembly_name)
             -D "TEST_TARGET=${target}"
             -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
             -D "LIST_OF_TESTS_FILE=${generated_file}"
-            -P "${CMAKE_SOURCE_DIR}/tests/discover_tests.cmake"
+            -P "${_current_dir}/cmake/discover_tests.cmake"
         BYPRODUCTS ${generated_file}
         VERBATIM
     )
@@ -53,7 +58,7 @@ macro(tok3n_discover_tests target assembly_name)
         COMMAND ${CMAKE_COMMAND}
             -D "TEST_DIRECTORY=${CMAKE_CURRENT_BINARY_DIR}"
             -D "LIST_OF_TESTS_FILE=${generated_file}"
-            -P "${CMAKE_SOURCE_DIR}/tests/include_tests.cmake"
+            -P "${_current_dir}/cmake/include_tests.cmake"
         VERBATIM
     )
 
