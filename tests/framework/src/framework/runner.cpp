@@ -3,30 +3,33 @@
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include "framework.hpp"
+#include "framework/runner.hpp"
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <optional>
 
-Runner& Runner::get()
+namespace k3::testing {
+
+runner& runner::get()
 {
-    static Runner runner;
-    return runner;
+    static runner r;
+    return r;
 }
 
-bool Runner::add(Fixture& fixture)
+bool runner::add(Fixture& fixture)
 {
     _fixtures.emplace(fixture.name(), &fixture);
     return true;
 }
 
-bool Runner::add(std::string_view fixture_name, Test&& test)
+bool runner::add(std::string_view fixture_name, Test&& test)
 {
     _fixtures.at(fixture_name)->add_test(std::move(test));
     return true;
 }
 
-int Runner::exec(const int argc, const char* const argv[])
+int runner::exec(const int argc, const char* const argv[])
 {
     const std::vector<std::string_view> args(argv, argv + argc);
 
@@ -153,3 +156,5 @@ RUN_ALL_TESTS:
         return EXIT_FAILURE;
     }
 }
+
+} // namespace k3::testing

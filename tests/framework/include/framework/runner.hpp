@@ -11,10 +11,12 @@
 class Test;
 class Fixture;
 
-class Runner
+namespace k3::testing {
+
+class runner
 {
 public:
-    static Runner& get();
+    static runner& get();
 
     int exec(int argc, const char* const argv[]);
 
@@ -22,9 +24,11 @@ public:
     bool add(std::string_view fixture_name, Test&& test);
 
 private:
-    Runner() = default;
+    runner() = default;
 
     std::map<std::string_view, Fixture*> _fixtures;
 };
+
+} // namespace k3::testing
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_RUNNER_HPP

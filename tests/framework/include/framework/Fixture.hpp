@@ -47,15 +47,16 @@ private:
 
 
 
-#define FIXTURE(NAME)                                                      \
-    template <std::size_t hash>                                            \
-    class FixtureImpl;                                                     \
-    template <>                                                            \
-    class FixtureImpl<simple_hash(NAME)> : private ::Fixture               \
-    {                                                                      \
-    private:                                                               \
-        static inline bool _init =                                         \
-            Runner::get().add(::Fixture::global<simple_hash(NAME)>(NAME)); \
+#define FIXTURE(NAME)                                         \
+    template <std::size_t hash>                               \
+    class FixtureImpl;                                        \
+    template <>                                               \
+    class FixtureImpl<simple_hash(NAME)> : private ::Fixture  \
+    {                                                         \
+    private:                                                  \
+        static inline bool _init =                            \
+            ::k3::testing::runner::get()                      \
+            .add(::Fixture::global<simple_hash(NAME)>(NAME)); \
     }
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP

@@ -47,7 +47,7 @@ private:
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
         static inline const bool _init                                                \
-            = Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));                     \
+            = ::k3::testing::runner::get().add(FIXTURE_NAME, Test(NAME, &_run));      \
     };                                                                                \
     void TestImpl<simple_hash(FIXTURE_NAME, NAME)>::_run()
 
