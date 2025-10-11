@@ -5,20 +5,9 @@
 #ifndef K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 #define K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 
-// #define DISABLE_STATIC_ASSERT
-
-#ifdef DISABLE_STATIC_ASSERT
-#define STATIC_ASSERT(...)
-#else
-#define STATIC_ASSERT(...) static_assert(__VA_ARGS__)
-#endif
-
-
-
 // The template argument `[&]{ return bool(CONDITION); }()` is a workaround for Clang 16
 
 #define ASSERT_COMPILE_TIME(CONDITION, MESSAGE)                                                           \
-    STATIC_ASSERT(CONDITION, #CONDITION);                                                                 \
     if (                                                                                                  \
         bool _ct = TestResultContext::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value); \
         not _ct                                                                                           \
@@ -33,7 +22,6 @@
         return TestResultContext::add_error(true, _rt, MESSAGE, Error::Fatality::fatal)
 
 #define ASSERT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                   \
-    STATIC_ASSERT(CONDITION, #CONDITION);                                                                 \
     if (                                                                                                  \
         bool _ct = TestResultContext::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value), \
              _rt = TestResultContext::check(CONDITION);                                                   \
@@ -42,7 +30,6 @@
         return TestResultContext::add_error(_ct, _rt, MESSAGE, Error::Fatality::fatal)
 
 #define EXPECT_COMPILE_TIME(CONDITION, MESSAGE)                                                           \
-    STATIC_ASSERT(CONDITION, #CONDITION);                                                                 \
     if (                                                                                                  \
         bool _ct = TestResultContext::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value); \
         not _ct                                                                                           \
@@ -57,7 +44,6 @@
         TestResultContext::add_error(true, _rt, MESSAGE, Error::Fatality::non_fatal)
 
 #define EXPECT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                   \
-    STATIC_ASSERT(CONDITION, #CONDITION);                                                                 \
     if (                                                                                                  \
         bool _ct = TestResultContext::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value), \
              _rt = TestResultContext::check(CONDITION);                                                   \
