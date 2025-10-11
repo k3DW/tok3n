@@ -43,7 +43,8 @@ private:
     {                                                                                 \
     private:                                                                          \
         static_assert(                                                                \
-            std::is_base_of_v<::Fixture, FixtureImpl<simple_hash(FIXTURE_NAME)>>,     \
+            std::is_base_of_v<::k3::testing::fixture,                                 \
+                FixtureImpl<simple_hash(FIXTURE_NAME)>>,                              \
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
         static inline const bool _init                                                \

@@ -9,9 +9,10 @@
 #include <string_view>
 
 class Test;
-class Fixture;
 
 namespace k3::testing {
+
+class fixture;
 
 class runner
 {
@@ -20,13 +21,13 @@ public:
 
     int exec(int argc, const char* const argv[]);
 
-    bool add(Fixture& fixture);
+    bool add(fixture& fixture);
     bool add(std::string_view fixture_name, Test&& test);
 
 private:
     runner() = default;
 
-    std::map<std::string_view, Fixture*> _fixtures;
+    std::map<std::string_view, fixture*> _fixtures;
 };
 
 } // namespace k3::testing

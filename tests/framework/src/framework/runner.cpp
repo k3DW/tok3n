@@ -17,7 +17,7 @@ runner& runner::get()
     return r;
 }
 
-bool runner::add(Fixture& fixture)
+bool runner::add(fixture& fixture)
 {
     _fixtures.emplace(fixture.name(), &fixture);
     return true;
@@ -101,10 +101,10 @@ RUN_ALL_TESTS:
                 return EXIT_FAILURE;
             }
 
-            Fixture* const fixture = it->second;
+            fixture* const f = it->second;
             const FixtureResult result = (args.size() == 3)
-                ? fixture->run(std::cout)
-                : fixture->run(std::cout, args[3]);
+                ? f->run(std::cout)
+                : f->run(std::cout, args[3]);
 
             if (result.failures.empty())
             {
