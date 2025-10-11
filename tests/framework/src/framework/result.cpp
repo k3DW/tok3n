@@ -20,9 +20,9 @@ void test_result::print_errors(std::ostream& os) const
 {
     os << "Test " << std::quoted(name) << " failed with "
         << errors.size() << " error" << (errors.size() == 1 ? "" : "s") << ".\n";
-    for (const Error& error : errors)
+    for (const error& e : errors)
     {
-        print(os, error);
+        print(os, e);
     }
 }
 
@@ -63,12 +63,12 @@ test_result_context::~test_result_context()
     _current_result = _old_result;
 }
 
-void test_result_context::add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location)
+void test_result_context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
 {
     if (not ct)
-        _current_result->errors.emplace_back(Error::Time::compile_time, fatality, std::move(message), std::move(location));
+        _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(location));
     if (not rt)
-        _current_result->errors.emplace_back(Error::Time::run_time, fatality, std::move(message), std::move(location));
+        _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(location));
 }
 
 bool test_result_context::check(bool condition)

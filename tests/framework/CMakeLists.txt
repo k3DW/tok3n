@@ -3,7 +3,7 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 add_library(framework STATIC
-    src/framework/Error.cpp
+    src/framework/error.cpp
     src/framework/fixture.cpp
     src/framework/result.cpp
     src/framework/runner.cpp
@@ -12,7 +12,7 @@ add_library(framework STATIC
 target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
     include/framework.hpp
     include/framework/assert.hpp
-    include/framework/Error.hpp
+    include/framework/error.hpp
     include/framework/fixture.hpp
     include/framework/hash.hpp
     include/framework/result.hpp

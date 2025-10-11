@@ -9,9 +9,9 @@
 #include <string_view>
 #include <vector>
 
-struct Error;
-
 namespace k3::testing {
+
+struct error;
 
 struct test_result
 {
@@ -20,7 +20,7 @@ struct test_result
 
     std::string_view name;
     std::size_t checks = 0;
-    std::vector<Error> errors{};
+    std::vector<error> errors{};
 
     void print_brief(std::ostream& os) const;
     void print_errors(std::ostream& os) const;
@@ -52,7 +52,7 @@ public:
     test_result_context& operator=(const test_result_context&) = delete;
     test_result_context& operator=(test_result_context&&) = delete;
 
-    static void add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location = std::source_location::current());
+    static void add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location = std::source_location::current());
 
     static bool check(bool condition);
 

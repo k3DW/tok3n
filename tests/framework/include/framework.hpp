@@ -6,7 +6,7 @@
 #define K3_TOK3N_TESTS_FRAMEWORK_HPP
 
 #include "framework/assert.hpp"
-#include "framework/Error.hpp"
+#include "framework/error.hpp"
 #include "framework/fixture.hpp"
 #include "framework/hash.hpp"
 #include "framework/result.hpp"
