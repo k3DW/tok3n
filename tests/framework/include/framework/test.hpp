@@ -8,7 +8,7 @@
 #include <iosfwd>
 #include <string>
 #include <string_view>
-#include "framework/Hash.hpp"
+#include "framework/hash.hpp"
 
 namespace k3::testing {
 
@@ -45,18 +45,17 @@ private:
     template <std::size_t hash>                                                       \
     class fixture_impl_;                                                              \
     template <>                                                                       \
-    class test_impl_<simple_hash(FIXTURE_NAME, NAME)>                                 \
+    class test_impl_<::k3::testing::simple_hash(FIXTURE_NAME, NAME)>                  \
     {                                                                                 \
     private:                                                                          \
         static_assert(                                                                \
             std::is_base_of_v<::k3::testing::fixture,                                 \
-                fixture_impl_<simple_hash(FIXTURE_NAME)>>,                            \
+                fixture_impl_<::k3::testing::simple_hash(FIXTURE_NAME)>>,             \
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
-        static inline const bool _init                                                \
-            = ::k3::testing::runner::get().add(                                       \
-                FIXTURE_NAME, ::k3::testing::test(NAME, &_run));                      \
+        static inline const bool _init = ::k3::testing::runner::get()                 \
+            .add(FIXTURE_NAME, ::k3::testing::test(NAME, &_run));                     \
     };                                                                                \
-    void test_impl_<simple_hash(FIXTURE_NAME, NAME)>::_run()
+    void test_impl_<::k3::testing::simple_hash(FIXTURE_NAME, NAME)>::_run()
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP

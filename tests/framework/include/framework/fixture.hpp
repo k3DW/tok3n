@@ -9,7 +9,7 @@
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include "framework/Hash.hpp"
+#include "framework/hash.hpp"
 #include "framework/test.hpp"
 
 namespace k3::testing {
@@ -51,17 +51,16 @@ private:
 
 
 
-#define FIXTURE(NAME)                                                      \
-    template <std::size_t hash>                                            \
-    class fixture_impl_;                                                   \
-    template <>                                                            \
-    class fixture_impl_<simple_hash(NAME)>                                 \
-        : private ::k3::testing::fixture                                   \
-    {                                                                      \
-    private:                                                               \
-        static inline bool _init =                                         \
-            ::k3::testing::runner::get()                                   \
-            .add(::k3::testing::fixture::global<simple_hash(NAME)>(NAME)); \
+#define FIXTURE(NAME)                                                                     \
+    template <std::size_t hash>                                                           \
+    class fixture_impl_;                                                                  \
+    template <>                                                                           \
+    class fixture_impl_<::k3::testing::simple_hash(NAME)>                                 \
+        : private ::k3::testing::fixture                                                  \
+    {                                                                                     \
+    private:                                                                              \
+        static inline bool _init = ::k3::testing::runner::get()                           \
+            .add(::k3::testing::fixture::global<::k3::testing::simple_hash(NAME)>(NAME)); \
     }
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_FIXTURE_HPP

@@ -8,7 +8,7 @@
 #include "framework/assert.hpp"
 #include "framework/Error.hpp"
 #include "framework/fixture.hpp"
-#include "framework/Hash.hpp"
+#include "framework/hash.hpp"
 #include "framework/result.hpp"
 #include "framework/runner.hpp"
 #include "framework/test.hpp"
