@@ -3,11 +3,11 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 add_library(framework STATIC
-    src/Error.cpp
-    src/Fixture.cpp
-    src/Runner.cpp
-    src/Test.cpp
-    src/TestResult.cpp
+    src/framework/Error.cpp
+    src/framework/Fixture.cpp
+    src/framework/Runner.cpp
+    src/framework/Test.cpp
+    src/framework/TestResult.cpp
 )
 target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
     include/framework.hpp
