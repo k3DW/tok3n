@@ -6,7 +6,9 @@
 #include <iomanip>
 #include <iostream>
 
-void TestResult::print_brief(std::ostream& os) const
+namespace k3::testing {
+
+void test_result::print_brief(std::ostream& os) const
 {
     os
         << "    Test " << std::quoted(name) << " - "
@@ -14,7 +16,7 @@ void TestResult::print_brief(std::ostream& os) const
         << " error" << (errors.size() == 1 ? "" : "s") << ".\n";
 }
 
-void TestResult::print_errors(std::ostream& os) const
+void test_result::print_errors(std::ostream& os) const
 {
     os << "Test " << std::quoted(name) << " failed with "
         << errors.size() << " error" << (errors.size() == 1 ? "" : "s") << ".\n";
@@ -24,7 +26,7 @@ void TestResult::print_errors(std::ostream& os) const
     }
 }
 
-void FixtureResult::push_back(TestResult&& result)
+void fixture_result::push_back(test_result&& result)
 {
     if (result.errors.empty())
         passes.push_back(std::move(result));
@@ -32,7 +34,7 @@ void FixtureResult::push_back(TestResult&& result)
         failures.push_back(std::move(result));
 }
 
-void FixtureResult::print_brief(std::ostream& os) const
+void fixture_result::print_brief(std::ostream& os) const
 {
     os
         << "Fixture " << std::quoted(name) << " - "
@@ -40,28 +42,28 @@ void FixtureResult::print_brief(std::ostream& os) const
         << failures.size() << " failures.\n\n";
 }
 
-void FixtureResult::print_errors(std::ostream& os) const
+void fixture_result::print_errors(std::ostream& os) const
 {
     os << "Fixture " << std::quoted(name) << "\n";
-    for (const TestResult& result : failures)
+    for (const test_result& result : failures)
     {
         result.print_errors(os);
     }
     os << "\n";
 }
 
-TestResultContext::TestResultContext(TestResult& result)
+test_result_context::test_result_context(test_result& result)
     : _old_result(_current_result)
 {
     _current_result = &result;
 }
 
-TestResultContext::~TestResultContext()
+test_result_context::~test_result_context()
 {
     _current_result = _old_result;
 }
 
-void TestResultContext::add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location)
+void test_result_context::add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location)
 {
     if (not ct)
         _current_result->errors.emplace_back(Error::Time::compile_time, fatality, std::move(message), std::move(location));
@@ -69,8 +71,10 @@ void TestResultContext::add_error(bool ct, bool rt, std::string message, Error::
         _current_result->errors.emplace_back(Error::Time::run_time, fatality, std::move(message), std::move(location));
 }
 
-bool TestResultContext::check(bool condition)
+bool test_result_context::check(bool condition)
 {
     _current_result->checks++;
     return condition;
 }
+
+} // namespace k3::testing

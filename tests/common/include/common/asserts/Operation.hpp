@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_OPERATION_HPP
 #define K3_TOK3N_TESTS_COMMON_ASSERTS_OPERATION_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include "common/asserts/Concept.hpp"
 #include "common/asserts/Equality.hpp"
 #include <k3/tok3n/detail/parser.hpp>

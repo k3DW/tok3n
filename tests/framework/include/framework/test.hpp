@@ -10,9 +10,9 @@
 #include <string_view>
 #include "framework/Hash.hpp"
 
-struct TestResult;
-
 namespace k3::testing {
+
+struct test_result;
 
 class test
 {
@@ -22,7 +22,7 @@ public:
         return _name;
     }
 
-    TestResult run(std::ostream& os) const;
+    test_result run(std::ostream& os) const;
 
     using func_type = void(*)();
 

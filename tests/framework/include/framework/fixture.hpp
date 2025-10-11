@@ -12,9 +12,9 @@
 #include "framework/Hash.hpp"
 #include "framework/test.hpp"
 
-struct FixtureResult;
-
 namespace k3::testing {
+
+struct fixture_result;
 
 class fixture
 {
@@ -26,8 +26,8 @@ public:
         return _name;
     }
 
-    FixtureResult run(std::ostream& os) const;
-    FixtureResult run(std::ostream& os, std::string_view test_name) const;
+    fixture_result run(std::ostream& os) const;
+    fixture_result run(std::ostream& os, std::string_view test_name) const;
 
     void list(std::ostream& os) const;
 

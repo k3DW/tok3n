@@ -13,11 +13,11 @@ void fixture::add_test(test&& t)
     _tests.emplace(t.name(), std::move(t));
 }
 
-FixtureResult fixture::run(std::ostream& os) const
+fixture_result fixture::run(std::ostream& os) const
 {
     os << "Running fixture " << std::quoted(_name) << "\n";
 
-    FixtureResult result(_name);
+    fixture_result result(_name);
     for (const auto& [_, test] : _tests)
     {
         result.push_back(test.run(os));
@@ -26,9 +26,9 @@ FixtureResult fixture::run(std::ostream& os) const
     return result;
 }
 
-FixtureResult fixture::run(std::ostream& os, std::string_view test_name) const
+fixture_result fixture::run(std::ostream& os, std::string_view test_name) const
 {
-    FixtureResult result(_name);
+    fixture_result result(_name);
 
     const auto it = _tests.find(test_name);
     if (it == _tests.end())

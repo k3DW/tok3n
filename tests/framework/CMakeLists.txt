@@ -5,19 +5,19 @@
 add_library(framework STATIC
     src/framework/Error.cpp
     src/framework/fixture.cpp
+    src/framework/result.cpp
     src/framework/runner.cpp
     src/framework/test.cpp
-    src/framework/TestResult.cpp
 )
 target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
     include/framework.hpp
-    include/framework/Assert.hpp
+    include/framework/assert.hpp
     include/framework/Error.hpp
     include/framework/fixture.hpp
     include/framework/Hash.hpp
+    include/framework/result.hpp
     include/framework/runner.hpp
     include/framework/test.hpp
-    include/framework/TestResult.hpp
 )
 
 target_include_directories(framework PUBLIC include)

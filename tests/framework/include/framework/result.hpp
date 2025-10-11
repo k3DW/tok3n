@@ -11,9 +11,11 @@
 
 struct Error;
 
-struct TestResult
+namespace k3::testing {
+
+struct test_result
 {
-    TestResult(std::string_view name)
+    test_result(std::string_view name)
         : name(name) {}
 
     std::string_view name;
@@ -24,39 +26,41 @@ struct TestResult
     void print_errors(std::ostream& os) const;
 };
 
-struct FixtureResult
+struct fixture_result
 {
-    FixtureResult(std::string_view name)
+    fixture_result(std::string_view name)
         : name(name) {}
 
     std::string_view name;
-    std::vector<TestResult> passes;
-    std::vector<TestResult> failures;
+    std::vector<test_result> passes;
+    std::vector<test_result> failures;
 
-    void push_back(TestResult&& result);
+    void push_back(test_result&& result);
     void print_brief(std::ostream& os) const;
     void print_errors(std::ostream& os) const;
 };
 
-class TestResultContext
+class test_result_context
 {
 public:
-    [[nodiscard]] TestResultContext(TestResult& result);
+    [[nodiscard]] test_result_context(test_result& result);
 
-    ~TestResultContext();
+    ~test_result_context();
 
-    TestResultContext(const TestResultContext&) = delete;
-    TestResultContext(TestResultContext&&) = delete;
-    TestResultContext& operator=(const TestResultContext&) = delete;
-    TestResultContext& operator=(TestResultContext&&) = delete;
+    test_result_context(const test_result_context&) = delete;
+    test_result_context(test_result_context&&) = delete;
+    test_result_context& operator=(const test_result_context&) = delete;
+    test_result_context& operator=(test_result_context&&) = delete;
 
     static void add_error(bool ct, bool rt, std::string message, Error::Fatality fatality, std::source_location location = std::source_location::current());
 
     static bool check(bool condition);
 
 private:
-    static inline TestResult* _current_result = nullptr;
-    TestResult* _old_result;
+    static inline test_result* _current_result = nullptr;
+    test_result* _old_result;
 };
+
+} // namespace k3::testing
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP

@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP
 #define K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include <k3/tok3n/detail/parser.hpp>
 
 #define ASSERT_CONCEPT(Concept, ...)                                             \

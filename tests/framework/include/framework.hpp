@@ -5,12 +5,12 @@
 #ifndef K3_TOK3N_TESTS_FRAMEWORK_HPP
 #define K3_TOK3N_TESTS_FRAMEWORK_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include "framework/Error.hpp"
 #include "framework/fixture.hpp"
 #include "framework/Hash.hpp"
+#include "framework/result.hpp"
 #include "framework/runner.hpp"
 #include "framework/test.hpp"
-#include "framework/TestResult.hpp"
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_HPP

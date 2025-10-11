@@ -60,12 +60,12 @@ int runner::exec(const int argc, const char* const argv[])
         else if (args.size() == 2)
         {
 RUN_ALL_TESTS:
-            std::vector<FixtureResult> passes;
-            std::vector<FixtureResult> failures;
+            std::vector<fixture_result> passes;
+            std::vector<fixture_result> failures;
             std::size_t total_test_failures = 0;
             for (auto [_, fixture] : _fixtures)
             {
-                FixtureResult result = fixture->run(std::cout);
+                fixture_result result = fixture->run(std::cout);
                 total_test_failures += result.failures.size();
                 if (result.failures.empty())
                     passes.push_back(std::move(result));
@@ -85,7 +85,7 @@ RUN_ALL_TESTS:
                 std::cout
                     << "================================\n\n"
                     << total_test_failures << " tests failed.\n\n";
-                for (const FixtureResult& result : failures)
+                for (const fixture_result& result : failures)
                 {
                     result.print_errors(std::cout);
                 }
@@ -102,7 +102,7 @@ RUN_ALL_TESTS:
             }
 
             fixture* const f = it->second;
-            const FixtureResult result = (args.size() == 3)
+            const fixture_result result = (args.size() == 3)
                 ? f->run(std::cout)
                 : f->run(std::cout, args[3]);
 
