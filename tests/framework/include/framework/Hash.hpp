@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -8,7 +8,7 @@
 #include <bit>
 #include <string_view>
 
-constexpr std::size_t test_hash(std::string_view s)
+constexpr std::size_t simple_hash(std::string_view s)
 {
     std::size_t hash = 0;
     for (char c : s)
@@ -18,9 +18,9 @@ constexpr std::size_t test_hash(std::string_view s)
     return hash;
 }
 
-constexpr std::size_t test_hash(std::string_view s1, std::string_view s2)
+constexpr std::size_t simple_hash(std::string_view s1, std::string_view s2)
 {
-    return test_hash(s1) ^ test_hash(s2);
+    return std::rotl(simple_hash(s1), 1) + simple_hash(s2);
 }
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_HASH_HPP

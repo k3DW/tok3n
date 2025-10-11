@@ -39,16 +39,16 @@ private:
     template <std::size_t hash>                                                       \
     class TestImpl;                                                                   \
     template <>                                                                       \
-    class TestImpl<test_hash(FIXTURE_NAME, NAME)>                                     \
+    class TestImpl<simple_hash(FIXTURE_NAME, NAME)>                                   \
     {                                                                                 \
     private:                                                                          \
         static_assert(                                                                \
-            std::is_base_of_v<::Fixture, FixtureImpl<test_hash(FIXTURE_NAME)>>,       \
+            std::is_base_of_v<::Fixture, FixtureImpl<simple_hash(FIXTURE_NAME)>>,     \
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
         static inline const bool _init                                                \
             = Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));                     \
     };                                                                                \
-    void TestImpl<test_hash(FIXTURE_NAME, NAME)>::_run()
+    void TestImpl<simple_hash(FIXTURE_NAME, NAME)>::_run()
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP
