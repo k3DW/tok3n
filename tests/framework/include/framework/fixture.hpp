@@ -10,7 +10,7 @@
 #include <string_view>
 #include <unordered_map>
 #include "framework/Hash.hpp"
-#include "framework/Test.hpp"
+#include "framework/test.hpp"
 
 struct FixtureResult;
 
@@ -19,7 +19,7 @@ namespace k3::testing {
 class fixture
 {
 public:
-    void add_test(Test&& test);
+    void add_test(test&& t);
 
     std::string_view name() const
     {
@@ -44,7 +44,7 @@ protected:
 
 private:
     std::string _name;
-    std::unordered_map<std::string_view, Test> _tests;
+    std::unordered_map<std::string_view, test> _tests;
 };
 
 } // namespace k3::testing

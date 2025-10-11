@@ -10,7 +10,7 @@
 #include "framework/fixture.hpp"
 #include "framework/Hash.hpp"
 #include "framework/runner.hpp"
-#include "framework/Test.hpp"
+#include "framework/test.hpp"
 #include "framework/TestResult.hpp"
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_HPP

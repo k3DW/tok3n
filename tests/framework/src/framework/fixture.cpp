@@ -8,9 +8,9 @@
 
 namespace k3::testing {
 
-void fixture::add_test(Test&& test)
+void fixture::add_test(test&& t)
 {
-    _tests.emplace(test.name(), std::move(test));
+    _tests.emplace(t.name(), std::move(t));
 }
 
 FixtureResult fixture::run(std::ostream& os) const

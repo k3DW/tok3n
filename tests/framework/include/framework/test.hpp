@@ -12,7 +12,9 @@
 
 struct TestResult;
 
-class Test
+namespace k3::testing {
+
+class test
 {
 public:
     std::string_view name() const
@@ -25,13 +27,15 @@ public:
     using func_type = void(*)();
 
     template <std::size_t N>
-    Test(const char(&name)[N], func_type func)
+    test(const char(&name)[N], func_type func)
         : _name(name), _func(func) {}
 
 private:
     std::string_view _name; // This is fine because we only construct with a string literal
     func_type _func;
 };
+
+} // namespace k3::testing
 
 
 
@@ -48,7 +52,8 @@ private:
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
         static inline const bool _init                                                \
-            = ::k3::testing::runner::get().add(FIXTURE_NAME, Test(NAME, &_run));      \
+            = ::k3::testing::runner::get().add(                                       \
+                FIXTURE_NAME, ::k3::testing::test(NAME, &_run));                      \
     };                                                                                \
     void TestImpl<simple_hash(FIXTURE_NAME, NAME)>::_run()
 

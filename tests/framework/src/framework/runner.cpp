@@ -23,9 +23,9 @@ bool runner::add(fixture& fixture)
     return true;
 }
 
-bool runner::add(std::string_view fixture_name, Test&& test)
+bool runner::add(std::string_view fixture_name, test&& t)
 {
-    _fixtures.at(fixture_name)->add_test(std::move(test));
+    _fixtures.at(fixture_name)->add_test(std::move(t));
     return true;
 }
 

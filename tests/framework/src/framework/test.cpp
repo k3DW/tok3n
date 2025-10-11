@@ -6,7 +6,9 @@
 #include <iomanip>
 #include <iostream>
 
-TestResult Test::run(std::ostream& os) const
+namespace k3::testing {
+
+TestResult test::run(std::ostream& os) const
 {
     TestResult result(_name);
     {
@@ -16,3 +18,5 @@ TestResult Test::run(std::ostream& os) const
     result.print_brief(os);
     return result;
 }
+
+} // namespace k3::testing

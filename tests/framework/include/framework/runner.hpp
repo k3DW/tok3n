@@ -8,10 +8,9 @@
 #include <map>
 #include <string_view>
 
-class Test;
-
 namespace k3::testing {
 
+class test;
 class fixture;
 
 class runner
@@ -22,7 +21,7 @@ public:
     int exec(int argc, const char* const argv[]);
 
     bool add(fixture& fixture);
-    bool add(std::string_view fixture_name, Test&& test);
+    bool add(std::string_view fixture_name, test&& t);
 
 private:
     runner() = default;

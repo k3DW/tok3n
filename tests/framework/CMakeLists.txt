@@ -6,7 +6,7 @@ add_library(framework STATIC
     src/framework/Error.cpp
     src/framework/fixture.cpp
     src/framework/runner.cpp
-    src/framework/Test.cpp
+    src/framework/test.cpp
     src/framework/TestResult.cpp
 )
 target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
@@ -16,7 +16,7 @@ target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
     include/framework/fixture.hpp
     include/framework/Hash.hpp
     include/framework/runner.hpp
-    include/framework/Test.hpp
+    include/framework/test.hpp
     include/framework/TestResult.hpp
 )
 
