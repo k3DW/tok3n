@@ -41,20 +41,22 @@ private:
 
 #define TEST(FIXTURE_NAME, NAME)                                                      \
     template <std::size_t hash>                                                       \
-    class TestImpl;                                                                   \
+    class test_impl_;                                                                 \
+    template <std::size_t hash>                                                       \
+    class fixture_impl_;                                                              \
     template <>                                                                       \
-    class TestImpl<simple_hash(FIXTURE_NAME, NAME)>                                   \
+    class test_impl_<simple_hash(FIXTURE_NAME, NAME)>                                 \
     {                                                                                 \
     private:                                                                          \
         static_assert(                                                                \
             std::is_base_of_v<::k3::testing::fixture,                                 \
-                FixtureImpl<simple_hash(FIXTURE_NAME)>>,                              \
+                fixture_impl_<simple_hash(FIXTURE_NAME)>>,                            \
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
         static inline const bool _init                                                \
             = ::k3::testing::runner::get().add(                                       \
                 FIXTURE_NAME, ::k3::testing::test(NAME, &_run));                      \
     };                                                                                \
-    void TestImpl<simple_hash(FIXTURE_NAME, NAME)>::_run()
+    void test_impl_<simple_hash(FIXTURE_NAME, NAME)>::_run()
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP

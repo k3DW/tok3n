@@ -53,9 +53,9 @@ private:
 
 #define FIXTURE(NAME)                                                      \
     template <std::size_t hash>                                            \
-    class FixtureImpl;                                                     \
+    class fixture_impl_;                                                   \
     template <>                                                            \
-    class FixtureImpl<simple_hash(NAME)>                                   \
+    class fixture_impl_<simple_hash(NAME)>                                 \
         : private ::k3::testing::fixture                                   \
     {                                                                      \
     private:                                                               \
