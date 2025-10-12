@@ -6,16 +6,18 @@
 #include <iomanip>
 #include <iostream>
 
-void Fixture::add_test(Test&& test)
+namespace k3::testing {
+
+void fixture::add_test(test&& t)
 {
-    _tests.emplace(test.name(), std::move(test));
+    _tests.emplace(t.name(), std::move(t));
 }
 
-FixtureResult Fixture::run(std::ostream& os) const
+fixture_result fixture::run(std::ostream& os) const
 {
     os << "Running fixture " << std::quoted(_name) << "\n";
 
-    FixtureResult result(_name);
+    fixture_result result(_name);
     for (const auto& [_, test] : _tests)
     {
         result.push_back(test.run(os));
@@ -24,9 +26,9 @@ FixtureResult Fixture::run(std::ostream& os) const
     return result;
 }
 
-FixtureResult Fixture::run(std::ostream& os, std::string_view test_name) const
+fixture_result fixture::run(std::ostream& os, std::string_view test_name) const
 {
-    FixtureResult result(_name);
+    fixture_result result(_name);
 
     const auto it = _tests.find(test_name);
     if (it == _tests.end())
@@ -41,7 +43,7 @@ FixtureResult Fixture::run(std::ostream& os, std::string_view test_name) const
     return result;
 }
 
-void Fixture::list(std::ostream& os) const
+void fixture::list(std::ostream& os) const
 {
     for (const auto& [test_name, _] : _tests)
     {
@@ -53,3 +55,5 @@ void Fixture::list(std::ostream& os) const
         ;
     }
 }
+
+} // namespace k3::testing

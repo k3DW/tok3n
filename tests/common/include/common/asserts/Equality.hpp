@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_EQUALITY_HPP
 #define K3_TOK3N_TESTS_COMMON_ASSERTS_EQUALITY_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include "common/asserts/Concept.hpp"
 
 template <auto lhs, auto rhs>

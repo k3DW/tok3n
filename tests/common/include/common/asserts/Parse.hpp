@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_PARSE_HPP
 #define K3_TOK3N_TESTS_COMMON_ASSERTS_PARSE_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include "common/asserts/Concept.hpp"
 
 #define ASSERT_PARSE_IMPL_PARSE_VALID_(P, INPUT)                                             \

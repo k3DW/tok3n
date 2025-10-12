@@ -7,26 +7,32 @@
 
 #include <source_location>
 #include <string_view>
+#include <string>
 
-struct Error
+namespace k3::testing {
+
+enum class error_time
 {
-    enum class Time
-    {
-        compile_time,
-        run_time,
-    };
-    enum class Fatality
-    {
-        non_fatal,
-        fatal,
-    };
+    compile_time,
+    run_time,
+};
 
-    Time time;
-    Fatality fatality;
-    std::string_view message;
+enum class error_fatality
+{
+    non_fatal,
+    fatal,
+};
+
+struct error
+{
+    error_time time;
+    error_fatality fatality;
+    std::string message;
     std::source_location location;
 };
 
-void print(std::ostream& os, const Error& error);
+void print(std::ostream& os, const error& e);
+
+} // namespace k3::testing
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_ERROR_HPP

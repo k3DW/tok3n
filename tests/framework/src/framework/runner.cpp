@@ -3,30 +3,33 @@
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include "framework.hpp"
+#include "framework/runner.hpp"
 #include <iomanip>
 #include <iostream>
 #include <fstream>
 #include <optional>
 
-Runner& Runner::get()
+namespace k3::testing {
+
+runner& runner::get()
 {
-    static Runner runner;
-    return runner;
+    static runner r;
+    return r;
 }
 
-bool Runner::add(Fixture& fixture)
+bool runner::add(fixture& fixture)
 {
     _fixtures.emplace(fixture.name(), &fixture);
     return true;
 }
 
-bool Runner::add(std::string_view fixture_name, Test&& test)
+bool runner::add(std::string_view fixture_name, test&& t)
 {
-    _fixtures.at(fixture_name)->add_test(std::move(test));
+    _fixtures.at(fixture_name)->add_test(std::move(t));
     return true;
 }
 
-int Runner::exec(const int argc, const char* const argv[])
+int runner::exec(const int argc, const char* const argv[])
 {
     const std::vector<std::string_view> args(argv, argv + argc);
 
@@ -57,12 +60,12 @@ int Runner::exec(const int argc, const char* const argv[])
         else if (args.size() == 2)
         {
 RUN_ALL_TESTS:
-            std::vector<FixtureResult> passes;
-            std::vector<FixtureResult> failures;
+            std::vector<fixture_result> passes;
+            std::vector<fixture_result> failures;
             std::size_t total_test_failures = 0;
             for (auto [_, fixture] : _fixtures)
             {
-                FixtureResult result = fixture->run(std::cout);
+                fixture_result result = fixture->run(std::cout);
                 total_test_failures += result.failures.size();
                 if (result.failures.empty())
                     passes.push_back(std::move(result));
@@ -82,7 +85,7 @@ RUN_ALL_TESTS:
                 std::cout
                     << "================================\n\n"
                     << total_test_failures << " tests failed.\n\n";
-                for (const FixtureResult& result : failures)
+                for (const fixture_result& result : failures)
                 {
                     result.print_errors(std::cout);
                 }
@@ -98,10 +101,10 @@ RUN_ALL_TESTS:
                 return EXIT_FAILURE;
             }
 
-            Fixture* const fixture = it->second;
-            const FixtureResult result = (args.size() == 3)
-                ? fixture->run(std::cout)
-                : fixture->run(std::cout, args[3]);
+            fixture* const f = it->second;
+            const fixture_result result = (args.size() == 3)
+                ? f->run(std::cout)
+                : f->run(std::cout, args[3]);
 
             if (result.failures.empty())
             {
@@ -153,3 +156,5 @@ RUN_ALL_TESTS:
         return EXIT_FAILURE;
     }
 }
+
+} // namespace k3::testing

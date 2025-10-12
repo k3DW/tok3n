@@ -8,11 +8,13 @@
 #include <iosfwd>
 #include <string>
 #include <string_view>
-#include "framework/Hash.hpp"
+#include "framework/hash.hpp"
 
-struct TestResult;
+namespace k3::testing {
 
-class Test
+struct test_result;
+
+class test
 {
 public:
     std::string_view name() const
@@ -20,12 +22,12 @@ public:
         return _name;
     }
 
-    TestResult run(std::ostream& os) const;
+    test_result run(std::ostream& os) const;
 
     using func_type = void(*)();
 
     template <std::size_t N>
-    Test(const char(&name)[N], func_type func)
+    test(const char(&name)[N], func_type func)
         : _name(name), _func(func) {}
 
 private:
@@ -33,22 +35,27 @@ private:
     func_type _func;
 };
 
+} // namespace k3::testing
+
 
 
 #define TEST(FIXTURE_NAME, NAME)                                                      \
     template <std::size_t hash>                                                       \
-    class TestImpl;                                                                   \
+    class test_impl_;                                                                 \
+    template <std::size_t hash>                                                       \
+    class fixture_impl_;                                                              \
     template <>                                                                       \
-    class TestImpl<test_hash(FIXTURE_NAME, NAME)>                                     \
+    class test_impl_<::k3::testing::simple_hash(FIXTURE_NAME, NAME)>                  \
     {                                                                                 \
     private:                                                                          \
         static_assert(                                                                \
-            std::is_base_of_v<::Fixture, FixtureImpl<test_hash(FIXTURE_NAME)>>,       \
+            std::is_base_of_v<::k3::testing::fixture,                                 \
+                fixture_impl_<::k3::testing::simple_hash(FIXTURE_NAME)>>,             \
             "Fixture \"" FIXTURE_NAME "\" has not been declared in this namespace."); \
         static void _run();                                                           \
-        static inline const bool _init                                                \
-            = Runner::get().add(FIXTURE_NAME, Test(NAME, &_run));                     \
+        static inline const bool _init = ::k3::testing::runner::get()                 \
+            .add(FIXTURE_NAME, ::k3::testing::test(NAME, &_run));                     \
     };                                                                                \
-    void TestImpl<test_hash(FIXTURE_NAME, NAME)>::_run()
+    void test_impl_<::k3::testing::simple_hash(FIXTURE_NAME, NAME)>::_run()
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_TEST_HPP

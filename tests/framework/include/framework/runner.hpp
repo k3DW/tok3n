@@ -8,23 +8,27 @@
 #include <map>
 #include <string_view>
 
-class Test;
-class Fixture;
+namespace k3::testing {
 
-class Runner
+class test;
+class fixture;
+
+class runner
 {
 public:
-    static Runner& get();
+    static runner& get();
 
     int exec(int argc, const char* const argv[]);
 
-    bool add(Fixture& fixture);
-    bool add(std::string_view fixture_name, Test&& test);
+    bool add(fixture& fixture);
+    bool add(std::string_view fixture_name, test&& t);
 
 private:
-    Runner() = default;
+    runner() = default;
 
-    std::map<std::string_view, Fixture*> _fixtures;
+    std::map<std::string_view, fixture*> _fixtures;
 };
+
+} // namespace k3::testing
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_RUNNER_HPP

@@ -6,13 +6,17 @@
 #include <iomanip>
 #include <iostream>
 
-TestResult Test::run(std::ostream& os) const
+namespace k3::testing {
+
+test_result test::run(std::ostream& os) const
 {
-    TestResult result(_name);
+    test_result result(_name);
     {
-        TestResultContext context(result);
+        test_result_context context(result);
         _func();
     }
     result.print_brief(os);
     return result;
 }
+
+} // namespace k3::testing

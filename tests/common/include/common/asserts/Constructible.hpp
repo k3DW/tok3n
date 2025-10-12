@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_ASSERTS_CONSTRUCTIBLE_HPP
 #define K3_TOK3N_TESTS_COMMON_ASSERTS_CONSTRUCTIBLE_HPP
 
-#include "framework/Assert.hpp"
+#include "framework/assert.hpp"
 #include <k3/tok3n/detail/static_array.hpp>
 
 template <template <class...> class Family, class... Args>
