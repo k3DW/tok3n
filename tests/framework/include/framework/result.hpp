@@ -40,17 +40,25 @@ struct fixture_result
     void print_errors(std::ostream& os) const;
 };
 
-class test_result_context
+class context
 {
+    class context_base
+    {
+    public:
+        context_base() = default;
+        context_base(const context_base&) = delete;
+        context_base(context_base&&) = delete;
+        context_base& operator=(const context_base&) = delete;
+        context_base& operator=(context_base&&) = delete;
+    };
+
 public:
-    [[nodiscard]] test_result_context(test_result& result);
-
-    ~test_result_context();
-
-    test_result_context(const test_result_context&) = delete;
-    test_result_context(test_result_context&&) = delete;
-    test_result_context& operator=(const test_result_context&) = delete;
-    test_result_context& operator=(test_result_context&&) = delete;
+    class test_result_context : public context_base
+    {
+    public:
+        [[nodiscard]] test_result_context(test_result& result);
+        ~test_result_context();
+    };
 
     static void add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location = std::source_location::current());
 
@@ -58,7 +66,6 @@ public:
 
 private:
     static inline test_result* _current_result = nullptr;
-    test_result* _old_result;
 };
 
 } // namespace k3::testing

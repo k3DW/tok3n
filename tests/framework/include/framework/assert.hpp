@@ -11,49 +11,49 @@
 #define K3_TOK3N_CT_BOOL_(B) (bool(B))
 #endif
 
-#define ASSERT_COMPILE_TIME(CONDITION, MESSAGE)                                                                        \
-    if (                                                                                                               \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value); \
-        not _ct                                                                                                        \
-    )                                                                                                                  \
-        return ::k3::testing::test_result_context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::fatal)
+#define ASSERT_COMPILE_TIME(CONDITION, MESSAGE)                                                            \
+    if (                                                                                                   \
+        bool _ct = ::k3::testing::context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value); \
+        not _ct                                                                                            \
+    )                                                                                                      \
+        return ::k3::testing::context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::fatal)
 
-#define ASSERT_RUN_TIME(CONDITION, MESSAGE)                                                                            \
-    if (                                                                                                               \
-        bool _rt = ::k3::testing::test_result_context::check(CONDITION);                                               \
-        not _rt                                                                                                        \
-    )                                                                                                                  \
-        return ::k3::testing::test_result_context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
+#define ASSERT_RUN_TIME(CONDITION, MESSAGE)                                                                \
+    if (                                                                                                   \
+        bool _rt = ::k3::testing::context::check(CONDITION);                                               \
+        not _rt                                                                                            \
+    )                                                                                                      \
+        return ::k3::testing::context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
 
-#define ASSERT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                                \
-    if (                                                                                                               \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value), \
-             _rt = ::k3::testing::test_result_context::check(CONDITION);                                               \
-        not _ct or not _rt                                                                                             \
-    )                                                                                                                  \
-        return ::k3::testing::test_result_context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
+#define ASSERT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                    \
+    if (                                                                                                   \
+        bool _ct = ::k3::testing::context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value), \
+             _rt = ::k3::testing::context::check(CONDITION);                                               \
+        not _ct or not _rt                                                                                 \
+    )                                                                                                      \
+        return ::k3::testing::context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
 
-#define EXPECT_COMPILE_TIME(CONDITION, MESSAGE)                                                                        \
-    if (                                                                                                               \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value); \
-        not _ct                                                                                                        \
-    )                                                                                                                  \
-        ::k3::testing::test_result_context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::non_fatal)
+#define EXPECT_COMPILE_TIME(CONDITION, MESSAGE)                                                            \
+    if (                                                                                                   \
+        bool _ct = ::k3::testing::context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value); \
+        not _ct                                                                                            \
+    )                                                                                                      \
+        ::k3::testing::context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::non_fatal)
 
-#define EXPECT_RUN_TIME(CONDITION, MESSAGE)                                                                         \
-    if (                                                                                                            \
-        bool _rt = ::k3::testing::test_result_context::check(CONDITION);                                            \
-        not _rt                                                                                                     \
-    )                                                                                                               \
-        ::k3::testing::test_result_context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
+#define EXPECT_RUN_TIME(CONDITION, MESSAGE)                                                             \
+    if (                                                                                                \
+        bool _rt = ::k3::testing::context::check(CONDITION);                                            \
+        not _rt                                                                                         \
+    )                                                                                                   \
+        ::k3::testing::context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
 
-#define EXPECT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                                \
-    if (                                                                                                               \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value), \
-             _rt = ::k3::testing::test_result_context::check(CONDITION);                                               \
-        not _ct or not _rt                                                                                             \
-    )                                                                                                                  \
-        ::k3::testing::test_result_context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
+#define EXPECT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                    \
+    if (                                                                                                   \
+        bool _ct = ::k3::testing::context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value), \
+             _rt = ::k3::testing::context::check(CONDITION);                                               \
+        not _ct or not _rt                                                                                 \
+    )                                                                                                      \
+        ::k3::testing::context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
 
 
 

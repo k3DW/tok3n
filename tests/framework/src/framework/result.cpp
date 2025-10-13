@@ -5,6 +5,7 @@
 #include "framework.hpp"
 #include <iomanip>
 #include <iostream>
+#include <stdexcept>
 
 namespace k3::testing {
 
@@ -52,18 +53,21 @@ void fixture_result::print_errors(std::ostream& os) const
     os << "\n";
 }
 
-test_result_context::test_result_context(test_result& result)
-    : _old_result(_current_result)
+context::test_result_context::test_result_context(test_result& result)
 {
+    if (_current_result != nullptr)
+    {
+        throw std::logic_error("Nested test_result_context is not allowed.");
+    }
     _current_result = &result;
 }
 
-test_result_context::~test_result_context()
+context::test_result_context::~test_result_context()
 {
-    _current_result = _old_result;
+    _current_result = nullptr;
 }
 
-void test_result_context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
+void context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
 {
     if (not ct)
         _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(location));
@@ -71,9 +75,9 @@ void test_result_context::add_error(bool ct, bool rt, std::string message, error
         _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(location));
 }
 
-bool test_result_context::check(bool condition)
+bool context::check(bool condition)
 {
-    _current_result->checks++;
+    ++_current_result->checks;
     return condition;
 }
 
