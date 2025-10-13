@@ -18,6 +18,8 @@ std::string_view to_string(error_time time)
             return "Compile-time";
         case run_time:
             return "Run-time";
+        case both:
+            return "Compile-time and run-time";
         default:
             return "<Invalid error time>";
     }

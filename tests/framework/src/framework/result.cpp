@@ -69,9 +69,11 @@ context::test_result_context::~test_result_context()
 
 void context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
 {
-    if (not ct)
+    if (not ct and not rt)
+        _current_result->errors.emplace_back(error_time::both, fatality, std::move(message), std::move(location));
+    else if (not ct)
         _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(location));
-    if (not rt)
+    else if (not rt)
         _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(location));
 }
 

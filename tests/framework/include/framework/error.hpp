@@ -15,6 +15,7 @@ enum class error_time
 {
     compile_time,
     run_time,
+    both,
 };
 
 enum class error_fatality
