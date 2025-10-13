@@ -44,9 +44,11 @@ std::string_view to_string(error_fatality fatality)
 void print(std::ostream& os, const error& e)
 {
     os << "[" << to_string(e.time) << " " << to_string(e.fatality) << " error]\n";
-    os << "    Message: " << e.message << "\n";
-    os << "    File: " << e.location.file_name() << "\n";
-    os << "    Line: " << e.location.line() << "\n";
+    for (const auto& loc : e.trace)
+    {
+        os << "    at " << loc.file_name() << ":" << loc.line() << "\n";
+    }
+    os << "    " << e.message << "\n";
 }
 
 } // namespace k3::testing

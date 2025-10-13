@@ -8,6 +8,7 @@
 #include <source_location>
 #include <string_view>
 #include <string>
+#include <vector>
 
 namespace k3::testing {
 
@@ -29,7 +30,7 @@ struct error
     error_time time;
     error_fatality fatality;
     std::string message;
-    std::source_location location;
+    std::vector<std::source_location> trace;
 };
 
 void print(std::ostream& os, const error& e);

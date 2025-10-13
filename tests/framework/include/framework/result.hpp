@@ -60,12 +60,26 @@ public:
         ~test_result_context();
     };
 
+    class trace_context : public context_base
+    {
+    public:
+        [[nodiscard]] trace_context(std::source_location location = std::source_location::current())
+        {
+            _trace.push_back(std::move(location));
+        }
+        ~trace_context()
+        {
+            _trace.pop_back();
+        }
+    };
+
     static void add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location = std::source_location::current());
 
     static bool check(bool condition);
 
 private:
     static inline test_result* _current_result = nullptr;
+    static inline std::vector<std::source_location> _trace;
 };
 
 } // namespace k3::testing

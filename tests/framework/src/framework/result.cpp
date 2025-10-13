@@ -69,12 +69,19 @@ context::test_result_context::~test_result_context()
 
 void context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
 {
+    std::vector<std::source_location> trace;
+    if (not ct or not rt)
+    {
+        trace = _trace;
+        trace.push_back(std::move(location));
+    }
+
     if (not ct and not rt)
-        _current_result->errors.emplace_back(error_time::both, fatality, std::move(message), std::move(location));
+        _current_result->errors.emplace_back(error_time::both, fatality, std::move(message), std::move(trace));
     else if (not ct)
-        _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(location));
+        _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(trace));
     else if (not rt)
-        _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(location));
+        _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(trace));
 }
 
 bool context::check(bool condition)
