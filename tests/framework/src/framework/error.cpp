@@ -39,6 +39,23 @@ std::string_view to_string(error_fatality fatality)
     }
 }
 
+std::string tab_over(std::string str, const std::size_t spaces)
+{
+    str.insert(0, spaces, ' ');
+    for (std::size_t pos = spaces; ;)
+    {
+        pos = str.find('\n', pos);
+        if (std::string::npos == pos)
+        {
+            break;
+        }
+        ++pos;
+        str.insert(pos, spaces, ' ');
+        pos += spaces;
+    }
+    return str;
+}
+
 } // namespace
 
 void print(std::ostream& os, const error& e)
@@ -48,7 +65,7 @@ void print(std::ostream& os, const error& e)
     {
         os << "    at " << loc.file_name() << ":" << loc.line() << "\n";
     }
-    os << "    " << e.message << "\n";
+    os << tab_over(e.message, 4) << "\n";
 }
 
 } // namespace k3::testing
