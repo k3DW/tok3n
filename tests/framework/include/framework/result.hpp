@@ -6,7 +6,11 @@
 #define K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP
 
 #include <iosfwd>
+#include <ostream>
+#include <source_location>
+#include <sstream>
 #include <string_view>
+#include <string>
 #include <vector>
 
 namespace k3::testing {
@@ -38,6 +42,13 @@ struct fixture_result
     void push_back(test_result&& result);
     void print_brief(std::ostream& os) const;
     void print_errors(std::ostream& os) const;
+};
+
+class void_assignment_helper
+{
+public:
+    void_assignment_helper() = default;
+    void operator=(auto&&) const {}
 };
 
 class context
@@ -73,7 +84,28 @@ public:
         }
     };
 
-    static void add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location = std::source_location::current());
+    class message_streaming_context : public context_base
+    {
+    public:
+        message_streaming_context(std::string& message)
+            : _message(&message)
+        {}
+        ~message_streaming_context()
+        {
+            *_message = std::move(_stream).str();
+        }
+        template <class T>
+        friend message_streaming_context&& operator<<(message_streaming_context&& ctx, T&& value)
+        {
+            ctx._stream << std::forward<T>(value);
+            return std::move(ctx);
+        }
+    private:
+        std::ostringstream _stream;
+        std::string* _message;
+    };
+
+    static message_streaming_context add_error(bool ct, bool rt, error_fatality fatality, std::source_location location = std::source_location::current());
 
     static bool check(bool condition);
 

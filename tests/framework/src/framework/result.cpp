@@ -67,21 +67,22 @@ context::test_result_context::~test_result_context()
     _current_result = nullptr;
 }
 
-void context::add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location)
+context::message_streaming_context context::add_error(bool ct, bool rt, error_fatality fatality, std::source_location location)
 {
-    std::vector<std::source_location> trace;
-    if (not ct or not rt)
+    if (ct and rt)
     {
-        trace = _trace;
-        trace.push_back(std::move(location));
+        throw std::logic_error("At least one of ct or rt must be false.");
     }
 
-    if (not ct and not rt)
-        _current_result->errors.emplace_back(error_time::both, fatality, std::move(message), std::move(trace));
-    else if (not ct)
-        _current_result->errors.emplace_back(error_time::compile_time, fatality, std::move(message), std::move(trace));
-    else if (not rt)
-        _current_result->errors.emplace_back(error_time::run_time, fatality, std::move(message), std::move(trace));
+    std::vector<std::source_location> trace;
+    trace = _trace;
+    trace.push_back(std::move(location));
+
+    const error_time time =
+        (not ct and not rt) ? error_time::both :
+        (not ct) ? error_time::compile_time : error_time::run_time;
+    error& e = _current_result->errors.emplace_back(time, fatality, std::move(trace));
+    return message_streaming_context{e.message};
 }
 
 bool context::check(bool condition)

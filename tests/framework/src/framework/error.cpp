@@ -65,7 +65,10 @@ void print(std::ostream& os, const error& e)
     {
         os << "    at " << loc.file_name() << ":" << loc.line() << "\n";
     }
-    os << tab_over(e.message, 4) << "\n";
+    if (not e.message.empty())
+    {
+        os << tab_over(e.message, 4) << "\n";
+    }
 }
 
 } // namespace k3::testing
