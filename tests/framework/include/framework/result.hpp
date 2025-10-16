@@ -109,9 +109,15 @@ public:
 
     static bool check(bool condition);
 
+    static std::size_t total_fatal_errors();
+    static std::size_t total_errors();
+
 private:
     static inline test_result* _current_result = nullptr;
     static inline std::vector<std::source_location> _trace;
+
+    static inline std::size_t _total_fatal_errors = 0;
+    static inline std::size_t _total_errors = 0;
 };
 
 } // namespace k3::testing

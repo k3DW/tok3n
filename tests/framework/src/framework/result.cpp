@@ -78,6 +78,12 @@ context::message_streaming_context context::add_error(bool ct, bool rt, error_fa
     trace = _trace;
     trace.push_back(std::move(location));
 
+    if (fatality == error_fatality::fatal)
+    {
+        ++_total_fatal_errors;
+    }
+    ++_total_errors;
+
     const error_time time =
         (not ct and not rt) ? error_time::both :
         (not ct) ? error_time::compile_time : error_time::run_time;
@@ -89,6 +95,16 @@ bool context::check(bool condition)
 {
     ++_current_result->checks;
     return condition;
+}
+
+std::size_t context::total_fatal_errors()
+{
+    return _total_fatal_errors;
+}
+
+std::size_t context::total_errors()
+{
+    return _total_errors;
 }
 
 } // namespace k3::testing

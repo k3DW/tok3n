@@ -11,6 +11,8 @@
 #define K3_TOK3N_CT_BOOL_(B) (bool(B))
 #endif
 
+#define K3_TOK3N_REQUIRE_SEMICOLON_ static_assert(true, "require semicolon")
+
 #define K3_TOK3N_CHECK_CT_(CONDITION) \
     (::k3::testing::context::check(std::bool_constant<K3_TOK3N_CT_BOOL_(CONDITION)>::value))
 #define K3_TOK3N_CHECK_RT_(CONDITION) \
@@ -81,6 +83,32 @@
         (void)0;                                  \
     else                                          \
         K3_TOK3N_NON_FATAL_ERROR_(_ct, _rt)
+
+
+
+// ASSERT_THAT does not ignore its internal non-fatal errors,
+// and treats them as fatal errors.
+#define ASSERT_THAT(FRAGMENT)                                                  \
+    {                                                                          \
+        ::k3::testing::context::trace_context _ctx_;                           \
+        const std::size_t _starting_ = ::k3::testing::context::total_errors(); \
+        (FRAGMENT)();                                                          \
+        const std::size_t _ending_ = ::k3::testing::context::total_errors();   \
+        if (_ending_ != _starting_)                                            \
+            return;                                                            \
+    } K3_TOK3N_REQUIRE_SEMICOLON_
+
+// EXPECT_THAT ignores all the internal non-fatal errors,
+// but it cannot ignore the fatal errors.
+#define EXPECT_THAT(FRAGMENT)                                                        \
+    {                                                                                \
+        ::k3::testing::context::trace_context _ctx_;                                 \
+        const std::size_t _starting_ = ::k3::testing::context::total_fatal_errors(); \
+        (FRAGMENT)();                                                                \
+        const std::size_t _ending_ = ::k3::testing::context::total_fatal_errors();   \
+        if (_ending_ != _starting_)                                                  \
+            return;                                                                  \
+    } K3_TOK3N_REQUIRE_SEMICOLON_
 
 
 
