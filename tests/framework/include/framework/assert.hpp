@@ -21,47 +21,65 @@
     ::k3::testing::void_assignment_helper{} = ::k3::testing::context::add_error(CT, RT, ::k3::testing::error_fatality::non_fatal)
 
 #define ASSERT_COMPILE_TIME(CONDITION)            \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _ct = K3_TOK3N_CHECK_CT_(CONDITION); \
-        not _ct                                   \
+        _ct                                       \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_FATAL_ERROR_(_ct, true)
 
 #define ASSERT_RUN_TIME(CONDITION)                \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _rt = K3_TOK3N_CHECK_RT_(CONDITION); \
-        not _rt                                   \
+        _rt                                       \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_FATAL_ERROR_(true, _rt)
 
 #define ASSERT_COMPILE_AND_RUN_TIME(CONDITION)    \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _ct = K3_TOK3N_CHECK_CT_(CONDITION), \
              _rt = K3_TOK3N_CHECK_RT_(CONDITION); \
-        not _ct or not _rt                        \
+        _ct and _rt                               \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_FATAL_ERROR_(_ct, _rt)
 
 #define EXPECT_COMPILE_TIME(CONDITION)            \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _ct = K3_TOK3N_CHECK_CT_(CONDITION); \
-        not _ct                                   \
+        _ct                                       \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_NON_FATAL_ERROR_(_ct, true)
 
 #define EXPECT_RUN_TIME(CONDITION)                \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _rt = K3_TOK3N_CHECK_RT_(CONDITION); \
-        not _rt                                   \
+        _rt                                       \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_NON_FATAL_ERROR_(true, _rt)
 
 #define EXPECT_COMPILE_AND_RUN_TIME(CONDITION)    \
+    switch(0) case 0: default:                    \
     if (                                          \
         bool _ct = K3_TOK3N_CHECK_CT_(CONDITION), \
              _rt = K3_TOK3N_CHECK_RT_(CONDITION); \
-        not _ct or not _rt                        \
+        _ct and _rt                               \
     )                                             \
+        (void)0;                                  \
+    else                                          \
         K3_TOK3N_NON_FATAL_ERROR_(_ct, _rt)
 
 
