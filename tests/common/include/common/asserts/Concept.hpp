@@ -8,6 +8,10 @@
 #include "framework/assert.hpp"
 #include <k3/tok3n/detail/parser.hpp>
 
+#define IDENTITY(...) __VA_ARGS__
+
+#define STR(...) #__VA_ARGS__
+
 #define ASSERT_CONCEPT(Concept, ...)                                               \
     ASSERT((Concept<__VA_ARGS__>))                                                 \
         << "`" STR(__VA_ARGS__) "` does not satisfy the " STR(Concept) " concept."

@@ -121,10 +121,4 @@
 #define SIMPLE_EXPECT(CONDITION) \
     EXPECT(CONDITION) << #CONDITION
 
-
-
-#define IDENTITY(...) __VA_ARGS__
-
-#define STR(...) #__VA_ARGS__
-
 #endif // K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
