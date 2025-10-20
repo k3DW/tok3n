@@ -44,6 +44,16 @@ struct fixture_result
     void print_errors(std::ostream& os) const;
 };
 
+struct check_result
+{
+    bool compile_time;
+    bool run_time;
+    operator bool() const noexcept
+    {
+        return compile_time and run_time;
+    }
+};
+
 class void_assignment_helper
 {
 public:
@@ -105,9 +115,9 @@ public:
         std::string* _message;
     };
 
-    static message_streaming_context add_error(bool ct, bool rt, error_fatality fatality, std::source_location location = std::source_location::current());
+    static message_streaming_context add_error(check_result result, error_fatality fatality, std::source_location location = std::source_location::current());
 
-    static bool check(bool condition);
+    static check_result check(bool compile_time, bool run_time);
 
     static std::size_t total_fatal_errors();
     static std::size_t total_errors();

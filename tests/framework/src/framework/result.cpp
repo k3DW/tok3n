@@ -67,11 +67,11 @@ context::test_result_context::~test_result_context()
     _current_result = nullptr;
 }
 
-context::message_streaming_context context::add_error(bool ct, bool rt, error_fatality fatality, std::source_location location)
+context::message_streaming_context context::add_error(check_result result, error_fatality fatality, std::source_location location)
 {
-    if (ct and rt)
+    if (result)
     {
-        throw std::logic_error("At least one of ct or rt must be false.");
+        throw std::logic_error("At least one of compile_time or run_time must be false.");
     }
 
     std::vector<std::source_location> trace;
@@ -85,16 +85,19 @@ context::message_streaming_context context::add_error(bool ct, bool rt, error_fa
     ++_total_errors;
 
     const error_time time =
-        (not ct and not rt) ? error_time::both :
-        (not ct) ? error_time::compile_time : error_time::run_time;
+        (not result.compile_time and not result.run_time) ? error_time::both :
+        (not result.compile_time) ? error_time::compile_time : error_time::run_time;
     error& e = _current_result->errors.emplace_back(time, fatality, std::move(trace));
     return message_streaming_context{e.message};
 }
 
-bool context::check(bool condition)
+check_result context::check(bool compile_time, bool run_time)
 {
     ++_current_result->checks;
-    return condition;
+    return {
+        .compile_time = compile_time,
+        .run_time = run_time,
+    };
 }
 
 std::size_t context::total_fatal_errors()
