@@ -84,7 +84,7 @@ RUN_ALL_TESTS:
             {
                 std::cout
                     << "================================\n\n"
-                    << total_test_failures << " tests failed.\n\n";
+                    << total_test_failures << " test" << (total_test_failures == 1 ? "" : "s") << " failed.\n\n";
                 for (const fixture_result& result : failures)
                 {
                     result.print_errors(std::cout);
@@ -117,7 +117,7 @@ RUN_ALL_TESTS:
             {
                 std::cout
                     << "================================\n\n"
-                    << result.failures.size() << " tests failed.\n\n";
+                    << result.failures.size() << " test" << (result.failures.size() == 1 ? "" : "s") << " failed.\n\n";
                 result.print_errors(std::cout);
                 return EXIT_FAILURE;
             }

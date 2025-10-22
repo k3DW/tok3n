@@ -13,7 +13,7 @@ void test_result::print_brief(std::ostream& os) const
 {
     os
         << "    Test " << std::quoted(name) << " - "
-        << checks << " checks / " << errors.size()
+        << checks << " check" << (checks == 1 ? "" : "s") << " / " << errors.size()
         << " error" << (errors.size() == 1 ? "" : "s") << ".\n";
 }
 
@@ -37,10 +37,11 @@ void fixture_result::push_back(test_result&& result)
 
 void fixture_result::print_brief(std::ostream& os) const
 {
+    const std::size_t num_tests = passes.size() + failures.size();
     os
         << "Fixture " << std::quoted(name) << " - "
-        << (passes.size() + failures.size()) << " tests / "
-        << failures.size() << " failures.\n\n";
+        << num_tests << " test" << (num_tests == 1 ? "" : "s") << " / "
+        << failures.size() << " failure" << (failures.size() == 1 ? "" : "s") << ".\n\n";
 }
 
 void fixture_result::print_errors(std::ostream& os) const
