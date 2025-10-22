@@ -12,7 +12,7 @@ test_result test::run(std::ostream& os) const
 {
     test_result result(_name);
     {
-        test_result_context context(result);
+        context::test_result_context ctx(result);
         _func();
     }
     result.print_brief(os);

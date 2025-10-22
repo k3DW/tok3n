@@ -6,7 +6,11 @@
 #define K3_TOK3N_TESTS_FRAMEWORK_TESTRESULT_HPP
 
 #include <iosfwd>
+#include <ostream>
+#include <source_location>
+#include <sstream>
 #include <string_view>
+#include <string>
 #include <vector>
 
 namespace k3::testing {
@@ -40,25 +44,90 @@ struct fixture_result
     void print_errors(std::ostream& os) const;
 };
 
-class test_result_context
+struct check_result
+{
+    bool compile_time;
+    bool run_time;
+    operator bool() const noexcept
+    {
+        return compile_time and run_time;
+    }
+};
+
+class void_assignment_helper
 {
 public:
-    [[nodiscard]] test_result_context(test_result& result);
+    void_assignment_helper() = default;
+    void operator=(auto&&) const {}
+};
 
-    ~test_result_context();
+class context
+{
+    class context_base
+    {
+    public:
+        context_base() = default;
+        context_base(const context_base&) = delete;
+        context_base(context_base&&) = delete;
+        context_base& operator=(const context_base&) = delete;
+        context_base& operator=(context_base&&) = delete;
+    };
 
-    test_result_context(const test_result_context&) = delete;
-    test_result_context(test_result_context&&) = delete;
-    test_result_context& operator=(const test_result_context&) = delete;
-    test_result_context& operator=(test_result_context&&) = delete;
+public:
+    class test_result_context : public context_base
+    {
+    public:
+        [[nodiscard]] test_result_context(test_result& result);
+        ~test_result_context();
+    };
 
-    static void add_error(bool ct, bool rt, std::string message, error_fatality fatality, std::source_location location = std::source_location::current());
+    class trace_context : public context_base
+    {
+    public:
+        [[nodiscard]] trace_context(std::source_location location = std::source_location::current())
+        {
+            _trace.push_back(std::move(location));
+        }
+        ~trace_context()
+        {
+            _trace.pop_back();
+        }
+    };
 
-    static bool check(bool condition);
+    class message_streaming_context : public context_base
+    {
+    public:
+        message_streaming_context(std::string& message)
+            : _message(&message)
+        {}
+        ~message_streaming_context()
+        {
+            *_message = std::move(_stream).str();
+        }
+        template <class T>
+        friend message_streaming_context&& operator<<(message_streaming_context&& ctx, T&& value)
+        {
+            ctx._stream << std::forward<T>(value);
+            return std::move(ctx);
+        }
+    private:
+        std::ostringstream _stream;
+        std::string* _message;
+    };
+
+    static message_streaming_context add_error(check_result result, error_fatality fatality, std::source_location location = std::source_location::current());
+
+    static check_result check(bool compile_time, bool run_time);
+
+    static std::size_t total_fatal_errors();
+    static std::size_t total_errors();
 
 private:
     static inline test_result* _current_result = nullptr;
-    test_result* _old_result;
+    static inline std::vector<std::source_location> _trace;
+
+    static inline std::size_t _total_fatal_errors = 0;
+    static inline std::size_t _total_errors = 0;
 };
 
 } // namespace k3::testing

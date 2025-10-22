@@ -8,6 +8,7 @@
 #include <source_location>
 #include <string_view>
 #include <string>
+#include <vector>
 
 namespace k3::testing {
 
@@ -15,6 +16,7 @@ enum class error_time
 {
     compile_time,
     run_time,
+    both,
 };
 
 enum class error_fatality
@@ -25,10 +27,13 @@ enum class error_fatality
 
 struct error
 {
+    explicit error(error_time time, error_fatality fatality, std::vector<std::source_location> trace)
+        : time(time), fatality(fatality), trace(std::move(trace))
+    {}
     error_time time;
     error_fatality fatality;
-    std::string message;
-    std::source_location location;
+    std::string message{};
+    std::vector<std::source_location> trace;
 };
 
 void print(std::ostream& os, const error& e);

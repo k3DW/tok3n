@@ -5,67 +5,95 @@
 #ifndef K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 #define K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 
-// The template argument `[&]{ return bool(CONDITION); }()` is a workaround for Clang 16
+#if defined(__clang__) and (__clang_major__ <= 16)
+#define K3_TESTING_CT_BOOL_(B) ([&]{ return static_cast<bool>(B); }())
+#else
+#define K3_TESTING_CT_BOOL_(B) (static_cast<bool>(B))
+#endif
 
-#define ASSERT_COMPILE_TIME(CONDITION, MESSAGE)                                                                            \
-    if (                                                                                                                   \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value); \
-        not _ct                                                                                                            \
-    )                                                                                                                      \
-        return ::k3::testing::test_result_context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::fatal)
-
-#define ASSERT_RUN_TIME(CONDITION, MESSAGE)                                                                            \
-    if (                                                                                                               \
-        bool _rt = ::k3::testing::test_result_context::check(CONDITION);                                               \
-        not _rt                                                                                                        \
-    )                                                                                                                  \
-        return ::k3::testing::test_result_context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
-
-#define ASSERT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                                    \
-    if (                                                                                                                   \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value), \
-             _rt = ::k3::testing::test_result_context::check(CONDITION);                                                   \
-        not _ct or not _rt                                                                                                 \
-    )                                                                                                                      \
-        return ::k3::testing::test_result_context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::fatal)
-
-#define EXPECT_COMPILE_TIME(CONDITION, MESSAGE)                                                                            \
-    if (                                                                                                                   \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value); \
-        not _ct                                                                                                            \
-    )                                                                                                                      \
-        ::k3::testing::test_result_context::add_error(_ct, true, MESSAGE, ::k3::testing::error_fatality::non_fatal)
-
-#define EXPECT_RUN_TIME(CONDITION, MESSAGE)                                                                         \
-    if (                                                                                                            \
-        bool _rt = ::k3::testing::test_result_context::check(CONDITION);                                            \
-        not _rt                                                                                                     \
-    )                                                                                                               \
-        ::k3::testing::test_result_context::add_error(true, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
-
-#define EXPECT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)                                                                    \
-    if (                                                                                                                   \
-        bool _ct = ::k3::testing::test_result_context::check(std::bool_constant<[&]{ return bool(CONDITION); }()>::value), \
-             _rt = ::k3::testing::test_result_context::check(CONDITION);                                                   \
-        not _ct or not _rt                                                                                                 \
-    )                                                                                                                      \
-        ::k3::testing::test_result_context::add_error(_ct, _rt, MESSAGE, ::k3::testing::error_fatality::non_fatal)
+#define K3_TESTING_REQUIRE_SEMICOLON_ static_assert(true, "require semicolon")
 
 
 
-#define ASSERT(CONDITION, MESSAGE) \
-    ASSERT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)
+#define K3_TESTING_EVAL_BOOL_(NAME, BOOL) \
+    K3_TESTING_ ## NAME ## _ ## BOOL ## _
 
-#define EXPECT(CONDITION, MESSAGE) \
-    EXPECT_COMPILE_AND_RUN_TIME(CONDITION, MESSAGE)
+#define K3_TESTING_CT_CONDITION_0_(CONDITION) (true)
+#define K3_TESTING_CT_CONDITION_1_(CONDITION) (std::bool_constant<K3_TESTING_CT_BOOL_(CONDITION)>::value)
+
+#define K3_TESTING_RT_CONDITION_0_(CONDITION) (true)
+#define K3_TESTING_RT_CONDITION_1_(CONDITION) (CONDITION)
+
+#define K3_TESTING_ERROR_FATALITY_0_(RESULT) \
+    ::k3::testing::void_assignment_helper{} = ::k3::testing::context::add_error(RESULT, ::k3::testing::error_fatality::non_fatal)
+#define K3_TESTING_ERROR_FATALITY_1_(RESULT) \
+    return ::k3::testing::void_assignment_helper{} = ::k3::testing::context::add_error(RESULT, ::k3::testing::error_fatality::fatal)
+
+
+
+#define K3_TESTING_GENERIC_CHECK_IMPL_(CONDITION, MAKE_CT, MAKE_RT, MAKE_ERROR) \
+    switch(0) case 0: default:                                                  \
+    if (                                                                        \
+        const auto _res_ = ::k3::testing::context::check(                       \
+            MAKE_CT(CONDITION),                                                 \
+            MAKE_RT(CONDITION)                                                  \
+        );                                                                      \
+        _res_                                                                   \
+    )                                                                           \
+        (void)0;                                                                \
+    else                                                                        \
+        MAKE_ERROR(_res_)
+
+#define K3_TESTING_GENERIC_CHECK_(CONDITION, IS_CT, IS_RT, IS_FATAL) \
+    K3_TESTING_GENERIC_CHECK_IMPL_(CONDITION,                        \
+        K3_TESTING_EVAL_BOOL_(CT_CONDITION, IS_CT),                  \
+        K3_TESTING_EVAL_BOOL_(RT_CONDITION, IS_RT),                  \
+        K3_TESTING_EVAL_BOOL_(ERROR_FATALITY, IS_FATAL)              \
+    )
+
+#define ASSERT_COMPILE_TIME(CONDITION)         K3_TESTING_GENERIC_CHECK_(CONDITION, 1, 0, 1)
+#define ASSERT_RUN_TIME(CONDITION)             K3_TESTING_GENERIC_CHECK_(CONDITION, 0, 1, 1)
+#define ASSERT_COMPILE_AND_RUN_TIME(CONDITION) K3_TESTING_GENERIC_CHECK_(CONDITION, 1, 1, 1)
+
+#define EXPECT_COMPILE_TIME(CONDITION)         K3_TESTING_GENERIC_CHECK_(CONDITION, 1, 0, 0)
+#define EXPECT_RUN_TIME(CONDITION)             K3_TESTING_GENERIC_CHECK_(CONDITION, 0, 1, 0)
+#define EXPECT_COMPILE_AND_RUN_TIME(CONDITION) K3_TESTING_GENERIC_CHECK_(CONDITION, 1, 1, 0)
+
+
+
+// ASSERT_THAT does not ignore its internal non-fatal errors,
+// and treats them as fatal errors.
+#define ASSERT_THAT(FRAGMENT)                                                  \
+    {                                                                          \
+        ::k3::testing::context::trace_context _ctx_;                           \
+        const std::size_t _starting_ = ::k3::testing::context::total_errors(); \
+        (FRAGMENT)();                                                          \
+        const std::size_t _ending_ = ::k3::testing::context::total_errors();   \
+        if (_ending_ != _starting_)                                            \
+            return;                                                            \
+    } K3_TESTING_REQUIRE_SEMICOLON_
+
+// EXPECT_THAT ignores all the internal non-fatal errors,
+// but it cannot ignore the fatal errors.
+#define EXPECT_THAT(FRAGMENT)                                                        \
+    {                                                                                \
+        ::k3::testing::context::trace_context _ctx_;                                 \
+        const std::size_t _starting_ = ::k3::testing::context::total_fatal_errors(); \
+        (FRAGMENT)();                                                                \
+        const std::size_t _ending_ = ::k3::testing::context::total_fatal_errors();   \
+        if (_ending_ != _starting_)                                                  \
+            return;                                                                  \
+    } K3_TESTING_REQUIRE_SEMICOLON_
+
+
+
+#define ASSERT(CONDITION) \
+    ASSERT_COMPILE_AND_RUN_TIME(CONDITION)
+
+#define EXPECT(CONDITION) \
+    EXPECT_COMPILE_AND_RUN_TIME(CONDITION)
 
 #define SIMPLE_EXPECT(CONDITION) \
-    EXPECT(CONDITION, #CONDITION)
-
-
-
-#define IDENTITY(...) __VA_ARGS__
-
-#define STR(...) #__VA_ARGS__
+    EXPECT(CONDITION) << #CONDITION
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP

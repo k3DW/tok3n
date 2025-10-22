@@ -18,6 +18,8 @@ std::string_view to_string(error_time time)
             return "Compile-time";
         case run_time:
             return "Run-time";
+        case both:
+            return "Compile-time and run-time";
         default:
             return "<Invalid error time>";
     }
@@ -37,14 +39,36 @@ std::string_view to_string(error_fatality fatality)
     }
 }
 
+std::string tab_over(std::string str, const std::size_t spaces)
+{
+    str.insert(0, spaces, ' ');
+    for (std::size_t pos = spaces; ;)
+    {
+        pos = str.find('\n', pos);
+        if (std::string::npos == pos)
+        {
+            break;
+        }
+        ++pos;
+        str.insert(pos, spaces, ' ');
+        pos += spaces;
+    }
+    return str;
+}
+
 } // namespace
 
 void print(std::ostream& os, const error& e)
 {
     os << "[" << to_string(e.time) << " " << to_string(e.fatality) << " error]\n";
-    os << "    Message: " << e.message << "\n";
-    os << "    File: " << e.location.file_name() << "\n";
-    os << "    Line: " << e.location.line() << "\n";
+    for (const auto& loc : e.trace)
+    {
+        os << "    at " << loc.file_name() << ":" << loc.line() << "\n";
+    }
+    if (not e.message.empty())
+    {
+        os << tab_over(e.message, 4) << "\n";
+    }
 }
 
 } // namespace k3::testing
