@@ -33,13 +33,20 @@ TEST("name modifier", "non consteval")
 
 
 
-#define NAME_MODIFIER_ASSERTER(P)                                                 \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (named_parser<P, "test1">{}));      \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (named_parser<P, "test2">{}));      \
+#define NAME_MODIFIER_CALLABLE_ASSERTER(P)                                          \
+    ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (named_parser<P, "test1">{})); \
+    ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (named_parser<P, "test2">{}));
+
+#define NAME_MODIFIER_OPERABLE_ASSERTER(P)                                               \
     ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test1">, (named_parser<P, "test1">{})); \
     ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test2">, (named_parser<P, "test2">{}));
 
-TEST("name modifier", "modify anything")
+TEST("name modifier", "modify callable anything")
 {
-    ASSERT_ALL_SAMPLES(NAME_MODIFIER_ASSERTER);
+    ASSERT_ALL_SAMPLES(NAME_MODIFIER_CALLABLE_ASSERTER);
+}
+
+TEST("name modifier", "modify operable anything")
+{
+    ASSERT_ALL_SAMPLES(NAME_MODIFIER_OPERABLE_ASSERTER);
 }
