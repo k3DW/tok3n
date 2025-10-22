@@ -6,9 +6,9 @@
 #define K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 
 #if defined(__clang__) and (__clang_major__ <= 16)
-#define K3_TESTING_CT_BOOL_(B) ([&]{ return bool(B); }())
+#define K3_TESTING_CT_BOOL_(B) ([&]{ return static_cast<bool>(B); }())
 #else
-#define K3_TESTING_CT_BOOL_(B) (bool(B))
+#define K3_TESTING_CT_BOOL_(B) (static_cast<bool>(B))
 #endif
 
 #define K3_TESTING_REQUIRE_SEMICOLON_ static_assert(true, "require semicolon")
