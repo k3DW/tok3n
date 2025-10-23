@@ -8,9 +8,10 @@
 #include <vector>
 #include <utility>
 
-FIXTURE("cpo index");
-
+namespace k3::tok3n::tests {
 namespace {
+
+FIXTURE("cpo index");
 
 struct Unchecked
 {
@@ -29,10 +30,6 @@ struct Checked
 };
 
 struct Both : Unchecked, Checked {};
-
-} // namespace
-
-using namespace k3::tok3n;
 
 TEST("cpo index", "std::vector")
 {
@@ -158,3 +155,6 @@ TEST("cpo index", "prefer checked indexing")
     EXPECT_COMPILE_TIME((std::same_as<detail::index_t<const Both&>, std::size_t>));
     EXPECT_COMPILE_TIME((std::same_as<detail::index_t<const Both&&>, std::size_t>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

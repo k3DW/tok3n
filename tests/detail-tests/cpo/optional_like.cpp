@@ -7,9 +7,10 @@
 #include <k3/tok3n/result.hpp>
 #include <optional>
 
-FIXTURE("optional_like");
+namespace k3::tok3n::tests {
+namespace {
 
-using namespace k3::tok3n;
+FIXTURE("optional_like");
 
 TEST("optional_like", "std::optional")
 {
@@ -72,3 +73,6 @@ TEST("optional_like", "tok3n result")
     EXPECT_COMPILE_TIME((detail::optional_like<result<wchar_t, char>&&>));
     EXPECT_COMPILE_TIME((detail::optional_like<const result<wchar_t, char>&&>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

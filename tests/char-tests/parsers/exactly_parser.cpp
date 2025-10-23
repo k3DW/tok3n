@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("exactly_parser");
 
@@ -188,3 +188,6 @@ TEST("exactly_parser", "Parse exactly_parser<void-parser>")
     ASSERT_PARSE_FAILURE(P, e<int>("abc"));
     ASSERT_PARSE_FAILURE(P, e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

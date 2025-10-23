@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 using L = all_of_parser<TT("literal")>;
 
@@ -58,3 +58,6 @@ TEST("all_of_parser", "Parse empty")
     ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>("anything"), e<int>(), e<int>("anything"));
     ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>(), e<int>(), e<int>());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

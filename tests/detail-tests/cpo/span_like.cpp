@@ -8,9 +8,10 @@
 #include <span>
 #include <string_view>
 
-FIXTURE("span_like");
+namespace k3::tok3n::tests {
+namespace {
 
-using namespace k3::tok3n;
+FIXTURE("span_like");
 
 TEST("span_like", "std::span")
 {
@@ -121,3 +122,6 @@ TEST("span_like", "tok3n output_span")
     EXPECT_COMPILE_TIME((detail::span_like<output_span<wchar_t>&&>));
     EXPECT_COMPILE_TIME((detail::span_like<const output_span<wchar_t>&&>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

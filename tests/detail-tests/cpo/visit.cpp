@@ -7,9 +7,10 @@
 #include <utility>
 #include <variant>
 
-FIXTURE("cpo visit");
-
+namespace k3::tok3n::tests {
 namespace {
+
+FIXTURE("cpo visit");
 
 struct Member
 {
@@ -22,10 +23,6 @@ constexpr std::size_t visit(std::size_t i, Free&) { return i + 11; }
 constexpr std::size_t visit(std::size_t i, const Free&) { return i + 12; }
 
 struct MemberAndFree : Member, Free {};
-
-} // namespace
-
-using namespace k3::tok3n;
 
 TEST("cpo visit", "std::variant")
 {
@@ -142,3 +139,6 @@ TEST("cpo visit", "visit")
     visit_test<Free, 10>();
     visit_test<MemberAndFree, 0>(); // prefer member to free
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -8,9 +8,10 @@
 #include <utility>
 #include <vector>
 
-FIXTURE("cpo push");
-
+namespace k3::tok3n::tests {
 namespace {
+
+FIXTURE("cpo push");
 
 struct PushBack {
     constexpr int push_back(int i) { return i + 1; }
@@ -31,10 +32,6 @@ struct PushBackAndPush : PushBack, Push {};
 struct PushBackAndInsert : PushBack, Insert {};
 struct PushAndInsert : Push, Insert {};
 struct AllThree : PushBack, Push, Insert {};
-
-} // namespace
-
-using namespace k3::tok3n;
 
 template <class Value>
 void vector_container_test()
@@ -161,3 +158,6 @@ TEST("cpo push", "custom pushers")
     pusher_test<PushAndInsert, 10>(); // prefer push to insert
     pusher_test<AllThree, 0>(); // prefer push_back to the others
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

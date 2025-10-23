@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("complete_parser");
 
@@ -223,3 +223,6 @@ TEST("complete_parser", "complete_parser<zero_or_more_parser>")
     ASSERT_PARSE_FAILURE(Com7, e<int>("aliteralaliteralcliteralbliteral"));
     ASSERT_PARSE_SUCCESS(Com7, e<int>(), Com7::result_for<int>{}, e<int>());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

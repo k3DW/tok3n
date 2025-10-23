@@ -4,14 +4,11 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
-namespace
-{
-    template <class V>
-    using vec_type = std::vector<output_span<V>>;
-}
+template <class V>
+using vec_type = std::vector<output_span<V>>;
 
 FIXTURE("delimit_parser regular");
 FIXTURE("delimit_parser keep");
@@ -397,3 +394,6 @@ TEST("delimit_parser keep", "Parse delimit_parser<void-parser>")
     ASSERT_PARSE_SUCCESS(P, e<int>("abc"), vec_type<int>({}), e<int>(""));
     ASSERT_PARSE_FAILURE(P, e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("apply_filter_parser");
 
@@ -76,3 +76,6 @@ TEST("apply_filter_parser", "Parse all")
         ASSERT_PARSE_FAILURE(Apf1, e<int>(""));
     }
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

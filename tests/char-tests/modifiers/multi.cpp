@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("multi operator");
 
@@ -39,3 +39,6 @@ TEST("multi operator", "applying the modifier")
     ASSERT_PARSER_VALUES_EQ(oom1 % (join % ignore % complete), complete_parser<ignore_parser<join_parser<Oom1>>>{});
     ASSERT_PARSER_VALUES_EQ(oom1 % (join % complete % ignore), ignore_parser<complete_parser<join_parser<Oom1>>>{});
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

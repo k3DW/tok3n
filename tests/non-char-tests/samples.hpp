@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -12,7 +12,7 @@
     #if defined(VALUE_TYPE_ENUM) || defined(VALUE_TYPE_STRUCTURAL) || defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
     #error Can only define one VALUE_TYPE_XYZ macro.
     #endif
-    
+
     constexpr int A = -1002;
     constexpr int B = -1001;
     constexpr int C = -1000;
@@ -139,5 +139,9 @@ static_assert(Space < Dot);
 #include "samples/sub_parsers.hpp"
 
 #include "samples/macros-non-char.hpp"
+
+namespace k3::tok3n::tests {
+    using namespace ::k3::tok3n::detail;
+} // namespace k3::tok3n::tests
 
 #endif // K3_TOK3N_TESTS_NON_CHAR_TESTS_SAMPLES_HPP

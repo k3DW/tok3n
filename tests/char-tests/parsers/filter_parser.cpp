@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("filter_parser");
 
@@ -149,3 +149,6 @@ TEST("filter_parser", "void input")
     using FilterBad = filter_parser<P, integral_constant<func_bad>>;
     ASSERT_IS_NOT_PARSER(FilterBad, value_type, filter_family);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

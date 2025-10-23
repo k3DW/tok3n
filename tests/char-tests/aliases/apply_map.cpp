@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("apply_map_parser");
 
@@ -95,3 +95,6 @@ TEST("apply_map_parser", "Move only")
         ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));
     }
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

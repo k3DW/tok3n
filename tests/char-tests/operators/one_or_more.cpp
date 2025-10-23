@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("one_or_more operator");
 
@@ -93,3 +93,6 @@ TEST("one_or_more operator", "+{anything}")
 {
     ASSERT_ALL_SAMPLES(ONE_OR_MORE_OPERATOR_ASSERTER);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

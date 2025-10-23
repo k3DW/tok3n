@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 using Single = none_of_parser<TT('a')>;
 using Multi  = none_of_parser<TT("abc")>;
@@ -127,3 +127,6 @@ TEST("none_of_parser", "Parse empty")
     ASSERT_PARSE_SUCCESS(none_of_parser<"">, e<int>("anything"), e<int>("a"), e<int>("nything"));
     ASSERT_PARSE_FAILURE(none_of_parser<"">, e<int>());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

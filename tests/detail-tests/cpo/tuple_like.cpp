@@ -8,9 +8,10 @@
 #include <tuple>
 #include <utility>
 
-FIXTURE("tuple_like");
+namespace k3::tok3n::tests {
+namespace {
 
-using namespace k3::tok3n;
+FIXTURE("tuple_like");
 
 TEST("tuple_like", "std::tuple")
 {
@@ -55,3 +56,6 @@ TEST("tuple_like", "std::pair")
     EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>&&>));
     EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>&&>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("delimit modifier");
 
@@ -80,3 +80,6 @@ TEST("delimit modifier", "modify anything")
         DELIMIT_SAMPLES_LIST_DIFFERENT_VALUE_TYPES
     );
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

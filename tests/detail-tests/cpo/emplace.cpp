@@ -10,9 +10,10 @@
 #include <utility>
 #include <variant>
 
-FIXTURE("cpo emplace");
-
+namespace k3::tok3n::tests {
 namespace {
+
+FIXTURE("cpo emplace");
 
 struct Emplace {
     template <std::size_t I>
@@ -20,10 +21,6 @@ struct Emplace {
     template <std::size_t I>
     constexpr std::size_t emplace(std::size_t i) const { return i * I + 2; }
 };
-
-} // namespace
-
-using namespace k3::tok3n;
 
 template <class... Values>
 requires (sizeof...(Values) >= 3 and (... and std::convertible_to<int, Values>))
@@ -124,3 +121,6 @@ TEST("cpo emplace", "custom emplacer")
     EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace, int, 0>));
     EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace, const int, 0>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

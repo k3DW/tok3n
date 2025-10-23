@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("basic operators");
 
@@ -192,3 +192,6 @@ TEST("basic operators", "Non sorted_and_uniqued")
     ASSERT_PARSER_VALUES_EQ(TT(""_any_of), any_of_parser<TT("")>{});
     ASSERT_PARSER_VALUES_EQ(TT(""_none_of), none_of_parser<TT("")>{});
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("epsilon_parser");
 
@@ -32,3 +32,6 @@ TEST("epsilon_parser", "Parse")
     ASSERT_PARSE_SUCCESS_VOID(Eps1, e(Z, Y, X), e(Z, Y, X));
     ASSERT_PARSE_SUCCESS_VOID(Eps1, e(), e());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

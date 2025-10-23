@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("sub modifier");
 
@@ -147,3 +147,6 @@ TEST("sub modifier", "non consteval")
     (sub(nam1, sub11)).parse(TT("abc"));
     (nam1 % sub(sub11)).parse(TT("abc"));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("map_parser");
 
@@ -180,3 +180,6 @@ TEST("map_parser", "void input and void output")
     using MapBad = map_parser<P, integral_constant<func_bad>>;
     ASSERT_IS_NOT_PARSER(MapBad, value_type, map_family);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

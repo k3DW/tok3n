@@ -6,9 +6,10 @@
 #include <k3/tok3n/detail/cpo.hpp>
 #include <tuple>
 
-FIXTURE("cpo get");
-
+namespace k3::tok3n::tests {
 namespace {
+
+FIXTURE("cpo get");
 
 struct AdlGet {};
 
@@ -17,10 +18,6 @@ requires (I < 4)
 constexpr auto get(AdlGet) {
     return I * 2 + 1;
 }
-
-} // namespace
-
-using namespace k3::tok3n;
 
 TEST("cpo get", "std::get")
 {
@@ -99,3 +96,6 @@ TEST("cpo get", "adl get")
     EXPECT_COMPILE_TIME((std::same_as<detail::get_t<const AdlGet&&, 1>, std::size_t>));
     EXPECT_COMPILE_TIME((std::same_as<detail::get_t<const AdlGet&&, 2>, std::size_t>));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("defaulted_parser");
 
@@ -59,3 +59,6 @@ TEST("defaulted_parser", "Parse all")
     ASSERT_PARSE_SUCCESS(Def2, e<int>("??abcabc"), Class3{}, e<int>("abcabc"));
     ASSERT_PARSE_SUCCESS(Def2, e<int>(" ??abcabc"), Class3{}, e<int>(" ??abcabc"));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests
