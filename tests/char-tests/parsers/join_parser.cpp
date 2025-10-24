@@ -11,11 +11,11 @@ FIXTURE("join_parser");
 
 TEST("join_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi5, value_type);
+    EXPECT_THAT(the_parser<Joi1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi5> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Joi1, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi2, char, join_family, output_span<char>);
@@ -372,12 +372,12 @@ TEST("join_parser", "join variant")
     static_assert(not guaranteed_contiguous<Inner>); // Avoid the optimization
     using P = join_parser<Inner>;
 
-    ASSERT_PARSER_VALUE_TYPE(Inner, value_type);
+    EXPECT_THAT(the_parser<Inner> | has_value_type<value_type>);
     ASSERT_IS_PARSER(Inner, char, choice_family, decltype(std::variant<output_span<char>, std::tuple<output_span<char>, output_span<char>>>{}));
     ASSERT_IS_PARSER(Inner, wchar_t, choice_family, decltype(std::variant<output_span<wchar_t>, std::tuple<output_span<wchar_t>, output_span<wchar_t>>>{}));
     ASSERT_IS_PARSER(Inner, int, choice_family, decltype(std::variant<output_span<int>, std::tuple<output_span<int>, output_span<int>>>{}));
 
-    ASSERT_PARSER_VALUE_TYPE(P, value_type);
+    EXPECT_THAT(the_parser<P> | has_value_type<value_type>);
     ASSERT_IS_PARSER(P, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(P, wchar_t, join_family, output_span<wchar_t>);
     ASSERT_IS_PARSER(P, int, join_family, output_span<int>);

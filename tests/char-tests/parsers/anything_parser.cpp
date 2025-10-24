@@ -11,7 +11,7 @@ FIXTURE("anything_parser");
 
 TEST("anything_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
+    EXPECT_THAT(the_parser<Ant1> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Ant1, char, anything_family, output_span<char>);
     ASSERT_IS_PARSER(Ant1, wchar_t, anything_family, output_span<wchar_t>);

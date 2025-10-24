@@ -11,8 +11,8 @@ FIXTURE("apply_map_parser");
 
 TEST("apply_map_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Apm1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Apm2, value_type);
+    EXPECT_THAT(the_parser<Apm1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Apm2> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Apm1, char, map_family, bool);
     ASSERT_IS_PARSER(Apm2, char, map_family, std::size_t);

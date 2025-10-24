@@ -36,8 +36,4 @@
     ASSERT(not (k3::tok3n::detail::parser_for<P, V>))                               \
         << "`parser_for<" STR(P) ", " STR(V) ">` is satisfied but it should not be"
 
-#define ASSERT_PARSER_VALUE_TYPE(P, V)                           \
-    ASSERT((std::same_as<typename P::value_type, V>))            \
-        << "`" STR(P) "::result_for<" STR(V) ">` is not " STR(V)
-
 #endif // K3_TOK3N_TESTS_COMMON_ASSERTS_CONCEPT_HPP

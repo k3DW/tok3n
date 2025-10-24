@@ -15,9 +15,9 @@ using Joi_Oom_L  = join_parser<one_or_more_parser<all_of_parser<TT("123")>>>;
 
 TEST("join_one_or_more_basic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_OC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_NC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Oom_L, value_type);
+    EXPECT_THAT(the_parser<Joi_Oom_OC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_Oom_NC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_Oom_L> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Joi_Oom_OC, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi_Oom_NC, char, join_family, output_span<char>);

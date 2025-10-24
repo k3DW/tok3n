@@ -11,8 +11,8 @@ FIXTURE("apply_into_parser");
 
 TEST("apply_into_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Api1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Api2, value_type);
+    EXPECT_THAT(the_parser<Api1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Api2> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Api1, char, map_family, Class2);
     ASSERT_IS_PARSER(Api2, char, map_family, Class5);

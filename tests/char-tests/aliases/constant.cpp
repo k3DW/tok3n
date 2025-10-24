@@ -11,10 +11,10 @@ FIXTURE("constant_parser");
 
 TEST("constant_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Con1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con4, value_type);
+    EXPECT_THAT(the_parser<Con1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con4> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Con1, char, map_family, int);
     ASSERT_IS_PARSER(Con2, char, map_family, char);

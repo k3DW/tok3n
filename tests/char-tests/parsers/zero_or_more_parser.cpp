@@ -11,10 +11,10 @@ FIXTURE("zero_or_more_parser");
 
 TEST("zero_or_more_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Zom1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Zom2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Zom3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Zom4, value_type);
+    EXPECT_THAT(the_parser<Zom1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Zom2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Zom3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Zom4> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Zom1, char, zero_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Zom2, char, zero_or_more_family, std::vector<output_span<char>>);

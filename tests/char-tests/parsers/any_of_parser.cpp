@@ -14,8 +14,8 @@ FIXTURE("any_of_parser");
 
 TEST("any_of_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Single, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
+    EXPECT_THAT(the_parser<Single> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Multi> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Single, char, any_of_family, output_span<char>);
     ASSERT_IS_PARSER(Multi, char, any_of_family, output_span<char>);

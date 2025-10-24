@@ -13,7 +13,7 @@ FIXTURE("all_of_parser");
 
 TEST("all_of_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(L, value_type);
+    EXPECT_THAT(the_parser<L> | has_value_type<value_type>);
     ASSERT_IS_PARSER(L, char, all_of_family, output_span<char>);
     ASSERT_IS_PARSER(L, wchar_t, all_of_family, output_span<wchar_t>);
     ASSERT_IS_PARSER(L, int, all_of_family, output_span<int>);

@@ -11,10 +11,10 @@ FIXTURE("one_or_more_parser");
 
 TEST("one_or_more_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Oom1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Oom2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Oom3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Oom4, value_type);
+    EXPECT_THAT(the_parser<Oom1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Oom2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Oom3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Oom4> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Oom1, char, one_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Oom2, char, one_or_more_family, std::vector<output_span<char>>);

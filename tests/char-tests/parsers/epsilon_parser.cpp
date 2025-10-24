@@ -11,7 +11,7 @@ FIXTURE("epsilon_parser");
 
 TEST("epsilon_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
+    EXPECT_THAT(the_parser<Eps1> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Eps1, char, epsilon_family, void);
     ASSERT_IS_PARSER(Eps1, wchar_t, epsilon_family, void);

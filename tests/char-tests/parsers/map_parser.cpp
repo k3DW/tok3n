@@ -11,10 +11,10 @@ FIXTURE("map_parser");
 
 TEST("map_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Map1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Map2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Map3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Map4, value_type);
+    EXPECT_THAT(the_parser<Map1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Map2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Map3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Map4> | has_value_type<value_type>);
 
 #if defined(VALUE_TYPE_CHAR)
     ASSERT_IS_PARSER(Map1, char, map_family, std::size_t);

@@ -11,10 +11,10 @@ FIXTURE("exactly_parser");
 
 TEST("exactly_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Exa1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Exa2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Exa3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Exa4, value_type);
+    EXPECT_THAT(the_parser<Exa1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Exa2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Exa3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Exa4> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Exa1, char, exactly_family, std::array<output_span<char>, 3>);
     ASSERT_IS_PARSER(Exa2, char, exactly_family, std::array<output_span<char>, 5>);

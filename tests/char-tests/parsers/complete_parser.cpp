@@ -11,13 +11,13 @@ FIXTURE("complete_parser");
 
 TEST("complete_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Com1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com5, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com6, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Com7, value_type);
+    EXPECT_THAT(the_parser<Com1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com5> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com6> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Com7> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Com1, char, complete_family, output_span<char>);
     ASSERT_IS_PARSER(Com2, char, complete_family, output_span<char>);

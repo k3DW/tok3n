@@ -11,9 +11,9 @@ FIXTURE("filter_parser");
 
 TEST("filter_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Fil1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Fil2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Fil3, value_type);
+    EXPECT_THAT(the_parser<Fil1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Fil2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Fil3> | has_value_type<value_type>);
 
 #if defined(VALUE_TYPE_CHAR)
     ASSERT_IS_PARSER(Fil1, char, filter_family, std::vector<output_span<char>>);

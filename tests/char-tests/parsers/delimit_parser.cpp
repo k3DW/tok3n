@@ -15,14 +15,14 @@ FIXTURE("delimit_parser keep");
 
 TEST("delimit_parser regular", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Del1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del5, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del6, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del7, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del8, value_type);
+    EXPECT_THAT(the_parser<Del1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del5> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del6> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del7> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del8> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Del1, char, delimit_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Del2, char, delimit_family, std::vector<output_span<char>>);
@@ -54,14 +54,14 @@ TEST("delimit_parser regular", "Requirements")
 
 TEST("delimit_parser keep", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Dek1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek5, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek6, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek7, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek8, value_type);
+    EXPECT_THAT(the_parser<Dek1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek5> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek6> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek7> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek8> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Dek1, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
     ASSERT_IS_PARSER(Dek2, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);

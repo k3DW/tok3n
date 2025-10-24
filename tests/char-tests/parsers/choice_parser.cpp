@@ -17,11 +17,11 @@ FIXTURE("choice_parser");
 
 TEST("choice_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(TwoWay1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(TwoWay2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Cho5, value_type);
+    EXPECT_THAT(the_parser<TwoWay1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<TwoWay2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Cho5> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(TwoWay1, char, choice_family, output_span<char>);
     ASSERT_IS_PARSER(TwoWay2, char, choice_family, output_span<char>);

@@ -11,11 +11,11 @@ FIXTURE("ignore_parser");
 
 TEST("ignore_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Ign1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Ign2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Ign3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Ign4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Ign5, value_type);
+    EXPECT_THAT(the_parser<Ign1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Ign2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Ign3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Ign4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Ign5> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Ign1, char, ignore_family, void);
     ASSERT_IS_PARSER(Ign2, char, ignore_family, void);

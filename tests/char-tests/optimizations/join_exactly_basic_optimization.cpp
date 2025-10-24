@@ -15,9 +15,9 @@ using Joi_Exa_L  = join_parser<exactly_parser<all_of_parser<TT("123")>, index_c<
 
 TEST("join_exactly_basic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_OC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_NC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_Exa_L, value_type);
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_Exa_L> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Joi_Exa_OC, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi_Exa_NC, char, join_family, output_span<char>);

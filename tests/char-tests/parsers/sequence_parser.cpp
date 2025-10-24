@@ -14,9 +14,9 @@ FIXTURE("sequence_parser");
 
 TEST("sequence_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(TwoWay, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Seq5, value_type);
+    EXPECT_THAT(the_parser<TwoWay> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Seq5> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(TwoWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>>);
     ASSERT_IS_PARSER(ThreeWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>, output_span<char>>);

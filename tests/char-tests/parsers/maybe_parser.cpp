@@ -11,10 +11,10 @@ FIXTURE("maybe_parser");
 
 TEST("maybe_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(May1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May4, value_type);
+    EXPECT_THAT(the_parser<May1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May4> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(May1, char, maybe_family, std::optional<output_span<char>>);
     ASSERT_IS_PARSER(May2, char, maybe_family, std::optional<output_span<char>>);

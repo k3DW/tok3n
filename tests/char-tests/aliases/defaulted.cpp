@@ -11,8 +11,8 @@ FIXTURE("defaulted_parser");
 
 TEST("defaulted_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
+    EXPECT_THAT(the_parser<Def1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Def2> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Def1, char, map_family, int);
     ASSERT_IS_PARSER(Def2, char, map_family, Class3);

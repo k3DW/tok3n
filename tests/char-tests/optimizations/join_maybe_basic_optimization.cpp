@@ -15,9 +15,9 @@ using Joi_May_L  = join_parser<maybe_parser<all_of_parser<TT("123")>>>;
 
 TEST("join_maybe_basic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_OC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_L, value_type);
+    EXPECT_THAT(the_parser<Joi_May_OC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_May_L> | has_value_type<value_type>);
 
     ASSERT_IS_PARSER(Joi_May_OC, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi_May_NC, char, join_family, output_span<char>);
