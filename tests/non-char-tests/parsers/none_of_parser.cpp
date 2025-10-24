@@ -21,8 +21,8 @@ TEST("none_of_parser", "Requirements")
     EXPECT_THAT(the_parser<Single> | has_family<none_of_family>);
     EXPECT_THAT(the_parser<Multi> | has_family<none_of_family>);
 
-    ASSERT_IS_PARSER(Single, value_type, none_of_family, output_span<value_type>);
-    ASSERT_IS_PARSER(Multi, value_type, none_of_family, output_span<value_type>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<value_type>.with_result<output_span<value_type>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<value_type>.with_result<output_span<value_type>>);
 }
 
 TEST("none_of_parser", "Parse single")

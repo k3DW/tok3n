@@ -23,17 +23,17 @@ TEST("join_zero_or_more_basic", "Requirements")
     EXPECT_THAT(the_parser<Joi_Zom_NC> | has_family<join_family>);
     EXPECT_THAT(the_parser<Joi_Zom_L> | has_family<join_family>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi_Zom_L, char, join_family, output_span<char>);
+    EXPECT_THAT(the_parser<Joi_Zom_OC> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi_Zom_NC> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi_Zom_L> | is_parser_for<char>.with_result<output_span<char>>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_Zom_L, wchar_t, join_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<Joi_Zom_OC> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi_Zom_NC> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi_Zom_L> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
 
-    ASSERT_IS_PARSER(Joi_Zom_OC, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi_Zom_NC, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi_Zom_L, int, join_family, output_span<int>);
+    EXPECT_THAT(the_parser<Joi_Zom_OC> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi_Zom_NC> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi_Zom_L> | is_parser_for<int>.with_result<output_span<int>>);
 }
 
 TEST("join_zero_or_more_basic", "zero_or_more_parser<any_of_parser>")

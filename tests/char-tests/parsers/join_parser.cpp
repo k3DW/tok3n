@@ -23,23 +23,23 @@ TEST("join_parser", "Requirements")
     EXPECT_THAT(the_parser<Joi4> | has_family<join_family>);
     EXPECT_THAT(the_parser<Joi5> | has_family<join_family>);
 
-    ASSERT_IS_PARSER(Joi1, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi2, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi3, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi4, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi5, char, join_family, output_span<char>);
+    EXPECT_THAT(the_parser<Joi1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi2> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi3> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi4> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi5> | is_parser_for<char>.with_result<output_span<char>>);
 
-    ASSERT_IS_PARSER(Joi1, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi2, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi3, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi4, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi5, wchar_t, join_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<Joi1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi2> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi3> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi4> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi5> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
 
-    ASSERT_IS_PARSER(Joi1, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi2, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi3, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi4, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi5, int, join_family, output_span<int>);
+    EXPECT_THAT(the_parser<Joi1> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi2> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi3> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi4> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi5> | is_parser_for<int>.with_result<output_span<int>>);
 }
 
 TEST("join_parser", "Parse all")
@@ -348,9 +348,9 @@ TEST("join_parser", "join_parser<sequence_parser<choice_parser<non-eps,eps>, any
     auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
     using Seq = decltype(seq);
     EXPECT_THAT(the_parser<Seq> | has_family<sequence_family>);
-    ASSERT_IS_PARSER(Seq, char, sequence_family, std::tuple<output_span<char>,output_span<char>>);
-    ASSERT_IS_PARSER(Seq, wchar_t, sequence_family, std::tuple<output_span<wchar_t>,output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Seq, int, sequence_family, std::tuple<output_span<int>,output_span<int>>);
+    EXPECT_THAT(the_parser<Seq> | (is_parser_for<char>.with_result<std::tuple<output_span<char>,output_span<char>>>));
+    EXPECT_THAT(the_parser<Seq> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>,output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<Seq> | (is_parser_for<int>.with_result<std::tuple<output_span<int>,output_span<int>>>));
 
     using P = join_parser<Seq>;
 
@@ -381,15 +381,15 @@ TEST("join_parser", "join variant")
 
     EXPECT_THAT(the_parser<Inner> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Inner> | has_family<choice_family>);
-    ASSERT_IS_PARSER(Inner, char, choice_family, decltype(std::variant<output_span<char>, std::tuple<output_span<char>, output_span<char>>>{}));
-    ASSERT_IS_PARSER(Inner, wchar_t, choice_family, decltype(std::variant<output_span<wchar_t>, std::tuple<output_span<wchar_t>, output_span<wchar_t>>>{}));
-    ASSERT_IS_PARSER(Inner, int, choice_family, decltype(std::variant<output_span<int>, std::tuple<output_span<int>, output_span<int>>>{}));
+    EXPECT_THAT(the_parser<Inner> | (is_parser_for<char>.with_result<decltype(std::variant<output_span<char>, std::tuple<output_span<char>, output_span<char>>>{})>));
+    EXPECT_THAT(the_parser<Inner> | (is_parser_for<wchar_t>.with_result<decltype(std::variant<output_span<wchar_t>, std::tuple<output_span<wchar_t>, output_span<wchar_t>>>{})>));
+    EXPECT_THAT(the_parser<Inner> | (is_parser_for<int>.with_result<decltype(std::variant<output_span<int>, std::tuple<output_span<int>, output_span<int>>>{})>));
 
     EXPECT_THAT(the_parser<P> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<P> | has_family<join_family>);
-    ASSERT_IS_PARSER(P, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(P, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(P, int, join_family, output_span<int>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<int>.with_result<output_span<int>>);
 
 #if __cpp_lib_variant >= 202106L // Fully constexpr std::variant
     ASSERT_PARSE_SUCCESS(P, "abc,??", "abc", ",??");

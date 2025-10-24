@@ -21,20 +21,20 @@ TEST("zero_or_more_parser", "Requirements")
     EXPECT_THAT(the_parser<Zom3> | has_family<zero_or_more_family>);
     EXPECT_THAT(the_parser<Zom4> | has_family<zero_or_more_family>);
 
-    ASSERT_IS_PARSER(Zom1, char, zero_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Zom2, char, zero_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Zom3, char, zero_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Zom4, char, zero_or_more_family, std::vector<std::tuple<output_span<char>, output_span<char>>>);
+    EXPECT_THAT(the_parser<Zom1> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Zom2> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Zom3> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Zom4> | (is_parser_for<char>.with_result<std::vector<std::tuple<output_span<char>, output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Zom1, wchar_t, zero_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Zom2, wchar_t, zero_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Zom3, wchar_t, zero_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Zom4, wchar_t, zero_or_more_family, std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Zom1> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Zom2> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Zom3> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Zom4> | (is_parser_for<wchar_t>.with_result<std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
 
-    ASSERT_IS_PARSER(Zom1, int, zero_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Zom2, int, zero_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Zom3, int, zero_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Zom4, int, zero_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
+    EXPECT_THAT(the_parser<Zom1> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Zom2> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Zom3> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Zom4> | (is_parser_for<int>.with_result<std::vector<std::tuple<output_span<int>, output_span<int>>>>));
 }
 
 TEST("zero_or_more_parser", "Parse zero_or_more_parser<all_of_parser>")

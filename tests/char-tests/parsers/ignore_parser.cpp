@@ -23,23 +23,23 @@ TEST("ignore_parser", "Requirements")
     EXPECT_THAT(the_parser<Ign4> | has_family<ignore_family>);
     EXPECT_THAT(the_parser<Ign5> | has_family<ignore_family>);
 
-    ASSERT_IS_PARSER(Ign1, char, ignore_family, void);
-    ASSERT_IS_PARSER(Ign2, char, ignore_family, void);
-    ASSERT_IS_PARSER(Ign3, char, ignore_family, void);
-    ASSERT_IS_PARSER(Ign4, char, ignore_family, void);
-    ASSERT_IS_PARSER(Ign5, char, ignore_family, void);
+    EXPECT_THAT(the_parser<Ign1> | is_parser_for<char>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign2> | is_parser_for<char>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign3> | is_parser_for<char>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign4> | is_parser_for<char>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign5> | is_parser_for<char>.with_result<void>);
 
-    ASSERT_IS_PARSER(Ign1, wchar_t, ignore_family, void);
-    ASSERT_IS_PARSER(Ign2, wchar_t, ignore_family, void);
-    ASSERT_IS_PARSER(Ign3, wchar_t, ignore_family, void);
-    ASSERT_IS_PARSER(Ign4, wchar_t, ignore_family, void);
-    ASSERT_IS_PARSER(Ign5, wchar_t, ignore_family, void);
+    EXPECT_THAT(the_parser<Ign1> | is_parser_for<wchar_t>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign2> | is_parser_for<wchar_t>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign3> | is_parser_for<wchar_t>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign4> | is_parser_for<wchar_t>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign5> | is_parser_for<wchar_t>.with_result<void>);
 
-    ASSERT_IS_PARSER(Ign1, int, ignore_family, void);
-    ASSERT_IS_PARSER(Ign2, int, ignore_family, void);
-    ASSERT_IS_PARSER(Ign3, int, ignore_family, void);
-    ASSERT_IS_PARSER(Ign4, int, ignore_family, void);
-    ASSERT_IS_PARSER(Ign5, int, ignore_family, void);
+    EXPECT_THAT(the_parser<Ign1> | is_parser_for<int>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign2> | is_parser_for<int>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign3> | is_parser_for<int>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign4> | is_parser_for<int>.with_result<void>);
+    EXPECT_THAT(the_parser<Ign5> | is_parser_for<int>.with_result<void>);
 }
 
 TEST("ignore_parser", "Parse all")

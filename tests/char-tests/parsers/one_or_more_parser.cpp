@@ -21,20 +21,20 @@ TEST("one_or_more_parser", "Requirements")
     EXPECT_THAT(the_parser<Oom3> | has_family<one_or_more_family>);
     EXPECT_THAT(the_parser<Oom4> | has_family<one_or_more_family>);
 
-    ASSERT_IS_PARSER(Oom1, char, one_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Oom2, char, one_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Oom3, char, one_or_more_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Oom4, char, one_or_more_family, std::vector<std::tuple<output_span<char>, output_span<char>>>);
+    EXPECT_THAT(the_parser<Oom1> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Oom2> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Oom3> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Oom4> | (is_parser_for<char>.with_result<std::vector<std::tuple<output_span<char>, output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Oom1, wchar_t, one_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Oom2, wchar_t, one_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Oom3, wchar_t, one_or_more_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Oom4, wchar_t, one_or_more_family, std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Oom1> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Oom2> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Oom3> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Oom4> | (is_parser_for<wchar_t>.with_result<std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
 
-    ASSERT_IS_PARSER(Oom1, int, one_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Oom2, int, one_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Oom3, int, one_or_more_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Oom4, int, one_or_more_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
+    EXPECT_THAT(the_parser<Oom1> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Oom2> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Oom3> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Oom4> | (is_parser_for<int>.with_result<std::vector<std::tuple<output_span<int>, output_span<int>>>>));
 }
 
 TEST("one_or_more_parser", "Parse one_or_more_parser<all_of_parser>")

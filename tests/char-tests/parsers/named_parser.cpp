@@ -21,20 +21,20 @@ TEST("named_parser", "Requirements")
     EXPECT_THAT(the_parser<Nam3> | has_family<named_family>);
     EXPECT_THAT(the_parser<Nam4> | has_family<named_family>);
 
-    ASSERT_IS_PARSER(Nam1, char, named_family, output_span<char>);
-    ASSERT_IS_PARSER(Nam2, char, named_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Nam3, char, named_family, std::optional<output_span<char>>);
-    ASSERT_IS_PARSER(Nam4, char, named_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Nam1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Nam2> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Nam3> | is_parser_for<char>.with_result<std::optional<output_span<char>>>);
+    EXPECT_THAT(the_parser<Nam4> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, std::vector<output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Nam1, wchar_t, named_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Nam2, wchar_t, named_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Nam3, wchar_t, named_family, std::optional<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Nam4, wchar_t, named_family, std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Nam1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Nam2> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Nam3> | is_parser_for<wchar_t>.with_result<std::optional<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Nam4> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>>));
 
-    ASSERT_IS_PARSER(Nam1, int, named_family, output_span<int>);
-    ASSERT_IS_PARSER(Nam2, int, named_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Nam3, int, named_family, std::optional<output_span<int>>);
-    ASSERT_IS_PARSER(Nam4, int, named_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Nam1> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Nam2> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Nam3> | is_parser_for<int>.with_result<std::optional<output_span<int>>>);
+    EXPECT_THAT(the_parser<Nam4> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, std::vector<output_span<int>>>>));
 }
 
 TEST("named_parser", "named_parser<all_of_parser>")

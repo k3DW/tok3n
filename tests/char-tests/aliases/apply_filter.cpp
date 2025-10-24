@@ -14,11 +14,11 @@ TEST("apply_filter_parser", "Requirements")
     EXPECT_THAT(the_parser<Apf1> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Apf1> | has_family<filter_family>);
 
-    ASSERT_IS_PARSER(Apf1, char, filter_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Apf1> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, std::vector<output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Apf1, wchar_t, filter_family, std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Apf1> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>>));
 
-    ASSERT_IS_PARSER(Apf1, int, filter_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Apf1> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, std::vector<output_span<int>>>>));
 }
 
 TEST("apply_filter_parser", "Parse all")

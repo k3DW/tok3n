@@ -20,14 +20,14 @@ TEST("none_of_parser", "Requirements")
     EXPECT_THAT(the_parser<Single> | has_family<none_of_family>);
     EXPECT_THAT(the_parser<Multi> | has_family<none_of_family>);
 
-    ASSERT_IS_PARSER(Single, char, none_of_family, output_span<char>);
-    ASSERT_IS_PARSER(Multi, char, none_of_family, output_span<char>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<char>.with_result<output_span<char>>);
 
-    ASSERT_IS_PARSER(Single, wchar_t, none_of_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Multi, wchar_t, none_of_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
 
-    ASSERT_IS_PARSER(Single, int, none_of_family, output_span<int>);
-    ASSERT_IS_PARSER(Multi, int, none_of_family, output_span<int>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<int>.with_result<output_span<int>>);
 }
 
 TEST("none_of_parser", "Parse single")

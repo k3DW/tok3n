@@ -21,20 +21,20 @@ TEST("exactly_parser", "Requirements")
     EXPECT_THAT(the_parser<Exa3> | has_family<exactly_family>);
     EXPECT_THAT(the_parser<Exa4> | has_family<exactly_family>);
 
-    ASSERT_IS_PARSER(Exa1, char, exactly_family, std::array<output_span<char>, 3>);
-    ASSERT_IS_PARSER(Exa2, char, exactly_family, std::array<output_span<char>, 5>);
-    ASSERT_IS_PARSER(Exa3, char, exactly_family, std::array<output_span<char>, 4>);
-    ASSERT_IS_PARSER(Exa4, char, exactly_family, std::array<std::tuple<output_span<char>, output_span<char>>, 2>);
+    EXPECT_THAT(the_parser<Exa1> | (is_parser_for<char>.with_result<std::array<output_span<char>, 3>>));
+    EXPECT_THAT(the_parser<Exa2> | (is_parser_for<char>.with_result<std::array<output_span<char>, 5>>));
+    EXPECT_THAT(the_parser<Exa3> | (is_parser_for<char>.with_result<std::array<output_span<char>, 4>>));
+    EXPECT_THAT(the_parser<Exa4> | (is_parser_for<char>.with_result<std::array<std::tuple<output_span<char>, output_span<char>>, 2>>));
 
-    ASSERT_IS_PARSER(Exa1, wchar_t, exactly_family, std::array<output_span<wchar_t>, 3>);
-    ASSERT_IS_PARSER(Exa2, wchar_t, exactly_family, std::array<output_span<wchar_t>, 5>);
-    ASSERT_IS_PARSER(Exa3, wchar_t, exactly_family, std::array<output_span<wchar_t>, 4>);
-    ASSERT_IS_PARSER(Exa4, wchar_t, exactly_family, std::array<std::tuple<output_span<wchar_t>, output_span<wchar_t>>, 2>);
+    EXPECT_THAT(the_parser<Exa1> | (is_parser_for<wchar_t>.with_result<std::array<output_span<wchar_t>, 3>>));
+    EXPECT_THAT(the_parser<Exa2> | (is_parser_for<wchar_t>.with_result<std::array<output_span<wchar_t>, 5>>));
+    EXPECT_THAT(the_parser<Exa3> | (is_parser_for<wchar_t>.with_result<std::array<output_span<wchar_t>, 4>>));
+    EXPECT_THAT(the_parser<Exa4> | (is_parser_for<wchar_t>.with_result<std::array<std::tuple<output_span<wchar_t>, output_span<wchar_t>>, 2>>));
 
-    ASSERT_IS_PARSER(Exa1, int, exactly_family, std::array<output_span<int>, 3>);
-    ASSERT_IS_PARSER(Exa2, int, exactly_family, std::array<output_span<int>, 5>);
-    ASSERT_IS_PARSER(Exa3, int, exactly_family, std::array<output_span<int>, 4>);
-    ASSERT_IS_PARSER(Exa4, int, exactly_family, std::array<std::tuple<output_span<int>, output_span<int>>, 2>);
+    EXPECT_THAT(the_parser<Exa1> | (is_parser_for<int>.with_result<std::array<output_span<int>, 3>>));
+    EXPECT_THAT(the_parser<Exa2> | (is_parser_for<int>.with_result<std::array<output_span<int>, 5>>));
+    EXPECT_THAT(the_parser<Exa3> | (is_parser_for<int>.with_result<std::array<output_span<int>, 4>>));
+    EXPECT_THAT(the_parser<Exa4> | (is_parser_for<int>.with_result<std::array<std::tuple<output_span<int>, output_span<int>>, 2>>));
 }
 
 TEST("exactly_parser", "Constructibility")

@@ -27,29 +27,29 @@ TEST("complete_parser", "Requirements")
     EXPECT_THAT(the_parser<Com6> | has_family<complete_family>);
     EXPECT_THAT(the_parser<Com7> | has_family<complete_family>);
 
-    ASSERT_IS_PARSER(Com1, char, complete_family, output_span<char>);
-    ASSERT_IS_PARSER(Com2, char, complete_family, output_span<char>);
-    ASSERT_IS_PARSER(Com3, char, complete_family, output_span<char>);
-    ASSERT_IS_PARSER(Com4, char, complete_family, std::tuple<output_span<char>, output_span<char>>);
-    ASSERT_IS_PARSER(Com5, char, complete_family, std::optional<std::tuple<output_span<char>, output_span<char>>>);
-    ASSERT_IS_PARSER(Com6, char, complete_family, std::vector<std::tuple<output_span<char>, output_span<char>>>);
-    ASSERT_IS_PARSER(Com7, char, complete_family, std::vector<std::tuple<output_span<char>, output_span<char>>>);
+    EXPECT_THAT(the_parser<Com1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Com2> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Com3> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Com4> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, output_span<char>>>));
+    EXPECT_THAT(the_parser<Com5> | (is_parser_for<char>.with_result<std::optional<std::tuple<output_span<char>, output_span<char>>>>));
+    EXPECT_THAT(the_parser<Com6> | (is_parser_for<char>.with_result<std::vector<std::tuple<output_span<char>, output_span<char>>>>));
+    EXPECT_THAT(the_parser<Com7> | (is_parser_for<char>.with_result<std::vector<std::tuple<output_span<char>, output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Com1, wchar_t, complete_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Com2, wchar_t, complete_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Com3, wchar_t, complete_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Com4, wchar_t, complete_family, std::tuple<output_span<wchar_t>, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Com5, wchar_t, complete_family, std::optional<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Com6, wchar_t, complete_family, std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Com7, wchar_t, complete_family, std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Com1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Com2> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Com3> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Com4> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<Com5> | (is_parser_for<wchar_t>.with_result<std::optional<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Com6> | (is_parser_for<wchar_t>.with_result<std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Com7> | (is_parser_for<wchar_t>.with_result<std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
 
-    ASSERT_IS_PARSER(Com1, int, complete_family, output_span<int>);
-    ASSERT_IS_PARSER(Com2, int, complete_family, output_span<int>);
-    ASSERT_IS_PARSER(Com3, int, complete_family, output_span<int>);
-    ASSERT_IS_PARSER(Com4, int, complete_family, std::tuple<output_span<int>, output_span<int>>);
-    ASSERT_IS_PARSER(Com5, int, complete_family, std::optional<std::tuple<output_span<int>, output_span<int>>>);
-    ASSERT_IS_PARSER(Com6, int, complete_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
-    ASSERT_IS_PARSER(Com7, int, complete_family, std::vector<std::tuple<output_span<int>, output_span<int>>>);
+    EXPECT_THAT(the_parser<Com1> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Com2> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Com3> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Com4> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, output_span<int>>>));
+    EXPECT_THAT(the_parser<Com5> | (is_parser_for<int>.with_result<std::optional<std::tuple<output_span<int>, output_span<int>>>>));
+    EXPECT_THAT(the_parser<Com6> | (is_parser_for<int>.with_result<std::vector<std::tuple<output_span<int>, output_span<int>>>>));
+    EXPECT_THAT(the_parser<Com7> | (is_parser_for<int>.with_result<std::vector<std::tuple<output_span<int>, output_span<int>>>>));
 }
 
 TEST("complete_parser", "complete_parser<all_of_parser>")

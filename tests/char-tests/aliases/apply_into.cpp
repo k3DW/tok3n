@@ -17,14 +17,14 @@ TEST("apply_into_parser", "Requirements")
     EXPECT_THAT(the_parser<Api1> | has_family<map_family>);
     EXPECT_THAT(the_parser<Api2> | has_family<map_family>);
 
-    ASSERT_IS_PARSER(Api1, char, map_family, Class2);
-    ASSERT_IS_PARSER(Api2, char, map_family, Class5);
+    EXPECT_THAT(the_parser<Api1> | is_parser_for<char>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Api2> | is_parser_for<char>.with_result<Class5>);
 
-    ASSERT_IS_PARSER(Api1, wchar_t, map_family, Class2);
-    ASSERT_IS_PARSER(Api2, wchar_t, map_family, Class5);
+    EXPECT_THAT(the_parser<Api1> | is_parser_for<wchar_t>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Api2> | is_parser_for<wchar_t>.with_result<Class5>);
 
-    ASSERT_IS_PARSER(Api1, int, map_family, Class2);
-    ASSERT_IS_PARSER(Api2, int, map_family, Class5);
+    EXPECT_THAT(the_parser<Api1> | is_parser_for<int>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Api2> | is_parser_for<int>.with_result<Class5>);
 }
 
 TEST("apply_into_parser", "Parse all")
