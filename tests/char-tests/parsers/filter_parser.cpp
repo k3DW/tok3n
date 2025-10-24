@@ -15,6 +15,10 @@ TEST("filter_parser", "Requirements")
     EXPECT_THAT(the_parser<Fil2> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Fil3> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Fil1> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<Fil2> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<Fil3> | has_family<filter_family>);
+
 #if defined(VALUE_TYPE_CHAR)
     ASSERT_IS_PARSER(Fil1, char, filter_family, std::vector<output_span<char>>);
 #elif defined(VALUE_TYPE_WCHAR_T)
@@ -141,12 +145,14 @@ TEST("filter_parser", "void input")
 
     constexpr auto func_good = []() { return true; };
     using FilterGood = filter_parser<P, integral_constant<func_good>>;
+    EXPECT_THAT(the_parser<FilterGood> | has_family<filter_family>);
     ASSERT_IS_PARSER(FilterGood, value_type, filter_family, void);
     ASSERT_PARSE_SUCCESS_VOID(FilterGood, TT("abcd"), TT("d"));
     ASSERT_PARSE_FAILURE(FilterGood, TT(" abcd"));
 
     constexpr auto func_bad = [](auto) { return true; };
     using FilterBad = filter_parser<P, integral_constant<func_bad>>;
+    EXPECT_THAT(the_parser<FilterBad> | has_family<filter_family>);
     ASSERT_IS_NOT_PARSER(FilterBad, value_type, filter_family);
 }
 

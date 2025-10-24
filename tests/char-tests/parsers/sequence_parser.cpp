@@ -18,6 +18,10 @@ TEST("sequence_parser", "Requirements")
     EXPECT_THAT(the_parser<ThreeWay> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Seq5> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<TwoWay> | has_family<sequence_family>);
+    EXPECT_THAT(the_parser<ThreeWay> | has_family<sequence_family>);
+    EXPECT_THAT(the_parser<Seq5> | has_family<sequence_family>);
+
     ASSERT_IS_PARSER(TwoWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>>);
     ASSERT_IS_PARSER(ThreeWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>, output_span<char>>);
     ASSERT_IS_PARSER(Seq5, char, sequence_family, void);

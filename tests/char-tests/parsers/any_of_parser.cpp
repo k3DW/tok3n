@@ -17,6 +17,9 @@ TEST("any_of_parser", "Requirements")
     EXPECT_THAT(the_parser<Single> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Multi> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Single> | has_family<any_of_family>);
+    EXPECT_THAT(the_parser<Multi> | has_family<any_of_family>);
+
     ASSERT_IS_PARSER(Single, char, any_of_family, output_span<char>);
     ASSERT_IS_PARSER(Multi, char, any_of_family, output_span<char>);
 

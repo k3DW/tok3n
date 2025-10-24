@@ -15,6 +15,10 @@ TEST("into_parser", "Requirements")
     EXPECT_THAT(the_parser<Int2> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Int3> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Int1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Int2> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Int3> | has_family<map_family>);
+
     ASSERT_IS_PARSER(Int1, char, map_family, Class1);
     ASSERT_IS_PARSER(Int2, char, map_family, Class2);
     ASSERT_IS_PARSER(Int3, char, map_family, Class2);

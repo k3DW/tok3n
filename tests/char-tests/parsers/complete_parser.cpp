@@ -19,6 +19,14 @@ TEST("complete_parser", "Requirements")
     EXPECT_THAT(the_parser<Com6> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Com7> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Com1> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com2> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com3> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com4> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com5> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com6> | has_family<complete_family>);
+    EXPECT_THAT(the_parser<Com7> | has_family<complete_family>);
+
     ASSERT_IS_PARSER(Com1, char, complete_family, output_span<char>);
     ASSERT_IS_PARSER(Com2, char, complete_family, output_span<char>);
     ASSERT_IS_PARSER(Com3, char, complete_family, output_span<char>);

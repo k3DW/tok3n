@@ -17,6 +17,12 @@ TEST("join_parser", "Requirements")
     EXPECT_THAT(the_parser<Joi4> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Joi5> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Joi1> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi2> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi3> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi4> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi5> | has_family<join_family>);
+
     ASSERT_IS_PARSER(Joi1, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi2, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi3, char, join_family, output_span<char>);
@@ -341,6 +347,7 @@ TEST("join_parser", "join_parser<sequence_parser<choice_parser<non-eps,eps>, any
 {
     auto seq = (TT("+-"_any) | eps) >> TT("abc"_all);
     using Seq = decltype(seq);
+    EXPECT_THAT(the_parser<Seq> | has_family<sequence_family>);
     ASSERT_IS_PARSER(Seq, char, sequence_family, std::tuple<output_span<char>,output_span<char>>);
     ASSERT_IS_PARSER(Seq, wchar_t, sequence_family, std::tuple<output_span<wchar_t>,output_span<wchar_t>>);
     ASSERT_IS_PARSER(Seq, int, sequence_family, std::tuple<output_span<int>,output_span<int>>);
@@ -373,11 +380,13 @@ TEST("join_parser", "join variant")
     using P = join_parser<Inner>;
 
     EXPECT_THAT(the_parser<Inner> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Inner> | has_family<choice_family>);
     ASSERT_IS_PARSER(Inner, char, choice_family, decltype(std::variant<output_span<char>, std::tuple<output_span<char>, output_span<char>>>{}));
     ASSERT_IS_PARSER(Inner, wchar_t, choice_family, decltype(std::variant<output_span<wchar_t>, std::tuple<output_span<wchar_t>, output_span<wchar_t>>>{}));
     ASSERT_IS_PARSER(Inner, int, choice_family, decltype(std::variant<output_span<int>, std::tuple<output_span<int>, output_span<int>>>{}));
 
     EXPECT_THAT(the_parser<P> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<P> | has_family<join_family>);
     ASSERT_IS_PARSER(P, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(P, wchar_t, join_family, output_span<wchar_t>);
     ASSERT_IS_PARSER(P, int, join_family, output_span<int>);

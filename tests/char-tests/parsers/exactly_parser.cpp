@@ -16,6 +16,11 @@ TEST("exactly_parser", "Requirements")
     EXPECT_THAT(the_parser<Exa3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Exa4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Exa1> | has_family<exactly_family>);
+    EXPECT_THAT(the_parser<Exa2> | has_family<exactly_family>);
+    EXPECT_THAT(the_parser<Exa3> | has_family<exactly_family>);
+    EXPECT_THAT(the_parser<Exa4> | has_family<exactly_family>);
+
     ASSERT_IS_PARSER(Exa1, char, exactly_family, std::array<output_span<char>, 3>);
     ASSERT_IS_PARSER(Exa2, char, exactly_family, std::array<output_span<char>, 5>);
     ASSERT_IS_PARSER(Exa3, char, exactly_family, std::array<output_span<char>, 4>);

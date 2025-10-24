@@ -17,6 +17,12 @@ TEST("ignore_parser", "Requirements")
     EXPECT_THAT(the_parser<Ign4> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Ign5> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Ign1> | has_family<ignore_family>);
+    EXPECT_THAT(the_parser<Ign2> | has_family<ignore_family>);
+    EXPECT_THAT(the_parser<Ign3> | has_family<ignore_family>);
+    EXPECT_THAT(the_parser<Ign4> | has_family<ignore_family>);
+    EXPECT_THAT(the_parser<Ign5> | has_family<ignore_family>);
+
     ASSERT_IS_PARSER(Ign1, char, ignore_family, void);
     ASSERT_IS_PARSER(Ign2, char, ignore_family, void);
     ASSERT_IS_PARSER(Ign3, char, ignore_family, void);

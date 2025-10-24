@@ -18,6 +18,9 @@ FIXTURE("none_of_parser");
 
 TEST("none_of_parser", "Requirements")
 {
+    EXPECT_THAT(the_parser<Single> | has_family<none_of_family>);
+    EXPECT_THAT(the_parser<Multi> | has_family<none_of_family>);
+
     ASSERT_IS_PARSER(Single, value_type, none_of_family, output_span<value_type>);
     ASSERT_IS_PARSER(Multi, value_type, none_of_family, output_span<value_type>);
 }

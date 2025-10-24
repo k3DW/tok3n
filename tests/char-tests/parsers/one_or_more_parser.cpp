@@ -16,6 +16,11 @@ TEST("one_or_more_parser", "Requirements")
     EXPECT_THAT(the_parser<Oom3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Oom4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Oom1> | has_family<one_or_more_family>);
+    EXPECT_THAT(the_parser<Oom2> | has_family<one_or_more_family>);
+    EXPECT_THAT(the_parser<Oom3> | has_family<one_or_more_family>);
+    EXPECT_THAT(the_parser<Oom4> | has_family<one_or_more_family>);
+
     ASSERT_IS_PARSER(Oom1, char, one_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Oom2, char, one_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Oom3, char, one_or_more_family, std::vector<output_span<char>>);

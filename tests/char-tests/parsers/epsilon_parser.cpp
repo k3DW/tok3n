@@ -12,6 +12,7 @@ FIXTURE("epsilon_parser");
 TEST("epsilon_parser", "Requirements")
 {
     EXPECT_THAT(the_parser<Eps1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Eps1> | has_family<epsilon_family>);
 
     ASSERT_IS_PARSER(Eps1, char, epsilon_family, void);
     ASSERT_IS_PARSER(Eps1, wchar_t, epsilon_family, void);
@@ -49,6 +50,7 @@ TEST("epsilon_parser", "choice_parser<P, epsilon_parser>")
 {
     auto parser = TT("+-"_any_of) | eps;
     using P = decltype(parser);
+    EXPECT_THAT(the_parser<P> | has_family<choice_family>);
 
     ASSERT_IS_PARSER(P, char, choice_family, output_span<char>);
     ASSERT_PARSE_SUCCESS(P, "+abc", "+", "abc");

@@ -16,6 +16,11 @@ TEST("zero_or_more_parser", "Requirements")
     EXPECT_THAT(the_parser<Zom3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Zom4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Zom1> | has_family<zero_or_more_family>);
+    EXPECT_THAT(the_parser<Zom2> | has_family<zero_or_more_family>);
+    EXPECT_THAT(the_parser<Zom3> | has_family<zero_or_more_family>);
+    EXPECT_THAT(the_parser<Zom4> | has_family<zero_or_more_family>);
+
     ASSERT_IS_PARSER(Zom1, char, zero_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Zom2, char, zero_or_more_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Zom3, char, zero_or_more_family, std::vector<output_span<char>>);

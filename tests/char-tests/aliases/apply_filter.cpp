@@ -12,6 +12,7 @@ FIXTURE("apply_filter_parser");
 TEST("apply_filter_parser", "Requirements")
 {
     EXPECT_THAT(the_parser<Apf1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Apf1> | has_family<filter_family>);
 
     ASSERT_IS_PARSER(Apf1, char, filter_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
 

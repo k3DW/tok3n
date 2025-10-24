@@ -19,6 +19,10 @@ TEST("join_one_or_more_basic", "Requirements")
     EXPECT_THAT(the_parser<Joi_Oom_NC> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Joi_Oom_L> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Joi_Oom_OC> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi_Oom_NC> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi_Oom_L> | has_family<join_family>);
+
     ASSERT_IS_PARSER(Joi_Oom_OC, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi_Oom_NC, char, join_family, output_span<char>);
     ASSERT_IS_PARSER(Joi_Oom_L, char, join_family, output_span<char>);

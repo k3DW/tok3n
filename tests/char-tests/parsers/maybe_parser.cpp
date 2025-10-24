@@ -16,6 +16,11 @@ TEST("maybe_parser", "Requirements")
     EXPECT_THAT(the_parser<May3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<May4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<May1> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May2> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May3> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May4> | has_family<maybe_family>);
+
     ASSERT_IS_PARSER(May1, char, maybe_family, std::optional<output_span<char>>);
     ASSERT_IS_PARSER(May2, char, maybe_family, std::optional<output_span<char>>);
     ASSERT_IS_PARSER(May3, char, maybe_family, std::optional<output_span<char>>);

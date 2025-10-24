@@ -14,6 +14,9 @@ TEST("apply_into_parser", "Requirements")
     EXPECT_THAT(the_parser<Api1> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Api2> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Api1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Api2> | has_family<map_family>);
+
     ASSERT_IS_PARSER(Api1, char, map_family, Class2);
     ASSERT_IS_PARSER(Api2, char, map_family, Class5);
 

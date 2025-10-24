@@ -14,6 +14,9 @@ TEST("apply_map_parser", "Requirements")
     EXPECT_THAT(the_parser<Apm1> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Apm2> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Apm1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Apm2> | has_family<map_family>);
+
     ASSERT_IS_PARSER(Apm1, char, map_family, bool);
     ASSERT_IS_PARSER(Apm2, char, map_family, std::size_t);
 

@@ -16,6 +16,11 @@ TEST("named_parser", "Requirements")
     EXPECT_THAT(the_parser<Nam3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Nam4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Nam1> | has_family<named_family>);
+    EXPECT_THAT(the_parser<Nam2> | has_family<named_family>);
+    EXPECT_THAT(the_parser<Nam3> | has_family<named_family>);
+    EXPECT_THAT(the_parser<Nam4> | has_family<named_family>);
+
     ASSERT_IS_PARSER(Nam1, char, named_family, output_span<char>);
     ASSERT_IS_PARSER(Nam2, char, named_family, std::vector<output_span<char>>);
     ASSERT_IS_PARSER(Nam3, char, named_family, std::optional<output_span<char>>);

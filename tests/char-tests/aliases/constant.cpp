@@ -16,6 +16,11 @@ TEST("constant_parser", "Requirements")
     EXPECT_THAT(the_parser<Con3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Con4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Con1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con2> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con3> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con4> | has_family<map_family>);
+
     ASSERT_IS_PARSER(Con1, char, map_family, int);
     ASSERT_IS_PARSER(Con2, char, map_family, char);
     ASSERT_IS_PARSER(Con3, char, map_family, bool);

@@ -13,6 +13,7 @@ FIXTURE("all_of_parser");
 
 TEST("all_of_parser", "Requirements")
 {
+    EXPECT_THAT(the_parser<L> | has_family<all_of_family>);
     ASSERT_IS_PARSER(L, value_type, all_of_family, output_span<value_type>);
 }
 

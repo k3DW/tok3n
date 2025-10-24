@@ -16,6 +16,11 @@ TEST("map_parser", "Requirements")
     EXPECT_THAT(the_parser<Map3> | has_value_type<value_type>);
     EXPECT_THAT(the_parser<Map4> | has_value_type<value_type>);
 
+    EXPECT_THAT(the_parser<Map1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Map2> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Map3> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Map4> | has_family<map_family>);
+
 #if defined(VALUE_TYPE_CHAR)
     ASSERT_IS_PARSER(Map1, char, map_family, std::size_t);
 #elif defined(VALUE_TYPE_WCHAR_T)
@@ -142,12 +147,14 @@ TEST("map_parser", "void input")
 
     constexpr auto func_good = []() { return 0; };
     using MapGood = map_parser<P, integral_constant<func_good>>;
+    EXPECT_THAT(the_parser<MapGood> | has_family<map_family>);
     ASSERT_IS_PARSER(MapGood, value_type, map_family, int);
     ASSERT_PARSE_SUCCESS(MapGood, "abcd", 0, "d");
     ASSERT_PARSE_FAILURE(MapGood, " abcd");
 
     constexpr auto func_bad = [](auto) { return 0; };
     using MapBad = map_parser<P, integral_constant<func_bad>>;
+    EXPECT_THAT(the_parser<MapBad> | has_family<map_family>);
     ASSERT_IS_NOT_PARSER(MapBad, value_type, map_family);
 }
 
@@ -163,6 +170,7 @@ TEST("map_parser", "void output")
 
     constexpr auto func_bad = []() {};
     using MapBad = map_parser<P, integral_constant<func_bad>>;
+    EXPECT_THAT(the_parser<MapBad> | has_family<map_family>);
     ASSERT_IS_NOT_PARSER(MapBad, value_type, map_family);
 }
 
@@ -178,6 +186,7 @@ TEST("map_parser", "void input and void output")
 
     constexpr auto func_bad = [](auto) {};
     using MapBad = map_parser<P, integral_constant<func_bad>>;
+    EXPECT_THAT(the_parser<MapBad> | has_family<map_family>);
     ASSERT_IS_NOT_PARSER(MapBad, value_type, map_family);
 }
 
