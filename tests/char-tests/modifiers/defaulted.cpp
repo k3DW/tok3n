@@ -11,14 +11,18 @@ FIXTURE("defaulted modifier");
 
 TEST("defaulted modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(def1, defaulted<int>(+abc));
-    ASSERT_PARSER_VALUES_EQ(def2, defaulted<Class3>(~(abc | qq)));
+    EXPECT_THAT(parser_value<def1>
+                         .is<defaulted<int>(+abc)>);
+    EXPECT_THAT(parser_value<def2>
+                         .is<defaulted<Class3>(~(abc | qq))>);
 }
 
 TEST("defaulted modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(def1, +abc % defaulted<int>);
-    ASSERT_PARSER_VALUES_EQ(def2, ~(abc | qq) % defaulted<Class3>);
+    EXPECT_THAT(parser_value<def1>
+                         .is<+abc % defaulted<int>>);
+    EXPECT_THAT(parser_value<def2>
+                         .is<~(abc | qq) % defaulted<Class3>>);
 }
 
 TEST("defaulted modifier", "non consteval")

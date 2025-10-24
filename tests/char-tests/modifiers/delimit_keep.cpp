@@ -11,26 +11,42 @@ FIXTURE("delimit_keep modifier");
 
 TEST("delimit_keep modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(dek1, delimit_keep(abc, comma));
-    ASSERT_PARSER_VALUES_EQ(dek2, delimit_keep(abc, spacedot));
-    ASSERT_PARSER_VALUES_EQ(dek3, delimit_keep(qq, comma));
-    ASSERT_PARSER_VALUES_EQ(dek4, delimit_keep(qq, spacedot));
-    ASSERT_PARSER_VALUES_EQ(dek5, delimit_keep(comma, abc));
-    ASSERT_PARSER_VALUES_EQ(dek6, delimit_keep(spacedot, abc));
-    ASSERT_PARSER_VALUES_EQ(dek7, delimit_keep(comma, qq));
-    ASSERT_PARSER_VALUES_EQ(dek8, delimit_keep(spacedot, qq));
+    EXPECT_THAT(parser_value<dek1>
+                         .is<delimit_keep(abc, comma)>);
+    EXPECT_THAT(parser_value<dek2>
+                         .is<delimit_keep(abc, spacedot)>);
+    EXPECT_THAT(parser_value<dek3>
+                         .is<delimit_keep(qq, comma)>);
+    EXPECT_THAT(parser_value<dek4>
+                         .is<delimit_keep(qq, spacedot)>);
+    EXPECT_THAT(parser_value<dek5>
+                         .is<delimit_keep(comma, abc)>);
+    EXPECT_THAT(parser_value<dek6>
+                         .is<delimit_keep(spacedot, abc)>);
+    EXPECT_THAT(parser_value<dek7>
+                         .is<delimit_keep(comma, qq)>);
+    EXPECT_THAT(parser_value<dek8>
+                         .is<delimit_keep(spacedot, qq)>);
 }
 
 TEST("delimit_keep modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(dek1, abc % delimit_keep(comma));
-    ASSERT_PARSER_VALUES_EQ(dek2, abc % delimit_keep(spacedot));
-    ASSERT_PARSER_VALUES_EQ(dek3, qq % delimit_keep(comma));
-    ASSERT_PARSER_VALUES_EQ(dek4, qq % delimit_keep(spacedot));
-    ASSERT_PARSER_VALUES_EQ(dek5, comma % delimit_keep(abc));
-    ASSERT_PARSER_VALUES_EQ(dek6, spacedot % delimit_keep(abc));
-    ASSERT_PARSER_VALUES_EQ(dek7, comma % delimit_keep(qq));
-    ASSERT_PARSER_VALUES_EQ(dek8, spacedot % delimit_keep(qq));
+    EXPECT_THAT(parser_value<dek1>
+                         .is<abc % delimit_keep(comma)>);
+    EXPECT_THAT(parser_value<dek2>
+                         .is<abc % delimit_keep(spacedot)>);
+    EXPECT_THAT(parser_value<dek3>
+                         .is<qq % delimit_keep(comma)>);
+    EXPECT_THAT(parser_value<dek4>
+                         .is<qq % delimit_keep(spacedot)>);
+    EXPECT_THAT(parser_value<dek5>
+                         .is<comma % delimit_keep(abc)>);
+    EXPECT_THAT(parser_value<dek6>
+                         .is<spacedot % delimit_keep(abc)>);
+    EXPECT_THAT(parser_value<dek7>
+                         .is<comma % delimit_keep(qq)>);
+    EXPECT_THAT(parser_value<dek8>
+                         .is<spacedot % delimit_keep(qq)>);
 }
 
 TEST("delimit_keep modifier", "non consteval")

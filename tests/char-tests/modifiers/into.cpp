@@ -11,14 +11,18 @@ FIXTURE("into modifier");
 
 TEST("into modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(int1, into<Class1>(spacedot));
-    ASSERT_PARSER_VALUES_EQ(int2, into<Class2>(abc >> spacedot));
+    EXPECT_THAT(parser_value<int1>
+                         .is<into<Class1>(spacedot)>);
+    EXPECT_THAT(parser_value<int2>
+                         .is<into<Class2>(abc >> spacedot)>);
 }
 
 TEST("into modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(int1, spacedot % into<Class1>);
-    ASSERT_PARSER_VALUES_EQ(int2, (abc >> spacedot) % into<Class2>);
+    EXPECT_THAT(parser_value<int1>
+                         .is<spacedot % into<Class1>>);
+    EXPECT_THAT(parser_value<int2>
+                         .is<(abc >> spacedot) % into<Class2>>);
 }
 
 TEST("into modifier", "non consteval")

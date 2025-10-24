@@ -11,18 +11,26 @@ FIXTURE("name modifier");
 
 TEST("name modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(nam1, name<"nam1">(abc));
-    ASSERT_PARSER_VALUES_EQ(nam2, name<"nam2">(+abc));
-    ASSERT_PARSER_VALUES_EQ(nam3, name<"nam3">(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(nam4, name<"nam4">(abc >> *qq));
+    EXPECT_THAT(parser_value<nam1>
+                         .is<name<"nam1">(abc)>);
+    EXPECT_THAT(parser_value<nam2>
+                         .is<name<"nam2">(+abc)>);
+    EXPECT_THAT(parser_value<nam3>
+                         .is<name<"nam3">(~(abc | qq))>);
+    EXPECT_THAT(parser_value<nam4>
+                         .is<name<"nam4">(abc >> *qq)>);
 }
 
 TEST("name modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(nam1, abc % name<"nam1">);
-    ASSERT_PARSER_VALUES_EQ(nam2, +abc % name<"nam2">);
-    ASSERT_PARSER_VALUES_EQ(nam3, ~(abc | qq) % name<"nam3">);
-    ASSERT_PARSER_VALUES_EQ(nam4, (abc >> *qq) % name<"nam4">);
+    EXPECT_THAT(parser_value<nam1>
+                         .is<abc % name<"nam1">>);
+    EXPECT_THAT(parser_value<nam2>
+                         .is<+abc % name<"nam2">>);
+    EXPECT_THAT(parser_value<nam3>
+                         .is<~(abc | qq) % name<"nam3">>);
+    EXPECT_THAT(parser_value<nam4>
+                         .is<(abc >> *qq) % name<"nam4">>);
 }
 
 TEST("name modifier", "non consteval")

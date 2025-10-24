@@ -11,18 +11,26 @@ FIXTURE("exactly modifier");
 
 TEST("exactly modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(exa1, exactly<3>(all1));
-    ASSERT_PARSER_VALUES_EQ(exa2, exactly<5>(any1));
-    ASSERT_PARSER_VALUES_EQ(exa3, exactly<4>(all1 | any1));
-    ASSERT_PARSER_VALUES_EQ(exa4, exactly<2>(all1 >> any1));
+    EXPECT_THAT(parser_value<exa1>
+                         .is<exactly<3>(all1)>);
+    EXPECT_THAT(parser_value<exa2>
+                         .is<exactly<5>(any1)>);
+    EXPECT_THAT(parser_value<exa3>
+                         .is<exactly<4>(all1 | any1)>);
+    EXPECT_THAT(parser_value<exa4>
+                         .is<exactly<2>(all1 >> any1)>);
 }
 
 TEST("exactly modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(exa1, all1 % exactly<3>);
-    ASSERT_PARSER_VALUES_EQ(exa2, any1 % exactly<5>);
-    ASSERT_PARSER_VALUES_EQ(exa3, (all1 | any1) % exactly<4>);
-    ASSERT_PARSER_VALUES_EQ(exa4, (all1 >> any1) % exactly<2>);
+    EXPECT_THAT(parser_value<exa1>
+                         .is<all1 % exactly<3>>);
+    EXPECT_THAT(parser_value<exa2>
+                         .is<any1 % exactly<5>>);
+    EXPECT_THAT(parser_value<exa3>
+                         .is<(all1 | any1) % exactly<4>>);
+    EXPECT_THAT(parser_value<exa4>
+                         .is<(all1 >> any1) % exactly<2>>);
 }
 
 TEST("exactly modifier", "non consteval")

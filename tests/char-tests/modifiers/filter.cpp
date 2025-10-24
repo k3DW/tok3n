@@ -11,16 +11,22 @@ FIXTURE("filter modifier");
 
 TEST("filter modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(fil1, filter<filter_func1>(+abc));
-    ASSERT_PARSER_VALUES_EQ(fil2, filter<filter_func2>(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(fil3, filter<filter_func3>(abc >> *qq));
+    EXPECT_THAT(parser_value<fil1>
+                         .is<filter<filter_func1>(+abc)>);
+    EXPECT_THAT(parser_value<fil2>
+                         .is<filter<filter_func2>(~(abc | qq))>);
+    EXPECT_THAT(parser_value<fil3>
+                         .is<filter<filter_func3>(abc >> *qq)>);
 }
 
 TEST("filter modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(fil1, +abc % filter<filter_func1>);
-    ASSERT_PARSER_VALUES_EQ(fil2, ~(abc | qq) % filter<filter_func2>);
-    ASSERT_PARSER_VALUES_EQ(fil3, (abc >> *qq) % filter<filter_func3>);
+    EXPECT_THAT(parser_value<fil1>
+                         .is<+abc % filter<filter_func1>>);
+    EXPECT_THAT(parser_value<fil2>
+                         .is<~(abc | qq) % filter<filter_func2>>);
+    EXPECT_THAT(parser_value<fil3>
+                         .is<(abc >> *qq) % filter<filter_func3>>);
 }
 
 TEST("filter modifier", "non consteval")

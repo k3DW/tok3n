@@ -11,186 +11,309 @@ FIXTURE("basic operators");
 
 TEST("basic operators", "UDL _any")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_any), any1);
-    ASSERT_PARSER_VALUES_EQ(TT("bcd"_any), any2);
-    ASSERT_PARSER_VALUES_EQ(TT("xyz"_any), any3);
-    ASSERT_PARSER_VALUES_EQ(TT("cd"_any), any4);
-    ASSERT_PARSER_VALUES_EQ(TT(","_any), comma);
-    ASSERT_PARSER_VALUES_EQ(TT(" ."_any), spacedot);
-    ASSERT_PARSER_VALUES_EQ(TT(""_any), any_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("abc"_any)>
+                         .is<any1>);
+    EXPECT_THAT(parser_value<TT("bcd"_any)>
+                         .is<any2>);
+    EXPECT_THAT(parser_value<TT("xyz"_any)>
+                         .is<any3>);
+    EXPECT_THAT(parser_value<TT("cd"_any)>
+                         .is<any4>);
+    EXPECT_THAT(parser_value<TT(","_any)>
+                         .is<comma>);
+    EXPECT_THAT(parser_value<TT(" ."_any)>
+                         .is<spacedot>);
+    EXPECT_THAT(parser_value<TT(""_any)>
+                         .is<any_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "UDL _any_of")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_any_of), any1);
-    ASSERT_PARSER_VALUES_EQ(TT("bcd"_any_of), any2);
-    ASSERT_PARSER_VALUES_EQ(TT("xyz"_any_of), any3);
-    ASSERT_PARSER_VALUES_EQ(TT("cd"_any_of), any4);
-    ASSERT_PARSER_VALUES_EQ(TT(","_any_of), comma);
-    ASSERT_PARSER_VALUES_EQ(TT(" ."_any_of), spacedot);
-    ASSERT_PARSER_VALUES_EQ(TT(""_any_of), any_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("abc"_any_of)>
+                         .is<any1>);
+    EXPECT_THAT(parser_value<TT("bcd"_any_of)>
+                         .is<any2>);
+    EXPECT_THAT(parser_value<TT("xyz"_any_of)>
+                         .is<any3>);
+    EXPECT_THAT(parser_value<TT("cd"_any_of)>
+                         .is<any4>);
+    EXPECT_THAT(parser_value<TT(","_any_of)>
+                         .is<comma>);
+    EXPECT_THAT(parser_value<TT(" ."_any_of)>
+                         .is<spacedot>);
+    EXPECT_THAT(parser_value<TT(""_any_of)>
+                         .is<any_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "any<>")
 {
-    ASSERT_PARSER_VALUES_EQ(any<TT("abc")>, any1);
-    ASSERT_PARSER_VALUES_EQ(any<TT("bcd")>, any2);
-    ASSERT_PARSER_VALUES_EQ(any<TT("xyz")>, any3);
-    ASSERT_PARSER_VALUES_EQ(any<TT("cd")>, any4);
-    ASSERT_PARSER_VALUES_EQ(any<TT(",")>, comma);
-    ASSERT_PARSER_VALUES_EQ(any<TT(" .")>, spacedot);
-    ASSERT_PARSER_VALUES_EQ(any<TT("")>, any_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<any<TT("abc")>>
+                         .is<any1>);
+    EXPECT_THAT(parser_value<any<TT("bcd")>>
+                         .is<any2>);
+    EXPECT_THAT(parser_value<any<TT("xyz")>>
+                         .is<any3>);
+    EXPECT_THAT(parser_value<any<TT("cd")>>
+                         .is<any4>);
+    EXPECT_THAT(parser_value<any<TT(",")>>
+                         .is<comma>);
+    EXPECT_THAT(parser_value<any<TT(" .")>>
+                         .is<spacedot>);
+    EXPECT_THAT(parser_value<any<TT("")>>
+                         .is<any_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "any_of<>")
 {
-    ASSERT_PARSER_VALUES_EQ((any_of<TT('a'), TT('b'), TT('c')>), any1);
-    ASSERT_PARSER_VALUES_EQ((any_of<TT('b'), TT('c'), TT('d')>), any2);
-    ASSERT_PARSER_VALUES_EQ((any_of<TT('x'), TT('y'), TT('z')>), any3);
-    ASSERT_PARSER_VALUES_EQ((any_of<TT('c'), TT('d')>), any4);
-    ASSERT_PARSER_VALUES_EQ((any_of<TT(',')>), comma);
-    ASSERT_PARSER_VALUES_EQ((any_of<TT(' '), TT('.')>), spacedot);
+    EXPECT_THAT(parser_value<(any_of<TT('a'), TT('b'), TT('c')>)>
+                         .is<any1>);
+    EXPECT_THAT(parser_value<(any_of<TT('b'), TT('c'), TT('d')>)>
+                         .is<any2>);
+    EXPECT_THAT(parser_value<(any_of<TT('x'), TT('y'), TT('z')>)>
+                         .is<any3>);
+    EXPECT_THAT(parser_value<(any_of<TT('c'), TT('d')>)>
+                         .is<any4>);
+    EXPECT_THAT(parser_value<any_of<TT(',')>>
+                         .is<comma>);
+    EXPECT_THAT(parser_value<(any_of<TT(' '), TT('.')>)>
+                         .is<spacedot>);
 }
 
 TEST("basic operators", "UDL _none")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_none), none1);
-    ASSERT_PARSER_VALUES_EQ(TT("bcd"_none), none2);
-    ASSERT_PARSER_VALUES_EQ(TT("xyz"_none), none3);
-    ASSERT_PARSER_VALUES_EQ(TT("cd"_none), none4);
-    ASSERT_PARSER_VALUES_EQ(TT("z"_none), none5);
-    ASSERT_PARSER_VALUES_EQ(TT(""_none), none_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("abc"_none)>
+                         .is<none1>);
+    EXPECT_THAT(parser_value<TT("bcd"_none)>
+                         .is<none2>);
+    EXPECT_THAT(parser_value<TT("xyz"_none)>
+                         .is<none3>);
+    EXPECT_THAT(parser_value<TT("cd"_none)>
+                         .is<none4>);
+    EXPECT_THAT(parser_value<TT("z"_none)>
+                         .is<none5>);
+    EXPECT_THAT(parser_value<TT(""_none)>
+                         .is<none_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "UDL _none_of")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_none_of), none1);
-    ASSERT_PARSER_VALUES_EQ(TT("bcd"_none_of), none2);
-    ASSERT_PARSER_VALUES_EQ(TT("xyz"_none_of), none3);
-    ASSERT_PARSER_VALUES_EQ(TT("cd"_none_of), none4);
-    ASSERT_PARSER_VALUES_EQ(TT("z"_none_of), none5);
-    ASSERT_PARSER_VALUES_EQ(TT(""_none_of), none_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("abc"_none_of)>
+                         .is<none1>);
+    EXPECT_THAT(parser_value<TT("bcd"_none_of)>
+                         .is<none2>);
+    EXPECT_THAT(parser_value<TT("xyz"_none_of)>
+                         .is<none3>);
+    EXPECT_THAT(parser_value<TT("cd"_none_of)>
+                         .is<none4>);
+    EXPECT_THAT(parser_value<TT("z"_none_of)>
+                         .is<none5>);
+    EXPECT_THAT(parser_value<TT(""_none_of)>
+                         .is<none_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "none<>")
 {
-    ASSERT_PARSER_VALUES_EQ(none<TT("abc")>, none1);
-    ASSERT_PARSER_VALUES_EQ(none<TT("bcd")>, none2);
-    ASSERT_PARSER_VALUES_EQ(none<TT("xyz")>, none3);
-    ASSERT_PARSER_VALUES_EQ(none<TT("cd")>, none4);
-    ASSERT_PARSER_VALUES_EQ(none<TT("z")>, none5);
-    ASSERT_PARSER_VALUES_EQ(none<TT("")>, none_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<none<TT("abc")>>
+                         .is<none1>);
+    EXPECT_THAT(parser_value<none<TT("bcd")>>
+                         .is<none2>);
+    EXPECT_THAT(parser_value<none<TT("xyz")>>
+                         .is<none3>);
+    EXPECT_THAT(parser_value<none<TT("cd")>>
+                         .is<none4>);
+    EXPECT_THAT(parser_value<none<TT("z")>>
+                         .is<none5>);
+    EXPECT_THAT(parser_value<none<TT("")>>
+                         .is<none_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "none_of<>")
 {
-    ASSERT_PARSER_VALUES_EQ((none_of<TT('a'), TT('b'), TT('c')>), none1);
-    ASSERT_PARSER_VALUES_EQ((none_of<TT('b'), TT('c'), TT('d')>), none2);
-    ASSERT_PARSER_VALUES_EQ((none_of<TT('x'), TT('y'), TT('z')>), none3);
-    ASSERT_PARSER_VALUES_EQ((none_of<TT('c'), TT('d')>), none4);
-    ASSERT_PARSER_VALUES_EQ((none_of<TT('z')>), none5);
+    EXPECT_THAT(parser_value<(none_of<TT('a'), TT('b'), TT('c')>)>
+                         .is<none1>);
+    EXPECT_THAT(parser_value<(none_of<TT('b'), TT('c'), TT('d')>)>
+                         .is<none2>);
+    EXPECT_THAT(parser_value<(none_of<TT('x'), TT('y'), TT('z')>)>
+                         .is<none3>);
+    EXPECT_THAT(parser_value<(none_of<TT('c'), TT('d')>)>
+                         .is<none4>);
+    EXPECT_THAT(parser_value<(none_of<TT('z')>)>
+                         .is<none5>);
 }
 
 TEST("basic operators", "UDL _all")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("literal"_all), all1);
-    ASSERT_PARSER_VALUES_EQ(TT("ly"_all), all2);
-    ASSERT_PARSER_VALUES_EQ(TT("test"_all), all3);
-    ASSERT_PARSER_VALUES_EQ(TT("ab"_all), all4);
-    ASSERT_PARSER_VALUES_EQ(TT("??"_all), qq);
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_all), abc);
-    ASSERT_PARSER_VALUES_EQ(TT(""_all), all_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("literal"_all)>
+                         .is<all1>);
+    EXPECT_THAT(parser_value<TT("ly"_all)>
+                         .is<all2>);
+    EXPECT_THAT(parser_value<TT("test"_all)>
+                         .is<all3>);
+    EXPECT_THAT(parser_value<TT("ab"_all)>
+                         .is<all4>);
+    EXPECT_THAT(parser_value<TT("??"_all)>
+                         .is<qq>);
+    EXPECT_THAT(parser_value<TT("abc"_all)>
+                         .is<abc>);
+    EXPECT_THAT(parser_value<TT(""_all)>
+                         .is<all_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "UDL _all_of")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("literal"_all_of), all1);
-    ASSERT_PARSER_VALUES_EQ(TT("ly"_all_of), all2);
-    ASSERT_PARSER_VALUES_EQ(TT("test"_all_of), all3);
-    ASSERT_PARSER_VALUES_EQ(TT("ab"_all_of), all4);
-    ASSERT_PARSER_VALUES_EQ(TT("??"_all_of), qq);
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_all_of), abc);
-    ASSERT_PARSER_VALUES_EQ(TT(""_all_of), all_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("literal"_all_of)>
+                         .is<all1>);
+    EXPECT_THAT(parser_value<TT("ly"_all_of)>
+                         .is<all2>);
+    EXPECT_THAT(parser_value<TT("test"_all_of)>
+                         .is<all3>);
+    EXPECT_THAT(parser_value<TT("ab"_all_of)>
+                         .is<all4>);
+    EXPECT_THAT(parser_value<TT("??"_all_of)>
+                         .is<qq>);
+    EXPECT_THAT(parser_value<TT("abc"_all_of)>
+                         .is<abc>);
+    EXPECT_THAT(parser_value<TT(""_all_of)>
+                         .is<all_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "all<>")
 {
-    ASSERT_PARSER_VALUES_EQ(all<TT("literal")>, all1);
-    ASSERT_PARSER_VALUES_EQ(all<TT("ly")>, all2);
-    ASSERT_PARSER_VALUES_EQ(all<TT("test")>, all3);
-    ASSERT_PARSER_VALUES_EQ(all<TT("ab")>, all4);
-    ASSERT_PARSER_VALUES_EQ(all<TT("??")>, qq);
-    ASSERT_PARSER_VALUES_EQ(all<TT("abc")>, abc);
-    ASSERT_PARSER_VALUES_EQ(all<TT("")>, all_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<all<TT("literal")>>
+                         .is<all1>);
+    EXPECT_THAT(parser_value<all<TT("ly")>>
+                         .is<all2>);
+    EXPECT_THAT(parser_value<all<TT("test")>>
+                         .is<all3>);
+    EXPECT_THAT(parser_value<all<TT("ab")>>
+                         .is<all4>);
+    EXPECT_THAT(parser_value<all<TT("??")>>
+                         .is<qq>);
+    EXPECT_THAT(parser_value<all<TT("abc")>>
+                         .is<abc>);
+    EXPECT_THAT(parser_value<all<TT("")>>
+                         .is<all_of_parser<TT("")>{}>);
 }
 
 TEST("basic operators", "all_of<>")
 {
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('l'), TT('i'), TT('t'), TT('e'), TT('r'), TT('a'), TT('l')>), all1);
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('l'), TT('y')>), all2);
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('t'), TT('e'), TT('s'), TT('t')>), all3);
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('a'), TT('b')>), all4);
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('?'), TT('?')>), qq);
-    ASSERT_PARSER_VALUES_EQ((all_of<TT('a'), TT('b'), TT('c')>), abc);
+    EXPECT_THAT(parser_value<(all_of<TT('l'), TT('i'), TT('t'), TT('e'), TT('r'), TT('a'), TT('l')>)>
+                         .is<all1>);
+    EXPECT_THAT(parser_value<(all_of<TT('l'), TT('y')>)>
+                         .is<all2>);
+    EXPECT_THAT(parser_value<(all_of<TT('t'), TT('e'), TT('s'), TT('t')>)>
+                         .is<all3>);
+    EXPECT_THAT(parser_value<(all_of<TT('a'), TT('b')>)>
+                         .is<all4>);
+    EXPECT_THAT(parser_value<(all_of<TT('?'), TT('?')>)>
+                         .is<qq>);
+    EXPECT_THAT(parser_value<(all_of<TT('a'), TT('b'), TT('c')>)>
+                         .is<abc>);
 }
 
 TEST("basic operators", "UDL _ign")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("literal"_ign), ignore_parser<All1>{});
-    ASSERT_PARSER_VALUES_EQ(TT("ly"_ign), ignore_parser<All2>{});
-    ASSERT_PARSER_VALUES_EQ(TT("test"_ign), ignore_parser<All3>{});
-    ASSERT_PARSER_VALUES_EQ(TT("ab"_ign), ignore_parser<All4>{});
-    ASSERT_PARSER_VALUES_EQ(TT("??"_ign), ignore_parser<QQ>{});
-    ASSERT_PARSER_VALUES_EQ(TT("abc"_ign), ignore_parser<ABC>{});
-    ASSERT_PARSER_VALUES_EQ(TT(""_ign), ignore_parser<all_of_parser<TT("")>>{});
+    EXPECT_THAT(parser_value<TT("literal"_ign)>
+                         .is<ignore_parser<All1>{}>);
+    EXPECT_THAT(parser_value<TT("ly"_ign)>
+                         .is<ignore_parser<All2>{}>);
+    EXPECT_THAT(parser_value<TT("test"_ign)>
+                         .is<ignore_parser<All3>{}>);
+    EXPECT_THAT(parser_value<TT("ab"_ign)>
+                         .is<ignore_parser<All4>{}>);
+    EXPECT_THAT(parser_value<TT("??"_ign)>
+                         .is<ignore_parser<QQ>{}>);
+    EXPECT_THAT(parser_value<TT("abc"_ign)>
+                         .is<ignore_parser<ABC>{}>);
+    EXPECT_THAT(parser_value<TT(""_ign)>
+                         .is<ignore_parser<all_of_parser<TT("")>>{}>);
 }
 
 TEST("basic operators", "ign<>")
 {
-    ASSERT_PARSER_VALUES_EQ(ign<TT("literal")>, ignore_parser<All1>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("ly")>, ignore_parser<All2>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("test")>, ignore_parser<All3>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("ab")>, ignore_parser<All4>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("??")>, ignore_parser<QQ>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("abc")>, ignore_parser<ABC>{});
-    ASSERT_PARSER_VALUES_EQ(ign<TT("")>, ignore_parser<all_of_parser<TT("")>>{});
+    EXPECT_THAT(parser_value<ign<TT("literal")>>
+                         .is<ignore_parser<All1>{}>);
+    EXPECT_THAT(parser_value<ign<TT("ly")>>
+                         .is<ignore_parser<All2>{}>);
+    EXPECT_THAT(parser_value<ign<TT("test")>>
+                         .is<ignore_parser<All3>{}>);
+    EXPECT_THAT(parser_value<ign<TT("ab")>>
+                         .is<ignore_parser<All4>{}>);
+    EXPECT_THAT(parser_value<ign<TT("??")>>
+                         .is<ignore_parser<QQ>{}>);
+    EXPECT_THAT(parser_value<ign<TT("abc")>>
+                         .is<ignore_parser<ABC>{}>);
+    EXPECT_THAT(parser_value<ign<TT("")>>
+                         .is<ignore_parser<all_of_parser<TT("")>>{}>);
 }
 
 TEST("basic operators", "Non sorted_and_uniqued")
 {
-    ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any), any_of_parser<TT("123")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none), none_of_parser<TT("123")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("123abc"_any), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("123abc"_none), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("abc123"_any), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("abc123"_none), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("Aa"_any), any_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("Aa"_none), none_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("aA"_any), any_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("aA"_none), none_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("A"_any), any_of_parser<TT("A")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("A"_none), none_of_parser<TT("A")>{});
-    ASSERT_PARSER_VALUES_EQ(TT(""_any), any_of_parser<TT("")>{});
-    ASSERT_PARSER_VALUES_EQ(TT(""_none), none_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("212312323321212311"_any)>
+                         .is<any_of_parser<TT("123")>{}>);
+    EXPECT_THAT(parser_value<TT("212312323321212311"_none)>
+                         .is<none_of_parser<TT("123")>{}>);
+    EXPECT_THAT(parser_value<TT("123abc"_any)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("123abc"_none)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("abc123"_any)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("abc123"_none)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("a1b2c3"_any)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("a1b2c3"_none)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("Aa"_any)>
+                         .is<any_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("Aa"_none)>
+                         .is<none_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("aA"_any)>
+                         .is<any_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("aA"_none)>
+                         .is<none_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("A"_any)>
+                         .is<any_of_parser<TT("A")>{}>);
+    EXPECT_THAT(parser_value<TT("A"_none)>
+                         .is<none_of_parser<TT("A")>{}>);
+    EXPECT_THAT(parser_value<TT(""_any)>
+                         .is<any_of_parser<TT("")>{}>);
+    EXPECT_THAT(parser_value<TT(""_none)>
+                         .is<none_of_parser<TT("")>{}>);
 
-    ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_any_of), any_of_parser<TT("123")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("212312323321212311"_none_of), none_of_parser<TT("123")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("123abc"_any_of), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("123abc"_none_of), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("abc123"_any_of), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("abc123"_none_of), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_any_of), any_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("a1b2c3"_none_of), none_of_parser<TT("123abc")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("Aa"_any_of), any_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("Aa"_none_of), none_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("aA"_any_of), any_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("aA"_none_of), none_of_parser<TT("Aa")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("A"_any_of), any_of_parser<TT("A")>{});
-    ASSERT_PARSER_VALUES_EQ(TT("A"_none_of), none_of_parser<TT("A")>{});
-    ASSERT_PARSER_VALUES_EQ(TT(""_any_of), any_of_parser<TT("")>{});
-    ASSERT_PARSER_VALUES_EQ(TT(""_none_of), none_of_parser<TT("")>{});
+    EXPECT_THAT(parser_value<TT("212312323321212311"_any_of)>
+                         .is<any_of_parser<TT("123")>{}>);
+    EXPECT_THAT(parser_value<TT("212312323321212311"_none_of)>
+                         .is<none_of_parser<TT("123")>{}>);
+    EXPECT_THAT(parser_value<TT("123abc"_any_of)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("123abc"_none_of)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("abc123"_any_of)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("abc123"_none_of)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("a1b2c3"_any_of)>
+                         .is<any_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("a1b2c3"_none_of)>
+                         .is<none_of_parser<TT("123abc")>{}>);
+    EXPECT_THAT(parser_value<TT("Aa"_any_of)>
+                         .is<any_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("Aa"_none_of)>
+                         .is<none_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("aA"_any_of)>
+                         .is<any_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("aA"_none_of)>
+                         .is<none_of_parser<TT("Aa")>{}>);
+    EXPECT_THAT(parser_value<TT("A"_any_of)>
+                         .is<any_of_parser<TT("A")>{}>);
+    EXPECT_THAT(parser_value<TT("A"_none_of)>
+                         .is<none_of_parser<TT("A")>{}>);
+    EXPECT_THAT(parser_value<TT(""_any_of)>
+                         .is<any_of_parser<TT("")>{}>);
+    EXPECT_THAT(parser_value<TT(""_none_of)>
+                         .is<none_of_parser<TT("")>{}>);
 }
 
 } // namespace

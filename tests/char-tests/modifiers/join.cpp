@@ -11,36 +11,58 @@ FIXTURE("join modifier");
 
 TEST("join modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, join(abc));
-    ASSERT_PARSER_VALUES_NE(abc, join(abc));
-    ASSERT_PARSER_VALUES_EQ(joi2, join(+abc));
-    ASSERT_PARSER_VALUES_EQ(joi3, join(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(joi4, join(abc >> *qq));
-    ASSERT_PARSER_VALUES_EQ(joi5, join(+abc >> ~(abc | qq)));
+    EXPECT_THAT(parser_value<joi1>
+                         .is<join(abc)>);
+    EXPECT_THAT(parser_value<abc>
+                     .is_not<join(abc)>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<join(+abc)>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<join(~(abc | qq))>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<join(abc >> *qq)>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<join(+abc >> ~(abc | qq))>);
 }
 
 TEST("join modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, abc % join);
-    ASSERT_PARSER_VALUES_NE(abc, abc % join);
-    ASSERT_PARSER_VALUES_EQ(joi2, +abc % join);
-    ASSERT_PARSER_VALUES_EQ(joi3, ~(abc | qq) % join);
-    ASSERT_PARSER_VALUES_EQ(joi4, (abc >> *qq) % join);
-    ASSERT_PARSER_VALUES_EQ(joi5, (+abc >> ~(abc | qq)) % join);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<abc % join>);
+    EXPECT_THAT(parser_value<abc>
+                     .is_not<abc % join>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<+abc % join>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<~(abc | qq) % join>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<(abc >> *qq) % join>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<(+abc >> ~(abc | qq)) % join>);
 }
 
 TEST("join modifier", "idempotent")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, join(joi1));
-    ASSERT_PARSER_VALUES_EQ(joi2, join(joi2));
-    ASSERT_PARSER_VALUES_EQ(joi3, join(joi3));
-    ASSERT_PARSER_VALUES_EQ(joi4, join(joi4));
-    ASSERT_PARSER_VALUES_EQ(joi5, join(joi5));
-    ASSERT_PARSER_VALUES_EQ(joi1, joi1 % join);
-    ASSERT_PARSER_VALUES_EQ(joi2, joi2 % join);
-    ASSERT_PARSER_VALUES_EQ(joi3, joi3 % join);
-    ASSERT_PARSER_VALUES_EQ(joi4, joi4 % join);
-    ASSERT_PARSER_VALUES_EQ(joi5, joi5 % join);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<join(joi1)>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<join(joi2)>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<join(joi3)>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<join(joi4)>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<join(joi5)>);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<joi1 % join>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<joi2 % join>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<joi3 % join>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<joi4 % join>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<joi5 % join>);
 }
 
 TEST("join modifier", "non consteval")

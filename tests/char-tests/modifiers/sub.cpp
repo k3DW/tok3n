@@ -54,92 +54,160 @@ TEST("sub modifier", "create substitutions")
 
 TEST("sub modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub11), ignore_parser<_21>{});
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub21), nam1);
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub31), nam1);
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub41), nam1);
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub12), join_parser<_21>{});
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub22), nam1);
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub32), nam1);
-    ASSERT_PARSER_VALUES_EQ(sub(nam1, sub42), nam1);
+    EXPECT_THAT(parser_value<sub(nam1, sub11)>
+                         .is<ignore_parser<_21>{}>);
+    EXPECT_THAT(parser_value<sub(nam1, sub21)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<sub(nam1, sub31)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<sub(nam1, sub41)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<sub(nam1, sub12)>
+                         .is<join_parser<_21>{}>);
+    EXPECT_THAT(parser_value<sub(nam1, sub22)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<sub(nam1, sub32)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<sub(nam1, sub42)>
+                         .is<nam1>);
 
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub11), nam2);
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub21), join_parser<_22>{});
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub31), nam2);
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub41), nam2);
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub12), nam2);
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub22), ignore_parser<_22>{});
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub32), nam2);
-    ASSERT_PARSER_VALUES_EQ(sub(nam2, sub42), nam2);
+    EXPECT_THAT(parser_value<sub(nam2, sub11)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<sub(nam2, sub21)>
+                         .is<join_parser<_22>{}>);
+    EXPECT_THAT(parser_value<sub(nam2, sub31)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<sub(nam2, sub41)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<sub(nam2, sub12)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<sub(nam2, sub22)>
+                         .is<ignore_parser<_22>{}>);
+    EXPECT_THAT(parser_value<sub(nam2, sub32)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<sub(nam2, sub42)>
+                         .is<nam2>);
 
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub11), nam3);
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub21), nam3);
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub31), (named_parser<_23, "nam2">{}));
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub41), nam3);
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub12), nam3);
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub22), nam3);
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub32), (exactly_parser<_23, index_c<2>>{}));
-    ASSERT_PARSER_VALUES_EQ(sub(nam3, sub42), nam3);
+    EXPECT_THAT(parser_value<sub(nam3, sub11)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<sub(nam3, sub21)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<sub(nam3, sub31)>
+                         .is<(named_parser<_23, "nam2">{})>);
+    EXPECT_THAT(parser_value<sub(nam3, sub41)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<sub(nam3, sub12)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<sub(nam3, sub32)>
+                         .is<(exactly_parser<_23, index_c<2>>{})>);
+    EXPECT_THAT(parser_value<sub(nam3, sub32)>
+                         .is<(exactly_parser<_23, index_c<2>>{})>);
+    EXPECT_THAT(parser_value<sub(nam3, sub42)>
+                         .is<nam3>);
 
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub11), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub21), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub31), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub41), (exactly_parser<_24, index_c<2>>{}));
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub12), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub22), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub32), nam4);
-    ASSERT_PARSER_VALUES_EQ(sub(nam4, sub42), (named_parser<_24, "nam2">{}));
+    EXPECT_THAT(parser_value<sub(nam4, sub11)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub21)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub31)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub41)>
+                         .is<(exactly_parser<_24, index_c<2>>{})>);
+    EXPECT_THAT(parser_value<sub(nam4, sub12)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub22)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub32)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<sub(nam4, sub42)>
+                         .is<(named_parser<_24, "nam2">{})>);
 }
 
 TEST("sub modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub11), ignore_parser<_21>{});
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub21), nam1);
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub31), nam1);
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub41), nam1);
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub12), join_parser<_21>{});
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub22), nam1);
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub32), nam1);
-    ASSERT_PARSER_VALUES_EQ(nam1 % sub(sub42), nam1);
+    EXPECT_THAT(parser_value<nam1 % sub(sub11)>
+                         .is<ignore_parser<_21>{}>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub21)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub31)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub41)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub12)>
+                         .is<join_parser<_21>{}>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub22)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub32)>
+                         .is<nam1>);
+    EXPECT_THAT(parser_value<nam1 % sub(sub42)>
+                         .is<nam1>);
 
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub11), nam2);
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub21), join_parser<_22>{});
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub31), nam2);
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub41), nam2);
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub12), nam2);
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub22), ignore_parser<_22>{});
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub32), nam2);
-    ASSERT_PARSER_VALUES_EQ(nam2 % sub(sub42), nam2);
+    EXPECT_THAT(parser_value<nam2 % sub(sub11)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub21)>
+                         .is<join_parser<_22>{}>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub31)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub41)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub12)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub22)>
+                         .is<ignore_parser<_22>{}>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub32)>
+                         .is<nam2>);
+    EXPECT_THAT(parser_value<nam2 % sub(sub42)>
+                         .is<nam2>);
 
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub11), nam3);
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21), nam3);
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31), (named_parser<_23, "nam2">{}));
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub41), nam3);
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub12), nam3);
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub22), nam3);
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub32), (exactly_parser<_23, index_c<2>>{}));
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub42), nam3);
+    EXPECT_THAT(parser_value<nam3 % sub(sub11)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub21)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub31)>
+                         .is<(named_parser<_23, "nam2">{})>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub41)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub12)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub22)>
+                         .is<nam3>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub32)>
+                         .is<(exactly_parser<_23, index_c<2>>{})>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub42)>
+                         .is<nam3>);
 
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub11), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub21), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub31), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub41), (exactly_parser<_24, index_c<2>>{}));
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub12), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub22), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub32), nam4);
-    ASSERT_PARSER_VALUES_EQ(nam4 % sub(sub42), (named_parser<_24, "nam2">{}));
+    EXPECT_THAT(parser_value<nam4 % sub(sub11)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub21)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub31)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub41)>
+                         .is<(exactly_parser<_24, index_c<2>>{})>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub12)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub22)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub32)>
+                         .is<nam4>);
+    EXPECT_THAT(parser_value<nam4 % sub(sub42)>
+                         .is<(named_parser<_24, "nam2">{})>);
 }
 
 TEST("sub modifier", "order-dependent")
 {
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21, sub31), (named_parser<_23, "nam2">{}));
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31, sub21), join_parser<_23>{});
+    EXPECT_THAT(parser_value<nam3 % sub(sub21, sub31)>
+                         .is<(named_parser<_23, "nam2">{})>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub31, sub21)>
+                         .is<join_parser<_23>{}>);
 }
 
 TEST("sub modifier", "chainable")
 {
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub21, sub31), nam3 % sub(sub21) % sub(sub31));
-    ASSERT_PARSER_VALUES_EQ(nam3 % sub(sub31, sub21), nam3 % sub(sub31) % sub(sub21));
+    EXPECT_THAT(parser_value<nam3 % sub(sub21, sub31)>
+                         .is<nam3 % sub(sub21) % sub(sub31)>);
+    EXPECT_THAT(parser_value<nam3 % sub(sub31, sub21)>
+                         .is<nam3 % sub(sub31) % sub(sub21)>);
 }
 
 TEST("sub modifier", "non consteval")

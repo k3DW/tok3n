@@ -11,50 +11,86 @@ FIXTURE("maybe operator");
 
 TEST("maybe operator", "~maybe_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(~may1, may1);
-    ASSERT_PARSER_VALUES_EQ(~~may1, may1);
-    ASSERT_PARSER_VALUES_EQ(~~~may1, may1);
-    ASSERT_PARSER_VALUES_EQ(~may2, may2);
-    ASSERT_PARSER_VALUES_EQ(~~may2, may2);
-    ASSERT_PARSER_VALUES_EQ(~~~may2, may2);
-    ASSERT_PARSER_VALUES_EQ(~may3, may3);
-    ASSERT_PARSER_VALUES_EQ(~~may3, may3);
-    ASSERT_PARSER_VALUES_EQ(~~~may3, may3);
-    ASSERT_PARSER_VALUES_EQ(~may4, may4);
-    ASSERT_PARSER_VALUES_EQ(~~may4, may4);
-    ASSERT_PARSER_VALUES_EQ(~~~may4, may4);
+    EXPECT_THAT(parser_value<~may1>
+                         .is<may1>);
+    EXPECT_THAT(parser_value<~~may1>
+                         .is<may1>);
+    EXPECT_THAT(parser_value<~~~may1>
+                         .is<may1>);
+    EXPECT_THAT(parser_value<~may2>
+                         .is<may2>);
+    EXPECT_THAT(parser_value<~~may2>
+                         .is<may2>);
+    EXPECT_THAT(parser_value<~~~may2>
+                         .is<may2>);
+    EXPECT_THAT(parser_value<~may3>
+                         .is<may3>);
+    EXPECT_THAT(parser_value<~~may3>
+                         .is<may3>);
+    EXPECT_THAT(parser_value<~~~may3>
+                         .is<may3>);
+    EXPECT_THAT(parser_value<~may4>
+                         .is<may4>);
+    EXPECT_THAT(parser_value<~~may4>
+                         .is<may4>);
+    EXPECT_THAT(parser_value<~~~may4>
+                         .is<may4>);
 }
 
 TEST("maybe operator", "~one_or_more_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(~oom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~~oom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~~~oom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~oom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~~oom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~~~oom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~oom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~~oom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~~~oom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~oom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(~~oom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(~~~oom4, zom4);
+    EXPECT_THAT(parser_value<~oom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~~oom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~~~oom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~oom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~~oom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~~~oom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~oom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~~oom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~~~oom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~oom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<~~oom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<~~~oom4>
+                         .is<zom4>);
 }
 
 TEST("maybe operator", "~zero_or_more_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(~zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~~zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~~~zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(~zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~~zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~~~zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(~zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~~zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~~~zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(~zom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(~~zom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(~~~zom4, zom4);
+    EXPECT_THAT(parser_value<~zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~~zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~~~zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<~zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~~zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~~~zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<~zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~~zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~~~zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<~zom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<~~zom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<~~~zom4>
+                         .is<zom4>);
 }
 
 TEST("maybe operator", "non consteval")
@@ -69,23 +105,20 @@ TEST("maybe operator", "non consteval")
         DEP_ASSERT_UNARY_OPERABLE(~, PP{}, P{});                                        \
         if constexpr (PP::family == maybe_family)                                       \
         {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                    \
-                                        ~P{},  P{});                                    \
+            EXPECT_THAT(parser_value<~PP{}>.is<PP{}>);                                  \
         }                                                                               \
         else if constexpr (PP::family == one_or_more_family)                            \
         {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, zero_or_more_parser<underlying_t<PP>>{}, \
-                                        ~P{},  zero_or_more_parser<underlying_t<P>>{}); \
+            EXPECT_THAT(parser_value<~PP{}>                                             \
+                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);         \
         }                                                                               \
         else if constexpr (PP::family == zero_or_more_family)                           \
         {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, PP{},                                    \
-                                        ~P{},  P{});                                    \
+            EXPECT_THAT(parser_value<~PP{}>.is<PP{}>);                                  \
         }                                                                               \
         else                                                                            \
         {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(~PP{}, maybe_parser<PP>{},                      \
-                                        ~P{},  maybe_parser<P>{});                      \
+            EXPECT_THAT(parser_value<~PP{}>.is<maybe_parser<PP>{}>);                    \
         }                                                                               \
     }(P{});
 

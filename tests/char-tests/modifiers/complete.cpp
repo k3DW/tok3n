@@ -11,42 +11,70 @@ FIXTURE("complete modifier");
 
 TEST("complete modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(com1, complete(all1));
-    ASSERT_PARSER_VALUES_EQ(com2, complete(any1));
-    ASSERT_PARSER_VALUES_EQ(com3, complete(all1 | any1));
-    ASSERT_PARSER_VALUES_EQ(com4, complete(all1 >> any1));
-    ASSERT_PARSER_VALUES_EQ(com5, complete(~(all1 >> any1)));
-    ASSERT_PARSER_VALUES_EQ(com6, complete(+(all1 >> any1)));
-    ASSERT_PARSER_VALUES_EQ(com7, complete(*(all1 >> any1)));
+    EXPECT_THAT(parser_value<com1>
+                         .is<complete(all1)>);
+    EXPECT_THAT(parser_value<com2>
+                         .is<complete(any1)>);
+    EXPECT_THAT(parser_value<com3>
+                         .is<complete(all1 | any1)>);
+    EXPECT_THAT(parser_value<com4>
+                         .is<complete(all1 >> any1)>);
+    EXPECT_THAT(parser_value<com5>
+                         .is<complete(~(all1 >> any1))>);
+    EXPECT_THAT(parser_value<com6>
+                         .is<complete(+(all1 >> any1))>);
+    EXPECT_THAT(parser_value<com7>
+                         .is<complete(*(all1 >> any1))>);
 }
 
 TEST("complete modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(com1, all1 % complete);
-    ASSERT_PARSER_VALUES_EQ(com2, any1 % complete);
-    ASSERT_PARSER_VALUES_EQ(com3, (all1 | any1) % complete);
-    ASSERT_PARSER_VALUES_EQ(com4, (all1 >> any1) % complete);
-    ASSERT_PARSER_VALUES_EQ(com5, ~(all1 >> any1) % complete);
-    ASSERT_PARSER_VALUES_EQ(com6, +(all1 >> any1) % complete);
-    ASSERT_PARSER_VALUES_EQ(com7, *(all1 >> any1) % complete);
+    EXPECT_THAT(parser_value<com1>
+                         .is<all1 % complete>);
+    EXPECT_THAT(parser_value<com2>
+                         .is<any1 % complete>);
+    EXPECT_THAT(parser_value<com3>
+                         .is<(all1 | any1) % complete>);
+    EXPECT_THAT(parser_value<com4>
+                         .is<(all1 >> any1) % complete>);
+    EXPECT_THAT(parser_value<com5>
+                         .is<~(all1 >> any1) % complete>);
+    EXPECT_THAT(parser_value<com6>
+                         .is<+(all1 >> any1) % complete>);
+    EXPECT_THAT(parser_value<com7>
+                         .is<*(all1 >> any1) % complete>);
 }
 
 TEST("complete modifier", "idempotent")
 {
-    ASSERT_PARSER_VALUES_EQ(com1, complete(com1));
-    ASSERT_PARSER_VALUES_EQ(com2, complete(com2));
-    ASSERT_PARSER_VALUES_EQ(com3, complete(com3));
-    ASSERT_PARSER_VALUES_EQ(com4, complete(com4));
-    ASSERT_PARSER_VALUES_EQ(com5, complete(com5));
-    ASSERT_PARSER_VALUES_EQ(com6, complete(com6));
-    ASSERT_PARSER_VALUES_EQ(com7, complete(com7));
-    ASSERT_PARSER_VALUES_EQ(com1, com1 % complete);
-    ASSERT_PARSER_VALUES_EQ(com2, com2 % complete);
-    ASSERT_PARSER_VALUES_EQ(com3, com3 % complete);
-    ASSERT_PARSER_VALUES_EQ(com4, com4 % complete);
-    ASSERT_PARSER_VALUES_EQ(com5, com5 % complete);
-    ASSERT_PARSER_VALUES_EQ(com6, com6 % complete);
-    ASSERT_PARSER_VALUES_EQ(com7, com7 % complete);
+    EXPECT_THAT(parser_value<com1>
+                         .is<complete(com1)>);
+    EXPECT_THAT(parser_value<com2>
+                         .is<complete(com2)>);
+    EXPECT_THAT(parser_value<com3>
+                         .is<complete(com3)>);
+    EXPECT_THAT(parser_value<com4>
+                         .is<complete(com4)>);
+    EXPECT_THAT(parser_value<com5>
+                         .is<complete(com5)>);
+    EXPECT_THAT(parser_value<com6>
+                         .is<complete(com6)>);
+    EXPECT_THAT(parser_value<com7>
+                         .is<complete(com7)>);
+    EXPECT_THAT(parser_value<com1>
+                         .is<com1 % complete>);
+    EXPECT_THAT(parser_value<com2>
+                         .is<com2 % complete>);
+    EXPECT_THAT(parser_value<com3>
+                         .is<com3 % complete>);
+    EXPECT_THAT(parser_value<com4>
+                         .is<com4 % complete>);
+    EXPECT_THAT(parser_value<com5>
+                         .is<com5 % complete>);
+    EXPECT_THAT(parser_value<com6>
+                         .is<com6 % complete>);
+    EXPECT_THAT(parser_value<com7>
+                         .is<com7 % complete>);
 }
 
 TEST("complete modifier", "non consteval")

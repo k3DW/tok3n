@@ -11,26 +11,42 @@ FIXTURE("delimit modifier");
 
 TEST("delimit modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(del1, delimit(abc, comma));
-    ASSERT_PARSER_VALUES_EQ(del2, delimit(abc, spacedot));
-    ASSERT_PARSER_VALUES_EQ(del3, delimit(qq, comma));
-    ASSERT_PARSER_VALUES_EQ(del4, delimit(qq, spacedot));
-    ASSERT_PARSER_VALUES_EQ(del5, delimit(comma, abc));
-    ASSERT_PARSER_VALUES_EQ(del6, delimit(spacedot, abc));
-    ASSERT_PARSER_VALUES_EQ(del7, delimit(comma, qq));
-    ASSERT_PARSER_VALUES_EQ(del8, delimit(spacedot, qq));
+    EXPECT_THAT(parser_value<del1>
+                         .is<delimit(abc, comma)>);
+    EXPECT_THAT(parser_value<del2>
+                         .is<delimit(abc, spacedot)>);
+    EXPECT_THAT(parser_value<del3>
+                         .is<delimit(qq, comma)>);
+    EXPECT_THAT(parser_value<del4>
+                         .is<delimit(qq, spacedot)>);
+    EXPECT_THAT(parser_value<del5>
+                         .is<delimit(comma, abc)>);
+    EXPECT_THAT(parser_value<del6>
+                         .is<delimit(spacedot, abc)>);
+    EXPECT_THAT(parser_value<del7>
+                         .is<delimit(comma, qq)>);
+    EXPECT_THAT(parser_value<del8>
+                         .is<delimit(spacedot, qq)>);
 }
 
 TEST("delimit modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(del1, abc % delimit(comma));
-    ASSERT_PARSER_VALUES_EQ(del2, abc % delimit(spacedot));
-    ASSERT_PARSER_VALUES_EQ(del3, qq % delimit(comma));
-    ASSERT_PARSER_VALUES_EQ(del4, qq % delimit(spacedot));
-    ASSERT_PARSER_VALUES_EQ(del5, comma % delimit(abc));
-    ASSERT_PARSER_VALUES_EQ(del6, spacedot % delimit(abc));
-    ASSERT_PARSER_VALUES_EQ(del7, comma % delimit(qq));
-    ASSERT_PARSER_VALUES_EQ(del8, spacedot % delimit(qq));
+    EXPECT_THAT(parser_value<del1>
+                         .is<abc % delimit(comma)>);
+    EXPECT_THAT(parser_value<del2>
+                         .is<abc % delimit(spacedot)>);
+    EXPECT_THAT(parser_value<del3>
+                         .is<qq % delimit(comma)>);
+    EXPECT_THAT(parser_value<del4>
+                         .is<qq % delimit(spacedot)>);
+    EXPECT_THAT(parser_value<del5>
+                         .is<comma % delimit(abc)>);
+    EXPECT_THAT(parser_value<del6>
+                         .is<spacedot % delimit(abc)>);
+    EXPECT_THAT(parser_value<del7>
+                         .is<comma % delimit(qq)>);
+    EXPECT_THAT(parser_value<del8>
+                         .is<spacedot % delimit(qq)>);
 }
 
 TEST("delimit modifier", "non consteval")

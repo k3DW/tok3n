@@ -7,7 +7,6 @@
 
 #include "framework/assert.hpp"
 #include "common/asserts/Concept.hpp"
-#include "common/asserts/Equality.hpp"
 #include <k3/tok3n/detail/parser.hpp>
 
 template <auto f, auto... args>
@@ -45,7 +44,7 @@ concept all_satisfy_parser = (... && k3::tok3n::detail::parser<decltype(ps)>);
 #define DEP_ASSERT_MODIFIER_CALLABLE_R(MOD_VALUE, P_VALUES, R_VALUE, MOD_DISPLAY, P_DISPLAYS, R_DISPLAY)  \
     DEP_ASSERT_MODIFIER_CALLABLE(MOD_VALUE, P_VALUES, MOD_DISPLAY, P_DISPLAYS);                           \
     ASSERT_CONCEPT(k3::tok3n::detail::parser, decltype(R_VALUE));                                         \
-    DEP_ASSERT_PARSER_VALUES_EQ(MOD_VALUE P_VALUES, R_VALUE, MOD_DISPLAY P_DISPLAYS, R_DISPLAY)
+    EXPECT_THAT(parser_value<(MOD_VALUE P_VALUES)>.is<(R_VALUE)>);
 
 
 
@@ -64,7 +63,7 @@ concept all_satisfy_parser = (... && k3::tok3n::detail::parser<decltype(ps)>);
 #define DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(P_VALUE, MOD_VALUE, R_VALUE, P_DISPLAY, MOD_DISPLAY, R_DISPLAY) \
     DEP_ASSERT_MODIFIER_MODULO_OPERABLE(P_VALUE, MOD_VALUE, P_DISPLAY, MOD_DISPLAY);                          \
     ASSERT_CONCEPT(k3::tok3n::detail::parser, decltype(R_VALUE));                                             \
-    DEP_ASSERT_PARSER_VALUES_EQ(P_VALUE % MOD_VALUE, R_VALUE, P_DISPLAY % MOD_DISPLAY, R_DISPLAY)
+    EXPECT_THAT(parser_value<(P_VALUE % MOD_VALUE)>.is<(R_VALUE)>);
 
 
 

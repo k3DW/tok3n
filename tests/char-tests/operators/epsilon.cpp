@@ -18,14 +18,18 @@ concept choice_operable = requires { lhs | rhs; };
 
 TEST("epsilon operator", ".of<>")
 {
-    ASSERT_PARSER_VALUES_EQ(eps.of<value_type>, epsilon_parser<value_type>{});
+    EXPECT_THAT(parser_value<eps.of<value_type>>
+                         .is<epsilon_parser<value_type>{}>);
 }
 
 TEST("epsilon operator", "P | eps")
 {
-    ASSERT_PARSER_VALUES_EQ(any1 | eps, (choice_parser<Any1, epsilon_parser<value_type>>{}));
-    ASSERT_PARSER_VALUES_EQ(any2 | eps, (choice_parser<Any2, epsilon_parser<value_type>>{}));
-    ASSERT_PARSER_VALUES_EQ(any3 | eps, (choice_parser<Any3, epsilon_parser<value_type>>{}));
+    EXPECT_THAT(parser_value<any1 | eps>
+                         .is<(choice_parser<Any1, epsilon_parser<value_type>>{})>);
+    EXPECT_THAT(parser_value<any2 | eps>
+                         .is<(choice_parser<Any2, epsilon_parser<value_type>>{})>);
+    EXPECT_THAT(parser_value<any3 | eps>
+                         .is<(choice_parser<Any3, epsilon_parser<value_type>>{})>);
 }
 
 TEST("epsilon operator", "eps | P")
@@ -43,8 +47,8 @@ TEST("epsilon operator", "eps | P")
                                       P{},  eps);                                       \
         DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                                    \
                                           eps, P{});                                    \
-        DEP_ASSERT_PARSER_VALUES_EQ(PP{} | eps, PP{} | epsilon_parser<::value_type>{},  \
-                                    P{}  | eps, P{}  | epsilon_parser<::value_type>{}); \
+        EXPECT_THAT(parser_value<PP{} | eps>                                            \
+                             .is<PP{} | epsilon_parser<::value_type>{}>);               \
     }(P{});
 
 TEST("epsilon operator", "eps anything")

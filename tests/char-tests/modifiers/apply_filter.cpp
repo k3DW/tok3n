@@ -11,12 +11,14 @@ FIXTURE("apply_filter modifier");
 
 TEST("apply_filter modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(apf1, apply_filter<filter_func3_apply>(abc >> *qq));
+    EXPECT_THAT(parser_value<apf1>
+                         .is<apply_filter<filter_func3_apply>(abc >> *qq)>);
 }
 
 TEST("apply_filter modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(apf1, (abc >> *qq) % apply_filter<filter_func3_apply>);
+    EXPECT_THAT(parser_value<apf1>
+                         .is<(abc >> *qq) % apply_filter<filter_func3_apply>>);
 }
 
 TEST("apply_filter modifier", "non consteval")

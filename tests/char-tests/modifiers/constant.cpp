@@ -11,18 +11,26 @@ FIXTURE("constant modifier");
 
 TEST("constant modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(con1, constant<1>(+abc));
-    ASSERT_PARSER_VALUES_EQ(con2, constant<'t'>(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(con3, constant<true>(abc >> *qq));
-    ASSERT_PARSER_VALUES_EQ(con4, constant<nullptr>(+abc >> ~(abc | qq)));
+    EXPECT_THAT(parser_value<con1>
+                         .is<constant<1>(+abc)>);
+    EXPECT_THAT(parser_value<con2>
+                         .is<constant<'t'>(~(abc | qq))>);
+    EXPECT_THAT(parser_value<con3>
+                         .is<constant<true>(abc >> *qq)>);
+    EXPECT_THAT(parser_value<con4>
+                         .is<constant<nullptr>(+abc >> ~(abc | qq))>);
 }
 
 TEST("constant modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(con1, +abc % constant<1>);
-    ASSERT_PARSER_VALUES_EQ(con2, ~(abc | qq) % constant<'t'>);
-    ASSERT_PARSER_VALUES_EQ(con3, (abc >> *qq) % constant<true>);
-    ASSERT_PARSER_VALUES_EQ(con4, (+abc >> ~(abc | qq)) % constant<nullptr>);
+    EXPECT_THAT(parser_value<con1>
+                         .is<+abc % constant<1>>);
+    EXPECT_THAT(parser_value<con2>
+                         .is<~(abc | qq) % constant<'t'>>);
+    EXPECT_THAT(parser_value<con3>
+                         .is<(abc >> *qq) % constant<true>>);
+    EXPECT_THAT(parser_value<con4>
+                         .is<(+abc >> ~(abc | qq)) % constant<nullptr>>);
 }
 
 TEST("constant modifier", "non consteval")
