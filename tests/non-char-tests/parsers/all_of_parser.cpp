@@ -29,7 +29,7 @@ TEST("all_of_parser", "Parse")
 
 TEST("all_of_parser", "Parse empty")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(all_of_parser, e());
+    EXPECT_THAT(the_basic_parser_family<all_of_parser>.is_valid_with<e()>);
 
     ASSERT_PARSE_SUCCESS(all_of_parser<(static_array<value_type, 0>{})>, e(A, B, C), e(), e(A, B, C));
     ASSERT_PARSE_SUCCESS(all_of_parser<(static_array<value_type, 0>{})>, e(), e(), e());

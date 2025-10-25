@@ -87,7 +87,7 @@ TEST("sequence_parser", "Parse void result_type")
 
 TEST("sequence_parser", "Not constructible empty")
 {
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(sequence_parser);
+    EXPECT_THAT(the_parser_family<sequence_parser>.is_not_valid_with<>);
 }
 
 

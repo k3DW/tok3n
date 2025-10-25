@@ -39,13 +39,13 @@ TEST("exactly_parser", "Requirements")
 
 TEST("exactly_parser", "Constructibility")
 {
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, index_c<0>);
-    ASSERT_PARSER_CONSTRUCTIBLE(exactly_parser, Any1, index_c<1>);
-    ASSERT_PARSER_CONSTRUCTIBLE(exactly_parser, Any1, index_c<2>);
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_not_valid_with<Any1, index_c<0>>));
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_valid_with<Any1, index_c<1>>));
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_valid_with<Any1, index_c<2>>));
 
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<0>);
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<1>);
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(exactly_parser, Any1, integral_constant<2>);
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_not_valid_with<Any1, integral_constant<0>>));
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_not_valid_with<Any1, integral_constant<1>>));
+    EXPECT_THAT((the_parser_family<exactly_parser>.is_not_valid_with<Any1, integral_constant<2>>));
 }
 
 TEST("exactly_parser", "Parse exactly_parser<all_of_parser>")

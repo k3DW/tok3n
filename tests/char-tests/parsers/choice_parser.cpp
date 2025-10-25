@@ -160,13 +160,13 @@ TEST("choice_parser", "Parse void result_type")
 
 TEST("choice_parser", "Constructible not only from parsers with the same result_type")
 {
-    ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, Any3, Non2, Non1, All2);
-    ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, sequence_parser<Any2, Any3>);
+    EXPECT_THAT((the_parser_family<choice_parser>.is_valid_with<Any1, Any3, Non2, Non1, All2>));
+    EXPECT_THAT((the_parser_family<choice_parser>.is_valid_with<Any1, sequence_parser<Any2, Any3>>));
 }
 
 TEST("choice_parser", "Not constructible empty")
 {
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(choice_parser);
+    EXPECT_THAT(the_parser_family<choice_parser>.is_not_valid_with<>);
 }
 
 

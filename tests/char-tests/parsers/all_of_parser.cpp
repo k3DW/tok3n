@@ -48,7 +48,7 @@ TEST("all_of_parser", "Parse 'literal'")
 
 TEST("all_of_parser", "Parse empty")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(all_of_parser, TT(""));
+    EXPECT_THAT(the_basic_parser_family<all_of_parser>.is_valid_with<TT("")>);
 
     ASSERT_PARSE_SUCCESS(all_of_parser<"">, "anything", "", "anything");
     ASSERT_PARSE_SUCCESS(all_of_parser<"">, "", "", "");

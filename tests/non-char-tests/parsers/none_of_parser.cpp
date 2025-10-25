@@ -58,23 +58,23 @@ TEST("none_of_parser", "Parse multi")
 TEST("none_of_parser", "Constructible from lexicographically sorted only")
 {
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, static_array(A, C));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(C, A));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(A, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(A, B, C));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<static_array(A, C)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(C, A)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(A, B)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(A, B, C)>);
 #else
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, static_array(A, B, C));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<static_array(A, B, C)>);
 #endif
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(A, C, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(B, A, C));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(B, C, A));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(C, A, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, static_array(C, B, A));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(A, C, B)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(B, A, C)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(B, C, A)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(C, A, B)>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<static_array(C, B, A)>);
 }
 
 TEST("none_of_parser", "Parse empty")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, L"");
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<L"">);
 
     ASSERT_PARSE_SUCCESS(none_of_parser<(static_array<value_type, 0>{})>, e(A, B, C), e(A), e(B, C));
     ASSERT_PARSE_FAILURE(none_of_parser<(static_array<value_type, 0>{})>, e());

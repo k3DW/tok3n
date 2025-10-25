@@ -109,17 +109,17 @@ TEST("none_of_parser", "Parse multi")
 
 TEST("none_of_parser", "Constructible from lexicographically sorted only")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, TT("abc"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("acb"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("bac"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("bca"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("cab"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("cba"));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<TT("abc")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("acb")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("bac")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("bca")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("cab")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("cba")>);
 }
 
 TEST("none_of_parser", "Parse empty")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, TT(""));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<TT("")>);
 
     ASSERT_PARSE_SUCCESS(none_of_parser<"">, "anything", "a", "nything");
     ASSERT_PARSE_FAILURE(none_of_parser<"">, "");
