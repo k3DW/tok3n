@@ -57,30 +57,25 @@ TEST("delimit modifier", "non consteval")
 
 
 
-#define DELIMIT_MODIFIER_ASSERTER(P)                                                                              \
-    []<parser PP>(PP) {                                                                                           \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(delimit, (PP{}, comma), (delimit_parser<PP, ignore_parser<Comma>>{}),      \
-                                       delimit, (P{}, comma),  (delimit_parser<P, ignore_parser<Comma>>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit(comma), (delimit_parser<PP, ignore_parser<Comma>>{}), \
-                                              P{},  delimit(comma), (delimit_parser<P, ignore_parser<Comma>>{})); \
+#define DELIMIT_MODIFIER_ASSERTER(P)                                                   \
+    []<parser PP>(PP) {                                                                \
+        using R = delimit_parser<PP, ignore_parser<Comma>>;                            \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit(comma)>.with_result<R>); \
     }(P{});
 
-#define DELIMIT_MODIFIER_ASSERTER_2(P, D)                                                                         \
-    []<parser PP, parser DD>(PP, DD) {                                                                            \
-        if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>)                         \
-        {                                                                                                         \
-            DEP_ASSERT_MODIFIER_NOT_CALLABLE(delimit, (PP{}, DD{}),                                               \
-                                             delimit, (P{},  D{}));                                               \
-            DEP_ASSERT_MODIFIER_NOT_MODULO_OPERABLE(PP{}, delimit(DD{}),                                          \
-                                                    P{},  delimit(D{}));                                          \
-        }                                                                                                         \
-        else                                                                                                      \
-        {                                                                                                         \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(delimit, (PP{}, DD{}), (delimit_parser<PP, ignore_parser<DD>>{}),      \
-                                           delimit, (P{},  D{}),  (delimit_parser<P, ignore_parser<D>>{}));       \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, delimit(DD{}), (delimit_parser<PP, ignore_parser<DD>>{}), \
-                                                  P{},  delimit(D{}),  (delimit_parser<P, ignore_parser<D>>{}));  \
-        }                                                                                                         \
+#define DELIMIT_MODIFIER_ASSERTER_2(P, D)                                                 \
+    []<parser PP, parser DD>(PP, DD) {                                                    \
+        if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>) \
+        {                                                                                 \
+            EXPECT_THAT(the_parser<PP> | is_not_modifiable_by<delimit(DD{})>);            \
+            ASSERT_COMPILE_TIME((not requires { delimit(PP{}, DD{}); }));                 \
+        }                                                                                 \
+        else                                                                              \
+        {                                                                                 \
+            using R = delimit_parser<PP, ignore_parser<DD>>;                              \
+            EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit(DD{})>.with_result<R>); \
+            ASSERT_COMPILE_TIME((std::same_as<R, decltype(delimit(PP{}, DD{}))>));        \
+        }                                                                                 \
     }(P{}, D{});
 
 #define DELIMIT_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \

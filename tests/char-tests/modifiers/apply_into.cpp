@@ -33,12 +33,11 @@ TEST("apply_into modifier", "non consteval")
 
 
 
-#define APPLY_INTO_MODIFIER_ASSERTER(P)                                                                \
-    []<parser PP>(PP) {                                                                                \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(apply_into<Sink>, (PP{}), (apply_into_parser<PP, Sink>{}),      \
-                                       apply_into<Sink>, (P{}),  (apply_into_parser<P, Sink>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply_into<Sink>, (apply_into_parser<PP, Sink>{}), \
-                                              P{},  apply_into<Sink>, (apply_into_parser<P, Sink>{})); \
+#define APPLY_INTO_MODIFIER_ASSERTER(P)                                   \
+    []<parser PP>(PP) {                                                   \
+        constexpr auto m = apply_into<Sink>;                              \
+        using R = apply_into_parser<PP, Sink>;                            \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.with_result<R>); \
     }(P{});
 
 TEST("apply_into modifier", "modify anything")

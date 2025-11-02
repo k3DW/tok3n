@@ -33,9 +33,11 @@ TEST("defaulted modifier", "non consteval")
 
 
 
-#define DEFAULTED_MODIFIER_ASSERTER(P)                                                      \
-    ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (defaulted_parser<P, bool>{}));      \
-    ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (defaulted_parser<P, bool>{}));
+#define DEFAULTED_MODIFIER_ASSERTER(P)                                                 \
+    {                                                                                  \
+        using R = defaulted_parser<P, bool>;                                           \
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.with_result<R>); \
+    }
 
 TEST("defaulted modifier", "modify anything")
 {

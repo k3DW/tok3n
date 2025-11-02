@@ -69,22 +69,11 @@ TEST("ignore modifier", "non consteval")
 
 
 
-#define IGNORE_MODIFIER_ASSERTER(P)                                           \
-    []<parser PP>(PP) {                                                       \
-        if constexpr (PP::family == ignore_family)                            \
-        {                                                                     \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
-                                           ignore, (P{}),  P{});              \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, PP{},         \
-                                                  P{},  ignore, P{});         \
-        }                                                                     \
-        else                                                                  \
-        {                                                                     \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), ignore_parser<PP>{},      \
-                                           ignore, (P{}),  ignore_parser<P>{});      \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, ignore_parser<PP>{}, \
-                                                  P{},  ignore, ignore_parser<P>{}); \
-        }                                                                     \
+#define IGNORE_MODIFIER_ASSERTER(P)                                            \
+    []<parser PP>(PP) {                                                        \
+        using R = std::conditional_t<PP::family == ignore_family,              \
+            PP, ignore_parser<PP>>;                                            \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<ignore>.with_result<R>); \
     }(P{});
 
 TEST("ignore modifier", "modify anything")

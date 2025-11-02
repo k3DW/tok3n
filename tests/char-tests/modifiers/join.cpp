@@ -73,22 +73,11 @@ TEST("join modifier", "non consteval")
 
 
 
-#define JOIN_MODIFIER_ASSERTER(P)                                                \
-    []<parser PP>(PP) {                                                          \
-        if constexpr (PP::family == join_family)                                 \
-        {                                                                        \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},                   \
-                                           join, (P{}),  P{});                   \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, PP{},              \
-                                                  P{},  join, P{});              \
-        }                                                                        \
-        else                                                                     \
-        {                                                                        \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), join_parser<PP>{},      \
-                                           join, (P{}),  join_parser<P>{});      \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, join_parser<PP>{}, \
-                                                  P{},  join, join_parser<P>{}); \
-        }                                                                        \
+#define JOIN_MODIFIER_ASSERTER(P)                                            \
+    []<parser PP>(PP) {                                                      \
+        using R = std::conditional_t<PP::family == join_family,              \
+            PP, join_parser<PP>>;                                            \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<join>.with_result<R>); \
     }(P{});
 
 TEST("join modifier", "modify anything")

@@ -45,12 +45,10 @@ TEST("map modifier", "non consteval")
 
 
 
-#define MAP_MODIFIER_ASSERTER(P)                                                                                      \
-    []<parser PP>(PP) {                                                                                               \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(map<sink_func>, (PP{}), (map_parser<PP, integral_constant<sink_func>>{}),      \
-                                       map<sink_func>, (P{}),  (map_parser<P, integral_constant<sink_func>>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, map<sink_func>, (map_parser<PP, integral_constant<sink_func>>{}), \
-                                              P{},  map<sink_func>, (map_parser<P, integral_constant<sink_func>>{})); \
+#define MAP_MODIFIER_ASSERTER(P)                                                       \
+    []<parser PP>(PP) {                                                                \
+        using R = map_parser<PP, integral_constant<sink_func>>;                        \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<map<sink_func>>.with_result<R>); \
     }(P{});
 
 TEST("map modifier", "modify anything")

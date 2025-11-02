@@ -37,12 +37,11 @@ TEST("apply modifier", "non consteval")
 
 
 
-#define APPLY_MODIFIER_ASSERTER(P)                                                                                            \
-    []<parser PP>(PP) {                                                                                                       \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(apply<sink_func>, (PP{}), (apply_map_parser<PP, integral_constant<sink_func>>{}),      \
-                                       apply<sink_func>, (P{}),  (apply_map_parser<P, integral_constant<sink_func>>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, apply<sink_func>, (apply_map_parser<PP, integral_constant<sink_func>>{}), \
-                                              P{},  apply<sink_func>, (apply_map_parser<P, integral_constant<sink_func>>{})); \
+#define APPLY_MODIFIER_ASSERTER(P)                                        \
+    []<parser PP>(PP) {                                                   \
+        constexpr auto m = apply<sink_func>;                              \
+        using R = apply_map_parser<PP, integral_constant<sink_func>>;     \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.with_result<R>); \
     }(P{});
 
 TEST("apply modifier", "modify anything")

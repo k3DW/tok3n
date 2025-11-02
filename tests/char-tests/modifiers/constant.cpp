@@ -41,9 +41,11 @@ TEST("constant modifier", "non consteval")
 
 
 
-#define CONSTANT_MODIFIER_ASSERTER(P)                                                                  \
-    ASSERT_MODIFIER_CALLABLE_R(constant<0>, (P{}), (constant_parser<P, integral_constant<0>>{}));      \
-    ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, constant<0>, (constant_parser<P, integral_constant<0>>{}));
+#define CONSTANT_MODIFIER_ASSERTER(P)                                              \
+    {                                                                              \
+        using R = constant_parser<P, integral_constant<0>>;                        \
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<constant<0>>.with_result<R>); \
+    }
 
 TEST("constant modifier", "modify anything")
 {

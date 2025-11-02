@@ -11,6 +11,8 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common/fragments/fails_parsing.hpp
     include/common/fragments/has_family.hpp
     include/common/fragments/has_value_type.hpp
+    include/common/fragments/is_modifiable_by.hpp
+    include/common/fragments/is_not_modifiable_by.hpp
     include/common/fragments/is_not_parser_for.hpp
     include/common/fragments/is_parser_for.hpp
     include/common/fragments/modifier_value.hpp
