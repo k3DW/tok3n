@@ -41,14 +41,12 @@ TEST("epsilon operator", "eps | P")
 
 
 
-#define EPSILON_OPERATOR_ASSERTER(P)                                                    \
-    []<parser PP>(PP) {                                                                 \
-        DEP_ASSERT_BINARY_OPERABLE(|, PP{}, eps,                                        \
-                                      P{},  eps);                                       \
-        DEP_ASSERT_BINARY_NOT_OPERABLE(|, eps, PP{},                                    \
-                                          eps, P{});                                    \
-        EXPECT_THAT(parser_value<PP{} | eps>                                            \
-                             .is<PP{} | epsilon_parser<::value_type>{}>);               \
+#define EPSILON_OPERATOR_ASSERTER(P)                                                      \
+    []<parser PP>(PP) {                                                                   \
+        ASSERT_COMPILE_TIME((requires { { PP{} | eps } -> k3::tok3n::detail::parser; })); \
+        ASSERT_COMPILE_TIME((not requires { eps | PP{}; }));                              \
+        EXPECT_THAT(parser_value<PP{} | eps>                                              \
+                             .is<PP{} | epsilon_parser<::value_type>{}>);                 \
     }(P{});
 
 TEST("epsilon operator", "eps anything")

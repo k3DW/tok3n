@@ -172,11 +172,11 @@ TEST("choice operator", "non consteval")
     []<parser LLHS, parser RRHS>(LLHS, RRHS) {                                                       \
         if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)        \
         {                                                                                            \
-            DEP_ASSERT_BINARY_NOT_OPERABLE(|, LLHS{}, RRHS{}, LHS{}, RHS{});                         \
+            ASSERT_COMPILE_TIME((not requires { LLHS{} | RRHS{}; }));                                \
         }                                                                                            \
         else                                                                                         \
         {                                                                                            \
-            DEP_ASSERT_BINARY_OPERABLE(|, LLHS{}, RRHS{}, LHS{}, RHS{});                             \
+            ASSERT_COMPILE_TIME((requires { { LLHS{} | RRHS{} } -> k3::tok3n::detail::parser; }));   \
             if constexpr (std::same_as<LLHS, RRHS>)                                                  \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<LLHS{}>);                               \

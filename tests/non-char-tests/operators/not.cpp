@@ -47,19 +47,21 @@ TEST("not operator", "!none_of_parser")
     []<parser PP>(PP) {                                                    \
         if constexpr (PP::family == any_of_family)                         \
         {                                                                  \
-            DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
+            ASSERT_COMPILE_TIME(                                           \
+                (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
             EXPECT_THAT(parser_value<!PP{}>                                \
                                  .is<none_of_parser<underlying_v<PP>>{}>); \
         }                                                                  \
         else if constexpr (PP::family == none_of_family)                   \
         {                                                                  \
-            DEP_ASSERT_UNARY_OPERABLE(!, PP{}, P{});                       \
+            ASSERT_COMPILE_TIME(                                           \
+                (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
             EXPECT_THAT(parser_value<!PP{}>                                \
                                  .is<any_of_parser<underlying_v<PP>>{}>);  \
         }                                                                  \
         else                                                               \
         {                                                                  \
-            DEP_ASSERT_UNARY_NOT_OPERABLE(!, PP{}, P{});                   \
+            ASSERT_COMPILE_TIME((not requires { !PP{}; }));                \
         }                                                                  \
     }(P{});
 

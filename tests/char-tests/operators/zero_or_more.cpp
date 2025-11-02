@@ -100,28 +100,28 @@ TEST("zero_or_more operator", "non consteval")
 
 
 
-#define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                               \
-    []<parser PP>(PP) {                                                                 \
-        DEP_ASSERT_UNARY_OPERABLE(*, PP{}, P{});                                        \
-        if constexpr (PP::family == maybe_family)                                       \
-        {                                                                               \
-            EXPECT_THAT(parser_value<*PP{}>                                             \
-                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);         \
-        }                                                                               \
-        else if constexpr (PP::family == one_or_more_family)                            \
-        {                                                                               \
-            EXPECT_THAT(parser_value<*PP{}>                                             \
-                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);         \
-        }                                                                               \
-        else if constexpr (PP::family == zero_or_more_family)                           \
-        {                                                                               \
-            EXPECT_THAT(parser_value<*PP{}>.is<PP{}>);                                  \
-        }                                                                               \
-        else                                                                            \
-        {                                                                               \
-            EXPECT_THAT(parser_value<*PP{}>                                             \
-                                 .is<zero_or_more_parser<PP>{}>);                       \
-        }                                                                               \
+#define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                            \
+    []<parser PP>(PP) {                                                              \
+        ASSERT_COMPILE_TIME((requires { { *PP{} } -> k3::tok3n::detail::parser; })); \
+        if constexpr (PP::family == maybe_family)                                    \
+        {                                                                            \
+            EXPECT_THAT(parser_value<*PP{}>                                          \
+                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);      \
+        }                                                                            \
+        else if constexpr (PP::family == one_or_more_family)                         \
+        {                                                                            \
+            EXPECT_THAT(parser_value<*PP{}>                                          \
+                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);      \
+        }                                                                            \
+        else if constexpr (PP::family == zero_or_more_family)                        \
+        {                                                                            \
+            EXPECT_THAT(parser_value<*PP{}>.is<PP{}>);                               \
+        }                                                                            \
+        else                                                                         \
+        {                                                                            \
+            EXPECT_THAT(parser_value<*PP{}>                                          \
+                                 .is<zero_or_more_parser<PP>{}>);                    \
+        }                                                                            \
     }(P{});
 
 TEST("zero_or_more operator", "*{anything}")

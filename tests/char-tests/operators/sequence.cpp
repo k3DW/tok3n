@@ -162,42 +162,42 @@ consteval auto sequence_combined_both(sequence_parser<LHS...>, sequence_parser<R
 
 
 
-#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                           \
-    []<parser LLHS, parser RRHS>(LLHS, RRHS) {                                                         \
-        if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)          \
-        {                                                                                              \
-            DEP_ASSERT_BINARY_NOT_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                          \
-        }                                                                                              \
-        else                                                                                           \
-        {                                                                                              \
-            DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                              \
-            if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)             \
-            {                                                                                          \
-                constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
-                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                           \
-                                     .is<all_of_parser<str>{}>);                                       \
-            }                                                                                          \
-            else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family)    \
-            {                                                                                          \
-                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                           \
-                                     .is<sequence_combined_left(LLHS{}, RRHS{})>);                     \
-            }                                                                                          \
-            else if constexpr (LLHS::family != sequence_family and RRHS::family == sequence_family)    \
-            {                                                                                          \
-                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                           \
-                                     .is<sequence_combined_right(LLHS{}, RRHS{})>);                    \
-            }                                                                                          \
-            else if constexpr (LLHS::family == sequence_family and RRHS::family == sequence_family)    \
-            {                                                                                          \
-                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                           \
-                                     .is<sequence_combined_both(LLHS{}, RRHS{})>);                     \
-            }                                                                                          \
-            else                                                                                       \
-            {                                                                                          \
-                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                           \
-                                     .is<(sequence_parser<LLHS, RRHS>{})>);                            \
-            }                                                                                          \
-        }                                                                                              \
+#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                        \
+    []<parser LLHS, parser RRHS>(LLHS, RRHS) {                                                      \
+        if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)       \
+        {                                                                                           \
+            ASSERT_COMPILE_TIME((not requires { LLHS{} >> RRHS{}; }));                              \
+        }                                                                                           \
+        else                                                                                        \
+        {                                                                                           \
+            ASSERT_COMPILE_TIME((requires { { LLHS{} >> RRHS{} } -> k3::tok3n::detail::parser; })); \
+            if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)          \
+            {                                                                                       \
+                constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                                     .is<all_of_parser<str>{}>);                                    \
+            }                                                                                       \
+            else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                                     .is<sequence_combined_left(LLHS{}, RRHS{})>);                  \
+            }                                                                                       \
+            else if constexpr (LLHS::family != sequence_family and RRHS::family == sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                                     .is<sequence_combined_right(LLHS{}, RRHS{})>);                 \
+            }                                                                                       \
+            else if constexpr (LLHS::family == sequence_family and RRHS::family == sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                                     .is<sequence_combined_both(LLHS{}, RRHS{})>);                  \
+            }                                                                                       \
+            else                                                                                    \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                                     .is<(sequence_parser<LLHS, RRHS>{})>);                         \
+            }                                                                                       \
+        }                                                                                           \
     }(LHS{}, RHS{});
 
 #define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
