@@ -105,20 +105,20 @@ TEST("maybe operator", "non consteval")
         ASSERT_COMPILE_TIME((requires { { ~PP{} } -> k3::tok3n::detail::parser; })); \
         if constexpr (PP::family == maybe_family)                                    \
         {                                                                            \
-            EXPECT_THAT(parser_value<~PP{}>.is<PP{}>);                               \
+            EXPECT_THAT(parser_value<~PP{}>.DEP_TEMPLATE is<PP{}>);                  \
         }                                                                            \
         else if constexpr (PP::family == one_or_more_family)                         \
         {                                                                            \
             EXPECT_THAT(parser_value<~PP{}>                                          \
-                                 .is<zero_or_more_parser<underlying_t<PP>>{}>);      \
+                    .DEP_TEMPLATE is<zero_or_more_parser<underlying_t<PP>>{}>);      \
         }                                                                            \
         else if constexpr (PP::family == zero_or_more_family)                        \
         {                                                                            \
-            EXPECT_THAT(parser_value<~PP{}>.is<PP{}>);                               \
+            EXPECT_THAT(parser_value<~PP{}>.DEP_TEMPLATE is<PP{}>);                  \
         }                                                                            \
         else                                                                         \
         {                                                                            \
-            EXPECT_THAT(parser_value<~PP{}>.is<maybe_parser<PP>{}>);                 \
+            EXPECT_THAT(parser_value<~PP{}>.DEP_TEMPLATE is<maybe_parser<PP>{}>);    \
         }                                                                            \
     }(P{});
 

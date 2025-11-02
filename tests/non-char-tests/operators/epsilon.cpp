@@ -46,7 +46,7 @@ TEST("epsilon operator", "eps | P")
         ASSERT_COMPILE_TIME((requires { { PP{} | eps } -> k3::tok3n::detail::parser; }));  \
         ASSERT_COMPILE_TIME((not requires { eps | PP{}; }));                               \
         EXPECT_THAT(parser_value<PP{} | eps>                                            \
-                             .is<PP{} | epsilon_parser<::value_type>{}>);               \
+                .DEP_TEMPLATE is<PP{} | epsilon_parser<::value_type>{}>);               \
     }(P{});
 
 TEST("epsilon operator", "eps anything")

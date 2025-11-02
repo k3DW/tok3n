@@ -18,6 +18,7 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common/fragments/parser_fragment_builder.hpp
     include/common/fragments/parser_value.hpp
     include/common/fragments/succeeds_parsing.hpp
+    include/common/config.hpp
     include/common/underlying.hpp
     include/common/wrappers.hpp
     include/samples/adaptor.hpp

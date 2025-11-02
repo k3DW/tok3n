@@ -179,47 +179,47 @@ TEST("choice operator", "non consteval")
             ASSERT_COMPILE_TIME((requires { { LLHS{} | RRHS{} } -> k3::tok3n::detail::parser; }));   \
             if constexpr (std::same_as<LLHS, RRHS>)                                                  \
             {                                                                                        \
-                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<LLHS{}>);                               \
+                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<LLHS{}>);                  \
             }                                                                                        \
             else if constexpr (LLHS::family == any_of_family and RRHS::family == any_of_family)      \
             {                                                                                        \
                 constexpr auto str = set_union<underlying_v<LLHS>, underlying_v<RRHS>>();            \
-                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<any_of_parser<str>{}>);                 \
+                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<any_of_parser<str>{}>);    \
             }                                                                                        \
             else if constexpr (LLHS::family == none_of_family and RRHS::family == none_of_family)    \
             {                                                                                        \
                 constexpr auto str = set_intersection<underlying_v<LLHS>, underlying_v<RRHS>>();     \
-                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<none_of_parser<str>{}>);                \
+                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<none_of_parser<str>{}>);   \
             }                                                                                        \
             else if constexpr (LLHS::family == none_of_family and RRHS::family == any_of_family)     \
             {                                                                                        \
                 constexpr auto str = set_difference_left<underlying_v<LLHS>, underlying_v<RRHS>>();  \
-                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<none_of_parser<str>{}>);                \
+                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<none_of_parser<str>{}>);   \
             }                                                                                        \
             else if constexpr (LLHS::family == any_of_family and RRHS::family == none_of_family)     \
             {                                                                                        \
                 constexpr auto str = set_difference_right<underlying_v<LLHS>, underlying_v<RRHS>>(); \
-                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.is<none_of_parser<str>{}>);                \
+                EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<none_of_parser<str>{}>);   \
             }                                                                                        \
             else if constexpr (LLHS::family == choice_family and RRHS::family != choice_family)      \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>                                            \
-                                     .is<choice_combined_left(LLHS{}, RRHS{})>);                     \
+                        .DEP_TEMPLATE is<choice_combined_left(LLHS{}, RRHS{})>);                     \
             }                                                                                        \
             else if constexpr (LLHS::family != choice_family and RRHS::family == choice_family)      \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>                                            \
-                                     .is<choice_combined_right(LLHS{}, RRHS{})>);                    \
+                        .DEP_TEMPLATE is<choice_combined_right(LLHS{}, RRHS{})>);                    \
             }                                                                                        \
             else if constexpr (LLHS::family == choice_family and RRHS::family == choice_family)      \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>                                            \
-                                     .is<choice_combined_both(LLHS{}, RRHS{})>);                     \
+                        .DEP_TEMPLATE is<choice_combined_both(LLHS{}, RRHS{})>);                     \
             }                                                                                        \
             else                                                                                     \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>                                            \
-                                     .is<(choice_parser<LLHS, RRHS>{})>);                            \
+                        .DEP_TEMPLATE is<(choice_parser<LLHS, RRHS>{})>);                            \
             }                                                                                        \
         }                                                                                            \
     }(LHS{}, RHS{});

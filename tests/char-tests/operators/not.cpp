@@ -55,14 +55,14 @@ TEST("not operator", "non consteval")
             ASSERT_COMPILE_TIME(                                           \
                 (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
             EXPECT_THAT(parser_value<!PP{}>                                \
-                                 .is<none_of_parser<underlying_v<PP>>{}>); \
+                    .DEP_TEMPLATE is<none_of_parser<underlying_v<PP>>{}>); \
         }                                                                  \
         else if constexpr (PP::family == none_of_family)                   \
         {                                                                  \
             ASSERT_COMPILE_TIME(                                           \
                 (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
             EXPECT_THAT(parser_value<!PP{}>                                \
-                                 .is<any_of_parser<underlying_v<PP>>{}>);  \
+                    .DEP_TEMPLATE is<any_of_parser<underlying_v<PP>>{}>);  \
         }                                                                  \
         else                                                               \
         {                                                                  \

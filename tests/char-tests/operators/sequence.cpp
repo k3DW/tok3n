@@ -175,27 +175,27 @@ consteval auto sequence_combined_both(sequence_parser<LHS...>, sequence_parser<R
             {                                                                                       \
                 constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;       \
                 EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
-                                     .is<all_of_parser<str>{}>);                                    \
+                        .DEP_TEMPLATE is<all_of_parser<str>{}>);                                    \
             }                                                                                       \
             else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family) \
             {                                                                                       \
                 EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
-                                     .is<sequence_combined_left(LLHS{}, RRHS{})>);                  \
+                        .DEP_TEMPLATE is<sequence_combined_left(LLHS{}, RRHS{})>);                  \
             }                                                                                       \
             else if constexpr (LLHS::family != sequence_family and RRHS::family == sequence_family) \
             {                                                                                       \
                 EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
-                                     .is<sequence_combined_right(LLHS{}, RRHS{})>);                 \
+                        .DEP_TEMPLATE is<sequence_combined_right(LLHS{}, RRHS{})>);                 \
             }                                                                                       \
             else if constexpr (LLHS::family == sequence_family and RRHS::family == sequence_family) \
             {                                                                                       \
                 EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
-                                     .is<sequence_combined_both(LLHS{}, RRHS{})>);                  \
+                        .DEP_TEMPLATE is<sequence_combined_both(LLHS{}, RRHS{})>);                  \
             }                                                                                       \
             else                                                                                    \
             {                                                                                       \
                 EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
-                                     .is<(sequence_parser<LLHS, RRHS>{})>);                         \
+                        .DEP_TEMPLATE is<(sequence_parser<LLHS, RRHS>{})>);                         \
             }                                                                                       \
         }                                                                                           \
     }(LHS{}, RHS{});

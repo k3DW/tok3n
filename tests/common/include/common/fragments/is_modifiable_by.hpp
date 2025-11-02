@@ -6,6 +6,7 @@
 #define K3_TOK3N_TESTS_COMMON_FRAGMENTS_IS_MODIFIABLE_BY_HPP
 
 #include "framework/assert.hpp"
+#include "common/config.hpp"
 #include "common/fragments/parser_value.hpp"
 #include <typeinfo>
 #include <k3/tok3n/detail/modifier.hpp>
@@ -49,7 +50,7 @@ struct is_modifiable_by_fragment
                 << "    P % M = " << typeid(decltype(P{} % M{})).name() << "\n"
                 << "]";
 
-            EXPECT_THAT(parser_value<M{}(P{})>.is<R{}>);
+            EXPECT_THAT(parser_value<M{}(P{})>.DEP_TEMPLATE is<R{}>);
         }
     };
     template <detail::parser R>
