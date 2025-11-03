@@ -6,6 +6,7 @@
 #define K3_TOK3N_TESTS_SAMPLES_BASIC_CHAR_HPP
 
 #include "samples.hpp"
+#include "common/samples_list.hpp"
 
 using Any1 = k3::tok3n::detail::any_of_parser<TT("abc")>; constexpr Any1 any1;
 using Any2 = k3::tok3n::detail::any_of_parser<TT("bcd")>; constexpr Any2 any2;
@@ -37,5 +38,13 @@ using SpaceDot = k3::tok3n::detail::any_of_parser<TT(" .")>;  constexpr SpaceDot
     (All1) (All2) (All3) (All4)        \
     (Eps1) (Ant1)                      \
     (QQ) (ABC) (Comma) (SpaceDot)
+
+inline constexpr auto basic_samples = k3::tok3n::tests::parser_list_t<
+    Any1, Any2, Any3, Any4,
+    Non1, Non2, Non3, Non4, Non5,
+    All1, All2, All3, All4,
+    Eps1, Ant1,
+    QQ, ABC, Comma, SpaceDot
+>{};
 
 #endif // K3_TOK3N_TESTS_SAMPLES_BASIC_CHAR_HPP

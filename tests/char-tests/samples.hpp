@@ -44,7 +44,18 @@
 #include "samples/repeat.hpp"
 
 namespace k3::tok3n::tests {
-    using namespace ::k3::tok3n::detail;
+
+using namespace ::k3::tok3n::detail;
+
+template <class... Ts>
+requires true
+inline constexpr auto samples_list<Ts...> =
+    adaptor_samples +
+    basic_samples +
+    compound_samples +
+    divergent_samples +
+    repeat_samples;
+
 } // namespace k3::tok3n::tests
 
 #endif // K3_TOK3N_TESTS_CHAR_TESTS_SAMPLES_HPP

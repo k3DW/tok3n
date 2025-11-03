@@ -6,6 +6,7 @@
 #define K3_TOK3N_TESTS_SAMPLES_REPEAT_HPP
 
 #include "samples.hpp"
+#include "common/samples_list.hpp"
 
 using May1 = k3::tok3n::detail::maybe_parser<_11>; constexpr May1 may1;
 using May2 = k3::tok3n::detail::maybe_parser<_12>; constexpr May2 may2;
@@ -52,5 +53,14 @@ using Dek8 = k3::tok3n::detail::delimit_parser<SpaceDot, QQ>;  constexpr Dek8 de
     (Zom1) (Zom2) (Zom3) (Zom4)                             \
     (Del1) (Del2) (Del3) (Del4) (Del5) (Del6) (Del7) (Del8) \
     (Dek1) (Dek2) (Dek3) (Dek4) (Dek5) (Dek6) (Dek7) (Dek8)
+
+inline constexpr auto repeat_samples = k3::tok3n::tests::parser_list_t<
+    May1, May2, May3, May4,
+    Exa1, Exa2, Exa3, Exa4,
+    Oom1, Oom2, Oom3, Oom4,
+    Zom1, Zom2, Zom3, Zom4,
+    Del1, Del2, Del3, Del4, Del5, Del6, Del7, Del8,
+    Dek1, Dek2, Dek3, Dek4, Dek5, Dek6, Dek7, Dek8
+>{};
 
 #endif // K3_TOK3N_TESTS_SAMPLES_REPEAT_HPP

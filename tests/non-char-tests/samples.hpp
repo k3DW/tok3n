@@ -141,7 +141,14 @@ static_assert(Space < Dot);
 #include "samples/macros-non-char.hpp"
 
 namespace k3::tok3n::tests {
-    using namespace ::k3::tok3n::detail;
+
+using namespace ::k3::tok3n::detail;
+
+template <class... Ts>
+requires true
+inline constexpr auto samples_list<Ts...> =
+    basic_samples;
+
 } // namespace k3::tok3n::tests
 
 #endif // K3_TOK3N_TESTS_NON_CHAR_TESTS_SAMPLES_HPP

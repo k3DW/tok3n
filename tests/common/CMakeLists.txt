@@ -6,6 +6,7 @@ add_library(common INTERFACE)
 target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common.hpp
     include/common/asserts/Parse.hpp
+    include/common/fragments/all_samples.hpp
     include/common/fragments/fails_parsing.hpp
     include/common/fragments/has_family.hpp
     include/common/fragments/has_value_type.hpp
@@ -19,6 +20,7 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common/fragments/parser_value.hpp
     include/common/fragments/succeeds_parsing.hpp
     include/common/config.hpp
+    include/common/samples_list.hpp
     include/common/underlying.hpp
     include/common/wrappers.hpp
     include/samples/adaptor.hpp

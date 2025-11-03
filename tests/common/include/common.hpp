@@ -9,6 +9,7 @@
 
 #include "common/asserts/Parse.hpp"
 
+#include "common/fragments/all_samples.hpp"
 #include "common/fragments/fails_parsing.hpp"
 #include "common/fragments/has_family.hpp"
 #include "common/fragments/has_value_type.hpp"
@@ -23,6 +24,7 @@
 #include "common/fragments/succeeds_parsing.hpp"
 
 #include "common/config.hpp"
+#include "common/samples_list.hpp"
 #include "common/underlying.hpp"
 #include "common/wrappers.hpp"
 
