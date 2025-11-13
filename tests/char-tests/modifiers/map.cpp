@@ -45,15 +45,15 @@ TEST("map modifier", "non consteval")
 
 
 
-#define MAP_MODIFIER_ASSERTER(P)                                                                         \
-    []<parser PP>(PP) {                                                                                  \
-        using R = map_parser<PP, integral_constant<sink_func>>;                                          \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<map<sink_func>>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto map_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = map_parser<P, integral_constant<sink_func>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<map<sink_func>>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 TEST("map modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(MAP_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(map_modifier_fragment));
 }
 
 } // namespace

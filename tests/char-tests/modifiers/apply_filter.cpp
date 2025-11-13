@@ -29,16 +29,16 @@ TEST("apply_filter modifier", "non consteval")
 
 
 
-#define APPLY_FILTER_MODIFIER_ASSERTER(P)                                                   \
-    []<parser PP>(PP) {                                                                     \
-        constexpr auto m = apply_filter<true_filter>;                                       \
-        using R = apply_filter_parser<PP, integral_constant<true_filter>>;                  \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto apply_filter_modifier_fragment =
+    []<detail::parser P>(P) {
+        constexpr auto m = apply_filter<true_filter>;
+        using R = apply_filter_parser<P, integral_constant<true_filter>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 TEST("apply_filter modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(APPLY_FILTER_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(apply_filter_modifier_fragment));
 }
 
 } // namespace

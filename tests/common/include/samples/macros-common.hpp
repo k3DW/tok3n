@@ -9,14 +9,6 @@
 
 #define REQUIRE_SEMICOLON static_assert(true, "require semicolon")
 
-#define ASSERT_SAMPLES_IMPL_(R, DATA, ELEM) \
-    DATA(ELEM)
-
-#define ASSERT_SAMPLES(ASSERTER, SAMPLES)                              \
-    {                                                                  \
-        BOOST_PP_SEQ_FOR_EACH(ASSERT_SAMPLES_IMPL_, ASSERTER, SAMPLES) \
-    } REQUIRE_SEMICOLON
-
 
 
 #define ASSERT_SAMPLES_2_EXPAND_(ELEM1) \

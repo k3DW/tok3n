@@ -100,34 +100,34 @@ TEST("one_or_more operator", "non consteval")
 
 
 
-#define ONE_OR_MORE_OPERATOR_ASSERTER(P)                                             \
-    []<parser PP>(PP) {                                                              \
-        constexpr bool cond1 = requires { { +PP{} } -> k3::tok3n::detail::parser; }; \
-        /* Workaround for Clang 16 */                                                \
-        ASSERT_COMPILE_TIME(cond1);                                                  \
-        if constexpr (PP::family == maybe_family)                                    \
-        {                                                                            \
-            EXPECT_THAT(parser_value<+PP{}>                                          \
-                    .DEP_TEMPLATE is<zero_or_more_parser<underlying_t<PP>>{}>);      \
-        }                                                                            \
-        else if constexpr (PP::family == one_or_more_family)                         \
-        {                                                                            \
-            EXPECT_THAT(parser_value<+PP{}>.DEP_TEMPLATE is<PP{}>);                  \
-        }                                                                            \
-        else if constexpr (PP::family == zero_or_more_family)                        \
-        {                                                                            \
-            EXPECT_THAT(parser_value<+PP{}>.DEP_TEMPLATE is<PP{}>);                  \
-        }                                                                            \
-        else                                                                         \
-        {                                                                            \
-            EXPECT_THAT(parser_value<+PP{}>                                          \
-                    .DEP_TEMPLATE is<one_or_more_parser<PP>{}>);                     \
-        }                                                                            \
-    }(P{});
+constexpr auto one_or_more_operator_fragment =
+    []<detail::parser P>(P) {
+        constexpr bool cond1 = requires { { +P{} } -> k3::tok3n::detail::parser; };
+        /* Workaround for Clang 16 */
+        ASSERT_COMPILE_TIME(cond1);
+        if constexpr (P::family == maybe_family)
+        {
+            EXPECT_THAT(parser_value<+P{}>
+                    .DEP_TEMPLATE is<zero_or_more_parser<underlying_t<P>>{}>);
+        }
+        else if constexpr (P::family == one_or_more_family)
+        {
+            EXPECT_THAT(parser_value<+P{}>.DEP_TEMPLATE is<P{}>);
+        }
+        else if constexpr (P::family == zero_or_more_family)
+        {
+            EXPECT_THAT(parser_value<+P{}>.DEP_TEMPLATE is<P{}>);
+        }
+        else
+        {
+            EXPECT_THAT(parser_value<+P{}>
+                    .DEP_TEMPLATE is<one_or_more_parser<P>{}>);
+        }
+    };
 
 TEST("one_or_more operator", "+{anything}")
 {
-    ASSERT_ALL_SAMPLES(ONE_OR_MORE_OPERATOR_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(one_or_more_operator_fragment));
 }
 
 } // namespace

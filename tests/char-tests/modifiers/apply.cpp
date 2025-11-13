@@ -37,16 +37,16 @@ TEST("apply modifier", "non consteval")
 
 
 
-#define APPLY_MODIFIER_ASSERTER(P)                                                          \
-    []<parser PP>(PP) {                                                                     \
-        constexpr auto m = apply<sink_func>;                                                \
-        using R = apply_map_parser<PP, integral_constant<sink_func>>;                       \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto apply_modifier_fragment =
+    []<detail::parser P>(P) {
+        constexpr auto m = apply<sink_func>;
+        using R = apply_map_parser<P, integral_constant<sink_func>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 TEST("apply modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(APPLY_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(apply_modifier_fragment));
 }
 
 } // namespace

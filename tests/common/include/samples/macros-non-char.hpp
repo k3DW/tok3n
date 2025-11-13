@@ -8,9 +8,6 @@
 #include "samples.hpp"
 #include "samples/macros-common.hpp"
 
-#define ASSERT_ALL_SAMPLES(ASSERTER) \
-    ASSERT_SAMPLES(ASSERTER, BASIC_SAMPLES)
-
 // This macro needs to be manually expanded in this ugly way otherwise it crashes the compiler
 #define ASSERT_ALL_SAMPLES_2(ASSERTER)                            \
     {                                                             \

@@ -33,15 +33,15 @@ TEST("defaulted modifier", "non consteval")
 
 
 
-#define DEFAULTED_MODIFIER_ASSERTER(P)                                                 \
-    {                                                                                  \
-        using R = defaulted_parser<P, bool>;                                           \
-        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.with_result<R>); \
-    }
+constexpr auto defaulted_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = defaulted_parser<P, bool>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.with_result<R>);
+    };
 
 TEST("defaulted modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(DEFAULTED_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(defaulted_modifier_fragment));
 }
 
 } // namespace

@@ -41,15 +41,15 @@ TEST("name modifier", "non consteval")
 
 
 
-#define NAME_MODIFIER_ASSERTER(P)                                                    \
-    {                                                                                \
-        using R = named_parser<P, "test1">;                                          \
-        EXPECT_THAT(the_parser<P> | is_modifiable_by<name<"test1">>.with_result<R>); \
-    }
+constexpr auto name_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = named_parser<P, "test1">;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<name<"test1">>.with_result<R>);
+    };
 
 TEST("name modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(NAME_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(name_modifier_fragment));
 }
 
 } // namespace

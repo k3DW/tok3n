@@ -41,15 +41,15 @@ TEST("exactly modifier", "non consteval")
 
 
 
-#define EXACTLY_MODIFIER_ASSERTER(P)                                                                 \
-    []<parser PP>(PP) {                                                                              \
-        using R = exactly_parser<PP, index_c<2>>;                                                    \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<exactly<2>>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto exactly_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = exactly_parser<P, index_c<2>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<exactly<2>>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 TEST("exactly modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(EXACTLY_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(exactly_modifier_fragment));
 }
 
 } // namespace

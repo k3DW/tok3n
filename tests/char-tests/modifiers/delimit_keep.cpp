@@ -57,11 +57,11 @@ TEST("delimit_keep modifier", "non consteval")
 
 
 
-#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                                     \
-    []<parser PP>(PP) {                                                                                       \
-        using R = delimit_parser<PP, Comma>;                                                                  \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit_keep(comma)>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto delimit_keep_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = delimit_parser<P, Comma>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<delimit_keep(comma)>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 #define DELIMIT_KEEP_MODIFIER_ASSERTER_2(P, D)                                                              \
     []<parser PP, parser DD>(PP, DD) {                                                                      \
@@ -83,7 +83,7 @@ TEST("delimit_keep modifier", "non consteval")
 
 TEST("delimit_keep modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(DELIMIT_KEEP_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(delimit_keep_modifier_fragment));
 
     ASSERT_SAMPLES_2(
         DELIMIT_KEEP_MODIFIER_ASSERTER_2,
