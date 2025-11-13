@@ -6,6 +6,7 @@ add_library(common INTERFACE)
 target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common.hpp
     include/common/asserts/Parse.hpp
+    include/common/fragments/all_pairs_of_samples.hpp
     include/common/fragments/all_samples.hpp
     include/common/fragments/fails_parsing.hpp
     include/common/fragments/has_family.hpp

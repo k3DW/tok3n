@@ -28,6 +28,7 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
     tok3n_add_basic_test_executable(${target} ${assembly_name} ${ARGN})
 
     target_compile_definitions(${target} PRIVATE ${value_type_pp_definition})
+    target_compile_options(${target} PRIVATE $<$<CXX_COMPILER_ID:MSVC>:/bigobj>)
 
     target_include_directories(${target} PRIVATE .)
     target_link_libraries(${target} PRIVATE common)
