@@ -32,9 +32,6 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/samples/divergent.hpp
     include/samples/functions.hpp
     include/samples/helpers.hpp
-    include/samples/macros-char.hpp
-    include/samples/macros-common.hpp
-    include/samples/macros-non-char.hpp
     include/samples/repeat.hpp
     include/samples/sub_parsers.hpp
 )

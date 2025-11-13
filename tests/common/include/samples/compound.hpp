@@ -20,10 +20,6 @@ using Seq3 = k3::tok3n::detail::sequence_parser<All4, Any4, Non5>; constexpr Seq
 using Seq4 = k3::tok3n::detail::sequence_parser<Non5, All4, Any4>; constexpr Seq4 seq4;
 using Seq5 = k3::tok3n::detail::sequence_parser<Ign1, Ign2>;       constexpr Seq5 seq5;
 
-#define COMPOUND_SAMPLES               \
-    (Cho1) (Cho2) (Cho3) (Cho4) (Cho5) \
-    (Seq1) (Seq2) (Seq3) (Seq4) (Seq5)
-
 inline constexpr auto compound_samples = k3::tok3n::tests::parser_list_t<
     Cho1, Cho2, Cho3, Cho4, Cho5,
     Seq1, Seq2, Seq3, Seq4, Seq5

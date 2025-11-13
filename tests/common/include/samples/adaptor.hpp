@@ -27,11 +27,6 @@ using Nam2 = k3::tok3n::detail::named_parser<_22, "nam2">; constexpr Nam2 nam2;
 using Nam3 = k3::tok3n::detail::named_parser<_23, "nam3">; constexpr Nam3 nam3;
 using Nam4 = k3::tok3n::detail::named_parser<_24, "nam4">; constexpr Nam4 nam4;
 
-#define ADAPTOR_SAMPLES                              \
-    (Ign1) (Ign2) (Ign3) (Ign4) (Ign5)               \
-    (Com1) (Com2) (Com3) (Com4) (Com5) (Com6) (Com7) \
-    (Nam1) (Nam2) (Nam3) (Nam4)
-
 inline constexpr auto adaptor_samples = k3::tok3n::tests::parser_list_t<
     Ign1, Ign2, Ign3, Ign4, Ign5,
     Com1, Com2, Com3, Com4, Com5, Com6, Com7,

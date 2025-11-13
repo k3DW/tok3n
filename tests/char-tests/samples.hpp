@@ -36,7 +36,6 @@
 
 #include "samples/classes.hpp"
 #include "samples/functions.hpp"
-#include "samples/macros-char.hpp"
 
 #include "samples/adaptor.hpp"
 #include "samples/compound.hpp"

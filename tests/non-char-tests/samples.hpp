@@ -138,8 +138,6 @@ static_assert(Space < Dot);
 #include "samples/basic-non-char.hpp"
 #include "samples/sub_parsers.hpp"
 
-#include "samples/macros-non-char.hpp"
-
 namespace k3::tok3n::tests {
 
 using namespace ::k3::tok3n::detail;

@@ -32,13 +32,6 @@ using ABC      = k3::tok3n::detail::all_of_parser<TT("abc")>; constexpr ABC     
 using Comma    = k3::tok3n::detail::any_of_parser<TT(",")>;   constexpr Comma    comma;
 using SpaceDot = k3::tok3n::detail::any_of_parser<TT(" .")>;  constexpr SpaceDot spacedot;
 
-#define BASIC_SAMPLES                  \
-    (Any1) (Any2) (Any3) (Any4)        \
-    (Non1) (Non2) (Non3) (Non4) (Non5) \
-    (All1) (All2) (All3) (All4)        \
-    (Eps1) (Ant1)                      \
-    (QQ) (ABC) (Comma) (SpaceDot)
-
 inline constexpr auto basic_samples = k3::tok3n::tests::parser_list_t<
     Any1, Any2, Any3, Any4,
     Non1, Non2, Non3, Non4, Non5,
