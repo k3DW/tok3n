@@ -168,6 +168,26 @@ TEST("choice operator", "non consteval")
 
 
 
+template <detail::parser... LHS, detail::parser RHS>
+requires (RHS::family != choice_family)
+consteval detail::parser auto choice_combined_left(choice_parser<LHS...>, RHS)
+{
+	return choice_parser<LHS..., RHS>{};
+}
+
+template <detail::parser LHS, detail::parser... RHS>
+requires (LHS::family != choice_family)
+consteval detail::parser auto choice_combined_right(LHS, choice_parser<RHS...>)
+{
+	return choice_parser<LHS, RHS...>{};
+}
+
+template <detail::parser... LHS, detail::parser... RHS>
+consteval detail::parser auto choice_combined_both(choice_parser<LHS...>, choice_parser<RHS...>)
+{
+	return choice_parser<LHS..., RHS...>{};
+}
+
 constexpr auto choice_operator_fragment =
     []<detail::parser LHS, detail::parser RHS>(LHS, RHS) {
         if constexpr (not std::same_as<typename LHS::value_type, typename RHS::value_type>)
