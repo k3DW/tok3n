@@ -31,47 +31,47 @@ void variant_emplace_test()
 {
     using Variant = std::variant<Values...>;
 
-    SIMPLE_EXPECT((detail::emplaceable<Variant&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<Variant&&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant&&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant&&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant&&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant&&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant&&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant&&, const int, 0>));
 
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, const int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&, const int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, const int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&, const int, 0>));
 
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, const int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant&&, const int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, const int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant&&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<Variant, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Variant, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Variant, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Variant, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Variant, const int, 0>));
 
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, const int&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Variant, const int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, const int&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Variant, const int, 0>));
 }
 
 TEST("cpo emplace", "std::variant")
@@ -82,45 +82,45 @@ TEST("cpo emplace", "std::variant")
 
 TEST("cpo emplace", "custom emplacer")
 {
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace&&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace&&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace&&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace&&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace&&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace&&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&&, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&&, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&&, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace&&, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace&&, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace&&, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&&, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&&, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&&, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace&&, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace&&, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace&&, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<Emplace, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<Emplace, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<Emplace, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<Emplace, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<Emplace, const int, 0>));
 
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace, int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace, const int&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace, int&&, 0>));
-    SIMPLE_EXPECT((detail::emplaceable<const Emplace, const int&&, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace, int, 0>));
-    SIMPLE_EXPECT((not detail::emplaceable<const Emplace, const int, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace, int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace, const int&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace, int&&, 0>));
+    EXPECT_COMPILE_TIME((detail::emplaceable<const Emplace, const int&&, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace, int, 0>));
+    EXPECT_COMPILE_TIME((not detail::emplaceable<const Emplace, const int, 0>));
 }

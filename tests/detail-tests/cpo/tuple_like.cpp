@@ -14,44 +14,44 @@ using namespace k3::tok3n;
 
 TEST("tuple_like", "std::tuple")
 {
-    SIMPLE_EXPECT((detail::tuple_like<std::tuple<int, double, char>>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::tuple<int, double, char>>));
-    SIMPLE_EXPECT((detail::tuple_like<std::tuple<int, double, char>&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::tuple<int, double, char>&>));
-    SIMPLE_EXPECT((detail::tuple_like<std::tuple<int, double, char>&&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::tuple<int, double, char>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>&&>));
 }
 
 TEST("tuple_like", "std::array")
 {
-    SIMPLE_EXPECT((detail::tuple_like<std::array<int, 3>>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<int, 3>>));
-    SIMPLE_EXPECT((detail::tuple_like<std::array<int, 3>&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<int, 3>&>));
-    SIMPLE_EXPECT((detail::tuple_like<std::array<int, 3>&&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<int, 3>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>&&>));
 
-    SIMPLE_EXPECT((detail::tuple_like<std::array<double, 5>>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<double, 5>>));
-    SIMPLE_EXPECT((detail::tuple_like<std::array<double, 5>&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<double, 5>&>));
-    SIMPLE_EXPECT((detail::tuple_like<std::array<double, 5>&&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::array<double, 5>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>&&>));
 }
 
 TEST("tuple_like", "std::pair")
 {
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<int, double>>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<int, double>>));
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<int, double>&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<int, double>&>));
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<int, double>&&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<int, double>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>&&>));
 
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<char, wchar_t>>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<char, wchar_t>>));
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<char, wchar_t>&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<char, wchar_t>&>));
-    SIMPLE_EXPECT((detail::tuple_like<std::pair<char, wchar_t>&&>));
-    SIMPLE_EXPECT((detail::tuple_like<const std::pair<char, wchar_t>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>&&>));
 }

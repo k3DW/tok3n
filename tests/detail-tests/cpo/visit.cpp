@@ -36,104 +36,104 @@ TEST("cpo visit", "std::variant")
     constexpr auto visitor = [](auto x) { return static_cast<int>(x); };
     using Visitor [[maybe_unused]] = decltype(visitor);
 
-    SIMPLE_EXPECT(detail::visit(v1, visitor) == 1);
-    SIMPLE_EXPECT(detail::visit(v2, visitor) == 2);
-    SIMPLE_EXPECT(detail::visit(v3, visitor) == 3);
-    SIMPLE_EXPECT(detail::visit(std::as_const(v1), visitor) == 1);
-    SIMPLE_EXPECT(detail::visit(std::as_const(v2), visitor) == 2);
-    SIMPLE_EXPECT(detail::visit(std::as_const(v3), visitor) == 3);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(v1, visitor) == 1);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(v2, visitor) == 2);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(v3, visitor) == 3);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(std::as_const(v1), visitor) == 1);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(std::as_const(v2), visitor) == 2);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(std::as_const(v3), visitor) == 3);
 
-    SIMPLE_EXPECT((detail::visitable<Variant&, Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<Variant&&, Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&, Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&&, Visitor&>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, Visitor&>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&, Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&&, Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&, Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&&, Visitor&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, Visitor&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, Visitor&>));
 
-    SIMPLE_EXPECT((detail::visitable<Variant&, const Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<Variant&&, const Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&, const Visitor&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&&, const Visitor&>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, const Visitor&>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, const Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&, const Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&&, const Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&, const Visitor&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&&, const Visitor&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, const Visitor&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, const Visitor&>));
 
-    SIMPLE_EXPECT((detail::visitable<Variant&, Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<Variant&&, Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&, Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&&, Visitor&&>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, Visitor&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&, Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&&, Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&, Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&&, Visitor&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, Visitor&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, Visitor&&>));
 
-    SIMPLE_EXPECT((detail::visitable<Variant&, const Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<Variant&&, const Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&, const Visitor&&>));
-    SIMPLE_EXPECT((detail::visitable<const Variant&&, const Visitor&&>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, const Visitor&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, const Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&, const Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Variant&&, const Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&, const Visitor&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Variant&&, const Visitor&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, const Visitor&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, const Visitor&&>));
 
-    SIMPLE_EXPECT((not detail::visitable<Variant&, Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<Variant&&, Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant&, Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant&&, Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant&, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant&&, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant&, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant&&, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, Visitor>));
 
-    SIMPLE_EXPECT((not detail::visitable<Variant&, const Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<Variant&&, const Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant&, const Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant&&, const Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<Variant, const Visitor>));
-    SIMPLE_EXPECT((not detail::visitable<const Variant, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant&, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant&&, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant&, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant&&, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Variant, const Visitor>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Variant, const Visitor>));
 }
 
 template <class Container, int offset>
 void visit_test()
 {
     Container c;
-    SIMPLE_EXPECT(detail::visit(c, std::size_t{0}) == 1 + offset);
-    SIMPLE_EXPECT(detail::visit(std::as_const(c), std::size_t{0}) == 2 + offset);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(c, std::size_t{0}) == 1 + offset);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::visit(std::as_const(c), std::size_t{0}) == 2 + offset);
 
-    SIMPLE_EXPECT((detail::visitable<Container&, std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<Container&, const std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<Container&, std::size_t&&>));
-    SIMPLE_EXPECT((detail::visitable<Container&, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<Container&, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<Container&, const std::size_t>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&, std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&, const std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&, std::size_t&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container&, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container&, const std::size_t>));
 
-    SIMPLE_EXPECT((detail::visitable<Container&&, std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<Container&&, const std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<Container&&, std::size_t&&>));
-    SIMPLE_EXPECT((detail::visitable<Container&&, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<Container&&, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<Container&&, const std::size_t>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&&, std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&&, const std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&&, std::size_t&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<Container&&, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container&&, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container&&, const std::size_t>));
 
-    SIMPLE_EXPECT((detail::visitable<const Container&, std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&, const std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&, std::size_t&&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container&, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<const Container&, const std::size_t>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&, std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&, const std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&, std::size_t&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container&, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container&, const std::size_t>));
 
-    SIMPLE_EXPECT((detail::visitable<const Container&&, std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&&, const std::size_t&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&&, std::size_t&&>));
-    SIMPLE_EXPECT((detail::visitable<const Container&&, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container&&, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<const Container&&, const std::size_t>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&&, std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&&, const std::size_t&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&&, std::size_t&&>));
+    EXPECT_COMPILE_TIME((detail::visitable<const Container&&, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container&&, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container&&, const std::size_t>));
 
-    SIMPLE_EXPECT((not detail::visitable<Container, std::size_t&>));
-    SIMPLE_EXPECT((not detail::visitable<Container, const std::size_t&>));
-    SIMPLE_EXPECT((not detail::visitable<Container, std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<Container, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<Container, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<Container, const std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, std::size_t&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, const std::size_t&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<Container, const std::size_t>));
 
-    SIMPLE_EXPECT((not detail::visitable<const Container, std::size_t&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container, const std::size_t&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container, std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container, const std::size_t&&>));
-    SIMPLE_EXPECT((not detail::visitable<const Container, std::size_t>));
-    SIMPLE_EXPECT((not detail::visitable<const Container, const std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, std::size_t&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, const std::size_t&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, const std::size_t&&>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, std::size_t>));
+    EXPECT_COMPILE_TIME((not detail::visitable<const Container, const std::size_t>));
 }
 
 TEST("cpo visit", "visit")

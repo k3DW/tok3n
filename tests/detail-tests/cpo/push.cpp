@@ -46,52 +46,52 @@ void vector_container_test()
         (..., detail::push(c, xs));
         return c.size();
     };
-    SIMPLE_EXPECT(test() == 0);
-    SIMPLE_EXPECT(test(Value{1}) == 1);
-    SIMPLE_EXPECT(test(Value{2}, Value{3}, Value{4}) == 3);
-    SIMPLE_EXPECT(test(Value{5}, Value{6}, Value{7}, Value{8}, Value{9}, Value{10}) == 6);
+    EXPECT_COMPILE_AND_RUN_TIME(test() == 0);
+    EXPECT_COMPILE_AND_RUN_TIME(test(Value{1}) == 1);
+    EXPECT_COMPILE_AND_RUN_TIME(test(Value{2}, Value{3}, Value{4}) == 3);
+    EXPECT_COMPILE_AND_RUN_TIME(test(Value{5}, Value{6}, Value{7}, Value{8}, Value{9}, Value{10}) == 6);
 
-    SIMPLE_EXPECT((detail::pushable<Container&, Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container&, const Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container&, Value&&>));
-    SIMPLE_EXPECT((detail::pushable<Container&, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<Container&, Value>));
-    SIMPLE_EXPECT((not detail::pushable<Container&, const Value>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&, Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&, const Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&, Value&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container&, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container&, const Value>));
 
-    SIMPLE_EXPECT((detail::pushable<Container&&, Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container&&, const Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container&&, Value&&>));
-    SIMPLE_EXPECT((detail::pushable<Container&&, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<Container&&, Value>));
-    SIMPLE_EXPECT((not detail::pushable<Container&&, const Value>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&&, Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&&, const Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&&, Value&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container&&, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container&&, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container&&, const Value>));
 
-    SIMPLE_EXPECT((not detail::pushable<const Container&, Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&, const Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&, Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&, Value>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&, const Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, const Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&, const Value>));
 
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, const Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, Value>));
-    SIMPLE_EXPECT((not detail::pushable<const Container&&, const Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, const Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container&&, const Value>));
 
-    SIMPLE_EXPECT((detail::pushable<Container, Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container, const Value&>));
-    SIMPLE_EXPECT((detail::pushable<Container, Value&&>));
-    SIMPLE_EXPECT((detail::pushable<Container, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<Container, Value>));
-    SIMPLE_EXPECT((not detail::pushable<Container, const Value>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container, Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container, const Value&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container, Value&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Container, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Container, const Value>));
 
-    SIMPLE_EXPECT((not detail::pushable<const Container, Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container, const Value&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container, Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container, const Value&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Container, Value>));
-    SIMPLE_EXPECT((not detail::pushable<const Container, const Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, const Value&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, const Value&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, Value>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Container, const Value>));
 }
 
 TEST("cpo push", "std::vector")
@@ -105,50 +105,50 @@ template <class Pusher, int offset>
 void pusher_test()
 {
     Pusher p;
-    SIMPLE_EXPECT(detail::push(p, 0) == 1 + offset);
-    SIMPLE_EXPECT(detail::push(std::as_const(p), 0) == 2 + offset);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::push(p, 0) == 1 + offset);
+    EXPECT_COMPILE_AND_RUN_TIME(detail::push(std::as_const(p), 0) == 2 + offset);
 
-    SIMPLE_EXPECT((detail::pushable<Pusher&, int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&, const int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&, int&&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher&, int>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher&, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher&, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher&, const int>));
 
-    SIMPLE_EXPECT((detail::pushable<Pusher&&, int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&&, const int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&&, int&&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher&&, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher&&, int>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher&&, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&&, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&&, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&&, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher&&, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher&&, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher&&, const int>));
 
-    SIMPLE_EXPECT((detail::pushable<const Pusher&, int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&, const int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&, int&&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher&, int>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher&, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher&, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher&, const int>));
 
-    SIMPLE_EXPECT((detail::pushable<const Pusher&&, int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&&, const int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&&, int&&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher&&, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher&&, int>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher&&, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&&, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&&, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&&, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher&&, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher&&, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher&&, const int>));
 
-    SIMPLE_EXPECT((detail::pushable<Pusher, int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher, const int&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher, int&&>));
-    SIMPLE_EXPECT((detail::pushable<Pusher, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher, int>));
-    SIMPLE_EXPECT((not detail::pushable<Pusher, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<Pusher, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<Pusher, const int>));
 
-    SIMPLE_EXPECT((detail::pushable<const Pusher, int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher, const int&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher, int&&>));
-    SIMPLE_EXPECT((detail::pushable<const Pusher, const int&&>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher, int>));
-    SIMPLE_EXPECT((not detail::pushable<const Pusher, const int>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher, int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher, const int&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher, int&&>));
+    EXPECT_COMPILE_TIME((detail::pushable<const Pusher, const int&&>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher, int>));
+    EXPECT_COMPILE_TIME((not detail::pushable<const Pusher, const int>));
 }
 
 TEST("cpo push", "custom pushers")
