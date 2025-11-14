@@ -11,8 +11,6 @@
 #define K3_TESTING_CT_BOOL_(B) (bool{(B)})
 #endif
 
-#define K3_TESTING_REQUIRE_SEMICOLON_ static_assert(true, "require semicolon")
-
 
 
 #define K3_TESTING_EVAL_BOOL_(NAME, BOOL) \
@@ -71,7 +69,7 @@
         const std::size_t _ending_ = ::k3::testing::context::total_errors();   \
         if (_ending_ != _starting_)                                            \
             return;                                                            \
-    } K3_TESTING_REQUIRE_SEMICOLON_
+    } static_assert(true, "require semicolon")
 
 // EXPECT_THAT ignores all the internal non-fatal errors,
 // but it cannot ignore the fatal errors.
@@ -83,7 +81,7 @@
         const std::size_t _ending_ = ::k3::testing::context::total_fatal_errors();   \
         if (_ending_ != _starting_)                                                  \
             return;                                                                  \
-    } K3_TESTING_REQUIRE_SEMICOLON_
+    } static_assert(true, "require semicolon")
 
 
 
