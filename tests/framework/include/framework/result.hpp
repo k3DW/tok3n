@@ -19,8 +19,8 @@ struct error;
 
 struct test_result
 {
-    test_result(std::string_view name)
-        : name(name) {}
+    test_result(std::string_view name_)
+        : name(name_) {}
 
     std::string_view name;
     std::size_t checks = 0;
@@ -32,8 +32,8 @@ struct test_result
 
 struct fixture_result
 {
-    fixture_result(std::string_view name)
-        : name(name) {}
+    fixture_result(std::string_view name_)
+        : name(name_) {}
 
     std::string_view name;
     std::vector<test_result> passes;

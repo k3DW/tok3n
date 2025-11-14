@@ -27,8 +27,8 @@ enum class error_fatality
 
 struct error
 {
-    explicit error(error_time time, error_fatality fatality, std::vector<std::source_location> trace)
-        : time(time), fatality(fatality), trace(std::move(trace))
+    explicit error(error_time time_, error_fatality fatality_, std::vector<std::source_location> trace_)
+        : time(time_), fatality(fatality_), trace(std::move(trace_))
     {}
     error_time time;
     error_fatality fatality;

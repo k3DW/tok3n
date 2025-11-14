@@ -15,7 +15,7 @@ constexpr std::size_t simple_hash(std::string_view s)
     std::size_t hash = 0;
     for (char c : s)
     {
-        hash = std::rotl(hash, 1) + c;
+        hash = std::rotl(hash, 1) + static_cast<std::size_t>(c);
     }
     return hash;
 }
