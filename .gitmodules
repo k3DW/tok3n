@@ -1,3 +1,0 @@
-[submodule "tests/external/boostorg/preprocessor"]
-    path = tests/external/boostorg/preprocessor
-    url = ../../boostorg/preprocessor.git
