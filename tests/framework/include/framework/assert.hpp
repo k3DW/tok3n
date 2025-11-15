@@ -73,14 +73,10 @@
 
 // EXPECT_THAT ignores all the internal non-fatal errors,
 // but it cannot ignore the fatal errors.
-#define EXPECT_THAT(FRAGMENT)                                                        \
-    {                                                                                \
-        ::k3::testing::context::trace_context _ctx_;                                 \
-        const std::size_t _starting_ = ::k3::testing::context::total_fatal_errors(); \
-        (FRAGMENT)();                                                                \
-        const std::size_t _ending_ = ::k3::testing::context::total_fatal_errors();   \
-        if (_ending_ != _starting_)                                                  \
-            return;                                                                  \
+#define EXPECT_THAT(FRAGMENT)                        \
+    {                                                \
+        ::k3::testing::context::trace_context _ctx_; \
+        (FRAGMENT)();                                \
     } static_assert(true, "require semicolon")
 
 
