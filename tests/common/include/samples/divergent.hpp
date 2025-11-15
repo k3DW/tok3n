@@ -82,7 +82,7 @@ struct Cus2 : k3::tok3n::detail::custom_parser<Cus2, ::value_type>
 
     static consteval auto get_parser()
     {
-        return _12{} % k3::tok3n::constant<(int)0>;
+        return _12{} % k3::tok3n::constant<0>;
     }
 };
 constexpr Cus2 cus2;

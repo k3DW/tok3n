@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("one_or_more_parser");
 
@@ -174,3 +174,6 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<void-parser>")
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
     ASSERT_PARSE_FAILURE(P, e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -32,8 +32,6 @@ target_include_directories(common INTERFACE include)
 target_link_libraries(common INTERFACE framework)
 target_link_libraries(common INTERFACE Boost::preprocessor)
 
-target_precompile_headers(common INTERFACE include/common.hpp)
-
 set_target_properties(common
     PROPERTIES
         FOLDER tests

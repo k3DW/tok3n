@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("basic operators");
 
@@ -138,3 +138,6 @@ TEST("basic operators", "Non sorted_and_uniqued")
 
 #endif
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

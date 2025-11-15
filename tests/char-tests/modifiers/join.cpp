@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("join modifier");
 
@@ -73,3 +73,6 @@ TEST("join modifier", "modify anything")
 {
     ASSERT_ALL_SAMPLES(JOIN_MODIFIER_ASSERTER);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

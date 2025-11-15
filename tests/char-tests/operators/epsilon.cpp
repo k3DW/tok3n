@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("epsilon operator");
 
@@ -51,3 +51,6 @@ TEST("epsilon operator", "eps anything")
 {
     ASSERT_ALL_SAMPLES(EPSILON_OPERATOR_ASSERTER);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

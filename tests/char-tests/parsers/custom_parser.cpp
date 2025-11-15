@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("custom_parser");
 
@@ -68,3 +68,6 @@ TEST("custom_parser", "Parse Cus2")
     ASSERT_PARSE_FAILURE(Cus2, e<int>("xyz"));
     ASSERT_PARSE_FAILURE(Cus2, e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

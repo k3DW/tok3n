@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("ignore_parser");
 
@@ -122,3 +122,6 @@ TEST("ignore_parser", "Parse all")
     ASSERT_PARSE_FAILURE(Ign5, e<int>(" abc"));
     ASSERT_PARSE_FAILURE(Ign5, e<int>());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

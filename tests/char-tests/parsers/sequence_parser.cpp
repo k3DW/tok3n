@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 using TwoWay = Seq1;
 using ThreeWay = Seq3;
@@ -101,3 +101,6 @@ TEST("sequence_parser", "sequence_parser<ignore_parser>")
     ASSERT_PARSE_SUCCESS(P, e<int>("abc??abc??"), std::tuple(e<int>("abc"), e<int>("abc")), e<int>("??"));
     ASSERT_PARSE_FAILURE(P, e<int>("abcabc??"));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

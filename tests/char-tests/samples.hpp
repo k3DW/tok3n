@@ -1,4 +1,4 @@
-// Copyright 2024 Braden Ganetsky
+// Copyright 2024-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -42,5 +42,9 @@
 #include "samples/compound.hpp"
 #include "samples/divergent.hpp"
 #include "samples/repeat.hpp"
+
+namespace k3::tok3n::tests {
+    using namespace ::k3::tok3n::detail;
+} // namespace k3::tok3n::tests
 
 #endif // K3_TOK3N_TESTS_CHAR_TESTS_SAMPLES_HPP

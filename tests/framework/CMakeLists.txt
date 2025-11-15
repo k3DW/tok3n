@@ -24,8 +24,6 @@ target_include_directories(framework PUBLIC include)
 
 target_link_libraries(framework PUBLIC k3::tok3n)
 
-target_precompile_headers(framework PUBLIC include/framework.hpp)
-
 set_target_properties(framework
     PROPERTIES
         FOLDER tests

@@ -64,10 +64,10 @@ constexpr struct func3_apply_t
 
 struct func4
 {
-    constexpr func4(int multiply_by)
-        : multiply_by(multiply_by) {}
+    constexpr func4(int multiply_by_)
+        : multiply_by(static_cast<std::size_t>(multiply_by_)) {}
 
-    int multiply_by;
+    std::size_t multiply_by;
 
     constexpr std::size_t operator()(const std::tuple<std::vector<k3::tok3n::output_span<char>>, std::optional<k3::tok3n::output_span<char>>>& tup) const
     {
@@ -90,10 +90,10 @@ struct func4
 
 struct func4_apply
 {
-    constexpr func4_apply(int multiply_by)
-        : multiply_by(multiply_by) {}
+    constexpr func4_apply(int multiply_by_)
+        : multiply_by(static_cast<std::size_t>(multiply_by_)) {}
 
-    int multiply_by;
+    std::size_t multiply_by;
 
     constexpr std::size_t operator()(const std::vector<k3::tok3n::output_span<char>>& vec, const std::optional<k3::tok3n::output_span<char>>& opt) const
     {

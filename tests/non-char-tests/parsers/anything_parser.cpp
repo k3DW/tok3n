@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("anything_parser");
 
@@ -32,3 +32,6 @@ TEST("anything_parser", "Parse")
     ASSERT_PARSE_SUCCESS(Ant1, e(Z, Y, X), e(Z), e(Y, X));
     ASSERT_PARSE_FAILURE(Ant1, e());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("constant_parser");
 
@@ -106,3 +106,6 @@ TEST("constant_parser", "Parse all")
     ASSERT_PARSE_FAILURE(Con4, e<int>(" abc"));
     ASSERT_PARSE_FAILURE(Con4, e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

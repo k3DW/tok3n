@@ -31,7 +31,6 @@ macro(tok3n_add_test_executable target assembly_name value_type_pp_definition)
 
     target_include_directories(${target} PRIVATE .)
     target_link_libraries(${target} PRIVATE common)
-    target_precompile_headers(${target} PRIVATE samples.hpp)
 
 endmacro()
 

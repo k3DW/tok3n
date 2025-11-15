@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 using Single = any_of_parser<static_array(A)>;
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
@@ -76,3 +76,6 @@ TEST("any_of_parser", "Parse")
     ASSERT_PARSE_FAILURE(any_of_parser<(static_array<value_type, 0>{})>, e(A, B, C));
     ASSERT_PARSE_FAILURE(any_of_parser<(static_array<value_type, 0>{})>, e());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

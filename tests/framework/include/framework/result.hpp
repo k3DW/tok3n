@@ -19,8 +19,8 @@ struct error;
 
 struct test_result
 {
-    test_result(std::string_view name)
-        : name(name) {}
+    test_result(std::string_view name_)
+        : name(name_) {}
 
     std::string_view name;
     std::size_t checks = 0;
@@ -32,8 +32,8 @@ struct test_result
 
 struct fixture_result
 {
-    fixture_result(std::string_view name)
-        : name(name) {}
+    fixture_result(std::string_view name_)
+        : name(name_) {}
 
     std::string_view name;
     std::vector<test_result> passes;
@@ -119,14 +119,12 @@ public:
 
     static check_result check(bool compile_time, bool run_time);
 
-    static std::size_t total_fatal_errors();
     static std::size_t total_errors();
 
 private:
     static inline test_result* _current_result = nullptr;
     static inline std::vector<std::source_location> _trace;
 
-    static inline std::size_t _total_fatal_errors = 0;
     static inline std::size_t _total_errors = 0;
 };
 

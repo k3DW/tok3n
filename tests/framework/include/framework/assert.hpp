@@ -6,12 +6,10 @@
 #define K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
 
 #if defined(__clang__) and (__clang_major__ <= 16)
-#define K3_TESTING_CT_BOOL_(B) ([&]{ return static_cast<bool>(B); }())
+#define K3_TESTING_CT_BOOL_(B) ([&] { return bool{(B)}; }())
 #else
-#define K3_TESTING_CT_BOOL_(B) (static_cast<bool>(B))
+#define K3_TESTING_CT_BOOL_(B) (bool{(B)})
 #endif
-
-#define K3_TESTING_REQUIRE_SEMICOLON_ static_assert(true, "require semicolon")
 
 
 
@@ -71,19 +69,15 @@
         const std::size_t _ending_ = ::k3::testing::context::total_errors();   \
         if (_ending_ != _starting_)                                            \
             return;                                                            \
-    } K3_TESTING_REQUIRE_SEMICOLON_
+    } static_assert(true, "require semicolon")
 
 // EXPECT_THAT ignores all the internal non-fatal errors,
 // but it cannot ignore the fatal errors.
-#define EXPECT_THAT(FRAGMENT)                                                        \
-    {                                                                                \
-        ::k3::testing::context::trace_context _ctx_;                                 \
-        const std::size_t _starting_ = ::k3::testing::context::total_fatal_errors(); \
-        (FRAGMENT)();                                                                \
-        const std::size_t _ending_ = ::k3::testing::context::total_fatal_errors();   \
-        if (_ending_ != _starting_)                                                  \
-            return;                                                                  \
-    } K3_TESTING_REQUIRE_SEMICOLON_
+#define EXPECT_THAT(FRAGMENT)                        \
+    {                                                \
+        ::k3::testing::context::trace_context _ctx_; \
+        (FRAGMENT)();                                \
+    } static_assert(true, "require semicolon")
 
 
 
@@ -92,8 +86,5 @@
 
 #define EXPECT(CONDITION) \
     EXPECT_COMPILE_AND_RUN_TIME(CONDITION)
-
-#define SIMPLE_EXPECT(CONDITION) \
-    EXPECT(CONDITION) << #CONDITION
 
 #endif // K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP

@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("named_parser");
 
@@ -133,3 +133,6 @@ TEST("named_parser", "named_parser<sequence_parser>")
         ASSERT_PARSE_SUCCESS(Nam4, e<int>("abc?? ?? abc"), (type{e<int>("abc"), {e<int>("??")}}), e<int>(" ?? abc"));
     }
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -1,11 +1,11 @@
-// Copyright 2023-2024 Braden Ganetsky
+// Copyright 2023-2025 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("join_maybe_basic");
 
@@ -112,3 +112,6 @@ TEST("join_maybe_basic", "maybe_parser<all_of_parser>")
     ASSERT_PARSE_SUCCESS(P, L"123", L"123", L"");
     ASSERT_PARSE_SUCCESS(P, e<int>("123"), e<int>("123"), e<int>(""));
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

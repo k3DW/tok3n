@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("sequence operator");
 
@@ -171,3 +171,6 @@ TEST("sequence operator", "{anything} >> {anything}")
 
     ASSERT_SAMPLES_2(SEQUENCE_OPERATOR_ASSERTER, BASIC_SAMPLES, BASIC_SAMPLES);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

@@ -4,10 +4,10 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
-using L = all_of_parser<static_array(X, Y, Z)>;
+using L = all_of_parser<detail::static_array(X, Y, Z)>;
 
 FIXTURE("all_of_parser");
 
@@ -33,3 +33,6 @@ TEST("all_of_parser", "Parse empty")
     ASSERT_PARSE_SUCCESS(all_of_parser<(static_array<value_type, 0>{})>, e(A, B, C), e(), e(A, B, C));
     ASSERT_PARSE_SUCCESS(all_of_parser<(static_array<value_type, 0>{})>, e(), e(), e());
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

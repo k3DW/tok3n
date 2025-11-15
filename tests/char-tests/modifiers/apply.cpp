@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("apply modifier");
 
@@ -43,3 +43,6 @@ TEST("apply modifier", "modify anything")
 {
     ASSERT_ALL_SAMPLES(APPLY_MODIFIER_ASSERTER);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

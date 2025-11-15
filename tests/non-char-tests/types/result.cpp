@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using k3::tok3n::result;
-using k3::tok3n::detail::result_of;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("result");
 
@@ -171,3 +171,6 @@ TEST("result", "result_of result<MoveOnlyWrapper>")
     ASSERT_NOT_CONCEPT(result_of, R, const MoveOnlyWrapper<int>&, value_type);
     ASSERT_NOT_CONCEPT(result_of, R, const MoveOnlyWrapper<int>&&, value_type);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

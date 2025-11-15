@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 using TwoWay1 = Cho1;
 using TwoWay2 = Cho2;
@@ -230,3 +230,6 @@ TEST("choice_parser", "Result type")
     ASSERT_IS_PARSER(P6, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
     ASSERT_IS_PARSER(P6, int, choice_family, std::variant<int, output_span<int>>);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

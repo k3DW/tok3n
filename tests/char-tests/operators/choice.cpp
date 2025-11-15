@@ -4,8 +4,8 @@
 
 #include "samples.hpp"
 
-using namespace k3::tok3n;
-using namespace k3::tok3n::detail;
+namespace k3::tok3n::tests {
+namespace {
 
 FIXTURE("choice operator");
 
@@ -181,3 +181,6 @@ TEST("choice operator", "{anything} | {anything}")
 
     ASSERT_SAMPLES_2(CHOICE_OPERATOR_ASSERTER, BASIC_SAMPLES, BASIC_SAMPLES);
 }
+
+} // namespace
+} // namespace k3::tok3n::tests

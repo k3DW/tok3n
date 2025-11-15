@@ -78,11 +78,6 @@ context::message_streaming_context context::add_error(check_result result, error
     std::vector<std::source_location> trace;
     trace = _trace;
     trace.push_back(std::move(location));
-
-    if (fatality == error_fatality::fatal)
-    {
-        ++_total_fatal_errors;
-    }
     ++_total_errors;
 
     const error_time time =
@@ -99,11 +94,6 @@ check_result context::check(bool compile_time, bool run_time)
         .compile_time = compile_time,
         .run_time = run_time,
     };
-}
-
-std::size_t context::total_fatal_errors()
-{
-    return _total_fatal_errors;
 }
 
 std::size_t context::total_errors()
