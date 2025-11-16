@@ -38,7 +38,7 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
 
 target_include_directories(common INTERFACE include)
 
-target_link_libraries(common INTERFACE framework)
+target_link_libraries(common INTERFACE k3::tok3n framework)
 
 set_target_properties(common
     PROPERTIES

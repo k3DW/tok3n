@@ -22,14 +22,10 @@ target_sources(framework PUBLIC FILE_SET headers TYPE HEADERS FILES
 
 target_include_directories(framework PUBLIC include)
 
-target_link_libraries(framework PUBLIC k3::tok3n)
-
 set_target_properties(framework
     PROPERTIES
         FOLDER tests
 )
-
-set(_tok3n_test_framework_list_dir "${CMAKE_CURRENT_LIST_DIR}")
 
 macro(tok3n_discover_tests target assembly_name)
 
