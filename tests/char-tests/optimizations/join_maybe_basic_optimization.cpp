@@ -15,21 +15,25 @@ using Joi_May_L  = join_parser<maybe_parser<all_of_parser<TT("123")>>>;
 
 TEST("join_maybe_basic", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_OC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_NC, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Joi_May_L, value_type);
+    EXPECT_THAT(the_parser<Joi_May_OC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Joi_May_L> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi_May_NC, char, join_family, output_span<char>);
-    ASSERT_IS_PARSER(Joi_May_L, char, join_family, output_span<char>);
+    EXPECT_THAT(the_parser<Joi_May_OC> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | has_family<join_family>);
+    EXPECT_THAT(the_parser<Joi_May_L> | has_family<join_family>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_NC, wchar_t, join_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Joi_May_L, wchar_t, join_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<Joi_May_OC> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Joi_May_L> | is_parser_for<char>.with_result<output_span<char>>);
 
-    ASSERT_IS_PARSER(Joi_May_OC, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi_May_NC, int, join_family, output_span<int>);
-    ASSERT_IS_PARSER(Joi_May_L, int, join_family, output_span<int>);
+    EXPECT_THAT(the_parser<Joi_May_OC> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Joi_May_L> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+
+    EXPECT_THAT(the_parser<Joi_May_OC> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi_May_NC> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Joi_May_L> | is_parser_for<int>.with_result<output_span<int>>);
 }
 
 TEST("join_maybe_basic", "maybe_parser<any_of_parser>")

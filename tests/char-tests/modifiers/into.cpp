@@ -11,14 +11,18 @@ FIXTURE("into modifier");
 
 TEST("into modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(int1, into<Class1>(spacedot));
-    ASSERT_PARSER_VALUES_EQ(int2, into<Class2>(abc >> spacedot));
+    EXPECT_THAT(parser_value<int1>
+                         .is<into<Class1>(spacedot)>);
+    EXPECT_THAT(parser_value<int2>
+                         .is<into<Class2>(abc >> spacedot)>);
 }
 
 TEST("into modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(int1, spacedot % into<Class1>);
-    ASSERT_PARSER_VALUES_EQ(int2, (abc >> spacedot) % into<Class2>);
+    EXPECT_THAT(parser_value<int1>
+                         .is<spacedot % into<Class1>>);
+    EXPECT_THAT(parser_value<int2>
+                         .is<(abc >> spacedot) % into<Class2>>);
 }
 
 TEST("into modifier", "non consteval")
@@ -29,12 +33,10 @@ TEST("into modifier", "non consteval")
 
 
 
-#define INTO_MODIFIER_ASSERTER(P)                                                          \
-    []<parser PP>(PP) {                                                                    \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(into<Sink>, (PP{}), (into_parser<PP, Sink>{}),      \
-                                       into<Sink>, (P{}),  (into_parser<P, Sink>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, into<Sink>, (into_parser<PP, Sink>{}), \
-                                              P{},  into<Sink>, (into_parser<P, Sink>{})); \
+#define INTO_MODIFIER_ASSERTER(P)                                                                    \
+    []<parser PP>(PP) {                                                                              \
+        using R = into_parser<PP, Sink>;                                                             \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<into<Sink>>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("into modifier", "modify anything")

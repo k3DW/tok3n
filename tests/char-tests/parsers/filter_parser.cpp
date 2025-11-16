@@ -11,33 +11,37 @@ FIXTURE("filter_parser");
 
 TEST("filter_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Fil1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Fil2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Fil3, value_type);
+    EXPECT_THAT(the_parser<Fil1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Fil2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Fil3> | has_value_type<value_type>);
+
+    EXPECT_THAT(the_parser<Fil1> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<Fil2> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<Fil3> | has_family<filter_family>);
 
 #if defined(VALUE_TYPE_CHAR)
-    ASSERT_IS_PARSER(Fil1, char, filter_family, std::vector<output_span<char>>);
+    EXPECT_THAT(the_parser<Fil1> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
 #elif defined(VALUE_TYPE_WCHAR_T)
-    ASSERT_IS_NOT_PARSER(Fil1, char, filter_family);
+    EXPECT_THAT(the_parser<Fil1> | is_not_parser_for<char>);
 #else
 #error
 #endif
-    ASSERT_IS_PARSER(Fil2, char, filter_family, std::optional<output_span<char>>);
-    ASSERT_IS_PARSER(Fil3, char, filter_family, std::tuple<output_span<char>, std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Fil2> | is_parser_for<char>.with_result<std::optional<output_span<char>>>);
+    EXPECT_THAT(the_parser<Fil3> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, std::vector<output_span<char>>>>));
 
 #if defined(VALUE_TYPE_CHAR)
-    ASSERT_IS_NOT_PARSER(Fil1, wchar_t, filter_family);
+    EXPECT_THAT(the_parser<Fil1> | is_not_parser_for<wchar_t>);
 #elif defined(VALUE_TYPE_WCHAR_T)
-    ASSERT_IS_PARSER(Fil1, wchar_t, filter_family, std::vector<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Fil1> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
 #else
 #error
 #endif
-    ASSERT_IS_PARSER(Fil2, wchar_t, filter_family, std::optional<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Fil3, wchar_t, filter_family, std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Fil2> | is_parser_for<wchar_t>.with_result<std::optional<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Fil3> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>>));
 
-    ASSERT_IS_NOT_PARSER(Fil1, int, filter_family);
-    ASSERT_IS_PARSER(Fil2, int, filter_family, std::optional<output_span<int>>);
-    ASSERT_IS_PARSER(Fil3, int, filter_family, std::tuple<output_span<int>, std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Fil1> | is_not_parser_for<int>);
+    EXPECT_THAT(the_parser<Fil2> | is_parser_for<int>.with_result<std::optional<output_span<int>>>);
+    EXPECT_THAT(the_parser<Fil3> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, std::vector<output_span<int>>>>));
 }
 
 TEST("filter_parser", "Parse all")
@@ -141,13 +145,15 @@ TEST("filter_parser", "void input")
 
     constexpr auto func_good = []() { return true; };
     using FilterGood = filter_parser<P, integral_constant<func_good>>;
-    ASSERT_IS_PARSER(FilterGood, value_type, filter_family, void);
+    EXPECT_THAT(the_parser<FilterGood> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<FilterGood> | is_parser_for<value_type>.with_result<void>);
     ASSERT_PARSE_SUCCESS_VOID(FilterGood, TT("abcd"), TT("d"));
     ASSERT_PARSE_FAILURE(FilterGood, TT(" abcd"));
 
     constexpr auto func_bad = [](auto) { return true; };
     using FilterBad = filter_parser<P, integral_constant<func_bad>>;
-    ASSERT_IS_NOT_PARSER(FilterBad, value_type, filter_family);
+    EXPECT_THAT(the_parser<FilterBad> | has_family<filter_family>);
+    EXPECT_THAT(the_parser<FilterBad> | is_not_parser_for<value_type>);
 }
 
 } // namespace

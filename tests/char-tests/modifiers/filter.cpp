@@ -11,16 +11,22 @@ FIXTURE("filter modifier");
 
 TEST("filter modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(fil1, filter<filter_func1>(+abc));
-    ASSERT_PARSER_VALUES_EQ(fil2, filter<filter_func2>(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(fil3, filter<filter_func3>(abc >> *qq));
+    EXPECT_THAT(parser_value<fil1>
+                         .is<filter<filter_func1>(+abc)>);
+    EXPECT_THAT(parser_value<fil2>
+                         .is<filter<filter_func2>(~(abc | qq))>);
+    EXPECT_THAT(parser_value<fil3>
+                         .is<filter<filter_func3>(abc >> *qq)>);
 }
 
 TEST("filter modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(fil1, +abc % filter<filter_func1>);
-    ASSERT_PARSER_VALUES_EQ(fil2, ~(abc | qq) % filter<filter_func2>);
-    ASSERT_PARSER_VALUES_EQ(fil3, (abc >> *qq) % filter<filter_func3>);
+    EXPECT_THAT(parser_value<fil1>
+                         .is<+abc % filter<filter_func1>>);
+    EXPECT_THAT(parser_value<fil2>
+                         .is<~(abc | qq) % filter<filter_func2>>);
+    EXPECT_THAT(parser_value<fil3>
+                         .is<(abc >> *qq) % filter<filter_func3>>);
 }
 
 TEST("filter modifier", "non consteval")
@@ -31,12 +37,11 @@ TEST("filter modifier", "non consteval")
 
 
 
-#define FILTER_MODIFIER_ASSERTER(P)                                                                                             \
-    []<parser PP>(PP) {                                                                                                         \
-        DEP_ASSERT_MODIFIER_CALLABLE_R(filter<true_filter>, (PP{}), (filter_parser<PP, integral_constant<true_filter>>{}),      \
-                                       filter<true_filter>, (P{}),  (filter_parser<P, integral_constant<true_filter>>{}));      \
-        DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, filter<true_filter>, (filter_parser<PP, integral_constant<true_filter>>{}), \
-                                              P{},  filter<true_filter>, (filter_parser<P, integral_constant<true_filter>>{})); \
+#define FILTER_MODIFIER_ASSERTER(P)                                                         \
+    []<parser PP>(PP) {                                                                     \
+        constexpr auto m = filter<true_filter>;                                             \
+        using R = filter_parser<PP, integral_constant<true_filter>>;                        \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("filter modifier", "modify anything")

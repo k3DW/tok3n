@@ -14,17 +14,20 @@ FIXTURE("none_of_parser");
 
 TEST("none_of_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Single, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Multi, value_type);
+    EXPECT_THAT(the_parser<Single> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Multi> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Single, char, none_of_family, output_span<char>);
-    ASSERT_IS_PARSER(Multi, char, none_of_family, output_span<char>);
+    EXPECT_THAT(the_parser<Single> | has_family<none_of_family>);
+    EXPECT_THAT(the_parser<Multi> | has_family<none_of_family>);
 
-    ASSERT_IS_PARSER(Single, wchar_t, none_of_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Multi, wchar_t, none_of_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<char>.with_result<output_span<char>>);
 
-    ASSERT_IS_PARSER(Single, int, none_of_family, output_span<int>);
-    ASSERT_IS_PARSER(Multi, int, none_of_family, output_span<int>);
+    EXPECT_THAT(the_parser<Single> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+
+    EXPECT_THAT(the_parser<Single> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<int>.with_result<output_span<int>>);
 }
 
 TEST("none_of_parser", "Parse single")
@@ -106,17 +109,17 @@ TEST("none_of_parser", "Parse multi")
 
 TEST("none_of_parser", "Constructible from lexicographically sorted only")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, TT("abc"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("acb"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("bac"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("bca"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("cab"));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(none_of_parser, TT("cba"));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<TT("abc")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("acb")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("bac")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("bca")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("cab")>);
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_not_valid_with<TT("cba")>);
 }
 
 TEST("none_of_parser", "Parse empty")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(none_of_parser, TT(""));
+    EXPECT_THAT(the_basic_parser_family<none_of_parser>.is_valid_with<TT("")>);
 
     ASSERT_PARSE_SUCCESS(none_of_parser<"">, "anything", "a", "nything");
     ASSERT_PARSE_FAILURE(none_of_parser<"">, "");

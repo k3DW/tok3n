@@ -14,21 +14,25 @@ FIXTURE("sequence_parser");
 
 TEST("sequence_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(TwoWay, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Seq5, value_type);
+    EXPECT_THAT(the_parser<TwoWay> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Seq5> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(TwoWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>>);
-    ASSERT_IS_PARSER(ThreeWay, char, sequence_family, std::tuple<output_span<char>, output_span<char>, output_span<char>>);
-    ASSERT_IS_PARSER(Seq5, char, sequence_family, void);
+    EXPECT_THAT(the_parser<TwoWay> | has_family<sequence_family>);
+    EXPECT_THAT(the_parser<ThreeWay> | has_family<sequence_family>);
+    EXPECT_THAT(the_parser<Seq5> | has_family<sequence_family>);
 
-    ASSERT_IS_PARSER(TwoWay, wchar_t, sequence_family, std::tuple<output_span<wchar_t>, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(ThreeWay, wchar_t, sequence_family, std::tuple<output_span<wchar_t>, output_span<wchar_t>, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Seq5, wchar_t, sequence_family, void);
+    EXPECT_THAT(the_parser<TwoWay> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, output_span<char>>>));
+    EXPECT_THAT(the_parser<ThreeWay> | (is_parser_for<char>.with_result<std::tuple<output_span<char>, output_span<char>, output_span<char>>>));
+    EXPECT_THAT(the_parser<Seq5> | is_parser_for<char>.with_result<void>);
 
-    ASSERT_IS_PARSER(TwoWay, int, sequence_family, std::tuple<output_span<int>, output_span<int>>);
-    ASSERT_IS_PARSER(ThreeWay, int, sequence_family, std::tuple<output_span<int>, output_span<int>, output_span<int>>);
-    ASSERT_IS_PARSER(Seq5, int, sequence_family, void);
+    EXPECT_THAT(the_parser<TwoWay> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<ThreeWay> | (is_parser_for<wchar_t>.with_result<std::tuple<output_span<wchar_t>, output_span<wchar_t>, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<Seq5> | is_parser_for<wchar_t>.with_result<void>);
+
+    EXPECT_THAT(the_parser<TwoWay> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, output_span<int>>>));
+    EXPECT_THAT(the_parser<ThreeWay> | (is_parser_for<int>.with_result<std::tuple<output_span<int>, output_span<int>, output_span<int>>>));
+    EXPECT_THAT(the_parser<Seq5> | is_parser_for<int>.with_result<void>);
 }
 
 TEST("sequence_parser", "Parse two-way sequence_parser")
@@ -83,7 +87,7 @@ TEST("sequence_parser", "Parse void result_type")
 
 TEST("sequence_parser", "Not constructible empty")
 {
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(sequence_parser);
+    EXPECT_THAT(the_parser_family<sequence_parser>.is_not_valid_with<>);
 }
 
 

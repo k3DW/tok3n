@@ -17,29 +17,35 @@ FIXTURE("choice_parser");
 
 TEST("choice_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(TwoWay1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(TwoWay2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(ThreeWay2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Cho5, value_type);
+    EXPECT_THAT(the_parser<TwoWay1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<TwoWay2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<ThreeWay2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Cho5> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(TwoWay1, char, choice_family, output_span<char>);
-    ASSERT_IS_PARSER(TwoWay2, char, choice_family, output_span<char>);
-    ASSERT_IS_PARSER(ThreeWay1, char, choice_family, output_span<char>);
-    ASSERT_IS_PARSER(ThreeWay2, char, choice_family, output_span<char>);
-    ASSERT_IS_PARSER(Cho5, char, choice_family, void);
+    EXPECT_THAT(the_parser<TwoWay1> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<TwoWay2> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<ThreeWay1> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<ThreeWay2> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<Cho5> | has_family<choice_family>);
 
-    ASSERT_IS_PARSER(TwoWay1, wchar_t, choice_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(TwoWay2, wchar_t, choice_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(ThreeWay1, wchar_t, choice_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(ThreeWay2, wchar_t, choice_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(Cho5, wchar_t, choice_family, void);
+    EXPECT_THAT(the_parser<TwoWay1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<TwoWay2> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<ThreeWay1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<ThreeWay2> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<Cho5> | is_parser_for<char>.with_result<void>);
 
-    ASSERT_IS_PARSER(TwoWay1, int, choice_family, output_span<int>);
-    ASSERT_IS_PARSER(TwoWay2, int, choice_family, output_span<int>);
-    ASSERT_IS_PARSER(ThreeWay1, int, choice_family, output_span<int>);
-    ASSERT_IS_PARSER(ThreeWay2, int, choice_family, output_span<int>);
-    ASSERT_IS_PARSER(Cho5, int, choice_family, void);
+    EXPECT_THAT(the_parser<TwoWay1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<TwoWay2> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<ThreeWay1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<ThreeWay2> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Cho5> | is_parser_for<wchar_t>.with_result<void>);
+
+    EXPECT_THAT(the_parser<TwoWay1> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<TwoWay2> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<ThreeWay1> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<ThreeWay2> | is_parser_for<int>.with_result<output_span<int>>);
+    EXPECT_THAT(the_parser<Cho5> | is_parser_for<int>.with_result<void>);
 }
 
 TEST("choice_parser", "Parse two-way choice_parser")
@@ -154,13 +160,13 @@ TEST("choice_parser", "Parse void result_type")
 
 TEST("choice_parser", "Constructible not only from parsers with the same result_type")
 {
-    ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, Any3, Non2, Non1, All2);
-    ASSERT_PARSER_CONSTRUCTIBLE(choice_parser, Any1, sequence_parser<Any2, Any3>);
+    EXPECT_THAT((the_parser_family<choice_parser>.is_valid_with<Any1, Any3, Non2, Non1, All2>));
+    EXPECT_THAT((the_parser_family<choice_parser>.is_valid_with<Any1, sequence_parser<Any2, Any3>>));
 }
 
 TEST("choice_parser", "Not constructible empty")
 {
-    ASSERT_PARSER_NOT_CONSTRUCTIBLE(choice_parser);
+    EXPECT_THAT(the_parser_family<choice_parser>.is_not_valid_with<>);
 }
 
 
@@ -201,34 +207,40 @@ TEST("choice_parser", "Result type")
     using C2 = constant_parser<SpaceDot, integral_constant<1>>;
 
     using P1 = choice_parser<ABC, QQ, SpaceDot>;
-    ASSERT_IS_PARSER(P1, char, choice_family, output_span<char>);
-    ASSERT_IS_PARSER(P1, wchar_t, choice_family, output_span<wchar_t>);
-    ASSERT_IS_PARSER(P1, int, choice_family, output_span<int>);
+    EXPECT_THAT(the_parser<P1> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P1> | is_parser_for<char>.with_result<output_span<char>>);
+    EXPECT_THAT(the_parser<P1> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<P1> | is_parser_for<int>.with_result<output_span<int>>);
 
     using P2 = choice_parser<ABC, C1, QQ>;
-    ASSERT_IS_PARSER(P2, char, choice_family, std::variant<output_span<char>, int>);
-    ASSERT_IS_PARSER(P2, wchar_t, choice_family, std::variant<output_span<wchar_t>, int>);
-    ASSERT_IS_PARSER(P2, int, choice_family, std::variant<output_span<int>, int>);
+    EXPECT_THAT(the_parser<P2> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P2> | (is_parser_for<char>.with_result<std::variant<output_span<char>, int>>));
+    EXPECT_THAT(the_parser<P2> | (is_parser_for<wchar_t>.with_result<std::variant<output_span<wchar_t>, int>>));
+    EXPECT_THAT(the_parser<P2> | (is_parser_for<int>.with_result<std::variant<output_span<int>, int>>));
 
     using P3 = choice_parser<ABC, QQ, C1>;
-    ASSERT_IS_PARSER(P3, char, choice_family, std::variant<output_span<char>, int>);
-    ASSERT_IS_PARSER(P3, wchar_t, choice_family, std::variant<output_span<wchar_t>, int>);
-    ASSERT_IS_PARSER(P3, int, choice_family, std::variant<output_span<int>, int>);
+    EXPECT_THAT(the_parser<P3> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P3> | (is_parser_for<char>.with_result<std::variant<output_span<char>, int>>));
+    EXPECT_THAT(the_parser<P3> | (is_parser_for<wchar_t>.with_result<std::variant<output_span<wchar_t>, int>>));
+    EXPECT_THAT(the_parser<P3> | (is_parser_for<int>.with_result<std::variant<output_span<int>, int>>));
 
     using P4 = choice_parser<C1, ABC, QQ>;
-    ASSERT_IS_PARSER(P4, char, choice_family, std::variant<int, output_span<char>>);
-    ASSERT_IS_PARSER(P4, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(P4, int, choice_family, std::variant<int, output_span<int>>);
+    EXPECT_THAT(the_parser<P4> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P4> | (is_parser_for<char>.with_result<std::variant<int, output_span<char>>>));
+    EXPECT_THAT(the_parser<P4> | (is_parser_for<wchar_t>.with_result<std::variant<int, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<P4> | (is_parser_for<int>.with_result<std::variant<int, output_span<int>>>));
 
     using P5 = choice_parser<C1, ABC, QQ, C2>;
-    ASSERT_IS_PARSER(P5, char, choice_family, std::variant<int, output_span<char>>);
-    ASSERT_IS_PARSER(P5, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(P5, int, choice_family, std::variant<int, output_span<int>>);
+    EXPECT_THAT(the_parser<P5> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P5> | (is_parser_for<char>.with_result<std::variant<int, output_span<char>>>));
+    EXPECT_THAT(the_parser<P5> | (is_parser_for<wchar_t>.with_result<std::variant<int, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<P5> | (is_parser_for<int>.with_result<std::variant<int, output_span<int>>>));
 
     using P6 = choice_parser<C1, ABC, C2, QQ>;
-    ASSERT_IS_PARSER(P6, char, choice_family, std::variant<int, output_span<char>>);
-    ASSERT_IS_PARSER(P6, wchar_t, choice_family, std::variant<int, output_span<wchar_t>>);
-    ASSERT_IS_PARSER(P6, int, choice_family, std::variant<int, output_span<int>>);
+    EXPECT_THAT(the_parser<P6> | has_family<choice_family>);
+    EXPECT_THAT(the_parser<P6> | (is_parser_for<char>.with_result<std::variant<int, output_span<char>>>));
+    EXPECT_THAT(the_parser<P6> | (is_parser_for<wchar_t>.with_result<std::variant<int, output_span<wchar_t>>>));
+    EXPECT_THAT(the_parser<P6> | (is_parser_for<int>.with_result<std::variant<int, output_span<int>>>));
 }
 
 } // namespace

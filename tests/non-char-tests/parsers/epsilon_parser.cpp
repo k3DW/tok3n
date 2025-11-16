@@ -11,9 +11,10 @@ FIXTURE("epsilon_parser");
 
 TEST("epsilon_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
+    EXPECT_THAT(the_parser<Eps1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Eps1> | has_family<epsilon_family>);
 
-    ASSERT_IS_PARSER(Eps1, value_type, epsilon_family, void);
+    EXPECT_THAT(the_parser<Eps1> | is_parser_for<value_type>.with_result<void>);
 }
 
 TEST("epsilon_parser", "Parse")

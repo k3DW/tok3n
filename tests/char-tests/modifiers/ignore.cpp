@@ -11,34 +11,54 @@ FIXTURE("ignore modifier");
 
 TEST("ignore modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(ign1, ignore(abc));
-    ASSERT_PARSER_VALUES_EQ(ign2, ignore(+abc));
-    ASSERT_PARSER_VALUES_EQ(ign3, ignore(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(ign4, ignore(abc >> *qq));
-    ASSERT_PARSER_VALUES_EQ(ign5, ignore(+abc >> ~(abc | qq)));
+    EXPECT_THAT(parser_value<ign1>
+                         .is<ignore(abc)>);
+    EXPECT_THAT(parser_value<ign2>
+                         .is<ignore(+abc)>);
+    EXPECT_THAT(parser_value<ign3>
+                         .is<ignore(~(abc | qq))>);
+    EXPECT_THAT(parser_value<ign4>
+                         .is<ignore(abc >> *qq)>);
+    EXPECT_THAT(parser_value<ign5>
+                         .is<ignore(+abc >> ~(abc | qq))>);
 }
 
 TEST("ignore modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(ign1, abc % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign2, +abc % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign3, ~(abc | qq) % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign4, (abc >> *qq) % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign5, (+abc >> ~(abc | qq)) % ignore);
+    EXPECT_THAT(parser_value<ign1>
+                         .is<abc % ignore>);
+    EXPECT_THAT(parser_value<ign2>
+                         .is<+abc % ignore>);
+    EXPECT_THAT(parser_value<ign3>
+                         .is<~(abc | qq) % ignore>);
+    EXPECT_THAT(parser_value<ign4>
+                         .is<(abc >> *qq) % ignore>);
+    EXPECT_THAT(parser_value<ign5>
+                         .is<(+abc >> ~(abc | qq)) % ignore>);
 }
 
 TEST("ignore modifier", "idempotent")
 {
-    ASSERT_PARSER_VALUES_EQ(ign1, ignore(ign1));
-    ASSERT_PARSER_VALUES_EQ(ign2, ignore(ign2));
-    ASSERT_PARSER_VALUES_EQ(ign3, ignore(ign3));
-    ASSERT_PARSER_VALUES_EQ(ign4, ignore(ign4));
-    ASSERT_PARSER_VALUES_EQ(ign5, ignore(ign5));
-    ASSERT_PARSER_VALUES_EQ(ign1, ign1 % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign2, ign2 % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign3, ign3 % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign4, ign4 % ignore);
-    ASSERT_PARSER_VALUES_EQ(ign5, ign5 % ignore);
+    EXPECT_THAT(parser_value<ign1>
+                         .is<ignore(ign1)>);
+    EXPECT_THAT(parser_value<ign2>
+                         .is<ignore(ign2)>);
+    EXPECT_THAT(parser_value<ign3>
+                         .is<ignore(ign3)>);
+    EXPECT_THAT(parser_value<ign4>
+                         .is<ignore(ign4)>);
+    EXPECT_THAT(parser_value<ign5>
+                         .is<ignore(ign5)>);
+    EXPECT_THAT(parser_value<ign1>
+                         .is<ign1 % ignore>);
+    EXPECT_THAT(parser_value<ign2>
+                         .is<ign2 % ignore>);
+    EXPECT_THAT(parser_value<ign3>
+                         .is<ign3 % ignore>);
+    EXPECT_THAT(parser_value<ign4>
+                         .is<ign4 % ignore>);
+    EXPECT_THAT(parser_value<ign5>
+                         .is<ign5 % ignore>);
 }
 
 TEST("ignore modifier", "non consteval")
@@ -49,22 +69,11 @@ TEST("ignore modifier", "non consteval")
 
 
 
-#define IGNORE_MODIFIER_ASSERTER(P)                                           \
-    []<parser PP>(PP) {                                                       \
-        if constexpr (PP::family == ignore_family)                            \
-        {                                                                     \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), PP{},              \
-                                           ignore, (P{}),  P{});              \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, PP{},         \
-                                                  P{},  ignore, P{});         \
-        }                                                                     \
-        else                                                                  \
-        {                                                                     \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(ignore, (PP{}), ignore_parser<PP>{},      \
-                                           ignore, (P{}),  ignore_parser<P>{});      \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, ignore, ignore_parser<PP>{}, \
-                                                  P{},  ignore, ignore_parser<P>{}); \
-        }                                                                     \
+#define IGNORE_MODIFIER_ASSERTER(P)                                                              \
+    []<parser PP>(PP) {                                                                          \
+        using R = std::conditional_t<PP::family == ignore_family,                                \
+            PP, ignore_parser<PP>>;                                                              \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<ignore>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("ignore modifier", "modify anything")

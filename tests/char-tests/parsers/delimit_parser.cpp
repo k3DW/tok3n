@@ -15,80 +15,98 @@ FIXTURE("delimit_parser keep");
 
 TEST("delimit_parser regular", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Del1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del5, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del6, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del7, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Del8, value_type);
+    EXPECT_THAT(the_parser<Del1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del5> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del6> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del7> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Del8> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Del1, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del2, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del3, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del4, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del5, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del6, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del7, char, delimit_family, std::vector<output_span<char>>);
-    ASSERT_IS_PARSER(Del8, char, delimit_family, std::vector<output_span<char>>);
+    EXPECT_THAT(the_parser<Del1> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del2> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del3> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del4> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del5> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del6> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del7> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Del8> | has_family<delimit_family>);
 
-    ASSERT_IS_PARSER(Del1, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del2, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del3, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del4, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del5, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del6, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del7, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(Del8, wchar_t, delimit_family, std::vector<output_span<wchar_t>>);
+    EXPECT_THAT(the_parser<Del1> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del2> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del3> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del4> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del5> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del6> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del7> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Del8> | is_parser_for<char>.with_result<std::vector<output_span<char>>>);
 
-    ASSERT_IS_PARSER(Del1, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del2, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del3, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del4, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del5, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del6, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del7, int, delimit_family, std::vector<output_span<int>>);
-    ASSERT_IS_PARSER(Del8, int, delimit_family, std::vector<output_span<int>>);
+    EXPECT_THAT(the_parser<Del1> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del2> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del3> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del4> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del5> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del6> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del7> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Del8> | is_parser_for<wchar_t>.with_result<std::vector<output_span<wchar_t>>>);
+
+    EXPECT_THAT(the_parser<Del1> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del2> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del3> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del4> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del5> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del6> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del7> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Del8> | is_parser_for<int>.with_result<std::vector<output_span<int>>>);
 }
 
 TEST("delimit_parser keep", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Dek1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek4, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek5, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek6, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek7, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Dek8, value_type);
+    EXPECT_THAT(the_parser<Dek1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek4> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek5> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek6> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek7> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Dek8> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Dek1, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek2, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek3, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek4, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek5, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek6, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek7, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
-    ASSERT_IS_PARSER(Dek8, char, delimit_family, std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>);
+    EXPECT_THAT(the_parser<Dek1> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek2> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek3> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek4> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek5> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek6> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek7> | has_family<delimit_family>);
+    EXPECT_THAT(the_parser<Dek8> | has_family<delimit_family>);
 
-    ASSERT_IS_PARSER(Dek1, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek2, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek3, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek4, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek5, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek6, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek7, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
-    ASSERT_IS_PARSER(Dek8, wchar_t, delimit_family, std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<Dek1> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek2> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek3> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek4> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek5> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek6> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek7> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
+    EXPECT_THAT(the_parser<Dek8> | (is_parser_for<char>.with_result<std::pair<std::vector<output_span<char>>, std::vector<output_span<char>>>>));
 
-    ASSERT_IS_PARSER(Dek1, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek2, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek3, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek4, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek5, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek6, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek7, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
-    ASSERT_IS_PARSER(Dek8, int, delimit_family, std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>);
+    EXPECT_THAT(the_parser<Dek1> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek2> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek3> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek4> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek5> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek6> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek7> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+    EXPECT_THAT(the_parser<Dek8> | (is_parser_for<wchar_t>.with_result<std::pair<std::vector<output_span<wchar_t>>, std::vector<output_span<wchar_t>>>>));
+
+    EXPECT_THAT(the_parser<Dek1> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek2> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek3> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek4> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek5> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek6> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek7> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
+    EXPECT_THAT(the_parser<Dek8> | (is_parser_for<int>.with_result<std::pair<std::vector<output_span<int>>, std::vector<output_span<int>>>>));
 }
 
 TEST("delimit_parser regular", "Parse all")

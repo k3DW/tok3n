@@ -11,18 +11,26 @@ FIXTURE("name modifier");
 
 TEST("name modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(nam1, name<"nam1">(abc));
-    ASSERT_PARSER_VALUES_EQ(nam2, name<"nam2">(+abc));
-    ASSERT_PARSER_VALUES_EQ(nam3, name<"nam3">(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(nam4, name<"nam4">(abc >> *qq));
+    EXPECT_THAT(parser_value<nam1>
+                         .is<name<"nam1">(abc)>);
+    EXPECT_THAT(parser_value<nam2>
+                         .is<name<"nam2">(+abc)>);
+    EXPECT_THAT(parser_value<nam3>
+                         .is<name<"nam3">(~(abc | qq))>);
+    EXPECT_THAT(parser_value<nam4>
+                         .is<name<"nam4">(abc >> *qq)>);
 }
 
 TEST("name modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(nam1, abc % name<"nam1">);
-    ASSERT_PARSER_VALUES_EQ(nam2, +abc % name<"nam2">);
-    ASSERT_PARSER_VALUES_EQ(nam3, ~(abc | qq) % name<"nam3">);
-    ASSERT_PARSER_VALUES_EQ(nam4, (abc >> *qq) % name<"nam4">);
+    EXPECT_THAT(parser_value<nam1>
+                         .is<abc % name<"nam1">>);
+    EXPECT_THAT(parser_value<nam2>
+                         .is<+abc % name<"nam2">>);
+    EXPECT_THAT(parser_value<nam3>
+                         .is<~(abc | qq) % name<"nam3">>);
+    EXPECT_THAT(parser_value<nam4>
+                         .is<(abc >> *qq) % name<"nam4">>);
 }
 
 TEST("name modifier", "non consteval")
@@ -33,22 +41,15 @@ TEST("name modifier", "non consteval")
 
 
 
-#define NAME_MODIFIER_CALLABLE_ASSERTER(P)                                          \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test1">, (P{}), (named_parser<P, "test1">{})); \
-    ASSERT_MODIFIER_CALLABLE_R(name<"test2">, (P{}), (named_parser<P, "test2">{}));
+#define NAME_MODIFIER_ASSERTER(P)                                                    \
+    {                                                                                \
+        using R = named_parser<P, "test1">;                                          \
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<name<"test1">>.with_result<R>); \
+    }
 
-#define NAME_MODIFIER_OPERABLE_ASSERTER(P)                                               \
-    ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test1">, (named_parser<P, "test1">{})); \
-    ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, name<"test2">, (named_parser<P, "test2">{}));
-
-TEST("name modifier", "modify callable anything")
+TEST("name modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(NAME_MODIFIER_CALLABLE_ASSERTER);
-}
-
-TEST("name modifier", "modify operable anything")
-{
-    ASSERT_ALL_SAMPLES(NAME_MODIFIER_OPERABLE_ASSERTER);
+    ASSERT_ALL_SAMPLES(NAME_MODIFIER_ASSERTER);
 }
 
 } // namespace

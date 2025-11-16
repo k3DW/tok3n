@@ -11,64 +11,108 @@ FIXTURE("sequence operator");
 
 TEST("sequence operator", "all_of_parser >> all_of_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(all1 >> all1, all_of_parser<TT("literalliteral")>{});
-    ASSERT_PARSER_VALUES_EQ(all1 >> all2, all_of_parser<TT("literally")>{});
-    ASSERT_PARSER_VALUES_EQ(all1 >> all3, all_of_parser<TT("literaltest")>{});
-    ASSERT_PARSER_VALUES_EQ(all2 >> all1, all_of_parser<TT("lyliteral")>{});
-    ASSERT_PARSER_VALUES_EQ(all2 >> all2, all_of_parser<TT("lyly")>{});
-    ASSERT_PARSER_VALUES_EQ(all2 >> all3, all_of_parser<TT("lytest")>{});
-    ASSERT_PARSER_VALUES_EQ(all3 >> all1, all_of_parser<TT("testliteral")>{});
-    ASSERT_PARSER_VALUES_EQ(all3 >> all2, all_of_parser<TT("testly")>{});
-    ASSERT_PARSER_VALUES_EQ(all3 >> all3, all_of_parser<TT("testtest")>{});
+    EXPECT_THAT(parser_value<(all1 >> all1)>
+                         .is<all_of_parser<TT("literalliteral")>{}>);
+    EXPECT_THAT(parser_value<(all1 >> all2)>
+                         .is<all_of_parser<TT("literally")>{}>);
+    EXPECT_THAT(parser_value<(all1 >> all3)>
+                         .is<all_of_parser<TT("literaltest")>{}>);
+    EXPECT_THAT(parser_value<(all2 >> all1)>
+                         .is<all_of_parser<TT("lyliteral")>{}>);
+    EXPECT_THAT(parser_value<(all2 >> all2)>
+                         .is<all_of_parser<TT("lyly")>{}>);
+    EXPECT_THAT(parser_value<(all2 >> all3)>
+                         .is<all_of_parser<TT("lytest")>{}>);
+    EXPECT_THAT(parser_value<(all3 >> all1)>
+                         .is<all_of_parser<TT("testliteral")>{}>);
+    EXPECT_THAT(parser_value<(all3 >> all2)>
+                         .is<all_of_parser<TT("testly")>{}>);
+    EXPECT_THAT(parser_value<(all3 >> all3)>
+                         .is<all_of_parser<TT("testtest")>{}>);
 }
 
 
 
 TEST("sequence operator", "sequence_parser >> sequence_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(seq1 >> seq1, (sequence_parser<All4, Non4, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> seq2, (sequence_parser<Non4, All4, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> seq3, (sequence_parser<All4, Any4, Non5, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> seq4, (sequence_parser<Non5, All4, Any4, Non5, All4, Any4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq5 >> seq5, (sequence_parser<Ign1, Ign2, Ign1, Ign2>{}));
-    ASSERT_PARSER_VALUES_EQ(seq1 >> seq2, (sequence_parser<All4, Non4, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> seq1, (sequence_parser<Non4, All4, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq1 >> seq3, (sequence_parser<All4, Non4, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> seq1, (sequence_parser<All4, Any4, Non5, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq1 >> seq4, (sequence_parser<All4, Non4, Non5, All4, Any4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> seq1, (sequence_parser<Non5, All4, Any4, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq1 >> seq5, (sequence_parser<All4, Non4, Ign1, Ign2>{}));
-    ASSERT_PARSER_VALUES_EQ(seq5 >> seq1, (sequence_parser<Ign1, Ign2, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> seq3, (sequence_parser<Non4, All4, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> seq2, (sequence_parser<All4, Any4, Non5, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> seq4, (sequence_parser<Non4, All4, Non5, All4, Any4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> seq2, (sequence_parser<Non5, All4, Any4, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> seq5, (sequence_parser<Non4, All4, Ign1, Ign2>{}));
-    ASSERT_PARSER_VALUES_EQ(seq5 >> seq2, (sequence_parser<Ign1, Ign2, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> seq4, (sequence_parser<All4, Any4, Non5, Non5, All4, Any4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> seq3, (sequence_parser<Non5, All4, Any4, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> seq5, (sequence_parser<All4, Any4, Non5, Ign1, Ign2>{}));
-    ASSERT_PARSER_VALUES_EQ(seq5 >> seq3, (sequence_parser<Ign1, Ign2, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> seq5, (sequence_parser<Non5, All4, Any4, Ign1, Ign2>{}));
-    ASSERT_PARSER_VALUES_EQ(seq5 >> seq4, (sequence_parser<Ign1, Ign2, Non5, All4, Any4>{}));
+    EXPECT_THAT(parser_value<(seq1 >> seq1)>
+                         .is<(sequence_parser<All4, Non4, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> seq2)>
+                         .is<(sequence_parser<Non4, All4, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> seq3)>
+                         .is<(sequence_parser<All4, Any4, Non5, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> seq4)>
+                         .is<(sequence_parser<Non5, All4, Any4, Non5, All4, Any4>{})>);
+    EXPECT_THAT(parser_value<(seq5 >> seq5)>
+                         .is<(sequence_parser<Ign1, Ign2, Ign1, Ign2>{})>);
+    EXPECT_THAT(parser_value<(seq1 >> seq2)>
+                         .is<(sequence_parser<All4, Non4, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> seq1)>
+                         .is<(sequence_parser<Non4, All4, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq1 >> seq3)>
+                         .is<(sequence_parser<All4, Non4, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> seq1)>
+                         .is<(sequence_parser<All4, Any4, Non5, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq1 >> seq4)>
+                         .is<(sequence_parser<All4, Non4, Non5, All4, Any4>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> seq1)>
+                         .is<(sequence_parser<Non5, All4, Any4, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq1 >> seq5)>
+                         .is<(sequence_parser<All4, Non4, Ign1, Ign2>{})>);
+    EXPECT_THAT(parser_value<(seq5 >> seq1)>
+                         .is<(sequence_parser<Ign1, Ign2, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> seq3)>
+                         .is<(sequence_parser<Non4, All4, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> seq2)>
+                         .is<(sequence_parser<All4, Any4, Non5, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> seq4)>
+                         .is<(sequence_parser<Non4, All4, Non5, All4, Any4>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> seq2)>
+                         .is<(sequence_parser<Non5, All4, Any4, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> seq5)>
+                         .is<(sequence_parser<Non4, All4, Ign1, Ign2>{})>);
+    EXPECT_THAT(parser_value<(seq5 >> seq2)>
+                         .is<(sequence_parser<Ign1, Ign2, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> seq4)>
+                         .is<(sequence_parser<All4, Any4, Non5, Non5, All4, Any4>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> seq3)>
+                         .is<(sequence_parser<Non5, All4, Any4, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> seq5)>
+                         .is<(sequence_parser<All4, Any4, Non5, Ign1, Ign2>{})>);
+    EXPECT_THAT(parser_value<(seq5 >> seq3)>
+                         .is<(sequence_parser<Ign1, Ign2, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> seq5)>
+                         .is<(sequence_parser<Non5, All4, Any4, Ign1, Ign2>{})>);
+    EXPECT_THAT(parser_value<(seq5 >> seq4)>
+                         .is<(sequence_parser<Ign1, Ign2, Non5, All4, Any4>{})>);
 }
 
 TEST("sequence operator", "sequence_parser >> {anything}")
 {
-    ASSERT_PARSER_VALUES_EQ(seq1 >> any1, (sequence_parser<All4, Non4, Any1>{}));
-    ASSERT_PARSER_VALUES_EQ(any1 >> seq1, (sequence_parser<Any1, All4, Non4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq2 >> any4, (sequence_parser<Non4, All4, Any4>{}));
-    ASSERT_PARSER_VALUES_EQ(any4 >> seq2, (sequence_parser<Any4, Non4, All4>{}));
-    ASSERT_PARSER_VALUES_EQ(seq3 >> any3, (sequence_parser<All4, Any4, Non5, Any3>{}));
-    ASSERT_PARSER_VALUES_EQ(any3 >> seq3, (sequence_parser<Any3, All4, Any4, Non5>{}));
-    ASSERT_PARSER_VALUES_EQ(seq4 >> any2, (sequence_parser<Non5, All4, Any4, Any2>{}));
-    ASSERT_PARSER_VALUES_EQ(any2 >> seq4, (sequence_parser<Any2, Non5, All4, Any4>{}));
+    EXPECT_THAT(parser_value<(seq1 >> any1)>
+                         .is<(sequence_parser<All4, Non4, Any1>{})>);
+    EXPECT_THAT(parser_value<(any1 >> seq1)>
+                         .is<(sequence_parser<Any1, All4, Non4>{})>);
+    EXPECT_THAT(parser_value<(seq2 >> any4)>
+                         .is<(sequence_parser<Non4, All4, Any4>{})>);
+    EXPECT_THAT(parser_value<(any4 >> seq2)>
+                         .is<(sequence_parser<Any4, Non4, All4>{})>);
+    EXPECT_THAT(parser_value<(seq3 >> any3)>
+                         .is<(sequence_parser<All4, Any4, Non5, Any3>{})>);
+    EXPECT_THAT(parser_value<(any3 >> seq3)>
+                         .is<(sequence_parser<Any3, All4, Any4, Non5>{})>);
+    EXPECT_THAT(parser_value<(seq4 >> any2)>
+                         .is<(sequence_parser<Non5, All4, Any4, Any2>{})>);
+    EXPECT_THAT(parser_value<(any2 >> seq4)>
+                         .is<(sequence_parser<Any2, Non5, All4, Any4>{})>);
 }
 
 TEST("sequence operator", "void result_type")
 {
-    ASSERT_PARSER_VALUES_EQ(ign1 >> ign2, seq5);
-    ASSERT_PARSER_VALUES_NE(ign2 >> ign1, seq5);
+    EXPECT_THAT(parser_value<(ign1 >> ign2)>
+                         .is<seq5>);
+    EXPECT_THAT(parser_value<(ign2 >> ign1)>
+                     .is_not<seq5>);
 }
 
 TEST("sequence operator", "non consteval")
@@ -118,42 +162,44 @@ consteval auto sequence_combined_both(sequence_parser<LHS...>, sequence_parser<R
 
 
 
-#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                           \
-    []<parser LLHS, parser RRHS>(LLHS, RRHS) {                                                         \
-        if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)          \
-        {                                                                                              \
-            DEP_ASSERT_BINARY_NOT_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                          \
-        }                                                                                              \
-        else                                                                                           \
-        {                                                                                              \
-            DEP_ASSERT_BINARY_OPERABLE(>>, LLHS{}, RRHS{}, LHS{}, RHS{});                              \
-            if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)             \
-            {                                                                                          \
-                constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;          \
-                DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, all_of_parser<str>{},                    \
-                                            LHS{}  >> RHS{},  all_of_parser<str>{});                   \
-            }                                                                                          \
-            else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family)    \
-            {                                                                                          \
-                DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_left(LLHS{}, RRHS{}),  \
-                                            LHS{}  >> RHS{},  sequence_combined_left(LHS{},  RHS{}));  \
-            }                                                                                          \
-            else if constexpr (LLHS::family != sequence_family and RRHS::family == sequence_family)    \
-            {                                                                                          \
-                DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_right(LLHS{}, RRHS{}), \
-                                            LHS{}  >> RHS{},  sequence_combined_right(LHS{},  RHS{})); \
-            }                                                                                          \
-            else if constexpr (LLHS::family == sequence_family and RRHS::family == sequence_family)    \
-            {                                                                                          \
-                DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, sequence_combined_both(LLHS{}, RRHS{}),  \
-                                            LHS{}  >> RHS{},  sequence_combined_both(LHS{},  RHS{}));  \
-            }                                                                                          \
-            else                                                                                       \
-            {                                                                                          \
-                DEP_ASSERT_PARSER_VALUES_EQ(LLHS{} >> RRHS{}, (sequence_parser<LLHS, RRHS>{}),         \
-                                            LHS{}  >> RHS{},  (sequence_parser<LHS,  RHS>{}));         \
-            }                                                                                          \
-        }                                                                                              \
+#define SEQUENCE_OPERATOR_ASSERTER(LHS, RHS)                                                        \
+    []<parser LLHS, parser RRHS>(LLHS, RRHS) {                                                      \
+        if constexpr (not std::same_as<typename LLHS::value_type, typename RRHS::value_type>)       \
+        {                                                                                           \
+            ASSERT_COMPILE_TIME((not requires { LLHS{} >> RRHS{}; }));                              \
+        }                                                                                           \
+        else                                                                                        \
+        {                                                                                           \
+            constexpr bool cond1 = requires { { LLHS{} >> RRHS{} } -> k3::tok3n::detail::parser; }; \
+            /* Workaround for Clang 16 */                                                           \
+            ASSERT_COMPILE_TIME(cond1);                                                             \
+            if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)          \
+            {                                                                                       \
+                constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                        .DEP_TEMPLATE is<all_of_parser<str>{}>);                                    \
+            }                                                                                       \
+            else if constexpr (LLHS::family == sequence_family and RRHS::family != sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                        .DEP_TEMPLATE is<sequence_combined_left(LLHS{}, RRHS{})>);                  \
+            }                                                                                       \
+            else if constexpr (LLHS::family != sequence_family and RRHS::family == sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                        .DEP_TEMPLATE is<sequence_combined_right(LLHS{}, RRHS{})>);                 \
+            }                                                                                       \
+            else if constexpr (LLHS::family == sequence_family and RRHS::family == sequence_family) \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                        .DEP_TEMPLATE is<sequence_combined_both(LLHS{}, RRHS{})>);                  \
+            }                                                                                       \
+            else                                                                                    \
+            {                                                                                       \
+                EXPECT_THAT(parser_value<(LLHS{} >> RRHS{})>                                        \
+                        .DEP_TEMPLATE is<(sequence_parser<LLHS, RRHS>{})>);                         \
+            }                                                                                       \
+        }                                                                                           \
     }(LHS{}, RHS{});
 
 #define SEQUENCE_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \

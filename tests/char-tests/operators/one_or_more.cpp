@@ -11,50 +11,86 @@ FIXTURE("one_or_more operator");
 
 TEST("one_or_more operator", "+maybe_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(+may1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+ +may1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+ + +may1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+may2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+ +may2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+ + +may2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+may3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+ +may3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+ + +may3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+may4, zom4);
-    ASSERT_PARSER_VALUES_EQ(+ +may4, zom4);
-    ASSERT_PARSER_VALUES_EQ(+ + +may4, zom4);
+    EXPECT_THAT(parser_value<+may1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+ +may1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+ + +may1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+may2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+ +may2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+ + +may2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+may3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+ +may3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+ + +may3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+may4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<+ +may4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<+ + +may4>
+                         .is<zom4>);
 }
 
 TEST("one_or_more operator", "+one_or_more_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(+oom1, oom1);
-    ASSERT_PARSER_VALUES_EQ(+ +oom1, oom1);
-    ASSERT_PARSER_VALUES_EQ(+ + +oom1, oom1);
-    ASSERT_PARSER_VALUES_EQ(+oom2, oom2);
-    ASSERT_PARSER_VALUES_EQ(+ +oom2, oom2);
-    ASSERT_PARSER_VALUES_EQ(+ + +oom2, oom2);
-    ASSERT_PARSER_VALUES_EQ(+oom3, oom3);
-    ASSERT_PARSER_VALUES_EQ(+ +oom3, oom3);
-    ASSERT_PARSER_VALUES_EQ(+ + +oom3, oom3);
-    ASSERT_PARSER_VALUES_EQ(+oom4, oom4);
-    ASSERT_PARSER_VALUES_EQ(+ +oom4, oom4);
-    ASSERT_PARSER_VALUES_EQ(+ + +oom4, oom4);
+    EXPECT_THAT(parser_value<+oom1>
+                         .is<oom1>);
+    EXPECT_THAT(parser_value<+ +oom1>
+                         .is<oom1>);
+    EXPECT_THAT(parser_value<+ + +oom1>
+                         .is<oom1>);
+    EXPECT_THAT(parser_value<+oom2>
+                         .is<oom2>);
+    EXPECT_THAT(parser_value<+ +oom2>
+                         .is<oom2>);
+    EXPECT_THAT(parser_value<+ + +oom2>
+                         .is<oom2>);
+    EXPECT_THAT(parser_value<+oom3>
+                         .is<oom3>);
+    EXPECT_THAT(parser_value<+ +oom3>
+                         .is<oom3>);
+    EXPECT_THAT(parser_value<+ + +oom3>
+                         .is<oom3>);
+    EXPECT_THAT(parser_value<+oom4>
+                         .is<oom4>);
+    EXPECT_THAT(parser_value<+ +oom4>
+                         .is<oom4>);
+    EXPECT_THAT(parser_value<+ + +oom4>
+                         .is<oom4>);
 }
 
 TEST("one_or_more operator", "+zero_or_more_parser")
 {
-    ASSERT_PARSER_VALUES_EQ(+zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+ +zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+ + +zom1, zom1);
-    ASSERT_PARSER_VALUES_EQ(+zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+ +zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+ + +zom2, zom2);
-    ASSERT_PARSER_VALUES_EQ(+zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+ +zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+ + +zom3, zom3);
-    ASSERT_PARSER_VALUES_EQ(+zom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(+ +zom4, zom4);
-    ASSERT_PARSER_VALUES_EQ(+ + +zom4, zom4);
+    EXPECT_THAT(parser_value<+zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+ +zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+ + +zom1>
+                         .is<zom1>);
+    EXPECT_THAT(parser_value<+zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+ +zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+ + +zom2>
+                         .is<zom2>);
+    EXPECT_THAT(parser_value<+zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+ +zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+ + +zom3>
+                         .is<zom3>);
+    EXPECT_THAT(parser_value<+zom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<+ +zom4>
+                         .is<zom4>);
+    EXPECT_THAT(parser_value<+ + +zom4>
+                         .is<zom4>);
 }
 
 TEST("one_or_more operator", "non consteval")
@@ -64,29 +100,29 @@ TEST("one_or_more operator", "non consteval")
 
 
 
-#define ONE_OR_MORE_OPERATOR_ASSERTER(P)                                                \
-    []<parser PP>(PP) {                                                                 \
-        DEP_ASSERT_UNARY_OPERABLE(+, PP{}, P{});                                        \
-        if constexpr (PP::family == maybe_family)                                       \
-        {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, zero_or_more_parser<underlying_t<PP>>{}, \
-                                        +P{},  zero_or_more_parser<underlying_t<P>>{}); \
-        }                                                                               \
-        else if constexpr (PP::family == one_or_more_family)                            \
-        {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                                    \
-                                        +P{},  P{});                                    \
-        }                                                                               \
-        else if constexpr (PP::family == zero_or_more_family)                           \
-        {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, PP{},                                    \
-                                        +P{},  P{});                                    \
-        }                                                                               \
-        else                                                                            \
-        {                                                                               \
-            DEP_ASSERT_PARSER_VALUES_EQ(+PP{}, one_or_more_parser<PP>{},                \
-                                        +P{},  one_or_more_parser<P>{});                \
-        }                                                                               \
+#define ONE_OR_MORE_OPERATOR_ASSERTER(P)                                             \
+    []<parser PP>(PP) {                                                              \
+        constexpr bool cond1 = requires { { +PP{} } -> k3::tok3n::detail::parser; }; \
+        /* Workaround for Clang 16 */                                                \
+        ASSERT_COMPILE_TIME(cond1);                                                  \
+        if constexpr (PP::family == maybe_family)                                    \
+        {                                                                            \
+            EXPECT_THAT(parser_value<+PP{}>                                          \
+                    .DEP_TEMPLATE is<zero_or_more_parser<underlying_t<PP>>{}>);      \
+        }                                                                            \
+        else if constexpr (PP::family == one_or_more_family)                         \
+        {                                                                            \
+            EXPECT_THAT(parser_value<+PP{}>.DEP_TEMPLATE is<PP{}>);                  \
+        }                                                                            \
+        else if constexpr (PP::family == zero_or_more_family)                        \
+        {                                                                            \
+            EXPECT_THAT(parser_value<+PP{}>.DEP_TEMPLATE is<PP{}>);                  \
+        }                                                                            \
+        else                                                                         \
+        {                                                                            \
+            EXPECT_THAT(parser_value<+PP{}>                                          \
+                    .DEP_TEMPLATE is<one_or_more_parser<PP>{}>);                     \
+        }                                                                            \
     }(P{});
 
 TEST("one_or_more operator", "+{anything}")

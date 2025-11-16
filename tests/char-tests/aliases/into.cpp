@@ -11,21 +11,25 @@ FIXTURE("into_parser");
 
 TEST("into_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Int1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Int2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Int3, value_type);
+    EXPECT_THAT(the_parser<Int1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Int2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Int3> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Int1, char, map_family, Class1);
-    ASSERT_IS_PARSER(Int2, char, map_family, Class2);
-    ASSERT_IS_PARSER(Int3, char, map_family, Class2);
+    EXPECT_THAT(the_parser<Int1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Int2> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Int3> | has_family<map_family>);
 
-    ASSERT_IS_PARSER(Int1, wchar_t, map_family, Class1);
-    ASSERT_IS_PARSER(Int2, wchar_t, map_family, Class2);
-    ASSERT_IS_PARSER(Int3, wchar_t, map_family, Class2);
+    EXPECT_THAT(the_parser<Int1> | is_parser_for<char>.with_result<Class1>);
+    EXPECT_THAT(the_parser<Int2> | is_parser_for<char>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Int3> | is_parser_for<char>.with_result<Class2>);
 
-    ASSERT_IS_PARSER(Int1, int, map_family, Class1);
-    ASSERT_IS_PARSER(Int2, int, map_family, Class2);
-    ASSERT_IS_PARSER(Int3, int, map_family, Class2);
+    EXPECT_THAT(the_parser<Int1> | is_parser_for<wchar_t>.with_result<Class1>);
+    EXPECT_THAT(the_parser<Int2> | is_parser_for<wchar_t>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Int3> | is_parser_for<wchar_t>.with_result<Class2>);
+
+    EXPECT_THAT(the_parser<Int1> | is_parser_for<int>.with_result<Class1>);
+    EXPECT_THAT(the_parser<Int2> | is_parser_for<int>.with_result<Class2>);
+    EXPECT_THAT(the_parser<Int3> | is_parser_for<int>.with_result<Class2>);
 }
 
 TEST("into_parser", "Parse all")

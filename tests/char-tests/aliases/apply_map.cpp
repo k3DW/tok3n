@@ -11,17 +11,20 @@ FIXTURE("apply_map_parser");
 
 TEST("apply_map_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Apm1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Apm2, value_type);
+    EXPECT_THAT(the_parser<Apm1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Apm2> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Apm1, char, map_family, bool);
-    ASSERT_IS_PARSER(Apm2, char, map_family, std::size_t);
+    EXPECT_THAT(the_parser<Apm1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Apm2> | has_family<map_family>);
 
-    ASSERT_IS_PARSER(Apm1, wchar_t, map_family, bool);
-    ASSERT_IS_PARSER(Apm2, wchar_t, map_family, std::size_t);
+    EXPECT_THAT(the_parser<Apm1> | is_parser_for<char>.with_result<bool>);
+    EXPECT_THAT(the_parser<Apm2> | is_parser_for<char>.with_result<std::size_t>);
 
-    ASSERT_IS_PARSER(Apm1, int, map_family, bool);
-    ASSERT_IS_PARSER(Apm2, int, map_family, std::size_t);
+    EXPECT_THAT(the_parser<Apm1> | is_parser_for<wchar_t>.with_result<bool>);
+    EXPECT_THAT(the_parser<Apm2> | is_parser_for<wchar_t>.with_result<std::size_t>);
+
+    EXPECT_THAT(the_parser<Apm1> | is_parser_for<int>.with_result<bool>);
+    EXPECT_THAT(the_parser<Apm2> | is_parser_for<int>.with_result<std::size_t>);
 }
 
 TEST("apply_map_parser", "Parse all")

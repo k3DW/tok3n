@@ -11,25 +11,30 @@ FIXTURE("constant_parser");
 
 TEST("constant_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Con1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Con4, value_type);
+    EXPECT_THAT(the_parser<Con1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Con4> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Con1, char, map_family, int);
-    ASSERT_IS_PARSER(Con2, char, map_family, char);
-    ASSERT_IS_PARSER(Con3, char, map_family, bool);
-    ASSERT_IS_PARSER(Con4, char, map_family, std::nullptr_t);
+    EXPECT_THAT(the_parser<Con1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con2> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con3> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Con4> | has_family<map_family>);
 
-    ASSERT_IS_PARSER(Con1, wchar_t, map_family, int);
-    ASSERT_IS_PARSER(Con2, wchar_t, map_family, char);
-    ASSERT_IS_PARSER(Con3, wchar_t, map_family, bool);
-    ASSERT_IS_PARSER(Con4, wchar_t, map_family, std::nullptr_t);
+    EXPECT_THAT(the_parser<Con1> | is_parser_for<char>.with_result<int>);
+    EXPECT_THAT(the_parser<Con2> | is_parser_for<char>.with_result<char>);
+    EXPECT_THAT(the_parser<Con3> | is_parser_for<char>.with_result<bool>);
+    EXPECT_THAT(the_parser<Con4> | is_parser_for<char>.with_result<std::nullptr_t>);
 
-    ASSERT_IS_PARSER(Con1, int, map_family, int);
-    ASSERT_IS_PARSER(Con2, int, map_family, char);
-    ASSERT_IS_PARSER(Con3, int, map_family, bool);
-    ASSERT_IS_PARSER(Con4, int, map_family, std::nullptr_t);
+    EXPECT_THAT(the_parser<Con1> | is_parser_for<wchar_t>.with_result<int>);
+    EXPECT_THAT(the_parser<Con2> | is_parser_for<wchar_t>.with_result<char>);
+    EXPECT_THAT(the_parser<Con3> | is_parser_for<wchar_t>.with_result<bool>);
+    EXPECT_THAT(the_parser<Con4> | is_parser_for<wchar_t>.with_result<std::nullptr_t>);
+
+    EXPECT_THAT(the_parser<Con1> | is_parser_for<int>.with_result<int>);
+    EXPECT_THAT(the_parser<Con2> | is_parser_for<int>.with_result<char>);
+    EXPECT_THAT(the_parser<Con3> | is_parser_for<int>.with_result<bool>);
+    EXPECT_THAT(the_parser<Con4> | is_parser_for<int>.with_result<std::nullptr_t>);
 }
 
 TEST("constant_parser", "Parse all")

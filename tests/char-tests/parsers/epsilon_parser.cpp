@@ -11,11 +11,12 @@ FIXTURE("epsilon_parser");
 
 TEST("epsilon_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Eps1, value_type);
+    EXPECT_THAT(the_parser<Eps1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Eps1> | has_family<epsilon_family>);
 
-    ASSERT_IS_PARSER(Eps1, char, epsilon_family, void);
-    ASSERT_IS_PARSER(Eps1, wchar_t, epsilon_family, void);
-    ASSERT_IS_PARSER(Eps1, int, epsilon_family, void);
+    EXPECT_THAT(the_parser<Eps1> | is_parser_for<char>.with_result<void>);
+    EXPECT_THAT(the_parser<Eps1> | is_parser_for<wchar_t>.with_result<void>);
+    EXPECT_THAT(the_parser<Eps1> | is_parser_for<int>.with_result<void>);
 }
 
 TEST("epsilon_parser", "Parse")
@@ -49,22 +50,23 @@ TEST("epsilon_parser", "choice_parser<P, epsilon_parser>")
 {
     auto parser = TT("+-"_any_of) | eps;
     using P = decltype(parser);
+    EXPECT_THAT(the_parser<P> | has_family<choice_family>);
 
-    ASSERT_IS_PARSER(P, char, choice_family, output_span<char>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<char>.with_result<output_span<char>>);
     ASSERT_PARSE_SUCCESS(P, "+abc", "+", "abc");
     ASSERT_PARSE_SUCCESS(P, "++abc", "+", "+abc");
     ASSERT_PARSE_SUCCESS(P, "-abc", "-", "abc");
     ASSERT_PARSE_SUCCESS(P, "--abc", "-", "-abc");
     ASSERT_PARSE_SUCCESS(P, "abc", "", "abc");
 
-    ASSERT_IS_PARSER(P, wchar_t, choice_family, output_span<wchar_t>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
     ASSERT_PARSE_SUCCESS(P, L"+abc", L"+", L"abc");
     ASSERT_PARSE_SUCCESS(P, L"++abc", L"+", L"+abc");
     ASSERT_PARSE_SUCCESS(P, L"-abc", L"-", L"abc");
     ASSERT_PARSE_SUCCESS(P, L"--abc", L"-", L"-abc");
     ASSERT_PARSE_SUCCESS(P, L"abc", L"", L"abc");
 
-    ASSERT_IS_PARSER(P, int, choice_family, output_span<int>);
+    EXPECT_THAT(the_parser<P> | is_parser_for<int>.with_result<output_span<int>>);
     ASSERT_PARSE_SUCCESS(P, e<int>("+abc"), e<int>("+"), e<int>("abc"));
     ASSERT_PARSE_SUCCESS(P, e<int>("++abc"), e<int>("+"), e<int>("+abc"));
     ASSERT_PARSE_SUCCESS(P, e<int>("-abc"), e<int>("-"), e<int>("abc"));

@@ -11,14 +11,18 @@ FIXTURE("defaulted modifier");
 
 TEST("defaulted modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(def1, defaulted<int>(+abc));
-    ASSERT_PARSER_VALUES_EQ(def2, defaulted<Class3>(~(abc | qq)));
+    EXPECT_THAT(parser_value<def1>
+                         .is<defaulted<int>(+abc)>);
+    EXPECT_THAT(parser_value<def2>
+                         .is<defaulted<Class3>(~(abc | qq))>);
 }
 
 TEST("defaulted modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(def1, +abc % defaulted<int>);
-    ASSERT_PARSER_VALUES_EQ(def2, ~(abc | qq) % defaulted<Class3>);
+    EXPECT_THAT(parser_value<def1>
+                         .is<+abc % defaulted<int>>);
+    EXPECT_THAT(parser_value<def2>
+                         .is<~(abc | qq) % defaulted<Class3>>);
 }
 
 TEST("defaulted modifier", "non consteval")
@@ -29,9 +33,11 @@ TEST("defaulted modifier", "non consteval")
 
 
 
-#define DEFAULTED_MODIFIER_ASSERTER(P)                                                      \
-    ASSERT_MODIFIER_CALLABLE_R(defaulted<bool>, (P{}), (defaulted_parser<P, bool>{}));      \
-    ASSERT_MODIFIER_MODULO_OPERABLE_R(P{}, defaulted<bool>, (defaulted_parser<P, bool>{}));
+#define DEFAULTED_MODIFIER_ASSERTER(P)                                                 \
+    {                                                                                  \
+        using R = defaulted_parser<P, bool>;                                           \
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.with_result<R>); \
+    }
 
 TEST("defaulted modifier", "modify anything")
 {

@@ -11,17 +11,20 @@ FIXTURE("custom_parser");
 
 TEST("custom_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Cus1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Cus2, value_type);
+    EXPECT_THAT(the_parser<Cus1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Cus2> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Cus1, char, custom_family, std::size_t);
-    ASSERT_IS_PARSER(Cus2, char, custom_family, std::size_t);
+    EXPECT_THAT(the_parser<Cus1> | has_family<custom_family>);
+    EXPECT_THAT(the_parser<Cus2> | has_family<custom_family>);
 
-    ASSERT_IS_PARSER(Cus1, wchar_t, custom_family, std::size_t);
-    ASSERT_IS_PARSER(Cus2, wchar_t, custom_family, std::size_t);
+    EXPECT_THAT(the_parser<Cus1> | is_parser_for<char>.with_result<std::size_t>);
+    EXPECT_THAT(the_parser<Cus2> | is_parser_for<char>.with_result<std::size_t>);
 
-    ASSERT_IS_PARSER(Cus1, int, custom_family, std::size_t);
-    ASSERT_IS_PARSER(Cus2, int, custom_family, std::size_t);
+    EXPECT_THAT(the_parser<Cus1> | is_parser_for<wchar_t>.with_result<std::size_t>);
+    EXPECT_THAT(the_parser<Cus2> | is_parser_for<wchar_t>.with_result<std::size_t>);
+
+    EXPECT_THAT(the_parser<Cus1> | is_parser_for<int>.with_result<std::size_t>);
+    EXPECT_THAT(the_parser<Cus2> | is_parser_for<int>.with_result<std::size_t>);
 }
 
 TEST("custom_parser", "Parse Cus1")

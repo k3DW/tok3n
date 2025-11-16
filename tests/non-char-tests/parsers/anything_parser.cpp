@@ -11,9 +11,10 @@ FIXTURE("anything_parser");
 
 TEST("anything_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Ant1, value_type);
+    EXPECT_THAT(the_parser<Ant1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Ant1> | has_family<anything_family>);
 
-    ASSERT_IS_PARSER(Ant1, value_type, anything_family, output_span<value_type>);
+    EXPECT_THAT(the_parser<Ant1> | is_parser_for<value_type>.with_result<output_span<value_type>>);
 }
 
 TEST("anything_parser", "Parse")

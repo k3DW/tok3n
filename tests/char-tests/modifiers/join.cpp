@@ -11,36 +11,58 @@ FIXTURE("join modifier");
 
 TEST("join modifier", "prefix")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, join(abc));
-    ASSERT_PARSER_VALUES_NE(abc, join(abc));
-    ASSERT_PARSER_VALUES_EQ(joi2, join(+abc));
-    ASSERT_PARSER_VALUES_EQ(joi3, join(~(abc | qq)));
-    ASSERT_PARSER_VALUES_EQ(joi4, join(abc >> *qq));
-    ASSERT_PARSER_VALUES_EQ(joi5, join(+abc >> ~(abc | qq)));
+    EXPECT_THAT(parser_value<joi1>
+                         .is<join(abc)>);
+    EXPECT_THAT(parser_value<abc>
+                     .is_not<join(abc)>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<join(+abc)>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<join(~(abc | qq))>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<join(abc >> *qq)>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<join(+abc >> ~(abc | qq))>);
 }
 
 TEST("join modifier", "infix")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, abc % join);
-    ASSERT_PARSER_VALUES_NE(abc, abc % join);
-    ASSERT_PARSER_VALUES_EQ(joi2, +abc % join);
-    ASSERT_PARSER_VALUES_EQ(joi3, ~(abc | qq) % join);
-    ASSERT_PARSER_VALUES_EQ(joi4, (abc >> *qq) % join);
-    ASSERT_PARSER_VALUES_EQ(joi5, (+abc >> ~(abc | qq)) % join);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<abc % join>);
+    EXPECT_THAT(parser_value<abc>
+                     .is_not<abc % join>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<+abc % join>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<~(abc | qq) % join>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<(abc >> *qq) % join>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<(+abc >> ~(abc | qq)) % join>);
 }
 
 TEST("join modifier", "idempotent")
 {
-    ASSERT_PARSER_VALUES_EQ(joi1, join(joi1));
-    ASSERT_PARSER_VALUES_EQ(joi2, join(joi2));
-    ASSERT_PARSER_VALUES_EQ(joi3, join(joi3));
-    ASSERT_PARSER_VALUES_EQ(joi4, join(joi4));
-    ASSERT_PARSER_VALUES_EQ(joi5, join(joi5));
-    ASSERT_PARSER_VALUES_EQ(joi1, joi1 % join);
-    ASSERT_PARSER_VALUES_EQ(joi2, joi2 % join);
-    ASSERT_PARSER_VALUES_EQ(joi3, joi3 % join);
-    ASSERT_PARSER_VALUES_EQ(joi4, joi4 % join);
-    ASSERT_PARSER_VALUES_EQ(joi5, joi5 % join);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<join(joi1)>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<join(joi2)>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<join(joi3)>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<join(joi4)>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<join(joi5)>);
+    EXPECT_THAT(parser_value<joi1>
+                         .is<joi1 % join>);
+    EXPECT_THAT(parser_value<joi2>
+                         .is<joi2 % join>);
+    EXPECT_THAT(parser_value<joi3>
+                         .is<joi3 % join>);
+    EXPECT_THAT(parser_value<joi4>
+                         .is<joi4 % join>);
+    EXPECT_THAT(parser_value<joi5>
+                         .is<joi5 % join>);
 }
 
 TEST("join modifier", "non consteval")
@@ -51,22 +73,11 @@ TEST("join modifier", "non consteval")
 
 
 
-#define JOIN_MODIFIER_ASSERTER(P)                                                \
-    []<parser PP>(PP) {                                                          \
-        if constexpr (PP::family == join_family)                                 \
-        {                                                                        \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), PP{},                   \
-                                           join, (P{}),  P{});                   \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, PP{},              \
-                                                  P{},  join, P{});              \
-        }                                                                        \
-        else                                                                     \
-        {                                                                        \
-            DEP_ASSERT_MODIFIER_CALLABLE_R(join, (PP{}), join_parser<PP>{},      \
-                                           join, (P{}),  join_parser<P>{});      \
-            DEP_ASSERT_MODIFIER_MODULO_OPERABLE_R(PP{}, join, join_parser<PP>{}, \
-                                                  P{},  join, join_parser<P>{}); \
-        }                                                                        \
+#define JOIN_MODIFIER_ASSERTER(P)                                                              \
+    []<parser PP>(PP) {                                                                        \
+        using R = std::conditional_t<PP::family == join_family,                                \
+            PP, join_parser<PP>>;                                                              \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<join>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("join modifier", "modify anything")

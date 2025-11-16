@@ -11,25 +11,30 @@ FIXTURE("maybe_parser");
 
 TEST("maybe_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(May1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May2, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May3, value_type);
-    ASSERT_PARSER_VALUE_TYPE(May4, value_type);
+    EXPECT_THAT(the_parser<May1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May2> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May3> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<May4> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(May1, char, maybe_family, std::optional<output_span<char>>);
-    ASSERT_IS_PARSER(May2, char, maybe_family, std::optional<output_span<char>>);
-    ASSERT_IS_PARSER(May3, char, maybe_family, std::optional<output_span<char>>);
-    ASSERT_IS_PARSER(May4, char, maybe_family, std::optional<std::tuple<output_span<char>, output_span<char>>>);
+    EXPECT_THAT(the_parser<May1> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May2> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May3> | has_family<maybe_family>);
+    EXPECT_THAT(the_parser<May4> | has_family<maybe_family>);
 
-    ASSERT_IS_PARSER(May1, wchar_t, maybe_family, std::optional<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(May2, wchar_t, maybe_family, std::optional<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(May3, wchar_t, maybe_family, std::optional<output_span<wchar_t>>);
-    ASSERT_IS_PARSER(May4, wchar_t, maybe_family, std::optional<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<May1> | is_parser_for<char>.with_result<std::optional<output_span<char>>>);
+    EXPECT_THAT(the_parser<May2> | is_parser_for<char>.with_result<std::optional<output_span<char>>>);
+    EXPECT_THAT(the_parser<May3> | is_parser_for<char>.with_result<std::optional<output_span<char>>>);
+    EXPECT_THAT(the_parser<May4> | (is_parser_for<char>.with_result<std::optional<std::tuple<output_span<char>, output_span<char>>>>));
 
-    ASSERT_IS_PARSER(May1, int, maybe_family, std::optional<output_span<int>>);
-    ASSERT_IS_PARSER(May2, int, maybe_family, std::optional<output_span<int>>);
-    ASSERT_IS_PARSER(May3, int, maybe_family, std::optional<output_span<int>>);
-    ASSERT_IS_PARSER(May4, int, maybe_family, std::optional<std::tuple<output_span<int>, output_span<int>>>);
+    EXPECT_THAT(the_parser<May1> | is_parser_for<wchar_t>.with_result<std::optional<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<May2> | is_parser_for<wchar_t>.with_result<std::optional<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<May3> | is_parser_for<wchar_t>.with_result<std::optional<output_span<wchar_t>>>);
+    EXPECT_THAT(the_parser<May4> | (is_parser_for<wchar_t>.with_result<std::optional<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>>));
+
+    EXPECT_THAT(the_parser<May1> | is_parser_for<int>.with_result<std::optional<output_span<int>>>);
+    EXPECT_THAT(the_parser<May2> | is_parser_for<int>.with_result<std::optional<output_span<int>>>);
+    EXPECT_THAT(the_parser<May3> | is_parser_for<int>.with_result<std::optional<output_span<int>>>);
+    EXPECT_THAT(the_parser<May4> | (is_parser_for<int>.with_result<std::optional<std::tuple<output_span<int>, output_span<int>>>>));
 }
 
 TEST("maybe_parser", "Parse maybe_parser<all_of_parser>")

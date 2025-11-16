@@ -18,8 +18,11 @@ FIXTURE("any_of_parser");
 
 TEST("any_of_parser", "Requirements")
 {
-    ASSERT_IS_PARSER(Single, value_type, any_of_family, output_span<value_type>);
-    ASSERT_IS_PARSER(Multi, value_type, any_of_family, output_span<value_type>);
+    EXPECT_THAT(the_parser<Single> | has_family<any_of_family>);
+    EXPECT_THAT(the_parser<Multi> | has_family<any_of_family>);
+
+    EXPECT_THAT(the_parser<Single> | is_parser_for<value_type>.with_result<output_span<value_type>>);
+    EXPECT_THAT(the_parser<Multi> | is_parser_for<value_type>.with_result<output_span<value_type>>);
 }
 
 TEST("any_of_parser", "Parse single")
@@ -55,23 +58,23 @@ TEST("any_of_parser", "Parse multi")
 TEST("any_of_parser", "Constructible from lexicographically sorted only")
 {
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(any_of_parser, static_array(A, C));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(C, A));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(A, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(A, B, C));
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_valid_with<static_array(A, C)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(C, A)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(A, B)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(A, B, C)>);
 #else
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(any_of_parser, static_array(A, B, C));
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_valid_with<static_array(A, B, C)>);
 #endif
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(A, C, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(B, A, C));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(B, C, A));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(C, A, B));
-    ASSERT_BASIC_PARSER_NOT_CONSTRUCTIBLE(any_of_parser, static_array(C, B, A));
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(A, C, B)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(B, A, C)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(B, C, A)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(C, A, B)>);
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_not_valid_with<static_array(C, B, A)>);
 }
 
 TEST("any_of_parser", "Parse")
 {
-    ASSERT_BASIC_PARSER_CONSTRUCTIBLE(any_of_parser, L"");
+    EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_valid_with<L"">);
 
     ASSERT_PARSE_FAILURE(any_of_parser<(static_array<value_type, 0>{})>, e(A, B, C));
     ASSERT_PARSE_FAILURE(any_of_parser<(static_array<value_type, 0>{})>, e());

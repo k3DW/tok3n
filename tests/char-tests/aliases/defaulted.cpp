@@ -11,17 +11,20 @@ FIXTURE("defaulted_parser");
 
 TEST("defaulted_parser", "Requirements")
 {
-    ASSERT_PARSER_VALUE_TYPE(Def1, value_type);
-    ASSERT_PARSER_VALUE_TYPE(Def2, value_type);
+    EXPECT_THAT(the_parser<Def1> | has_value_type<value_type>);
+    EXPECT_THAT(the_parser<Def2> | has_value_type<value_type>);
 
-    ASSERT_IS_PARSER(Def1, char, map_family, int);
-    ASSERT_IS_PARSER(Def2, char, map_family, Class3);
+    EXPECT_THAT(the_parser<Def1> | has_family<map_family>);
+    EXPECT_THAT(the_parser<Def2> | has_family<map_family>);
 
-    ASSERT_IS_PARSER(Def1, wchar_t, map_family, int);
-    ASSERT_IS_PARSER(Def2, wchar_t, map_family, Class3);
+    EXPECT_THAT(the_parser<Def1> | is_parser_for<char>.with_result<int>);
+    EXPECT_THAT(the_parser<Def2> | is_parser_for<char>.with_result<Class3>);
 
-    ASSERT_IS_PARSER(Def1, int, map_family, int);
-    ASSERT_IS_PARSER(Def2, int, map_family, Class3);
+    EXPECT_THAT(the_parser<Def1> | is_parser_for<wchar_t>.with_result<int>);
+    EXPECT_THAT(the_parser<Def2> | is_parser_for<wchar_t>.with_result<Class3>);
+
+    EXPECT_THAT(the_parser<Def1> | is_parser_for<int>.with_result<int>);
+    EXPECT_THAT(the_parser<Def2> | is_parser_for<int>.with_result<Class3>);
 }
 
 TEST("defaulted_parser", "Parse all")
