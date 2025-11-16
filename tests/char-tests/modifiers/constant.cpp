@@ -44,7 +44,7 @@ TEST("constant modifier", "non consteval")
 constexpr auto constant_modifier_fragment =
     []<detail::parser P>(P) {
         using R = constant_parser<P, integral_constant<0>>;
-        EXPECT_THAT(the_parser<P> | is_modifiable_by<constant<0>>.with_result<R>);
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<constant<0>>.TEMPLATE_IF_GCC12 with_result<R>);
     };
 
 TEST("constant modifier", "modify anything")

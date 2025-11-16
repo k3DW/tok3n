@@ -36,7 +36,7 @@ TEST("defaulted modifier", "non consteval")
 constexpr auto defaulted_modifier_fragment =
     []<detail::parser P>(P) {
         using R = defaulted_parser<P, bool>;
-        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.with_result<R>);
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<defaulted<bool>>.TEMPLATE_IF_GCC12 with_result<R>);
     };
 
 TEST("defaulted modifier", "modify anything")
