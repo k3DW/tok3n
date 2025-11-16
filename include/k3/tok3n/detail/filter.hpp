@@ -6,6 +6,7 @@
 #define K3_TOK3N_DETAIL_FILTER_HPP
 
 #include <type_traits>
+#include <utility>
 
 namespace k3::tok3n::detail {
 
