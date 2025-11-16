@@ -47,15 +47,19 @@ TEST("not operator", "!none_of_parser")
     []<parser PP>(PP) {                                                    \
         if constexpr (PP::family == any_of_family)                         \
         {                                                                  \
-            ASSERT_COMPILE_TIME(                                           \
-                (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
+            constexpr bool cond1 =                                         \
+                requires { { !PP{} }-> k3::tok3n::detail::parser; };       \
+            /* Workaround for Clang 16 */                                  \
+            ASSERT_COMPILE_TIME(cond1);                                    \
             EXPECT_THAT(parser_value<!PP{}>                                \
                     .DEP_TEMPLATE is<none_of_parser<underlying_v<PP>>{}>); \
         }                                                                  \
         else if constexpr (PP::family == none_of_family)                   \
         {                                                                  \
-            ASSERT_COMPILE_TIME(                                           \
-                (requires { { !PP{} }-> k3::tok3n::detail::parser; }));    \
+            constexpr bool cond1 =                                         \
+                requires { { !PP{} }-> k3::tok3n::detail::parser; };       \
+            /* Workaround for Clang 16 */                                  \
+            ASSERT_COMPILE_TIME(cond1);                                    \
             EXPECT_THAT(parser_value<!PP{}>                                \
                     .DEP_TEMPLATE is<any_of_parser<underlying_v<PP>>{}>);  \
         }                                                                  \

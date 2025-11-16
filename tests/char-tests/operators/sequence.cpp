@@ -170,7 +170,9 @@ consteval auto sequence_combined_both(sequence_parser<LHS...>, sequence_parser<R
         }                                                                                           \
         else                                                                                        \
         {                                                                                           \
-            ASSERT_COMPILE_TIME((requires { { LLHS{} >> RRHS{} } -> k3::tok3n::detail::parser; })); \
+            constexpr bool cond1 = requires { { LLHS{} >> RRHS{} } -> k3::tok3n::detail::parser; }; \
+            /* Workaround for Clang 16 */                                                           \
+            ASSERT_COMPILE_TIME(cond1);                                                             \
             if constexpr (LLHS::family == all_of_family and RRHS::family == all_of_family)          \
             {                                                                                       \
                 constexpr auto str = combine_strings<underlying_v<LLHS>, underlying_v<RRHS>>;       \

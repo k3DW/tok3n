@@ -176,7 +176,9 @@ TEST("choice operator", "non consteval")
         }                                                                                            \
         else                                                                                         \
         {                                                                                            \
-            ASSERT_COMPILE_TIME((requires { { LLHS{} | RRHS{} } -> k3::tok3n::detail::parser; }));   \
+            constexpr bool cond1 = requires { { LLHS{} | RRHS{} } -> k3::tok3n::detail::parser; };   \
+            /* Workaround for Clang 16 */                                                            \
+            ASSERT_COMPILE_TIME(cond1);                                                              \
             if constexpr (std::same_as<LLHS, RRHS>)                                                  \
             {                                                                                        \
                 EXPECT_THAT(parser_value<LLHS{} | RRHS{}>.DEP_TEMPLATE is<LLHS{}>);                  \

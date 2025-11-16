@@ -43,7 +43,9 @@ TEST("epsilon operator", "eps | P")
 
 #define EPSILON_OPERATOR_ASSERTER(P)                                                      \
     []<parser PP>(PP) {                                                                   \
-        ASSERT_COMPILE_TIME((requires { { PP{} | eps } -> k3::tok3n::detail::parser; })); \
+        constexpr bool cond1 = requires { { PP{} | eps } -> k3::tok3n::detail::parser; }; \
+        /* Workaround for Clang 16 */                                                     \
+        ASSERT_COMPILE_TIME(cond1);                                                       \
         ASSERT_COMPILE_TIME((not requires { eps | PP{}; }));                              \
         EXPECT_THAT(parser_value<PP{} | eps>                                              \
                 .DEP_TEMPLATE is<PP{} | epsilon_parser<::value_type>{}>);                 \

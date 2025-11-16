@@ -102,7 +102,9 @@ TEST("zero_or_more operator", "non consteval")
 
 #define ZERO_OR_MORE_OPERATOR_ASSERTER(P)                                            \
     []<parser PP>(PP) {                                                              \
-        ASSERT_COMPILE_TIME((requires { { *PP{} } -> k3::tok3n::detail::parser; })); \
+        constexpr bool cond1 = requires { { *PP{} } -> k3::tok3n::detail::parser; }; \
+        /* Workaround for Clang 16 */                                                \
+        ASSERT_COMPILE_TIME(cond1);                                                  \
         if constexpr (PP::family == maybe_family)                                    \
         {                                                                            \
             EXPECT_THAT(parser_value<*PP{}>                                          \

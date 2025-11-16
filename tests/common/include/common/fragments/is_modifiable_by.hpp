@@ -28,7 +28,8 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-            EXPECT_COMPILE_TIME(requires { { M{}(P{}) } -> detail::parser; })
+            constexpr bool cond1 = requires { { M{}(P{}) } -> detail::parser; }; // Workaround for Clang 16
+            EXPECT_COMPILE_TIME(cond1)
                 << "`M{}(P{})` does not result in a parser"
                 << "[\n"
                 << "    P    = " << typeid(P).name() << "\n"
@@ -42,7 +43,8 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-            EXPECT_COMPILE_TIME(requires { { P{} % M{} } -> detail::parser; })
+            constexpr bool cond2 = requires { { P{} % M{} } -> detail::parser; }; // Workaround for Clang 16
+            EXPECT_COMPILE_TIME(cond2)
                 << "`P{} % M{}` does not result in a parser"
                 << "[\n"
                 << "    P     = " << typeid(P).name() << "\n"
