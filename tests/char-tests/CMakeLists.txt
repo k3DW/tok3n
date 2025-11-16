@@ -3,7 +3,6 @@
 # https://www.boost.org/LICENSE_1_0.txt
 
 set(char_test_files
-    main.cpp
     aliases/apply_filter.cpp
     aliases/apply_into.cpp
     aliases/apply_map.cpp
@@ -28,12 +27,10 @@ set(char_test_files
     modifiers/name.cpp
     modifiers/sub.cpp
     operators/basic.cpp
-    operators/choice.cpp
     operators/epsilon.cpp
     operators/maybe.cpp
     operators/not.cpp
     operators/one_or_more.cpp
-    operators/sequence.cpp
     operators/zero_or_more.cpp
     optimizations/join_exactly_basic_optimization.cpp
     optimizations/join_maybe_basic_optimization.cpp
@@ -61,16 +58,26 @@ set(char_test_files
     types/result.cpp
 )
 
-tok3n_add_test_executable(char_tests char VALUE_TYPE_CHAR
-    ${char_test_files}
-)
-target_sources(char_tests PRIVATE FILE_SET headers TYPE HEADERS FILES
-    samples.hpp
-)
+macro(_make_char_test_exes suffix)
+    tok3n_add_test_executable("char_tests${suffix}" char VALUE_TYPE_CHAR
+        main.cpp
+        ${ARGN}
+    )
+    target_sources("char_tests${suffix}" PRIVATE FILE_SET headers TYPE HEADERS FILES
+        samples.hpp
+    )
 
-tok3n_add_test_executable(wchar_t_tests wchar_t VALUE_TYPE_WCHAR_T
-    ${char_test_files}
-)
-target_sources(wchar_t_tests PRIVATE FILE_SET headers TYPE HEADERS FILES
-    samples.hpp
-)
+    tok3n_add_test_executable("wchar_t_tests${suffix}" wchar_t VALUE_TYPE_WCHAR_T
+        main.cpp
+        ${ARGN}
+    )
+    target_sources("wchar_t_tests${suffix}" PRIVATE FILE_SET headers TYPE HEADERS FILES
+        samples.hpp
+    )
+endmacro()
+
+_make_char_test_exes("" ${char_test_files})
+
+# These tests are very intense to compile, and should be in their own binaries
+_make_char_test_exes("_choice_operator" operators/choice.cpp)
+_make_char_test_exes("_sequence_operator" operators/sequence.cpp)

@@ -73,16 +73,21 @@ TEST("join modifier", "non consteval")
 
 
 
-#define JOIN_MODIFIER_ASSERTER(P)                                                              \
-    []<parser PP>(PP) {                                                                        \
-        using R = std::conditional_t<PP::family == join_family,                                \
-            PP, join_parser<PP>>;                                                              \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<join>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto join_modifier_fragment =
+    []<detail::parser P>(P) {
+        if constexpr (P::family == join_family)
+        {
+            EXPECT_THAT(the_parser<P> | is_modifiable_by<join>.TEMPLATE_IF_GCC12 with_result<P>);
+        }
+        else
+        {
+            EXPECT_THAT(the_parser<P> | is_modifiable_by<join>.TEMPLATE_IF_GCC12 with_result<join_parser<P>>);
+        }
+    };
 
 TEST("join modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(JOIN_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(join_modifier_fragment));
 }
 
 } // namespace

@@ -57,39 +57,38 @@ TEST("delimit modifier", "non consteval")
 
 
 
-#define DELIMIT_MODIFIER_ASSERTER(P)                                                                     \
-    []<parser PP>(PP) {                                                                                  \
-        using R = delimit_parser<PP, ignore_parser<Comma>>;                                              \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit(comma)>.TEMPLATE_IF_GCC12 with_result<R>); \
-    }(P{});
+constexpr auto delimit_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = delimit_parser<P, ignore_parser<Comma>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<delimit(comma)>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
-#define DELIMIT_MODIFIER_ASSERTER_2(P, D)                                                              \
-    []<parser PP, parser DD>(PP, DD) {                                                                 \
-        if constexpr (not std::same_as<typename PP::value_type, typename DD::value_type>)              \
-        {                                                                                              \
-            EXPECT_THAT(the_parser<PP> | is_not_modifiable_by<delimit(DD{})>);                         \
-            ASSERT_COMPILE_TIME((not requires { delimit(PP{}, DD{}); }));                              \
-        }                                                                                              \
-        else                                                                                           \
-        {                                                                                              \
-            using R = delimit_parser<PP, ignore_parser<DD>>;                                           \
-            EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit(DD{})>.DEP_TEMPLATE with_result<R>); \
-            ASSERT_COMPILE_TIME((std::same_as<R, decltype(delimit(PP{}, DD{}))>));                     \
-        }                                                                                              \
-    }(P{}, D{});
-
-#define DELIMIT_SAMPLES_LIST_DIFFERENT_VALUE_TYPES \
-    (any_of_parser<"abc">) (any_of_parser<"xyz">) (any_of_parser<L"abc">) (any_of_parser<L"xyz">)
+constexpr auto delimit_modifier_pairs_fragment =
+    []<detail::parser P, detail::parser D>(P, D) {
+        if constexpr (not std::same_as<typename P::value_type, typename D::value_type>)
+        {
+            EXPECT_THAT(the_parser<P> | is_not_modifiable_by<delimit(D{})>);
+            ASSERT_COMPILE_TIME((not requires { delimit(P{}, D{}); }));
+        }
+        else
+        {
+            using R = delimit_parser<P, ignore_parser<D>>;
+            EXPECT_THAT(the_parser<P> | is_modifiable_by<delimit(D{})>.DEP_TEMPLATE with_result<R>);
+            ASSERT_COMPILE_TIME((std::same_as<R, decltype(delimit(P{}, D{}))>));
+        }
+    };
 
 TEST("delimit modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(DELIMIT_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(delimit_modifier_fragment));
 
-    ASSERT_SAMPLES_2(
-        DELIMIT_MODIFIER_ASSERTER_2,
-        DELIMIT_SAMPLES_LIST_DIFFERENT_VALUE_TYPES,
-        DELIMIT_SAMPLES_LIST_DIFFERENT_VALUE_TYPES
-    );
+    using Samples = parser_list_t<
+        any_of_parser<"abc">,
+        any_of_parser<"xyz">,
+        any_of_parser<L"abc">,
+        any_of_parser<L"xyz">
+    >;
+    EXPECT_THAT((pairs_of_samples<Samples, Samples>.satisfy(delimit_modifier_pairs_fragment)));
 }
 
 } // namespace

@@ -41,15 +41,15 @@ TEST("constant modifier", "non consteval")
 
 
 
-#define CONSTANT_MODIFIER_ASSERTER(P)                                              \
-    {                                                                              \
-        using R = constant_parser<P, integral_constant<0>>;                        \
-        EXPECT_THAT(the_parser<P> | is_modifiable_by<constant<0>>.with_result<R>); \
-    }
+constexpr auto constant_modifier_fragment =
+    []<detail::parser P>(P) {
+        using R = constant_parser<P, integral_constant<0>>;
+        EXPECT_THAT(the_parser<P> | is_modifiable_by<constant<0>>.TEMPLATE_IF_GCC12 with_result<R>);
+    };
 
 TEST("constant modifier", "modify anything")
 {
-    ASSERT_ALL_SAMPLES(CONSTANT_MODIFIER_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(constant_modifier_fragment));
 }
 
 } // namespace

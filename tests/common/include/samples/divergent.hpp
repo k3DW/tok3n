@@ -6,6 +6,7 @@
 #define K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP
 
 #include "samples.hpp"
+#include "common/samples_list.hpp"
 
 using Joi1 = k3::tok3n::detail::join_parser<_21>; constexpr Joi1 joi1;
 using Joi2 = k3::tok3n::detail::join_parser<_22>; constexpr Joi2 joi2;
@@ -87,16 +88,17 @@ struct Cus2 : k3::tok3n::detail::custom_parser<Cus2, ::value_type>
 };
 constexpr Cus2 cus2;
 
-#define DIVERGENT_SAMPLES              \
-    (Joi1) (Joi2) (Joi3) (Joi4) (Joi5) \
-    (Map1) (Map2) (Map3) (Map4)        \
-    (Fil1) (Fil2) (Fil3)               \
-    (Apm1) (Apm2)                      \
-    (Apf1)                             \
-    (Int1) (Int2) (Int3)               \
-    (Api1) (Api2)                      \
-    (Con1) (Con2) (Con3) (Con4)        \
-    (Def1) (Def2)                      \
-    (Cus1) (Cus2)
+inline constexpr auto divergent_samples = k3::tok3n::tests::parser_list_t<
+    Joi1, Joi2, Joi3, Joi4, Joi5,
+    Map1, Map2, Map3, Map4,
+    Fil1, Fil2, Fil3,
+    Apm1, Apm2,
+    Apf1,
+    Int1, Int2, Int3,
+    Api1, Api2,
+    Con1, Con2, Con3, Con4,
+    Def1, Def2,
+    Cus1, Cus2
+>{};
 
 #endif // K3_TOK3N_TESTS_SAMPLES_DIVERGENT_HPP

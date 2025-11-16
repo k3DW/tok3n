@@ -9,6 +9,8 @@
 
 #include "common/asserts/Parse.hpp"
 
+#include "common/fragments/all_pairs_of_samples.hpp"
+#include "common/fragments/all_samples.hpp"
 #include "common/fragments/fails_parsing.hpp"
 #include "common/fragments/has_family.hpp"
 #include "common/fragments/has_value_type.hpp"
@@ -23,6 +25,7 @@
 #include "common/fragments/succeeds_parsing.hpp"
 
 #include "common/config.hpp"
+#include "common/samples_list.hpp"
 #include "common/underlying.hpp"
 #include "common/wrappers.hpp"
 
@@ -36,8 +39,5 @@
 #include <source_location>
 #include <unordered_map>
 #include <vector>
-
-#include <boost/preprocessor/seq/for_each.hpp>
-#include <boost/preprocessor/seq/for_each_product.hpp>
 
 #endif // K3_TOK3N_TESTS_COMMON_HPP

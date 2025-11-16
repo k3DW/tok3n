@@ -41,19 +41,19 @@ TEST("epsilon operator", "eps | P")
 
 
 
-#define EPSILON_OPERATOR_ASSERTER(P)                                                      \
-    []<parser PP>(PP) {                                                                   \
-        constexpr bool cond1 = requires { { PP{} | eps } -> k3::tok3n::detail::parser; }; \
-        /* Workaround for Clang 16 */                                                     \
-        ASSERT_COMPILE_TIME(cond1);                                                       \
-        ASSERT_COMPILE_TIME((not requires { eps | PP{}; }));                              \
-        EXPECT_THAT(parser_value<PP{} | eps>                                              \
-                .DEP_TEMPLATE is<PP{} | epsilon_parser<::value_type>{}>);                 \
-    }(P{});
+constexpr auto epsilon_operator_fragment =
+    []<detail::parser P>(P) {
+        constexpr bool cond1 = requires { { P{} | eps } -> k3::tok3n::detail::parser; };
+        /* Workaround for Clang 16 */
+        ASSERT_COMPILE_TIME(cond1);
+        ASSERT_COMPILE_TIME((not requires { eps | P{}; }));
+        EXPECT_THAT(parser_value<P{} | eps>
+                .DEP_TEMPLATE is<P{} | epsilon_parser<::value_type>{}>);
+    };
 
 TEST("epsilon operator", "eps anything")
 {
-    ASSERT_ALL_SAMPLES(EPSILON_OPERATOR_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(epsilon_operator_fragment));
 }
 
 } // namespace

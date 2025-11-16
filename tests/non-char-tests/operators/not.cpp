@@ -43,35 +43,33 @@ TEST("not operator", "!none_of_parser")
 
 
 
-#define NOT_OPERATOR_ASSERTER(P)                                           \
-    []<parser PP>(PP) {                                                    \
-        if constexpr (PP::family == any_of_family)                         \
-        {                                                                  \
-            constexpr bool cond1 =                                         \
-                requires { { !PP{} }-> k3::tok3n::detail::parser; };       \
-            /* Workaround for Clang 16 */                                  \
-            ASSERT_COMPILE_TIME(cond1);                                    \
-            EXPECT_THAT(parser_value<!PP{}>                                \
-                    .DEP_TEMPLATE is<none_of_parser<underlying_v<PP>>{}>); \
-        }                                                                  \
-        else if constexpr (PP::family == none_of_family)                   \
-        {                                                                  \
-            constexpr bool cond1 =                                         \
-                requires { { !PP{} }-> k3::tok3n::detail::parser; };       \
-            /* Workaround for Clang 16 */                                  \
-            ASSERT_COMPILE_TIME(cond1);                                    \
-            EXPECT_THAT(parser_value<!PP{}>                                \
-                    .DEP_TEMPLATE is<any_of_parser<underlying_v<PP>>{}>);  \
-        }                                                                  \
-        else                                                               \
-        {                                                                  \
-            ASSERT_COMPILE_TIME((not requires { !PP{}; }));                \
-        }                                                                  \
-    }(P{});
+constexpr auto not_operator_fragment =
+    []<detail::parser P>(P) {
+        if constexpr (P::family == any_of_family)
+        {
+            constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
+            /* Workaround for Clang 16 */
+            ASSERT_COMPILE_TIME(cond1);
+            EXPECT_THAT(parser_value<!P{}>
+                    .DEP_TEMPLATE is<none_of_parser<underlying_v<P>>{}>);
+        }
+        else if constexpr (P::family == none_of_family)
+        {
+            constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
+            /* Workaround for Clang 16 */
+            ASSERT_COMPILE_TIME(cond1);
+            EXPECT_THAT(parser_value<!P{}>
+                    .DEP_TEMPLATE is<any_of_parser<underlying_v<P>>{}>);
+        }
+        else
+        {
+            ASSERT_COMPILE_TIME((not requires { !P{}; }));
+        }
+    };
 
 TEST("not operator", "!{anything}")
 {
-    ASSERT_ALL_SAMPLES(NOT_OPERATOR_ASSERTER);
+    EXPECT_THAT(all_samples.satisfy(not_operator_fragment));
 }
 
 } // namespace

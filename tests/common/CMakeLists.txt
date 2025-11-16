@@ -6,6 +6,8 @@ add_library(common INTERFACE)
 target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common.hpp
     include/common/asserts/Parse.hpp
+    include/common/fragments/all_pairs_of_samples.hpp
+    include/common/fragments/all_samples.hpp
     include/common/fragments/fails_parsing.hpp
     include/common/fragments/has_family.hpp
     include/common/fragments/has_value_type.hpp
@@ -19,6 +21,7 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/common/fragments/parser_value.hpp
     include/common/fragments/succeeds_parsing.hpp
     include/common/config.hpp
+    include/common/samples_list.hpp
     include/common/underlying.hpp
     include/common/wrappers.hpp
     include/samples/adaptor.hpp
@@ -29,9 +32,6 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
     include/samples/divergent.hpp
     include/samples/functions.hpp
     include/samples/helpers.hpp
-    include/samples/macros-char.hpp
-    include/samples/macros-common.hpp
-    include/samples/macros-non-char.hpp
     include/samples/repeat.hpp
     include/samples/sub_parsers.hpp
 )
@@ -39,7 +39,6 @@ target_sources(common INTERFACE FILE_SET headers TYPE HEADERS FILES
 target_include_directories(common INTERFACE include)
 
 target_link_libraries(common INTERFACE framework)
-target_link_libraries(common INTERFACE Boost::preprocessor)
 
 set_target_properties(common
     PROPERTIES
