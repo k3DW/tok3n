@@ -33,10 +33,10 @@ TEST("into modifier", "non consteval")
 
 
 
-#define INTO_MODIFIER_ASSERTER(P)                                                  \
-    []<parser PP>(PP) {                                                            \
-        using R = into_parser<PP, Sink>;                                           \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<into<Sink>>.with_result<R>); \
+#define INTO_MODIFIER_ASSERTER(P)                                                                    \
+    []<parser PP>(PP) {                                                                              \
+        using R = into_parser<PP, Sink>;                                                             \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<into<Sink>>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("into modifier", "modify anything")

@@ -29,11 +29,11 @@ TEST("apply_filter modifier", "non consteval")
 
 
 
-#define APPLY_FILTER_MODIFIER_ASSERTER(P)                                  \
-    []<parser PP>(PP) {                                                    \
-        constexpr auto m = apply_filter<true_filter>;                      \
-        using R = apply_filter_parser<PP, integral_constant<true_filter>>; \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.with_result<R>);  \
+#define APPLY_FILTER_MODIFIER_ASSERTER(P)                                                   \
+    []<parser PP>(PP) {                                                                     \
+        constexpr auto m = apply_filter<true_filter>;                                       \
+        using R = apply_filter_parser<PP, integral_constant<true_filter>>;                  \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("apply_filter modifier", "modify anything")

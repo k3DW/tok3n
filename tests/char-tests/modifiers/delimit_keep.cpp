@@ -57,10 +57,10 @@ TEST("delimit_keep modifier", "non consteval")
 
 
 
-#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                   \
-    []<parser PP>(PP) {                                                                     \
-        using R = delimit_parser<PP, Comma>;                                                \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit_keep(comma)>.with_result<R>); \
+#define DELIMIT_KEEP_MODIFIER_ASSERTER(P)                                                                     \
+    []<parser PP>(PP) {                                                                                       \
+        using R = delimit_parser<PP, Comma>;                                                                  \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<delimit_keep(comma)>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 #define DELIMIT_KEEP_MODIFIER_ASSERTER_2(P, D)                                                              \

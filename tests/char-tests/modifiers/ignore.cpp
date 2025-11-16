@@ -69,11 +69,11 @@ TEST("ignore modifier", "non consteval")
 
 
 
-#define IGNORE_MODIFIER_ASSERTER(P)                                            \
-    []<parser PP>(PP) {                                                        \
-        using R = std::conditional_t<PP::family == ignore_family,              \
-            PP, ignore_parser<PP>>;                                            \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<ignore>.with_result<R>); \
+#define IGNORE_MODIFIER_ASSERTER(P)                                                              \
+    []<parser PP>(PP) {                                                                          \
+        using R = std::conditional_t<PP::family == ignore_family,                                \
+            PP, ignore_parser<PP>>;                                                              \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<ignore>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("ignore modifier", "modify anything")

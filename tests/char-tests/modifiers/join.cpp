@@ -73,11 +73,11 @@ TEST("join modifier", "non consteval")
 
 
 
-#define JOIN_MODIFIER_ASSERTER(P)                                            \
-    []<parser PP>(PP) {                                                      \
-        using R = std::conditional_t<PP::family == join_family,              \
-            PP, join_parser<PP>>;                                            \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<join>.with_result<R>); \
+#define JOIN_MODIFIER_ASSERTER(P)                                                              \
+    []<parser PP>(PP) {                                                                        \
+        using R = std::conditional_t<PP::family == join_family,                                \
+            PP, join_parser<PP>>;                                                              \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<join>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("join modifier", "modify anything")

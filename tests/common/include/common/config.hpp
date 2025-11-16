@@ -11,4 +11,10 @@
 #define DEP_TEMPLATE template
 #endif
 
+#if defined(__GNUC__) and (__GNUC__ <= 12)
+#define TEMPLATE_IF_GCC12 template
+#else
+#define TEMPLATE_IF_GCC12
+#endif
+
 #endif // K3_TOK3N_TESTS_COMMON_CONFIG_HPP

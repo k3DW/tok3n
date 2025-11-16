@@ -41,10 +41,10 @@ TEST("exactly modifier", "non consteval")
 
 
 
-#define EXACTLY_MODIFIER_ASSERTER(P)                                               \
-    []<parser PP>(PP) {                                                            \
-        using R = exactly_parser<PP, index_c<2>>;                                  \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<exactly<2>>.with_result<R>); \
+#define EXACTLY_MODIFIER_ASSERTER(P)                                                                 \
+    []<parser PP>(PP) {                                                                              \
+        using R = exactly_parser<PP, index_c<2>>;                                                    \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<exactly<2>>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("exactly modifier", "modify anything")

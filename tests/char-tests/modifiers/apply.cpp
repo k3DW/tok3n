@@ -37,11 +37,11 @@ TEST("apply modifier", "non consteval")
 
 
 
-#define APPLY_MODIFIER_ASSERTER(P)                                        \
-    []<parser PP>(PP) {                                                   \
-        constexpr auto m = apply<sink_func>;                              \
-        using R = apply_map_parser<PP, integral_constant<sink_func>>;     \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.with_result<R>); \
+#define APPLY_MODIFIER_ASSERTER(P)                                                          \
+    []<parser PP>(PP) {                                                                     \
+        constexpr auto m = apply<sink_func>;                                                \
+        using R = apply_map_parser<PP, integral_constant<sink_func>>;                       \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<m>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("apply modifier", "modify anything")

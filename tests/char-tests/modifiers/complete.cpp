@@ -85,11 +85,11 @@ TEST("complete modifier", "non consteval")
 
 
 
-#define COMPLETE_MODIFIER_ASSERTER(P)                                            \
-    []<parser PP>(PP) {                                                          \
-        using R = std::conditional_t<PP::family == complete_family,              \
-            PP, complete_parser<PP>>;                                            \
-        EXPECT_THAT(the_parser<PP> | is_modifiable_by<complete>.with_result<R>); \
+#define COMPLETE_MODIFIER_ASSERTER(P)                                                              \
+    []<parser PP>(PP) {                                                                            \
+        using R = std::conditional_t<PP::family == complete_family,                                \
+            PP, complete_parser<PP>>;                                                              \
+        EXPECT_THAT(the_parser<PP> | is_modifiable_by<complete>.TEMPLATE_IF_GCC12 with_result<R>); \
     }(P{});
 
 TEST("complete modifier", "modify anything")
