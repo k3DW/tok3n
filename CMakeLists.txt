@@ -13,8 +13,8 @@ set(TOK3N_DISCOVER_TESTS OFF CACHE BOOL "Add all tests to CTest")
 set(TOK3N_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 set(TOK3N_BUILD_EXE OFF CACHE BOOL "Build tok3n's main() function")
 
-set(TOK3N_CXX_STANDARD "" CACHE STRING "C++ standard to use")
-set(TOK3N_CXX_WARNINGS "" CACHE STRING "C++ compiler warnings to enable")
+set(TOK3N_CXX_STANDARD "detect" CACHE STRING "C++ standard to use")
+set(TOK3N_CXX_WARNINGS "detect" CACHE STRING "C++ compiler warnings to enable")
 
 if (TOK3N_CXX_STANDARD)
     include(cmake/standard/${TOK3N_CXX_STANDARD}.cmake)
