@@ -27,24 +27,24 @@ TEST("any_of_parser", "Requirements")
 
 TEST("any_of_parser", "Parse single")
 {
-    ASSERT_PARSE_SUCCESS(Single, e(A, B), e(A), e(B));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(e(A, B), e(A), e(B)));
 #if defined(VALUE_TYPE_STRUCTURAL_OP_EQUALS)
-    ASSERT_PARSE_SUCCESS(Single, e(B, A), e(B), e(A));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(e(B, A), e(B), e(A)));
 #else
     ASSERT_PARSE_FAILURE(Single, e(B, A));
 #endif
-    ASSERT_PARSE_SUCCESS(Single, e(A, B, C), e(A), e(B, C));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(e(A, B, C), e(A), e(B, C)));
     ASSERT_PARSE_FAILURE(Single, e(Space, A));
 }
 
 TEST("any_of_parser", "Parse multi")
 {
-    ASSERT_PARSE_SUCCESS(Multi, e(A, B, C), e(A), e(B, C));
-    ASSERT_PARSE_SUCCESS(Multi, e(A, C, B), e(A), e(C, B));
-    ASSERT_PARSE_SUCCESS(Multi, e(B, A, C), e(B), e(A, C));
-    ASSERT_PARSE_SUCCESS(Multi, e(B, C, A), e(B), e(C, A));
-    ASSERT_PARSE_SUCCESS(Multi, e(C, A, B), e(C), e(A, B));
-    ASSERT_PARSE_SUCCESS(Multi, e(C, B, A), e(C), e(B, A));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(A, B, C), e(A), e(B, C)));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(A, C, B), e(A), e(C, B)));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(B, A, C), e(B), e(A, C)));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(B, C, A), e(B), e(C, A)));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(C, A, B), e(C), e(A, B)));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e(C, B, A), e(C), e(B, A)));
     ASSERT_PARSE_FAILURE(Multi, e(X, Y, Z));
     ASSERT_PARSE_FAILURE(Multi, e(X, Z, Y));
     ASSERT_PARSE_FAILURE(Multi, e(Y, X, Z));

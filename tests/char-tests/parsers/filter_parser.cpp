@@ -49,9 +49,9 @@ TEST("filter_parser", "Parse all")
     {
         using vec_type = std::vector<output_span<::value_type>>;
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil1, TT("abcabcabcabcabcab"), TT("ab"));
-        ASSERT_PARSE_SUCCESS(Fil1, TT("abcabcabcabcab"), vec_type({ TT("abc"), TT("abc"), TT("abc"), TT("abc") }), TT("ab"));
+        EXPECT_THAT(the_parser<Fil1> | SUCCEEDS_PARSING(TT("abcabcabcabcab"), vec_type({ TT("abc"), TT("abc"), TT("abc"), TT("abc") }), TT("ab")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil1, TT("abcabcabcab"), TT("ab"));
-        ASSERT_PARSE_SUCCESS(Fil1, TT("abcabcab"), vec_type({ TT("abc"), TT("abc") }), TT("ab"));
+        EXPECT_THAT(the_parser<Fil1> | SUCCEEDS_PARSING(TT("abcabcab"), vec_type({ TT("abc"), TT("abc") }), TT("ab")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil1, TT("abc"), TT(""));
         ASSERT_PARSE_FAILURE(Fil1, TT("ab"));
         ASSERT_PARSE_FAILURE(Fil1, TT(""));
@@ -59,81 +59,84 @@ TEST("filter_parser", "Parse all")
 
     {
         using opt_type = std::optional<output_span<char>>;
-        ASSERT_PARSE_SUCCESS(Fil2, "abcabc", opt_type("abc"), "abc");
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING("abcabc", opt_type("abc"), "abc"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, "a??bcabc", "a??bcabc");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, "", "");
-        ASSERT_PARSE_SUCCESS(Fil2, "??abcabc", opt_type("??"), "abcabc");
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING("??abcabc", opt_type("??"), "abcabc"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, " ??abcabc", " ??abcabc");
     }
 
     {
         using vec_type = std::vector<output_span<char>>;
         using tuple_type = std::tuple<output_span<char>, vec_type>;
-        ASSERT_PARSE_SUCCESS(Fil3, "abcabc", tuple_type("abc", {}), "abc");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc", tuple_type("abc", {}), "");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc?", tuple_type("abc", {}), "?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abcabc", tuple_type("abc", {}), "abc"));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc", tuple_type("abc", {}), ""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc?", tuple_type("abc", {}), "?"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, "abc??", "");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, "abc???", "?");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc????", tuple_type("abc", { "??", "??" }), "");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc?????", tuple_type("abc", { "??", "??" }), "?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc????", tuple_type("abc", { "??", "??" }), ""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc?????", tuple_type("abc", { "??", "??" }), "?"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, "abc??????", "");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, "abc???????", "?");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc????????", tuple_type("abc", { "??", "??", "??", "??" }), "");
-        ASSERT_PARSE_SUCCESS(Fil3, "abc?????????", tuple_type("abc", { "??", "??", "??", "??" }), "?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc????????", tuple_type("abc", { "??", "??", "??", "??" }), ""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING("abc?????????", tuple_type("abc", { "??", "??", "??", "??" }), "?"));
         ASSERT_PARSE_FAILURE(Fil3, "??abc???????");
         ASSERT_PARSE_FAILURE(Fil3, "");
     }
 
     {
         using opt_type = std::optional<output_span<wchar_t>>;
-        ASSERT_PARSE_SUCCESS(Fil2, L"abcabc", opt_type(L"abc"), L"abc");
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING(L"abcabc", opt_type(L"abc"), L"abc"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, L"a??bcabc", L"a??bcabc");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, L"", L"");
-        ASSERT_PARSE_SUCCESS(Fil2, L"??abcabc", opt_type(L"??"), L"abcabc");
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING(L"??abcabc", opt_type(L"??"), L"abcabc"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, L" ??abcabc", L" ??abcabc");
     }
 
     {
         using vec_type = std::vector<output_span<wchar_t>>;
         using tuple_type = std::tuple<output_span<wchar_t>, vec_type>;
-        ASSERT_PARSE_SUCCESS(Fil3, L"abcabc", tuple_type(L"abc", {}), L"abc");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc", tuple_type(L"abc", {}), L"");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc?", tuple_type(L"abc", {}), L"?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abcabc", tuple_type(L"abc", {}), L"abc"));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc", tuple_type(L"abc", {}), L""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc?", tuple_type(L"abc", {}), L"?"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, L"abc??", L"");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, L"abc???", L"?");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc????", tuple_type(L"abc", { L"??", L"??" }), L"");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc?????", tuple_type(L"abc", { L"??", L"??" }), L"?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc????", tuple_type(L"abc", { L"??", L"??" }), L""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc?????", tuple_type(L"abc", { L"??", L"??" }), L"?"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, L"abc??????", L"");
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, L"abc???????", L"?");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L"");
-        ASSERT_PARSE_SUCCESS(Fil3, L"abc?????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L"?");
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L""));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(L"abc?????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L"?"));
         ASSERT_PARSE_FAILURE(Fil3, L"??abc???????");
         ASSERT_PARSE_FAILURE(Fil3, L"");
     }
 
+    static constexpr auto arr_abc = e<int>("abc");
+    static constexpr auto arr_qq = e<int>("??");
+
     {
         using opt_type = std::optional<output_span<int>>;
-        ASSERT_PARSE_SUCCESS(Fil2, e<int>("abcabc"), opt_type(e<int>("abc")), e<int>("abc"));
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING(e<int>("abcabc"), opt_type(arr_abc), e<int>("abc")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, e<int>("a??bcabc"), e<int>("a??bcabc"));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, e<int>(""), e<int>(""));
-        ASSERT_PARSE_SUCCESS(Fil2, e<int>("??abcabc"), opt_type(e<int>("??")), e<int>("abcabc"));
+        EXPECT_THAT(the_parser<Fil2> | SUCCEEDS_PARSING(e<int>("??abcabc"), opt_type(arr_qq), e<int>("abcabc")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil2, e<int>(" ??abcabc"), e<int>(" ??abcabc"));
     }
 
     {
         using vec_type = std::vector<output_span<int>>;
         using tuple_type = std::tuple<output_span<int>, vec_type>;
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abcabc"), tuple_type(e<int>("abc"), {}), e<int>("abc"));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc"), tuple_type(e<int>("abc"), {}), e<int>(""));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc?"), tuple_type(e<int>("abc"), {}), e<int>("?"));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abcabc"), tuple_type(arr_abc, {}), e<int>("abc")));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc"), tuple_type(arr_abc, {}), e<int>("")));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc?"), tuple_type(arr_abc, {}), e<int>("?")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, e<int>("abc??"), e<int>(""));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, e<int>("abc???"), e<int>("?"));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc????"), tuple_type(e<int>("abc"), { e<int>("??"), e<int>("??") }), e<int>(""));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc?????"), tuple_type(e<int>("abc"), { e<int>("??"), e<int>("??") }), e<int>("?"));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc????"), tuple_type(arr_abc, { arr_qq, arr_qq }), e<int>("")));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc?????"), tuple_type(arr_abc, { arr_qq, arr_qq }), e<int>("?")));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, e<int>("abc??????"), e<int>(""));
         ASSERT_PARSE_LOOKAHEAD_ONLY(Fil3, e<int>("abc???????"), e<int>("?"));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc????????"), tuple_type(e<int>("abc"), { e<int>("??"), e<int>("??"), e<int>("??"), e<int>("??") }), e<int>(""));
-        ASSERT_PARSE_SUCCESS(Fil3, e<int>("abc?????????"), tuple_type(e<int>("abc"), { e<int>("??"), e<int>("??"), e<int>("??"), e<int>("??") }), e<int>("?"));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc????????"), tuple_type(arr_abc, { arr_qq, arr_qq, arr_qq, arr_qq }), e<int>("")));
+        EXPECT_THAT(the_parser<Fil3> | SUCCEEDS_PARSING(e<int>("abc?????????"), tuple_type(arr_abc, { arr_qq, arr_qq, arr_qq, arr_qq }), e<int>("?")));
         ASSERT_PARSE_FAILURE(Fil3, e<int>("??abc???????"));
         ASSERT_PARSE_FAILURE(Fil3, e<int>(""));
     }

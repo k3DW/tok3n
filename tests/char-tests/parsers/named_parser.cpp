@@ -39,16 +39,16 @@ TEST("named_parser", "Requirements")
 
 TEST("named_parser", "named_parser<all_of_parser>")
 {
-    ASSERT_PARSE_SUCCESS(Nam1, "abc", "abc", "");
-    ASSERT_PARSE_SUCCESS(Nam1, "abcd", "abc", "d");
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING("abc", "abc", ""));
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING("abcd", "abc", "d"));
     ASSERT_PARSE_FAILURE(Nam1, " abc");
 
-    ASSERT_PARSE_SUCCESS(Nam1, L"abc", L"abc", L"");
-    ASSERT_PARSE_SUCCESS(Nam1, L"abcd", L"abc", L"d");
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(L"abc", L"abc", L""));
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(L"abcd", L"abc", L"d"));
     ASSERT_PARSE_FAILURE(Nam1, L" abc");
 
-    ASSERT_PARSE_SUCCESS(Nam1, e<int>("abc"), e<int>("abc"), e<int>(""));
-    ASSERT_PARSE_SUCCESS(Nam1, e<int>("abcd"), e<int>("abc"), e<int>("d"));
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("abc"), e<int>("")));
+    EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(e<int>("abcd"), e<int>("abc"), e<int>("d")));
     ASSERT_PARSE_FAILURE(Nam1, e<int>(" abc"));
 }
 
@@ -56,27 +56,28 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
 {
     {
         using type = std::vector<output_span<char>>;
-        ASSERT_PARSE_SUCCESS(Nam2, "abcabcab", (type{"abc", "abc"}), "ab");
-        ASSERT_PARSE_SUCCESS(Nam2, "abcd", (type{"abc"}), "d");
-        ASSERT_PARSE_SUCCESS(Nam2, "abc abc", (type{"abc"}), " abc");
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abcabcab", (type{"abc", "abc"}), "ab"));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abcd", (type{"abc"}), "d"));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abc abc", (type{"abc"}), " abc"));
         ASSERT_PARSE_FAILURE(Nam2, "ab abc");
         ASSERT_PARSE_FAILURE(Nam2, " ab abc");
     }
 
     {
         using type = std::vector<output_span<wchar_t>>;
-        ASSERT_PARSE_SUCCESS(Nam2, L"abcabcab", (type{L"abc", L"abc"}), L"ab");
-        ASSERT_PARSE_SUCCESS(Nam2, L"abcd", (type{L"abc"}), L"d");
-        ASSERT_PARSE_SUCCESS(Nam2, L"abc abc", (type{L"abc"}), L" abc");
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abcabcab", (type{L"abc", L"abc"}), L"ab"));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abcd", (type{L"abc"}), L"d"));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abc abc", (type{L"abc"}), L" abc"));
         ASSERT_PARSE_FAILURE(Nam2, L"ab abc");
         ASSERT_PARSE_FAILURE(Nam2, L" ab abc");
     }
 
     {
         using type = std::vector<output_span<int>>;
-        ASSERT_PARSE_SUCCESS(Nam2, e<int>("abcabcab"), (type{e<int>("abc"), e<int>("abc")}), e<int>("ab"));
-        ASSERT_PARSE_SUCCESS(Nam2, e<int>("abcd"), (type{e<int>("abc")}), e<int>("d"));
-        ASSERT_PARSE_SUCCESS(Nam2, e<int>("abc abc"), (type{e<int>("abc")}), e<int>(" abc"));
+        static constexpr auto arr_abc = e<int>("abc");
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abcabcab"), (type{arr_abc, arr_abc}), e<int>("ab")));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abcd"), (type{arr_abc}), e<int>("d")));
+        EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abc abc"), (type{arr_abc}), e<int>(" abc")));
         ASSERT_PARSE_FAILURE(Nam2, e<int>("ab abc"));
         ASSERT_PARSE_FAILURE(Nam2, e<int>(" ab abc"));
     }
@@ -84,58 +85,60 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
 
 TEST("named_parser", "named_parser<maybe_parser>")
 {
-    ASSERT_PARSE_SUCCESS(Nam3, "abcabcab", "abc", "abcab");
-    ASSERT_PARSE_SUCCESS(Nam3, "abcd", "abc", "d");
-    ASSERT_PARSE_SUCCESS(Nam3, "abc abc", "abc", " abc");
-    ASSERT_PARSE_SUCCESS(Nam3, "ab abc", std::nullopt, "ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, " ab abc", std::nullopt, " ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, "?? ab abc", "??", " ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, "??? ab abc", "??", "? ab abc");
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("abcabcab", "abc", "abcab"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("abcd", "abc", "d"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("abc abc", "abc", " abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("ab abc", std::nullopt, "ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(" ab abc", std::nullopt, " ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("?? ab abc", "??", " ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING("??? ab abc", "??", "? ab abc"));
 
-    ASSERT_PARSE_SUCCESS(Nam3, L"abcabcab", L"abc", L"abcab");
-    ASSERT_PARSE_SUCCESS(Nam3, L"abcd", L"abc", L"d");
-    ASSERT_PARSE_SUCCESS(Nam3, L"abc abc", L"abc", L" abc");
-    ASSERT_PARSE_SUCCESS(Nam3, L"ab abc", std::nullopt, L"ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, L" ab abc", std::nullopt, L" ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, L"?? ab abc", L"??", L" ab abc");
-    ASSERT_PARSE_SUCCESS(Nam3, L"??? ab abc", L"??", L"? ab abc");
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"abcabcab", L"abc", L"abcab"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"abcd", L"abc", L"d"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"abc abc", L"abc", L" abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"ab abc", std::nullopt, L"ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L" ab abc", std::nullopt, L" ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"?? ab abc", L"??", L" ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(L"??? ab abc", L"??", L"? ab abc"));
 
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("abcabcab"), e<int>("abc"), e<int>("abcab"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("abcd"), e<int>("abc"), e<int>("d"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("abc abc"), e<int>("abc"), e<int>(" abc"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("ab abc"), std::nullopt, e<int>("ab abc"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>(" ab abc"), std::nullopt, e<int>(" ab abc"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("?? ab abc"), e<int>("??"), e<int>(" ab abc"));
-    ASSERT_PARSE_SUCCESS(Nam3, e<int>("??? ab abc"), e<int>("??"), e<int>("? ab abc"));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("abcabcab"), e<int>("abc"), e<int>("abcab")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("abcd"), e<int>("abc"), e<int>("d")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("abc abc"), e<int>("abc"), e<int>(" abc")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("ab abc"), std::nullopt, e<int>("ab abc")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>(" ab abc"), std::nullopt, e<int>(" ab abc")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("?? ab abc"), e<int>("??"), e<int>(" ab abc")));
+    EXPECT_THAT(the_parser<Nam3> | SUCCEEDS_PARSING(e<int>("??? ab abc"), e<int>("??"), e<int>("? ab abc")));
 }
 
 TEST("named_parser", "named_parser<sequence_parser>")
 {
     {
         using type = std::tuple<output_span<char>, std::vector<output_span<char>>>;
-        ASSERT_PARSE_SUCCESS(Nam4, "abcabcab", (type{"abc", {}}), "abcab");
-        ASSERT_PARSE_SUCCESS(Nam4, "abc?d", (type{"abc", {}}), "?d");
-        ASSERT_PARSE_SUCCESS(Nam4, "abc???? abc", (type{"abc", {"??", "??"}}), " abc");
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abcabcab", (type{"abc", {}}), "abcab"));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc?d", (type{"abc", {}}), "?d"));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc???? abc", (type{"abc", {"??", "??"}}), " abc"));
         ASSERT_PARSE_FAILURE(Nam4, "ab???? abc");
-        ASSERT_PARSE_SUCCESS(Nam4, "abc?? ?? abc", (type{"abc", {"??"}}), " ?? abc");
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc?? ?? abc", (type{"abc", {"??"}}), " ?? abc"));
     }
 
     {
         using type = std::tuple<output_span<wchar_t>, std::vector<output_span<wchar_t>>>;
-        ASSERT_PARSE_SUCCESS(Nam4, L"abcabcab", (type{L"abc", {}}), L"abcab");
-        ASSERT_PARSE_SUCCESS(Nam4, L"abc?d", (type{L"abc", {}}), L"?d");
-        ASSERT_PARSE_SUCCESS(Nam4, L"abc???? abc", (type{L"abc", {L"??", L"??"}}), L" abc");
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abcabcab", (type{L"abc", {}}), L"abcab"));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc?d", (type{L"abc", {}}), L"?d"));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc???? abc", (type{L"abc", {L"??", L"??"}}), L" abc"));
         ASSERT_PARSE_FAILURE(Nam4, L"ab???? abc");
-        ASSERT_PARSE_SUCCESS(Nam4, L"abc?? ?? abc", (type{L"abc", {L"??"}}), L" ?? abc");
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc?? ?? abc", (type{L"abc", {L"??"}}), L" ?? abc"));
     }
 
     {
         using type = std::tuple<output_span<int>, std::vector<output_span<int>>>;
-        ASSERT_PARSE_SUCCESS(Nam4, e<int>("abcabcab"), (type{e<int>("abc"), {}}), e<int>("abcab"));
-        ASSERT_PARSE_SUCCESS(Nam4, e<int>("abc?d"), (type{e<int>("abc"), {}}), e<int>("?d"));
-        ASSERT_PARSE_SUCCESS(Nam4, e<int>("abc???? abc"), (type{e<int>("abc"), {e<int>("??"), e<int>("??")}}), e<int>(" abc"));
+        static constexpr auto arr_abc = e<int>("abc");
+        static constexpr auto arr_qq = e<int>("??");
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abcabcab"), (type{arr_abc, {}}), e<int>("abcab")));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc?d"), (type{arr_abc, {}}), e<int>("?d")));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc???? abc"), (type{arr_abc, {arr_qq, arr_qq}}), e<int>(" abc")));
         ASSERT_PARSE_FAILURE(Nam4, e<int>("ab???? abc"));
-        ASSERT_PARSE_SUCCESS(Nam4, e<int>("abc?? ?? abc"), (type{e<int>("abc"), {e<int>("??")}}), e<int>(" ?? abc"));
+        EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc?? ?? abc"), (type{arr_abc, {arr_qq}}), e<int>(" ?? abc")));
     }
 }
 

@@ -21,28 +21,28 @@ TEST("anything_parser", "Requirements")
 
 TEST("anything_parser", "Parse")
 {
-    ASSERT_PARSE_SUCCESS(Ant1, "ab", "a", "b");
-    ASSERT_PARSE_SUCCESS(Ant1, "ba", "b", "a");
-    ASSERT_PARSE_SUCCESS(Ant1, "abc", "a", "bc");
-    ASSERT_PARSE_SUCCESS(Ant1, "Ab", "A", "b");
-    ASSERT_PARSE_SUCCESS(Ant1, "Abc", "A", "bc");
-    ASSERT_PARSE_SUCCESS(Ant1, " abc", " ", "abc");
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("ab", "a", "b"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("ba", "b", "a"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("abc", "a", "bc"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("Ab", "A", "b"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("Abc", "A", "bc"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(" abc", " ", "abc"));
     ASSERT_PARSE_FAILURE(Ant1, "");
 
-    ASSERT_PARSE_SUCCESS(Ant1, L"ab", L"a", L"b");
-    ASSERT_PARSE_SUCCESS(Ant1, L"ba", L"b", L"a");
-    ASSERT_PARSE_SUCCESS(Ant1, L"abc", L"a", L"bc");
-    ASSERT_PARSE_SUCCESS(Ant1, L"Ab", L"A", L"b");
-    ASSERT_PARSE_SUCCESS(Ant1, L"Abc", L"A", L"bc");
-    ASSERT_PARSE_SUCCESS(Ant1, L" abc", L" ", L"abc");
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"ab", L"a", L"b"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"ba", L"b", L"a"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"abc", L"a", L"bc"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"Ab", L"A", L"b"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"Abc", L"A", L"bc"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L" abc", L" ", L"abc"));
     ASSERT_PARSE_FAILURE(Ant1, L"");
 
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>("ab"), e<int>("a"), e<int>("b"));
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>("ba"), e<int>("b"), e<int>("a"));
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>("abc"), e<int>("a"), e<int>("bc"));
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>("Ab"), e<int>("A"), e<int>("b"));
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>("Abc"), e<int>("A"), e<int>("bc"));
-    ASSERT_PARSE_SUCCESS(Ant1, e<int>(" abc"), e<int>(" "), e<int>("abc"));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("ab"), e<int>("a"), e<int>("b")));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("ba"), e<int>("b"), e<int>("a")));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("a"), e<int>("bc")));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("Ab"), e<int>("A"), e<int>("b")));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("Abc"), e<int>("A"), e<int>("bc")));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>(" abc"), e<int>(" "), e<int>("abc")));
     ASSERT_PARSE_FAILURE(Ant1, e<int>(""));
 }
 

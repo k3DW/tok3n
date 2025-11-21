@@ -53,13 +53,31 @@ struct succeeds_parsing_fragment
             // << "    remaining                   = \"" << RemainingFn() << "\"\n"
             // << "]";
             << "`P::parse(input).remaining()` must be the same as the given `remaining`.";
+
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).has_value())
+            // << "`P` could not lookahead the given input.\n"
+            // << "[\n"
+            // << "    P     = " << typeid(P).name() << "\n"
+            // << "    input = \"" << InputFn() << "\"\n"
+            // << "]";
+            << "`P` could not lookahead the given input.\n";
+
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).remaining() == RemainingFn())
+            // << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.\n"
+            // << "[\n"
+            // << "    P                               = " << typeid(P).name() << "\n"
+            // << "    input                           = \"" << InputFn() << "\"\n"
+            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn())).remaining() << "\"\n"
+            // << "    remaining                       = \"" << RemainingFn() << "\"\n"
+            // << "]";
+            << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.";
     }
 };
 template <std::invocable<> auto InputFn, std::invocable<> auto ResultFn, std::invocable<> auto RemainingFn>
 constexpr auto succeeds_parsing = succeeds_parsing_fragment<InputFn, ResultFn, RemainingFn>{};
 
 #define SUCCEEDS_PARSING(INPUT, RESULT, REMAINING) \
-    (::k3::testing::succeeds_parsing<              \
+    (::k3::tok3n::tests::succeeds_parsing<         \
         []() constexpr { return INPUT; },          \
         []() constexpr { return RESULT; },         \
         []() constexpr { return REMAINING; }       \

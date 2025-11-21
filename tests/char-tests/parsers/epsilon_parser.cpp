@@ -53,25 +53,25 @@ TEST("epsilon_parser", "choice_parser<P, epsilon_parser>")
     EXPECT_THAT(the_parser<P> | has_family<choice_family>);
 
     EXPECT_THAT(the_parser<P> | is_parser_for<char>.with_result<output_span<char>>);
-    ASSERT_PARSE_SUCCESS(P, "+abc", "+", "abc");
-    ASSERT_PARSE_SUCCESS(P, "++abc", "+", "+abc");
-    ASSERT_PARSE_SUCCESS(P, "-abc", "-", "abc");
-    ASSERT_PARSE_SUCCESS(P, "--abc", "-", "-abc");
-    ASSERT_PARSE_SUCCESS(P, "abc", "", "abc");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("+abc", "+", "abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("++abc", "+", "+abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("-abc", "-", "abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("--abc", "-", "-abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abc", "", "abc"));
 
     EXPECT_THAT(the_parser<P> | is_parser_for<wchar_t>.with_result<output_span<wchar_t>>);
-    ASSERT_PARSE_SUCCESS(P, L"+abc", L"+", L"abc");
-    ASSERT_PARSE_SUCCESS(P, L"++abc", L"+", L"+abc");
-    ASSERT_PARSE_SUCCESS(P, L"-abc", L"-", L"abc");
-    ASSERT_PARSE_SUCCESS(P, L"--abc", L"-", L"-abc");
-    ASSERT_PARSE_SUCCESS(P, L"abc", L"", L"abc");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"+abc", L"+", L"abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"++abc", L"+", L"+abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"-abc", L"-", L"abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"--abc", L"-", L"-abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abc", L"", L"abc"));
 
     EXPECT_THAT(the_parser<P> | is_parser_for<int>.with_result<output_span<int>>);
-    ASSERT_PARSE_SUCCESS(P, e<int>("+abc"), e<int>("+"), e<int>("abc"));
-    ASSERT_PARSE_SUCCESS(P, e<int>("++abc"), e<int>("+"), e<int>("+abc"));
-    ASSERT_PARSE_SUCCESS(P, e<int>("-abc"), e<int>("-"), e<int>("abc"));
-    ASSERT_PARSE_SUCCESS(P, e<int>("--abc"), e<int>("-"), e<int>("-abc"));
-    ASSERT_PARSE_SUCCESS(P, e<int>("abc"), e<int>(""), e<int>("abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("+abc"), e<int>("+"), e<int>("abc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("++abc"), e<int>("+"), e<int>("+abc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("-abc"), e<int>("-"), e<int>("abc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("--abc"), e<int>("-"), e<int>("-abc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abc"), e<int>(""), e<int>("abc")));
 }
 
 } // namespace

@@ -29,33 +29,37 @@ TEST("apply_into_parser", "Requirements")
 
 TEST("apply_into_parser", "Parse all")
 {
-    ASSERT_PARSE_SUCCESS(Api1, "abc.", Class2("abc", "."), "");
-    ASSERT_PARSE_SUCCESS(Api1, "abc . ", Class2("abc", " "), ". ");
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING("abc.", Class2("abc", "."), ""));
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING("abc . ", Class2("abc", " "), ". "));
     ASSERT_PARSE_FAILURE(Api1, "");
     ASSERT_PARSE_FAILURE(Api1, "abc");
 
-    ASSERT_PARSE_SUCCESS(Api2, ".abc", Class5(".", "abc"), "");
-    ASSERT_PARSE_SUCCESS(Api2, " abc. ", Class5(" ", "abc"), ". ");
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(".abc", Class5(".", "abc"), ""));
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(" abc. ", Class5(" ", "abc"), ". "));
     ASSERT_PARSE_FAILURE(Api2, ".");
     ASSERT_PARSE_FAILURE(Api2, "abc");
 
-    ASSERT_PARSE_SUCCESS(Api1, L"abc.", Class2(L"abc", L"."), L"");
-    ASSERT_PARSE_SUCCESS(Api1, L"abc . ", Class2(L"abc", L" "), L". ");
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING(L"abc.", Class2(L"abc", L"."), L""));
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING(L"abc . ", Class2(L"abc", L" "), L". "));
     ASSERT_PARSE_FAILURE(Api1, L"");
     ASSERT_PARSE_FAILURE(Api1, L"abc");
 
-    ASSERT_PARSE_SUCCESS(Api2, L".abc", Class5(L".", L"abc"), L"");
-    ASSERT_PARSE_SUCCESS(Api2, L" abc. ", Class5(L" ", L"abc"), L". ");
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(L".abc", Class5(L".", L"abc"), L""));
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(L" abc. ", Class5(L" ", L"abc"), L". "));
     ASSERT_PARSE_FAILURE(Api2, L".");
     ASSERT_PARSE_FAILURE(Api2, L"abc");
 
-    ASSERT_PARSE_SUCCESS(Api1, e<int>("abc."), Class2(e<int>("abc"), e<int>(".")), e<int>(""));
-    ASSERT_PARSE_SUCCESS(Api1, e<int>("abc . "), Class2(e<int>("abc"), e<int>(" ")), e<int>(". "));
+    static constexpr auto arr_abc = e<int>("abc");
+    static constexpr auto arr_dot = e<int>(".");
+    static constexpr auto arr_space = e<int>(" ");
+
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING(e<int>("abc."), Class2(arr_abc, arr_dot), e<int>("")));
+    EXPECT_THAT(the_parser<Api1> | SUCCEEDS_PARSING(e<int>("abc . "), Class2(arr_abc, arr_space), e<int>(". ")));
     ASSERT_PARSE_FAILURE(Api1, e<int>(""));
     ASSERT_PARSE_FAILURE(Api1, e<int>("abc"));
 
-    ASSERT_PARSE_SUCCESS(Api2, e<int>(".abc"), Class5(e<int>("."), e<int>("abc")), e<int>(""));
-    ASSERT_PARSE_SUCCESS(Api2, e<int>(" abc. "), Class5(e<int>(" "), e<int>("abc")), e<int>(". "));
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(e<int>(".abc"), Class5(arr_dot, arr_abc), e<int>("")));
+    EXPECT_THAT(the_parser<Api2> | SUCCEEDS_PARSING(e<int>(" abc. "), Class5(arr_space, arr_abc), e<int>(". ")));
     ASSERT_PARSE_FAILURE(Api2, e<int>("."));
     ASSERT_PARSE_FAILURE(Api2, e<int>("abc"));
 }
@@ -66,27 +70,30 @@ TEST("apply_into_parser", "Move only")
         using tuple = std::tuple<output_span<char>, output_span<char>>;
         using T = MoveOnlyWrapper<tuple>;
         using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
-        ASSERT_PARSE_SUCCESS(P, "xabcd", T(std::tuple("x", "abc")), "d");
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("xabcd", T(std::tuple("x", "abc")), "d"));
         ASSERT_PARSE_FAILURE(P, "ydcba");
-        ASSERT_PARSE_SUCCESS(P, "zabcabcd", T(std::tuple("z", "abc")), "abcd");
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("zabcabcd", T(std::tuple("z", "abc")), "abcd"));
     }
 
     {
         using tuple = std::tuple<output_span<wchar_t>, output_span<wchar_t>>;
         using T = MoveOnlyWrapper<tuple>;
         using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
-        ASSERT_PARSE_SUCCESS(P, L"xabcd", T(std::tuple(L"x", L"abc")), L"d");
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"xabcd", T(std::tuple(L"x", L"abc")), L"d"));
         ASSERT_PARSE_FAILURE(P, L"ydcba");
-        ASSERT_PARSE_SUCCESS(P, L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd");
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"zabcabcd", T(std::tuple(L"z", L"abc")), L"abcd"));
     }
 
     {
         using tuple = std::tuple<output_span<int>, output_span<int>>;
         using T = MoveOnlyWrapper<tuple>;
         using P = apply_into_parser<sequence_parser<Any3, ABC>, T>;
-        ASSERT_PARSE_SUCCESS(P, e<int>("xabcd"), T(std::tuple(e<int>("x"), e<int>("abc"))), e<int>("d"));
+        static constexpr auto arr_abc = e<int>("abc");
+        static constexpr auto arr_x = e<int>("x");
+        static constexpr auto arr_z = e<int>("z");
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("xabcd"), T(tuple(arr_x, arr_abc)), e<int>("d")));
         ASSERT_PARSE_FAILURE(P, e<int>("ydcba"));
-        ASSERT_PARSE_SUCCESS(P, e<int>("zabcabcd"), T(std::tuple(e<int>("z"), e<int>("abc"))), e<int>("abcd"));
+        EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("zabcabcd"), T(tuple(arr_z, arr_abc)), e<int>("abcd")));
     }
 }
 
