@@ -36,13 +36,30 @@ struct fails_parsing_fragment
             // << "    P::parse(input).remaining() = \"" << (P::parse(InputFn())).remaining() << "\"\n"
             // << "]";
             << "`P::parse(input).remaining()` must be the same as the given `input`.";
+
+        EXPECT_COMPILE_AND_RUN_TIME(not P::lookahead(InputFn()).has_value())
+            // << "`P` could lookahead the given input, but should not.\n"
+            // << "[\n"
+            // << "    P     = " << typeid(P).name() << "\n"
+            // << "    input = \"" << InputFn() << "\"\n"
+            // << "]";
+            << "`P` could lookahead the given input, but should not.\n";
+
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).remaining() == InputFn())
+            // << "`P::lookahead(input).remaining()` must be the same as the given `input`."
+            // << "[\n"
+            // << "    P                               = " << typeid(P).name() << "\n"
+            // << "    input                           = \"" << InputFn() << "\"\n"
+            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn())).remaining() << "\"\n"
+            // << "]";
+            << "`P::lookahead(input).remaining()` must be the same as the given `input`.";
     }
 };
 template <std::invocable<> auto InputFn>
 constexpr auto fails_parsing = fails_parsing_fragment<InputFn>{};
 
 #define FAILS_PARSING(INPUT) \
-    (::k3::testing::fails_parsing<[]() constexpr { return INPUT; }>)
+    (::k3::tok3n::tests::fails_parsing<[]() constexpr { return INPUT; }>)
 
 } // namespace k3::tok3n::tests
 

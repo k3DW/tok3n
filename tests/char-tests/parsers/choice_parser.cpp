@@ -52,38 +52,38 @@ TEST("choice_parser", "Parse two-way choice_parser")
 {
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING("abc", "ab", "c"));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING("ba", "b", "a"));
-    ASSERT_PARSE_FAILURE(TwoWay1, "cba");
-    ASSERT_PARSE_FAILURE(TwoWay1, "dcba");
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING("cba"));
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING("dcba"));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING("edcba", "e", "dcba"));
 
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING("abc", "a", "bc"));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING("ba", "b", "a"));
-    ASSERT_PARSE_FAILURE(TwoWay2, "cba");
-    ASSERT_PARSE_FAILURE(TwoWay2, "dcba");
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING("cba"));
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING("dcba"));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING("edcba", "e", "dcba"));
 
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(L"abc", L"ab", L"c"));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(L"ba", L"b", L"a"));
-    ASSERT_PARSE_FAILURE(TwoWay1, L"cba");
-    ASSERT_PARSE_FAILURE(TwoWay1, L"dcba");
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING(L"cba"));
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING(L"dcba"));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(L"edcba", L"e", L"dcba"));
 
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(L"abc", L"a", L"bc"));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(L"ba", L"b", L"a"));
-    ASSERT_PARSE_FAILURE(TwoWay2, L"cba");
-    ASSERT_PARSE_FAILURE(TwoWay2, L"dcba");
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING(L"cba"));
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING(L"dcba"));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(L"edcba", L"e", L"dcba"));
 
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("ab"), e<int>("c")));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(e<int>("ba"), e<int>("b"), e<int>("a")));
-    ASSERT_PARSE_FAILURE(TwoWay1, e<int>("cba"));
-    ASSERT_PARSE_FAILURE(TwoWay1, e<int>("dcba"));
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING(e<int>("cba")));
+    EXPECT_THAT(the_parser<TwoWay1> | FAILS_PARSING(e<int>("dcba")));
     EXPECT_THAT(the_parser<TwoWay1> | SUCCEEDS_PARSING(e<int>("edcba"), e<int>("e"), e<int>("dcba")));
 
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("a"), e<int>("bc")));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(e<int>("ba"), e<int>("b"), e<int>("a")));
-    ASSERT_PARSE_FAILURE(TwoWay2, e<int>("cba"));
-    ASSERT_PARSE_FAILURE(TwoWay2, e<int>("dcba"));
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING(e<int>("cba")));
+    EXPECT_THAT(the_parser<TwoWay2> | FAILS_PARSING(e<int>("dcba")));
     EXPECT_THAT(the_parser<TwoWay2> | SUCCEEDS_PARSING(e<int>("edcba"), e<int>("e"), e<int>("dcba")));
 }
 
@@ -101,9 +101,9 @@ TEST("choice_parser", "Parse three-way choice_parser")
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING("dcba", "d", "cba"));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING("edcba", "e", "dcba"));
 
-    ASSERT_PARSE_FAILURE(ThreeWay1, "zyx");
+    EXPECT_THAT(the_parser<ThreeWay1> | FAILS_PARSING("zyx"));
     EXPECT_THAT(the_parser<ThreeWay1> | SUCCEEDS_PARSING("xyz", "x", "yz"));
-    ASSERT_PARSE_FAILURE(ThreeWay2, "zyx");
+    EXPECT_THAT(the_parser<ThreeWay2> | FAILS_PARSING("zyx"));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING("xyz", "x", "yz"));
 
     EXPECT_THAT(the_parser<ThreeWay1> | SUCCEEDS_PARSING(L"abc", L"ab", L"c"));
@@ -118,9 +118,9 @@ TEST("choice_parser", "Parse three-way choice_parser")
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(L"dcba", L"d", L"cba"));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(L"edcba", L"e", L"dcba"));
 
-    ASSERT_PARSE_FAILURE(ThreeWay1, L"zyx");
+    EXPECT_THAT(the_parser<ThreeWay1> | FAILS_PARSING(L"zyx"));
     EXPECT_THAT(the_parser<ThreeWay1> | SUCCEEDS_PARSING(L"xyz", L"x", L"yz"));
-    ASSERT_PARSE_FAILURE(ThreeWay2, L"zyx");
+    EXPECT_THAT(the_parser<ThreeWay2> | FAILS_PARSING(L"zyx"));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(L"xyz", L"x", L"yz"));
 
     EXPECT_THAT(the_parser<ThreeWay1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("ab"), e<int>("c")));
@@ -135,23 +135,23 @@ TEST("choice_parser", "Parse three-way choice_parser")
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(e<int>("dcba"), e<int>("d"), e<int>("cba")));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(e<int>("edcba"), e<int>("e"), e<int>("dcba")));
 
-    ASSERT_PARSE_FAILURE(ThreeWay1, e<int>("zyx"));
+    EXPECT_THAT(the_parser<ThreeWay1> | FAILS_PARSING(e<int>("zyx")));
     EXPECT_THAT(the_parser<ThreeWay1> | SUCCEEDS_PARSING(e<int>("xyz"), e<int>("x"), e<int>("yz")));
-    ASSERT_PARSE_FAILURE(ThreeWay2, e<int>("zyx"));
+    EXPECT_THAT(the_parser<ThreeWay2> | FAILS_PARSING(e<int>("zyx")));
     EXPECT_THAT(the_parser<ThreeWay2> | SUCCEEDS_PARSING(e<int>("xyz"), e<int>("x"), e<int>("yz")));
 }
 
 TEST("choice_parser", "Parse void result_type")
 {
-    ASSERT_PARSE_FAILURE(Cho5, "ab");
+    EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING("ab"));
     ASSERT_PARSE_SUCCESS_VOID(Cho5, "abca", "a");
     ASSERT_PARSE_SUCCESS_VOID(Cho5, "abcabcabc", "abcabc");
 
-    ASSERT_PARSE_FAILURE(Cho5, L"ab");
+    EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING(L"ab"));
     ASSERT_PARSE_SUCCESS_VOID(Cho5, L"abca", L"a");
     ASSERT_PARSE_SUCCESS_VOID(Cho5, L"abcabcabc", L"abcabc");
 
-    ASSERT_PARSE_FAILURE(Cho5, e<int>("ab"));
+    EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING(e<int>("ab")));
     ASSERT_PARSE_SUCCESS_VOID(Cho5, e<int>("abca"), e<int>("a"));
     ASSERT_PARSE_SUCCESS_VOID(Cho5, e<int>("abcabcabc"), e<int>("abcabc"));
 }
@@ -177,7 +177,7 @@ TEST("choice_parser", "Move only")
         using T = MoveOnlyWrapper<output_span<char>>;
         using P = choice_parser<into_parser<Any3, T>, into_parser<ABC, T>>;
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("xyz", T("x"), "yz"));
-        ASSERT_PARSE_FAILURE(P, "abxyz");
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING("abxyz"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abcxyz", T("abc"), "xyz"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("zabcxyz", T("z"), "abcxyz"));
     }
@@ -186,7 +186,7 @@ TEST("choice_parser", "Move only")
         using T = MoveOnlyWrapper<output_span<wchar_t>>;
         using P = choice_parser<into_parser<Any3, T>, into_parser<ABC, T>>;
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"xyz", T(L"x"), L"yz"));
-        ASSERT_PARSE_FAILURE(P, L"abxyz");
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING(L"abxyz"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abcxyz", T(L"abc"), L"xyz"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"zabcxyz", T(L"z"), L"abcxyz"));
     }
@@ -198,7 +198,7 @@ TEST("choice_parser", "Move only")
         static constexpr auto arr_x = e<int>("x");
         static constexpr auto arr_z = e<int>("z");
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("xyz"), T(arr_x), e<int>("yz")));
-        ASSERT_PARSE_FAILURE(P, e<int>("abxyz"));
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("abxyz")));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abcxyz"), T(arr_abc), e<int>("xyz")));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("zabcxyz"), T(arr_z), e<int>("abcxyz")));
     }

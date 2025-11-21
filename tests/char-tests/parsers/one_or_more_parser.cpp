@@ -46,35 +46,35 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<all_of_parser>")
 {
     {
         using vec_type = std::vector<output_span<char>>;
-        ASSERT_PARSE_FAILURE(Oom1, "litera");
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING("litera"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING("literal", vec_type({ "literal" }), ""));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING("literally", vec_type({ "literal" }), "ly"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING("literallitera", vec_type({ "literal" }), "litera"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING("literalliterallitera", vec_type({ "literal", "literal" }), "litera"));
-        ASSERT_PARSE_FAILURE(Oom1, " literalliterallitera");
-        ASSERT_PARSE_FAILURE(Oom1, "");
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(" literalliterallitera"));
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(""));
     }
 
     {
         using vec_type = std::vector<output_span<wchar_t>>;
-        ASSERT_PARSE_FAILURE(Oom1, L"litera");
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(L"litera"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(L"literal", vec_type({ L"literal" }), L""));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(L"literally", vec_type({ L"literal" }), L"ly"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(L"literallitera", vec_type({ L"literal" }), L"litera"));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(L"literalliterallitera", vec_type({ L"literal", L"literal" }), L"litera"));
-        ASSERT_PARSE_FAILURE(Oom1, L" literalliterallitera");
-        ASSERT_PARSE_FAILURE(Oom1, L"");
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(L" literalliterallitera"));
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(L""));
     }
 
     {
         using vec_type = std::vector<output_span<int>>;
-        ASSERT_PARSE_FAILURE(Oom1, e<int>("litera"));
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(e<int>("litera")));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(e<int>("literal"), vec_type({ arr_literal }), e<int>("")));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(e<int>("literally"), vec_type({ arr_literal }), e<int>("ly")));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(e<int>("literallitera"), vec_type({ arr_literal }), e<int>("litera")));
         EXPECT_THAT(the_parser<Oom1> | SUCCEEDS_PARSING(e<int>("literalliterallitera"), vec_type({ arr_literal, arr_literal }), e<int>("litera")));
-        ASSERT_PARSE_FAILURE(Oom1, e<int>(" literalliterallitera"));
-        ASSERT_PARSE_FAILURE(Oom1, e<int>(""));
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(e<int>(" literalliterallitera")));
+        EXPECT_THAT(the_parser<Oom1> | FAILS_PARSING(e<int>("")));
     }
 }
 TEST("one_or_more_parser", "Parse one_or_more_parser<any_of_parser>")
@@ -82,25 +82,25 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<any_of_parser>")
     {
         using vec_type = std::vector<output_span<char>>;
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING("abcdef", vec_type({ "a", "b", "c" }), "def"));
-        ASSERT_PARSE_FAILURE(Oom2, "fedcba");
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING("fedcba"));
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING("cbabcccbjklmnop", vec_type({ "c", "b", "a", "b", "c", "c", "c", "b" }), "jklmnop"));
-        ASSERT_PARSE_FAILURE(Oom2, "");
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING(""));
     }
 
     {
         using vec_type = std::vector<output_span<wchar_t>>;
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING(L"abcdef", vec_type({ L"a", L"b", L"c" }), L"def"));
-        ASSERT_PARSE_FAILURE(Oom2, L"fedcba");
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING(L"fedcba"));
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING(L"cbabcccbjklmnop", vec_type({ L"c", L"b", L"a", L"b", L"c", L"c", L"c", L"b" }), L"jklmnop"));
-        ASSERT_PARSE_FAILURE(Oom2, L"");
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING(L""));
     }
 
     {
         using vec_type = std::vector<output_span<int>>;
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING(e<int>("abcdef"), vec_type({ arr_a, arr_b, arr_c }), e<int>("def")));
-        ASSERT_PARSE_FAILURE(Oom2, e<int>("fedcba"));
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING(e<int>("fedcba")));
         EXPECT_THAT(the_parser<Oom2> | SUCCEEDS_PARSING(e<int>("cbabcccbjklmnop"), vec_type({ arr_c, arr_b, arr_a, arr_b, arr_c, arr_c, arr_c, arr_b }), e<int>("jklmnop")));
-        ASSERT_PARSE_FAILURE(Oom2, e<int>(""));
+        EXPECT_THAT(the_parser<Oom2> | FAILS_PARSING(e<int>("")));
     }
 }
 TEST("one_or_more_parser", "Parse one_or_more_parser<choice_parser>")
@@ -110,7 +110,7 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<choice_parser>")
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING("abliteralcbliteralcf", vec_type({ "a", "b", "literal", "c", "b", "literal", "c" }), "f"));
         EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING("abliteralcblitralcf", vec_type({ "a", "b", "literal", "c", "b" }), "litralcf"));
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING("literalabacliteral", vec_type({ "literal", "a", "b", "a", "c", "literal" }), ""));
-        ASSERT_PARSE_FAILURE(Oom3, "");
+        EXPECT_THAT(the_parser<Oom3> | FAILS_PARSING(""));
     }
 
     {
@@ -118,7 +118,7 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<choice_parser>")
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(L"abliteralcbliteralcf", vec_type({ L"a", L"b", L"literal", L"c", L"b", L"literal", L"c" }), L"f"));
         EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(L"abliteralcblitralcf", vec_type({ L"a", L"b", L"literal", L"c", L"b" }), L"litralcf"));
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(L"literalabacliteral", vec_type({ L"literal", L"a", L"b", L"a", L"c", L"literal" }), L""));
-        ASSERT_PARSE_FAILURE(Oom3, L"");
+        EXPECT_THAT(the_parser<Oom3> | FAILS_PARSING(L""));
     }
 
     {
@@ -126,7 +126,7 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<choice_parser>")
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(e<int>("abliteralcbliteralcf"), vec_type({ arr_a, arr_b, arr_literal, arr_c, arr_b, arr_literal, arr_c }), e<int>("f")));
         EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(e<int>("abliteralcblitralcf"), vec_type({ arr_a, arr_b, arr_literal, arr_c, arr_b }), e<int>("litralcf")));
         // ICE: EXPECT_THAT(the_parser<Oom3> | SUCCEEDS_PARSING(e<int>("literalabacliteral"), vec_type({ arr_literal, arr_a, arr_b, arr_a, arr_c, arr_literal }), e<int>("")));
-        ASSERT_PARSE_FAILURE(Oom3, e<int>(""));
+        EXPECT_THAT(the_parser<Oom3> | FAILS_PARSING(e<int>("")));
     }
 }
 TEST("one_or_more_parser", "Parse one_or_more_parser<sequence_parser>")
@@ -135,24 +135,24 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<sequence_parser>")
         using vec_type = std::vector<std::tuple<output_span<char>, output_span<char>>>;
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING("literalaliteralcliteralcliteralb", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), ""));
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING("literalaliteralcliteralcliteralbliteral", vec_type({ {"literal", "a"}, {"literal", "c"}, {"literal", "c"}, {"literal", "b"} }), "literal"));
-        ASSERT_PARSE_FAILURE(Oom4, "aliteralaliteralcliteralbliteral");
-        ASSERT_PARSE_FAILURE(Oom4, "");
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING("aliteralaliteralcliteralbliteral"));
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING(""));
     }
 
     {
         using vec_type = std::vector<std::tuple<output_span<wchar_t>, output_span<wchar_t>>>;
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING(L"literalaliteralcliteralcliteralb", vec_type({ {L"literal", L"a"}, {L"literal", L"c"}, {L"literal", L"c"}, {L"literal", L"b"} }), L""));
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING(L"literalaliteralcliteralcliteralbliteral", vec_type({ {L"literal", L"a"}, {L"literal", L"c"}, {L"literal", L"c"}, {L"literal", L"b"} }), L"literal"));
-        ASSERT_PARSE_FAILURE(Oom4, L"aliteralaliteralcliteralbliteral");
-        ASSERT_PARSE_FAILURE(Oom4, L"");
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING(L"aliteralaliteralcliteralbliteral"));
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING(L""));
     }
 
     {
         using vec_type = std::vector<std::tuple<output_span<int>, output_span<int>>>;
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING(e<int>("literalaliteralcliteralcliteralb"), vec_type({ {arr_literal, arr_a}, {arr_literal, arr_c}, {arr_literal, arr_c}, {arr_literal, arr_b} }), e<int>("")));
         EXPECT_THAT(the_parser<Oom4> | SUCCEEDS_PARSING(e<int>("literalaliteralcliteralcliteralbliteral"), vec_type({ {arr_literal, arr_a}, {arr_literal, arr_c}, {arr_literal, arr_c}, {arr_literal, arr_b} }), e<int>("literal")));
-        ASSERT_PARSE_FAILURE(Oom4, e<int>("aliteralaliteralcliteralbliteral"));
-        ASSERT_PARSE_FAILURE(Oom4, e<int>(""));
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING(e<int>("aliteralaliteralcliteralbliteral")));
+        EXPECT_THAT(the_parser<Oom4> | FAILS_PARSING(e<int>("")));
     }
 }
 
@@ -163,26 +163,26 @@ TEST("one_or_more_parser", "Parse one_or_more_parser<void-parser>")
     ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "a");
     ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");
     ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "");
-    ASSERT_PARSE_FAILURE(P, " abcabc");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(" abcabc"));
     ASSERT_PARSE_SUCCESS_VOID(P, "abcab", "ab");
     ASSERT_PARSE_SUCCESS_VOID(P, "abc", "");
-    ASSERT_PARSE_FAILURE(P, "");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(""));
 
     ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"a");
     ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"a");
     ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"");
-    ASSERT_PARSE_FAILURE(P, L" abcabc");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(L" abcabc"));
     ASSERT_PARSE_SUCCESS_VOID(P, L"abcab", L"ab");
     ASSERT_PARSE_SUCCESS_VOID(P, L"abc", L"");
-    ASSERT_PARSE_FAILURE(P, L"");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(L""));
 
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("a"));
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("a"));
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>(""));
-    ASSERT_PARSE_FAILURE(P, e<int>(" abcabc"));
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>(" abcabc")));
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcab"), e<int>("ab"));
     ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
-    ASSERT_PARSE_FAILURE(P, e<int>(""));
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("")));
 }
 
 } // namespace

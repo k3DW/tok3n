@@ -21,8 +21,8 @@ TEST("all_of_parser", "Parse")
 {
     EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(e(X, Y, Z), e(X, Y, Z), e()));
     EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(e(X, Y, Z, A, B), e(X, Y, Z), e(A, B)));
-    ASSERT_PARSE_FAILURE(L, e(X, Y));
-    ASSERT_PARSE_FAILURE(L, e(Space, X, Y));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e(X, Y)));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e(Space, X, Y)));
 }
 
 

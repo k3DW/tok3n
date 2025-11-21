@@ -31,7 +31,7 @@ TEST("anything_parser", "Parse")
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Y, Z, X), e(Y), e(Z, X)));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Z, X, Y), e(Z), e(X, Y)));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Z, Y, X), e(Z), e(Y, X)));
-    ASSERT_PARSE_FAILURE(Ant1, e());
+    EXPECT_THAT(the_parser<Ant1> | FAILS_PARSING(e()));
 }
 
 } // namespace

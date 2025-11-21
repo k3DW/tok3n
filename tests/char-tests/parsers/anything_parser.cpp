@@ -27,7 +27,7 @@ TEST("anything_parser", "Parse")
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("Ab", "A", "b"));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING("Abc", "A", "bc"));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(" abc", " ", "abc"));
-    ASSERT_PARSE_FAILURE(Ant1, "");
+    EXPECT_THAT(the_parser<Ant1> | FAILS_PARSING(""));
 
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"ab", L"a", L"b"));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"ba", L"b", L"a"));
@@ -35,7 +35,7 @@ TEST("anything_parser", "Parse")
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"Ab", L"A", L"b"));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L"Abc", L"A", L"bc"));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(L" abc", L" ", L"abc"));
-    ASSERT_PARSE_FAILURE(Ant1, L"");
+    EXPECT_THAT(the_parser<Ant1> | FAILS_PARSING(L""));
 
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("ab"), e<int>("a"), e<int>("b")));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("ba"), e<int>("b"), e<int>("a")));
@@ -43,7 +43,7 @@ TEST("anything_parser", "Parse")
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("Ab"), e<int>("A"), e<int>("b")));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>("Abc"), e<int>("A"), e<int>("bc")));
     EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e<int>(" abc"), e<int>(" "), e<int>("abc")));
-    ASSERT_PARSE_FAILURE(Ant1, e<int>(""));
+    EXPECT_THAT(the_parser<Ant1> | FAILS_PARSING(e<int>("")));
 }
 
 } // namespace

@@ -41,15 +41,15 @@ TEST("named_parser", "named_parser<all_of_parser>")
 {
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING("abc", "abc", ""));
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING("abcd", "abc", "d"));
-    ASSERT_PARSE_FAILURE(Nam1, " abc");
+    EXPECT_THAT(the_parser<Nam1> | FAILS_PARSING(" abc"));
 
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(L"abc", L"abc", L""));
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(L"abcd", L"abc", L"d"));
-    ASSERT_PARSE_FAILURE(Nam1, L" abc");
+    EXPECT_THAT(the_parser<Nam1> | FAILS_PARSING(L" abc"));
 
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("abc"), e<int>("")));
     EXPECT_THAT(the_parser<Nam1> | SUCCEEDS_PARSING(e<int>("abcd"), e<int>("abc"), e<int>("d")));
-    ASSERT_PARSE_FAILURE(Nam1, e<int>(" abc"));
+    EXPECT_THAT(the_parser<Nam1> | FAILS_PARSING(e<int>(" abc")));
 }
 
 TEST("named_parser", "named_parser<one_or_more_parser>")
@@ -59,8 +59,8 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abcabcab", (type{"abc", "abc"}), "ab"));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abcd", (type{"abc"}), "d"));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING("abc abc", (type{"abc"}), " abc"));
-        ASSERT_PARSE_FAILURE(Nam2, "ab abc");
-        ASSERT_PARSE_FAILURE(Nam2, " ab abc");
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING("ab abc"));
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING(" ab abc"));
     }
 
     {
@@ -68,8 +68,8 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abcabcab", (type{L"abc", L"abc"}), L"ab"));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abcd", (type{L"abc"}), L"d"));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(L"abc abc", (type{L"abc"}), L" abc"));
-        ASSERT_PARSE_FAILURE(Nam2, L"ab abc");
-        ASSERT_PARSE_FAILURE(Nam2, L" ab abc");
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING(L"ab abc"));
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING(L" ab abc"));
     }
 
     {
@@ -78,8 +78,8 @@ TEST("named_parser", "named_parser<one_or_more_parser>")
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abcabcab"), (type{arr_abc, arr_abc}), e<int>("ab")));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abcd"), (type{arr_abc}), e<int>("d")));
         EXPECT_THAT(the_parser<Nam2> | SUCCEEDS_PARSING(e<int>("abc abc"), (type{arr_abc}), e<int>(" abc")));
-        ASSERT_PARSE_FAILURE(Nam2, e<int>("ab abc"));
-        ASSERT_PARSE_FAILURE(Nam2, e<int>(" ab abc"));
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING(e<int>("ab abc")));
+        EXPECT_THAT(the_parser<Nam2> | FAILS_PARSING(e<int>(" ab abc")));
     }
 }
 
@@ -117,7 +117,7 @@ TEST("named_parser", "named_parser<sequence_parser>")
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abcabcab", (type{"abc", {}}), "abcab"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc?d", (type{"abc", {}}), "?d"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc???? abc", (type{"abc", {"??", "??"}}), " abc"));
-        ASSERT_PARSE_FAILURE(Nam4, "ab???? abc");
+        EXPECT_THAT(the_parser<Nam4> | FAILS_PARSING("ab???? abc"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING("abc?? ?? abc", (type{"abc", {"??"}}), " ?? abc"));
     }
 
@@ -126,7 +126,7 @@ TEST("named_parser", "named_parser<sequence_parser>")
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abcabcab", (type{L"abc", {}}), L"abcab"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc?d", (type{L"abc", {}}), L"?d"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc???? abc", (type{L"abc", {L"??", L"??"}}), L" abc"));
-        ASSERT_PARSE_FAILURE(Nam4, L"ab???? abc");
+        EXPECT_THAT(the_parser<Nam4> | FAILS_PARSING(L"ab???? abc"));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(L"abc?? ?? abc", (type{L"abc", {L"??"}}), L" ?? abc"));
     }
 
@@ -137,7 +137,7 @@ TEST("named_parser", "named_parser<sequence_parser>")
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abcabcab"), (type{arr_abc, {}}), e<int>("abcab")));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc?d"), (type{arr_abc, {}}), e<int>("?d")));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc???? abc"), (type{arr_abc, {arr_qq, arr_qq}}), e<int>(" abc")));
-        ASSERT_PARSE_FAILURE(Nam4, e<int>("ab???? abc"));
+        EXPECT_THAT(the_parser<Nam4> | FAILS_PARSING(e<int>("ab???? abc")));
         EXPECT_THAT(the_parser<Nam4> | SUCCEEDS_PARSING(e<int>("abc?? ?? abc"), (type{arr_abc, {arr_qq}}), e<int>(" ?? abc")));
     }
 }

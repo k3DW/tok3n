@@ -37,8 +37,8 @@ TEST("apply_filter_parser", "Parse all")
         ASSERT_PARSE_LOOKAHEAD_ONLY(Apf1, "abc???????", "?");
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING("abc????????", tuple_type("abc", { "??", "??", "??", "??" }), ""));
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING("abc?????????", tuple_type("abc", { "??", "??", "??", "??" }), "?"));
-        ASSERT_PARSE_FAILURE(Apf1, "??abc???????");
-        ASSERT_PARSE_FAILURE(Apf1, "");
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING("??abc???????"));
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING(""));
     }
 
     {
@@ -55,8 +55,8 @@ TEST("apply_filter_parser", "Parse all")
         ASSERT_PARSE_LOOKAHEAD_ONLY(Apf1, L"abc???????", L"?");
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING(L"abc????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L""));
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING(L"abc?????????", tuple_type(L"abc", { L"??", L"??", L"??", L"??" }), L"?"));
-        ASSERT_PARSE_FAILURE(Apf1, L"??abc???????");
-        ASSERT_PARSE_FAILURE(Apf1, L"");
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING(L"??abc???????"));
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING(L""));
     }
 
     {
@@ -75,8 +75,8 @@ TEST("apply_filter_parser", "Parse all")
         ASSERT_PARSE_LOOKAHEAD_ONLY(Apf1, e<int>("abc???????"), e<int>("?"));
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING(e<int>("abc????????"), tuple_type(arr_abc, { arr_qq, arr_qq, arr_qq, arr_qq }), e<int>("")));
         EXPECT_THAT(the_parser<Apf1> | SUCCEEDS_PARSING(e<int>("abc?????????"), tuple_type(arr_abc, { arr_qq, arr_qq, arr_qq, arr_qq }), e<int>("?")));
-        ASSERT_PARSE_FAILURE(Apf1, e<int>("??abc???????"));
-        ASSERT_PARSE_FAILURE(Apf1, e<int>(""));
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING(e<int>("??abc???????")));
+        EXPECT_THAT(the_parser<Apf1> | FAILS_PARSING(e<int>("")));
     }
 }
 

@@ -52,8 +52,8 @@ TEST("map_parser", "Requirements")
 TEST("map_parser", "Parse all")
 {
     EXPECT_THAT(the_parser<Map1> | SUCCEEDS_PARSING(TT("abcabcabcab"), 3, TT("ab")));
-    ASSERT_PARSE_FAILURE(Map1, TT(""));
-    ASSERT_PARSE_FAILURE(Map1, TT("ab"));
+    EXPECT_THAT(the_parser<Map1> | FAILS_PARSING(TT("")));
+    EXPECT_THAT(the_parser<Map1> | FAILS_PARSING(TT("ab")));
     EXPECT_THAT(the_parser<Map1> | SUCCEEDS_PARSING(TT("abc"), 1, TT("")));
 
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING("abcabc", std::vector<char>({ 'a', 'b', 'c' }), "abc"));
@@ -63,17 +63,17 @@ TEST("map_parser", "Parse all")
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(" ??abcabc", std::vector<char>{}, " ??abcabc"));
 
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING("abc???????", false, "?"));
-    ASSERT_PARSE_FAILURE(Map3, "??abc???????");
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING("??abc???????"));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING("abc??abc???????", false, "abc???????"));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING("abc ??abc???????", true, " ??abc???????"));
-    ASSERT_PARSE_FAILURE(Map3, "");
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING(""));
 
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING("abcabcabcabc??", 36, ""));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING("abcabcabcabc", 12, ""));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING("abcabcabcabc ??", 12, " ??"));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING("abc", 3, ""));
-    ASSERT_PARSE_FAILURE(Map4, " abc");
-    ASSERT_PARSE_FAILURE(Map4, "");
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(" abc"));
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(""));
 
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(L"abcabc", std::vector<wchar_t>({ 'a', 'b', 'c' }), L"abc"));
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(L"a??bcabc", std::vector<wchar_t>{}, L"a??bcabc"));
@@ -82,17 +82,17 @@ TEST("map_parser", "Parse all")
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(L" ??abcabc", std::vector<wchar_t>{}, L" ??abcabc"));
 
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(L"abc???????", false, L"?"));
-    ASSERT_PARSE_FAILURE(Map3, L"??abc???????");
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING(L"??abc???????"));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(L"abc??abc???????", false, L"abc???????"));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(L"abc ??abc???????", true, L" ??abc???????"));
-    ASSERT_PARSE_FAILURE(Map3, L"");
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING(L""));
 
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(L"abcabcabcabc??", 36, L""));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(L"abcabcabcabc", 12, L""));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(L"abcabcabcabc ??", 12, L" ??"));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(L"abc", 3, L""));
-    ASSERT_PARSE_FAILURE(Map4, L" abc");
-    ASSERT_PARSE_FAILURE(Map4, L"");
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(L" abc"));
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(L""));
 
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(e<int>("abcabc"), std::vector<int>({ 'a', 'b', 'c' }), e<int>("abc")));
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(e<int>("a??bcabc"), std::vector<int>{}, e<int>("a??bcabc")));
@@ -101,17 +101,17 @@ TEST("map_parser", "Parse all")
     EXPECT_THAT(the_parser<Map2> | SUCCEEDS_PARSING(e<int>(" ??abcabc"), std::vector<int>{}, e<int>(" ??abcabc")));
 
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(e<int>("abc???????"), false, e<int>("?")));
-    ASSERT_PARSE_FAILURE(Map3, e<int>("??abc???????"));
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING(e<int>("??abc???????")));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(e<int>("abc??abc???????"), false, e<int>("abc???????")));
     EXPECT_THAT(the_parser<Map3> | SUCCEEDS_PARSING(e<int>("abc ??abc???????"), true, e<int>(" ??abc???????")));
-    ASSERT_PARSE_FAILURE(Map3, e<int>(""));
+    EXPECT_THAT(the_parser<Map3> | FAILS_PARSING(e<int>("")));
 
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc??"), 36, e<int>("")));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc"), 12, e<int>("")));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc ??"), 12, e<int>(" ??")));
     EXPECT_THAT(the_parser<Map4> | SUCCEEDS_PARSING(e<int>("abc"), 3, e<int>("")));
-    ASSERT_PARSE_FAILURE(Map4, e<int>(" abc"));
-    ASSERT_PARSE_FAILURE(Map4, e<int>(""));
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(e<int>(" abc")));
+    EXPECT_THAT(the_parser<Map4> | FAILS_PARSING(e<int>("")));
 }
 
 TEST("map_parser", "Move only")
@@ -120,7 +120,7 @@ TEST("map_parser", "Move only")
         using T = MoveOnlyWrapper<output_span<char>>;
         using P = map_parser<ABC, integral_constant<T::make>>;
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abcd", T("abc"), "d"));
-        ASSERT_PARSE_FAILURE(P, "dcba");
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING("dcba"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abcabcd", T("abc"), "abcd"));
     }
 
@@ -128,7 +128,7 @@ TEST("map_parser", "Move only")
         using T = MoveOnlyWrapper<output_span<wchar_t>>;
         using P = map_parser<ABC, integral_constant<T::make>>;
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abcd", T(L"abc"), L"d"));
-        ASSERT_PARSE_FAILURE(P, L"dcba");
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING(L"dcba"));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abcabcd", T(L"abc"), L"abcd"));
     }
 
@@ -137,7 +137,7 @@ TEST("map_parser", "Move only")
         using P = map_parser<ABC, integral_constant<T::make>>;
         static constexpr auto arr_abc = e<int>("abc");
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abcd"), T(arr_abc), e<int>("d")));
-        ASSERT_PARSE_FAILURE(P, e<int>("dcba"));
+        EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("dcba")));
         EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abcabcd"), T(arr_abc), e<int>("abcd")));
     }
 }
@@ -151,7 +151,7 @@ TEST("map_parser", "void input")
     EXPECT_THAT(the_parser<MapGood> | has_family<map_family>);
     EXPECT_THAT(the_parser<MapGood> | is_parser_for<value_type>.with_result<int>);
     EXPECT_THAT(the_parser<MapGood> | SUCCEEDS_PARSING("abcd", 0, "d"));
-    ASSERT_PARSE_FAILURE(MapGood, " abcd");
+    EXPECT_THAT(the_parser<MapGood> | FAILS_PARSING(" abcd"));
 
     constexpr auto func_bad = [](auto) { return 0; };
     using MapBad = map_parser<P, integral_constant<func_bad>>;
@@ -167,7 +167,7 @@ TEST("map_parser", "void output")
     using MapGood = map_parser<P, integral_constant<func_good>>;
     EXPECT_THAT(the_parser<MapGood> | is_parser_for<value_type>.with_result<void>);
     ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
-    ASSERT_PARSE_FAILURE(MapGood, " abcd");
+    EXPECT_THAT(the_parser<MapGood> | FAILS_PARSING(" abcd"));
 
     constexpr auto func_bad = []() {};
     using MapBad = map_parser<P, integral_constant<func_bad>>;
@@ -183,7 +183,7 @@ TEST("map_parser", "void input and void output")
     using MapGood = map_parser<P, integral_constant<func_good>>;
     EXPECT_THAT(the_parser<MapGood> | is_parser_for<value_type>.with_result<void>);
     ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
-    ASSERT_PARSE_FAILURE(MapGood, " abcd");
+    EXPECT_THAT(the_parser<MapGood> | FAILS_PARSING(" abcd"));
 
     constexpr auto func_bad = [](auto) {};
     using MapBad = map_parser<P, integral_constant<func_bad>>;

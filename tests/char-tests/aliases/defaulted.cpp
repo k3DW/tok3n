@@ -30,8 +30,8 @@ TEST("defaulted_parser", "Requirements")
 TEST("defaulted_parser", "Parse all")
 {
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING("abcabcabcab", 0, "ab"));
-    ASSERT_PARSE_FAILURE(Def1, "");
-    ASSERT_PARSE_FAILURE(Def1, "ab");
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING(""));
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING("ab"));
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING("abc", 0, ""));
 
     EXPECT_THAT(the_parser<Def2> | SUCCEEDS_PARSING("abcabc", Class3{}, "abc"));
@@ -41,8 +41,8 @@ TEST("defaulted_parser", "Parse all")
     EXPECT_THAT(the_parser<Def2> | SUCCEEDS_PARSING(" ??abcabc", Class3{}, " ??abcabc"));
 
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING(L"abcabcabcab", 0, L"ab"));
-    ASSERT_PARSE_FAILURE(Def1, L"");
-    ASSERT_PARSE_FAILURE(Def1, L"ab");
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING(L""));
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING(L"ab"));
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING(L"abc", 0, L""));
 
     EXPECT_THAT(the_parser<Def2> | SUCCEEDS_PARSING(L"abcabc", Class3{}, L"abc"));
@@ -52,8 +52,8 @@ TEST("defaulted_parser", "Parse all")
     EXPECT_THAT(the_parser<Def2> | SUCCEEDS_PARSING(L" ??abcabc", Class3{}, L" ??abcabc"));
 
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING(e<int>("abcabcabcab"), 0, e<int>("ab")));
-    ASSERT_PARSE_FAILURE(Def1, e<int>(""));
-    ASSERT_PARSE_FAILURE(Def1, e<int>("ab"));
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING(e<int>("")));
+    EXPECT_THAT(the_parser<Def1> | FAILS_PARSING(e<int>("ab")));
     EXPECT_THAT(the_parser<Def1> | SUCCEEDS_PARSING(e<int>("abc"), 0, e<int>("")));
 
     EXPECT_THAT(the_parser<Def2> | SUCCEEDS_PARSING(e<int>("abcabc"), Class3{}, e<int>("abc")));

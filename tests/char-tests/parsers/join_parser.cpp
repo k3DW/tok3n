@@ -45,12 +45,12 @@ TEST("join_parser", "Requirements")
 TEST("join_parser", "Parse all")
 {
     EXPECT_THAT(the_parser<Joi1> | SUCCEEDS_PARSING("abcabc", "abc", "abc"));
-    ASSERT_PARSE_FAILURE(Joi1, "Abcabc");
-    ASSERT_PARSE_FAILURE(Joi1, " abcabc");
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING("Abcabc"));
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING(" abcabc"));
 
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING("abcabcabcab", "abcabcabc", "ab"));
-    ASSERT_PARSE_FAILURE(Joi2, "");
-    ASSERT_PARSE_FAILURE(Joi2, "ab");
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING(""));
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING("ab"));
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING("abc", "abc", ""));
 
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING("abcabc", "abc", "abc"));
@@ -60,25 +60,25 @@ TEST("join_parser", "Parse all")
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING(" ??abcabc", "", " ??abcabc"));
 
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING("abc???????", "abc??????", "?"));
-    ASSERT_PARSE_FAILURE(Joi4, "??abc???????");
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING("??abc???????"));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING("abc??abc???????", "abc??", "abc???????"));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING("abc ??abc???????", "abc", " ??abc???????"));
-    ASSERT_PARSE_FAILURE(Joi4, "");
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING(""));
 
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING("abcabcabcabc??", "abcabcabcabc??", ""));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING("abcabcabcabc", "abcabcabcabc", ""));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING("abcabcabcabc ??", "abcabcabcabc", " ??"));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING("abc", "abc", ""));
-    ASSERT_PARSE_FAILURE(Joi5, " abc");
-    ASSERT_PARSE_FAILURE(Joi5, "");
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(" abc"));
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(""));
 
     EXPECT_THAT(the_parser<Joi1> | SUCCEEDS_PARSING(L"abcabc", L"abc", L"abc"));
-    ASSERT_PARSE_FAILURE(Joi1, L"Abcabc");
-    ASSERT_PARSE_FAILURE(Joi1, L" abcabc");
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING(L"Abcabc"));
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING(L" abcabc"));
 
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING(L"abcabcabcab", L"abcabcabc", L"ab"));
-    ASSERT_PARSE_FAILURE(Joi2, L"");
-    ASSERT_PARSE_FAILURE(Joi2, L"ab");
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING(L""));
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING(L"ab"));
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING(L"abc", L"abc", L""));
 
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING(L"abcabc", L"abc", L"abc"));
@@ -88,25 +88,25 @@ TEST("join_parser", "Parse all")
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING(L" ??abcabc", L"", L" ??abcabc"));
 
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(L"abc???????", L"abc??????", L"?"));
-    ASSERT_PARSE_FAILURE(Joi4, L"??abc???????");
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING(L"??abc???????"));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(L"abc??abc???????", L"abc??", L"abc???????"));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(L"abc ??abc???????", L"abc", L" ??abc???????"));
-    ASSERT_PARSE_FAILURE(Joi4, L"");
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING(L""));
 
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(L"abcabcabcabc??", L"abcabcabcabc??", L""));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(L"abcabcabcabc", L"abcabcabcabc", L""));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(L"abcabcabcabc ??", L"abcabcabcabc", L" ??"));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(L"abc", L"abc", L""));
-    ASSERT_PARSE_FAILURE(Joi5, L" abc");
-    ASSERT_PARSE_FAILURE(Joi5, L"");
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(L" abc"));
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(L""));
 
     EXPECT_THAT(the_parser<Joi1> | SUCCEEDS_PARSING(e<int>("abcabc"), e<int>("abc"), e<int>("abc")));
-    ASSERT_PARSE_FAILURE(Joi1, e<int>("Abcabc"));
-    ASSERT_PARSE_FAILURE(Joi1, e<int>(" abcabc"));
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING(e<int>("Abcabc")));
+    EXPECT_THAT(the_parser<Joi1> | FAILS_PARSING(e<int>(" abcabc")));
 
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING(e<int>("abcabcabcab"), e<int>("abcabcabc"), e<int>("ab")));
-    ASSERT_PARSE_FAILURE(Joi2, e<int>(""));
-    ASSERT_PARSE_FAILURE(Joi2, e<int>("ab"));
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING(e<int>("")));
+    EXPECT_THAT(the_parser<Joi2> | FAILS_PARSING(e<int>("ab")));
     EXPECT_THAT(the_parser<Joi2> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("abc"), e<int>("")));
 
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING(e<int>("abcabc"), e<int>("abc"), e<int>("abc")));
@@ -116,17 +116,17 @@ TEST("join_parser", "Parse all")
     EXPECT_THAT(the_parser<Joi3> | SUCCEEDS_PARSING(e<int>(" ??abcabc"), e<int>(""), e<int>(" ??abcabc")));
 
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(e<int>("abc???????"), e<int>("abc??????"), e<int>("?")));
-    ASSERT_PARSE_FAILURE(Joi4, e<int>("??abc???????"));
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING(e<int>("??abc???????")));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(e<int>("abc??abc???????"), e<int>("abc??"), e<int>("abc???????")));
     EXPECT_THAT(the_parser<Joi4> | SUCCEEDS_PARSING(e<int>("abc ??abc???????"), e<int>("abc"), e<int>(" ??abc???????")));
-    ASSERT_PARSE_FAILURE(Joi4, e<int>(""));
+    EXPECT_THAT(the_parser<Joi4> | FAILS_PARSING(e<int>("")));
 
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(e<int>("abcabcabcabc??"), e<int>("abcabcabcabc??"), e<int>("")));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(e<int>("abcabcabcabc"), e<int>("abcabcabcabc"), e<int>("")));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(e<int>("abcabcabcabc ??"), e<int>("abcabcabcabc"), e<int>(" ??")));
     EXPECT_THAT(the_parser<Joi5> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("abc"), e<int>("")));
-    ASSERT_PARSE_FAILURE(Joi5, e<int>(" abc"));
-    ASSERT_PARSE_FAILURE(Joi5, e<int>(""));
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(e<int>(" abc")));
+    EXPECT_THAT(the_parser<Joi5> | FAILS_PARSING(e<int>("")));
 }
 
 TEST("join_parser", "Contiguous empty strings")
@@ -286,10 +286,10 @@ TEST("join_parser", "join_parser<map_parser>")
     {
         EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING("abcabc", "b", "abc"));
         EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING("abc", "b", ""));
-        ASSERT_PARSE_FAILURE(T1, "");
+        EXPECT_THAT(the_parser<T1> | FAILS_PARSING(""));
         EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING("abcabc", "b", "abc"));
         EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING("abc", "b", ""));
-        ASSERT_PARSE_FAILURE(J1, "");
+        EXPECT_THAT(the_parser<J1> | FAILS_PARSING(""));
 
         EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING("abc??abc", std::tuple("b", "??"), "abc"));
         EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING("abc??", std::tuple("b", "??"), ""));
@@ -306,10 +306,10 @@ TEST("join_parser", "join_parser<map_parser>")
     {
         EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING(L"abcabc", L"b", L"abc"));
         EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING(L"abc", L"b", L""));
-        ASSERT_PARSE_FAILURE(T1, L"");
+        EXPECT_THAT(the_parser<T1> | FAILS_PARSING(L""));
         EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING(L"abcabc", L"b", L"abc"));
         EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING(L"abc", L"b", L""));
-        ASSERT_PARSE_FAILURE(J1, L"");
+        EXPECT_THAT(the_parser<J1> | FAILS_PARSING(L""));
 
         EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING(L"abc??abc", std::tuple(L"b", L"??"), L"abc"));
         EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING(L"abc??", std::tuple(L"b", L"??"), L""));
@@ -327,10 +327,10 @@ TEST("join_parser", "join_parser<map_parser>")
         // TODO: The commented out lines have different compile-time and run-time results
         //EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING(e<int>("abcabc"), e<int>("b"), e<int>("abc")));
         //EXPECT_THAT(the_parser<T1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("b"), e<int>("")));
-        ASSERT_PARSE_FAILURE(T1, e<int>(""));
+        EXPECT_THAT(the_parser<T1> | FAILS_PARSING(e<int>("")));
         //EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING(e<int>("abcabc"), e<int>("b"), e<int>("abc")));
         //EXPECT_THAT(the_parser<J1> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("b"), e<int>("")));
-        ASSERT_PARSE_FAILURE(J1, e<int>(""));
+        EXPECT_THAT(the_parser<J1> | FAILS_PARSING(e<int>("")));
 
         //EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING(e<int>("abc??abc"), std::tuple(e<int>("b"), e<int>("??")), e<int>("abc")));
         //EXPECT_THAT(the_parser<T2> | SUCCEEDS_PARSING(e<int>("abc??"), std::tuple(e<int>("b"), e<int>("??")), e<int>("")));
@@ -363,17 +363,17 @@ TEST("join_parser", "join_parser<sequence_parser<choice_parser<non-eps,eps>, any
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("+abcd", "+abc", "d"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("-abcd", "-abc", "d"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abcd", "abc", "d"));
-    ASSERT_PARSE_FAILURE(P, " abcd");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(" abcd"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"+abcd", L"+abc", L"d"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"-abcd", L"-abc", L"d"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abcd", L"abc", L"d"));
-    ASSERT_PARSE_FAILURE(P, L" abcd");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(L" abcd"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("+abcd"), e<int>("+abc"), e<int>("d")));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("-abcd"), e<int>("-abc"), e<int>("d")));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abcd"), e<int>("abc"), e<int>("d")));
-    ASSERT_PARSE_FAILURE(P, e<int>(" abcd"));
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>(" abcd")));
 }
 
 TEST("join_parser", "join variant")
@@ -401,17 +401,17 @@ TEST("join_parser", "join variant")
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abc,??", "abc", ",??"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abcd,??", "abc", "d,??"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(",??abc", ",??", "abc"));
-    ASSERT_PARSE_FAILURE(P, " ,??abc");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(" ,??abc"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abc,??", L"abc", L",??"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abcd,??", L"abc", L"d,??"));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L",??abc", L",??", L"abc"));
-    ASSERT_PARSE_FAILURE(P, L" ,??abc");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(L" ,??abc"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abc,??"), e<int>("abc"), e<int>(",??")));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abcd,??"), e<int>("abc"), e<int>("d,??")));
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>(",??abc"), e<int>(",??"), e<int>("abc")));
-    ASSERT_PARSE_FAILURE(P, e<int>(" ,??abc"));
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>(" ,??abc")));
 #endif
 }
 

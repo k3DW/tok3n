@@ -37,18 +37,18 @@ TEST("sequence_parser", "Requirements")
 
 TEST("sequence_parser", "Parse two-way sequence_parser")
 {
-    ASSERT_PARSE_FAILURE(TwoWay, "abc");
-    ASSERT_PARSE_FAILURE(TwoWay, "abcd");
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING("abc"));
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING("abcd"));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING("abef", std::tuple("ab", "e"), "f"));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING("ab ef", std::tuple("ab", " "), "ef"));
 
-    ASSERT_PARSE_FAILURE(TwoWay, L"abc");
-    ASSERT_PARSE_FAILURE(TwoWay, L"abcd");
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING(L"abc"));
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING(L"abcd"));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING(L"abef", std::tuple(L"ab", L"e"), L"f"));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING(L"ab ef", std::tuple(L"ab", L" "), L"ef"));
 
-    ASSERT_PARSE_FAILURE(TwoWay, e<int>("abc"));
-    ASSERT_PARSE_FAILURE(TwoWay, e<int>("abcd"));
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING(e<int>("abc")));
+    EXPECT_THAT(the_parser<TwoWay> | FAILS_PARSING(e<int>("abcd")));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING(e<int>("abef"), std::tuple(e<int>("ab"), e<int>("e")), e<int>("f")));
     EXPECT_THAT(the_parser<TwoWay> | SUCCEEDS_PARSING(e<int>("ab ef"), std::tuple(e<int>("ab"), e<int>(" ")), e<int>("ef")));
 }
@@ -57,29 +57,29 @@ TEST("sequence_parser", "Parse three-way sequence_parser")
 {
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING("abcde", std::tuple("ab", "c", "d"), "e"));
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING("abdc", std::tuple("ab", "d", "c"), ""));
-    ASSERT_PARSE_FAILURE(ThreeWay, "abcz");
+    EXPECT_THAT(the_parser<ThreeWay> | FAILS_PARSING("abcz"));
 
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING(L"abcde", std::tuple(L"ab", L"c", L"d"), L"e"));
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING(L"abdc", std::tuple(L"ab", L"d", L"c"), L""));
-    ASSERT_PARSE_FAILURE(ThreeWay, L"abcz");
+    EXPECT_THAT(the_parser<ThreeWay> | FAILS_PARSING(L"abcz"));
 
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING(e<int>("abcde"), std::tuple(e<int>("ab"), e<int>("c"), e<int>("d")), e<int>("e")));
     EXPECT_THAT(the_parser<ThreeWay> | SUCCEEDS_PARSING(e<int>("abdc"), std::tuple(e<int>("ab"), e<int>("d"), e<int>("c")), e<int>()));
-    ASSERT_PARSE_FAILURE(ThreeWay, e<int>("abcz"));
+    EXPECT_THAT(the_parser<ThreeWay> | FAILS_PARSING(e<int>("abcz")));
 }
 
 TEST("sequence_parser", "Parse void result_type")
 {
-    ASSERT_PARSE_FAILURE(Seq5, "ab");
-    ASSERT_PARSE_FAILURE(Seq5, "abca");
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING("ab"));
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING("abca"));
     ASSERT_PARSE_SUCCESS_VOID(Seq5, "abcabcabcdabcd", "dabcd");
 
-    ASSERT_PARSE_FAILURE(Seq5, L"ab");
-    ASSERT_PARSE_FAILURE(Seq5, L"abca");
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(L"ab"));
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(L"abca"));
     ASSERT_PARSE_SUCCESS_VOID(Seq5, L"abcabcabcdabcd", L"dabcd");
 
-    ASSERT_PARSE_FAILURE(Seq5, e<int>("ab"));
-    ASSERT_PARSE_FAILURE(Seq5, e<int>("abca"));
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(e<int>("ab")));
+    EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(e<int>("abca")));
     ASSERT_PARSE_SUCCESS_VOID(Seq5, e<int>("abcabcabcdabcd"), e<int>("dabcd"));
 }
 
@@ -97,13 +97,13 @@ TEST("sequence_parser", "sequence_parser<ignore_parser>")
     using P = sequence_parser<ABC, ignore_parser<QQ>, ABC>;
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("abc??abc??", std::tuple("abc", "abc"), "??"));
-    ASSERT_PARSE_FAILURE(P, "abcabc??");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING("abcabc??"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"abc??abc??", std::tuple(L"abc", L"abc"), L"??"));
-    ASSERT_PARSE_FAILURE(P, L"abcabc??");
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(L"abcabc??"));
 
     EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("abc??abc??"), std::tuple(e<int>("abc"), e<int>("abc")), e<int>("??")));
-    ASSERT_PARSE_FAILURE(P, e<int>("abcabc??"));
+    EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("abcabc??")));
 }
 
 } // namespace
