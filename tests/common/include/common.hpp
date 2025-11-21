@@ -22,6 +22,7 @@
 #include "common/fragments/parser_family.hpp"
 #include "common/fragments/parser_fragment_builder.hpp"
 #include "common/fragments/parser_value.hpp"
+#include "common/fragments/succeeds_lookahead_only.hpp"
 #include "common/fragments/succeeds_parsing.hpp"
 
 #include "common/config.hpp"
