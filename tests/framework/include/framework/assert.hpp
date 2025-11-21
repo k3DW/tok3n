@@ -79,12 +79,4 @@
         (FRAGMENT)();                                \
     } static_assert(true, "require semicolon")
 
-
-
-#define ASSERT(CONDITION) \
-    ASSERT_COMPILE_AND_RUN_TIME(CONDITION)
-
-#define EXPECT(CONDITION) \
-    EXPECT_COMPILE_AND_RUN_TIME(CONDITION)
-
 #endif // K3_TOK3N_TESTS_FRAMEWORK_ASSERT_HPP
