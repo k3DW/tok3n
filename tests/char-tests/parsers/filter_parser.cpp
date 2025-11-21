@@ -150,7 +150,7 @@ TEST("filter_parser", "void input")
     using FilterGood = filter_parser<P, integral_constant<func_good>>;
     EXPECT_THAT(the_parser<FilterGood> | has_family<filter_family>);
     EXPECT_THAT(the_parser<FilterGood> | is_parser_for<value_type>.with_result<void>);
-    ASSERT_PARSE_SUCCESS_VOID(FilterGood, TT("abcd"), TT("d"));
+    EXPECT_THAT(the_parser<FilterGood> | SUCCEEDS_PARSING_VOID(TT("abcd"), TT("d")));
     EXPECT_THAT(the_parser<FilterGood> | FAILS_PARSING(TT(" abcd")));
 
     constexpr auto func_bad = [](auto) { return true; };

@@ -174,25 +174,25 @@ TEST("exactly_parser", "Parse exactly_parser<void-parser>")
 {
     using P = exactly_parser<ignore_parser<ABC>, index_c<2>>;
 
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abca");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "a");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabcabca", "abca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabca", "a"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabc", ""));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(" abcabc"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING("abcab"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING("abc"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"abca");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"a");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabcabca", L"abca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabca", L"a"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabc", L""));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(L" abcabc"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(L"abcab"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(L"abc"));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("abca"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("a"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>(""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabcabca"), e<int>("abca")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabca"), e<int>("a")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabc"), e<int>("")));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>(" abcabc")));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("abcab")));
     EXPECT_THAT(the_parser<P> | FAILS_PARSING(e<int>("abc")));

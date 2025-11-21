@@ -166,7 +166,7 @@ TEST("map_parser", "void output")
     constexpr auto func_good = [](auto) {};
     using MapGood = map_parser<P, integral_constant<func_good>>;
     EXPECT_THAT(the_parser<MapGood> | is_parser_for<value_type>.with_result<void>);
-    ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
+    EXPECT_THAT(the_parser<MapGood> | SUCCEEDS_PARSING_VOID("abcd", "d"));
     EXPECT_THAT(the_parser<MapGood> | FAILS_PARSING(" abcd"));
 
     constexpr auto func_bad = []() {};
@@ -182,7 +182,7 @@ TEST("map_parser", "void input and void output")
     constexpr auto func_good = []() {};
     using MapGood = map_parser<P, integral_constant<func_good>>;
     EXPECT_THAT(the_parser<MapGood> | is_parser_for<value_type>.with_result<void>);
-    ASSERT_PARSE_SUCCESS_VOID(MapGood, "abcd", "d");
+    EXPECT_THAT(the_parser<MapGood> | SUCCEEDS_PARSING_VOID("abcd", "d"));
     EXPECT_THAT(the_parser<MapGood> | FAILS_PARSING(" abcd"));
 
     constexpr auto func_bad = [](auto) {};

@@ -144,16 +144,16 @@ TEST("choice_parser", "Parse three-way choice_parser")
 TEST("choice_parser", "Parse void result_type")
 {
     EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING("ab"));
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, "abca", "a");
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, "abcabcabc", "abcabc");
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID("abca", "a"));
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID("abcabcabc", "abcabc"));
 
     EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING(L"ab"));
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, L"abca", L"a");
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, L"abcabcabc", L"abcabc");
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID(L"abca", L"a"));
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID(L"abcabcabc", L"abcabc"));
 
     EXPECT_THAT(the_parser<Cho5> | FAILS_PARSING(e<int>("ab")));
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, e<int>("abca"), e<int>("a"));
-    ASSERT_PARSE_SUCCESS_VOID(Cho5, e<int>("abcabcabc"), e<int>("abcabc"));
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID(e<int>("abca"), e<int>("a")));
+    EXPECT_THAT(the_parser<Cho5> | SUCCEEDS_PARSING_VOID(e<int>("abcabcabc"), e<int>("abcabc")));
 }
 
 

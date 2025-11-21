@@ -119,29 +119,29 @@ TEST("maybe_parser", "Parse maybe_parser<void-parser>")
 {
     using P = maybe_parser<ignore_parser<ABC>>;
 
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabcabca", "abcabca");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabca", "abca");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcabc", "abc");
-    ASSERT_PARSE_SUCCESS_VOID(P, " abcabc", " abcabc");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abcab", "ab");
-    ASSERT_PARSE_SUCCESS_VOID(P, "abc", "");
-    ASSERT_PARSE_SUCCESS_VOID(P, "", "");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabcabca", "abcabca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabca", "abca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcabc", "abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(" abcabc", " abcabc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abcab", "ab"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("abc", ""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID("", ""));
 
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabcabca", L"abcabca");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabca", L"abca");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcabc", L"abc");
-    ASSERT_PARSE_SUCCESS_VOID(P, L" abcabc", L" abcabc");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abcab", L"ab");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"abc", L"");
-    ASSERT_PARSE_SUCCESS_VOID(P, L"", L"");
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabcabca", L"abcabca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabca", L"abca"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcabc", L"abc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L" abcabc", L" abcabc"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abcab", L"ab"));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"abc", L""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(L"", L""));
 
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabcabca"), e<int>("abcabca"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabca"), e<int>("abca"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcabc"), e<int>("abc"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>(" abcabc"), e<int>(" abcabc"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abcab"), e<int>("ab"));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>("abc"), e<int>(""));
-    ASSERT_PARSE_SUCCESS_VOID(P, e<int>(""), e<int>(""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabcabca"), e<int>("abcabca")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabca"), e<int>("abca")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcabc"), e<int>("abc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>(" abcabc"), e<int>(" abcabc")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abcab"), e<int>("ab")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>("abc"), e<int>("")));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING_VOID(e<int>(""), e<int>("")));
 }
 
 } // namespace

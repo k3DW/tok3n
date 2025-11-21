@@ -72,15 +72,15 @@ TEST("sequence_parser", "Parse void result_type")
 {
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING("ab"));
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING("abca"));
-    ASSERT_PARSE_SUCCESS_VOID(Seq5, "abcabcabcdabcd", "dabcd");
+    EXPECT_THAT(the_parser<Seq5> | SUCCEEDS_PARSING_VOID("abcabcabcdabcd", "dabcd"));
 
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(L"ab"));
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(L"abca"));
-    ASSERT_PARSE_SUCCESS_VOID(Seq5, L"abcabcabcdabcd", L"dabcd");
+    EXPECT_THAT(the_parser<Seq5> | SUCCEEDS_PARSING_VOID(L"abcabcabcdabcd", L"dabcd"));
 
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(e<int>("ab")));
     EXPECT_THAT(the_parser<Seq5> | FAILS_PARSING(e<int>("abca")));
-    ASSERT_PARSE_SUCCESS_VOID(Seq5, e<int>("abcabcabcdabcd"), e<int>("dabcd"));
+    EXPECT_THAT(the_parser<Seq5> | SUCCEEDS_PARSING_VOID(e<int>("abcabcabcdabcd"), e<int>("dabcd")));
 }
 
 

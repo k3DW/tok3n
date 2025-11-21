@@ -31,7 +31,7 @@ struct succeeds_parsing_fragment
         // The following EXPECT depends on the previous EXPECT,
         // and therefore this `if constexpr` is here so the code always compiles.
         constexpr bool has_value = P::parse(InputFn()).has_value();
-        if constexpr (has_value)
+        if constexpr (has_value and not std::same_as<decltype(ResultFn()), void>)
         {
             EXPECT_COMPILE_AND_RUN_TIME(*P::parse(InputFn()) == ResultFn())
                 // << "`*P::parse(input)` must be the same as the given `result`.\n"
@@ -81,6 +81,13 @@ constexpr auto succeeds_parsing = succeeds_parsing_fragment<InputFn, ResultFn, R
         []() constexpr { return INPUT; },          \
         []() constexpr { return RESULT; },         \
         []() constexpr { return REMAINING; }       \
+    >)
+
+#define SUCCEEDS_PARSING_VOID(INPUT, REMAINING) \
+    (::k3::tok3n::tests::succeeds_parsing<      \
+        []() constexpr { return INPUT; },       \
+        []{},                                   \
+        []() constexpr { return REMAINING; }    \
     >)
 
 } // namespace k3::tok3n::tests
