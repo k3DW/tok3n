@@ -1,0 +1,61 @@
+// Copyright 2025 Braden Ganetsky
+// Distributed under the Boost Software License, Version 1.0.
+// https://www.boost.org/LICENSE_1_0.txt
+
+#include <k3/k3tchup.hpp>
+#include <k3/tok3n/detail/cpo.hpp>
+#include <array>
+#include <tuple>
+#include <utility>
+
+namespace k3::tok3n::tests {
+namespace {
+
+FIXTURE("tuple_like");
+
+TEST("tuple_like", "std::tuple")
+{
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::tuple<int, double, char>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::tuple<int, double, char>&&>));
+}
+
+TEST("tuple_like", "std::array")
+{
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<int, 3>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<int, 3>&&>));
+
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::array<double, 5>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::array<double, 5>&&>));
+}
+
+TEST("tuple_like", "std::pair")
+{
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<int, double>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<int, double>&&>));
+
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<std::pair<char, wchar_t>&&>));
+    EXPECT_COMPILE_TIME((detail::tuple_like<const std::pair<char, wchar_t>&&>));
+}
+
+} // namespace
+} // namespace k3::tok3n::tests

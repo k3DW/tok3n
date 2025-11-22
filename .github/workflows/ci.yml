@@ -1,0 +1,120 @@
+# Copyright 2024-2025 Braden Ganetsky
+# Distributed under the Boost Software License, Version 1.0.
+# https://www.boost.org/LICENSE_1_0.txt
+
+name: CI
+
+on:
+  workflow_dispatch:
+  pull_request:
+
+jobs:
+  build-msvc-vs2022:
+    strategy:
+      matrix:
+        cxx-standard: [20, 23]
+
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+
+      - name: Build tok3n
+        run: |
+          cmake --preset all `
+            -B build `
+            -G "Visual Studio 17 2022" `
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+          cmake --build build -j16
+
+      - name: Run tok3n tests
+        run: |
+          ctest --test-dir build --output-on-failure
+
+  build-clang:
+    strategy:
+      matrix:
+        clang-version: [16, 17, 18, 19, 20, 21]
+        cxx-standard: [20, 23]
+        include:
+          - clang-version: 16
+            os: ubuntu-22.04
+          - clang-version: 17
+            os: ubuntu-24.04
+          - clang-version: 18
+            os: ubuntu-24.04
+          - clang-version: 19
+            os: ubuntu-24.04
+          - clang-version: 20
+            os: ubuntu-24.04
+          - clang-version: 21
+            os: ubuntu-24.04
+        exclude:
+          # There's some libc++ error for some reason
+          - clang-version: 19
+            cxx-standard: 23
+
+    runs-on: ${{matrix.os}}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+
+      - name: Set up Clang
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh ${{matrix.clang-version}}
+          sudo apt-get install -y \
+            libc++-${{matrix.clang-version}}-dev \
+            libc++abi-${{matrix.clang-version}}-dev
+
+      - name: Build tok3n
+        run: |
+          cmake --preset all \
+            -B build \
+            -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}} \
+            -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+          cmake --build build -j16
+
+      - name: Run tok3n tests
+        run: |
+          ctest --test-dir build --output-on-failure
+
+  build-gcc:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        gcc-version: [12, 13, 14]
+        cxx-standard: [20, 23]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+            submodules: recursive
+
+      - name: Set up GCC
+        run: |
+          sudo add-apt-repository ppa:ubuntu-toolchain-r/test
+          sudo apt update
+          sudo apt-get install -y \
+            gcc-${{matrix.gcc-version}} \
+            g++-${{matrix.gcc-version}} \
+            libstdc++-${{matrix.gcc-version}}-dev
+
+      - name: Build tok3n
+        run: |
+          cmake --preset all \
+            -B build \
+            -DCMAKE_CXX_COMPILER=g++-${{matrix.gcc-version}} \
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+          cmake --build build -j16
+
+      - name: Run tok3n tests
+        run: |
+          ctest --test-dir build --output-on-failure

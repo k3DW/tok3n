@@ -1,2 +1,7 @@
-.bin
-.vs
+/.bin/
+/.cache/
+/.vs/
+/.vscode/
+/build*/
+/_build/
+/__build/

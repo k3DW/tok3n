@@ -1,0 +1,60 @@
+{
+    "version": 3,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 23,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "default",
+            "displayName": "tok3n default",
+            "description": "Build nothing, just expose tok3n as a header-only library",
+            "cacheVariables": {
+                "TOK3N_CXX_STANDARD": "detect",
+                "TOK3N_CXX_WARNINGS": "detect",
+                "TOK3N_BUILD_EXE": "OFF",
+                "TOK3N_BUILD_TESTS": "OFF",
+                "TOK3N_BUILD_EXAMPLES": "OFF"
+            }
+        },
+        {
+            "name": "exe",
+            "displayName": "tok3n executable",
+            "description": "Build the tok3n executable",
+            "inherits": "default",
+            "cacheVariables": {
+                "TOK3N_BUILD_EXE": "ON"
+            }
+        },
+        {
+            "name": "tests",
+            "displayName": "tok3n tests",
+            "description": "Build tok3n tests, runnable with ctest",
+            "inherits": "default",
+            "cacheVariables": {
+                "TOK3N_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "examples",
+            "displayName": "tok3n examples",
+            "description": "Build tok3n examples",
+            "inherits": "default",
+            "cacheVariables": {
+                "TOK3N_BUILD_EXAMPLES": "ON"
+            }
+        },
+        {
+            "name": "all",
+            "displayName": "All tok3n targets",
+            "description": "Build everything from the other configurations",
+            "inherits": "default",
+            "cacheVariables": {
+                "TOK3N_BUILD_EXE": "ON",
+                "TOK3N_BUILD_TESTS": "ON",
+                "TOK3N_BUILD_EXAMPLES": "ON"
+            }
+        }
+    ]
+}
