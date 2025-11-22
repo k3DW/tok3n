@@ -9,7 +9,6 @@ project (k3_tok3n
          LANGUAGES CXX)
 
 set(TOK3N_BUILD_TESTS OFF CACHE BOOL "Build tests")
-set(TOK3N_DISCOVER_TESTS OFF CACHE BOOL "Add all tests to CTest")
 set(TOK3N_BUILD_EXAMPLES OFF CACHE BOOL "Build examples")
 set(TOK3N_BUILD_EXE OFF CACHE BOOL "Build tok3n's main() function")
 

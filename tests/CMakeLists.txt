@@ -15,9 +15,7 @@ macro(tok3n_add_basic_test_executable target assembly_name)
             FOLDER tests
     )
 
-    if(TOK3N_DISCOVER_TESTS)
-        tok3n_discover_tests(${target} ${assembly_name})
-    endif()
+    tok3n_discover_tests(${target} ${assembly_name})
 
 endmacro()
 
