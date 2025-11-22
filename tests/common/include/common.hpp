@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_HPP
 #define K3_TOK3N_TESTS_COMMON_HPP
 
-#include "framework.hpp"
+#include <k3/k3tchup.hpp>
 
 #include "common/fragments/all_pairs_of_samples.hpp"
 #include "common/fragments/all_samples.hpp"

@@ -8,14 +8,14 @@ add_subdirectory(common)
 macro(tok3n_add_basic_test_executable target assembly_name)
 
     add_executable(${target} ${ARGN})
-    target_link_libraries(${target} PRIVATE k3::tok3n framework)
+    target_link_libraries(${target} PRIVATE k3::tok3n k3::k3tchup)
 
     set_target_properties(${target}
         PROPERTIES
             FOLDER tests
     )
 
-    tok3n_discover_tests(${target} ${assembly_name})
+    k3_k3tchup_discover_tests(${target} ${assembly_name})
 
 endmacro()
 
