@@ -12,58 +12,61 @@
 
 namespace k3::tok3n::tests {
 
-template <std::invocable<> auto InputFn, std::invocable<> auto RemainingFn>
+template <std::invocable<> InputFn, std::invocable<> RemainingFn>
 struct succeeds_lookahead_only_fragment
 {
+    constexpr succeeds_lookahead_only_fragment() = default;
+    constexpr succeeds_lookahead_only_fragment(InputFn, RemainingFn) {}
+
     template <class P>
     void operator()(P) const
     {
         // Todo: Improve the streamed out error messages
 
-        EXPECT_COMPILE_AND_RUN_TIME(not P::parse(InputFn()).has_value())
+        EXPECT_COMPILE_AND_RUN_TIME(not P::parse(InputFn{}()).has_value())
             // << "`P` could parse the given input, but should not.\n"
             // << "[\n"
             // << "    P     = " << typeid(P).name() << "\n"
-            // << "    input = \"" << InputFn() << "\"\n"
+            // << "    input = \"" << InputFn{}() << "\"\n"
             // << "]";
             << "`P` could parse the given input, but should not.\n";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn()).remaining() == InputFn())
+        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn{}()).remaining() == InputFn{}())
             // << "`P::parse(input).remaining()` must be the same as the given `input`.\n"
             // << "[\n"
             // << "    P                           = " << typeid(P).name() << "\n"
-            // << "    input                       = \"" << InputFn() << "\"\n"
-            // << "    P::parse(input).remaining() = \"" << (P::parse(InputFn())).remaining() << "\"\n"
+            // << "    input                       = \"" << InputFn{}() << "\"\n"
+            // << "    P::parse(input).remaining() = \"" << (P::parse(InputFn{}())).remaining() << "\"\n"
             // << "]";
             << "`P::parse(input).remaining()` must be the same as the given `input`.";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).has_value())
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).has_value())
             // << "`P` could not lookahead the given input.\n"
             // << "[\n"
             // << "    P     = " << typeid(P).name() << "\n"
-            // << "    input = \"" << InputFn() << "\"\n"
+            // << "    input = \"" << InputFn{}() << "\"\n"
             // << "]";
             << "`P` could not lookahead the given input.\n";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).remaining() == RemainingFn())
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).remaining() == RemainingFn{}())
             // << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.\n"
             // << "[\n"
             // << "    P                               = " << typeid(P).name() << "\n"
-            // << "    input                           = \"" << InputFn() << "\"\n"
-            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn())).remaining() << "\"\n"
-            // << "    remaining                       = \"" << RemainingFn() << "\"\n"
+            // << "    input                           = \"" << InputFn{}() << "\"\n"
+            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn{}())).remaining() << "\"\n"
+            // << "    remaining                       = \"" << RemainingFn{}() << "\"\n"
             // << "]";
             << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.";
     }
 };
-template <std::invocable<> auto InputFn, std::invocable<> auto RemainingFn>
-constexpr auto succeeds_lookahead_only = succeeds_lookahead_only_fragment<InputFn, RemainingFn>{};
+template <std::invocable<> InputFn, std::invocable<> RemainingFn>
+succeeds_lookahead_only_fragment(InputFn, RemainingFn) -> succeeds_lookahead_only_fragment<InputFn, RemainingFn>;
 
-#define SUCCEEDS_LOOKAHEAD_ONLY(INPUT, REMAINING) \
-    (::k3::tok3n::tests::succeeds_lookahead_only< \
-        [&]() constexpr { return INPUT; },        \
-        [&]() constexpr { return REMAINING; }     \
-    >)
+#define SUCCEEDS_LOOKAHEAD_ONLY(INPUT, REMAINING)          \
+    (::k3::tok3n::tests::succeeds_lookahead_only_fragment{ \
+        ([]() constexpr { return INPUT; }),                \
+        ([]() constexpr { return REMAINING; })             \
+    })
 
 } // namespace k3::tok3n::tests
 

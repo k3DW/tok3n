@@ -12,83 +12,86 @@
 
 namespace k3::tok3n::tests {
 
-template <std::invocable<> auto InputFn, std::invocable<> auto ResultFn, std::invocable<> auto RemainingFn>
+template <std::invocable<> InputFn, std::invocable<> ResultFn, std::invocable<> RemainingFn>
 struct succeeds_parsing_fragment
 {
+    constexpr succeeds_parsing_fragment() = default;
+    constexpr succeeds_parsing_fragment(InputFn, ResultFn, RemainingFn) {}
+
     template <class P>
     void operator()(P) const
     {
         // Todo: Improve the streamed out error messages
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn()).has_value())
+        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn{}()).has_value())
             // << "`P` could not parse the given input.\n"
             // << "[\n"
             // << "    P     = " << typeid(P).name() << "\n"
-            // << "    input = \"" << InputFn() << "\"\n"
+            // << "    input = \"" << InputFn{}() << "\"\n"
             // << "]";
             << "`P` could not parse the given input.\n";
 
         // The following EXPECT depends on the previous EXPECT,
         // and therefore this `if constexpr` is here so the code always compiles.
-        constexpr bool has_value = P::parse(InputFn()).has_value();
-        if constexpr (has_value and not std::same_as<decltype(ResultFn()), void>)
+        constexpr bool has_value = P::parse(InputFn{}()).has_value();
+        if constexpr (has_value and not std::same_as<decltype(ResultFn{}()), void>)
         {
-            EXPECT_COMPILE_AND_RUN_TIME(*P::parse(InputFn()) == ResultFn())
+            EXPECT_COMPILE_AND_RUN_TIME(*P::parse(InputFn{}()) == ResultFn{}())
                 // << "`*P::parse(input)` must be the same as the given `result`.\n"
                 // << "[\n"
                 // << "    P                 = " << typeid(P).name() << "\n"
-                // << "    input             = \"" << InputFn() << "\"\n"
-                // << "    *P::parse(input)  = \"" << *(P::parse(InputFn())) << "\"\n"
-                // << "    result            = \"" << ResultFn() << "\"\n"
+                // << "    input             = \"" << InputFn{}() << "\"\n"
+                // << "    *P::parse(input)  = \"" << *(P::parse(InputFn{}())) << "\"\n"
+                // << "    result            = \"" << ResultFn{}() << "\"\n"
                 // << "]";
                 << "`*P::parse(input)` must be the same as the given `result`.";
         }
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn()).remaining() == RemainingFn())
+        EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn{}()).remaining() == RemainingFn{}())
             // << "`P::parse(input).remaining()` must be the same as the given `remaining`.\n"
             // << "[\n"
             // << "    P                           = " << typeid(P).name() << "\n"
-            // << "    input                       = \"" << InputFn() << "\"\n"
-            // << "    P::parse(input).remaining() = \"" << (P::parse(InputFn())).remaining() << "\"\n"
-            // << "    remaining                   = \"" << RemainingFn() << "\"\n"
+            // << "    input                       = \"" << InputFn{}() << "\"\n"
+            // << "    P::parse(input).remaining() = \"" << (P::parse(InputFn{}())).remaining() << "\"\n"
+            // << "    remaining                   = \"" << RemainingFn{}() << "\"\n"
             // << "]";
             << "`P::parse(input).remaining()` must be the same as the given `remaining`.";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).has_value())
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).has_value())
             // << "`P` could not lookahead the given input.\n"
             // << "[\n"
             // << "    P     = " << typeid(P).name() << "\n"
-            // << "    input = \"" << InputFn() << "\"\n"
+            // << "    input = \"" << InputFn{}() << "\"\n"
             // << "]";
             << "`P` could not lookahead the given input.\n";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn()).remaining() == RemainingFn())
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).remaining() == RemainingFn{}())
             // << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.\n"
             // << "[\n"
             // << "    P                               = " << typeid(P).name() << "\n"
-            // << "    input                           = \"" << InputFn() << "\"\n"
-            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn())).remaining() << "\"\n"
-            // << "    remaining                       = \"" << RemainingFn() << "\"\n"
+            // << "    input                           = \"" << InputFn{}() << "\"\n"
+            // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn{}())).remaining() << "\"\n"
+            // << "    remaining                       = \"" << RemainingFn{}() << "\"\n"
             // << "]";
             << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.";
     }
 };
-template <std::invocable<> auto InputFn, std::invocable<> auto ResultFn, std::invocable<> auto RemainingFn>
-constexpr auto succeeds_parsing = succeeds_parsing_fragment<InputFn, ResultFn, RemainingFn>{};
+template <std::invocable<> InputFn, std::invocable<> ResultFn, std::invocable<> RemainingFn>
+succeeds_parsing_fragment(InputFn, ResultFn, RemainingFn) -> succeeds_parsing_fragment<InputFn, ResultFn, RemainingFn>;
 
-#define SUCCEEDS_PARSING(INPUT, RESULT, REMAINING) \
-    (::k3::tok3n::tests::succeeds_parsing<         \
-        []() constexpr { return INPUT; },          \
-        []() constexpr { return RESULT; },         \
-        []() constexpr { return REMAINING; }       \
-    >)
+#define SUCCEEDS_PARSING(INPUT, RESULT, REMAINING)  \
+    (::k3::tok3n::tests::succeeds_parsing_fragment{ \
+        ([]() constexpr { return INPUT; }),         \
+        ([]() constexpr { return RESULT; }),        \
+        ([]() constexpr { return REMAINING; })      \
+    })
 
-#define SUCCEEDS_PARSING_VOID(INPUT, REMAINING) \
-    (::k3::tok3n::tests::succeeds_parsing<      \
-        []() constexpr { return INPUT; },       \
-        []{},                                   \
-        []() constexpr { return REMAINING; }    \
-    >)
+#define SUCCEEDS_PARSING_VOID(INPUT, REMAINING)     \
+    (::k3::tok3n::tests::succeeds_parsing_fragment{ \
+        ([]() constexpr { return INPUT; }),         \
+        ([]{}),                                     \
+        ([]() constexpr { return REMAINING; })      \
+    })
 
 } // namespace k3::tok3n::tests
 
