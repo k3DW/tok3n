@@ -5,7 +5,7 @@
 #ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_PARSER_FAMILY_HPP
 #define K3_TOK3N_TESTS_COMMON_FRAGMENTS_PARSER_FAMILY_HPP
 
-#include "framework/assert.hpp"
+#include <k3/k3tchup/assert.hpp>
 #include <k3/tok3n/detail/static_array.hpp>
 
 namespace k3::tok3n::tests {

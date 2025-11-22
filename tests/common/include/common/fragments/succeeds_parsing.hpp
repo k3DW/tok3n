@@ -5,9 +5,9 @@
 #ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_SUCCEEDS_PARSING_HPP
 #define K3_TOK3N_TESTS_COMMON_FRAGMENTS_SUCCEEDS_PARSING_HPP
 
-#include "framework/assert.hpp"
 #include <concepts>
 #include <typeinfo>
+#include <k3/k3tchup/assert.hpp>
 #include <k3/tok3n/detail/parser.hpp>
 
 namespace k3::tok3n::tests {

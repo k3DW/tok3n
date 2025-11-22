@@ -5,8 +5,8 @@
 #ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_IS_NOT_MODIFIABLE_BY_HPP
 #define K3_TOK3N_TESTS_COMMON_FRAGMENTS_IS_NOT_MODIFIABLE_BY_HPP
 
-#include "framework/assert.hpp"
 #include <typeinfo>
+#include <k3/k3tchup/assert.hpp>
 #include <k3/tok3n/detail/modifier.hpp>
 
 namespace k3::tok3n::tests {

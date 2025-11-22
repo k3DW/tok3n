@@ -5,8 +5,8 @@
 #ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_HAS_VALUE_TYPE
 #define K3_TOK3N_TESTS_COMMON_FRAGMENTS_HAS_VALUE_TYPE
 
-#include "framework/assert.hpp"
 #include <typeinfo>
+#include <k3/k3tchup/assert.hpp>
 
 namespace k3::tok3n::tests {
 
