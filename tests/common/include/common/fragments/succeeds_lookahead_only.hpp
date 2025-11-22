@@ -2,8 +2,8 @@
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
-#ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_FAILS_PARSING_HPP
-#define K3_TOK3N_TESTS_COMMON_FRAGMENTS_FAILS_PARSING_HPP
+#ifndef K3_TOK3N_TESTS_COMMON_FRAGMENTS_SUCCEEDS_LOOKAHEAD_ONLY_HPP
+#define K3_TOK3N_TESTS_COMMON_FRAGMENTS_SUCCEEDS_LOOKAHEAD_ONLY_HPP
 
 #include "framework/assert.hpp"
 #include <concepts>
@@ -12,11 +12,11 @@
 
 namespace k3::tok3n::tests {
 
-template <std::invocable<> InputFn>
-struct fails_parsing_fragment
+template <std::invocable<> InputFn, std::invocable<> RemainingFn>
+struct succeeds_lookahead_only_fragment
 {
-    constexpr fails_parsing_fragment() = default;
-    constexpr fails_parsing_fragment(InputFn) {}
+    constexpr succeeds_lookahead_only_fragment() = default;
+    constexpr succeeds_lookahead_only_fragment(InputFn, RemainingFn) {}
 
     template <class P>
     void operator()(P) const
@@ -32,7 +32,7 @@ struct fails_parsing_fragment
             << "`P` could parse the given input, but should not.\n";
 
         EXPECT_COMPILE_AND_RUN_TIME(P::parse(InputFn{}()).remaining() == InputFn{}())
-            // << "`P::parse(input).remaining()` must be the same as the given `input`."
+            // << "`P::parse(input).remaining()` must be the same as the given `input`.\n"
             // << "[\n"
             // << "    P                           = " << typeid(P).name() << "\n"
             // << "    input                       = \"" << InputFn{}() << "\"\n"
@@ -40,32 +40,34 @@ struct fails_parsing_fragment
             // << "]";
             << "`P::parse(input).remaining()` must be the same as the given `input`.";
 
-        EXPECT_COMPILE_AND_RUN_TIME(not P::lookahead(InputFn{}()).has_value())
-            // << "`P` could lookahead the given input, but should not.\n"
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).has_value())
+            // << "`P` could not lookahead the given input.\n"
             // << "[\n"
             // << "    P     = " << typeid(P).name() << "\n"
             // << "    input = \"" << InputFn{}() << "\"\n"
             // << "]";
-            << "`P` could lookahead the given input, but should not.\n";
+            << "`P` could not lookahead the given input.\n";
 
-        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).remaining() == InputFn{}())
-            // << "`P::lookahead(input).remaining()` must be the same as the given `input`."
+        EXPECT_COMPILE_AND_RUN_TIME(P::lookahead(InputFn{}()).remaining() == RemainingFn{}())
+            // << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.\n"
             // << "[\n"
             // << "    P                               = " << typeid(P).name() << "\n"
             // << "    input                           = \"" << InputFn{}() << "\"\n"
             // << "    P::lookahead(input).remaining() = \"" << (P::lookahead(InputFn{}())).remaining() << "\"\n"
+            // << "    remaining                       = \"" << RemainingFn{}() << "\"\n"
             // << "]";
-            << "`P::lookahead(input).remaining()` must be the same as the given `input`.";
+            << "`P::lookahead(input).remaining()` must be the same as the given `remaining`.";
     }
 };
-template <std::invocable<> InputFn>
-fails_parsing_fragment(InputFn) -> fails_parsing_fragment<InputFn>;
+template <std::invocable<> InputFn, std::invocable<> RemainingFn>
+succeeds_lookahead_only_fragment(InputFn, RemainingFn) -> succeeds_lookahead_only_fragment<InputFn, RemainingFn>;
 
-#define FAILS_PARSING(INPUT)                     \
-    (::k3::tok3n::tests::fails_parsing_fragment{ \
-        ([]() constexpr { return INPUT; })       \
+#define SUCCEEDS_LOOKAHEAD_ONLY(INPUT, REMAINING)          \
+    (::k3::tok3n::tests::succeeds_lookahead_only_fragment{ \
+        ([]() constexpr { return INPUT; }),                \
+        ([]() constexpr { return REMAINING; })             \
     })
 
 } // namespace k3::tok3n::tests
 
-#endif // K3_TOK3N_TESTS_COMMON_FRAGMENTS_FAILS_PARSING_HPP
+#endif // K3_TOK3N_TESTS_COMMON_FRAGMENTS_SUCCEEDS_LOOKAHEAD_ONLY_HPP

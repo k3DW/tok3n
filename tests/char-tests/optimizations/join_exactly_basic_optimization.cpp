@@ -38,95 +38,95 @@ TEST("join_exactly_basic", "Requirements")
 
 TEST("join_exactly_basic", "exactly_parser<any_of_parser, 2>")
 {
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, "12321321", "12", "321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, "1232 1321", "12", "32 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, " 12321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, "12341321", "12", "341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, "012341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, "0012341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, "1012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING("12321321", "12", "321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING("1232 1321", "12", "32 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING("12341321", "12", "341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING("012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING("0012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING("1012341321"));
 
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, L"12321321", L"12", L"321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, L"1232 1321", L"12", L"32 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, L" 12321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, L"12341321", L"12", L"341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, L"012341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, L"0012341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, L"1012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(L"12321321", L"12", L"321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(L"1232 1321", L"12", L"32 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(L" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(L"12341321", L"12", L"341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(L"012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(L"0012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(L"1012341321"));
 
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, e<int>("12321321"), e<int>("12"), e<int>("321321"));
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, e<int>("1232 1321"), e<int>("12"), e<int>("32 1321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>(" 12321321"));
-    ASSERT_PARSE_SUCCESS(Joi_Exa_OC, e<int>("12341321"), e<int>("12"), e<int>("341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("012341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("0012341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_OC, e<int>("1012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(e<int>("12321321"), e<int>("12"), e<int>("321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(e<int>("1232 1321"), e<int>("12"), e<int>("32 1321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(e<int>(" 12321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | SUCCEEDS_PARSING(e<int>("12341321"), e<int>("12"), e<int>("341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(e<int>("012341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(e<int>("0012341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_OC> | FAILS_PARSING(e<int>("1012341321")));
 
     using P = complete_parser<Joi_Exa_OC>; // Wrap the parser to test its nestability
-    ASSERT_PARSE_SUCCESS(P, "12", "12", "");
-    ASSERT_PARSE_SUCCESS(P, L"12", L"12", L"");
-    ASSERT_PARSE_SUCCESS(P, e<int>("12"), e<int>("12"), e<int>(""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("12", "12", ""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"12", L"12", L""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("12"), e<int>("12"), e<int>("")));
 }
 
 TEST("join_exactly_basic", "exactly_parser<none_of_parser, 2>")
 {
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, "12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, "1232 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, " 12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, "12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, "012341321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_NC, "0012341321", "00", "12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, "1012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING("12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING("1232 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING("12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING("012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | SUCCEEDS_PARSING("0012341321", "00", "12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING("1012341321"));
 
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L"12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L"1232 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L" 12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L"12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L"012341321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_NC, L"0012341321", L"00", L"12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, L"1012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L"12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L"1232 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L"12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L"012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | SUCCEEDS_PARSING(L"0012341321", L"00", L"12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(L"1012341321"));
 
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("12321321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("1232 1321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>(" 12321321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("12341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("012341321"));
-    ASSERT_PARSE_SUCCESS(Joi_Exa_NC, e<int>("0012341321"), e<int>("00"), e<int>("12341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_NC, e<int>("1012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>("12321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>("1232 1321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>(" 12321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>("12341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>("012341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | SUCCEEDS_PARSING(e<int>("0012341321"), e<int>("00"), e<int>("12341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_NC> | FAILS_PARSING(e<int>("1012341321")));
 
     using P = complete_parser<Joi_Exa_NC>; // Wrap the parser to test its nestability
-    ASSERT_PARSE_SUCCESS(P, "45", "45", "");
-    ASSERT_PARSE_SUCCESS(P, L"45", L"45", L"");
-    ASSERT_PARSE_SUCCESS(P, e<int>("45"), e<int>("45"), e<int>(""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("45", "45", ""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"45", L"45", L""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("45"), e<int>("45"), e<int>("")));
 }
 
 TEST("join_exactly_basic", "exactly_parser<all_of_parser, 2>")
 {
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, "12321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_L, "12312321321", "123123", "21321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, "1232 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, " 12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, "12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, "012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING("12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | SUCCEEDS_PARSING("12312321321", "123123", "21321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING("1232 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING("12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING("012341321"));
 
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, L"12321321");
-    ASSERT_PARSE_SUCCESS(Joi_Exa_L, L"12312321321", L"123123", L"21321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, L"1232 1321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, L" 12321321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, L"12341321");
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, L"012341321");
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(L"12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | SUCCEEDS_PARSING(L"12312321321", L"123123", L"21321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(L"1232 1321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(L" 12321321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(L"12341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(L"012341321"));
 
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("12321321"));
-    ASSERT_PARSE_SUCCESS(Joi_Exa_L, e<int>("12312321321"), e<int>("123123"), e<int>("21321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("1232 1321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>(" 12321321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("12341321"));
-    ASSERT_PARSE_FAILURE(Joi_Exa_L, e<int>("012341321"));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(e<int>("12321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | SUCCEEDS_PARSING(e<int>("12312321321"), e<int>("123123"), e<int>("21321")));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(e<int>("1232 1321")));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(e<int>(" 12321321")));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(e<int>("12341321")));
+    EXPECT_THAT(the_parser<Joi_Exa_L> | FAILS_PARSING(e<int>("012341321")));
 
     using P = complete_parser<Joi_Exa_L>; // Wrap the parser to test its nestability
-    ASSERT_PARSE_SUCCESS(P, "123123", "123123", "");
-    ASSERT_PARSE_SUCCESS(P, L"123123", L"123123", L"");
-    ASSERT_PARSE_SUCCESS(P, e<int>("123123"), e<int>("123123"), e<int>(""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING("123123", "123123", ""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(L"123123", L"123123", L""));
+    EXPECT_THAT(the_parser<P> | SUCCEEDS_PARSING(e<int>("123123"), e<int>("123123"), e<int>("")));
 }
 
 } // namespace

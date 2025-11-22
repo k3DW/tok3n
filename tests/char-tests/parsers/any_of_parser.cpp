@@ -32,74 +32,74 @@ TEST("any_of_parser", "Requirements")
 
 TEST("any_of_parser", "Parse single")
 {
-    ASSERT_PARSE_SUCCESS(Single, "ab", "a", "b");
-    ASSERT_PARSE_FAILURE(Single, "ba");
-    ASSERT_PARSE_SUCCESS(Single, "abc", "a", "bc");
-    ASSERT_PARSE_FAILURE(Single, "Ab");
-    ASSERT_PARSE_FAILURE(Single, "Abc");
-    ASSERT_PARSE_FAILURE(Single, " abc");
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING("ab", "a", "b"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING("ba"));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING("abc", "a", "bc"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING("Ab"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING("Abc"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(" abc"));
 
-    ASSERT_PARSE_SUCCESS(Single, L"ab", L"a", L"b");
-    ASSERT_PARSE_FAILURE(Single, L"ba");
-    ASSERT_PARSE_SUCCESS(Single, L"abc", L"a", L"bc");
-    ASSERT_PARSE_FAILURE(Single, L"Ab");
-    ASSERT_PARSE_FAILURE(Single, L"Abc");
-    ASSERT_PARSE_FAILURE(Single, L" abc");
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(L"ab", L"a", L"b"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(L"ba"));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(L"abc", L"a", L"bc"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(L"Ab"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(L"Abc"));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(L" abc"));
 
-    ASSERT_PARSE_SUCCESS(Single, e<int>("ab"), e<int>("a"), e<int>("b"));
-    ASSERT_PARSE_FAILURE(Single, e<int>("ba"));
-    ASSERT_PARSE_SUCCESS(Single, e<int>("abc"), e<int>("a"), e<int>("bc"));
-    ASSERT_PARSE_FAILURE(Single, e<int>("Ab"));
-    ASSERT_PARSE_FAILURE(Single, e<int>("Abc"));
-    ASSERT_PARSE_FAILURE(Single, e<int>(" abc"));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(e<int>("ab"), e<int>("a"), e<int>("b")));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(e<int>("ba")));
+    EXPECT_THAT(the_parser<Single> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("a"), e<int>("bc")));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(e<int>("Ab")));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(e<int>("Abc")));
+    EXPECT_THAT(the_parser<Single> | FAILS_PARSING(e<int>(" abc")));
 }
 
 TEST("any_of_parser", "Parse multi")
 {
-    ASSERT_PARSE_SUCCESS(Multi, "abc", "a", "bc");
-    ASSERT_PARSE_SUCCESS(Multi, "acb", "a", "cb");
-    ASSERT_PARSE_SUCCESS(Multi, "bac", "b", "ac");
-    ASSERT_PARSE_SUCCESS(Multi, "bca", "b", "ca");
-    ASSERT_PARSE_SUCCESS(Multi, "cab", "c", "ab");
-    ASSERT_PARSE_SUCCESS(Multi, "cba", "c", "ba");
-    ASSERT_PARSE_FAILURE(Multi, "ABC");
-    ASSERT_PARSE_FAILURE(Multi, "ACB");
-    ASSERT_PARSE_FAILURE(Multi, "BAC");
-    ASSERT_PARSE_FAILURE(Multi, "BCA");
-    ASSERT_PARSE_FAILURE(Multi, "CAB");
-    ASSERT_PARSE_FAILURE(Multi, "CBA");
-    ASSERT_PARSE_FAILURE(Multi, "dcba");
-    ASSERT_PARSE_FAILURE(Multi, " cba");
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("abc", "a", "bc"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("acb", "a", "cb"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("bac", "b", "ac"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("bca", "b", "ca"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("cab", "c", "ab"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING("cba", "c", "ba"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("ABC"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("ACB"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("BAC"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("BCA"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("CAB"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("CBA"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING("dcba"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(" cba"));
 
-    ASSERT_PARSE_SUCCESS(Multi, L"abc", L"a", L"bc");
-    ASSERT_PARSE_SUCCESS(Multi, L"acb", L"a", L"cb");
-    ASSERT_PARSE_SUCCESS(Multi, L"bac", L"b", L"ac");
-    ASSERT_PARSE_SUCCESS(Multi, L"bca", L"b", L"ca");
-    ASSERT_PARSE_SUCCESS(Multi, L"cab", L"c", L"ab");
-    ASSERT_PARSE_SUCCESS(Multi, L"cba", L"c", L"ba");
-    ASSERT_PARSE_FAILURE(Multi, L"ABC");
-    ASSERT_PARSE_FAILURE(Multi, L"ACB");
-    ASSERT_PARSE_FAILURE(Multi, L"BAC");
-    ASSERT_PARSE_FAILURE(Multi, L"BCA");
-    ASSERT_PARSE_FAILURE(Multi, L"CAB");
-    ASSERT_PARSE_FAILURE(Multi, L"CBA");
-    ASSERT_PARSE_FAILURE(Multi, L"dcba");
-    ASSERT_PARSE_FAILURE(Multi, L" cba");
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"abc", L"a", L"bc"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"acb", L"a", L"cb"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"bac", L"b", L"ac"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"bca", L"b", L"ca"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"cab", L"c", L"ab"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(L"cba", L"c", L"ba"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"ABC"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"ACB"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"BAC"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"BCA"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"CAB"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"CBA"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L"dcba"));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(L" cba"));
 
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("abc"), e<int>("a"), e<int>("bc"));
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("acb"), e<int>("a"), e<int>("cb"));
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("bac"), e<int>("b"), e<int>("ac"));
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("bca"), e<int>("b"), e<int>("ca"));
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("cab"), e<int>("c"), e<int>("ab"));
-    ASSERT_PARSE_SUCCESS(Multi, e<int>("cba"), e<int>("c"), e<int>("ba"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("ABC"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("ACB"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("BAC"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("BCA"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("CAB"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("CBA"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>("dcba"));
-    ASSERT_PARSE_FAILURE(Multi, e<int>(" cba"));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("abc"), e<int>("a"), e<int>("bc")));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("acb"), e<int>("a"), e<int>("cb")));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("bac"), e<int>("b"), e<int>("ac")));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("bca"), e<int>("b"), e<int>("ca")));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("cab"), e<int>("c"), e<int>("ab")));
+    EXPECT_THAT(the_parser<Multi> | SUCCEEDS_PARSING(e<int>("cba"), e<int>("c"), e<int>("ba")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("ABC")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("ACB")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("BAC")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("BCA")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("CAB")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("CBA")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>("dcba")));
+    EXPECT_THAT(the_parser<Multi> | FAILS_PARSING(e<int>(" cba")));
 }
 
 
@@ -118,14 +118,14 @@ TEST("any_of_parser", "Parse empty")
 {
     EXPECT_THAT(the_basic_parser_family<any_of_parser>.is_valid_with<TT("")>);
 
-    ASSERT_PARSE_FAILURE(any_of_parser<"">, "anything");
-    ASSERT_PARSE_FAILURE(any_of_parser<"">, "");
+    EXPECT_THAT(the_parser<any_of_parser<"">> | FAILS_PARSING("anything"));
+    EXPECT_THAT(the_parser<any_of_parser<"">> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_FAILURE(any_of_parser<L"">, L"anything");
-    ASSERT_PARSE_FAILURE(any_of_parser<L"">, L"");
+    EXPECT_THAT(the_parser<any_of_parser<L"">> | FAILS_PARSING(L"anything"));
+    EXPECT_THAT(the_parser<any_of_parser<L"">> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_FAILURE(any_of_parser<"">, e<int>("anything"));
-    ASSERT_PARSE_FAILURE(any_of_parser<"">, e<int>());
+    EXPECT_THAT(the_parser<any_of_parser<"">> | FAILS_PARSING(e<int>("anything")));
+    EXPECT_THAT(the_parser<any_of_parser<"">> | FAILS_PARSING(e<int>()));
 }
 
 } // namespace

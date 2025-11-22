@@ -22,34 +22,66 @@ constexpr auto sub42 = (name<"nam4"> = name<"nam2">);
 
 } // namespace
 
-#define ASSERT_SUBSTITUTION_TYPE(SUB, NAME, SUBBED)                                                                            \
-    ASSERT(substitution<decltype(SUB)>) << #SUB " is expected to satisfy substitution concept.";                               \
-    ASSERT(std::is_empty_v<decltype(SUB)>) << #SUB " is expected to be an empty type.";                                        \
-    ASSERT((std::same_as<std::remove_cvref_t<decltype(SUB)>, substitution_info<NAME, std::remove_cvref_t<decltype(SUBBED)>>>)) \
-        << #SUB " must be the same as substitution_info<" NAME ", decltype(" #SUBBED ")>."
+template <class S, class... Fragments>
+struct sub_fragment_builder
+{
+    static_assert(detail::substitution<S>, "Must use a substitution type");
+    static_assert(std::is_empty_v<S>, "Substitution must be an empty type.");
+    void operator()() const
+    {
+        (..., Fragments{}(S{}));
+    }
+};
 
-#define ASSERT_SUBSTITUTION_SAME_NAME(SUB1, SUB2)                                      \
-    ASSERT((not std::same_as<decltype(SUB1), decltype(SUB2)>))                         \
-        << #SUB1 " and " #SUB2 " must not be the same type.";                          \
-    ASSERT(SUB1.name == SUB2.name) << #SUB1 " and " #SUB2 " must have the same name."; \
-    ASSERT((not std::same_as<decltype(SUB1.mod), decltype(SUB2.mod)>))                 \
-        << #SUB1 " and " #SUB2 " must not have the same substituted modifier."
+template <detail::substitution auto s>
+constexpr auto the_substitution = sub_fragment_builder<std::remove_cvref_t<decltype(s)>>{};
+
+template <class S, class... Fragments, class Frag>
+constexpr auto operator|(sub_fragment_builder<S, Fragments...>, Frag)
+{
+    return sub_fragment_builder<S, Fragments..., Frag>{};
+}
+
+template <static_array Name, detail::modifier M>
+struct has_name_and_modifier_fragment
+{
+    template <class S>
+    void operator()(S s) const
+    {
+        EXPECT_COMPILE_AND_RUN_TIME(s.name == Name)
+            << "The substitution's name did not match the expected name.\n"
+            << "[\n"
+            << "    Given name    = " << s.name.view() << "\n"
+            << "    Expected name = " << Name.view() << "\n"
+            << "]";
+
+        using GivenMod = std::remove_cvref_t<decltype(s.mod)>;
+        EXPECT_COMPILE_TIME((std::same_as<GivenMod, M>))
+            << "The substitution's modifier did not match the expected modifier.\n"
+            << "[\n"
+            << "    Given modifier    = " << typeid(GivenMod).name() << "\n"
+            << "    Expected modifier = " << typeid(M).name() << "\n"
+            << "]";
+    }
+};
+template <static_array Name, detail::modifier auto m>
+constexpr auto has_name_and_modifier = has_name_and_modifier_fragment<Name, std::remove_cvref_t<decltype(m)>>{};
 
 TEST("sub modifier", "create substitutions")
 {
-    ASSERT_SUBSTITUTION_TYPE(sub11, "nam1", ignore);
-    ASSERT_SUBSTITUTION_TYPE(sub21, "nam2", join);
-    ASSERT_SUBSTITUTION_TYPE(sub31, "nam3", name<"nam2">);
-    ASSERT_SUBSTITUTION_TYPE(sub41, "nam4", exactly<2>);
-    ASSERT_SUBSTITUTION_TYPE(sub12, "nam1", join);
-    ASSERT_SUBSTITUTION_TYPE(sub22, "nam2", ignore);
-    ASSERT_SUBSTITUTION_TYPE(sub32, "nam3", exactly<2>);
-    ASSERT_SUBSTITUTION_TYPE(sub42, "nam4", name<"nam2">);
+    EXPECT_THAT(the_substitution<sub11> | (has_name_and_modifier<"nam1", ignore>));
+    EXPECT_THAT(the_substitution<sub21> | (has_name_and_modifier<"nam2", join>));
+    EXPECT_THAT(the_substitution<sub31> | (has_name_and_modifier<"nam3", name<"nam2">>));
+    EXPECT_THAT(the_substitution<sub41> | (has_name_and_modifier<"nam4", exactly<2>>));
+    EXPECT_THAT(the_substitution<sub12> | (has_name_and_modifier<"nam1", join>));
+    EXPECT_THAT(the_substitution<sub22> | (has_name_and_modifier<"nam2", ignore>));
+    EXPECT_THAT(the_substitution<sub32> | (has_name_and_modifier<"nam3", exactly<2>>));
+    EXPECT_THAT(the_substitution<sub42> | (has_name_and_modifier<"nam4", name<"nam2">>));
 
-    ASSERT_SUBSTITUTION_SAME_NAME(sub11, sub12);
-    ASSERT_SUBSTITUTION_SAME_NAME(sub21, sub22);
-    ASSERT_SUBSTITUTION_SAME_NAME(sub31, sub32);
-    ASSERT_SUBSTITUTION_SAME_NAME(sub41, sub42);
+    EXPECT_COMPILE_TIME(sub11.name == sub12.name);
+    EXPECT_COMPILE_TIME(sub21.name == sub22.name);
+    EXPECT_COMPILE_TIME(sub31.name == sub32.name);
+    EXPECT_COMPILE_TIME(sub41.name == sub42.name);
 }
 
 TEST("sub modifier", "prefix")

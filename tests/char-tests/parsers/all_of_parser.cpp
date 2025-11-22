@@ -22,26 +22,26 @@ TEST("all_of_parser", "Requirements")
 
 TEST("all_of_parser", "Parse 'literal'")
 {
-    ASSERT_PARSE_SUCCESS(L, "literal", "literal", "");
-    ASSERT_PARSE_SUCCESS(L, "literally", "literal", "ly");
-    ASSERT_PARSE_FAILURE(L, "litera");
-    ASSERT_PARSE_FAILURE(L, " literal");
-    ASSERT_PARSE_FAILURE(L, "LITERAL");
-    ASSERT_PARSE_FAILURE(L, "LITERALLY");
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING("literal", "literal", ""));
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING("literally", "literal", "ly"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING("litera"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(" literal"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING("LITERAL"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING("LITERALLY"));
 
-    ASSERT_PARSE_SUCCESS(L, L"literal", L"literal", L"");
-    ASSERT_PARSE_SUCCESS(L, L"literally", L"literal", L"ly");
-    ASSERT_PARSE_FAILURE(L, L"litera");
-    ASSERT_PARSE_FAILURE(L, L" literal");
-    ASSERT_PARSE_FAILURE(L, L"LITERAL");
-    ASSERT_PARSE_FAILURE(L, L"LITERALLY");
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(L"literal", L"literal", L""));
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(L"literally", L"literal", L"ly"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(L"litera"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(L" literal"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(L"LITERAL"));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(L"LITERALLY"));
 
-    ASSERT_PARSE_SUCCESS(L, e<int>("literal"), e<int>("literal"), e<int>());
-    ASSERT_PARSE_SUCCESS(L, e<int>("literally"), e<int>("literal"), e<int>("ly"));
-    ASSERT_PARSE_FAILURE(L, e<int>("litera"));
-    ASSERT_PARSE_FAILURE(L, e<int>(" literal"));
-    ASSERT_PARSE_FAILURE(L, e<int>("LITERAL"));
-    ASSERT_PARSE_FAILURE(L, e<int>("LITERALLY"));
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(e<int>("literal"), e<int>("literal"), e<int>()));
+    EXPECT_THAT(the_parser<L> | SUCCEEDS_PARSING(e<int>("literally"), e<int>("literal"), e<int>("ly")));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e<int>("litera")));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e<int>(" literal")));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e<int>("LITERAL")));
+    EXPECT_THAT(the_parser<L> | FAILS_PARSING(e<int>("LITERALLY")));
 }
 
 
@@ -50,14 +50,14 @@ TEST("all_of_parser", "Parse empty")
 {
     EXPECT_THAT(the_basic_parser_family<all_of_parser>.is_valid_with<TT("")>);
 
-    ASSERT_PARSE_SUCCESS(all_of_parser<"">, "anything", "", "anything");
-    ASSERT_PARSE_SUCCESS(all_of_parser<"">, "", "", "");
+    EXPECT_THAT(the_parser<all_of_parser<"">> | SUCCEEDS_PARSING("anything", "", "anything"));
+    EXPECT_THAT(the_parser<all_of_parser<"">> | SUCCEEDS_PARSING("", "", ""));
 
-    ASSERT_PARSE_SUCCESS(all_of_parser<L"">, L"anything", L"", L"anything");
-    ASSERT_PARSE_SUCCESS(all_of_parser<L"">, L"", L"", L"");
+    EXPECT_THAT(the_parser<all_of_parser<L"">> | SUCCEEDS_PARSING(L"anything", L"", L"anything"));
+    EXPECT_THAT(the_parser<all_of_parser<L"">> | SUCCEEDS_PARSING(L"", L"", L""));
 
-    ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>("anything"), e<int>(), e<int>("anything"));
-    ASSERT_PARSE_SUCCESS(all_of_parser<"">, e<int>(), e<int>(), e<int>());
+    EXPECT_THAT(the_parser<all_of_parser<"">> | SUCCEEDS_PARSING(e<int>("anything"), e<int>(), e<int>("anything")));
+    EXPECT_THAT(the_parser<all_of_parser<"">> | SUCCEEDS_PARSING(e<int>(), e<int>(), e<int>()));
 }
 
 } // namespace

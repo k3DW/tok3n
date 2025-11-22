@@ -7,8 +7,6 @@
 
 #include "framework.hpp"
 
-#include "common/asserts/Parse.hpp"
-
 #include "common/fragments/all_pairs_of_samples.hpp"
 #include "common/fragments/all_samples.hpp"
 #include "common/fragments/fails_parsing.hpp"
@@ -22,6 +20,7 @@
 #include "common/fragments/parser_family.hpp"
 #include "common/fragments/parser_fragment_builder.hpp"
 #include "common/fragments/parser_value.hpp"
+#include "common/fragments/succeeds_lookahead_only.hpp"
 #include "common/fragments/succeeds_parsing.hpp"
 
 #include "common/config.hpp"

@@ -34,9 +34,9 @@ TEST("epsilon operator", "P | eps")
 
 TEST("epsilon operator", "eps | P")
 {
-    ASSERT((not choice_operable<eps, any1>)) << "The expression `eps | any1` compiled, but it should not";
-    ASSERT((not choice_operable<eps, any2>)) << "The expression `eps | any2` compiled, but it should not";
-    ASSERT((not choice_operable<eps, any3>)) << "The expression `eps | any3` compiled, but it should not";
+    EXPECT_COMPILE_AND_RUN_TIME((not choice_operable<eps, any1>)) << "The expression `eps | any1` compiled, but it should not";
+    EXPECT_COMPILE_AND_RUN_TIME((not choice_operable<eps, any2>)) << "The expression `eps | any2` compiled, but it should not";
+    EXPECT_COMPILE_AND_RUN_TIME((not choice_operable<eps, any3>)) << "The expression `eps | any3` compiled, but it should not";
 }
 
 

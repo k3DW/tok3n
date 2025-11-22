@@ -19,19 +19,19 @@ TEST("anything_parser", "Requirements")
 
 TEST("anything_parser", "Parse")
 {
-    ASSERT_PARSE_SUCCESS(Ant1, e(A, B, C), e(A), e(B, C));
-    ASSERT_PARSE_SUCCESS(Ant1, e(A, C, B), e(A), e(C, B));
-    ASSERT_PARSE_SUCCESS(Ant1, e(B, A, C), e(B), e(A, C));
-    ASSERT_PARSE_SUCCESS(Ant1, e(B, C, A), e(B), e(C, A));
-    ASSERT_PARSE_SUCCESS(Ant1, e(C, A, B), e(C), e(A, B));
-    ASSERT_PARSE_SUCCESS(Ant1, e(C, B, A), e(C), e(B, A));
-    ASSERT_PARSE_SUCCESS(Ant1, e(X, Y, Z), e(X), e(Y, Z));
-    ASSERT_PARSE_SUCCESS(Ant1, e(X, Z, Y), e(X), e(Z, Y));
-    ASSERT_PARSE_SUCCESS(Ant1, e(Y, X, Z), e(Y), e(X, Z));
-    ASSERT_PARSE_SUCCESS(Ant1, e(Y, Z, X), e(Y), e(Z, X));
-    ASSERT_PARSE_SUCCESS(Ant1, e(Z, X, Y), e(Z), e(X, Y));
-    ASSERT_PARSE_SUCCESS(Ant1, e(Z, Y, X), e(Z), e(Y, X));
-    ASSERT_PARSE_FAILURE(Ant1, e());
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(A, B, C), e(A), e(B, C)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(A, C, B), e(A), e(C, B)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(B, A, C), e(B), e(A, C)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(B, C, A), e(B), e(C, A)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(C, A, B), e(C), e(A, B)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(C, B, A), e(C), e(B, A)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(X, Y, Z), e(X), e(Y, Z)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(X, Z, Y), e(X), e(Z, Y)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Y, X, Z), e(Y), e(X, Z)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Y, Z, X), e(Y), e(Z, X)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Z, X, Y), e(Z), e(X, Y)));
+    EXPECT_THAT(the_parser<Ant1> | SUCCEEDS_PARSING(e(Z, Y, X), e(Z), e(Y, X)));
+    EXPECT_THAT(the_parser<Ant1> | FAILS_PARSING(e()));
 }
 
 } // namespace

@@ -29,47 +29,47 @@ TEST("custom_parser", "Requirements")
 
 TEST("custom_parser", "Parse Cus1")
 {
-    ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc??", 36, "");
-    ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc", 12, "");
-    ASSERT_PARSE_SUCCESS(Cus1, "abcabcabcabc ??", 12, " ??");
-    ASSERT_PARSE_SUCCESS(Cus1, "abc", 3, "");
-    ASSERT_PARSE_FAILURE(Cus1, " abc");
-    ASSERT_PARSE_FAILURE(Cus1, "");
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING("abcabcabcabc??", 36, ""));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING("abcabcabcabc", 12, ""));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING("abcabcabcabc ??", 12, " ??"));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING("abc", 3, ""));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(" abc"));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_SUCCESS(Cus1, L"abcabcabcabc??", 36, L"");
-    ASSERT_PARSE_SUCCESS(Cus1, L"abcabcabcabc", 12, L"");
-    ASSERT_PARSE_SUCCESS(Cus1, L"abcabcabcabc ??", 12, L" ??");
-    ASSERT_PARSE_SUCCESS(Cus1, L"abc", 3, L"");
-    ASSERT_PARSE_FAILURE(Cus1, L" abc");
-    ASSERT_PARSE_FAILURE(Cus1, L"");
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(L"abcabcabcabc??", 36, L""));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(L"abcabcabcabc", 12, L""));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(L"abcabcabcabc ??", 12, L" ??"));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(L"abc", 3, L""));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(L" abc"));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_SUCCESS(Cus1, e<int>("abcabcabcabc??"), 36, e<int>(""));
-    ASSERT_PARSE_SUCCESS(Cus1, e<int>("abcabcabcabc"), 12, e<int>(""));
-    ASSERT_PARSE_SUCCESS(Cus1, e<int>("abcabcabcabc ??"), 12, e<int>(" ??"));
-    ASSERT_PARSE_SUCCESS(Cus1, e<int>("abc"), 3, e<int>(""));
-    ASSERT_PARSE_FAILURE(Cus1, e<int>(" abc"));
-    ASSERT_PARSE_FAILURE(Cus1, e<int>(""));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(e<int>("abcabcabcabc??"), 36, e<int>("")));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(e<int>("abcabcabcabc"), 12, e<int>("")));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(e<int>("abcabcabcabc ??"), 12, e<int>(" ??")));
+    EXPECT_THAT(the_parser<Cus1> | SUCCEEDS_PARSING(e<int>("abc"), 3, e<int>("")));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(e<int>(" abc")));
+    EXPECT_THAT(the_parser<Cus1> | FAILS_PARSING(e<int>("")));
 }
 
 TEST("custom_parser", "Parse Cus2")
 {
-    ASSERT_PARSE_SUCCESS(Cus2, "abc", 0, "bc");
-    ASSERT_PARSE_SUCCESS(Cus2, "bca", 0, "ca");
-    ASSERT_PARSE_SUCCESS(Cus2, "cab", 0, "ab");
-    ASSERT_PARSE_FAILURE(Cus2, "xyz");
-    ASSERT_PARSE_FAILURE(Cus2, "");
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING("abc", 0, "bc"));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING("bca", 0, "ca"));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING("cab", 0, "ab"));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING("xyz"));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_SUCCESS(Cus2, L"abc", 0, L"bc");
-    ASSERT_PARSE_SUCCESS(Cus2, L"bca", 0, L"ca");
-    ASSERT_PARSE_SUCCESS(Cus2, L"cab", 0, L"ab");
-    ASSERT_PARSE_FAILURE(Cus2, L"xyz");
-    ASSERT_PARSE_FAILURE(Cus2, L"");
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(L"abc", 0, L"bc"));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(L"bca", 0, L"ca"));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(L"cab", 0, L"ab"));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING(L"xyz"));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_SUCCESS(Cus2, e<int>("abc"), 0, e<int>("bc"));
-    ASSERT_PARSE_SUCCESS(Cus2, e<int>("bca"), 0, e<int>("ca"));
-    ASSERT_PARSE_SUCCESS(Cus2, e<int>("cab"), 0, e<int>("ab"));
-    ASSERT_PARSE_FAILURE(Cus2, e<int>("xyz"));
-    ASSERT_PARSE_FAILURE(Cus2, e<int>(""));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(e<int>("abc"), 0, e<int>("bc")));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(e<int>("bca"), 0, e<int>("ca")));
+    EXPECT_THAT(the_parser<Cus2> | SUCCEEDS_PARSING(e<int>("cab"), 0, e<int>("ab")));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING(e<int>("xyz")));
+    EXPECT_THAT(the_parser<Cus2> | FAILS_PARSING(e<int>("")));
 }
 
 } // namespace

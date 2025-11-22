@@ -39,77 +39,77 @@ TEST("constant_parser", "Requirements")
 
 TEST("constant_parser", "Parse all")
 {
-    ASSERT_PARSE_SUCCESS(Con1, "abcabcabcab", 1, "ab");
-    ASSERT_PARSE_FAILURE(Con1, "");
-    ASSERT_PARSE_FAILURE(Con1, "ab");
-    ASSERT_PARSE_SUCCESS(Con1, "abc", 1, "");
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING("abcabcabcab", 1, "ab"));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING(""));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING("ab"));
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING("abc", 1, ""));
 
-    ASSERT_PARSE_SUCCESS(Con2, "abcabc", 't', "abc");
-    ASSERT_PARSE_SUCCESS(Con2, "a??bcabc", 't', "a??bcabc");
-    ASSERT_PARSE_SUCCESS(Con2, "", 't', "");
-    ASSERT_PARSE_SUCCESS(Con2, "??abcabc", 't', "abcabc");
-    ASSERT_PARSE_SUCCESS(Con2, " ??abcabc", 't', " ??abcabc");
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING("abcabc", 't', "abc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING("a??bcabc", 't', "a??bcabc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING("", 't', ""));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING("??abcabc", 't', "abcabc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(" ??abcabc", 't', " ??abcabc"));
 
-    ASSERT_PARSE_SUCCESS(Con3, "abc???????", true, "?");
-    ASSERT_PARSE_FAILURE(Con3, "??abc???????");
-    ASSERT_PARSE_SUCCESS(Con3, "abc??abc???????", true, "abc???????");
-    ASSERT_PARSE_SUCCESS(Con3, "abc ??abc???????", true, " ??abc???????");
-    ASSERT_PARSE_FAILURE(Con3, "");
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING("abc???????", true, "?"));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING("??abc???????"));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING("abc??abc???????", true, "abc???????"));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING("abc ??abc???????", true, " ??abc???????"));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc??", nullptr, "");
-    ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc", nullptr, "");
-    ASSERT_PARSE_SUCCESS(Con4, "abcabcabcabc ??", nullptr, " ??");
-    ASSERT_PARSE_SUCCESS(Con4, "abc", nullptr, "");
-    ASSERT_PARSE_FAILURE(Con4, " abc");
-    ASSERT_PARSE_FAILURE(Con4, "");
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING("abcabcabcabc??", nullptr, ""));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING("abcabcabcabc", nullptr, ""));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING("abcabcabcabc ??", nullptr, " ??"));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING("abc", nullptr, ""));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(" abc"));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(""));
 
-    ASSERT_PARSE_SUCCESS(Con1, L"abcabcabcab", 1, L"ab");
-    ASSERT_PARSE_FAILURE(Con1, L"");
-    ASSERT_PARSE_FAILURE(Con1, L"ab");
-    ASSERT_PARSE_SUCCESS(Con1, L"abc", 1, L"");
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING(L"abcabcabcab", 1, L"ab"));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING(L""));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING(L"ab"));
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING(L"abc", 1, L""));
 
-    ASSERT_PARSE_SUCCESS(Con2, L"abcabc", 't', L"abc");
-    ASSERT_PARSE_SUCCESS(Con2, L"a??bcabc", 't', L"a??bcabc");
-    ASSERT_PARSE_SUCCESS(Con2, L"", 't', L"");
-    ASSERT_PARSE_SUCCESS(Con2, L"??abcabc", 't', L"abcabc");
-    ASSERT_PARSE_SUCCESS(Con2, L" ??abcabc", 't', L" ??abcabc");
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(L"abcabc", 't', L"abc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(L"a??bcabc", 't', L"a??bcabc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(L"", 't', L""));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(L"??abcabc", 't', L"abcabc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(L" ??abcabc", 't', L" ??abcabc"));
 
-    ASSERT_PARSE_SUCCESS(Con3, L"abc???????", true, L"?");
-    ASSERT_PARSE_FAILURE(Con3, L"??abc???????");
-    ASSERT_PARSE_SUCCESS(Con3, L"abc??abc???????", true, L"abc???????");
-    ASSERT_PARSE_SUCCESS(Con3, L"abc ??abc???????", true, L" ??abc???????");
-    ASSERT_PARSE_FAILURE(Con3, L"");
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(L"abc???????", true, L"?"));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING(L"??abc???????"));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(L"abc??abc???????", true, L"abc???????"));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(L"abc ??abc???????", true, L" ??abc???????"));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_SUCCESS(Con4, L"abcabcabcabc??", nullptr, L"");
-    ASSERT_PARSE_SUCCESS(Con4, L"abcabcabcabc", nullptr, L"");
-    ASSERT_PARSE_SUCCESS(Con4, L"abcabcabcabc ??", nullptr, L" ??");
-    ASSERT_PARSE_SUCCESS(Con4, L"abc", nullptr, L"");
-    ASSERT_PARSE_FAILURE(Con4, L" abc");
-    ASSERT_PARSE_FAILURE(Con4, L"");
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(L"abcabcabcabc??", nullptr, L""));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(L"abcabcabcabc", nullptr, L""));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(L"abcabcabcabc ??", nullptr, L" ??"));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(L"abc", nullptr, L""));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(L" abc"));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(L""));
 
-    ASSERT_PARSE_SUCCESS(Con1, e<int>("abcabcabcab"), 1, e<int>("ab"));
-    ASSERT_PARSE_FAILURE(Con1, e<int>(""));
-    ASSERT_PARSE_FAILURE(Con1, e<int>("ab"));
-    ASSERT_PARSE_SUCCESS(Con1, e<int>("abc"), 1, e<int>(""));
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING(e<int>("abcabcabcab"), 1, e<int>("ab")));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING(e<int>("")));
+    EXPECT_THAT(the_parser<Con1> | FAILS_PARSING(e<int>("ab")));
+    EXPECT_THAT(the_parser<Con1> | SUCCEEDS_PARSING(e<int>("abc"), 1, e<int>("")));
 
-    ASSERT_PARSE_SUCCESS(Con2, e<int>("abcabc"), 't', e<int>("abc"));
-    ASSERT_PARSE_SUCCESS(Con2, e<int>("a??bcabc"), 't', e<int>("a??bcabc"));
-    ASSERT_PARSE_SUCCESS(Con2, e<int>(""), 't', e<int>(""));
-    ASSERT_PARSE_SUCCESS(Con2, e<int>("??abcabc"), 't', e<int>("abcabc"));
-    ASSERT_PARSE_SUCCESS(Con2, e<int>(" ??abcabc"), 't', e<int>(" ??abcabc"));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(e<int>("abcabc"), 't', e<int>("abc")));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(e<int>("a??bcabc"), 't', e<int>("a??bcabc")));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(e<int>(""), 't', e<int>("")));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(e<int>("??abcabc"), 't', e<int>("abcabc")));
+    EXPECT_THAT(the_parser<Con2> | SUCCEEDS_PARSING(e<int>(" ??abcabc"), 't', e<int>(" ??abcabc")));
 
-    ASSERT_PARSE_SUCCESS(Con3, e<int>("abc???????"), true, e<int>("?"));
-    ASSERT_PARSE_FAILURE(Con3, e<int>("??abc???????"));
-    ASSERT_PARSE_SUCCESS(Con3, e<int>("abc??abc???????"), true, e<int>("abc???????"));
-    ASSERT_PARSE_SUCCESS(Con3, e<int>("abc ??abc???????"), true, e<int>(" ??abc???????"));
-    ASSERT_PARSE_FAILURE(Con3, e<int>(""));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(e<int>("abc???????"), true, e<int>("?")));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING(e<int>("??abc???????")));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(e<int>("abc??abc???????"), true, e<int>("abc???????")));
+    EXPECT_THAT(the_parser<Con3> | SUCCEEDS_PARSING(e<int>("abc ??abc???????"), true, e<int>(" ??abc???????")));
+    EXPECT_THAT(the_parser<Con3> | FAILS_PARSING(e<int>("")));
 
-    ASSERT_PARSE_SUCCESS(Con4, e<int>("abcabcabcabc??"), nullptr, e<int>(""));
-    ASSERT_PARSE_SUCCESS(Con4, e<int>("abcabcabcabc"), nullptr, e<int>(""));
-    ASSERT_PARSE_SUCCESS(Con4, e<int>("abcabcabcabc ??"), nullptr, e<int>(" ??"));
-    ASSERT_PARSE_SUCCESS(Con4, e<int>("abc"), nullptr, e<int>(""));
-    ASSERT_PARSE_FAILURE(Con4, e<int>(" abc"));
-    ASSERT_PARSE_FAILURE(Con4, e<int>(""));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc??"), nullptr, e<int>("")));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc"), nullptr, e<int>("")));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(e<int>("abcabcabcabc ??"), nullptr, e<int>(" ??")));
+    EXPECT_THAT(the_parser<Con4> | SUCCEEDS_PARSING(e<int>("abc"), nullptr, e<int>("")));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(e<int>(" abc")));
+    EXPECT_THAT(the_parser<Con4> | FAILS_PARSING(e<int>("")));
 }
 
 } // namespace
