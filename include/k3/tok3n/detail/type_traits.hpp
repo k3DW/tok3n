@@ -37,15 +37,12 @@ using integral_constant = std::integral_constant<std::remove_const_t<decltype(va
 template <std::size_t N>
 using index_c = integral_constant<N>;
 
-template <class value_type, auto value>
-concept constexpr_value = std::same_as<std::remove_const_t<decltype(value)>, value_type>;
-
 template <class T>
 concept is_integral_constant =
     requires { typename T::value_type; } and
-    constexpr_value<typename T::value_type, T{}.operator typename T::value_type()> and
-    constexpr_value<typename T::value_type, T{}()> and
-    constexpr_value<typename T::value_type, T::value>;
+    std::same_as<typename T::value_type, decltype(T{}.operator typename T::value_type())> and
+    std::same_as<typename T::value_type, decltype(T{}())> and
+    std::same_as<typename T::value_type, std::remove_const_t<decltype(T::value)>>;
 
 template <class T, class value_type>
 concept integral_constant_of =
