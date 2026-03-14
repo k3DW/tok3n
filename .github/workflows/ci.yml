@@ -26,7 +26,8 @@ jobs:
           cmake --preset all `
             -B build `
             -G "Visual Studio 17 2022" `
-            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} `
+            -DTOK3N_CXX_WARNINGS=msvc
           cmake --build build -j16
 
       - name: Run tok3n tests
@@ -78,7 +79,8 @@ jobs:
             -B build \
             -DCMAKE_CXX_COMPILER=clang++-${{matrix.clang-version}} \
             -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
-            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
+            -DTOK3N_CXX_WARNINGS=clang
           cmake --build build -j16
 
       - name: Run tok3n tests
@@ -112,7 +114,8 @@ jobs:
           cmake --preset all \
             -B build \
             -DCMAKE_CXX_COMPILER=g++-${{matrix.gcc-version}} \
-            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}}
+            -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
+            -DTOK3N_CXX_WARNINGS=gcc
           cmake --build build -j16
 
       - name: Run tok3n tests
