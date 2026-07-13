@@ -1,4 +1,4 @@
-// Copyright 2025 Braden Ganetsky
+// Copyright 2025-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -28,8 +28,12 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-            constexpr bool cond1 = requires { { M{}(P{}) } -> detail::parser; }; // Workaround for Clang 16
+#if defined(__clang__) && __clang_major__ <= 16
+            constexpr bool cond1 = requires { { M{}(P{}) } -> detail::parser; };
             EXPECT_COMPILE_TIME(cond1)
+#else
+            EXPECT_COMPILE_TIME(requires { { M{}(P{}) } -> detail::parser; })
+#endif
                 << "`M{}(P{})` does not result in a parser"
                 << "[\n"
                 << "    P    = " << typeid(P).name() << "\n"
@@ -43,8 +47,12 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-            constexpr bool cond2 = requires { { P{} % M{} } -> detail::parser; }; // Workaround for Clang 16
+#if defined(__clang__) && __clang_major__ <= 16
+            constexpr bool cond2 = requires { { P{} % M{} } -> detail::parser; };
             EXPECT_COMPILE_TIME(cond2)
+#else
+            EXPECT_COMPILE_TIME(requires { { P{} % M{} } -> detail::parser; })
+#endif
                 << "`P{} % M{}` does not result in a parser"
                 << "[\n"
                 << "    P     = " << typeid(P).name() << "\n"

@@ -1,4 +1,4 @@
-// Copyright 2022-2025 Braden Ganetsky
+// Copyright 2022-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -170,9 +170,12 @@ constexpr auto sequence_operator_fragment =
         }
         else
         {
+#if defined(__clang__) && __clang_major__ <= 16
             constexpr bool cond1 = requires { { LHS{} >> RHS{} } -> k3::tok3n::detail::parser; };
-            /* Workaround for Clang 16 */
             ASSERT_COMPILE_TIME(cond1);
+#else
+            ASSERT_COMPILE_TIME(requires { { LHS{} >> RHS{} } -> k3::tok3n::detail::parser; });
+#endif
             if constexpr (LHS::family == all_of_family and RHS::family == all_of_family)
             {
                 constexpr auto str = combine_strings<underlying_v<LHS>, underlying_v<RHS>>;

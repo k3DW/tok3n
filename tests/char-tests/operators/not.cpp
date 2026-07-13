@@ -1,4 +1,4 @@
-// Copyright 2022-2025 Braden Ganetsky
+// Copyright 2022-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -52,17 +52,23 @@ constexpr auto not_operator_fragment =
     []<detail::parser P>(P) {
         if constexpr (P::family == any_of_family)
         {
+#if defined(__clang__) && __clang_major__ <= 16
             constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
-            /* Workaround for Clang 16 */
             ASSERT_COMPILE_TIME(cond1);
+#else
+            ASSERT_COMPILE_TIME(requires { { !P{} }-> k3::tok3n::detail::parser; });
+#endif
             EXPECT_THAT(parser_value<!P{}>
                     .DEP_TEMPLATE is<none_of_parser<underlying_v<P>>{}>);
         }
         else if constexpr (P::family == none_of_family)
         {
+#if defined(__clang__) && __clang_major__ <= 16
             constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
-            /* Workaround for Clang 16 */
             ASSERT_COMPILE_TIME(cond1);
+#else
+            ASSERT_COMPILE_TIME(requires { { !P{} }-> k3::tok3n::detail::parser; });
+#endif
             EXPECT_THAT(parser_value<!P{}>
                     .DEP_TEMPLATE is<any_of_parser<underlying_v<P>>{}>);
         }
