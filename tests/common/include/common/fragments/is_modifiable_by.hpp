@@ -64,7 +64,13 @@ struct is_modifiable_by_fragment
         }
     };
     template <detail::parser R>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr with_result_fragment<R> with_result{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto with_result = with_result_fragment<R>{};
+#endif
 };
 template <detail::modifier auto m>
 constexpr auto is_modifiable_by = is_modifiable_by_fragment<std::remove_cvref_t<decltype(m)>>{};

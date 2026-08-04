@@ -24,7 +24,13 @@ struct the_basic_parser_family_tag
         }
     };
     template <k3::tok3n::detail::static_array arr>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_valid_with_fragment<arr> is_valid_with{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is_valid_with = is_valid_with_fragment<arr>{};
+#endif
 
     template <k3::tok3n::detail::static_array arr>
     struct is_not_valid_with_fragment
@@ -37,7 +43,13 @@ struct the_basic_parser_family_tag
         }
     };
     template <k3::tok3n::detail::static_array arr>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_not_valid_with_fragment<arr> is_not_valid_with{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is_not_valid_with = is_not_valid_with_fragment<arr>{};
+#endif
 };
 template <template <k3::tok3n::detail::static_array> class Family>
 constexpr auto the_basic_parser_family = the_basic_parser_family_tag<Family>{};
@@ -56,7 +68,13 @@ struct the_parser_family_tag
         }
     };
     template <class... Args>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_valid_with_fragment<Args...> is_valid_with{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is_valid_with = is_valid_with_fragment<Args...>{};
+#endif
 
     template <class... Args>
     struct is_not_valid_with_fragment
@@ -69,7 +87,13 @@ struct the_parser_family_tag
         }
     };
     template <class... Args>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_not_valid_with_fragment<Args...> is_not_valid_with{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is_not_valid_with = is_not_valid_with_fragment<Args...>{};
+#endif
 };
 template <template <class...> class Family>
 constexpr auto the_parser_family = the_parser_family_tag<Family>{};

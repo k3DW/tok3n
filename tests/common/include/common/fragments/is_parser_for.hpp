@@ -42,7 +42,13 @@ struct is_parser_for_tag
         }
     };
     template <class ResultType>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr with_result_fragment<ResultType> with_result{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto with_result = with_result_fragment<ResultType>{};
+#endif
 };
 template <class ValueType>
 constexpr auto is_parser_for = is_parser_for_tag<ValueType>{};
