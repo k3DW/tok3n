@@ -196,7 +196,7 @@ constexpr auto choice_operator_fragment =
         }
         else
         {
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
             constexpr bool cond1 = requires { { LHS{} | RHS{} } -> k3::tok3n::detail::parser; };
             ASSERT_COMPILE_TIME(cond1);
 #else

@@ -52,7 +52,7 @@ constexpr auto not_operator_fragment =
     []<detail::parser P>(P) {
         if constexpr (P::family == any_of_family)
         {
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
             constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
             ASSERT_COMPILE_TIME(cond1);
 #else
@@ -63,7 +63,7 @@ constexpr auto not_operator_fragment =
         }
         else if constexpr (P::family == none_of_family)
         {
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
             constexpr bool cond1 = requires { { !P{} }-> k3::tok3n::detail::parser; };
             ASSERT_COMPILE_TIME(cond1);
 #else

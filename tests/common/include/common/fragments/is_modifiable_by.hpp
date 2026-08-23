@@ -28,7 +28,7 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
             constexpr bool cond1 = requires { { M{}(P{}) } -> detail::parser; };
             EXPECT_COMPILE_TIME(cond1)
 #else
@@ -47,7 +47,7 @@ struct is_modifiable_by_fragment
                 << "    P = " << typeid(P).name() << "\n"
                 << "    M = " << typeid(M).name() << "\n"
                 << "]";
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
             constexpr bool cond2 = requires { { P{} % M{} } -> detail::parser; };
             EXPECT_COMPILE_TIME(cond2)
 #else

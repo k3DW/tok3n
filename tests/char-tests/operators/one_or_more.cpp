@@ -102,7 +102,7 @@ TEST("one_or_more operator", "non consteval")
 
 constexpr auto one_or_more_operator_fragment =
     []<detail::parser P>(P) {
-#if defined(__clang__) && __clang_major__ <= 16
+#if defined(__clang__) && __clang_major__ <= 17
         constexpr bool cond1 = requires { { +P{} } -> k3::tok3n::detail::parser; };
         ASSERT_COMPILE_TIME(cond1);
 #else
