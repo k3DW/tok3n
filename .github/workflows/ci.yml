@@ -34,7 +34,7 @@ jobs:
             -G "${{matrix.cmake-generator}}" `
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} `
             -DTOK3N_CXX_WARNINGS=msvc
-          cmake --build build -j16
+          cmake --build build -j2
 
       - name: Run tok3n tests
         run: |
@@ -68,7 +68,7 @@ jobs:
             -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
             -DTOK3N_CXX_WARNINGS=clang
-          cmake --build build -j16
+          cmake --build build -j4
 
       - name: Run tok3n tests
         run: |
@@ -97,7 +97,7 @@ jobs:
             -DCMAKE_CXX_COMPILER=g++ \
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
             -DTOK3N_CXX_WARNINGS=gcc
-          cmake --build build -j16
+          cmake --build build -j4
 
       - name: Run tok3n tests
         run: |
