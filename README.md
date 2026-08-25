@@ -8,7 +8,7 @@
 
 Support in C++20 mode for:
 
-* Visual Studio 2022
+* Visual Studio >= 2022
 * Clang >= 16
 * GCC >= 12
 
