@@ -49,10 +49,6 @@ jobs:
       matrix:
         clang-version: [16, 17, 18, 19, 20, 21, 22]
         cxx-standard: [20, 23]
-        exclude:
-          # There's some libc++ error for some reason
-          - clang-version: 19
-            cxx-standard: 23
 
     steps:
       - name: Checkout code
