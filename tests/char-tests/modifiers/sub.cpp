@@ -1,4 +1,4 @@
-// Copyright 2024-2025 Braden Ganetsky
+// Copyright 2024-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -48,7 +48,7 @@ struct has_name_and_modifier_fragment
     template <class S>
     void operator()(S s) const
     {
-        EXPECT_COMPILE_AND_RUN_TIME(s.name == Name)
+        EXPECT_COMPILE_AND_RUN_TIME(S::name == Name)
             << "The substitution's name did not match the expected name.\n"
             << "[\n"
             << "    Given name    = " << s.name.view() << "\n"

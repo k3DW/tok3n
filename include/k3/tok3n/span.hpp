@@ -1,4 +1,4 @@
-// Copyright 2023-2025 Braden Ganetsky
+// Copyright 2023-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -143,7 +143,7 @@ struct span_equal_to
     {
         if constexpr (std::is_bounded_array_v<RHS> or std::is_pointer_v<RHS>)
         {
-            return lhs.operator std::basic_string_view<T>() == std::basic_string_view<T>(rhs);
+            return lhs.operator std::template basic_string_view<T>() == std::basic_string_view<T>(rhs);
         }
         else if constexpr (std::ranges::contiguous_range<RHS> and std::same_as<T, std::ranges::range_value_t<RHS>>)
         {

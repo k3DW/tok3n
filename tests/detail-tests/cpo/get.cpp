@@ -1,4 +1,4 @@
-// Copyright 2025 Braden Ganetsky
+// Copyright 2025-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -36,7 +36,7 @@ TEST("cpo get", "std::get")
     EXPECT_COMPILE_TIME((detail::gettable<const Tup&&, 1>));
     EXPECT_COMPILE_TIME((detail::gettable<const Tup&&, 2>));
 
-    constexpr Tup tup{1, 2.0, 'c'};
+    static constexpr Tup tup{1, 2.0, 'c'};
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<0>(tup) == 1);
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<1>(tup) == 2.0);
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<2>(tup) == 'c');
@@ -73,7 +73,7 @@ TEST("cpo get", "adl get")
     EXPECT_COMPILE_TIME((detail::gettable<const AdlGet&&, 1>));
     EXPECT_COMPILE_TIME((detail::gettable<const AdlGet&&, 2>));
 
-    constexpr AdlGet a;
+    static constexpr AdlGet a;
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<0>(a) == 1);
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<1>(a) == 3);
     EXPECT_COMPILE_AND_RUN_TIME(detail::get_<2>(a) == 5);

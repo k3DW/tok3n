@@ -1,4 +1,4 @@
-# Copyright 2024-2025 Braden Ganetsky
+# Copyright 2024-2026 Braden Ganetsky
 # Distributed under the Boost Software License, Version 1.0.
 # https://www.boost.org/LICENSE_1_0.txt
 
@@ -9,12 +9,18 @@ on:
   pull_request:
 
 jobs:
-  build-msvc-vs2022:
+  build-msvc:
     strategy:
       matrix:
         cxx-standard: [20, 23]
+        github-runner: [windows-2022, windows-2025]
+        include:
+          - github-runner: windows-2022
+            cmake-generator: "Visual Studio 17 2022"
+          - github-runner: windows-2025
+            cmake-generator: "Visual Studio 18 2026"
 
-    runs-on: windows-latest
+    runs-on: ${{matrix.github-runner}}
     steps:
       - name: Checkout code
         uses: actions/checkout@v6
@@ -25,10 +31,10 @@ jobs:
         run: |
           cmake --preset all `
             -B build `
-            -G "Visual Studio 17 2022" `
+            -G "${{matrix.cmake-generator}}" `
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} `
             -DTOK3N_CXX_WARNINGS=msvc
-          cmake --build build -j16
+          cmake --build build -j2
 
       - name: Run tok3n tests
         run: |
@@ -62,7 +68,7 @@ jobs:
             -DCMAKE_CXX_FLAGS="-stdlib=libc++" \
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
             -DTOK3N_CXX_WARNINGS=clang
-          cmake --build build -j16
+          cmake --build build -j4
 
       - name: Run tok3n tests
         run: |
@@ -91,7 +97,7 @@ jobs:
             -DCMAKE_CXX_COMPILER=g++ \
             -DTOK3N_CXX_STANDARD=${{matrix.cxx-standard}} \
             -DTOK3N_CXX_WARNINGS=gcc
-          cmake --build build -j16
+          cmake --build build -j4
 
       - name: Run tok3n tests
         run: |

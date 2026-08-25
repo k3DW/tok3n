@@ -1,4 +1,4 @@
-// Copyright 2024-2025 Braden Ganetsky
+// Copyright 2024-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -29,7 +29,12 @@ TEST("all_of_parser", "Parse")
 
 TEST("all_of_parser", "Parse empty")
 {
+#if defined(_MSC_VER) && _MSC_VER <= 1944 // Only in VS 2022
+    constexpr auto packet = the_basic_parser_family<all_of_parser>.is_valid_with<e()>;
+    EXPECT_THAT(packet);
+#else
     EXPECT_THAT(the_basic_parser_family<all_of_parser>.is_valid_with<e()>);
+#endif
 
     EXPECT_THAT(the_parser<all_of_parser<(static_array<value_type, 0>{})>> | SUCCEEDS_PARSING(e(A, B, C), e(), e(A, B, C)));
     EXPECT_THAT(the_parser<all_of_parser<(static_array<value_type, 0>{})>> | SUCCEEDS_PARSING(e(), e(), e()));

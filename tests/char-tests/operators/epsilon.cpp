@@ -1,4 +1,4 @@
-// Copyright 2024-2025 Braden Ganetsky
+// Copyright 2024-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -43,9 +43,12 @@ TEST("epsilon operator", "eps | P")
 
 constexpr auto epsilon_operator_fragment =
     []<detail::parser P>(P) {
+#if defined(__clang__) && __clang_major__ <= 17
         constexpr bool cond1 = requires { { P{} | eps } -> k3::tok3n::detail::parser; };
-        /* Workaround for Clang 16 */
         ASSERT_COMPILE_TIME(cond1);
+#else
+        ASSERT_COMPILE_TIME(requires { { P{} | eps } -> k3::tok3n::detail::parser; });
+#endif
         ASSERT_COMPILE_TIME((not requires { eps | P{}; }));
         EXPECT_THAT(parser_value<P{} | eps>
                 .DEP_TEMPLATE is<P{} | epsilon_parser<::value_type>{}>);

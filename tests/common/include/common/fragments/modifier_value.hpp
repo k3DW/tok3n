@@ -1,4 +1,4 @@
-// Copyright 2025 Braden Ganetsky
+// Copyright 2025-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -28,7 +28,13 @@ struct modifier_value_tag
         }
     };
     template <auto rhs>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_fragment<std::remove_cvref_t<decltype(rhs)>> is{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is = is_fragment<std::remove_cvref_t<decltype(rhs)>>{};
+#endif
 
     template <detail::modifier RHS>
     struct is_not_fragment
@@ -44,7 +50,13 @@ struct modifier_value_tag
         }
     };
     template <auto rhs>
+#if defined(__clang__)
+    // https://github.com/llvm/llvm-project/issues/213559
+    static constexpr is_not_fragment<std::remove_cvref_t<decltype(rhs)>> is_not{};
+#else
+    // https://developercommunity.visualstudio.com/t/C-compiler-emits-erroneous-C2672-for-t/11130908
     static constexpr auto is_not = is_not_fragment<std::remove_cvref_t<decltype(rhs)>>{};
+#endif
 };
 
 template <auto lhs>

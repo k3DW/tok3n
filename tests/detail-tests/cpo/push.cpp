@@ -1,4 +1,4 @@
-// Copyright 2025 Braden Ganetsky
+// Copyright 2025-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -37,7 +37,7 @@ template <class Value>
 void vector_container_test()
 {
     using Container = std::vector<Value>;
-    constexpr auto test = [](auto... xs)
+    static constexpr auto test = [](auto... xs)
     {
         Container c;
         (..., detail::push(c, xs));
@@ -101,9 +101,12 @@ TEST("cpo push", "std::vector")
 template <class Pusher, int offset>
 void pusher_test()
 {
-    Pusher p;
-    EXPECT_COMPILE_AND_RUN_TIME(detail::push(p, 0) == 1 + offset);
-    EXPECT_COMPILE_AND_RUN_TIME(detail::push(std::as_const(p), 0) == 2 + offset);
+    static constexpr auto packet = [](auto& state) {
+        Pusher p;
+        EXPECT_STATEFUL(state, detail::push(p, 0) == 1 + offset);
+        EXPECT_STATEFUL(state, detail::push(std::as_const(p), 0) == 2 + offset);
+    };
+    EXPECT_THAT(packet);
 
     EXPECT_COMPILE_TIME((detail::pushable<Pusher&, int&>));
     EXPECT_COMPILE_TIME((detail::pushable<Pusher&, const int&>));

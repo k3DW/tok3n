@@ -1,4 +1,4 @@
-// Copyright 2022-2025 Braden Ganetsky
+// Copyright 2022-2026 Braden Ganetsky
 // Distributed under the Boost Software License, Version 1.0.
 // https://www.boost.org/LICENSE_1_0.txt
 
@@ -43,7 +43,13 @@ struct static_array
         return { data.data(), N };
     }
 
+#if defined(__clang__) && __clang_major__ == 18
+    template <std::same_as<T> U = T>
+    requires character<T>
+    constexpr std::basic_string_view<U> view() const
+#else
     constexpr std::basic_string_view<T> view() const requires character<T>
+#endif
     {
         return { data.data(), N };
     }
