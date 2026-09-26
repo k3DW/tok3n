@@ -13,8 +13,6 @@ namespace k3::tok3n::detail {
 template <auto function>
 struct map_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::map;
-
     template <parser P>
     constexpr auto operator()(P) const
     {

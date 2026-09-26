@@ -14,8 +14,6 @@ template <class T>
 requires std::is_default_constructible_v<T>
 struct defaulted_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::defaulted;
-
     template <parser P>
     constexpr auto operator()(P) const
     {

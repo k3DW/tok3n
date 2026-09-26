@@ -12,8 +12,6 @@ namespace k3::tok3n::detail {
 
 struct join_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::join;
-
     template <parser P>
     constexpr auto operator()(P) const
     {

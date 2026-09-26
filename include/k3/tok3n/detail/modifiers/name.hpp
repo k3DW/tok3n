@@ -15,8 +15,6 @@ namespace k3::tok3n::detail {
 template <static_array str>
 struct name_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::name;
-
     static constexpr auto Name = str;
 
     template <parser P>

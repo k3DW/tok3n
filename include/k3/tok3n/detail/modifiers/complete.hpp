@@ -12,8 +12,6 @@ namespace k3::tok3n::detail {
 
 struct complete_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::complete;
-
     template <parser P>
     constexpr auto operator()(P) const
     {

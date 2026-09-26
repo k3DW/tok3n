@@ -55,8 +55,6 @@ constexpr parser auto substitute(P, Sub, Subs...)
 
 struct sub_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::sub;
-
     template <parser P, substitution Sub, substitution... Subs>
     constexpr auto operator()(P, Sub, Subs...) const
     {
@@ -66,8 +64,6 @@ struct sub_modifier final : modifier_base
     template <substitution Sub, substitution... Subs>
     struct inner final : modifier_base
     {
-        static constexpr auto family = modifier_family::sub;
-
         template <parser P>
         constexpr auto operator()(P) const
         {

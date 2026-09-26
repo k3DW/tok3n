@@ -14,8 +14,6 @@ template <std::size_t N>
 requires (N != 0)
 struct exactly_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::exactly;
-
     template <parser P>
     constexpr auto operator()(P) const
     {

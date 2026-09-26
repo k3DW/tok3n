@@ -13,8 +13,6 @@ namespace k3::tok3n::detail {
 template <modifier... Ms>
 struct multi_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::multi;
-
     template <parser P>
     requires requires { { (P{} % ... % Ms{}) } -> parser; }
     constexpr auto operator()(P) const

@@ -12,8 +12,6 @@ namespace k3::tok3n::detail {
 
 struct ignore_modifier final : modifier_base
 {
-    static constexpr auto family = modifier_family::ignore;
-
     template <parser P>
     constexpr auto operator()(P) const
     {
