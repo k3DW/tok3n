@@ -47,6 +47,8 @@ public:
     constexpr std::span<const T> first(std::size_t count) const { return { _value.first(count) }; }
     constexpr std::span<const T> subspan(std::size_t offset, std::size_t count = std::dynamic_extent) const { return { _value.subspan(offset, count) }; }
 
+    constexpr const T& operator[](std::size_t i) const noexcept { return _value[i]; }
+
 private:
     std::span<const T> _value;
 };
